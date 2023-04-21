@@ -11,6 +11,7 @@ mkdocs-material = "^9.1.6"
 pillow = "^9.5.0"
 cairosvg = "^2.7.0"
 mkdocs-git-revision-date-localized-plugin = "^1.2.0"
+mkdocs-static-i18n = "^0.56"
 
 
 [build-system]

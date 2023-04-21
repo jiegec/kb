@@ -558,6 +558,20 @@ files = [
 ]
 
 [[package]]
+name = "mkdocs-static-i18n"
+version = "0.56"
+description = "MkDocs i18n plugin using static translation markdown files"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "mkdocs-static-i18n-0.56.tar.gz", hash = "sha256:3ff92541630dd24d561841bbc0546b3c937bfecf4d6b2abb8649e57e023baaa0"},
+]
+
+[package.dependencies]
+mkdocs = ">=1.4.2"
+
+[[package]]
 name = "packaging"
 version = "23.1"
 description = "Core utilities for Python packages"
@@ -1007,4 +1021,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "95d2a7046519f20a1bcd11593888532f30a9e1cd06ea40d8c2b80cea14af6032"
+content-hash = "ea12d463b7551111d246a364e65c47e80d902f1bf96c6cdbda9989b21217ffe3"

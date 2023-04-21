@@ -8,7 +8,8 @@ theme:
     - navigation.expand
     - navigation.footer
     - navigation.indexes 
-    - navigation.instant
+    # conflict with mkdocs-static-i18n
+    # - navigation.instant
     - navigation.sections
     - navigation.tracking
     - navigation.tabs
@@ -18,7 +19,17 @@ theme:
     - search.suggest
     - toc.follow
     - toc.integrate
+default_language: en
 plugins:
+  - i18n:
+      default_language: en
+      languages:
+        en:
+          name: English
+          build: true
+        zh:
+          name: Chinese
+          build: true
   - git-revision-date-localized:
       enable_creation_date: true
   - search
@@ -29,13 +40,6 @@ extra:
   analytics:
     provider: google
     property: G-3109FRSVTT
-  alternate:
-    - name: English
-      link: /en/ 
-      lang: en
-    - name: Chinese
-      link: /zh/
-      lang: zh
 copyright: Copyright &copy; 2023 Jiajie Chen
 repo_url: https://github.com/jiegec/kb
 edit_uri: edit/main/docs/
