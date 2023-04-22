@@ -1,4 +1,5 @@
 site_name: Jiegec's Knowledge Base
+site_url: https://jia.je/kb
 theme:
   icon:
     repo: fontawesome/brands/github
@@ -19,18 +20,20 @@ theme:
     - search.suggest
     - toc.follow
     - toc.integrate
-default_language: en
 plugins:
   - i18n:
-      default_language: en
+      default_language: zh
       languages:
         en:
           name: English
           build: true
         zh:
-          name: Chinese
+          name: 中文
           build: true
           site_name: 杰哥的知识库
+      nav_translations:
+        zh:
+          Hardware: 硬件
   - git-revision-date-localized:
       enable_creation_date: true
   - search
