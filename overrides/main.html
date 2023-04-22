@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <script>
+    window.addEventListener('load', function() {
+        wavedrom.processAll();
+    });
+  </script>
+{% endblock %}
+
+

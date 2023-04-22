@@ -334,6 +334,10 @@
     [
       "ed260ee6-0e0e-4dd0-8751-03f1c78ba3c3",
       "SRAM Depth Concat"
+    ],
+    [
+      "0a9abc51-b1a9-45bb-8990-29952e16d3c8",
+      "SDRAM"
     ]
   ],
   "text_variables": {}

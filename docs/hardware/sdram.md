@@ -38,7 +38,7 @@ SDRAM 相关标准由 JEDEC 制定：
 
 DDR SDRAM 通常会有一个数字来代表它的性能，例如 DDR4-2133 中的 2133，有时候会见到 2400 MT/s 的说法。这两者说的都是 SDRAM 每秒最多进行的数据传输次数，单位是 Million Transfer per Second。由于 SDRAM 采用 DDR 进行传输，一个时钟周期传输两份数据，所以实际的时钟频率要除以二，例如 2133 MT/s 对应时钟频率就是 1066 MHz。
 
-有时还会见到 PC4-21333 的写法用于描述内存条，这里的 $21333=8*2666$，对应了 2666 MT/s，乘以 8 是因为 DDR 内存条的数据位宽是 64 位，那么一个 2666 MT/s 的内存条其理论内存带宽就是 $2666 \mathrm{(MT/s)} * 64 \mathrm{(bits)} / 8 \mathrm{(bits/byte)} = 21333 \mathrm{(MB/s)}$。
+有时还会见到 PC4-21333 的写法用于描述内存条，这里的 $21333=8*2666$，对应了 2666 MT/s，乘以 8 是因为 DDR 内存条的数据位宽是 64 位，那么一个 2666 MT/s 的内存条其理论内存带宽就是 $2666 \mathrm{(MT/s)} * 64 \mathrm{(bits)} / 8 \mathrm{(bits/byte)} = 21333 \mathrm{(MB/s)}$。但也有些时候 PC4 后面跟着的就是 MT/s。
 
 不同代次的内存条，下面引脚的缺口位置不同，所以是无法插错地方的。
 
@@ -100,6 +100,13 @@ SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 ro
 
 用 SDRAM 的术语来讲，第一步和第四步叫做 Activate，第二部和第五步叫做 Read，第三步叫做 Precharge。
 
+SDRAM 定义了三个时序参数，描述了这三个操作的时序要求：
+
+1. CL（CAS Latency）：发送读请求，到输出第一个数据的时间
+2. RCD（ACT to internal read or write delay time）：从 Activate 到下一个读或写请求的时间
+3. RP（RRE command period）：发送 Precharge 命令到下一个命令的时间
+4. RAS（ACT to PRE command period）：从 Activate 到 Precharge 之间的时间
+
 根据这个流程，可以得到以下的结论：
 
 1. 访问带有局部性的数据性能会更好，只需要连续地进行 Read，减少 Activate 和 Precharge 次数
@@ -107,6 +114,82 @@ SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 ro
 3. 访问 row 和访问 row 中的数据分成两个阶段，两个阶段可以使用同样的地址信号，使得内存总容量很大
 
 为了缓解第二点带来的性能损失，引入了 Bank 的概念：每个 Bank 都可以取出来一个 row，那么如果要访问不同 Bank 里的数据，在第一个 Bank 进行 Activate/Precharge 的时候，其他 Bank 可以进行其他操作，从而掩盖 row 未命中带来的性能损失。
+
+## 存储层次
+
+上面已经提到，在 DDR SDRAM 内部的层次从大到小有：
+
+1. Bank Group：DDR4 引入
+2. Bank：每个 Bank 同时只有一个 Row 被激活
+3. Row：Activate/Precharge 的单位
+4. Column：每个 Column 保存 n 个 Cell，n 是 SDRAM 的位宽
+5. Cell：每个 Cell 保存 1 bit 的数据
+
+实际上，SDRAM 外部还有一些层次：
+
+1. Channel：处理器的内存控制器的通道数量
+2. Module：内存条，可以有多个内存条连接到同一个 Channel 上
+3. Rank：多个 DDR SDRAM 芯片在宽度上拼接起来，一个 Module 上可以放下一到四个 Rank，这些 Rank 共享总线，每个 Rank 都有自己的片选信号 CS_n，实际上就是在深度上拼接
+4. Chip：也就是一个 DDR SDRAM 芯片，例如一个数据位宽是 64 位的 Rank，使用 8 个 x8 的 Chip 在宽度上拼接而成
+
+可以看到，相邻存储层次之间都差一个二的幂次的倍数，因此从内存地址到这些存储层次的映射，就是截取地址中的不同区间，每个区间对应了一个层次的下标。这也就是为什么内存大小的 MB、GB 用的是 1024 进制。
+
+## 接口
+
+下面画出了 DDR3 和 DDR4 的引脚：
+
+<figure markdown>
+  ![](sdram_pinout.png){ width="600" }
+  <figcaption>图 5：DDR3 和 DDR4 原理图</figcaption>
+</figure>
+
+DDR3 和 DDR4 的不同点：
+
+1. 地址信号：DDR3 是 A0-A14，DDR4 是 A0-A17，其中 A14-A16 复用了引脚
+2. DDR4 引入了 Bank Group，所以多出了 BA0-BA1 引脚
+3. DDR3 中的 RAS_n、CAS_n 和 WE_n 在 DDR4 中被复用为了 A14-A16
+4. DDR4 额外添加了 ACT_n 控制信号
+
+## 拓扑
+
+为了获得更大的位宽，在内存条上可以看到很多个 SDRAM 芯片，通过宽度拼接的方式形成一个 64 位的数据宽度。此时从 PCB 走线的角度来讲，数据线直接连接到各个 SDRAM 芯片上，可以相对容易地连接；但是其他信号，比如地址信号和控制信号，需要连接到所有 SDRAM 芯片上，在局限的空间里，如果要保证到各个 SDRAM 芯片的距离相等，同时保证信号完整性是很困难的。
+
+因此，实际上地址和控制信号是采用了串联的方式连接，也就是下图的右边的连接方式：
+
+<figure markdown>
+  ![](sdram_topology.png){ width="600" }
+  <figcaption>图 6：SDRAM 的两种信号连接方式（图源 <a href="https://docs.xilinx.com/r/en-US/ug863-versal-pcb-design/Signals-and-Connections-for-DDR4-Interfaces">Versal ACAP PCB Design User Guide (UG863)</a>）</figcaption>
+</figure>
+
+但是数据信号（DQ、DQS 和 DM）依然是并行点对点连接到 SDRAM 上的（上图左侧）。这就出现了问题：不同的 SDRAM 芯片，数据和时钟的偏差不同，数据可能差不多时间到，但是时钟的延迟越来越大：
+
+<script type="WaveDrom">
+{
+  signal:
+    [
+      { name: "clock", wave: "1010101010"},
+      { name: "data", wave: "01.0..101."},
+      { name: "clock_dram0", wave: "1010101010", phase: -0.2},
+      { name: "clock_dram1", wave: "1010101010", phase: -0.4},
+      { name: "clock_dram2", wave: "1010101010", phase: -0.6},
+      { name: "clock_dram3", wave: "1010101010", phase: -0.8},
+    ]
+}
+</script>
+
+为了让处于不同位置的 SDRAM 看到同样的波形，需要在内存控制器一侧给数据信号加上可变的延迟。这个延迟的测量，就是 Write Leveling。
+
+## 校准
+
+SDRAM 校准，或者说 SDRAM 训练，主要有如下几个步骤：
+
+1. Write Leveling
+
+### Write Leveling
+
+Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致 SDRAM 看到错误的信号的问题。具体地讲，Write Leveling 的目的是让 SDRAM 芯片接受到的 DQS 信号与 CK 信号同步。
+
+TODO
 
 ## 相关阅读
 

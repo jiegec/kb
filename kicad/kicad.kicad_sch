@@ -8,6 +8,23 @@
   )
 
 
+  (sheet (at 27.94 54.61) (size 24.13 8.89) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))
+    (uuid 0a9abc51-b1a9-45bb-8990-29952e16d3c8)
+    (property "Sheetname" "SDRAM" (at 27.94 53.8984 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "sdram.kicad_sch" (at 27.94 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "kicad"
+        (path "/5861ef52-8816-4dbf-b79a-8738bf9b392b" (page "4"))
+      )
+    )
+  )
+
   (sheet (at 27.94 24.13) (size 24.13 8.89) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 132 0 132 1))
     (fill (color 255 255 255 0.0000))
