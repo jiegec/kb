@@ -1,4 +1,4 @@
-site_name: Jiajie Chen's Knowledge Base
+site_name: Jiegec's Knowledge Base
 theme:
   icon:
     repo: fontawesome/brands/github
@@ -30,6 +30,7 @@ plugins:
         zh:
           name: Chinese
           build: true
+          site_name: 杰哥的知识库
   - git-revision-date-localized:
       enable_creation_date: true
   - search
