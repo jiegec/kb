@@ -326,6 +326,14 @@
     [
       "5861ef52-8816-4dbf-b79a-8738bf9b392b",
       ""
+    ],
+    [
+      "a315dcec-09a3-4029-8b67-03ab6e98f105",
+      "SRAM Width Concat"
+    ],
+    [
+      "ed260ee6-0e0e-4dd0-8751-03f1c78ba3c3",
+      "SRAM Depth Concat"
     ]
   ],
   "text_variables": {}
