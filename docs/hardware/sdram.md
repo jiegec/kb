@@ -198,9 +198,13 @@ DDR3 和 DDR4 的不同点：
       { name: "clock", wave: "1010101010"},
       { name: "data", wave: "01.0..101."},
       { name: "clock_dram0", wave: "1010101010", phase: -0.2},
+      { name: "data_dram0", wave: "01.0..101.", phase: -0.1},
       { name: "clock_dram1", wave: "1010101010", phase: -0.4},
+      { name: "data_dram1", wave: "01.0..101.", phase: -0.1},
       { name: "clock_dram2", wave: "1010101010", phase: -0.6},
+      { name: "data_dram2", wave: "01.0..101.", phase: -0.1},
       { name: "clock_dram3", wave: "1010101010", phase: -0.8},
+      { name: "data_dram3", wave: "01.0..101.", phase: -0.1},
     ]
 }
 ```
@@ -239,6 +243,39 @@ Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致
 ```
   <figcaption>Write Leveling 所要达到的 DQS 与 CK 同步的效果</figcaption>
 </figure>
+
+为了达到这个目的，思路就是不断调整 DQS 输出的延迟，观测不同延迟下的行为，找到一个 DQS 与 CK 同步的延迟值。为了配合内存控制器做 Write Leveling，SDRAM 可以进入一个 Write Leveling Mode，在这个状态下，SDRAM 会在 DQS 的上升沿对 CK 进行采样，然后把结果输出到 DQ 上。此时，不同的 DQS 延迟就会带来不同的结果：
+
+<figure markdown>
+```wavedrom
+{
+  signal:
+    [
+      { name: "ck", wave: "1010101010"},
+      { name: "dqs", wave: "10........"},
+      { name: "ck_dram", wave: "1010101010", phase: -0.2},
+      { name: "dqs_delay0", wave: "010.......", phase: -0.4},
+      { name: "dq_delay0", wave: "0.........", phase: -0.4},
+      { name: "dqs_delay1", wave: "010.......", phase: -0.9},
+      { name: "dq_delay1", wave: "0.........", phase: -0.9},
+      { name: "dqs_delay2", wave: "010.......", phase: -1.4},
+      { name: "dq_delay2", wave: "01........", phase: -1.4},
+      { name: "dqs_delay3", wave: "010.......", phase: -2.0},
+      { name: "dq_delay3", wave: "01........", phase: -2.0},
+    ]
+}
+```
+  <figcaption>不同的 DQS 延迟下，DQS 对 CK 采样的结果</figcaption>
+</figure>
+
+上图中 delay0 和 delay1 两种情况下，DQS 采样到了 CK 的负半周期，而 delay2 和 delay3 时 DQS 采样到了 CK 的正半周期，所以如果想要让 DQS 和 CK 同步，应该把 DQS 延迟设置在 delay1 和 delay2 之间。
+
+总结一下 Write Leveling 的算法：
+
+1. 设置 SDRAM 进入 Write Leveling 模式，此时 SDRAM 会使用 DQS 对 CK 采用，把结果输出到 DQ
+2. 控制器枚举 DQS 的延迟，读取出每个 DQS 延迟下的 DQ 结果，得到一个 0-1 串，例如：`001111111111111111110000`，即随着延迟增大，先采样到 0，再采样到 1，最后又采样到 0
+3. 找到一个 DQS 延迟，使得 DQ 出现一个从 0 到 1 的变化，那么按照这个延迟输出，DQS 就会与 CK 同步
+4. 设置 SDRAM 结束 Write Leveling 模式
 
 ## 相关阅读
 
