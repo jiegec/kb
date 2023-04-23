@@ -4,3 +4,9 @@ body { counter-reset: figureCounter; }
 /* increment the counter for every instance of a figure even if it doesn't have a caption */
 figure { counter-increment: figureCounter; }
 /* the rest is done in javascript dynamically */
+
+/* center tables */
+.md-typeset__scrollwrap {
+  display: flex;
+  justify-content: center;
+}
