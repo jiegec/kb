@@ -399,6 +399,37 @@ sdram_write_leveling_off();
 
 注意这里不再是找到 0-1 的变化的地方，Write Leveling 找 0-1 变化是为了同步，同步的地方正是 0-1 变化的地方；而 Read Leveling 的目的是要读取出正确的数据，已知有一段连续的延迟区间，区间内都可以读出正确的数据，那么取其中点，即使因为温度等条件变化，区间出现移动，因为保留了足够的余量，所以依然可以工作。取中点这一步也称为 Read Centering。
 
+## HBM
+
+HBM 全称是 High Bandwidth Memory，也就是高带宽内存，其技术也是基于 SDRAM，因此放在这里和 DDR SDRAM 进行对比。
+
+HBM 相比前面的 DDR SDRAM，它堆叠了多个 SDRAM，提供多个 channel 并且提高了位宽。例如 [Micron HBM with ECC](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/hbm2e/8gb_and_16gb_hbm2e_dram.pdf)，堆叠了 4/8 层 DRAM，提供了 8 个 channel，每个 channel 的数据宽度是 128 位，以 3200 MT/s 计算，一个 HBM 芯片的数据传输速率最大是：
+
+$$
+3200 \mathrm{(MT/s)} * 128 \mathrm{(bits/transfer)} * 8 \mathrm{(Channels)} = 3276.8 \mathrm{(Gb/s)} = 409.6 \mathrm{(GB/s)}
+$$
+
+所以一片 HBM 的传输速率就相当于 16 个传统的 DDR SDRAM，靠的是 8 个 Channel 以及双倍的位宽。每个 Channel 的位宽是 128 位，实际上可以认为是把两片 64-bit SDRAM 并起来了，可以当成一个 128 位的用，也可以在 Pseudo Channel 模式下，当成共享地址和命令信号的两个 SDRAM 用。
+
+当然了，HBM 的高带宽的代价就是引脚数量很多。根据 [HBM3 JESD238A 标准](https://www.jedec.org/system/files/docs/JESD238A.pdf)，每个 Channel 要 120 个 pin，一共 16 个 channel（HBM2 是 8 channel，每个 channel 128 位；HBM3 是 16 channel，每个 channel 64 位），加上其余的 52 个 pin，这些加起来就 1972 个 pin 了。所以一般在 Silicon Interposer 上与处理器连接，而不是传统的在 PCB 上走线：
+
+<figure markdown>
+  ![](sdram_hbm_stack.png){ width="800" }
+  <figcaption>HBM 的封装形式（图源 <a href="https://picture.iczhiku.com/resource/ieee/WYifSuFTZuHLFcMV.pdf">A 1.2V 20nm 307GB/s HBM DRAM with At-Speed Wafer-Level I/O Test Scheme and Adaptive Refresh Considering Temperature Distribution</a>）</figcaption>
+</figure>
+
+所以在 HBM3 标准里，用 Microbump 来描述 HBM 的 pin。可以理解为把原来插在主板上的内存条，通过堆叠，变成一个 HBM Die，然后紧密地连接到 CPU 中。但是另一方面，密度上去了，价格也更贵了。同时扩展性也下降了，不能像 DDR SDRAM 那样在主板上插很多条。
+
+下面来分析一些典型的带有 HBM 的系统的内存带宽：
+
+Xilinx 的 Virtex Ultrascale Plus HBM FPGA 提供了 $1800 \mathrm{(MT/s)} * 128 \mathrm{(bits/transfer)} * 8 \mathrm{(Channels)} = 230.4 \mathrm{(GB/s)}$ 的带宽，如果用了两片 HBM 就是 460.8 GB/s。暴露给 FPGA 逻辑的是 16 个 256 位的 AXI3 端口，AXI 频率 450 MHz，内存频率 900 MHz。可以看到，每个 AXI3 就对应了一个 HBM 的 pseudo channel。每个 pseudo channel 是 64 位，但是 AXI 端口是 256 位，这是因为在速率不变的情况下，从 450MHz 到 900MHz，再加上 DDR，等价于频率翻了四倍，所以位宽也要相应地从 64 位翻四倍到 256 位。
+
+A100 显卡 40GB PCIe 版本采用了 5 个 8 GB 的 HBM 内存，运行在 1215 MHz 的频率下，那么内存带宽就是 $1215 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \mathrm{(bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 1555 \mathrm{(GB/s)}$，与 Datasheet 吻合。A100 Datasheet 中的 Memory bus width 的计算方式其实就是把所有的 Channel 位宽加起来：$128 \mathrm{(bits/transfer)} * 8 \mathrm{(channels)} * 5 \mathrm{(stacks)} = 5120 \mathrm{(bits)}$。
+
+A100 显卡 80GB PCIe 版本把 HBM2 升级到了 HBM2e，同时内存时钟频率也升级到了 1512 MHz，此时内存带宽就是 $1512 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \mathrm{(bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 1935 \mathrm{(GB/s)}$，与 Datasheet 吻合。
+
+H100 显卡 80GB SXM5 版本把 HBM 升级到了 HBM3，内存容量依然是 80GB，但是时钟频率提高到了 2619 MHz，此时，内存带宽是 $2619 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \mathrm{(bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 3352 \mathrm{(GB/s)}$。
+
 ## 相关阅读
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
@@ -406,3 +437,4 @@ sdram_write_leveling_off();
 - [DDR5/4/3/2: How Memory Density and Speed Increased with each Generation of DDR](https://blogs.synopsys.com/vip-central/2019/02/27/ddr5-4-3-2-how-memory-density-and-speed-increased-with-each-generation-of-ddr/)
 - [DDR5 vs DDR4 DRAM – All the Advantages & Design Challenges](https://www.rambus.com/blogs/get-ready-for-ddr5-dimm-chipsets/)
 - [Understanding DDR3 Write Leveling and Read Leveling](https://daffy1108.wordpress.com/2010/09/02/understanding-ddr3-write-leveling-and-read-leveling/)
+- [Will HBM replace DDR and become Computer Memory?](https://www.utmel.com/blog/categories/memory%20chip/will-hbm-replace-ddr-and-become-computer-memory)
