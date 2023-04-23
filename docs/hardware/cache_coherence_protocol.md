@@ -151,27 +151,6 @@ Dragon 协议是一个基于更新的协议，意味着写入缓存的时候，�
 
 下文结合实际的协议，分析缓存一致性协议是如何在硬件中实现的。
 
-### ACE 协议
-
-ACE 协议在 AXI 的基础上，添加了三个 channel：
-
-1. AC: Coherent address channel, Input to master: ACADDR, ACSNOOP, ACPROT
-2. CR: Coherent response channel, Output from master: CRRESP
-3. CD: Coherent data channel, Output from master: CDDATA, CDLAST
-
-此外，已有的 Channel 也添加了信号：
-
-1. ARSNOOP[3:0]/ARBAR[1:0]/ARDOMAIN[1:0]
-2. AWSNOOP[3:0]/AWBAR[1:0]/AWDOMAIN[1:0]/AWUNIQUE
-3. RRESP[3:2]
-4. RACK/WACK
-
-ACE-lite 只在已有 Channel 上添加了新信号，没有添加新的 Channel。因此它内部不能有 Cache，但是可以访问一致的缓存内容。
-
-当 Read miss 的时候，首先 AXI master 发送 read transaction 给 Interconnect，Interconnect 向保存了这个缓存行的缓存发送 AC 请求，如果有其他 master 提供了数据，就向请求的 master 返回数据；如果没有其他 master 提供数据，则向内存发起读请求，并把结果返回给 master，最后 master 提供 RACK 信号。
-
-当 Write miss 的时候，也是类似地，AXI master 发送 MakeUnique 请求给 Interconnect，Interconnect 向保存了该缓存行的缓存发送请求，要求其他 master 状态改为 Invalid；当所有 master 都已经 invalidate 成功，就向原 AXI master 返回结果。
-
 ### TileLink 协议
 
 TileLink 为了实现缓存一致性，在已有的 A 和 D channel 以外，它引入了三个 channel：B、C 和 E，支持三种操作：
@@ -244,6 +223,71 @@ when (filter.io.response.fire()) {
 
 由于这里采用的是 invalidation based，所以如果某个 Master 之前处于 Dirty 状态，那么它会发送 ProbeAckData，此时需要把数据写回，所以需要用 PutFull 把数据写出去。
 
+### ACE 协议
+
+ACE 在 AXI 协议的基础上，实现了缓存一致性协议。首先列出 ACE 的缓存状态模型，它定义了这么五种状态，其实就是 MOESI 的不同说法：
+
+1. UniqueDirty: Modified
+2. SharedDirty: Owned
+3. UniqueClean: Exclusive
+4. SharedClean: Shared
+5. Invalid: Invalid
+
+文档中的定义如下：
+
+- Valid, Invalid: When valid, the cache line is present in the cache. When invalid, the cache line is not present in the cache.
+- Unique, Shared: When unique, the cache line exists only in one cache. When shared, the cache line might exist in more than one cache, but this is not guaranteed.
+- Clean, Dirty: When clean, the cache does not have responsibility for updating main memory. When dirty, the cache line has been modified with respect to main memory, and this cache must ensure that main memory is eventually updated.
+
+大致理解的话，Unique 表示只有一个缓存有这个缓存行，Shared 表示有可能有多个缓存有这个缓存行；Clean 表示它不负责更新内存，Dirty 表示它负责更新内存。下面的很多操作都是围绕这些状态进行的。
+
+文档中也说，它支持 MOESI 的不同子集：MESI, ESI, MEI, MOESI，所以也许在一个简化的系统里，一些状态可以不存在，实现会有所不同。
+
+换位思考，作为协议的设计者，应该如何添加信号来实现缓存一致性协议？从需求出发，缓存一致性协议需要实现：
+
+1. 读或写 miss 的时候，需要请求这个缓存行的数据，并且更新自己的状态，比如读取到 Shared，写入到 Modified 等。
+2. 写入一个 valid && !dirty 的缓存行的时候，需要升级自己的状态，比如从 Shared 到 Modified。
+3. 需要 evict 一个 valid && dirty 的缓存行的时候，需要把 dirty 数据写回，并且降级自己的状态，比如 Modified -> Shared/Invalid。如果需要 evict 一个 valid && !dirty 的缓存行，可以选择通知，也可以选择不通知下一级。
+4. 收到 snoop 请求的时候，需要返回当前的缓存数据，并且更新状态。
+5. 需要一个方法来通知下一级 Cache/Interconnect，告诉它第一和第二步完成了。
+
+首先考虑上面提到的第一件事情：读或写 miss 的时候，需要请求这个缓存行的数据，并且更新自己的状态，比如读取到 Shared，写入到 Modified 等。
+
+AXI 已经有 AR 和 R channel 用于读取数据，那么遇到读或者写 miss 的时候，可以在 AR channel 上捎带一些信息，让下一级的 Interconnect 知道自己的意图是读还是写，然后 Interconnect 就在 R channel 上返回数据。
+
+具体要捎带什么信息呢？“不妨”用这样一种命名方式：`操作 + 目的状态`，比如读 miss 的时候，需要读取数据，进入 Shared 状态，那就叫 ReadShared；写 miss 的时候，需要读取数据（通常写入缓存的只是一个缓存行的一部分，所以先要把完整的读进来），就叫 ReadUnique。这个操作可以编码到一个信号中，传递给 Interconnect。
+
+再来考虑上面提到的第二件事情：写入一个 valid && !dirty 的缓存行的时候，需要升级自己的状态，比如从 Shared 到 Modified。
+
+这个操作，需要让 Interconnect 把其他缓存中的这个缓存行数据清空，并且把自己升级到 Unique。根据上面的 `操作 + 目的状态` 的命名方式，可以讲其命名为 CleanUnique，即把其他缓存都 Clean 掉，然后自己变成 Unique。
+
+接下来考虑上面提到的第三件事情：需要 evict 一个 valid && dirty 的缓存行的时候，需要把 dirty 数据写回，并且降级自己的状态，比如 Modified -> Shared/Invalid。
+
+按照前面的 `操作 + 目的状态` 命名法，可以命名为 WriteBackInvalid。ACE 实际采用的命名是 WriteBack。
+
+第四件事情：收到 snoop 请求的时候，需要返回当前的缓存数据，并且更新状态。
+
+既然 snoop 是从 Interconnect 发给 Master，在已有的 AR R AW W B channel 里没办法做这个事情，不然会打破已有的逻辑。那不得不添加一对 channel：规定一个 AC channel 由 Interconnect 发送 snoop 请求，一个 C channel 让 Master 发送响应。这就相当于 TileLink 里面的 B channel（Probe 请求）和 C channel（ProbeAck 响应）。实际 ACE 和刚才设计的实际有一些区别，把 C channel 拆成了两个：CR 用于返回所有响应，CD 用于返回那些需要数据的响应。这就像 AW 和 W 的关系，一个传地址，一个传数据；类似地，CR 传状态，CD 传数据。
+
+那么 AC channel 上要发送什么请求呢？回顾一下上面已经用到的请求类型：需要 snoop 的有 ReadShared，ReadUnique 和 CleanUnique，不需要 snoop 的有 WriteBack。那么直接通过 AC channel 把 ReadShared，ReadUnique 和 CleanUnique 这三种请求原样发送给需要 snoop 的 Cache 即可。Cache 在 AC channel 收到这些请求的时候，再做相应的动作。
+
+第五件事情：需要一个方法来通知下一级 Cache/Interconnect，告诉它第一和第二步完成了。TileLink 添加了一个额外的 E channel 来做这个事情，ACE 更加粗暴：直接用一对 RACK 和 WACK 信号来分别表示最后一次读和写已经完成。关于 WACK 和 RACK 的讨论，详见 [What's the purpose for WACK and RACK for ACE and what's the relationship with WVALID and RVALID?](https://community.arm.com/support-forums/f/soc-design-and-simulation-forum/9888/what-s-the-purpose-for-wack-and-rack-for-ace-and-what-s-the-relationship-with-wvalid-and-rvalid) 。
+
+这时候已经基本把 ACE 协议的信号和大体的工作流程推导出来了。从信号上来看，ACE 协议在 AXI 的基础上，添加了三个 channel：
+
+1. AC: Coherent address channel, Input to master: ACADDR, ACSNOOP, ACPROT
+2. CR: Coherent response channel, Output from master: CRRESP
+3. CD: Coherent data channel, Output from master: CDDATA, CDLAST
+
+此外，已有的 Channel 也添加了信号：
+
+1. ARSNOOP[3:0]/ARBAR[1:0]/ARDOMAIN[1:0]
+2. AWSNOOP[3:0]/AWBAR[1:0]/AWDOMAIN[1:0]/AWUNIQUE
+3. RRESP[3:2]
+4. RACK/WACK
+
+ACE 协议还设计了一个 ACE-Lite 版本：ACE-Lite 只在已有 Channel 上添加了新信号，没有添加新的 Channel。因此它内部不能有 Cache，但是可以访问一致的缓存内容。
+
 
 ## 参考文档
 
@@ -257,3 +301,4 @@ when (filter.io.response.fire()) {
 - [Directory-based cache coherence](https://en.wikipedia.org/wiki/Directory-based_cache_coherence)
 - [TileLink spec](https://github.com/chipsalliance/omnixtend/blob/master/OmniXtend-1.0.3/spec/TileLink-1.8.0.pdf)
 - [rocket-chip](https://github.com/chipsalliance/rocket-chip)
+- [IHI0022E-AMBA AXI and ACE](https://developer.arm.com/documentation/ihi0022/e/)
