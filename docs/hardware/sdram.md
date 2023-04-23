@@ -277,6 +277,83 @@ Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致
 3. 找到一个 DQS 延迟，使得 DQ 出现一个从 0 到 1 的变化，那么按照这个延迟输出，DQS 就会与 CK 同步
 4. 设置 SDRAM 结束 Write Leveling 模式
 
+这个过程要对每个 DQS 信号分别进行。下面以 [litex 的 SDRAM 校准代码](https://github.com/enjoy-digital/litex/blob/b367c27191511f36b10ec4103198978f86f9502c/litex/soc/software/liblitedram/sdram.c#L589)为例，用 C 代码实现简化的流程：
+
+```c title="int sdram_write_leveling_scan(int *delays, int loops, int show)" linenums="1"
+/* 打开 SDRAM 的 Write Leveling 模式 */
+sdram_write_leveling_on();
+
+/* 循环每个 SDRAM 内存条 */
+for(i=0;i<SDRAM_PHY_MODULES;i++) {
+  /* 循环每个 DQS 信号 */
+  for (dq_line = 0; dq_line < DQ_COUNT; dq_line++) {
+    /* 设置 DQS 初始延迟为 0 */
+    sdram_leveling_action(i, dq_line, write_rst_delay);
+
+    /* 循环 DQS 延迟 */
+    for(j=0;j<err_ddrphy_wdly;j++) {
+      int zero_count = 0;
+      int one_count = 0;
+
+      /* 多次采样 */
+      for (k=0; k<loops; k++) {
+        /* 发送 DQS 序列：00000001 */
+        /* SDRAM 对 CK 进行采样 */
+        ddrphy_wlevel_strobe_write(1);
+
+        /* 统计 1 和 0 的个数 */
+        if (buf[SDRAM_PHY_MODULES-1-i] != 0)
+          one_count++;
+        else
+          zero_count++;
+      }
+      if (one_count > zero_count)
+        /* 认为 DQS 采样到了 CK 的正半周期 */
+        taps_scan[j] = 1;
+      else
+        /* 认为 DQS 采样到了 CK 的负半周期 */
+        taps_scan[j] = 0;
+
+      /* 每次循环增加一次 DQS 延迟 */
+      sdram_leveling_action(i, dq_line, write_inc_delay);
+    }
+
+    /* 找到一个最长的连续 1 的序列 */
+    one_window_active = 0;
+    one_window_start = 0;
+    one_window_count = 0;
+    one_window_best_start = 0;
+    one_window_best_count = -1;
+    for(j=0;j<err_ddrphy_wdly+1;j++) {
+      if (one_window_active) {
+        if ((j == err_ddrphy_wdly) || (taps_scan[j] == 0)) {
+          /* 结束了一段连续的 1 */
+          one_window_active = 0;
+          one_window_count = j - one_window_start;
+          /* 记录最长的连续 1 的长度和位置 */
+          if (one_window_count > one_window_best_count) {
+            one_window_best_start = one_window_start;
+            one_window_best_count = one_window_count;
+          }
+        }
+      } else {
+        /* 找到连续的 1 的开头 */
+        if (j != err_ddrphy_wdly && taps_scan[j]) {
+          one_window_active = 1;
+          one_window_start = j;
+        }
+      }
+    }
+
+    /* 要找的延迟就是连续的 1 序列的开始位置 */
+    delays[i] = one_window_best_start;
+  }
+}
+
+/* 关闭 SDRAM 的 Write Leveling 模式 */
+sdram_write_leveling_off();
+```
+
 ## 相关阅读
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
