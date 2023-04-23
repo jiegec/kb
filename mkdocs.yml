@@ -60,4 +60,6 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.jsdelivr.net/npm/wavedrom@2.1.2/wavedrom.unpkg.js
   - https://wavedrom.com/skins/default.js
+extra_css:
+  - stylesheets/extra.css
 
