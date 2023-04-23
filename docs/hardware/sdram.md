@@ -191,7 +191,7 @@ DDR3 和 DDR4 的不同点：
 但是数据信号（DQ、DQS 和 DM）依然是并行点对点连接到 SDRAM 上的（上图左侧）。这就出现了问题：不同的 SDRAM 芯片，数据和时钟的偏差不同，数据可能差不多时间到，但是时钟的延迟越来越大：
 
 <figure markdown>
-<script type="WaveDrom">
+```wavedrom
 {
   signal:
     [
@@ -203,7 +203,7 @@ DDR3 和 DDR4 的不同点：
       { name: "clock_dram3", wave: "1010101010", phase: -0.8},
     ]
 }
-</script>
+```
   <figcaption>SDRAM 的时钟偏移问题</figcaption>
 </figure>
 
@@ -220,7 +220,7 @@ SDRAM 校准，或者说 SDRAM 训练，主要有如下几个步骤：
 Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致 SDRAM 看到错误的信号的问题。具体地讲，Write Leveling 的目的是让 SDRAM 芯片接受到的 DQS 信号与 CK 信号同步：
 
 <figure markdown>
-<script type="WaveDrom">
+```wavedrom
 {
   signal:
     [
@@ -236,7 +236,7 @@ Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致
       { name: "dqs_dram3", wave: "0.101010..", phase: -0.8},
     ]
 }
-</script>
+```
   <figcaption>Write Leveling 所要达到的 DQS 与 CK 同步的效果</figcaption>
 </figure>
 

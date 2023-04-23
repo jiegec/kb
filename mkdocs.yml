@@ -42,6 +42,7 @@ plugins:
   # - social
   - tags
   - offline
+  - wavedrom
 extra:
   analytics:
     provider: google
