@@ -418,7 +418,7 @@ $$
   <figcaption>HBM 的封装形式（图源 <a href="https://picture.iczhiku.com/resource/ieee/WYifSuFTZuHLFcMV.pdf">A 1.2V 20nm 307GB/s HBM DRAM with At-Speed Wafer-Level I/O Test Scheme and Adaptive Refresh Considering Temperature Distribution</a>）</figcaption>
 </figure>
 
-所以在 HBM3 标准里，用 Microbump 来描述 HBM 的 pin。可以理解为把原来插在主板上的内存条，通过堆叠，变成一个 HBM Die，然后紧密地连接到 CPU 中。但是另一方面，密度上去了，价格也更贵了。同时扩展性也下降了，不能像 DDR SDRAM 那样在主板上插很多条。
+所以在 HBM3 标准里，用 Microbump 来描述 HBM 的 pin。可以形象地理解为，把原来插在主板上的内存条拆开，只保留芯片，把芯片竖直堆叠起来，变成一个 HBM Die，然后紧密地连接到 CPU 中。但是另一方面，密度上去了，价格也更贵了。同时扩展性也下降了，不能像 DDR SDRAM 那样在主板上插很多条。
 
 下面来分析一些典型的带有 HBM 的系统的内存带宽：
 
