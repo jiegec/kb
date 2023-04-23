@@ -161,6 +161,17 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 可以看到，相邻存储层次之间都差一个二的幂次的倍数，因此从内存地址到这些存储层次的映射，就是截取地址中的不同区间，每个区间对应了一个层次的下标。这也就是为什么内存大小的 MB、GB 用的是 1024 进制。
 
+如果研究 SDRAM 内存控制器，比如 [Xilinx FPGA 上的 MIG](https://www.xilinx.com/support/documentation/ip_documentation/ultrascale_memory_ip/v1_4/pg150-ultrascale-memory-ip.pdf)，可以发现它可以配置不同的地址映射方式，例如：
+
+- ROW_COLUMN_BANK
+- ROW_BANK_COLUMN
+- BANK_ROW_COLUMN
+- ROW_COLUMN_LRANK_BANK
+- ROW_LRANK_COLUMN_BANK
+- ROW_COLUMN_BANK_INTLV
+
+就是将地址的不同部分映射到 DRAM 的几个地址：Row，Column，Bank。可以想象，不同的地址映射方式针对不同的访存模式会有不同的性能。对于连续的内存访问，ROW_COLUMN_BANK 方式是比较适合的，因为连续的访问会分布到不同的 Bank 上，这样性能就会更好。
+
 ## 接口
 
 下面画出了 DDR3 和 DDR4 的引脚：
