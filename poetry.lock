@@ -622,7 +622,7 @@ wavedrom = ">=2.0.3"
 type = "git"
 url = "https://github.com/jiegec/mkdocs-wavedrom-plugin.git"
 reference = "HEAD"
-resolved_reference = "175b3f8fa77531a041805cc016c440caa67afe87"
+resolved_reference = "bb9e8cb15f1407de76faa2a77b4fb54aa8896a28"
 
 [[package]]
 name = "packaging"

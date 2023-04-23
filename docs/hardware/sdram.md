@@ -301,6 +301,10 @@ for(i=0;i<SDRAM_PHY_MODULES;i++) {
         /* SDRAM 对 CK 进行采样 */
         ddrphy_wlevel_strobe_write(1);
 
+        cdelay(100);
+        /* 从内存控制器中读出 DQ 上的数据 */
+        csr_rd_buf_uint8(sdram_dfii_pix_rddata_addr(0), buf, DFII_PIX_DATA_BYTES);
+
         /* 统计 1 和 0 的个数 */
         if (buf[SDRAM_PHY_MODULES-1-i] != 0)
           one_count++;
