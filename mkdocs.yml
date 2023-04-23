@@ -1,5 +1,6 @@
 site_name: Jiegec's Knowledge Base
 site_url: https://jia.je/kb
+site_description: Knowledge Base of @jiegec
 theme:
   custom_dir: overrides
   icon:
@@ -39,6 +40,7 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - glightbox
+  - rss
   - search
   # - social
   - tags
