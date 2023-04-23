@@ -181,7 +181,7 @@ DDR3 和 DDR4 的不同点：
 
 为了获得更大的位宽，在内存条上可以看到很多个 SDRAM 芯片，通过宽度拼接的方式形成一个 64 位的数据宽度。此时从 PCB 走线的角度来讲，数据线直接连接到各个 SDRAM 芯片上，可以相对容易地连接；但是其他信号，比如地址信号和控制信号，需要连接到所有 SDRAM 芯片上，在局限的空间里，如果要保证到各个 SDRAM 芯片的距离相等，同时保证信号完整性是很困难的。
 
-因此，实际上地址和控制信号是采用了串联的方式连接，也就是下图的右边的连接方式：
+因此，实际上地址和控制信号是采用了串联的方式连接（Fly-by topology），也就是下图的右边的连接方式：
 
 <figure markdown>
   ![](sdram_topology.png){ width="600" }
@@ -218,6 +218,7 @@ DDR3 和 DDR4 的不同点：
 SDRAM 校准，或者说 SDRAM 训练，主要有如下几个步骤：
 
 1. Write Leveling
+2. Read Leveling
 
 ### Write Leveling
 
@@ -358,9 +359,26 @@ for(i=0;i<SDRAM_PHY_MODULES;i++) {
 sdram_write_leveling_off();
 ```
 
+### Read Leveling
+
+在 Write Leveling 阶段，解决了 SDRAM 处信号的同步问题。但是对于读操作，数据是从 SDRAM 发送给控制器，不同的数据到达控制器的时间可能也不同，因此也需要对读操作进行校准。
+
+为了判断读取的数据是否正确，做法是首先写入已知的数据，然后再读出来，如果读取的数据和写入的数据完全一致，就说明可以正确地进行读操作。
+
+实现思路和 Write Leveling 类似，也是枚举延迟，进行一些操作，观察每个延迟下的输出：
+
+1. 写入数据（或者用 SDRAM 的生成固定 Pattern 输出的功能）
+2. 设置延迟从 0 开始循环，不断增大
+3. 在每个延迟的设定下，读取出数据，把读取的结果与之前写入的数据进行比较
+4. 统计出哪些延迟条件下，读取数据是准确的，准确的记为 1，不准确的记为 0
+5. 找到表示准确的 1 的范围，取中点作为最终的校准结果
+
+注意这里不再是找到 0-1 的变化的地方，Write Leveling 找 0-1 变化是为了同步，同步的地方正是 0-1 变化的地方；而 Read Leveling 的目的是要读取出正确的数据，已知有一段连续的延迟区间，区间内都可以读出正确的数据，那么取其中点，即使因为温度等条件变化，区间出现移动，因为保留了足够的余量，所以依然可以工作。取中点这一步也称为 Read Centering。
+
 ## 相关阅读
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
 - [DDR4 Tutorial - Understanding the Basics](https://www.systemverilog.io/design/ddr4-basics/)
 - [DDR5/4/3/2: How Memory Density and Speed Increased with each Generation of DDR](https://blogs.synopsys.com/vip-central/2019/02/27/ddr5-4-3-2-how-memory-density-and-speed-increased-with-each-generation-of-ddr/)
 - [DDR5 vs DDR4 DRAM – All the Advantages & Design Challenges](https://www.rambus.com/blogs/get-ready-for-ddr5-dimm-chipsets/)
+- [Understanding DDR3 Write Leveling and Read Leveling](https://daffy1108.wordpress.com/2010/09/02/understanding-ddr3-write-leveling-and-read-leveling/)
