@@ -207,7 +207,7 @@ DDR3 和 DDR4 的不同点：
   <figcaption>SDRAM 的时钟偏移问题</figcaption>
 </figure>
 
-为了让处于不同位置的 SDRAM 看到同样的波形，需要在内存控制器一侧给数据信号加上可变的延迟，因此需要进行校准。
+为了让处于不同位置的 SDRAM 看到同样的波形，需要在内存控制器一侧给数据信号加上可变的延迟，这个延迟需要采用下面的方法进行校准。
 
 ## 校准
 
@@ -217,9 +217,28 @@ SDRAM 校准，或者说 SDRAM 训练，主要有如下几个步骤：
 
 ### Write Leveling
 
-Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致 SDRAM 看到错误的信号的问题。具体地讲，Write Leveling 的目的是让 SDRAM 芯片接受到的 DQS 信号与 CK 信号同步。
+Write Leveling 要解决的是 Fly-by Topology 带来的延迟不一致，导致 SDRAM 看到错误的信号的问题。具体地讲，Write Leveling 的目的是让 SDRAM 芯片接受到的 DQS 信号与 CK 信号同步：
 
-TODO
+<figure markdown>
+<script type="WaveDrom">
+{
+  signal:
+    [
+      { name: "ck", wave: "1010101010"},
+      { name: "dqs", wave: "0.101010.."},
+      { name: "ck_dram0", wave: "1010101010", phase: -0.2},
+      { name: "dqs_dram0", wave: "0.101010..", phase: -0.2},
+      { name: "ck_dram1", wave: "1010101010", phase: -0.4},
+      { name: "dqs_dram1", wave: "0.101010..", phase: -0.4},
+      { name: "ck_dram2", wave: "1010101010", phase: -0.6},
+      { name: "dqs_dram2", wave: "0.101010..", phase: -0.6},
+      { name: "ck_dram3", wave: "1010101010", phase: -0.8},
+      { name: "dqs_dram3", wave: "0.101010..", phase: -0.8},
+    ]
+}
+</script>
+  <figcaption>Write Leveling 所要达到的 DQS 与 CK 同步的效果</figcaption>
+</figure>
 
 ## 相关阅读
 

@@ -16,22 +16,23 @@
 
 <figure markdown>
   ![Async SRAM Diagram](async_sram_diagram.png){ width="400" }
-  <figcaption>图 1：异步 SRAM 的结构框图（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
+  <figcaption>异步 SRAM 的结构框图（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
 </figure>
 
 对于读操作，内存控制器在 `A0-A20` 上提供地址，经过 `DECODER` 从 `2048K x 16 MEMORY ARRAY` 中读取数据到 `COLUMN IO`，控制逻辑 `CONTROL CIRCUIT` 根据读操作（`WE#=1, OE#=0`），把数据输出到 `I/O DATA CIRCUIT`。
 
 对于写操作，内存控制器在 `A0-A20` 上提供地址，在 `I/O` 上提供要写入的数据，在 `UB#/LB#` 上提供字节使能。异步 SRAM 从 `MEMORY ARRAY` 中读取数组中现有的数据，结合 `UB#/LB#` 与 `I/O`，计算出新的值，再写入内存。其中 `UB#` 和 `LB#` 分别是高 8 位和低 8 位的字节使能（低有效）。如果旧数据是 `1234`，内存控制器要写入的值是 `5678`，那么内存中的值更新为：
 
-<figure markdown>
-  <figcaption>表 1：UB# 和 LB# 对写入结果的影响</figcaption>
-  | UB# | LB# | 结果 | 解释         |
-  |-----|-----|------|--------------|
-  | 0   | 0   | 5678 | 全部采用新值 |
-  | 1   | 0   | 1278 | 仅写入低字节 |
-  | 0   | 1   | 5634 | 仅写入高字节 |
-  | 1   | 1   | 1234 | 全部采用旧值 |
-</figure>
+<center>
+
+| UB# | LB# | 结果 | 解释         |
+|-----|-----|------|--------------|
+| 0   | 0   | 5678 | 全部采用新值 |
+| 1   | 0   | 1278 | 仅写入低字节 |
+| 0   | 1   | 5634 | 仅写入高字节 |
+| 1   | 1   | 1234 | 全部采用旧值 |
+
+</center>
 
 ## 接口
 
@@ -54,7 +55,7 @@
 
 <figure markdown>
   ![](async_sram_width_concat.png){ width="400" }
-  <figcaption>图 2：在宽度上拼接异步 SRAM</figcaption>
+  <figcaption>在宽度上拼接异步 SRAM</figcaption>
 </figure>
 
 地址信号（A）和控制信号（OE#、WE#、CE#）连接到所有异步 SRAM，数据信号（DQ）和字节使能信号（WE0-3#）则是拼接不同的异步 SRAM，形成两倍的数据宽度。
@@ -65,7 +66,7 @@
 
 <figure markdown>
   ![](async_sram_depth_concat.png){ width="600" }
-  <figcaption>图 3：在深度上拼接异步 SRAM</figcaption>
+  <figcaption>在深度上拼接异步 SRAM</figcaption>
 </figure>
 
 实践中，可以混合两种拼接方法。
@@ -78,7 +79,7 @@
 
 <figure markdown>
   ![](async_sram_read_timing.png){ width="600" }
-  <figcaption>图 4：异步 SRAM 读时序（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
+  <figcaption>异步 SRAM 读时序（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
 </figure>
 
 - $t_{RC}$：读周期时间，这段时间内地址不变，Min 10ns
@@ -93,7 +94,7 @@
 
 <figure markdown>
   ![](async_sram_write_timing.png){ width="600" }
-  <figcaption>图 5：异步 SRAM 写时序（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
+  <figcaption>异步 SRAM 写时序（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
 </figure>
 
 写时序中比较核心的是 `WE#` 的上升沿，相对这个时间点，有如下比较重要时序要求：
