@@ -181,6 +181,8 @@ DDR3 和 DDR4 的不同点：
 
 为了获得更大的位宽，在内存条上可以看到很多个 SDRAM 芯片，通过宽度拼接的方式形成一个 64 位的数据宽度。此时从 PCB 走线的角度来讲，数据线直接连接到各个 SDRAM 芯片上，可以相对容易地连接；但是其他信号，比如地址信号和控制信号，需要连接到所有 SDRAM 芯片上，在局限的空间里，如果要保证到各个 SDRAM 芯片的距离相等，同时保证信号完整性是很困难的。
 
+### Fly-by topology
+
 因此，实际上地址和控制信号是采用了串联的方式连接（Fly-by topology），也就是下图的右边的连接方式：
 
 <figure markdown>
@@ -211,7 +213,29 @@ DDR3 和 DDR4 的不同点：
   <figcaption>SDRAM 的时钟偏移问题</figcaption>
 </figure>
 
-为了让处于不同位置的 SDRAM 看到同样的波形，需要在内存控制器一侧给数据信号加上可变的延迟，这个延迟需要采用下面的方法进行校准。
+为了让处于不同位置的 SDRAM 看到同样的波形，需要在内存控制器一侧给数据信号加上可变的延迟，这个延迟需要经过校准，才能知道是多少。
+
+### Clam-shell topology
+
+除了 Fly-by topology，在一些场景下，为了节省 PCB 面积，还可能会使用 Clam-shell topology。Clam-shell 是贝壳的意思，贝壳有上下两个部分合在一起，所以其实 Clam-shell topology 就是形象地表示在 PCB 的正面和背面都有 SDRAM 芯片的情形：
+
+<figure markdown>
+  ![](sdram_clam_shell.png){ width="400" }
+  <figcaption>Clam-shell Topology（图源<a href="https://docs.xilinx.com/r/en-US/pg313-network-on-chip/Clamshell-Topology">Versal ACAP Programmable Network on Chip and Integrated Memory Controller LogiCORE IP Product Guide (PG313) </a>）</figcaption>
+</figure>
+
+这种设计利用了 PCB 背面的空间，但是同时也带来了新的问题：直观地讲，两个芯片都放在 PCB 的正面，如果要连线的话，如果保证引脚顺序接近一致，就可以比较容易地连接，不会有很多交叉的地方。但如果一个在正面，另一个在背面，引脚的顺序就倒转过来了，连线的时候就比较困难。
+
+解决的办法是，修改引脚的顺序，把一些引脚的功能进行对调，使得走线更加简单：
+
+<figure markdown>
+  ![](sdram_pin_mirror.png){ width="600" }
+  <figcaption>SDRAM 引脚镜像（图源<a href="https://docs.xilinx.com/r/en-US/ug863-versal-pcb-design/Utilizing-Address-Mirroring-to-Ease-Clamshell-Routing">Versal ACAP PCB Design User Guide (UG863)</a>）</figcaption>
+</figure>
+
+表格中特意挑选了一些不影响特殊功能的引脚来交换，使得大部分功能，即使交换了引脚，也可以正常工作。例如 Row 地址交换了几个位，虽然物理上保存的地方变了，但是不影响读写数据。但是，对于 Mode Register Set 操作，必须要内存控制器自行交换位的顺序，在 PCB 上连接时再交换回来，才能保证在 SDRAM 一侧得到正确的结果。
+
+此外，Clam-shell Topology 的正面和背面各有一个 cs_n 片选信号，但是这和 Dual Rank 不同：Dual Rank 是正面和背面都有同样数量的 DRAM 芯片，共享地址信号、数据信号和控制信号，总线上同一时间只有一侧的 DRAM 芯片在使用，好处是内存容量翻倍，并且两个 rank 可以互相掩盖延迟；而 Clam Shell Topology 的两个 cs_n 是为了给 Mode Register Set 操作指定正面或背面，而其余的大部分操作，可以正面和背面同时工作，因为它们的数据信号并没有共享。
 
 ## 校准
 
