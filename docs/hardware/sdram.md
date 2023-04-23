@@ -24,7 +24,7 @@ SDRAM 相关标准由 JEDEC 制定：
 - [JESD209B: LPDDR SDRAM](https://www.jedec.org/system/files/docs/JESD209B.pdf)
 - [JESD209-2F: LPDDR2 SDRAM](https://www.jedec.org/system/files/docs/JESD209-2F.pdf)
 - [JESD209-3C: LPDDR3 SDRAM](https://www.jedec.org/document_search?search_api_views_fulltext=JESD209-3)
-- [JESD209-4D：LPDDR4 SDRAM](https://www.jedec.org/document_search?search_api_views_fulltext=JESD209-4)
+- [JESD209-4D: LPDDR4 SDRAM](https://www.jedec.org/document_search?search_api_views_fulltext=JESD209-4)
 - [JESD209-5B: LPDDR5 SDRAM](https://www.jedec.org/document_search?search_api_views_fulltext=JESD209-5)
 
 高性能常用的 HBM 也基于 SDRAM 技术：
@@ -63,26 +63,6 @@ SDRAM 有 Prefetch 的概念，含义就是一次读取会取出位宽的多少�
 
 DDR5 把 Prefetch 提高到了 16n，这也就是为什么看到的 DDR5 的数据速率数字大了很多：同样的 Memory array 频率下，DDR4 的 Prefetch 是 8n，DDR5 的 Prefetch 是 16n，于是 I/O 频率翻倍，数据速率也翻倍。同时为了继续保持一个 Burst 是 64 字节，DDR5 内存条每个 channel 位宽是 32 位，每个内存条提供两个 channel。
 
-## Bank Group
-
-DDR4 相比 DDR3 引入了 Bank Group 的概念。下面分别画出 DDR3 和 DDR4 的存储部分，进行对比：
-
-<figure markdown>
-  ![](sdram_ddr3_array.png){ width="400",align="left" }
-  <figcaption>图 2：DDR3 SDRAM 存储部分（图源 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr3/1gb_ddr3_sdram.pdf?rev=22ebf6b7c48d45749034655015124500">Micron Datasheet</a>）</figcaption>
-  ![](sdram_ddr4_array.png){ width="400" }
-  <figcaption>图 3：DDR4 SDRAM 存储部分（图源 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf?rev=8634cc61670d40f69207f5f572a2bfdd">Micron Datasheet</a>）</figcaption>
-</figure>
-
-可以看到，核心的区别就是多了一个 `Global I/O gating`，并且每个 Bank Group 都有自己的 `I/O gating, DM mask logic`，这意味着 DDR4 可以多个 Bank Group 同时进行读操作，并且流水线式输出，例如第一个 Bank Group 读取了数据，在 I/O 上用四个周期传输完数据，立马第二个 Bank Group 的数据就接上了，又传输了四个周期的数据，波形如下图：
-
-<figure markdown>
-  ![](sdram_consecutive_read.png){ width="800" }
-  <figcaption>图 4：DDR4 不同 Bank Group 的连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
-</figure>
-
-上图中 T0 时刻发起第一个读请求，T4 时刻发起第二个请求，T11-T15 得到第一个请求的数据，紧接着 T15-T19 得到第二个请求的数据。
-
 ## 访问模式
 
 SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 row 为单位进行存取。在前面的例子中，一个 row 有 8192 位的数据，但是一次读或写操作只涉及 64 位的数据，因此一次读操作需要：
@@ -100,20 +80,64 @@ SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 ro
 
 用 SDRAM 的术语来讲，第一步和第四步叫做 Activate，第二部和第五步叫做 Read，第三步叫做 Precharge。
 
-SDRAM 定义了三个时序参数，描述了这三个操作的时序要求：
+SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序要求：
 
 1. CL（CAS Latency）：发送读请求，到输出第一个数据的时间
 2. RCD（ACT to internal read or write delay time）：从 Activate 到下一个读或写请求的时间
 3. RP（RRE command period）：发送 Precharge 命令到下一个命令的时间
 4. RAS（ACT to PRE command period）：从 Activate 到 Precharge 之间的时间
+5. RC（ACT to ACT or REF command period）：从 Activate 到下一个 Activate 或者 Refresh 之间的时间
+6. RTP（Internal READ Command to PRECHARGE command delay）：从 Read 到 Precharge 之间的时间
+
+于是上面的流程需要的时间要求就是：
+
+1. 第一步，Activate，取出第一个 row
+2. 第二步，Read，第一步和第二步之间要隔 RCD 的时间，从 Read 发送地址到得到数据要等待 CL 的时间
+3. 第三步，Precharge，第一步和第三步之间要隔 RAS 的时间，第二步和第三步之间要隔 RTP 的时间
+4. 第四步，Activate，取出第二个 row，第一步和第四步之间要隔 RC 的时间，第三步和第四步之间要隔 RP 的时间
+5. 第五步，Read，第四步和第五步之间要隔 RCD 的时间，从 Read 发送地址到得到数据要等待 CL 的时间
 
 根据这个流程，可以得到以下的结论：
 
 1. 访问带有局部性的数据性能会更好，只需要连续地进行 Read，减少 Activate 和 Precharge 次数
 2. 不断访问不同的 row 的数据，会导致需要来回地 Activate，Read，Precharge 循环
 3. 访问 row 和访问 row 中的数据分成两个阶段，两个阶段可以使用同样的地址信号，使得内存总容量很大
+4. 而如果访问总是命中同一个 row，就可以获得接近理论的传输速率，如图 2
+
+<figure markdown>
+  ![](sdram_ddr3_consecutive_read.png){ width="800" }
+  <figcaption>图 2：DDR3 同一个 Row 内的的连续读（图源 <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>）</figcaption>
+</figure>
 
 为了缓解第二点带来的性能损失，引入了 Bank 的概念：每个 Bank 都可以取出来一个 row，那么如果要访问不同 Bank 里的数据，在第一个 Bank 进行 Activate/Precharge 的时候，其他 Bank 可以进行其他操作，从而掩盖 row 未命中带来的性能损失。
+
+## Bank Group
+
+DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page hit 的时间是 tccd_S 还是 tccd_L? - Ricky Li 的回答 - 知乎](https://www.zhihu.com/question/59944554/answer/989376138) 的观点：DDR4 的 Memory array 频率相比 DDR3 提高，因此同一个 Row 内无法实现完美的连续读取，即两个相邻的读操作需要隔 5 个周期，而每次读传输 4 个周期的数据，利用率最高 80%，见下图：
+
+<figure markdown>
+  ![](sdram_ddr4_nonconsecutive_read.png){ width="800" }
+  <figcaption>图 5：DDR4 的非连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+</figure>
+
+为了解决这个瓶颈，DDR4 在核心部分的区别就是多了一个 `Global I/O gating`，并且每个 Bank Group 都有自己的 `I/O gating, DM mask logic`，下面分别画出 DDR3 和 DDR4 的存储部分，进行对比：
+
+<figure markdown>
+  ![](sdram_ddr3_array.png){ width="400",align="left" }
+  <figcaption>图 3：DDR3 SDRAM 存储部分（图源 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr3/1gb_ddr3_sdram.pdf?rev=22ebf6b7c48d45749034655015124500">Micron Datasheet</a>）</figcaption>
+  ![](sdram_ddr4_array.png){ width="400" }
+  <figcaption>图 4：DDR4 SDRAM 存储部分（图源 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf?rev=8634cc61670d40f69207f5f572a2bfdd">Micron Datasheet</a>）</figcaption>
+</figure>
+
+
+这意味着 DDR4 可以多个 Bank Group 同时进行读操作，并且流水线式输出，例如第一个 Bank Group 读取了数据，在 I/O 上用四个周期传输完数据，立马第二个 Bank Group 读取的数据就接上了，又传输了四个周期的数据，波形如下图：
+
+<figure markdown>
+  ![](sdram_consecutive_read.png){ width="800" }
+  <figcaption>图 6：DDR4 不同 Bank Group 的连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+</figure>
+
+上图中 T0 时刻发起第一个读请求，T4 时刻发起第二个请求，T11-T15 得到第一个请求的数据，紧接着 T15-T19 得到第二个请求的数据。这样就解决了频率提高带来的问题。
 
 ## 存储层次
 
@@ -140,7 +164,7 @@ SDRAM 定义了三个时序参数，描述了这三个操作的时序要求：
 
 <figure markdown>
   ![](sdram_pinout.png){ width="600" }
-  <figcaption>图 5：DDR3 和 DDR4 原理图</figcaption>
+  <figcaption>图 7：DDR3 和 DDR4 原理图</figcaption>
 </figure>
 
 DDR3 和 DDR4 的不同点：
@@ -158,7 +182,7 @@ DDR3 和 DDR4 的不同点：
 
 <figure markdown>
   ![](sdram_topology.png){ width="600" }
-  <figcaption>图 6：SDRAM 的两种信号连接方式（图源 <a href="https://docs.xilinx.com/r/en-US/ug863-versal-pcb-design/Signals-and-Connections-for-DDR4-Interfaces">Versal ACAP PCB Design User Guide (UG863)</a>）</figcaption>
+  <figcaption>图 8：SDRAM 的两种信号连接方式（图源 <a href="https://docs.xilinx.com/r/en-US/ug863-versal-pcb-design/Signals-and-Connections-for-DDR4-Interfaces">Versal ACAP PCB Design User Guide (UG863)</a>）</figcaption>
 </figure>
 
 但是数据信号（DQ、DQS 和 DM）依然是并行点对点连接到 SDRAM 上的（上图左侧）。这就出现了问题：不同的 SDRAM 芯片，数据和时钟的偏差不同，数据可能差不多时间到，但是时钟的延迟越来越大：
