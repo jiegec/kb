@@ -37,6 +37,7 @@ plugins:
       nav_translations:
         zh:
           Hardware: 硬件
+          Networking: 网络
   - git-revision-date-localized:
       enable_creation_date: true
   - glightbox
