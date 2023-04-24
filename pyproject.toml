@@ -15,6 +15,7 @@ mkdocs-static-i18n = "^0.56"
 mkdocs-glightbox = "^0.3.3"
 mkdocs-wavedrom-plugin = {git = "https://github.com/jiegec/mkdocs-wavedrom-plugin.git"}
 mkdocs-rss-plugin = "^1.6.0"
+jieba = "^0.42.1"
 
 
 [build-system]
