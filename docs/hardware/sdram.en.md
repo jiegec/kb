@@ -106,7 +106,143 @@ Based on this process, the following conclusions can be drawn:
 
 <figure markdown>
   ![](sdram_ddr3_consecutive_read.png){ width="800" }
-  <figcaption>DDR3 sequential reads within the same Row (Source <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>)</figcaption>
+  <figcaption>DDR3 Sequential Reads within the Same Row (Source <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>)</figcaption>
 </figure>
 
 To alleviate the performance loss caused by the second point, the concept of Bank is introduced: each Bank can take out a row, so if you want to access the data in different Banks, while the first Bank is doing Activate/Precharge, the other Banks can do other operations, thus covering the performance loss caused by row misses.
+
+## Bank Group
+
+DDR4 introduces the concept of Bank Group compared to DDR3. Quoting [Is the time of page hit in the same bank group tccd_S or tccd_L?](https://www.zhihu.com/question/59944554/answer/989376138), memory array frequency is increased compared to DDR3, so a perfect sequential read cannot be achieved within the same row, i.e. two adjacent read operations need to be separated by 5 cycles, while each read transfers 4 cycles of data with a maximum utilization of 80%, see the following figure:
+
+<figure markdown>
+  ![](sdram_ddr4_nonconsecutive_read.png){ width="800" }
+  <figcaption>DDR4 Nonconsecutive Reads (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+</figure>
+
+In order to solve this bottleneck, the difference of DDR4 in the core part is that there is an additional `Global I/O gating`, and each Bank Group has its own `I/O gating, DM mask logic`, the following draws the storage part of DDR3 and DDR4 respectively, for comparison:
+
+<figure markdown>
+  ![](sdram_ddr3_array.png){ width="400",align="left" }
+  <figcaption>DDR3 SDRAM Storage Part (Source <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr3/1gb_ddr3_sdram.pdf?rev=22ebf6b7c48d45749034655015124500">Micron Datasheet</a>)</figcaption>
+</figure>
+
+<figure markdown>
+  ![](sdram_ddr4_array.png){ width="400" }
+  <figcaption>DDR4 SDRAM Storage Part(Source <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf?rev=8634cc61670d40f69207f5f572a2bfdd">Micron Datasheet</a>)</figcaption>
+</figure>
+
+This means that DDR4 can have multiple Bank Groups reading at the same time and pipelining the output. For example, if the first Bank Group reads the data and finishes transferring it in four cycles on the I/O, immediately the second Bank Group read picks up and transfers another four cycles of data, with the following waveform:
+
+<figure markdown>
+  ![](sdram_consecutive_read.png){ width="800" }
+  <figcaption>DDR4 Consecutive Reads from Different Banks (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+</figure>
+
+In the above figure, the first read request is initiated at time T0, the second request is initiated at time T4, T11-T15 get the data of the first request, followed by T15-T19 get the data of the second request. This solves the problem caused by the increased frequency.
+
+## Storage Hierarchy
+
+As mentioned above, the hierarchy within DDR SDRAM, from largest to smallest, is as follows
+
+1. Bank Group: introduced in DDR4
+2. Bank: Each Bank has only one Row activated at the same time
+3. Row: Activate/Precharge unit
+4. Column: each Column holds n cells, n is the bit width of SDRAM
+5. Cell: each cell holds 1 bit of data
+
+In fact, there are several layers outside the SDRAM:
+
+1. Channel: the number of channels of the processor's memory controller
+2. Module: there can be multiple memory sticks connected to the same Channel
+3. Rank: multiple DDR SDRAM chips are stitched together in width, one to four Ranks can be put down on a Module. these Ranks share the bus, each Rank has its own chip select signal CS_n, which is actually stitching SDRAM chips in depth
+4. Chip: A DDR SDRAM chip; such as a 64-bit wide Rank, is made by using 8 x8 chips stitched together across the width
+
+As you can see, adjacent memory levels differ by a power of two, so the mapping from the memory address to these levels is an interception of different intervals in the address, each corresponding to a subscript of the level. This is why the MB and GB units of memory size are 1024-based.
+
+If you study SDRAM memory controllers, such as [MIG on Xilinx FPGA](https://www.xilinx.com/support/documentation/ip_documentation/ultrascale_memory_ip/v1_4/pg150-ultrascale-memory-ip.pdf), one can find that it can be configured with different address mapping methods, e.g:
+
+- ROW_COLUMN_BANK
+- ROW_BANK_COLUMN
+- BANK_ROW_COLUMN
+- ROW_COLUMN_LRANK_BANK
+- ROW_LRANK_COLUMN_BANK
+- ROW_COLUMN_BANK_INTLV
+
+As you can imagine, different address mapping methods will have different performance for different access modes. For sequential memory accesses, the ROW_COLUMN_BANK method is more suitable, because sequential accesses are distributed to different banks, so the performance will be better.
+
+## Interface
+
+The following pins are drawn for DDR3 and DDR4:
+
+<figure markdown>
+  ![](sdram_pinout.png){ width="600" }
+  <figcaption>DDR3 and DDR4 Schematics</figcaption>
+</figure>
+
+The differences between DDR3 and DDR4:
+
+1. address signal: DDR3 has A0-A14, DDR4 has A0-A17, where A14-A16 are multiplexed pins
+2. DDR4 introduces Bank Group, so there are extra pins BA0-BA1.
+3. RAS_n, CAS_n and WE_n in DDR3 are reused as A14-A16 in DDR4
+4. DDR4 adds an additional ACT_n control signal
+
+## Topology
+
+In order to obtain a larger bit width, many SDRAM chips can be seen on the memory modules, which are stitched together by width to form a 64-bit data width. At this point, from the PCB alignment point of view, the data lines are directly connected to each SDRAM chip and can be connected relatively easily; however, other signals, such as address and control signals, need to be connected to all SDRAM chips, and it is difficult to ensure equal distances to each SDRAM chip while ensuring signal integrity in the confined space.
+
+### Fly-by topology
+
+Therefore, the address and control signals are actually connected in series (Fly-by-topology), which is the connection on the right in the following figure:
+
+<figure markdown>
+  ![](sdram_topology.png){ width="600" }
+  <figcaption>Two types of signal connections for SDRAM (Source <a href="https://docs.xilinx.com/r/en-US/ug863-versal-pcb-design/Signals-and-Connections-for-DDR4-Interfaces">Versal ACAP PCB Design User Guide (UG863)</a>)</figcaption>
+</figure>
+
+But the data signals (DQ, DQS and DM) are still connected point-to-point to the SDRAM in parallel (left side of the figure above). This presents a problem: with different SDRAM chips, the data and clock deviations are different, and the data may arrive at about the same time, but the clock has an increasing delay:
+
+<figure markdown>
+```wavedrom
+{
+  signal:
+    [
+      { name: "clock", wave: "1010101010"},
+      { name: "data", wave: "01.0..101."},
+      { name: "clock_dram0", wave: "1010101010", phase: -0.2},
+      { name: "data_dram0", wave: "01.0..101.", phase: -0.1},
+      { name: "clock_dram1", wave: "1010101010", phase: -0.4},
+      { name: "data_dram1", wave: "01.0..101.", phase: -0.1},
+      { name: "clock_dram2", wave: "1010101010", phase: -0.6},
+      { name: "data_dram2", wave: "01.0..101.", phase: -0.1},
+      { name: "clock_dram3", wave: "1010101010", phase: -0.8},
+      { name: "data_dram3", wave: "01.0..101.", phase: -0.1},
+    ]
+}
+```
+  <figcaption>SDRAM Clock Skewing Problem</figcaption>
+</figure>
+
+In order for SDRAMs at different locations to see the same waveform, a variable delay needs to be added to the data signal on the memory controller side, and this delay needs to be calibrated to know what it is.
+
+### Clam-shell topology
+
+In addition to Fly-by topology, Clam-shell topology may be used in some scenarios to save PCB area. Clam-shell is actually a visual representation of having SDRAM chips on both the front and back sides of the PCB:
+
+<figure markdown>
+  ![](sdram_clam_shell.png){ width="400" }
+  <figcaption>Clam-shell Topology (Source <a href="https://docs.xilinx.com/r/en-US/pg313-network-on-chip/Clamshell-Topology">Versal ACAP Programmable Network on Chip and Integrated Memory Controller LogiCORE IP Product Guide (PG313) </a>)</figcaption>
+</figure>
+
+This design makes use of the space on the back of the PCB, but it also brings new problems: intuitively, if both chips are placed on the front of the PCB, it is easier to connect them if the pin order is close to the same, and there will not be many crossings. However, if one is on the front and the other on the back, the pin order is reversed and it is more difficult to connect.
+
+The solution is to modify the order of the pins and swap the functions of some pins to make the alignment simpler:
+
+<figure markdown>
+  ![](sdram_pin_mirror.png){ width="600" }
+  <figcaption>SDRAM Pin Mirroring (Source<a href="https://docs.xilinx.com/r/en-US/ug863-versal-pcb-design/Utilizing-Address-Mirroring-to-Ease-Clamshell-Routing">Versal ACAP PCB Design User Guide (UG863)</a>)</figcaption>
+</figure>
+
+The table deliberately selects pins to swap that do not affect special functions, making most functions, even with swapped pins, work properly. For example, if the Row address is swapped by a few bits, it does not affect reading or writing data, although the physical storage place is changed. However, for Mode Register Set operations, the memory controller must swap the order of the bits itself and swap them back when connecting on the PCB to ensure the correct result on the SDRAM side.
+
+In addition, Clam-shell Topology has one cs_n chip select signal on the front and one on the back, but this is different from Dual Rank: Dual Rank has the same number of DRAM chips on both front and back, sharing the address, data and control signals, and only one side of the DRAM chips on the bus is in use at the same time, which has the advantage of doubling the memory capacity. The advantage is that the memory capacity is doubled and the two ranks can mask each other's latency; while the two cs_n of Clam Shell Topology are designed to assign either front or back side to Mode Register Set operations, while most of the rest of the operations can work on both front and back sides at the same time because their data signals are not shared.

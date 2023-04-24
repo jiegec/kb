@@ -156,8 +156,8 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 1. Channel：处理器的内存控制器的通道数量
 2. Module：内存条，可以有多个内存条连接到同一个 Channel 上
-3. Rank：多个 DDR SDRAM 芯片在宽度上拼接起来，一个 Module 上可以放下一到四个 Rank，这些 Rank 共享总线，每个 Rank 都有自己的片选信号 CS_n，实际上就是在深度上拼接
-4. Chip：也就是一个 DDR SDRAM 芯片，例如一个数据位宽是 64 位的 Rank，使用 8 个 x8 的 Chip 在宽度上拼接而成
+3. Rank：多个 DDR SDRAM 芯片在宽度上拼接起来，一个 Module 上可以放下一到四个 Rank，这些 Rank 共享总线，每个 Rank 都有自己的片选信号 CS_n，实际上就是在深度上拼接 SDRAM 芯片
+4. Chip：也就是一个 DDR SDRAM 芯片，例如一个数据位宽是 64 位的 Rank，是使用 8 个 x8 的 Chip 在宽度上拼接而成
 
 可以看到，相邻存储层次之间都差一个二的幂次的倍数，因此从内存地址到这些存储层次的映射，就是截取地址中的不同区间，每个区间对应了一个层次的下标。这也就是为什么内存大小的 MB、GB 用的是 1024 进制。
 
@@ -235,7 +235,7 @@ DDR3 和 DDR4 的不同点：
   <figcaption>Clam-shell Topology（图源<a href="https://docs.xilinx.com/r/en-US/pg313-network-on-chip/Clamshell-Topology">Versal ACAP Programmable Network on Chip and Integrated Memory Controller LogiCORE IP Product Guide (PG313) </a>）</figcaption>
 </figure>
 
-这种设计利用了 PCB 背面的空间，但是同时也带来了新的问题：直观地讲，两个芯片都放在 PCB 的正面，如果要连线的话，如果保证引脚顺序接近一致，就可以比较容易地连接，不会有很多交叉的地方。但如果一个在正面，另一个在背面，引脚的顺序就倒转过来了，连线的时候就比较困难。
+这种设计利用了 PCB 背面的空间，但是同时也带来了新的问题：直观地讲，如果两个芯片都放在 PCB 的正面，要连线的话，保证引脚顺序接近一致，就可以比较容易地连接，不会有很多交叉的地方。但如果一个在正面，另一个在背面，引脚的顺序就倒转过来了，连线的时候就比较困难。
 
 解决的办法是，修改引脚的顺序，把一些引脚的功能进行对调，使得走线更加简单：
 
