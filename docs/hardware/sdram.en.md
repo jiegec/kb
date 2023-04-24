@@ -409,6 +409,46 @@ The implementation is similar to Write Leveling in that it enumerates the delays
 
 Note that here is no longer to find the place of 0-1 change. Write Leveling to find 0-1 change is to synchronize, synchronization is exactly the place of 0-1 change; while the purpose of Read Leveling is to read out the correct data. It is known that there is a continuous delay interval, where it can read out the correct data. Even if the interval is shifted due to changes in temperature and other conditions, it will still work because enough margin is retained by taking the midpoint of the interval. The step of taking the midpoint is also called Read Centering.
 
+## HBM
+
+HBM is short for High Bandwidth Memory, and its technology is also based on SDRAM, so it is placed here for comparison with DDR SDRAM.
+
+HBM stacks multiple SDRAMs, provides multiple channels and increases the bit width compared to the pDDR SDRAM. For example [Micron HBM with ECC](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/hbm2e/8gb_and_16gb_hbm2e_dram.pdf), stacks 4/8 layers of DRAM, provides 8 channels, each with a 128-bit data width. At 3200 MT/s, the maximum data transfer rate of an HBM chip is:
+
+$$
+3200 \mathrm{(MT/s)} * 128 \mathrm{(bits/transfer)} * 8 \mathrm{(Channels)} = 3276.8 \mathrm{(Gb/s)} = 409.6 \mathrm{(GB/s)}
+$$
+
+So a single HBM has the transfer rate of 16 traditional DDR SDRAMs, thanks to 8 channels and double the bit width. Each channel has a bit width of 128 bits, so it can be thought of as two 64-bit SDRAMs in parallel, either as one 128-bit SDRAM or, in Pseudo Channel mode, as two SDRAMs that share address and command signals.
+
+Of course, the high bandwidth of HBM comes at the cost of a large number of pins. According to the [HBM3 JESD238A standard](https://www.jedec.org/system/files/docs/JESD238A.pdf), each channel requires 120 pins, for a total of 16 channels (HBM2 has 8 channels, 128 bits per channel; HBM3 has 16 channels, 64 bits per channel), plus the remaining 52 pins, which adds up to 1972 pins. So the connection to the processor is generally made on the Silicon Interposer, rather than the traditional PCB routing:
+
+<figure markdown>
+  ![](sdram_hbm_stack.png){ width="800" }
+  <figcaption>HBM Packaging (Source <a href="https://picture.iczhiku.com/resource/ieee/WYifSuFTZuHLFcMV.pdf">A 1.2V 20nm 307GB/s HBM DRAM with At-Speed Wafer-Level I/O Test Scheme and Adaptive Refresh Considering Temperature Distribution</a>)</figcaption>
+</figure>
+
+So in the HBM3 standard, the pin is described as a microbump. HBM can be understood figuratively as taking the memory modules that were originally inserted into the motherboard and disassembling them, keeping only the chips, stacking them vertically and turning them into an HBM Die, which is then tightly connected to the CPU. But on the other hand, the density goes up, and the price gets more expensive. The scalability also went down, as you couldn't place as many HBM dies on the motherboard as you could with DDR SDRAM.
+
+The following is an analysis of the memory bandwidth of some typical systems with HBM:
+
+Xilinx's Virtex Ultrascale Plus HBM FPGA provides a bandwidth of $1800 \mathrm{(MT/s)} * 128 \mathrm{(bits/transfer)} * 8 \mathrm{(Channels)} = 230.4 \mathrm{(GB/s)}$. If two HBMs are used, that's 460.8 GB/s. Exposed to the FPGA logic are 16 256-bit AXI3 ports with an AXI frequency of 450 MHz and a memory frequency of 900 MHz. As you can see, each AXI3 corresponds to a pseudo channel of HBM. Each pseudo channel is 64 bits, but the AXI port is 256 bits. This is because going from 450MHz to 900MHz at the same rate, plus DDR, equates to a quadrupling of the frequency, so the bit width has to be quadrupled from 64 bits to 256 bits accordingly.
+
+The 40GB PCIe version of the A100 graphics card uses five 8 GBs of HBM memory running at 1215 MHz, so the memory bandwidth is $1215 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \mathrm{(bits/ transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 1555 \mathrm{(GB/s)}$, which matches the Datasheet. The Memory bus width in the A100 Datasheet is actually calculated by adding up all the channel bit widths: $128 \mathrm{(bits/transfer)} * 8 \mathrm{(channels)} * 5 \mathrm{(stacks)} = 5120 \mathrm{(bits)}$.
+
+The 80GB PCIe version of the A100 graphics card upgrades HBM2 to HBM2e, and the memory clock frequency is upgraded to 1512 MHz, so the memory bandwidth is $1512 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \mathrm{( bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 1935 \mathrm{(GB/s)}$, which coincides with Datasheet.
+
+The 80GB SXM5 version of the H100 graphics card upgrades HBM to HBM3, and the memory capacity remains the same at 80GB, but the clock frequency is increased to 2619 MHz, at which point the memory bandwidth is $2619 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \ mathrm{(bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 3352 \mathrm{(GB/s)}$.
+
+## Related Reading
+
+- [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
+- [DDR4 Tutorial - Understanding the Basics](https://www.systemverilog.io/design/ddr4-basics/)
+- [DDR5/4/3/2: How Memory Density and Speed Increased with each Generation of DDR](https://blogs.synopsys.com/vip-central/2019/02/27/ddr5-4-3-2-how-memory-density-and-speed-increased-with-each-generation-of-ddr/)
+- [DDR5 vs DDR4 DRAM – All the Advantages & Design Challenges](https://www.rambus.com/blogs/get-ready-for-ddr5-dimm-chipsets/)
+- [Understanding DDR3 Write Leveling and Read Leveling](https://daffy1108.wordpress.com/2010/09/02/understanding-ddr3-write-leveling-and-read-leveling/)
+- [Will HBM replace DDR and become Computer Memory?](https://www.utmel.com/blog/categories/memory%20chip/will-hbm-replace-ddr-and-become-computer-memory)
+
 ## Acknowledgement
 
 The English version is kindly translated with the help of DeepL Translator.
