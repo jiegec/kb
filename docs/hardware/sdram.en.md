@@ -246,3 +246,169 @@ The solution is to modify the order of the pins and swap the functions of some p
 The table deliberately selects pins to swap that do not affect special functions, making most functions, even with swapped pins, work properly. For example, if the Row address is swapped by a few bits, it does not affect reading or writing data, although the physical storage place is changed. However, for Mode Register Set operations, the memory controller must swap the order of the bits itself and swap them back when connecting on the PCB to ensure the correct result on the SDRAM side.
 
 In addition, Clam-shell Topology has one cs_n chip select signal on the front and one on the back, but this is different from Dual Rank: Dual Rank has the same number of DRAM chips on both front and back, sharing the address, data and control signals, and only one side of the DRAM chips on the bus is in use at the same time, which has the advantage of doubling the memory capacity. The advantage is that the memory capacity is doubled and the two ranks can mask each other's latency; while the two cs_n of Clam Shell Topology are designed to assign either front or back side to Mode Register Set operations, while most of the rest of the operations can work on both front and back sides at the same time because their data signals are not shared.
+
+## Calibration
+
+SDRAM calibration, or SDRAM training, mainly consists of the following steps:
+
+1. Write Leveling
+2. Read Leveling
+
+### Write Leveling
+
+Write Leveling addresses the problem of inconsistent latency caused by Fly-by-Topology, which causes SDRAM to see the wrong signal. Specifically, the purpose of Write Leveling is to synchronize the DQS signal received by the SDRAM chip with the CK signal:
+
+<figure markdown>
+```wavedrom
+{
+  signal:
+    [
+      { name: "ck", wave: "1010101010"},
+      { name: "dqs", wave: "0.101010.."},
+      { name: "ck_dram0", wave: "1010101010", phase: -0.2},
+      { name: "dqs_dram0", wave: "0.101010..", phase: -0.2},
+      { name: "ck_dram1", wave: "1010101010", phase: -0.4},
+      { name: "dqs_dram1", wave: "0.101010..", phase: -0.4},
+      { name: "ck_dram2", wave: "1010101010", phase: -0.6},
+      { name: "dqs_dram2", wave: "0.101010..", phase: -0.6},
+      { name: "ck_dram3", wave: "1010101010", phase: -0.8},
+      { name: "dqs_dram3", wave: "0.101010..", phase: -0.8},
+    ]
+}
+```
+  <figcaption>DQS and CK synchronization to be achieved by Write Leveling</figcaption>
+</figure>
+
+To achieve this, the idea is to continuously adjust the delay of the DQS output, observe the behavior at different delays, and find a delay value that synchronizes the DQS with the CK. In order to do Write Leveling with the memory controller, the SDRAM can enter a Write Leveling Mode, where the SDRAM samples the CK on the rising edge of the DQS and then outputs the result to the DQ. In this case, different DQS delays will result in different results:
+
+<figure markdown>
+```wavedrom
+{
+  signal:
+    [
+      { name: "ck", wave: "1010101010"},
+      { name: "dqs", wave: "10........"},
+      { name: "ck_dram", wave: "1010101010", phase: -0.2},
+      { name: "dqs_delay0", wave: "010.......", phase: -0.4},
+      { name: "dq_delay0", wave: "0.........", phase: -0.4},
+      { name: "dqs_delay1", wave: "010.......", phase: -0.9},
+      { name: "dq_delay1", wave: "0.........", phase: -0.9},
+      { name: "dqs_delay2", wave: "010.......", phase: -1.4},
+      { name: "dq_delay2", wave: "01........", phase: -1.4},
+      { name: "dqs_delay3", wave: "010.......", phase: -2.0},
+      { name: "dq_delay3", wave: "01........", phase: -2.0},
+    ]
+}
+```
+  <figcaption>Results of DQS sampling of CK with different DQS delays</figcaption>
+</figure>
+
+In the above figure, for both delay0 and delay1, DQS samples the negative half-cycle of CK, while for delay2 and delay3, DQS samples the positive half-cycle of CK, so if you want to synchronize DQS with CK, you should set the DQS delay between delay1 and delay2.
+
+To summarize the Write Leveling algorithm:
+
+1. Set the SDRAM to Write Leveling mode, where the SDRAM will use DQS for CK and output the result to DQ
+2. The controller enumerates the latency of DQS, reads out the DQ results for each DQS latency, and gets a 0-1 string, for example: `00111111111111111111110000`, that is, as the latency increases, it samples to 0, then to 1, and finally to 0 again
+3. find a DQS delay that causes the DQ to change from 0 to 1, then the DQS will be synchronized with the CK according to this delayed output
+4. Set the SDRAM to end Write Leveling mode
+
+This process is performed separately for each DQS signal. The following is an example of [litex's SDRAM calibration code](https://github.com/enjoy-digital/litex/blob/b367c27191511f36b10ec4103198978f86f9502c/litex/soc/software/liblitedram/sdram.c#L589) to implement a simplified process in C code:
+
+```c title="int sdram_write_leveling_scan(int *delays, int loops, int show)" linenums="1"
+/* Turn on the Write Leveling mode of SDRAM */
+sdram_write_leveling_on();
+
+/* Loop each SDRAM module */
+for(i=0;i<SDRAM_PHY_MODULES;i++) {
+  /* Loop each DQS signal */
+  for (dq_line = 0; dq_line < DQ_COUNT; dq_line++) {
+    /* Set initial DQS delay to 0 */
+    sdram_leveling_action(i, dq_line, write_rst_delay);
+
+    /* Loop each DQS delay */
+    for(j=0;j<err_ddrphy_wdly;j++) {
+      int zero_count = 0;
+      int one_count = 0;
+
+      /* Sample in loop */
+      for (k=0; k<loops; k++) {
+        /* Send DQS pulse：00000001 */
+        /* SDRAM sample CK */
+        ddrphy_wlevel_strobe_write(1);
+
+        cdelay(100);
+        /* Read DQ from memory controller */
+        csr_rd_buf_uint8(sdram_dfii_pix_rddata_addr(0), buf, DFII_PIX_DATA_BYTES);
+
+        /* Count the number of 1's and 0's */
+        if (buf[SDRAM_PHY_MODULES-1-i] != 0)
+          one_count++;
+        else
+          zero_count++;
+      }
+      if (one_count > zero_count)
+        /* Consider that DQS samples the positive half-cycle of CK */
+        taps_scan[j] = 1;
+      else
+        /* Consider that DQS samples the negative half-cycle of CK */
+        taps_scan[j] = 0;
+
+      /* Increases the DQS delay  */
+      sdram_leveling_action(i, dq_line, write_inc_delay);
+    }
+
+    /* Find the longest sequence of consecutive 1's */
+    one_window_active = 0;
+    one_window_start = 0;
+    one_window_count = 0;
+    one_window_best_start = 0;
+    one_window_best_count = -1;
+    for(j=0;j<err_ddrphy_wdly+1;j++) {
+      if (one_window_active) {
+        if ((j == err_ddrphy_wdly) || (taps_scan[j] == 0)) {
+          /* Ended a continuous sequence of 1's */
+          one_window_active = 0;
+          one_window_count = j - one_window_start;
+          /* Record the length and position of the longest consecutive 1's */
+          if (one_window_count > one_window_best_count) {
+            one_window_best_start = one_window_start;
+            one_window_best_count = one_window_count;
+          }
+        }
+      } else {
+        /* Find the beginning of consecutive 1's */
+        if (j != err_ddrphy_wdly && taps_scan[j]) {
+          one_window_active = 1;
+          one_window_start = j;
+        }
+      }
+    }
+
+    /* The delay to be found is the start of a consecutive sequence of 1's */
+    delays[i] = one_window_best_start;
+  }
+}
+
+/* Turn off the Write Leveling mode of SDRAM */
+sdram_write_leveling_off();
+```
+
+### Read Leveling
+
+In the Write Leveling stage, the synchronization of signals at SDRAM is solved. However, for read operations, data is sent from SDRAM to the controller, and the time of arrival of different data to the controller may be different, so it is also necessary to calibrate the read operation.
+
+To determine if the read data is correct, the practice is to first write known data and then read it out. If the read data is exactly the same as the written data, then the read operation can be performed correctly.
+
+The implementation is similar to Write Leveling in that it enumerates the delays, performs some operations, and observes the output at each delay:
+
+1. write data (or use SDRAM's function of generating a fixed pattern output)
+2. set the latency to loop from 0
+3. at each latency setting, read out the data and compare the read results with the previously written data
+4. count which delay conditions, the read data is accurate. accurate is recorded as 1, inaccurate is recorded as 0
+5. find the accurate range of 1, and take the midpoint as the final calibration result
+
+Note that here is no longer to find the place of 0-1 change. Write Leveling to find 0-1 change is to synchronize, synchronization is exactly the place of 0-1 change; while the purpose of Read Leveling is to read out the correct data. It is known that there is a continuous delay interval, where it can read out the correct data. Even if the interval is shifted due to changes in temperature and other conditions, it will still work because enough margin is retained by taking the midpoint of the interval. The step of taking the midpoint is also called Read Centering.
+
+## Acknowledgement
+
+The English version is kindly translated with the help of DeepL Translator.
