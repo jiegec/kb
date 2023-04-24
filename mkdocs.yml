@@ -43,7 +43,8 @@ plugins:
   - glightbox
   - rss
   - search
-  - social
+  - social:
+      cards_font: Noto Sans SC
   - tags
   - offline
   - wavedrom
