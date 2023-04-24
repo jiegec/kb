@@ -6,7 +6,7 @@ SDRAM features:
 
 1. low cost, each 1 bit cell requires only one CMOS transistor
 2. complex interface, you need to activate a row before accessing data, and then read the data in the row
-3. the controller is also complex and requires periodic memory refreshes
+3. the controller is also complex and requires periodic memory refreshing
 4. large capacity, because the row and column multiplexed address lines, a single memory module can achieve GB level capacity
 
 ## Standards
@@ -36,11 +36,11 @@ The following is an introduction to DDR series SDRAM.
 
 ## Concepts
 
-DDR SDRAM is often given a number to represent its performance, such as 2133 in DDR4-2133, and sometimes you will see the term 2400 MT/s. Both of these say the maximum number of data transfers per second that SDRAM can perform in Million Transfer per Second. Since SDRAM uses DDR to transfer two copies of data per clock cycle, the actual clock frequency is divided by two, for example, 2133 MT/s corresponds to a clock frequency of 1066 MHz.
+DDR SDRAM is often given a number to represent its performance, such as 2133 for DDR4-2133, and sometimes you will see the term 2400 MT/s. Both refer to the maximum number of data transfers per second that SDRAM can perform in millions of transfers per second. Since SDRAM uses DDR to transfer two copies of data per clock cycle, the actual clock frequency is divided by two, so 2133 MT/s corresponds to a clock frequency of 1066 MHz.
 
-Sometimes you will also see PC4-21333 written to describe memory sticks, where $21333 = 8*2666$, which corresponds to 2666 MT/s, multiplied by 8 because the data bit width of DDR memory module is 64 bits, so the theoretical memory bandwidth of a 2666 MT/s memory stick is $2666 \mathrm{(MT/s)} * 64 \mathrm{(bits)} / 8 \mathrm{(bits/byte)} = 21333 \mathrm{(MB/s)}$. But there are times when PC4 is followed by MT/s.
+Sometimes you will also see PC4-21333 written to describe memory sticks, where $21333 = 8*2666$, which is 2666 MT/s, multiplied by 8 because the data bit width of a DDR memory module is 64 bits, so the theoretical memory bandwidth of a 2666 MT/s memory stick is $2666 \mathrm{(MT/s)} * 64 \mathrm{(bits)} / 8 \mathrm{(bits/byte)} = 21333 \mathrm{(MB/s)}$. But there are times when PC4 is followed by MT/s.
 
-Different generations of memory modules have different locations for the notches on the pins below, so it is impossible to insert them in the wrong place.
+Different generations of memory modules have different locations for the notches on the bottom pins, so it is impossible to insert them in the wrong place.
 
 ## Structure
 
@@ -51,21 +51,21 @@ Taking DDR4 SDRAM as an example, the following is the structure of the [MT40A1G8
   <figcaption>Block diagram of MT40A1G8 (Source <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf?rev=8634cc61670d40f69207f5f572a2bfdd">Micron Datasheet</a>)</figcaption>
 </figure>
 
-Each Memory array is 65536 x 128 x 64, called a Bank; four Banks form a Bank Group, and there are 4 Bank Groups, so the total capacity is $65536 * 128 * 64 * 4 * 4 = 8 \mathrm{Gb}$.
+Each memory array is 65536 x 128 x 64, called a Bank; four Banks form a Bank Group, and there are 4 Bank Groups, so the total capacity is $65536 * 128 * 64 * 4 * 4 = 8 \mathrm{Gb}$.
 
-Specifically, in the 65536 x 128 x 64 specification of each Memory array, 65536 represents the number of rows, each row holds $128 * 64 = 8192$ bits of data, and is also the bit width of the transfer between `Sense amplifier` and `I/O gating, DM mask logic` in Figure 1. Each row has 1024 columns, and each column holds 8 bits of data (corresponding to the 8 in `1 Gig x 8`). Since the DDR4 prefetch width is 8n, one access will take out 8 columns of data, which is 64 bits. So each row has 128 of 64 bits, which is the source of the 128 x 64 in the 65536 x 128 x 64 above.
+Specifically, in the 65536 x 128 x 64 specification of each memory array, 65536 represents the number of rows, each row holds $128 * 64 = 8192$ bits of data, and is also the bit width of the transfer between `Sense amplifier` and `I/O gating, DM mask logic` in Figure 1. Each row has 1024 columns, and each column holds 8 bits of data (corresponding to the 8 in `1 Gig x 8`). Since the DDR4 prefetch width is 8n, an access takes out 8 columns of data, or 64 bits. So each row has 128 of 64 bits, which is the source of the 128 x 64 in the 65536 x 128 x 64 above.
 
 ## Prefetch
 
-SDRAM has the concept of Prefetch, which means how many times the bit width of the data will be fetched out in one read. For example, the `1 Gig x 8` SDRAM above has an I/O data bit width of 8 bits (see the `DQ` signal on the right). This is because the IO frequency of DDR4 SDRAM is very high, for example, 3200 MT/s corresponds to an I/O clock frequency of 1600 MHz, while the actual Memory array frequency is not as high. The actual memory array frequency is not so high, but works at 400 MHz, so in order to make up the difference in frequency, the data is read 8 times the bit width at a time. This is reflected in the I/O, which is a single read operation to get 8 copies of data, i.e. Burst Length of 8, which is transferred in four clock cycles by means of DDR.
+SDRAM has the concept of prefetch, which is how many times the bit width of the data is fetched out in one read. For example, the `1 Gig x 8` SDRAM above has an I/O data bit width of 8 bits (see the `DQ` signal on the right). This is because the IO frequency of DDR4 SDRAM is very high, e.g. 3200 MT/s corresponds to an I/O clock frequency of 1600 MHz, while the actual memory array frequency is not as high. The actual memory array frequency is that high, but operates at 400 MHz, so to make up for the difference in frequency, the data is read 8 times the bit width at a time. This is reflected in the I/O, which is a single read operation to get 8 copies of data, i.e. burst length of 8, which is transferred in four clock cycles via DDR.
 
-Interestingly, DDR4 memory modules are 64 bits wide, so a single read operation yields $64 * 8 / 8 = 64B$ of data, which is exactly the size of CPU cache lines.
+Interestingly, DDR4 memory modules are 64 bits wide, so a single read operation yields $64 * 8 / 8 = 64B$ of data, which is exactly the size of the CPU cache lines.
 
-DDR5 increases the Prefetch to 16n, which is why you see much larger data rate numbers for DDR5: DDR4 Prefetch is 8n, DDR5 Prefetch is 16n at the same Memory array frequency, so the I/O frequency is doubled and the data rate is doubled. At the same time, in order to maintain the burst size of 64 bytes, the bit width of each channel in DDR5 module is 32 bits, each memory module provides two channels.
+DDR5 increases the prefetch to 16n, which is why you see much larger data rate numbers for DDR5: DDR4 prefetch is 8n, DDR5 prefetch is 16n at the same memory array frequency, so the I/O frequency is doubled and the data rate is doubled. At the same time, in order to maintain the burst size of 64 bytes, the bit width of each channel in DDR5 module is 32 bits, each memory module provides two channels.
 
 ## Access Patterns
 
-SDRAM has a special access pattern in that its Memory array can only be accessed in entire rows at a time. In the previous example, a row has 8192 bits of data, but a read or write operation involves only 64 bits of data, so a read operation requires:
+SDRAM has a special access pattern in that its memory array can only be accessed in complete rows at a time. In the previous example, a row has 8192 bits of data, but a read or write operation involves only 64 bits of data, so a read operation requires:
 
 1. the first step is to retrieve the entire row where the data is located
 2. in the second step, read the desired data in the row
