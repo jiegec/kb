@@ -37,7 +37,7 @@ struct posix_header
 
 总结一下，Tar 文件的格式就是：`(头部，数据)*结尾`。每一个部分都对齐到 512 字节。
 
-# PAX 扩展
+## PAX 扩展
 
 如果仔细观察，会发现上面的 `posix_header` 里面，`name` 字段只有 100 个字节，意味着如果文件路径特别长，那就放不下，只能截断了。为了解决这个问题，Tar 引入了 PAX 扩展。
 
@@ -57,3 +57,11 @@ struct posix_header
 类似地，PaxHeader 还可以存很多其他 `posix_header` 中没有的信息，例如 `atime`、`ctime` 和 `uid` 等等。完整列表可以参考 [Extended header keywords](https://www.ibm.com/docs/en/zos/2.4.0?topic=descriptions-pax-interchange-portable-archives#r4paxsh__pxchk)。
 
 完整的 pax 扩展文档，可以参考 [pax interchange format](https://www.ibm.com/docs/en/zos/2.3.0?topic=SSLTBW_2.3.0%2Fcom.ibm.zos.v2r3.bpxa500%2Fbpxa50064.html)。
+
+## 常用命令
+
+压缩：`tar cvf archive.tar.gz <sources>`
+
+解压：`tar xvf archive.tar.gz`
+
+列出压缩包内容：`tar tvf archive.tar.gz`
