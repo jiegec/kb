@@ -30,5 +30,5 @@ cpio 的设计非常简单，被用于 initramfs 等场合。相比 Tar，cpio �
 
 创建 cpio：`find . | cpio -ov > archive.cpio`
 
-展开 cpio：`cpio -iv < archive.cpio`
+展开 cpio：`cpio -idv < archive.cpio`
 
