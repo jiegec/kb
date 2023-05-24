@@ -320,7 +320,7 @@ set_output_delay -clock clk_sck -min [expr $tdata_trace_delay_min - $th - $tclk_
 
 ### Artix 7 时序
 
-对于更常见的 7 Series FPGA ，比如 Artix 7，它采用的是 STARTUPE2 原语，只有时钟是通过 STARTUPE2 原语的 USRCCLKO 信号传递到 CCLK 引脚上的，其他数据信号都是需要在顶层信号绑定对应的引脚。在 AXI Quad SPI 文档中，描述了 STARTUPE2 所需要的时序约束：
+对于更常见的 7 Series FPGA，比如 Artix 7，它采用的是 STARTUPE2 原语，只有时钟是通过 STARTUPE2 原语的 USRCCLKO 信号传递到 CCLK 引脚上的，其他数据信号都是需要在顶层信号绑定对应的引脚。在 AXI Quad SPI 文档中，描述了 STARTUPE2 所需要的时序约束：
 
 ```tcl
 # You must provide all the delay numbers

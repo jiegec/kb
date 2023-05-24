@@ -72,7 +72,7 @@ IEEE 802.3 Figure 36-4 中给了一个例子，就是在发送一段数据的时
 
 1. Bit0: 恒为 1，与 1000BASE-X 进行区分
 2. Bit11, 10: 协商速率，00 表示 10Mbps，01 表示 100Mbps，11 表示 1000Mbps
-3. Bit15：1 表示 Link up，0 表示 Link down
+3. Bit15:1 表示 Link up，0 表示 Link down
 
 这样就实现了速率的自动协商，同时 PHY 也可以通知 MAC 目前的链路状态。
 

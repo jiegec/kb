@@ -59,7 +59,7 @@ IB 支持四种 Transport Service，当 QP 在创建的时候，就需要从以�
 
 <figure markdown>
   ![](infiniband_comparison.png){ width="500" }
-  <figcaption>IB Transport Service 对比 （图源 InfiniBand Spec）</figcaption>
+  <figcaption>IB Transport Service 对比（图源 InfiniBand Spec）</figcaption>
 </figure>
 
 在编程的时候，需要知道对端的 LID（Local ID）、QPN（Queue Pair Number）和 PSN（Packet Sequence Number），才能进行通信。如果要进行 RDMA，还需要知道 `R_Key` 和内存地址。这些信息一般是通过 TCP 来传输的。
