@@ -71,7 +71,7 @@ struct posix_header
 
 ## 其他 tar 格式
 
-除了上面的 ustar 和 pax 格式，还有更早期的 v7 tar 格式，取名 v7 是因为最早出现在 1979 年 Unix Version 7 中。
+除了上面的 ustar 和 pax 格式，还有更早期的 v7 tar 格式，取名 v7 是因为最早出现在 1979 年 Version 7 Unix 中。
 
 此外，GNU tar 也曾经自定义了 tar 格式，magic 从上面的 `ustar` 变成了 `ustar  `（注意多了两个空格）：
 
