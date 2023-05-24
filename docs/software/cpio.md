@@ -6,6 +6,8 @@ cpio 文件有多种不同的格式，主要有如下几种：
 2. odc：POSIX 标准化的 cpio 格式，比较常用
 3. newc：SVR4（System V Release 4）引入的 cpio 格式
 
+推荐阅读：[cpio.5](https://man.archlinux.org/man/cpio.5.en)。
+
 ## odc
 
 cpio 的 odc 文件格式比较简单，就是一系列的 File Entry。每个 File Entry 由头部，文件名和数据组成，其头部格式是：

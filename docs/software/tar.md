@@ -1,5 +1,7 @@
 # tar 文件格式
 
+推荐阅读：[tar.5](https://man.archlinux.org/man/tar.5.en)。
+
 ## ustar
 
 tar 的文件格式比较简单，就是一系列的 File Entry，最后是两个 512 字节的全 0，表示结束。每个 File Entry 由头部和数据组成，头部的格式是：
