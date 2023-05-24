@@ -60,7 +60,7 @@ struct posix_header
 
 ## 常用命令
 
-压缩：`tar cvf archive.tar.gz <sources>`
+压缩：`tar cvzf archive.tar.gz <sources>`
 
 解压：`tar xvf archive.tar.gz`
 
