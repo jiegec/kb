@@ -103,6 +103,24 @@ The core of the write timing is the rising edge of `WE#`. Compared with this tim
 - $t_{HD}$: Hold time of data relative to the rising edge of `WE#`, Min 0ns
 - $t_{SA}$: Setup time of the address relative to the falling edge of `WE#`, Min 0ns
 
+## SRAM Cell
+
+A typical SRAM Cell consists of 6 transistors, and the internal structure is as follows:
+
+<figure markdown>
+  ![6T SRAM Cell](async_sram_cell_6t.png){ width="400" }
+  <figcaption>Internal Structure of 6T SRAM Cell (Source <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>)</figcaption>
+</figure>
+
+Among them, M1 and M2 form an inverter, M3 and M4 form another inverter, and two inverters form the following equivalent circuit:
+
+<figure markdown>
+  ![SRAM Cell](async_sram_cell.png){ width="400" }
+  <figcaption>Circuit in SRAM Cell (Source <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>)</figcaption>
+</figure>
+
+This is a latch that can stably store 1 bit of data. The two transistors M5 and M6 are used for reading and writing. When WL is enabled, M5 and M6 are turned on, BL and Q are connected, and BLbar and Qbar are connected. At this point, you can read and write through BL and BLbar.
+
 ## Acknowledgement
 
 The English version is kindly translated with the help of DeepL Translator and Google Translate.

@@ -103,3 +103,20 @@
 - $t_{HD}$：数据相对 `WE#` 的上升沿的 Hold 时间，Min 0ns
 - $t_{SA}$：地址相对 `WE#` 的下降沿的 Setup 时间，Min 0ns
 
+## SRAM Cell
+
+典型的 SRAM Cell 由 6 个晶体管组成，内部构造如下图：
+
+<figure markdown>
+  ![6T SRAM Cell](async_sram_cell_6t.png){ width="400" }
+  <figcaption>6T SRAM Cell 内部构造（图源 <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>）</figcaption>
+</figure>
+
+其中 M1 和 M2 组成一个 Inverter，M3 和 M4 组成一个 Inverter，两个 Inverter 组成下面的等价电路：
+
+<figure markdown>
+  ![SRAM Cell](async_sram_cell.png){ width="400" }
+  <figcaption>SRAM Cell 的电路（图源 <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>）</figcaption>
+</figure>
+
+这就是一个 latch，可以稳定地保存 1 bit 的数据。M5 和 M6 两个晶体管是用来实现读和写的。当 WL 使能的时候，M5 和 M6 导通，此时 BL 和 Q 导通，BLbar 和 Qbar 导通。此时就可以通过 BL 和 BLbar 进行读写。
