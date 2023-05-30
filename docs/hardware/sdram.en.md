@@ -440,6 +440,16 @@ The 80GB PCIe version of the A100 graphics card upgrades HBM2 to HBM2e, and the 
 
 The 80GB SXM5 version of the H100 graphics card upgrades HBM to HBM3, and the memory capacity remains the same at 80GB, but the clock frequency is increased to 2619 MHz, at which point the memory bandwidth is $2619 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \ mathrm{(bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 3352 \mathrm{(GB/s)}$.
 
+## DRAM Cell
+
+Data in DRAM is stored in capacitors. The internal structure of a typical 1T DRAM Cell is as follows:
+
+<figure markdown>
+  ![1T DRAM Cell](sdram_dram_cell.png){ width="400" }
+  <figcaption>1T DRAM Cell Internal Structure (Source <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>)</figcaption>
+</figure>
+
+
 ## Related Reading
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)

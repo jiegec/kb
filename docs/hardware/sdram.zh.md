@@ -441,6 +441,16 @@ A100 显卡 80GB PCIe 版本把 HBM2 升级到了 HBM2e，同时内存时钟频�
 
 H100 显卡 80GB SXM5 版本把 HBM 升级到了 HBM3，内存容量依然是 80GB，但是时钟频率提高到了 2619 MHz，此时，内存带宽是 $2619 \mathrm{(MHz)} * 2 \mathrm{(DDR)} * 8 \mathrm{(channels)} * 128 \mathrm{(bits/transfer)} / 8 \mathrm{(bits/byte)} * 5 \mathrm{(HBM)} = 3352 \mathrm{(GB/s)}$。
 
+## DRAM Cell
+
+DRAM 的数据存储在电容中。典型的 1T DRAM Cell 内部构造如下：
+
+<figure markdown>
+  ![1T DRAM Cell](sdram_dram_cell.png){ width="400" }
+  <figcaption>1T DRAM Cell 内部构造（图源 <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>）</figcaption>
+</figure>
+
+
 ## 相关阅读
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
