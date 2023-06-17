@@ -116,6 +116,21 @@ AMD64 文档里采用的就是 MOESI 协议。AMBA ACE 协议其实也是 MOESI 
 
 需要注意的是，SharedClean 并不代表它的数据和内存一致，比如说和 SharedDirty 缓存一致，它只是说缓存替换的时候，不需要写回内存。
 
+### MESIF 协议
+
+MESIF 定义了五个状态：
+
+1. Modified：数据经过修改，并且只有一个缓存有这个数据
+2. Exclusive：数据没有修改，并且只有一个缓存有这个数据
+3. Shared：同时有多个缓存有这个数据，但是不能修改数据
+4. Invalid：不在缓存中
+5. Forward：同时有多个缓存有这个数据，但是不能修改数据，且这个缓存负责响应请求
+
+MESIF 相比 MESI 的区别是，添加了 Forward 状态：Forward 其实是特殊的 Shared，主要是考虑到有多个缓存处于 Shared 状态的时候，如果来了一个读请求，那么哪个 Shared 缓存负责响应是不确定的。MESIF 协议中，Forward 就是负责响应的那一个 Shared，所以 Forward 最多只有一个，其他 Shared 都不会响应。这样的好处是简化了在片上网络的传输。
+
+如果多个 Cache 属于 Shared 状态，没有 Forward，那么新的 Cache 请求就会发送到内存里，由于 Shared 的数据没有经过修改，所以内存中的数据和 Shared 是一致的。同时，这个新的 Cache 会进入 Forward 状态。
+
+
 ### Dragon 协议
 
 Dragon 协议是一个基于更新的协议，意味着写入缓存的时候，会把更新的数据同步到拥有这个缓存行的其他核心。它定义了四个状态：
