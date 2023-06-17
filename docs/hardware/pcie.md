@@ -1,30 +1,5 @@
 # PCIe
 
-## 速度
-
-PCIe 支持全双工传输，根据版本不同和宽度不同，传输速度：
-
-- PCIe 1.0 x1: 2.5GT/s, 2.5 Gb/s=312.5 MB/s, 4b/5b, 2 Gb/s=250 MB/s uncoded
-    - x4: 1 GB/s uncoded
-    - x16: 4 GB/s uncoded
-- PCIe 2.0 x1: 5GT/s, 5 Gb/s=625 MB/s, 4b/5b, 4 Gb/s=500 MB/s uncoded
-    - x4: 2 GB/s uncoded
-    - x16: 8 GB/s uncoded
-- PCIe 3.0 x1: 8GT/s, 8 Gb/s=1 GB/s, 128b/130b, 7.88 Gb/s=985 MB/s uncoded
-    - x4: 3.938 GB/s uncoded
-    - x16: 15.754 GB/s uncoded
-- PCIe 4.0 x1: 16GT/s, 16 Gb/s=2 GB/s, 128b/130b, 15.75 Gb/s=1.97 GB/s uncoded
-    - x4: 7.877 GB/s uncoded
-    - x16: 31.508 GB/s uncoded
-- PCIe 5.0 x1: 32GT/s, 32 Gb/s=4 GB/s, 128b/130b, 31.51 Gb/s=3.94 GB/s uncoded
-    - x4: 15.754 GB/s uncoded
-    - x16: 63.015 GB/s uncoded
-- PCIe 6.0 x1: 64GT/s, 64 Gb/s=8 GB/s, 242B/256B FLIT, 60.50 Gb/s=7.56 GB/s uncoded
-    - x4: 30.250 GB/s uncoded
-    - x16: 121.000 GB/s uncoded
-
-uncoded 表示去掉了编码的开销。
-
 ## 分层
 
 PCIe 定义了三个层：Transaction Layer，Data Link Layer，Physical Layer，和 TCP/IP 四层模型很像。PCIe 也是基于 Packet 传输的。
