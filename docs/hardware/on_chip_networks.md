@@ -4,7 +4,7 @@
 
 随着芯片内的核心数量增多，在实现互联的时候，传统的 Crossbar 遇到了扩展性的瓶颈，因此需要用片上网络来替代 Crossbar。
 
-下面主要按照 [On-Chip Networks, Second Edition](https://link.springer.com/book/10.1007/978-3-031-01755-1) 以及《计算机系统结构》课程课件的顺序进行讲解。
+下面主要按照 [On-Chip Networks, Second Edition](https://link.springer.com/book/10.1007/978-3-031-01755-1) 以及《计算机系统结构》课程和《高等计算机系统结构》课件的顺序进行讲解。
 
 ## 拓扑
 
@@ -82,7 +82,60 @@ Adaptive 路由算法的目的是，根据网络的拥塞情况，找到一个�
 
 有了更多转向方向后，就允许出现多种可能的路径，意味着 Adaptive 路由算法可以在保证不死锁的前提下，找出一条比较优的路径。
 
+在下一节会介绍如何用流控来保证不会出现死锁，此时路由就不需要保证不出现死锁了，这样可以获得更多的灵活性。
+
 ## 流控
+
+确定好路由以后，还需要考虑流量控制的问题：当链路出现拥塞，如何保证高效的传输。
+
+在实现流控之前，需要先了解在片上网络上传输的是什么数据，又是怎么传输数据的。
+
+首先，结点要发送的是消息（Message），例如要读写内存，实现缓存一致性协议等等。对于上层来说，它收发的都是消息，把消息交给片上网络以后，由片上网络负责传输到目的地，而不需要考虑片上网络是具体怎么实现的。如果拿网络来类比，就像是在一个可靠的 UDP 协议上传输消息。
+
+正如 IP 有最大长度，需要进行分片，片上网络也有类似的机制，就是把消息拆成很多个 Packet，Packet 有最大长度。从 Message 到 Packet 除了分片以外，可能还涉及到地址的转换：例如根据读取内存的地址，找到地址所对应的内存控制器，计算出内存控制器在片上网络的坐标，然后填到 Packet 的头部上。到 Packet 这一层之后，就是用片上网络的逻辑来处理了，上层的 Message 仅仅是载荷。当 Packet 到达目的地的时候，则要重新组装成 Message 交给上层逻辑。
+
+第一个流控方法是电路交换（Circuit Switching）：先初始化一个从起点到终点的链路，初始化好以后才开始发送数据，此时数据不需要分片，直接发送。链路建立以后，链路上的结点只负责传输这一个链路上的消息，所以如果传输的数据占不满链路的带宽，就会浪费。但是传输数据的效率比较高：没有分片的开销，如果传输的数据量大，可以分摊建立阶段的开销。
+
+第二个流控方法是存储转发（Store and Forward）：把收到的 Packet 保存下来，然后根据每个 Packet 的目的地，计算出下一个结点的方向，然后发送。这在以太网交换机里很常见，但是缺点是延迟比较大。在片上网络中，存储转发有两个问题：一是的存储转发延迟无法忽略，二是需要比较大的缓冲区来保存 Packet。
+
+在存储转发的基础上进行优化，得到虚拟直通（Virtual Cut-through）方法：收到 Packet 头部的时候，其实就可以知道要转发的下一个结点了，因此可以把 Packet 拆成更小的单位，称为 Flit（Flow control unit/Flow control digit）。把一个 Packet 拆分成多个 Flit 以后，结点接收到第二个 Flit 时，可以同步发送第一个 Flit；接收到第三个 Flit 的时候，同步发送第二个 Flit，依此类推。继续发送的前提是下一个结点的缓存可以放得下一个 Packet。只有第一个 Flit 会保存路由信息，其余的只保存数据。
+
+虚拟直通缓解了存储转发的延迟问题，接下来解决第二个问题，即在缓冲区大小上进行优化，得到虫孔流控（Wormhole）方法：缓冲区不需要保存完整的 Packet，只需要能放得下一个 Flit，就可以像虚拟直通那样继续传输。
+
+但是虫孔流控出现了新的 Head of Line Blocking 问题：当缓冲区满了的时候，一个 Packet 的多个 Flit 可能散落在多个结点中，这些结点都因为同一个 Packet 堵塞，无法传输其他数据。比较极端的情况是，同一个 Packet 的第一个 Flit 已经到达终点，但是最后一个 Flit 还在起点，此时如果出现了阻塞，就可能把整个路径上的结点堵住。虚拟直通（Virtual cut-through）算法在出现阻塞的时候，因为发送时已经保证了缓冲区可以放下整个 Packet，因此即使出现了阻塞，部分结点还是可以继续发送 Flit。
+
+为了解决 Head of Line Blocking 的问题，引入了虚拟通道（Virtual Channel）方法：既然 Block 在 Head of Line 上，那就支持多个 Line，也就是多个 Virtual Channel。虽然物理上还是原来的通道，但是逻辑上实现了多个 Virtual Channel。在 Packet 进入结点的时候，Packet 会被分到其中一个 Virtual Channel 上，那么如果一个 Packet 堵塞了，只会堵住它所在的 Virtual Channel，其他 Virtual Channel 还可以继续传输。多个 Virtual Channel 竞争同一个物理通道，采用轮询的方式仲裁。
+
+Virtual Channel 加上 Wormhole Routing 是广泛使用的流控算法。下面是一个流控算法的总结：
+
+|                 |     链路    |     缓存            |     评价                      |
+|-----------------|-------------|---------------------|-------------------------------|
+|     电路交换    |   Message   |     N/A (无缓存)    |   需要建立和确认              |
+|     存储转发    |   Packet    |     Packet          |   收到完整 Packet 才可以发送  |
+|     虚拟直通    |   Packet    |     Packet          |   头 Flit 可以发送            |
+|     虫孔流控    |   Packet    |     Flit            |   Head of Line Blocking       |
+|     虚拟通道    |   Flit      |     Flit            |   不同数据包的数据片交错      |
+
+来源：《高等计算机系统结构》课件
+
+### 无死锁流控
+
+此外，Virtual Channel 还可以用来解决死锁的问题，此时路由算法就不用考虑死锁的问题，而是由 Virtual Channel 来解决。
+
+回忆死锁的场景，死锁是因为出现了循环依赖，导致所有结点缓冲区都满了，所有结点都无法传输数据。为了刻画出依赖情况，可以绘制出 Channel Dependency Graph：如果 A 到 B 的传输 Channel 依赖于 B 到 C 的传输 Channel，就从 (A, B) 画一条边到 (B, C)。注意，原来片上网络拓扑里的边，在 Channel Dependency Graph 里变成了点。
+
+引入 Virtual Channel 以后，由于每个 Virtual Channel 有自己的缓冲区，因此从 A 到 B 的链路上，相当于有了多个传输 Channel，每个 Virtual Channel 就是一个传输 Channel。虽然物理上还是只有一个 Channel，但是一个 Virtual Channel 在阻塞的时候，不会影响其他 Virtual Channel 的工作。
+
+此时，由于两个结点间不止一个 Channel，即使人为地禁用一个 Channel，也可以正常传输，并且也打破了环。以下图为例：下图 (a) 左侧中 $n_1$ 到 $n_4$ 是组成环的四个结点，四个 Channel 互相依赖，因此 Channel Dependency Graph 出现了环（下图 (a) 右侧）；引入了 Virtual Channel 以后，相邻结点间就有了两个 Channel，此时禁用 $c_{00}$ 通道，并且约定 Channel 的优先级，那么 Channel Dependency Graph 就不再成环（下图 (b) 右侧），并且由于数据不会绕着环转两圈，不影响可达性。
+
+<figure markdown>
+  ![Virtual Channel-Based Deadlock-Free Flow Control](on_chip_networks_deadlock_virtual.png){ width="500" }
+  <figcaption>使用 Virtual Channel 解决死锁问题（图源 <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1676939">Deadlock-Free Message Routing in Multiprocessor Interconnection Networks</a>）</figcaption>
+</figure>
+
+另一种思路是把 Virtual Channel 分成两类，第一类都采用 X-Y 路由，第二类都采用 Y-X 路由，这样也不会出现死锁。这样就可以组合多种无死锁的路由算法。
+
+一个重要的实现方法是 Escape Virtual Channel。具体地，在多个 Virtual Channel 的场景下，设置其中一个 Virtual Channel，例如 VC0 为 Escape Virtual Channel。只有 VC0 必须采用无死锁的路由算法，例如 X-Y 路由，其他 Virtual Channel 可以用可能死锁的路由算法。
 
 ## 参考资料
 
