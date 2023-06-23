@@ -14,4 +14,4 @@ VLAN 定义在 802.1Q 标准中，它的目的是把局域网切分成多个隔�
     - 接收 tagged 和 untagged，其中 untagged 会被认为是属于 Port VLAN ID 对应的 VLAN，变成 tagged。
     - 发送时，如果 VLAN ID 等于 Port VLAN ID，则去掉 VLAN 头部，变成 untagged；否则不做修改，发送 tagged。
 
-不同交换机对于 Trunk 和 Hybrid 的定义有所不同，需要根据文档来确认具体行为。
+不同交换机对于 Trunk 和 Hybrid 的定义有所不同，需要根据文档来确认具体行为。例如 Dell 和 Cisco 交换机支持 Access 和 Trunk，但是 Trunk 是上面定义的 Hybrid；H3C 支持 Access，Trunk 和 Hybrid，但是 Trunk 是上面定义的 Hybrid，Hybrid 则功能更加强大，可以定义发送时哪些 VLAN 是 tagged，哪些 VLAN 是 untagged，不仅仅靠 Port VLAN ID 区分。
