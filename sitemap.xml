@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+         <loc>https://jia.je/kb/index.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/index.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/index.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/async_sram.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/async_sram.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/async_sram.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/bus_protocol.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bus_protocol.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/bus_protocol.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/cache_coherence_protocol.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cache_coherence_protocol.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/cache_coherence_protocol.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/cmos.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cmos.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/cmos.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/high_speed_serial.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/high_speed_serial.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/high_speed_serial.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/i2c.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/i2c.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/i2c.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/logic_levels.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/logic_levels.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/logic_levels.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/on_chip_networks.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/on_chip_networks.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/on_chip_networks.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/ooo_cpu.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ooo_cpu.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/ooo_cpu.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/oscillator.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/oscillator.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/oscillator.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/pcie.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/pcie.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/pcie.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/sdram.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/sdram.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/sdram.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/hardware/spi.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/spi.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/hardware/spi.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/networking/ethernet.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/ethernet.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/networking/ethernet.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/networking/infiniband.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/infiniband.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/networking/infiniband.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/networking/spanning_tree_protocol.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/spanning_tree_protocol.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/networking/spanning_tree_protocol.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/networking/vlan.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/vlan.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/networking/vlan.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/networking/wlan.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/wlan.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/networking/wlan.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/software/cg.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cg.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/software/cg.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/software/cpio.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cpio.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/software/cpio.html"/>
+         
+    </url>
+    <url>
+         <loc>https://jia.je/kb/software/tar.html</loc>
+         <lastmod>2023-07-13</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/tar.html"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/zh/software/tar.html"/>
+         
+    </url>
+</urlset>
