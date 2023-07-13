@@ -11,7 +11,7 @@
 
 齐次坐标是在 3 维的坐标 $(x, y, z)$ 的基础上，添加一维，变成 $(x, y, z, w)$，对应 3 维的 $(x/w, y/w, z/w)$，这样做可以方便一些计算。
 
-因此从 3 维坐标转换为齐次坐标的时候，添加一维 $w = 1$，变成 $(x, y, z, 1)$。
+因此从 3 维坐标转换为齐次坐标的时候，添加一维 $w = 1$，变成 $(x, y, z, 1)$。为了让 3 维的向量和点在齐次坐标下可以进行运算，可以向 3 维向量添加一维 $w=0$，此时 $w=0$ 表示向量，$w \ne 0$ 表示点。
 
 ## Normalized Device Coordinates
 
@@ -165,4 +165,49 @@ $$
 
 更加通用的 OpenGL 函数是 [glFrustum](https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml)，它得到的矩阵和上面推导出来的矩阵是一样的，没考虑特殊情况。
 
+## 光线追踪
 
+Whitted-style ray-tracing 是一种典型的光线追踪算法，它的实现思路是：
+
+1. 对于要绘制在屏幕上的点，计算它在 3 维空间中的对应的位置，与相机的原点构成一个射线
+2. 计算射线与场景中表面的第一个交点，根据表面的类型进行不同的处理：
+    1. 漫反射（Diffuse）：找到所有的光源，找出那些可以照亮交点的光源（光源到交点之间没有遮挡），计算出光源对这一点的贡献
+    2. 镜面反射（Specular）：计算出反射光，把反射光当成视线，继续递归
+    3. 镜面反射+折射（Refraction）：分别计算出反射光和折射光，分别递归然后按照 Fresnel 方程加权求和
+
+可以看到，所有的光线在递归终止的时候，要么是在漫反射表面上，要么就是没有找到相交的表面。
+
+## 辐射度量学
+
+参考 [路径追踪（Path Tracing）与渲染方程(Render Equation)](https://zhuanlan.zhihu.com/p/370162390) 和 [GAMES101 Lecture 15](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf)：
+
+- Radiant energy Q：光源向空间中辐射的能量，单位是 J
+- Radiant flux(power) $\Phi$：光源在单位时间内向空间中辐射的能量，单位是 W
+- Solid angle $\omega$：立体角，单位是 steradian/square radian 球面度，简写 sr；是在球面上一个小平面的面积除以半径的平方，即 $\omega=A/r^2$
+- Radiant intensity I：光源在单位立体角内的 Radiant flux，单位是 W/sr
+- Irradiance E：单位面积接受到的 Radiant flux，即 $E=\Phi/A$，单位是 $W/m^2$
+- Radiance L：单位面积下，接收到来自单位立体角的 Radiant flux，单位是 $W/sr \cdot m^2$
+
+## Rendering equation
+
+参考 [GAMES101 Lecture 15](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf)：
+
+$$
+L_o(p, \omega_o) = L_e(p, \omega_o) + \int_{\Omega} L_i(p, \omega_i) f_r(p, \omega_i, \omega_o) (n \cdot \omega_i) \mathrm{d} \omega_i
+$$
+
+含义：从平面上的 $p$ 点出发，向 $\omega_r$ 发射的 Radiance 包括两部分：
+
+1. $L_e(p, \omega_o)$：这个点本身发的光，例如光源
+2. $\int_{\Omega} L_i(p, \omega_i) f_r(p, \omega_i, \omega_o) (n \cdot \omega_i) \mathrm{d} \omega_i$：考虑半球面上的任意一个入射方向 $\omega_i$，这个方向上入射到 $p$ 点的 Radiance 是 $L_i(p, \omega_i)$，其中有一定比例会反射到 $\omega_o$ 方向上，这个比例就是 BRDF $f_r(p, \omega_i, \omega_o)$，最后由于入射方向和平面的法方向有一个夹角 $\theta$，根据 Lambert's Cosine Law，需要乘上 $\cos \theta = n \cdot \omega_i$ 项。
+
+## Bidirectional reflectance distribution function
+
+BRDF（Bidirectional reflectance distribution function）指的是在一个表面上，特定角度（$\omega_i$）的入射光有多大比例会被反射到特定角度（$\omega_o$）的出射光。
+
+常见的 BRDF 有：
+
+- [Lambertian](https://en.wikipedia.org/wiki/Lambertian_reflectance)：一般用于漫反射表面，光均匀反射到各个角度，因此和出射角度无关：$f=c/\pi$，其中 $c$ 是表面的颜色，除以 $\pi$ 是为了满足能量守恒，计算过程见 [Deriving Lambertian BRDF from first principles](https://sakibsaikia.github.io/graphics/2019/09/10/Deriving-Lambertian-BRDF-From-First-Principles.html)
+- [Phong](https://en.wikipedia.org/wiki/Phong_reflection_model) 和 [Blinn-Phong](https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model)：用于 OpenGL
+- [Cook-Torrance](https://en.wikipedia.org/wiki/Specular_highlight#Cook%E2%80%93Torrance_model)：$f=k_d\frac{c}{\pi} + k_s\frac{DFG}{4(n \cdot \omega_i)(n \cdot \omega_o)}$，前面的 $k_d\frac{c}{\pi}$ 和 Lambertian 一样，后面的 $DFG$ 表示三个函数的乘积，分别是 Normal Distribution Function，Fresnel Function 和 Geometric Attenuation Function，详见 [Physically-Based Rendering
+Cook-Torrance Reflectance Model](https://graphicscompendium.com/gamedev/15-pbr) 和 [LearnOpenGL CN - Theory](https://learnopengl-cn.github.io/07%20PBR/01%20Theory/)

@@ -91,6 +91,7 @@ IEEE 802.3 Figure 36-4 中给了一个例子，就是在发送一段数据的时
   <figcaption>1000 BASE-X 的分层（图源 802.3 Clause 36）</figcation>
 </figure>
 
+
 它支持三种不同的介质，对应了三个 PMD 层，也就是 LX、SX 和 CX。这些体现在设备上，其实就是不同的 SFP 模块。SFP 模块实际上就是图中的 PMD 层，SFP 接口上连接的是 1000BASE-X 的 PCS/PMA，这也就是为什么说在带有 SFP 的 FPGA 上，Xilinx 的 IP 叫做 1G/2.5G Ethernet PCS/PMA。在这里，PCS 和 PMA 层在 FPGA 内部通过 IP 实现，通过 PCB 连接到 SFP 上，光模块就是 PMD 层。见下图：
 
 <figure markdown>
