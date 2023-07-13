@@ -208,6 +208,6 @@ BRDF（Bidirectional reflectance distribution function）指的是在一个表�
 常见的 BRDF 有：
 
 - [Lambertian](https://en.wikipedia.org/wiki/Lambertian_reflectance)：一般用于漫反射表面，光均匀反射到各个角度，因此和出射角度无关：$f=c/\pi$，其中 $c$ 是表面的颜色，除以 $\pi$ 是为了满足能量守恒，计算过程见 [Deriving Lambertian BRDF from first principles](https://sakibsaikia.github.io/graphics/2019/09/10/Deriving-Lambertian-BRDF-From-First-Principles.html)
-- [Phong](https://en.wikipedia.org/wiki/Phong_reflection_model) 和 [Blinn-Phong](https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model)：用于 OpenGL
+- [Phong](https://en.wikipedia.org/wiki/Phong_reflection_model) 和 [Blinn-Phong](https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model)：用于 OpenGL Fixed-function pipeline
 - [Cook-Torrance](https://en.wikipedia.org/wiki/Specular_highlight#Cook%E2%80%93Torrance_model)：$f=k_d\frac{c}{\pi} + k_s\frac{DFG}{4(n \cdot \omega_i)(n \cdot \omega_o)}$，前面的 $k_d\frac{c}{\pi}$ 和 Lambertian 一样，后面的 $DFG$ 表示三个函数的乘积，分别是 Normal Distribution Function，Fresnel Function 和 Geometric Attenuation Function，详见 [Physically-Based Rendering
 Cook-Torrance Reflectance Model](https://graphicscompendium.com/gamedev/15-pbr) 和 [LearnOpenGL CN - Theory](https://learnopengl-cn.github.io/07%20PBR/01%20Theory/)
