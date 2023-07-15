@@ -4,12 +4,6 @@
   {{ super() }}
 
   <script>
-    window.addEventListener('load', function() {
-        WaveDrom.ProcessAll();
-    });
-  </script>
-
-  <script>
     var language = "{{ i18n_page_file_locale }}";
     if (language === "None") {
       language = "zh";
