@@ -48,7 +48,8 @@ plugins:
       cards_font: Noto Sans SC
   - tags
   - offline
-  - wavedrom
+  - wavedrom:
+      pymdownx: true
 extra:
   analytics:
     provider: google
