@@ -1,8 +1,10 @@
 # ECDSA
 
-本文参考 [ECDSA - Wikipedia](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)。
+<iframe src="https://player.bilibili.com/player.html?aid=573470219&bvid=BV16z4y177ym&cid=1197576892&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"> </iframe>
 
 ECDSA 是一个基于椭圆曲线的签名算法，使用时需要确定一个椭圆曲线，以及它的 base point $G$，且 $G$ 的阶是素数 $n$。
+
+本文主要参考了 [ECDSA - Wikipedia](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)。
 
 ## 生成 key pair
 
