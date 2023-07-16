@@ -15,13 +15,13 @@ b_2 &= (a_{21}, a_{22}, \cdots, a_{2n}) \\
 b_n &= (a_{n1}, a_{n2}, \cdots, a_{nn}) \\
 \end{align}
 
-将这些基向量 以**整系数**线性组合得到的空间，就是格：
+将这些基向量以**整系数**线性组合得到的空间，就是格：
 
 $$
 L = \{\sum_i^d r_ib_i \vert r_i \in \mathbb{Z}\}
 $$
 
-例如 $\mathbb{Z}^2$ 就可以认为是以 $(1, 0), (0, 1)$ 为基构成的格。
+例如 $\mathbb{Z}^2$ 就可以认为是以 $(1, 0), (0, 1)$ 为基构成的格，也可以认为是以 $(1, 0), (1, 1)$ 为基构成的格。
 
 ## 格基规约
 
@@ -50,6 +50,8 @@ $$
 $$
 
 这意味着规约后得到的第一个基的大小是有界的，公式中 $\mathrm{det}(L)$ 指的是把基向量拼接成的矩形的特征值。
+
+LLL 算法还会得到其他的性质，详见 [Wikipedia](https://en.wikipedia.org/wiki/Lenstra%E2%80%93Lenstra%E2%80%93Lov%C3%A1sz_lattice_basis_reduction_algorithm)。
 
 ## 应用
 
@@ -108,7 +110,7 @@ b_2 &= (0, 1, 0, Xr) \\
 b_3 &= (0, 0, 1, X) \\
 \end{align}
 
-此时经过 LLL 规约后得到的 $b_1=(A, B, C)$，也就是直接得到了多项式的所有系数。
+此时经过 LLL 规约后得到的 $b_1'=(A, B, C, *)$，也就是直接得到了多项式的所有系数。
 
 用 sage 实现上面的算法：
 
@@ -139,3 +141,56 @@ for i in range(degree + 1):
 # prints "-x^2 + x + 1"
 print(expr)
 ```
+
+### 找到近似给定实数的有理数
+
+使用 LLL 可以针对给定实数 $a$，找到整数 $x$ 和 $y$，使得 $x/y \approx a$。
+
+为了使用 LLL 算法解决，需要把等式的各项变成整数：
+
+\begin{align}
+\frac{x}{y} &= a \\
+x - ay &= 0 \\
+10^px - \mathrm{round}(10^pa)y &= 0 \\
+\end{align}
+
+乘以 $10^p$ 后取整是为了在取整之前能够保留 $a$ 的 $p$ 位小数部分，也方便后续 LLL 过程中尽量让等式右边等于 0。在此基础上，构造出一组基:
+
+\begin{align}
+b_1 &= (1, 0, 10^p) \\
+b_2 &= (0, 1, -\mathrm{round}(10^pa))
+\end{align}
+
+LLL 规约后得到 $b_1'=(x, y, 10^px -\mathrm{round}(10^pa)y)$。
+
+用 Sage 实现：
+
+```sage
+# parameters
+a = 3.1415926535
+p = 10
+
+# construct matrix
+m = 10**p
+matrix = Matrix(
+    ZZ,
+    [[1, 0, m], [0, 1, round(-a * m)]],
+)
+
+# extract answer after LLL
+ans = matrix.LLL()
+numerator = ans[0][0]
+denominator = ans[0][1]
+
+# print "-104348 / -33215 = 3.141592653921421"
+print(f"{numerator} / {denominator} = {float(numerator) / denominator}")
+```
+
+更进一步，还可以修改公式，使得在逼近 $x/y \approx a$ 的同时，还要让 $y$ 的绝对值尽量小，此时可以这样设计：
+
+\begin{align}
+b_1 &= (1, 0, 10^p, 10^q, 0) \\
+b_2 &= (0, 1, -\mathrm{round}(10^pa), 0, 10^q)
+\end{align}
+
+LLL 规约后得到 $b_1'=(x, y, 10^px -\mathrm{round}(10^pa)y, 10^qx, 10^qy)$。当 $p=10, q=5$ 时得到的结果是 $355 / 113 = 3.1415929203539825$。
