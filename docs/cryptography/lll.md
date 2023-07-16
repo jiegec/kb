@@ -222,3 +222,10 @@ x^2+ax+b \\
 \end{align}
 
 可以看到 $x_0$ 是上面这些多项式的根。把这些多项式化简，得到了一系列多项式，这些多项式的系数向量构成一组基，可以用 LLL 算法规约：规约后得到的基对应的多项式，就是 $g(x)$。用迭代法求解 $g(x)$，就可以得到 $x_0$。
+
+## 参考文献
+
+- [Factoring polynomials with rational coefficients](https://link.springer.com/article/10.1007/BF01457454)
+- [Lenstra–Lenstra–Lovász lattice basis reduction algorithm](https://en.wikipedia.org/wiki/Lenstra%E2%80%93Lenstra%E2%80%93Lov%C3%A1sz_lattice_basis_reduction_algorithm)
+- [Selected Applications of LLL in Number Theory](https://simond.users.lmno.cnrs.fr/maths/lll25_Simon.pdf)
+- [A Course in Computational Algebraic Number Theory](https://link.springer.com/book/10.1007/978-3-662-02945-9)
