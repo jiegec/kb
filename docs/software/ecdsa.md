@@ -57,9 +57,9 @@ Q_A &= d_A \times G \\
 s &= k^{-1}(z + rd_A) \bmod n \\
 sk &= z + rd_A \bmod n \\
 sk \times G &= (z + rd_A) \times G \\
-rd_A \times G &= (z - sk) \times G \\
-Q_A &= d_A \times G = r^{-1}(z-sk) \times G \\
-Q_A &= r^{-1}(z \times G - s(k \times G))
+rd_A \times G &= (sk - z) \times G \\
+Q_A &= d_A \times G = r^{-1}(sk-z) \times G \\
+Q_A &= r^{-1}(s(k \times G) - z \times G)
 \end{align}
 
 上式中 $r, s$ 已知，$z$ 可以从 $m$ 通过哈希计算得出，$k \times G$ 的 X 坐标 $x_1$ 满足 $r = x_1 \bmod n$，因此恢复过程就是：
