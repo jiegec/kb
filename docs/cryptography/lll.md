@@ -1,5 +1,7 @@
 # LLL 格基规约算法
 
+<iframe src="https://player.bilibili.com/player.html?aid=743559074&bvid=BV1Pk4y157xa&cid=1200249810&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"> </iframe>
+
 LLL（Lenstra–Lenstra–Lovász）格基规约算法实现了格（lattice）的一组基（basis）的规约，规约后得到了新的一组基，并且这些基向量的大小满足不等式。
 
 ## 格
