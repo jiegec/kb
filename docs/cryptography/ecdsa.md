@@ -84,3 +84,23 @@ if (!secp256k1_ge_set_xo_var(&x, &fx, recid & 1)) {
 ```
 
 参考：[Crypto Magic: Recovering Alice’s Public Key From An ECDSA Signature](https://medium.com/asecuritysite-when-bob-met-alice/crypto-magic-recovering-alices-public-key-from-an-ecdsa-signature-e7193df8df6e) 和 [Can We Recover The Public Key from an ECDSA Signature?](https://medium.com/asecuritysite-when-bob-met-alice/can-we-recover-the-public-key-from-an-ecdsa-signature-7af4b56a8a0f)
+
+## DSA 公钥恢复
+
+如果在 DSA 算法上尝试上面的公钥恢复流程，就会遇到困难：
+
+\begin{align}
+g &= h^{(p-1)/q} \bmod p \\
+y &= g^x \bmod p \\
+r &= (g ^ k \bmod p) \bmod q \\
+s &= (k^{-1}(H(m) + xr)) \bmod q \\
+sk &\equiv H(m) + xr \bmod q \\
+xr &\equiv sk - H(m) \bmod q \\
+x &\equiv r^{-1}(sk - H(m)) \bmod q \\
+y &= g^x \bmod p = g^{r^{-1}(sk - H(m))+nq} \bmod p, n \in Z \\
+y &= g^{r^{-1}sk}g^{-r^{-1}H(m)+nq} \bmod p
+\end{align}
+
+此时会发现无法从 $r$ 推断出 $g^k \bmod p$ 的值，中间差了 $q$ 的整数倍。后面的 $g^{nq} \bmod p$ 也无法计算。
+
+更加完整的讨论可以见 [Can we recover public key from DSA signatures as we can from ECDSA?](https://crypto.stackexchange.com/questions/107260/can-we-recover-public-key-from-dsa-signatures-as-we-can-from-ecdsa)。
