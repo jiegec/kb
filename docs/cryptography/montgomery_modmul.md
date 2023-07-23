@@ -49,6 +49,8 @@ $$
 
 接下来介绍 Montgomery 的具体算法，看看它如何提高模乘性能。
 
+### REDC
+
 首先介绍 Montogomery 的 REDC 算法，它的步骤是：
 
 1. 预先计算 $N'$，满足 $NN' \equiv -1 \bmod R$
@@ -93,6 +95,127 @@ t &= (T+mN) / R \\
 \end{align}
 
 因此 $t \in [0, 2N-1]$。前面已经证明，$t$ 和答案 $a * b * R^{-1}$ 在模 $N$ 意义下相等。在 $[0, 2N-1]$ 范围内，模 $N$ 意义下相等只有两种可能：相等或者差一个 $N$。所以 REDC 算法的最后一步就是：如果 $t \ge N$，只可能 $t$ 和答案差一个 $N$，所以答案 $a * b * R^{-1} \bmod N = t - N$；否则 $t < N$，此时答案 $a * b * R^{-1} \bmod N = t$。
+
+## 大整数 Montgomery 模乘
+
+实际在计算机上运行 Montgomery 算法的时候，由于这些数都很大，因此为了表示大整数，需要用固定位数的整数数组来表示，例如用多个 64 位整数来表示一个大整数。此时，把大整数运算拆成多个 64 位整数的运算，然后把大整数的运算和 Montgomery 模乘结合在一起，得到更高性能的 Montgomery 模乘。
+
+论文 [Analyzing and Comparing Montgomery Multiplication Algorithms](https://www.microsoft.com/en-us/research/wp-content/uploads/1996/01/j37acmon.pdf) 分析了几种混合了大整数运算和 Montgomery 模乘的算法。下面讲解论文中提到的部分算法。
+
+在下面的讨论中，假设机器整数的宽度是 $w$ 位，例如 $w=64$ 表示用 64 位整数进行运算，此时 $R=2^{sw}$，也就是说，$R$ 等于 $s$ 个 $w$ 位整数可以表示的最大值加一，那么除以 $R$ 相当于舍弃最低的 $s$ 个 $w$ 位整数。同时也意味着，$a$ $b$ $N$ 都可以用 $s$ 个 $w$ 位整数表示。
+
+### Separated Operand Scanning
+
+第一种方法是 Separated Operand Scanning 方法（同时也是 [Wikipedia](https://en.wikipedia.org/wiki/Montgomery_modular_multiplication#Montgomery_arithmetic_on_multiprecision_integers) 中提到的 MultiPrecisionREDC 算法），它的步骤是：
+
+第一步：按照传统方式进行大整数乘法，计算出 $T = a*b$：
+
+```
+# t = a * b
+for i=0 to s-1
+    C := 0
+    for j=0 to s-1
+        (C, S) := t[i+j] + a[j]*b[i] + C
+        t[i+j] := S
+    t[i+s] := C
+```
+
+得到的结果放在 $t$ 数组中。
+
+第二步，求 $t = (T + mN) / R$，此时 $T$ 已经计算出来，接下来首先要计算出 $m=((T \bmod R)N') \bmod R$，在这里 $\bmod R$ 就是取大数的最低 $s$ 个 $w$ 位整数，因此可以简化大整数乘法为：
+
+```
+# m = ((T % R) * N') % R
+for i=0 to s-1
+    C := 0
+    for j=0 to s-i-1
+        (C, S) := m[i+j] + t[i]*n'[j] + C
+        m[i+j] := S
+```
+
+接下来求大整数 $m$ 乘以大整数 $N$ 的积，求积的同时把结果累加到 $T$ 上。伪代码：
+
+
+```
+# t += m * N
+for i=0 to s-1
+    C := 0
+    for j=0 to s-1
+        (C, S) := t[i+j] + m[i]*n[j] + C
+        t[i+j] := S
+    ADD (t[i+s], C)
+```
+
+这里的 ADD 函数指的是大整数加法运算里面，求和后不断进位直到不再进位为止的函数，这里就不展开了。
+
+在这里有一个重要的优化：实际上，不需要把 $m$ 整个大整数计算出来，而是可以直接求 $T + mN$：回忆一下，最初计算 $T + mN$ 的目的是让结果整除 $R$，现在把 $T + mN$ 的计算拆成 $s$ 个小步：第 $i$ 步让结果整除 $2^{(i+1)w}$：
+
+第一步：$T + m_1N \equiv 0 \pmod{2^w}$，此时 $m_1 = T * N' \bmod 2^w$，对应在代码上，就是 `m_1 = t[0] * n'[0]`，舍去溢出的部分。
+
+第二步：$T + m_1N + m_22^wN \equiv 0 \pmod{2^{2w}}$，此时 $m_2 * 2^w = (T + m_1N) * N' \bmod 2^{2w}$，此时会惊喜地发现，由于 $T + m_1N$ 是 $2^w$ 的倍数，因此计算 $(T + m_1N) * N'$ 的时候，$T + m_1N$ 的低 $w$ 位全是 0，也意味着实际上 $(T + m_1N) * N'$ 就是拿 $(T + m_1N) \bmod 2^{2w}$ 的高 $w$ 位乘以 $N'$ 的低 $w$ 位，再左移 $w$ 位，结果等于 $m_2 * 2 ^ w$，所以 $m_2$ 就等于 $((T+m_1N) \bmod 2^{2w}) / 2^w * (N' \bmod 2^w)$，对应在代码上，就是 `m_2 = t[1] * n'[0]`。
+
+这个过程可以一直继续下去，每一步的 `m_i` 都可以用 `m_i = t[i] * n'[0]` 计算。因此不再需要先求 $m$，再求 $T + mN$，而是可以同时计算：
+
+```
+# t += m * N
+for i=0 to s-1
+    C := 0
+    # W = 2^w
+    m := t[i] * n'[0] mod W
+    for j=0 to s-1
+        (C, S) := t[i+j] + m*n[j] + C
+        t[i+j] := S
+    ADD (t[i+s], C)
+```
+
+计算出 $T + mN$ 以后，最后就是除以 $R$ 了，实际上也非常简单，直接去掉 `t` 数组的低 $s$ 项即可：
+
+```
+# u = t / R
+for i=0 to s
+    u[j] := t[j+s]
+```
+
+最后再用大整数减法和比较，使得结果 $u$ 落在 $[0, N-1]$ 的范围内，这里就不给出代码了。
+
+把上面的代码合在一起，就得到如下的伪代码：
+
+```
+# t = a * b
+for i=0 to s-1
+    C := 0
+    for j=0 to s-1
+        (C, S) := t[i+j] + a[j]*b[i] + C
+        t[i+j] := S
+    t[i+s] := C
+
+# t += m * N
+for i=0 to s-1
+    C := 0
+    # W = 2^w
+    m := t[i] * n'[0] mod W
+    for j=0 to s-1
+        (C, S) := t[i+j] + m*n[j] + C
+        t[i+j] := S
+    ADD (t[i+s], C)
+
+# u = t / R
+for i=0 to s
+    u[j] := t[j+s]
+
+# return u or u - N
+B := 0
+for i=0 to s-1
+    (B,D) := u[i] - n[i] - B
+    t[i] := D
+    (B,D) := u[s] - B
+t[s] := D
+if B=0 then
+    return t[0], t[1], ... , t[s-1]
+else
+    return u[0], u[1], ... , u[s-1]
+```
+
 
 ## 参考资料
 
