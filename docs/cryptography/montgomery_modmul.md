@@ -208,7 +208,7 @@ B := 0
 for i=0 to s-1
     (B,D) := u[i] - n[i] - B
     t[i] := D
-    (B,D) := u[s] - B
+(B,D) := u[s] - B
 t[s] := D
 if B=0 then
     return t[0], t[1], ... , t[s-1]
@@ -220,3 +220,4 @@ else
 ## 参考资料
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Montgomery_modular_multiplication)
+- [Analyzing and Comparing Montgomery Multiplication Algorithms](https://www.microsoft.com/en-us/research/wp-content/uploads/1996/01/j37acmon.pdf)
