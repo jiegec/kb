@@ -110,7 +110,7 @@ t &= (T+mN) / R \\
 
 第一步：按照传统方式进行大整数乘法，计算出 $T = a*b$：
 
-```
+```python
 # t = a * b
 for i=0 to s-1
     C := 0
@@ -124,7 +124,7 @@ for i=0 to s-1
 
 第二步，求 $t = (T + mN) / R$，此时 $T$ 已经计算出来，接下来首先要计算出 $m=((T \bmod R)N') \bmod R$，在这里 $\bmod R$ 就是取大数的最低 $s$ 个 $w$ 位整数，因此可以简化大整数乘法为：
 
-```
+```python
 # m = ((T % R) * N') % R
 for i=0 to s-1
     C := 0
@@ -136,7 +136,7 @@ for i=0 to s-1
 接下来求大整数 $m$ 乘以大整数 $N$ 的积，求积的同时把结果累加到 $T$ 上。伪代码：
 
 
-```
+```python
 # t += m * N
 for i=0 to s-1
     C := 0
@@ -156,7 +156,7 @@ for i=0 to s-1
 
 这个过程可以一直继续下去，每一步的 `m_i` 都可以用 `m_i = t[i] * n'[0]` 计算。因此不再需要先求 $m$，再求 $T + mN$，而是可以同时计算：
 
-```
+```python
 # t += m * N
 for i=0 to s-1
     C := 0
@@ -170,17 +170,15 @@ for i=0 to s-1
 
 计算出 $T + mN$ 以后，最后就是除以 $R$ 了，实际上也非常简单，直接去掉 `t` 数组的低 $s$ 项即可：
 
-```
+```python
 # u = t / R
 for i=0 to s
     u[j] := t[j+s]
 ```
 
-最后再用大整数减法和比较，使得结果 $u$ 落在 $[0, N-1]$ 的范围内，这里就不给出代码了。
+最后再用大整数减法和比较，使得结果 $u$ 落在 $[0, N-1]$ 的范围内，这里就不单独列代码了。把上面的代码合在一起，就得到最终完整 Separated Operand Scanning 算法的伪代码：
 
-把上面的代码合在一起，就得到如下的伪代码：
-
-```
+```python
 # t = a * b
 for i=0 to s-1
     C := 0
@@ -215,6 +213,131 @@ if B=0 then
 else
     return u[0], u[1], ... , u[s-1]
 ```
+
+## Coarse Integrated Operand Scanning
+
+第二种算法 Coarse Integrated Operand Scanning 是在 Separated Operand Scanning 的基础上，把 $a*b$ 和后面的计算过程交错进行，放在同一个大循环中，因为后面使用到 `t` 数组的时候，只会依赖已经计算出来的部分。同时，每次循环结束的时候就把整个 `t` 数组右移一次，因此原来的 `t[i]` 就会变成 `t[0]`，`t[i+j]` 变成 `t[j]`。
+
+```python
+for i=0 to s-1
+
+    # t = a * b
+    C := 0
+    for j=0 to s-1
+        (C, S) := t[j] + a[j]*b[i] + C
+        t[j] := S
+    (C, S) := t[s] + C
+    t[s] := S
+    t[s+1] := C
+
+    # t += m * N
+    C := 0
+    # W = 2^w
+    m := t[0] * n'[0] mod W
+    for j=0 to s-1
+        (C, S) := t[j] + m*n[j] + C
+        t[j] := S
+    (C, S) := t[s] + C
+    t[s] := S
+    t[s+1] := t[s+1] + C
+
+    # t /= W
+    for j=0 to s
+        t[j] := t[j+1]
+
+# return t or t - N
+# save as above, omitted
+```
+
+每次循环都右移一次，那么循环 $s$ 次就是除以 $R$，因此原来的 $u = t / R$ 一步就不需要了。同时，$t$ 数组需要的存储空间也缩小了，因为不需要保存完整的 $a*b$ 的结果。更进一步，还可以把 `t += m * N` 和移位两步合并在一起进行：
+
+```python
+for i=0 to s-1
+
+    # t = a * b
+    C := 0
+    for j=0 to s-1
+        (C, S) := t[j] + a[j]*b[i] + C
+        t[j] := S
+    (C, S) := t[s] + C
+    t[s] := S
+    t[s+1] := C
+
+    # t = (t + m * N) / W
+    # W = 2^w
+    m := t[0] * n'[0] mod W
+    (C, S) := t[0] + m*n[0]
+    for j=1 to s-1
+        (C, S) := t[j] + m*n[j] + C
+        t[j-1] := S
+    (C, S) := t[s] + C
+    t[s-1] := S
+    t[s] := t[s+1] + C
+
+# return t or t - N
+# save as above, omitted
+```
+
+这样就得到了最终的 Coarse Integrated Operand Scanning 算法，下面是一段用 Rust 语言编写的实现：
+
+```rust
+// https://github.com/jiegec/rust-monty-comparison/blob/6c941d5c95d37dd9ee8f12aa57df577e0f2b623b/src/lib.rs#L89-L139
+let mut res = [0u32; WORDS + 2];
+// for i=0 to s-1
+for i in 0..WORDS {
+    // C := 0
+    let mut c = 0;
+    // for j = 0 to s-1
+    for j in 0..WORDS {
+        // (C, S) := t[j] + a[j] * b[i] + C
+        let mut cs = res[j] as u64;
+        cs += self.num[j] as u64 * other.num[i] as u64;
+        cs += c as u64;
+        c = (cs >> 32) as u32;
+        // t[j] := S
+        res[j] = cs as u32;
+    }
+    // (C, S) := t[s] + C
+    let cs = res[WORDS] as u64 + c as u64;
+    // t[s] := S
+    res[WORDS] = cs as u32;
+    // t[s+1] := C
+    res[WORDS + 1] = (cs >> 32) as u32;
+
+    // m := t[0]*n'[0] mod W
+    let m: u32 = (res[0] as u64 * N_INV as u64) as u32;
+    // (C, S) := t[0] + m*n[0]
+    let mut cs = res[0] as u64 + m as u64 * N[0] as u64;
+    c = (cs >> 32) as u32;
+    // for j=1 to s-1
+    for j in 1..WORDS {
+        // (C, S) := t[j] + m*n[j] + C
+        cs = res[j] as u64;
+        cs += m as u64 * N[j] as u64;
+        cs += c as u64;
+        c = (cs >> 32) as u32;
+        // t[j-1] := S
+        res[j - 1] = cs as u32;
+    }
+    // (C, S) := t[s] + C
+    cs = res[WORDS] as u64 + c as u64;
+    // t[s-1] := S
+    res[WORDS - 1] = cs as u32;
+    // t[s] := t[s+1] + C
+    res[WORDS] = res[WORDS + 1] + (cs >> 32) as u32;
+}
+
+let res_scalar = MontyBigNum::from_u32_slice(&res[0..WORDS]);
+let mut res_scalar_sub = res_scalar;
+let borrow = bignum_sub(&mut res_scalar_sub, &MODULO);
+if res[WORDS] != 0 || borrow == 0 {
+    res_scalar_sub
+} else {
+    res_scalar
+}
+```
+
+OpenSSL 也在函数 [bn_mul_mont](https://github.com/openssl/openssl/blob/9c8d04dbec03172d6ffe4eaa38ea4b1ac2741f26/crypto/bn/bn_asm.c#L852) 中实现了这个算法。
 
 
 ## 参考资料
