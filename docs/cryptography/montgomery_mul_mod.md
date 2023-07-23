@@ -214,7 +214,7 @@ else
     return u[0], u[1], ... , u[s-1]
 ```
 
-## Coarse Integrated Operand Scanning
+### Coarse Integrated Operand Scanning
 
 第二种算法 Coarse Integrated Operand Scanning 是在 Separated Operand Scanning 的基础上，把 $a*b$ 和后面的计算过程交错进行，放在同一个大循环中，因为后面使用到 `t` 数组的时候，只会依赖已经计算出来的部分。同时，每次循环结束的时候就把整个 `t` 数组右移一次，因此原来的 `t[i]` 就会变成 `t[0]`，`t[i+j]` 变成 `t[j]`。
 
