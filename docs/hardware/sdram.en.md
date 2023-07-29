@@ -32,6 +32,13 @@ High-performance HBM is also based on SDRAM technology:
 - [JESD235D: HBM](https://www.jedec.org/standards-documents/docs/jesd235a)
 - [JESD238A: HBM3](https://www.jedec.org/system/files/docs/JESD238A.pdf)
 
+GDDR SGRAM series:
+
+- [SDRAM3.11.5.8 R16.01: GDDR4 SGRAM](https://www.jedec.org/system/files/docs/3_11_5_8_R16.01.pdf)
+- [JESD212C.01: GDDR5 SGRAM](https://www.jedec.org/system/files/docs/JESD212C.01.pdf)
+- [JESD232A.01: GDDR5X SGRAM](https://www.jedec.org/system/files/docs/JESD232A.01.pdf)
+- [JESD250D: GDDR6 SGRAM](https://www.jedec.org/system/files/docs/JESD250D.pdf)
+
 The following is an introduction to DDR series SDRAM.
 
 ## Concepts
@@ -448,6 +455,28 @@ Data in DRAM is stored in capacitors. The internal structure of a typical 1T DRA
   ![1T DRAM Cell](sdram_dram_cell.png){ width="400" }
   <figcaption>1T DRAM Cell Internal Structure (Source <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>)</figcaption>
 </figure>
+
+## Comparison of DDR variants
+
+A comparison of DDR, LPDDR, GDDR and HBM is given below:
+
+|              | DDR4      | DDR5      | LPDDR4    | LPDDR5    | GDDR5   | GDDR6   | HBM2     |
+| ------------ | --------- | --------- | --------- | --------- | ------- | ------- | -------- |
+| Channels   | 1         | 2         | 2         | 2         | 2       | 2       | 8        |
+| Bits per Channel | 64        | 32        | 16        | 16/32     | 16      | 16      | 128      |
+| Data rate (MT/s)   | 3200      | 5600      | 4266      | 6400      | 9000    | 24000   | 2400     |
+| Bandwidth (GB/s)  | 25.6 GB/s | 44.8 GB/s | 17.1 GB/s | 25.6 GB/s | 36 GB/s | 96 GB/s | 307 GB/s |
+
+Data rates are based on the highest performance available:
+
+- DDR4: [Micron 3200 MT/s](https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf)
+- DDR5: [Micron 5600 MT/s](https://media-www.micron.com/-/media/client/global/documents/products/part-numbering-guide/micron_ddr5_part_catalog.pdf?la=en&rev=a4865faa98834095b94db57e7bd394e1)
+- LPDDR4: [Samsung 4266 MT/s](https://semiconductor.samsung.com/dram/lpddr/lpddr4/)
+- LPDDR5: [Samsung 6400 MT/s](https://semiconductor.samsung.com/dram/lpddr/lpddr5/)
+- GDDR5: [Samsung 9000 MT/s](https://semiconductor.samsung.com/dram/gddr/gddr5/)
+- GDDR6: [Samsung 24000 MT/s](https://semiconductor.samsung.com/dram/gddr/gddr6/)
+- HBM2: [Samsung 2400 MT/s](https://semiconductor.samsung.com/dram/hbm/hbm2-aquabolt/)
+- HBM2E: [Micron 3200 MT/s](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/hbm2e/8gb_and_16gb_hbm2e_dram.pdf)
 
 
 ## Related Reading
