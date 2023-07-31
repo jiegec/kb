@@ -90,6 +90,40 @@ $$
   <figcaption>正交投影矩阵（图源 <a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml">glOrtho</a>）</figcation>
 </figure>
 
+mesa 中的实现：
+
+```c
+// Source: https://github.com/Mesa3D/mesa/blob/957009978ef6d7121fc0d710d03bc20097d4d46b/src/mesa/math/m_matrix.c#L813C1-L840
+void
+_math_float_ortho(float *m,
+                  float left, float right,
+                  float bottom, float top,
+                  float nearval, float farval)
+{
+#define M(row,col)  m[col*4+row]
+   M(0,0) = 2.0F / (right-left);
+   M(0,1) = 0.0F;
+   M(0,2) = 0.0F;
+   M(0,3) = -(right+left) / (right-left);
+
+   M(1,0) = 0.0F;
+   M(1,1) = 2.0F / (top-bottom);
+   M(1,2) = 0.0F;
+   M(1,3) = -(top+bottom) / (top-bottom);
+
+   M(2,0) = 0.0F;
+   M(2,1) = 0.0F;
+   M(2,2) = -2.0F / (farval-nearval);
+   M(2,3) = -(farval+nearval) / (farval-nearval);
+
+   M(3,0) = 0.0F;
+   M(3,1) = 0.0F;
+   M(3,2) = 0.0F;
+   M(3,3) = 1.0F;
+#undef M
+}
+```
+
 ## 透视投影
 
 透视投影要做的是把一个四棱台（Square Frustum，四棱锥水平切开，底面和顶面是正方形，其余四个面都是梯形）映射到 NDC 上。其中四棱台的四条棱延长以后，交于原点。也就是说焦点就是坐标轴的原点。
@@ -186,6 +220,37 @@ $$
 其中 aspect 是长宽比（x 轴除以 y 轴）；$f=cot(\frac{fovy}{2})$ 是这么推导的：y 方向上的视野角度上下对称，角度大小是 $fovy$，那么在水平线上方的角度就是 $\frac{fovy}{2}$，而这个角度在三角形中，它的对边是 $t$，邻边是 $n$，所以 $tan(\frac{fovy}{2})=\frac{t}{n}$，反过来就得到 $f=\frac{n}{t}=cot(\frac{fovy}{2})$。
 
 更加通用的 OpenGL 函数是 [glFrustum](https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml)，它得到的矩阵和上面推导出来的矩阵是一样的，没考虑特殊情况。
+
+mesa 中的实现：
+
+```c
+// Source: https://github.com/Mesa3D/mesa/blob/957009978ef6d7121fc0d710d03bc20097d4d46b/src/mesa/math/m_matrix.c#L773-L797
+void
+_math_matrix_frustum( GLmatrix *mat,
+		      GLfloat left, GLfloat right,
+		      GLfloat bottom, GLfloat top,
+		      GLfloat nearval, GLfloat farval )
+{
+   GLfloat x, y, a, b, c, d;
+   GLfloat m[16];
+
+   x = (2.0F*nearval) / (right-left);
+   y = (2.0F*nearval) / (top-bottom);
+   a = (right+left) / (right-left);
+   b = (top+bottom) / (top-bottom);
+   c = -(farval+nearval) / ( farval-nearval);
+   d = -(2.0F*farval*nearval) / (farval-nearval);  /* error? */
+
+#define M(row,col)  m[col*4+row]
+   M(0,0) = x;     M(0,1) = 0.0F;  M(0,2) = a;      M(0,3) = 0.0F;
+   M(1,0) = 0.0F;  M(1,1) = y;     M(1,2) = b;      M(1,3) = 0.0F;
+   M(2,0) = 0.0F;  M(2,1) = 0.0F;  M(2,2) = c;      M(2,3) = d;
+   M(3,0) = 0.0F;  M(3,1) = 0.0F;  M(3,2) = -1.0F;  M(3,3) = 0.0F;
+#undef M
+
+   matrix_multf( mat, m, MAT_FLAG_PERSPECTIVE );
+}
+```
 
 ## View 矩阵
 
