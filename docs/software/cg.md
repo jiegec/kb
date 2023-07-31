@@ -13,13 +13,35 @@
 
 因此从 3 维坐标转换为齐次坐标的时候，添加一维 $w = 1$，变成 $(x, y, z, 1)$。为了让 3 维的向量和点在齐次坐标下可以进行运算，可以向 3 维向量添加一维 $w=0$，此时 $w=0$ 表示向量，$w \ne 0$ 表示点。
 
+## 坐标变换
+
+OpenGL 中坐标变换经过了如下的步骤：
+
+1. 物体坐标，4D 齐次坐标
+2. 乘以 Model 和 View 矩阵，得到 4D 齐次坐标
+3. 乘以 Projection 矩阵，得到 4D 齐次坐标
+4. 把齐次坐标转换为对应的 3D 坐标，为 Normalized Device Coordinates
+5. 把 3D 坐标对应到屏幕上的 2D 坐标
+
+参考：[OpenGL Transformation](https://songho.ca/opengl/gl_transform.html)
+
 ## Normalized Device Coordinates
 
-NDC（Normalized Device Coordinates）是经过一系列变换以后，得到的最终的坐标。以 OpenGL 为例，NDC 就是一个在三个坐标轴上都在 $[-1, 1]$ 之间的立方体，只有在这个立方体中的物体才会被显示出来。
+NDC（Normalized Device Coordinates）是经过一系列变换以后，得到的最终的 3D 坐标。
+
+以 OpenGL 为例，NDC 就是一个在三个坐标轴上都在 $[-1, 1]$ 之间的立方体，只有在这个立方体中的物体才可能被显示出来。
 
 NDC 的坐标范围在不同的图形 API 下可能不一样，例如 OpenGL 和 WebGL 是从 $(-1, -1, -1)$ 到 $(1, 1, 1)$，而 DirectX-12、Metal、Vulkan 和 WebGPU 是从 $(-1, -1, 0)$ 到 $(1, 1, 1)$，也就是 Z 轴上的范围只有 $[0, 1]$。
 
 最后显示在屏幕上的时候，显示区域的左下角就对应 $x=-1, y=-1$，右上角对应 $x=1, y=1$（也可能是左上角 $x=-1, y=-1$，右下角 $x=1, y=1$，不同的图形 API 规定不同）。$z$ 轴对应深度，显示在前面的（$z$ 较小的）会遮挡显示在后面的（$z$ 较大的）。
+
+因此 NDC 到屏幕坐标的对应关系是：
+
+1. x 轴：-1 -> x, 1 -> x + w
+2. y 轴：-1 -> y, 1 -> y + w
+3. z 轴: -1 -> n, 1 -> f
+
+其中 x, y, w 和 h 用 glViewport 函数设置，n 和 f 用 [glDepthRange](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glDepthRange.xhtml) 设置。
 
 ## 正交投影
 
@@ -164,6 +186,61 @@ $$
 其中 aspect 是长宽比（x 轴除以 y 轴）；$f=cot(\frac{fovy}{2})$ 是这么推导的：y 方向上的视野角度上下对称，角度大小是 $fovy$，那么在水平线上方的角度就是 $\frac{fovy}{2}$，而这个角度在三角形中，它的对边是 $t$，邻边是 $n$，所以 $tan(\frac{fovy}{2})=\frac{t}{n}$，反过来就得到 $f=\frac{n}{t}=cot(\frac{fovy}{2})$。
 
 更加通用的 OpenGL 函数是 [glFrustum](https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml)，它得到的矩阵和上面推导出来的矩阵是一样的，没考虑特殊情况。
+
+## View 矩阵
+
+OpenGL 中，经过 Model 和 View 矩阵映射后得到 Eye Coordinates，相机位于 (0, 0, 0)，且看向 -Z 轴的方向。计算相机 View 矩阵的 OpenGL 函数是 [gluLookAt](https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluLookAt.xml)。
+
+在映射之前，相机位于世界坐标的 (eyeX, eyeY, eyeZ)，视线看向 (centerX, centerY, centerZ) 点（视野正前方），以及视野里向上的方向在 3D 里的向量 (upX, upY, upZ)（视野的上方，y 轴）。
+
+那么相机正对的向量 F=(centerX-eyeX, centerY-eyeY, centerZ-eyeZ)，这个方向在映射后的坐标系中就是 -Z 轴。令 UP=(upX, upY, upZ)，UP 最终在视野里看到的是沿 y 轴向上，但是映射以后可能会有 z 的分量，也就是 F 和 UP 不一定垂直，后面需要考虑这一点。
+
+对 $F$ 进行标准化，得到 $f$；对 UP 进行标准化，得到 $u$；由于 $u$ 和 $f$ 确定了 Y-Z 平面，所以求 X 方向的向量，直接计算叉积即可：$s = f \times u$，由于 $f$ 指向 -Z，$u$ 指向 Y，所以得到的 s 指向的是屏幕的左侧，不妨规定左侧是 X 正半轴（左手系）。此时再叉积，得到 Y 轴的方向：$y = f \times s$。
+
+此时三个轴上的向量都有了：X 轴正方向是 s，Y 轴正方向是 y，Z 轴负方向是 f。所以矩阵应该实现下面的映射：
+
+- $Ms = M(s_x, s_y, s_z)^T = (1, 0, 0)^T$
+- $My = M(y_x, y_y, y_z)^T = (0, 1, 0)^T$
+- $Mz = M(z_x, z_y, z_z)^T = (0, 0, -1)^T$
+
+于是：
+
+$$
+M=\begin{pmatrix}
+s_x & s_y & s_z \\
+y_x & y_y & y_z \\
+-z_x & -z_y & -z_z \\
+\end{pmatrix}
+$$
+
+把齐次坐标的 w 维度加回来，就是：
+
+$$
+M=\begin{pmatrix}
+s_x & s_y & s_z & 0 \\
+y_x & y_y & y_z & 0 \\
+-z_x & -z_y & -z_z & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+$$
+
+所以 $M$ 矩阵解决了相机坐标系的问题，剩下就是把坐标 (eyeX, eyeY, eyeZ) 挪到 (0, 0, 0) 上：
+
+$$
+M=\begin{pmatrix}
+s_x & s_y & s_z & 0 \\
+y_x & y_y & y_z & 0 \\
+-z_x & -z_y & -z_z & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix} \begin{pmatrix}
+1 & 0 & 0 & \mathrm{eyeX} \\
+0 & 1 & 0 & \mathrm{eyeY} \\
+0 & 0 & 1 & \mathrm{eyeZ} \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+$$
+
+这样就得到了完整的 View 矩阵。
 
 ## 光线追踪
 
