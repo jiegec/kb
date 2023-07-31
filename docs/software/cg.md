@@ -209,5 +209,22 @@ BRDF（Bidirectional reflectance distribution function）指的是在一个表�
 
 - [Lambertian](https://en.wikipedia.org/wiki/Lambertian_reflectance)：一般用于漫反射表面，光均匀反射到各个角度，因此和出射角度无关：$f=c/\pi$，其中 $c$ 是表面的颜色，除以 $\pi$ 是为了满足能量守恒，计算过程见 [Deriving Lambertian BRDF from first principles](https://sakibsaikia.github.io/graphics/2019/09/10/Deriving-Lambertian-BRDF-From-First-Principles.html)
 - [Phong](https://en.wikipedia.org/wiki/Phong_reflection_model) 和 [Blinn-Phong](https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model)：用于 OpenGL Fixed-function pipeline
-- [Cook-Torrance](https://en.wikipedia.org/wiki/Specular_highlight#Cook%E2%80%93Torrance_model)：$f=k_d\frac{c}{\pi} + k_s\frac{DFG}{4(n \cdot \omega_i)(n \cdot \omega_o)}$，前面的 $k_d\frac{c}{\pi}$ 和 Lambertian 一样，后面的 $DFG$ 表示三个函数的乘积，分别是 Normal Distribution Function，Fresnel Function 和 Geometric Attenuation Function，详见 [Physically-Based Rendering
-Cook-Torrance Reflectance Model](https://graphicscompendium.com/gamedev/15-pbr) 和 [LearnOpenGL CN - Theory](https://learnopengl-cn.github.io/07%20PBR/01%20Theory/)
+- [Cook-Torrance](https://en.wikipedia.org/wiki/Specular_highlight#Cook%E2%80%93Torrance_model)：$f=k_d\frac{c}{\pi} + k_s\frac{DFG}{4(n \cdot \omega_i)(n \cdot \omega_o)}$，前面的 $k_d\frac{c}{\pi}$ 和 Lambertian 一样，后面的 $DFG$ 表示三个函数的乘积，分别是 Normal Distribution Function，Fresnel Function 和 Geometric Attenuation Function，详见 [Physically-Based Rendering Cook-Torrance Reflectance Model](https://graphicscompendium.com/gamedev/15-pbr) 和 [LearnOpenGL CN - Theory](https://learnopengl-cn.github.io/07%20PBR/01%20Theory/)
+
+## 图形 API 对比
+
+下面给出不同图形 API 或者库在约定上的不同：
+
+|                     | OpenGL  | Direct3D | Metal  | Vulkan |
+| ------------------- | ------- | -------- | ------ | ------ |
+| NDC 采用              | 左手系     | 左手系      | 左手系    | 右手系    |
+| NDC 中 z 的范围         | [-1, 1] | [0, 1]   | [0, 1] | [0, 1] |
+| NDC (-1, -1) 在      | 左下角     | 左下角      | 左下角    | 左上角    |
+| Framebuffer (0,0) 在 | 左下角     | 左上角      | 左上角    | 左上角    |
+
+参考：
+
+- [Unity - Manual: Writing shaders for different graphics APIs](https://docs.unity3d.com/2022.3/Documentation/Manual/SL-PlatformDifferences.html)
+- https://github.com/gpuweb/gpuweb/issues/416
+- https://zhuanlan.zhihu.com/p/339295068
+- http://anki3d.org/vulkan-coordinate-system/
