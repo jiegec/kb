@@ -216,7 +216,7 @@ OpenGL 中，经过 Model 和 View 矩阵映射后得到 Eye Coordinates，相�
 
 - $Ms = M(s_x, s_y, s_z)^T = (1, 0, 0)^T$
 - $My = M(y_x, y_y, y_z)^T = (0, 1, 0)^T$
-- $Mz = M(z_x, z_y, z_z)^T = (0, 0, -1)^T$
+- $Mz = M(f_x, f_y, f_z)^T = (0, 0, -1)^T$
 
 于是：
 
@@ -224,11 +224,11 @@ $$
 M=\begin{pmatrix}
 s_x & s_y & s_z \\
 y_x & y_y & y_z \\
--z_x & -z_y & -z_z \\
+-f_x & -f_y & -f_z \\
 \end{pmatrix}
 $$
 
-这里依赖了三个向量 $s$ $y$ $-z$ 都是单位向量，且互相正交的性质。
+这里依赖了三个向量 $s$ $y$ $-f$ 都是单位向量，且互相正交的性质。
 
 把齐次坐标的 w 维度加回来，就是：
 
@@ -236,18 +236,18 @@ $$
 M=\begin{pmatrix}
 s_x & s_y & s_z & 0 \\
 y_x & y_y & y_z & 0 \\
--z_x & -z_y & -z_z & 0 \\
+-f_x & -f_y & -f_z & 0 \\
 0 & 0 & 0 & 1
 \end{pmatrix}
 $$
 
-所以 $M$ 矩阵解决了相机坐标系的问题，剩下就是把坐标 (eyeX, eyeY, eyeZ) 挪到 (0, 0, 0) 上：
+以上矩阵解决了相机坐标系的问题，剩下就是把坐标 (eyeX, eyeY, eyeZ) 挪到 (0, 0, 0) 上：
 
 $$
 M=\begin{pmatrix}
 s_x & s_y & s_z & 0 \\
 y_x & y_y & y_z & 0 \\
--z_x & -z_y & -z_z & 0 \\
+-f_x & -f_y & -f_z & 0 \\
 0 & 0 & 0 & 1
 \end{pmatrix} \begin{pmatrix}
 1 & 0 & 0 & -\mathrm{eyeX} \\
@@ -258,6 +258,59 @@ y_x & y_y & y_z & 0 \\
 $$
 
 这样就得到了完整的 View 矩阵。
+
+mesa 中的实现：
+
+```c
+// Source: https://gitlab.freedesktop.org/mesa/mesa/-/blob/c6a80dc32ef17bc972d4137ce7444ebed4d28ebb/src/glu/sgi/libutil/project.c#L108
+// Comments added
+void gluLookAt(GLdouble eyex, GLdouble eyey, GLdouble eyez, GLdouble centerx,
+    GLdouble centery, GLdouble centerz, GLdouble upx, GLdouble upy,
+    GLdouble upz)
+{
+    float forward[3], side[3], up[3];
+    GLfloat m[4][4];
+
+    /* Compute f = center - eye */
+    forward[0] = centerx - eyex;
+    forward[1] = centery - eyey;
+    forward[2] = centerz - eyez;
+
+    up[0] = upx;
+    up[1] = upy;
+    up[2] = upz;
+
+    normalize(forward);
+
+    /* Side = forward x up */
+    cross(forward, up, side);
+    normalize(side);
+
+    /* Recompute up as: up = side x forward */
+    cross(side, forward, up);
+
+    __gluMakeIdentityf(&m[0][0]);
+
+    /* s_x s_y s_z */
+    m[0][0] = side[0];
+    m[1][0] = side[1];
+    m[2][0] = side[2];
+
+    /* y_x y_y y_z */
+    m[0][1] = up[0];
+    m[1][1] = up[1];
+    m[2][1] = up[2];
+
+    /* -f_x -f_y -f_z */
+    m[0][2] = -forward[0];
+    m[1][2] = -forward[1];
+    m[2][2] = -forward[2];
+
+    /* Update view matrix */
+    glMultMatrixf(&m[0][0]);
+    glTranslated(-eyex, -eyey, -eyez);
+}
+```
 
 ## 光线追踪
 
