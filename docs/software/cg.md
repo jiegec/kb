@@ -248,9 +248,9 @@ y_x & y_y & y_z & 0 \\
 -z_x & -z_y & -z_z & 0 \\
 0 & 0 & 0 & 1
 \end{pmatrix} \begin{pmatrix}
-1 & 0 & 0 & \mathrm{eyeX} \\
-0 & 1 & 0 & \mathrm{eyeY} \\
-0 & 0 & 1 & \mathrm{eyeZ} \\
+1 & 0 & 0 & -\mathrm{eyeX} \\
+0 & 1 & 0 & -\mathrm{eyeY} \\
+0 & 0 & 1 & -\mathrm{eyeZ} \\
 0 & 0 & 0 & 1
 \end{pmatrix}
 $$
