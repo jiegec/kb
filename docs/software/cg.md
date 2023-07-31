@@ -195,7 +195,22 @@ OpenGL 中，经过 Model 和 View 矩阵映射后得到 Eye Coordinates，相�
 
 那么相机正对的向量 F=(centerX-eyeX, centerY-eyeY, centerZ-eyeZ)，这个方向在映射后的坐标系中就是 -Z 轴。令 UP=(upX, upY, upZ)，UP 最终在视野里看到的是沿 y 轴向上，但是映射以后可能会有 z 的分量，也就是 F 和 UP 不一定垂直，后面需要考虑这一点。
 
+<figure markdown>
+  ![](cg_axis_3d.png){ width="300" }
+  <figcaption>相机的 eye，up 和 center 示意图，其中 up 在 Y-Z 平面内</figcation>
+</figure>
+
+<figure markdown>
+  ![](cg_axis_2d.png){ width="300" }
+  <figcaption>center 和 up 对应屏幕的位置</figcation>
+</figure>
+
 对 $F$ 进行标准化，得到 $f$；对 UP 进行标准化，得到 $u$；由于 $u$ 和 $f$ 确定了 Y-Z 平面，所以求 X 方向的向量，直接计算叉积即可：$s = f \times u$，由于 $f$ 指向 -Z，$u$ 指向 Y，所以得到的 s 指向的是屏幕的右侧，不妨规定右侧是 X 正半轴（右手系）。此时再叉积，得到 Y 轴的方向：$y = s \times f$。
+
+<figure markdown>
+  ![](cg_axis_cross.png){ width="300" }
+  <figcaption>s 和 y 向量的计算方式，图中没有体现向量的长度</figcation>
+</figure>
 
 此时三个轴上的向量都有了：X 轴正方向是 s，Y 轴正方向是 y，Z 轴负方向是 f。所以矩阵应该实现下面的映射：
 
