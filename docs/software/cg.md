@@ -205,7 +205,7 @@ OpenGL 中，经过 Model 和 View 矩阵映射后得到 Eye Coordinates，相�
   <figcaption>center 和 up 对应屏幕的位置</figcation>
 </figure>
 
-对 $F$ 进行标准化，得到 $f$；对 UP 进行标准化，得到 $u$；由于 $u$ 和 $f$ 确定了 Y-Z 平面，所以求 X 方向的向量，直接计算叉积即可：$s = f \times u$，由于 $f$ 指向 -Z，$u$ 指向 Y，所以得到的 s 指向的是屏幕的右侧，不妨规定右侧是 X 正半轴（右手系）。此时再叉积，得到 Y 轴的方向：$y = s \times f$。
+对 $F$ 进行标准化，得到 $f$；对 UP 进行标准化，得到 $u$；由于 $u$ 和 $f$ 确定了 Y-Z 平面，所以求 X 方向的向量，直接计算叉积即可：$s = f \times u$，由于 $f$ 指向 -Z，$u$ 在 Y-Z 平面中 Y 为正的半平面，所以得到的 s 指向的是屏幕的右侧，不妨规定右侧是 X 正半轴（右手系）。此时再叉积，得到 Y 轴的方向：$y = s \times f$。
 
 <figure markdown>
   ![](cg_axis_cross.png){ width="300" }
