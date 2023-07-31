@@ -173,13 +173,13 @@ Whitted-style ray-tracing 是一种典型的光线追踪算法，它的实现思
 2. 计算射线与场景中表面的第一个交点，根据表面的类型进行不同的处理：
     1. 漫反射（Diffuse）：找到所有的光源，找出那些可以照亮交点的光源（光源到交点之间没有遮挡），计算出光源对这一点的贡献
     2. 镜面反射（Specular）：计算出反射光，把反射光当成视线，继续递归
-    3. 镜面反射+折射（Refraction）：分别计算出反射光和折射光，分别递归然后按照 Fresnel 方程加权求和
+    3. 镜面反射 + 折射（Refraction）：分别计算出反射光和折射光，分别递归然后按照 Fresnel 方程加权求和
 
 可以看到，所有的光线在递归终止的时候，要么是在漫反射表面上，要么就是没有找到相交的表面。
 
 ## 辐射度量学
 
-参考 [路径追踪（Path Tracing）与渲染方程(Render Equation)](https://zhuanlan.zhihu.com/p/370162390) 和 [GAMES101 Lecture 15](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf)：
+参考 [路径追踪（Path Tracing）与渲染方程 (Render Equation)](https://zhuanlan.zhihu.com/p/370162390) 和 [GAMES101 Lecture 15](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf)：
 
 - Radiant energy Q：光源向空间中辐射的能量，单位是 J
 - Radiant flux(power) $\Phi$：光源在单位时间内向空间中辐射的能量，单位是 W
@@ -226,7 +226,7 @@ BRDF（Bidirectional reflectance distribution function）指的是在一个表�
 
 - [Unity - Manual: Writing shaders for different graphics APIs](https://docs.unity3d.com/2022.3/Documentation/Manual/SL-PlatformDifferences.html)
 - [Coordinate systems - gpuweb](https://github.com/gpuweb/gpuweb/issues/416)
-- [Vulkan集成：图形API坐标系对比及解决方案](https://zhuanlan.zhihu.com/p/339295068)
+- [Vulkan 集成：图形 API 坐标系对比及解决方案](https://zhuanlan.zhihu.com/p/339295068)
 - [Vulkan’s coordinate system](http://anki3d.org/vulkan-coordinate-system/)
 
 另外还推荐阅读：

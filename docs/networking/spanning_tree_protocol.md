@@ -95,10 +95,10 @@ Per VLAN 的 STP 相关协议有：
 
 下面是在不同型号的交换机上观察到支持的协议：
 
-- Dell：stp pvst rstp rapid-pvst mstp
-- Huawei：stp rstp mstp vbst
-- Mellanox：rst mst rpvst
-- Cisco：mst rapid-pvst
+- Dell: stp pvst rstp rapid-pvst mstp
+- Huawei: stp rstp mstp vbst
+- Mellanox: rst mst rpvst
+- Cisco: mst rapid-pvst
 
 实践中，可以使用 rapid-pvst/vbst/rpvst 的配置。
 
