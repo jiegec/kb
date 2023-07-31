@@ -225,6 +225,10 @@ BRDF（Bidirectional reflectance distribution function）指的是在一个表�
 参考：
 
 - [Unity - Manual: Writing shaders for different graphics APIs](https://docs.unity3d.com/2022.3/Documentation/Manual/SL-PlatformDifferences.html)
-- https://github.com/gpuweb/gpuweb/issues/416
-- https://zhuanlan.zhihu.com/p/339295068
-- http://anki3d.org/vulkan-coordinate-system/
+- [Coordinate systems - gpuweb](https://github.com/gpuweb/gpuweb/issues/416)
+- [Vulkan集成：图形API坐标系对比及解决方案](https://zhuanlan.zhihu.com/p/339295068)
+- [Vulkan’s coordinate system](http://anki3d.org/vulkan-coordinate-system/)
+
+另外还推荐阅读：
+
+- [What are the coordinates?](https://medium.com/@christophkrautz/what-are-the-coordinates-225f1ec0dd78)
