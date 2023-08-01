@@ -34,12 +34,14 @@ HDMI 2.1 不再使用单独的 TMDS 时钟差分对，把最后一对也用来�
 
 下面是这几代 HDMI 的对比，其中 HDMI 2.1 版本没考虑 FEC 开销：
 
-|      | 1.0        | 1.3        | 2.0       | 2.1       |
+|      | 1.0-1.2    | 1.3-1.4    | 2.0       | 2.1       |
 | ---- | ---------- | ---------- | --------- | --------- |
 | 传输速率 | 4.95 Gbps  | 10.2 Gbps  | 18 Gbps   | 48 Gbps   |
 | 数据速率 | 3.96 Gbps  | 8.16 Gbps  | 14.4 Gbps | 42.0 Gbps |
 | 编码方式 | 8b/10b     | 8b/10b     | 8b/10b    | 16b/18b   |
 | 分辨率  | 1080p 60Hz | 1440p 75Hz | 4k 60Hz   | 8k 30Hz   |
+
+但这个表格不是绝对的，例如 HDMI 1.4b 在采用非标准的 YCbCr 420 时，也可以输出 4k 60Hz 的分辨率：[NVIDIA Kepler Cards Get HDMI 4K@60Hz Support (Kind Of)](https://www.anandtech.com/show/8191/nvidia-kepler-cards-get-hdmi-4k60hz-support-kind-of)。
 
 HDMI 2.1 还支持 DSC 视频流压缩，可以支持更高的分辨率，如 8k 60Hz 甚至 8k 120Hz。
 
