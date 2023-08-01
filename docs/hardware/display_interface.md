@@ -41,7 +41,7 @@ HDMI 2.1 不再使用单独的 TMDS 时钟差分对，把最后一对也用来�
 | 编码方式 | 8b/10b     | 8b/10b     | 8b/10b    | 16b/18b   |
 | 分辨率  | 1080p 60Hz | 1440p 75Hz | 4k 60Hz   | 8k 30Hz   |
 
-但这个表格不是绝对的，例如 HDMI 1.4b 在采用非标准的 YCbCr 420 时，也可以输出 4k 60Hz 的分辨率：[NVIDIA Kepler Cards Get HDMI 4K@60Hz Support (Kind Of)](https://www.anandtech.com/show/8191/nvidia-kepler-cards-get-hdmi-4k60hz-support-kind-of)。
+但这个表格不是绝对的，例如 HDMI 1.4b 在采用不在 HDMI 1.4b 标准里但是由显卡和显示器支持的 YCbCr 420 时，也可以输出 4k 60Hz 的分辨率：[NVIDIA Kepler Cards Get HDMI 4K@60Hz Support (Kind Of)](https://www.anandtech.com/show/8191/nvidia-kepler-cards-get-hdmi-4k60hz-support-kind-of)。
 
 HDMI 2.1 还支持 DSC 视频流压缩，可以支持更高的分辨率，如 8k 60Hz 甚至 8k 120Hz。
 
