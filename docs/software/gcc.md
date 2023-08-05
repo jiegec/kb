@@ -80,6 +80,8 @@ GCC 的 RTL 是采用 Lisp 语言描述的低层次的中间语言，是转换�
 
 这里的 DI/SI 就是类型，10/11 是寄存器编号，后面的 a0/a1 是寄存器 10/11 在 RISC-V 架构里的 ABI 名称。`/i` 表示这个寄存器会保存函数的返回值（`REG_FUNCTION_VALUE_P(x)`）。
 
+### 指令模板
+
 同一行最后还有一个 `{*mulsi3_extended}`，这表示的是这一个 insn 对应了哪一个规则，这可以在 [riscv.md](https://github.com/gcc-mirror/gcc/blob/63663e4e69527b308687c63bacb0cc038b386593/gcc/config/riscv/riscv.md#L1048-L1056) 中找到：
 
 ```lisp
@@ -103,7 +105,7 @@ GCC 的 RTL 是采用 Lisp 语言描述的低层次的中间语言，是转换�
 		     (match_operand:SI 2 "register_operand" " r"))))]
 ```
 
-意思是可以匹配两个操作数，这两个操作数应当是寄存器操作数（`register_operand`），类型是 int32（`:SI`），操作数乘法后符号扩展到 int64（`:DI`），最后写入一个寄存器的目的操作数（`register_operand`，`:DI`）。满足这些要求，就匹配上了 `mulsi3_extended`。
+意思是可以匹配两个操作数，这两个操作数应当是寄存器操作数（`register_operand`，`r` 表示通用寄存器），类型是 int32（`:SI`），操作数乘法后符号扩展到 int64（`:DI`），最后写入一个寄存器的目的操作数（`register_operand`，类型是 int64 `:DI`，保存在通用寄存器 `r`，`=` 表示写入，旧数据丢弃）。满足这些要求，就匹配上了 `mulsi3_extended`。
 
 下一行：
 
@@ -127,3 +129,129 @@ GCC 的 RTL 是采用 Lisp 语言描述的低层次的中间语言，是转换�
 ```
 
 最后是一些额外的属性，这个是用来给运算标记类型的，例如要针对处理器流水线进行优化，那就需要知道每个指令会被分到哪个流水线里面。
+
+### 例子回顾
+
+回顾一下开头的例子：
+
+```asm
+#(insn 13 8 14 (set (reg/i:DI 10 a0)
+#        (sign_extend:DI (mult:SI (reg:SI 10 a0 [77])
+#                (reg:SI 11 a1 [78])))) "kb.c":3:1 21 {*mulsi3_extended}
+#     (expr_list:REG_DEAD (reg:SI 11 a1 [78])
+#        (nil)))
+        mulw    a0,a0,a1        # 13    [c=20 l=4]  *mulsi3_extended
+```
+
+这一个 insn 与 mulsi3_extended 相匹配，操作数 0 匹配到了 `(reg/i:DI 10 a0)`，操作数 1 匹配到了 `(reg:SI 10 a0 [77])`，操作数 2 匹配到了 `(reg:SI 11 a1 [78])`，所以最后生成指令的时候，把对应的寄存器名字填进去，就得到了 `mulw a0,a0,a1`。
+
+有时候，比较复杂的指令会在 C 代码中生成，例如 `simple_return`：
+
+```lisp
+(define_insn "simple_return"
+  [(simple_return)]
+  ""
+{
+  return riscv_output_return ();
+}
+  [(set_attr "type"	"jump")
+   (set_attr "mode"	"none")])
+```
+
+那么匹配以后，会调用 `riscv_output_return` 函数：
+
+```c
+const char *
+riscv_output_return ()
+{
+  if (cfun->machine->naked_p)
+    return "";
+
+  return "ret";
+}
+```
+
+实现也很简单，除了 naked 函数以外，都是一条 ret 指令。
+
+### 原理探究
+
+具体地，在 `riscv.md` 中写模式匹配的时候：
+
+```lisp
+  [(set (match_operand:DI              0 "register_operand" "=r")
+	(sign_extend:DI
+	    (mult:SI (match_operand:SI 1 "register_operand" " r")
+		     (match_operand:SI 2 "register_operand" " r"))))]
+```
+
+会在 `gcc/insn-recog.cc` 生成如下的代码：
+
+```c
+// x1 = (set (reg/i:DI 10 a0)
+//           (sign_extend:DI (mult:SI (reg:SI 10 a0 [77])
+//                   (reg:SI 11 a1 [78]))))
+static int
+recog_7 (rtx x1 ATTRIBUTE_UNUSED,
+	rtx_insn *insn ATTRIBUTE_UNUSED,
+	int *pnum_clobbers ATTRIBUTE_UNUSED)
+{
+  rtx * const operands ATTRIBUTE_UNUSED = &recog_data.operand[0];
+  rtx x2, x3, x4, x5, x6;
+  int res ATTRIBUTE_UNUSED;
+  // x2 = (reg/i:DI 10 a0)
+  x2 = XEXP (x1, 0);
+  // operands[0] = (reg/i:DI 10 a0)
+  operands[0] = x2;
+  // x3 = (sign_extend:DI (mult:SI (reg:SI 10 a0 [77])
+  //                      (reg:SI 11 a1 [78])))
+  x3 = XEXP (x1, 1);
+  // x4 = (mult:SI (reg:SI 10 a0 [77])
+  //               (reg:SI 11 a1 [78]))
+  x4 = XEXP (x3, 0);
+  switch (GET_CODE (x4))
+    {
+    case MULT:
+      if (pattern14 (x3, E_SImode) != 0
+          || !
+#line 869 "/home/jiegec/ct-ng/.build/riscv64-unknown-linux-gnu/src/gcc/gcc/config/riscv/riscv.md"
+(TARGET_MUL && TARGET_64BIT))
+        return -1;
+      return 21; /* *mulsi3_extended */
+    }
+}
+```
+
+```c
+// x1 = (sign_extend:DI (mult:SI (reg:SI 10 a0 [77])
+//                      (reg:SI 11 a1 [78])))
+static int
+pattern14 (rtx x1, machine_mode i1)
+{
+  rtx * const operands ATTRIBUTE_UNUSED = &recog_data.operand[0];
+  rtx x2, x3, x4;
+  int res ATTRIBUTE_UNUSED;
+  // x2 = (mult:SI (reg:SI 10 a0 [77])
+  //               (reg:SI 11 a1 [78]))
+  // operands[0] = (reg/i:DI 10 a0)
+  x2 = XEXP (x1, 0);
+  if (GET_MODE (x2) != E_SImode
+      || !register_operand (operands[0], E_DImode)
+      || GET_MODE (x1) != E_DImode)
+    return -1;
+  // x3 = (reg:SI 10 a0 [77])
+  x3 = XEXP (x2, 0);
+  // operands[1] = (reg:SI 10 a0 [77])
+  operands[1] = x3;
+  if (!register_operand (operands[1], E_SImode))
+    return -1;
+  // x4 = (reg:SI 11 a1 [78])
+  x4 = XEXP (x2, 1);
+  // operands[2] = (reg:SI 11 a1 [78])
+  operands[2] = x4;
+  if (!register_operand (operands[2], i1))
+    return -1;
+  return 0;
+}
+```
+
+代码中用注释标注了每一步匹配的内容，可见代码在匹配的同时，也把操作数保存了下来。
