@@ -295,7 +295,9 @@ pattern14 (rtx x1, machine_mode i1)
    && riscv_split_64bit_move_p (operands[0], operands[1])"
 ```
 
-是否成立，如果成立，就认为可以拆分 64 位的 move 为两个 32 位的 move，就生成下列 RTL：
+是否成立。这里 `reload_completed == true` 表示已经完成寄存器分配。
+
+如果成立，就认为可以拆分 64 位的 move 为两个 32 位的 move，就生成下列 RTL：
 
 ```lisp
   [(const_int 0)]
