@@ -130,6 +130,18 @@ GCC 的 RTL 是采用 Lisp 语言描述的低层次的中间语言，是转换�
 
 最后是一些额外的属性，这个是用来给运算标记类型的，例如要针对处理器流水线进行优化，那就需要知道每个指令会被分到哪个流水线里面。
 
+完整的格式如下：
+
+```lisp
+(define_insn
+  [insn-pattern]
+  "condition"
+  "output-template"
+  [insn-attribute])
+```
+
+忽略了可选的命名。
+
 ### 例子回顾
 
 回顾一下开头的例子：
@@ -298,6 +310,20 @@ pattern14 (rtx x1, machine_mode i1)
 })
 ```
 
+完整的 `define_split` 定义如下：
+
+```lisp
+(define-split
+  [insn-pattern]
+  "condition"
+  [new-insn-pattern-1
+   new-insn-pattern-2
+   ...]
+  "preparation-statements")
+```
+
+忽略了可选的命名。
+
 下面来看一个具体的例子，这一段是在 split 之前的 RTL 代码：
 
 ```lisp
@@ -325,3 +351,36 @@ deleting insn with uid = 6.
 ```
 
 可以看到，64 位的目的寄存器被拆成了两个 32 位寄存器，分别是 a4 和 a5；内存读取指令也拆分成了两个 SI 类型的读取，栈上的偏移也做了相应的调整。
+
+有时候还可以见到 `define_insn_and_split`：
+
+```lisp
+(define_insn_and_split
+  [insn-pattern]
+  "condition"
+  "output-template"
+  "split-condition"
+  [new-insn-pattern-1
+   new-insn-pattern-2
+   ...]
+  "preparation-statements"
+  [insn-attribute])
+```
+
+这实际上就是一个 `define_insn` 加一个 `define_split`，二者的 `insn-pattern` 一致：
+
+```lisp
+(define_insn
+  [insn-pattern]
+  "condition"
+  "output-template"
+  [insn-attribute])
+
+(define_split
+  [insn-pattern]
+  "split-condition"
+  [new-insn-pattern-1
+   new-insn-pattern-2
+   ...]
+  "preparation-statements")
+```
