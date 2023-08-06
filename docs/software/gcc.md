@@ -1,6 +1,6 @@
 # GCC Internals
 
-本文是对 [GNU Compiler Collection Internals](https://gcc.gnu.org/onlinedocs/gccint.pdf) 文档的整理和总结。
+本文是对 [GNU Compiler Collection Internals](https://gcc.gnu.org/onlinedocs/gccint.pdf) 文档的整理和总结。文章引用了部分 GCC 源码。
 
 ## RTL
 
@@ -255,3 +255,73 @@ pattern14 (rtx x1, machine_mode i1)
 ```
 
 代码中用注释标注了每一步匹配的内容，可见代码在匹配的同时，也把操作数保存了下来。
+
+### 指令拆分
+
+有些时候，RTL 层次上的指令可能对应多条实际的机器指令。例如在 32 位 target 上，拷贝一个 64 位整数，这意味着需要把一个 DI 类型的 move，拆成两个 SI 类型的 move，分别处理高位和低位。下面来看一个 rv32 的例子：
+
+```lisp
+;; 64-bit modes for which we provide move patterns.
+(define_mode_iterator MOVE64 [DI DF])
+
+(define_split
+  [(set (match_operand:MOVE64 0 "nonimmediate_operand")
+	(match_operand:MOVE64 1 "move_operand"))]
+  "reload_completed
+   && riscv_split_64bit_move_p (operands[0], operands[1])"
+  [(const_int 0)]
+{
+  riscv_split_doubleword_move (operands[0], operands[1]);
+  DONE;
+})
+```
+
+可以看到，它会尝试匹配从一个 64 位整数（DI）或浮点数（DF）到另一个 64 位整数（DI）或浮点数（DF）的 set，也就是 move 操作。匹配上以后，判断条件：
+
+```c
+  "reload_completed
+   && riscv_split_64bit_move_p (operands[0], operands[1])"
+```
+
+是否成立，如果成立，就认为可以拆分 64 位的 move 为两个 32 位的 move，就生成下列 RTL：
+
+```lisp
+  [(const_int 0)]
+```
+
+但是实际上不会生成这个，而是调用后面的代码来生成新的 RTL 代码：
+
+```c
+{
+  riscv_split_doubleword_move (operands[0], operands[1]);
+  DONE;
+})
+```
+
+下面来看一个具体的例子，这一段是在 split 之前的 RTL 代码：
+
+```lisp
+(insn 6 3 13 (set (reg:DI 14 a4 [orig:72 _2 ] [72])
+        (mem/c:DI (plus:SI (reg/f:SI 8 s0)
+                (const_int -24 [0xffffffffffffffe8])) [1 a+0 S8 A64])) "kb.c":1:38 134 {*movdi_32bit}
+     (nil))
+```
+
+它做的事情是，从内存地址 `$s0-24` 读取读取 8 个字节，写入到 a4 寄存器当中，由于 RV32 寄存器宽度只有 32 位，所以需要拆成两个读取：
+
+```lisp
+Splitting with gen_split_14 (riscv.md:1510)
+deleting insn with uid = 6.
+deleting insn with uid = 6.
+
+(insn 30 3 31 (set (reg:SI 14 a4 [orig:72 _2 ] [72])
+        (mem/c:SI (plus:SI (reg/f:SI 8 s0)
+                (const_int -24 [0xffffffffffffffe8])) [1 a+0 S4 A64])) "kb.c":1:38 136 {*movsi_internal}
+     (nil))
+(insn 31 30 32 (set (reg:SI 15 a5 [ _2+4 ])
+        (mem/c:SI (plus:SI (reg/f:SI 8 s0)
+                (const_int -20 [0xffffffffffffffec])) [1 a+4 S4 A32])) "kb.c":1:38 136 {*movsi_internal}
+     (nil))
+```
+
+可以看到，64 位的目的寄存器被拆成了两个 32 位寄存器，分别是 a4 和 a5；内存读取指令也拆分成了两个 SI 类型的读取，栈上的偏移也做了相应的调整。
