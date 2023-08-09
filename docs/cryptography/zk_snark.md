@@ -60,12 +60,40 @@ E(x^3)^1E(x^2)^{-3}E(x)^1 &= (g^{x^3})^1(g^{x^2})^{-3}(g^x)^1 \\
 2. Verifier 计算 $s$ 的幂次，再带入 $E(v)$：$E(s^i) = g^{s^i}$
 3. Verifier 给 Prover 发送 $E(s^0), E(s^1), \ldots, E(s^d)$，其中 $d$ 是多项式 $p(x)$ 的阶数
 4. Prover 已知 $p(s)=t(s)h(s)$，计算 $E(p(s)), E(h(s))$，发送给 Verifier
-5. Verifier 计算 $E(p(s))$ 和 $E(h(s))^{t(s)}$，判断两者是否相等：$E(h(s)^{t{s}})=(g^{h(s)})^{t(s)}=g^{h(s)t(s)}=g^{p(s)}=E(p(s))$
+5. Verifier 计算 $E(p(s))$ 和 $E(h(s))^{t(s)}$，判断两者是否相等：$E(h(s))^{t(s)}=(g^{h(s)})^{t(s)}=g^{h(s)t(s)}=g^{p(s)}=E(p(s))$
 
 注意计算 $s$ 的幂次这一步只有 Verifier 才能做，因为 Prover 并不知道 $s$ 的值。
 
-但是 Prover 还是有作弊的可能性，例如告诉 Verifier $E(p(s))=E(h(s))=1$，那么无论 $s$ 是什么，都会验证通过。
+但是 Prover 还是有作弊的可能性，例如告诉 Verifier $E(p(s))=E(h(s))=1$，那么无论 $s$ 是什么，都会验证通过。或者取一个整数 $r$，告诉 Verifier $E(p(s))=(g^{t(s)})^r$（$t(x)$ 多项式是公开信息，并且知道 $E(s^i)$），$E(h(s))=g^r$，那么 Verifier 验证的时候，会发现验证通过。
 
+这个作弊的方法核心的点就是，虽然 Prover 并不知道 $s$ 是什么，但是它可以拿 $E(s^i)$ 去做别的计算，而不是按照多项式 $p(x)$ 去计算。所以接下来要考虑的是，如何保证 Prover 真的拿 $E(s^i)$ 去带入到 $E(p(s))$ 的计算中去，并且把结果发给 Verifier。
+
+### Knowledge-of-Exponent Assumption
+
+对于上面问题的一种解决方法是，让 Prover 可以证明它确实对一个数做了乘法（对应上面的模幂操作）。思路是这样的：
+
+1. Verifier 有一个数 $a$，需要验证 Prover 对 $a$ 进行了模幂操作，并且只进行了模幂操作。
+2. Verifier 生成一个随机数 $\alpha$，计算 $a' = a^{\alpha} \pmod n$，把 $a$ 和 $a'$ 发送给 Prover
+3. Prover 要对 $a$ 进行模幂操作，次数是 $c$，那么需要计算 $b=a^c \pmod n$ 以及 $b' = (a')^c \pmod n$，把 $b$ 和 $b'$ 发送给 Verifier
+4. Verifier 验证：$b^{\alpha} = b' \pmod n$
+
+如果验证正确，说明 Prover 对两个数 $a$ 和 $a'$ 求了同样次数的幂（对应多项式里，乘了同一个整系数）。如果对这两个数进行其他操作，那么就不能保证验证通过。回顾上一小节的最后一部分：Prover 想要作弊的话，需要构造一个 $E(h(s))$ 以及对应的 $E(p(s))$，如果对 $E(h(s))$ 或者 $E(p(s))$ 进行上述处理，那么 $E(h(s))$ 和 $E(p(s))$ 就只能是对 $E(s^i)$ 求 $c$ 次方计算出来的值，这正好就是一个多项式的求值过程。
+
+换句话说，给定 $1, s, s^2, \ldots, s^d$ 这些值，要求只能用这些数进行加法和数乘操作，那么结果一定是某个多项式在 $s$ 处的取值。
+
+因此此时的完整零知识证明协议变成了：
+
+1. Verifier 生成随机数 $s$
+2. Verifier 计算 $s$ 的幂次，再带入 $E(v)$：$E(s^i) = g^{s^i}$
+3. Verifier 生成随机数 $\alpha$，带入 $E(s^i)^{\alpha} = g^{\alpha{}s^{i}}$
+3. Verifier 给 Prover 发送 $E(s^0), E(s^1), \ldots, E(s^d)$ 和 $E(s^0)^{\alpha}, E(s^1)^{\alpha}, \ldots, E(s^d)^{\alpha}$，其中 $d$ 是多项式 $p(x)$ 的阶数
+4. Prover 已知 $p(s)=t(s)h(s)$，计算 $E(p(s)), E(\alpha{}p(s)), E(h(s))$，发送给 Verifier
+5. Verifier 判断 $E(p(s))=E(h(s))^{t(s)}$ 以及 $E(p(s))^{\alpha}=E(\alpha{}p(s))$
+
+这样就证明了两点：
+
+1. $E(p(s))=E(h(s))^{t(s)}$ 证明了 $t(x)$ 是 $p(x)$ 的因式
+2. $E(p(s))^{\alpha}=E(\alpha{}p(s))$ 证明了 $p(x)$ 是一个多项式
 
 ## 参考资料
 
