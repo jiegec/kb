@@ -135,6 +135,24 @@ E(x^3)^1E(x^2)^{-3}E(x)^1 &= (g^{x^3})^1(g^{x^2})^{-3}(g^x)^1 \\
 
 这个乘法是一个双线性的映射，叫做 pairing。
 
+那么到这里就可以给出一个完整的非交互式的多项式零点证明：
+
+1. 已知多项式 $t(x)$ 和次数 $d$
+2. 初始化阶段
+    1. 生成随机数 $s$ 和 $\alpha$
+    2. 计算 $g^{s^i}, g^{\alpha{}s^i}, g^{\alpha}, g^{t(s)}$
+    3. 记其中的 $g^{s^i}, g^{\alpha{}s^i}$ 为 Proving Key，用于 Prover 生成 Proof
+    4. 记其中的 $g^{\alpha}, g^{t(s)}$ 为 Verification Key，用于 Verifier 验证 Proof
+3. 证明阶段
+    1. 计算 $h(x) = p(x) / t(x)$
+    2. 用 $g^{s^i}$ 计算 $g^{p(s)}$ 和 $g^{h(s)}$
+    3. 用 $g^{\alpha{}s^i}$ 计算 $g^{\alpha{}p(s)}$
+    4. 生成随机数 $\delta$
+    5. 计算 $g^{\delta{}p(s)}, g^{\delta{}h(s)}, g^{\delta{}\alpha{}p(s)}$
+4. 验证阶段
+    1. 检查 $g^{\delta{}\alpha{}p(s)} \times g = g^{\delta{}p(s)} \times g^{\alpha}$
+    2. 检查 $g^{\delta{}p(s)} \times g = g^{t(s)} \times g^{\delta{}h(s)}$
+
 ## 参考资料
 
 - [Why and How zk-SNARK Works: Definitive Explanation](https://arxiv.org/pdf/1906.07221.pdf)
