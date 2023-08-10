@@ -153,6 +153,12 @@ E(x^3)^1E(x^2)^{-3}E(x)^1 &= (g^{x^3})^1(g^{x^2})^{-3}(g^x)^1 \\
     1. 检查 $g^{\delta{}\alpha{}p(s)} \times g = g^{\delta{}p(s)} \times g^{\alpha}$
     2. 检查 $g^{\delta{}p(s)} \times g = g^{t(s)} \times g^{\delta{}h(s)}$
 
+## 通用零知识证明
+
+上面的零知识证明只适用于多项式的零点问题，那么对于更广泛的场景，例如前面提到的银行存款的问题，如何实现呢？
+
+思路是把问题转化为前面的多项式零点问题，具体内容 TODO。
+
 ## 参考资料
 
 - [Why and How zk-SNARK Works: Definitive Explanation](https://arxiv.org/pdf/1906.07221.pdf)
