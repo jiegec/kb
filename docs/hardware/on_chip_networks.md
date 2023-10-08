@@ -21,6 +21,13 @@
 
 其中 Mesh 和 Torus 还可以扩展到高阶情况，例如 3D 的立方体。
 
+还有一些比较复杂的网络拓扑，例如 Fat Tree，在树形拓扑的基础上，由于树上两叶子结点间路径会比较多地经过层数比较小的结点，例如根结点，把靠近根结点的边变粗（增加带宽）：
+
+<figure markdown>
+  ![Fat Tree](on_chip_networks_fat_tree.svg){ width="400" }
+  <figcaption>Fat Tree（图源 <a href="https://en.wikipedia.org/wiki/Fat_tree#/media/File:Fat_tree_network.svg">Wikipedia</a>）</figcaption>
+</figure>
+
 可以从以下几个方面评估一个拓扑的属性：
 
 1. 结点的度：连接的结点数
