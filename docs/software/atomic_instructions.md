@@ -245,5 +245,6 @@ AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存�
 事实上，QEMU 为了性能，会用 CAS 实现 LL/SC。虽然它会有 ABA 问题，但实际上利用 LL/SC 来避免 ABA 问题的代码比较少。如果不这么做，就需要比较复杂的方法来实现精确的 LL/SC 模拟，这方面的论文也不少，例如：
 
 - Kristien, Martin, et al. "Fast and correct load-link/store-conditional instruction handling in DBT systems." IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems 39.11 (2020): 3544-3554.
+- Z. Zhao, Z. Jiang, Y. Chen, X. Gong, W. Wang and P. -C. Yew, "Enhancing Atomic Instruction Emulation for Cross-ISA Dynamic Binary Translation," 2021 IEEE/ACM International Symposium on Code Generation and Optimization (CGO), Seoul, Korea (South), 2021, pp. 351-362, doi: 10.1109/CGO51591.2021.9370312.
 
 但很遗憾的是，这些工作的性能都没有达到 CAS 模拟那么好，所以还是没有被 QEMU 采用。关于 QEMU 为什么要采用 CAS 来模拟 LL/SC 的讨论，可以见 [cmpxchg-based emulation of atomics](https://lists.gnu.org/archive/html/qemu-devel/2016-06/msg07754.html)。
