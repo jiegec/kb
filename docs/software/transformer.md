@@ -47,7 +47,7 @@ $$
 ## 参考文献
 
 - [Speeding up the GPT - KV cache](https://www.dipkumar.dev/becoming-the-unbeatable/posts/gpt-kvcache/)
-- [最新最全GPT-3模型网络结构详细解析](https://zhuanlan.zhihu.com/p/174782647)
+- [最新最全 GPT-3 模型网络结构详细解析](https://zhuanlan.zhihu.com/p/174782647)
 - [Transformer Inference Arithmetic](https://kipp.ly/transformer-inference-arithmetic/)
 - [Understanding FLOPs-per-token estimates from OpenAI’s scaling laws](https://discuss.huggingface.co/t/understanding-flops-per-token-estimates-from-openais-scaling-laws/23133)
 - [拆 Transformer 系列二：Multi-Head Attention 机制详解](https://zhuanlan.zhihu.com/p/109983672)

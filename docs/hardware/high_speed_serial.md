@@ -36,14 +36,14 @@
 
 下面列举一些高速串行通信协议采用的技术：
 
-1. PCIe 1.0-2.0：NRZ，8b/10b
-2. PCIe 3.0-5.0：NRZ，128b/130b
-3. PCIe 6.0：PAM-4，FEC，242B/256B FLIT
-4. HDMI 1.0-2.0：8b/10b
-5. HDMI 2.1：16b/18b，FEC
-6. DisplayPort 1.0-1.4：8b/10b
-7. DisplayPort 2.0-2.1：128b/132b，FEC
+1. PCIe 1.0-2.0: NRZ, 8b/10b
+2. PCIe 3.0-5.0: NRZ, 128b/130b
+3. PCIe 6.0: PAM-4, FEC, 242B/256B FLIT
+4. HDMI 1.0-2.0:8b/10b
+5. HDMI 2.1:16b/18b, FEC
+6. DisplayPort 1.0-1.4:8b/10b
+7. DisplayPort 2.0-2.1:128b/132b, FEC
 8. SGMII：8b/10b
 9. SATA：8b/10b
-10. SAS 1-3：8b/10b
-11. SAS 4：128b/150b, FEC
+10. SAS 1-3:8b/10b
+11. SAS 4:128b/150b, FEC

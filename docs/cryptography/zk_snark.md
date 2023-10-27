@@ -126,7 +126,7 @@ E(x^3)^1E(x^2)^{-3}E(x)^1 &= (g^{x^3})^1(g^{x^2})^{-3}(g^x)^1 \\
 1. $E(\delta{}p(s))=E(\delta{}h(s))^{t(s)}$
 2. $E(\delta{}p(s))^{\alpha}=E(\delta{}\alpha{}p(s))$
 
-但是这个验证过程需要知道 $t(s)$ 和 $\alpha$ 的值，但如果是采用前面所说的随机生成的方法，那么这两个值是不能公开的，否则 Prover 就可以针对它去生成数据。解决方法是，设计一个 “乘法”（下面用 $\times$ 表示），使得验证过程不需要原始的 $t(s)$ 和 $\alpha$，而是需要 $E(t(s))$ 和 $E(\alpha)$：
+但是这个验证过程需要知道 $t(s)$ 和 $\alpha$ 的值，但如果是采用前面所说的随机生成的方法，那么这两个值是不能公开的，否则 Prover 就可以针对它去生成数据。解决方法是，设计一个“乘法”（下面用 $\times$ 表示），使得验证过程不需要原始的 $t(s)$ 和 $\alpha$，而是需要 $E(t(s))$ 和 $E(\alpha)$：
 
 1. $E(\delta{}p(s))=E(\delta{}h(s))^{t(s)}$ 对应 $g^{\delta{}p(s)} \times g = g^{t(s)} \times g^{\delta{}h(s)}$
 2. $E(\delta{}p(s))^{\alpha}=E(\delta{}\alpha{}p(s))$ 对应 $g^{\delta{}p(s)} \times g^{\alpha} = g^{\delta{}\alpha{}p(s)} \times g$

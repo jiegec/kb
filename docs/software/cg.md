@@ -39,7 +39,7 @@ NDC 的坐标范围在不同的图形 API 下可能不一样，例如 OpenGL 和
 
 1. x 轴：-1 -> x, 1 -> x + w
 2. y 轴：-1 -> y, 1 -> y + w
-3. z 轴: -1 -> n, 1 -> f
+3. z 轴：-1 -> n, 1 -> f
 
 其中 x, y, w 和 h 用 glViewport 函数设置，n 和 f 用 [glDepthRange](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glDepthRange.xhtml) 设置。
 
