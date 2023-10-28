@@ -150,6 +150,8 @@ LL/SC 在使用的时候，潜在的一个问题是，可能会出现活锁：�
 - The LR and SC addresses must lie within a memory region with the LR/SC eventuality property. The execution environment is responsible for communicating which regions have this property.
 - The SC must be to the same effective address and of the same data size as the latest LR executed by the same hart.
 
+因为 LL/SC 的局限性，现在很多算法会用下面讲到的 CAS 或者 AMO 指令来实现。
+
 ## CAS
 
 ### 定义
@@ -265,6 +267,10 @@ loop:
 
 AMO 指令相当于是把一些常见的读 - 改 - 写循环固化成了指令，因此原来用 LL/SC 或 CAS 实现的一些原子操作，如果有对应的 AMO 指令，可以直接用 AMO 指令实现。
 
+### 指令集架构支持
+
+RISC-V 和 LoongArch 都提供了 AMO 指令，它们可以完成内存的原子更新，同时得到更新前的旧值。x86 指令集下，通过给 [add 指令添加 lock 前缀](https://en.wikipedia.org/wiki/Fetch-and-add#x86_implementation)，也可以实现原子更新的效果，如果要得到更新前的旧值，可以用 xadd 指令。
+
 ### 硬件实现
 
 AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存中去执行。但由于 AMO 指令需要涉及少量的更新操作，例如位运算和整数运算，因此缓存内部也需要引入一个 ALU 用于实现 AMO 指令的计算。因此，目前 AMO 指令仅限于硬件开销比较小的位运算和整数运算，没有整数乘除法，也没有浮点运算。
@@ -287,3 +293,13 @@ AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存�
 - Z. Zhao, Z. Jiang, Y. Chen, X. Gong, W. Wang and P. -C. Yew, "Enhancing Atomic Instruction Emulation for Cross-ISA Dynamic Binary Translation," 2021 IEEE/ACM International Symposium on Code Generation and Optimization (CGO), Seoul, Korea (South), 2021, pp. 351-362, doi: 10.1109/CGO51591.2021.9370312.
 
 但很遗憾的是，这些工作的性能都没有达到 CAS 模拟那么好，所以还是没有被 QEMU 采用。关于 QEMU 为什么要采用 CAS 来模拟 LL/SC 的讨论，可以见 [cmpxchg-based emulation of atomics](https://lists.gnu.org/archive/html/qemu-devel/2016-06/msg07754.html)。
+
+## 编程语言支持
+
+目前很多编程语言都内置了对原子指令的支持，例如：
+
+- C: C11 引入了 stdatomic.h 头文件
+- C++: C++11 引入了 atomic 头文件
+- Rust：提供了 std::sync::atomic
+
+根据指令集架构支持的原子指令类型，这些编程语言的原子操作会被翻译成对应的汇编代码。
