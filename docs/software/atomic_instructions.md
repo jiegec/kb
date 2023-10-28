@@ -287,6 +287,8 @@ AArch64 提供了 AMO 指令：LDADD、LDMAX、STADD、SWP 等等。
 
 AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存中去执行。但由于 AMO 指令需要涉及少量的更新操作，例如位运算和整数运算，因此缓存内部也需要引入一个 ALU 用于实现 AMO 指令的计算。因此，目前 AMO 指令仅限于硬件开销比较小的位运算和整数运算，没有整数乘除法，也没有浮点运算。
 
+例如 Rocket Chip 设计了一个 [AMOALU](https://github.com/chipsalliance/rocket-chip/blob/e3773366a5c473b6b45107f037e3130f4d667238/src/main/scala/rocket/AMOALU.scala#L53)，用于在 DCache 中实现 AMO 指令的计算。
+
 ## 不同原子指令间的关系
 
 不同原子指令之间，虽然语义不同，但是可以一定程度上互相实现。
