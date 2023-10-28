@@ -105,7 +105,7 @@ LL.{W/D} 执行时记录下访问地址并置上一个标记（LLbit 置为 1）
 
 - Alpha: ldl_l/stl_c, ldq_l/stq_c
 - PowerPC/Power ISA: lwarx/stwcx, ldarx/stdcx
-- MIPS: ll/sc
+- MIPS: ll/sc, llwp/scwp(Double Width)
 - ARM: ldrex/strex(ARMv6 & ARMv7), ldxr/stxr(ARMv8)
 - ARC: llock/scond
 
@@ -325,9 +325,10 @@ AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存�
 
 ## 不同指令集架构对原子指令支持的对比
 
-| ISA       | LL/SC                  | CAS                 | AMO    |
-|-----------|------------------------|---------------------|--------|
-| RISC-V    | A 扩展                 | Zacas 扩展          | A 扩展 |
-| LoongArch | 有，V1.1 支持了双倍宽度 | V1.1 版本           | 有     |
-| x86_64    | 无                     | 有，并且支持双倍宽度 | 有     |
-| AArch64   | 有                     | 有，并且支持双倍宽度 | 有     |
+| ISA       | LL/SC                  | CAS                           | AMO    |
+|-----------|------------------------|-------------------------------|--------|
+| RISC-V    | A 扩展                 | Zacas 扩展，并且支持双倍宽度   | A 扩展 |
+| LoongArch | 有，V1.1 支持了双倍宽度 | 需要 V1.1 版本，不支持双倍宽度 | 有     |
+| x86_64    | 无                     | 有，并且支持双倍宽度           | 有     |
+| AArch64   | 有                     | 有，并且支持双倍宽度           | 有     |
+| MIPS      | 有，也支持双倍宽度      | 有，并且支持双倍宽度           | 有     |
