@@ -101,6 +101,14 @@ LL.{W/D} 执行时记录下访问地址并置上一个标记（LLbit 置为 1）
 
 这样做的目的是，如果在 LL 和 SC 之间触发了上下文切换，操作系统可以把 SC 自动取消掉，详情可以看 LoongArch 的 CSR.LLBCTL 的定义。
 
+[其他实现了 LL/SC 的指令集架构](https://en.wikipedia.org/wiki/Load-link/store-conditional#Implementations)：
+
+- Alpha: ldl_l/stl_c, ldq_l/stq_c
+- PowerPC/Power ISA: lwarx/stwcx, ldarx/stdcx
+- MIPS: ll/sc
+- ARM: ldrex/strex(ARMv6 & ARMv7), ldxr/stxr(ARMv8)
+- ARC: llock/scond
+
 实际实现时，根据处理器实现不同，检测内存访问的粒度可能不同。
 
 ### 硬件实现
@@ -237,6 +245,8 @@ cas dest_hi, dest_lo, addr, old_data_hi, old_data_lo, new_data_hi, new_data_lo
 
 x86_64 指令集提供了 CAS 指令，并且提供了 DWCAS 两倍位宽版本：[cmpxchg16b 指令](https://www.felixcloutier.com/x86/cmpxchg8b:cmpxchg16b)，它把内存中的值和 RDX:RAX 比较，如果相等，就设置 ZF，并往内存写入 RCX:RBX；如果不相等，清空 ZF 并把内存中的值写入到 RDX:RAX。可以看到，这条指令采用的是多个源寄存器的方案：RDX、RAX、RCX、RBX 一共四个源 64 位通用寄存器，并且通过定死寄存器编号，解决了指令编码的问题。同时，一条指令也要写入两个通用寄存器 RDX 和 RAX，外加 FLAGS 寄存器的 ZF。
 
+LoongArch 从 V1.1 版本开始，支持了 AMCAS 指令。RISC-V 也有可选的 [Zacas](https://github.com/riscv/riscv-zacas) 扩展。AArch64 也提供了 CAS 指令，并且 CASP 指令实现了 DWCAS。
+
 ### 硬件实现
 
 CAS 的硬件实现也比较简单：在缓存一致性协议下，当一个缓存可以写缓存行的时候，它拥有了这个缓存行的所有权限，因此只需要在缓存里实现 CAS 即可，其他缓存无法打断这个原子的操作。
@@ -271,6 +281,8 @@ AMO 指令相当于是把一些常见的读 - 改 - 写循环固化成了指令�
 
 RISC-V 和 LoongArch 都提供了 AMO 指令，它们可以完成内存的原子更新，同时得到更新前的旧值。x86 指令集下，通过给 [add 指令添加 lock 前缀](https://en.wikipedia.org/wiki/Fetch-and-add#x86_implementation)，也可以实现原子更新的效果，如果要得到更新前的旧值，可以用 xadd 指令。
 
+AArch64 提供了 AMO 指令：LDADD、LDMAX、STADD、SWP 等等。
+
 ### 硬件实现
 
 AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存中去执行。但由于 AMO 指令需要涉及少量的更新操作，例如位运算和整数运算，因此缓存内部也需要引入一个 ALU 用于实现 AMO 指令的计算。因此，目前 AMO 指令仅限于硬件开销比较小的位运算和整数运算，没有整数乘除法，也没有浮点运算。
@@ -303,3 +315,19 @@ AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存�
 - Rust：提供了 std::sync::atomic
 
 根据指令集架构支持的原子指令类型，这些编程语言的原子操作会被翻译成对应的汇编代码。
+
+## 其他原子指令
+
+
+一些指令集架构还提供了其他类型的原子指令，例如：
+
+- AArch64 提供了 64 字节粒度的原子读或写：LD64B 从内存原子读取连续 64 字节的数据到 8 个通用寄存器中；ST64B 把连续 8 个通用寄存器的值原子写入到内存中
+
+## 不同指令集架构对原子指令支持的对比
+
+| ISA       | LL/SC                  | CAS                 | AMO    |
+|-----------|------------------------|---------------------|--------|
+| RISC-V    | A 扩展                 | Zacas 扩展          | A 扩展 |
+| LoongArch | 有，V1.1 支持了双倍宽度 | V1.1 版本           | 有     |
+| x86_64    | 无                     | 有，并且支持双倍宽度 | 有     |
+| AArch64   | 有                     | 有，并且支持双倍宽度 | 有     |
