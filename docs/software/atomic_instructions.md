@@ -5,6 +5,7 @@
 1. LL(Load-Linked)/SC(Store-Conditional)
 2. CAS(Compare And Swap)
 3. AMO(Atomic Memory Operation)
+4. HTM(Hardware Transactional Memory)
 
 它们在软件的使用方式和硬件实现上有所区别，下面来讨论这些原子指令。
 
@@ -288,6 +289,110 @@ AArch64 提供了 AMO 指令：LDADD、LDMAX、STADD、SWP 等等。
 AMO 指令的硬件实现和 CAS 类似，也是把原子操作下放到缓存中去执行。但由于 AMO 指令需要涉及少量的更新操作，例如位运算和整数运算，因此缓存内部也需要引入一个 ALU 用于实现 AMO 指令的计算。因此，目前 AMO 指令仅限于硬件开销比较小的位运算和整数运算，没有整数乘除法，也没有浮点运算。
 
 例如 Rocket Chip 设计了一个 [AMOALU](https://github.com/chipsalliance/rocket-chip/blob/e3773366a5c473b6b45107f037e3130f4d667238/src/main/scala/rocket/AMOALU.scala#L53)，用于在 DCache 中实现 AMO 指令的计算。
+
+## HTM
+
+### 定义
+
+HTM 是硬件提供的在内存上的事务。事务这个概念在数据库上比较常见，把多个对数据库的操作放到一个事务中，可以保证整个事务的原子性。HTM 也是类似的，只不过是在 CPU 上，可以保证一系列的指令对内存的操作是原子的。
+
+### 常见用法
+
+通常，它需要用特定的 begin 指令开始一段事务，执行一系列指令后，再用特定的 end 指令结束事务。如果在事务中途，事务被打断，例如程序主动用指令打断，或者涉及到的内存被其他处理器核心修改，那么事务就会被回滚，同时程序转移到指定的 fallback 地址继续执行，这个 fallback 地址会在 begin 指令中给出。下面是一段用硬件内存事务实现的原子加一：
+
+```asm
+retry:
+    # begin transaction
+    # set fallback address to fail label
+    begin fail
+
+    # do computation
+    load data, addr
+    add data, data, 1
+    store data, addr
+
+    # end transaction
+    end
+
+fail:
+    # retry if transaction failed
+    goto retry
+```
+
+实际上，HTM 支持嵌套，也就是说可以在一次事务中途，再开另一个事务。但只有最外层的事务的 end 指令会提交事务，如果需要回滚事务，也会回滚到最外层事务，再跳转到最外层事务的 fallback 地址。
+
+### 指令集架构支持
+
+x86_64 指令集提供了 Transactional Synchronization Extensions (TSX) 扩展，它有两种使用方法：Hardware Lock Elision 和 Restricted Transactional Memory。它的文档在 Intel 64 and IA-32 Architectures Software Develop's Manual 的 Volume 1 Chapter 16 Programming with Intel Transaction Synchronization Extensions。
+
+Hardware Lock Elision 的应用场景是，程序编写了 critical section，并且用锁来保护它，保证同时只有一个核心在执行这个 critical section。但锁会带来额外的开销。既然有了硬件内存事务，就可以先跳过加锁这一步，在事务里执行一次 critical section，在原来释放锁的地方结束事务。如果事务成功提交，说明没有其他核心要进入 critical section，那就省下了锁的开销；如果事务没有成功提交，就会回滚，再正常执行带锁的 critical section。
+
+具体地，它在加锁的指令上添加一个 XACQUIRE 前缀，并在释放锁的指令上添加一个 XRELEASE 前缀。那么在支持 TSX 的硬件上，处理器就可以用硬件事务来尝试绕过锁。如果处理器不支持 TSX，就会忽略掉 XACQUIRE 和 XRELEASE 前缀，正常上锁、执行代码再释放锁。
+
+Restricted Transactional Memory 就是完整的硬件内存事务支持：用 XBEGIN 指令开始事务，用 XEND 指令结束事务，用 XABORT 指令打断当前事务。
+
+AArch64 从 ARMv9-A 开始，也引入了硬件内存事务支持：[Transactional Memory Extension (TME)](https://documentation-service.arm.com/static/62ff4dcbc3b04f2bd53e21d5?token=)。它引入了如下的新指令：
+
+- TCANCEL imm: 对应 x86 的 XABORT，取消事务，从 TSTART 下一条指令开始继续执行，imm 会被写入到 TSTART 指令的目的寄存器
+- TCOMMIT: 对应 x86 的 XEND
+- TSTART Xd: 对应 x86 的 XBEGIN，如果事务成功开始，那么目的寄存器被写入 0；如果事务失败，那么目的寄存器会被写入为事务失败原因
+- TTEST Xd: 把目前的事务嵌套层级写到目的寄存器
+
+因此 TME 的预期使用方法是（例子来自 ARM DDI0617 C1.1 Conventions）：
+
+```asm
+loop
+    tstart x12     # attempt to start a new transaction
+    cbnz x12, loop # retry forever
+
+    <code>
+
+    tcommit
+```
+
+此外，TME 扩展也可以用来实现类似 x86 的 HLE 特性：Transactional Lock Elision。但是，与 x86 的实现方法不同，AArch64 的 TME 扩展还是需要用上述的 TSTART 等指令来实现 Transactional Lock Elision，下面是一个例子（来自 ARM DDI0617 C2.3 Acquiring a lock）：
+
+获得锁：
+
+```asm
+loop:
+    TSTART X5         # attempt to start a new transaction
+    CBNZ X5, fallback # check if start succeeded
+    CHECK_ACQ(X1)     # add the fallback lock to the transactional read set ; and set W5 to 0 if the fallback lock is free.
+    CBZ W5, enter     # if the fallback lock is free enter the critical region
+    TCANCEL #0xFFFF   # otherwise cancel the transaction with RTRY set to 1
+
+fallback:
+    TBZ X5, #15, lock # if RTRY is 0 take the fallback lock
+    SUB W6, W6, #1    # decrement the retry count
+    CBZ W6, lock      # take the lock if 0
+    WAIT_ACQ(X1==0)   # wait until the lock is free
+    B loop            # retry the transaction
+
+lock:
+    LOCK(X1)          # elision failed, acquire the fallback lock
+    DMB ISH           # block loads/stores from the critical region
+
+enter:
+```
+
+代码首先开始一次事务，如果发现锁没有被其他线程获得，那就直接跳转到 enter 进行 critical section 的执行；如果发现锁已经被其他线程获得，就取消事务，再次循环，如果循环多次还是失败，那就用传统的锁。
+
+在 critical section 最后释放锁：
+
+```asm
+    CHECK(X1)         # set W5 to 0 if the fallback lock is free
+    CBNZ W5, unlock   # check if 0
+    TCOMMIT           # the lock was elided, exit the transaction
+    B exit
+
+unlock:
+    UNLOCK(X1)        # elision failed, release the fallback lock exit:
+
+exit:
+```
+
+首先检查之前是采用的哪种方法“获得”了锁，如果是事务，那就提交事务；如果是传统的锁，那就释放掉锁。
 
 ## 不同原子指令间的关系
 
