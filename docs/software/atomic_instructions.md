@@ -358,7 +358,11 @@ loop
 loop:
     TSTART X5         # attempt to start a new transaction
     CBNZ X5, fallback # check if start succeeded
-    CHECK_ACQ(X1)     # add the fallback lock to the transactional read set ; and set W5 to 0 if the fallback lock is free.
+
+    # CHECK_ACQ(X1)
+    # add the fallback lock to the transactional read set ; and set W5 to 0 if the fallback lock is free.
+    LDAR W5, [X1]
+
     CBZ W5, enter     # if the fallback lock is free enter the critical region
     TCANCEL #0xFFFF   # otherwise cancel the transaction with RTRY set to 1
 
@@ -366,11 +370,26 @@ fallback:
     TBZ X5, #15, lock # if RTRY is 0 take the fallback lock
     SUB W6, W6, #1    # decrement the retry count
     CBZ W6, lock      # take the lock if 0
-    WAIT_ACQ(X1==0)   # wait until the lock is free
+
+    # WAIT_ACQ(X1==0)
+    # wait until the lock is free
+loop_wait:
+    LDAR W5, [X1]     # load acquire ensures it is ordered before subsequent loads/stores
+    CBNZ W5, loop_wait
+
     B loop            # retry the transaction
 
 lock:
-    LOCK(X1)          # elision failed, acquire the fallback lock
+    # LOCK(X1)
+    # elision failed, acquire the fallback lock
+
+    PRFM PSTL1KEEP, [X1] # preload into cache in unique state
+loop_lock:
+    LDAXR W5, [X1]       # read lock with acquire
+    CBNZ W5, loop_lock   # check if 0
+    STXR W5, W0, [X1]    # attempt to store new value
+    CBNZ W5, loop_lock   # test if store succeeded and retry if not
+
     DMB ISH           # block loads/stores from the critical region
 
 enter:
@@ -381,18 +400,23 @@ enter:
 在 critical section 最后释放锁：
 
 ```asm
-    CHECK(X1)         # set W5 to 0 if the fallback lock is free
+    # CHECK(X1)
+    # set W5 to 0 if the fallback lock is free
+    LDR W5, [Xx] ; read lock
+
     CBNZ W5, unlock   # check if 0
     TCOMMIT           # the lock was elided, exit the transaction
     B exit
 
 unlock:
-    UNLOCK(X1)        # elision failed, release the fallback lock exit:
+    # UNLOCK(X1)
+    # elision failed, release the fallback lock exit:
+    STLR WZR, [X1]    # clear the lock with release semantics
 
 exit:
 ```
 
-首先检查之前是采用的哪种方法“获得”了锁，如果是事务，那就提交事务；如果是传统的锁，那就释放掉锁。
+首先检查之前是采用的哪种方法“获得”了锁，如果是事务，那就提交事务；如果是传统的锁，那就释放掉锁。可以看到，相比 x86 的方案，ARM 的 TME 在实现 Lock Elision 时，指令上会比较冗余，但好处是微架构的实现会比较容易。
 
 ## 不同原子指令间的关系
 
