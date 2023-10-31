@@ -133,7 +133,7 @@ Kepler 相比 Fermi 架构的主要改进：
 2. Hyper-Q：允许多个 CPU 核心同时向 GPU 提交任务，把硬件任务队列从 1 增加到了 32 个。每个 CUDA stream 会对应到一个硬件任务队列，因此增加硬件任务队列，可以减少 false dependency。
 3. GPUDirect：支持 RDMA
 
-和前两代不同的是，Kepler 去掉了 TPC/GPC 这一个层级，而是把 SM 做的很大，称为 SMX：
+和前两代不同的是，Kepler 去掉了 TPC/GPC 这一个层级，而是把 SM 做的很大，称为 SMX，一个 GK110/GK210 有 15 个 SMX，每个 SMX 里面有：
 
 - 一个 SM 有 192 个单精度 CUDA Core，64 个双精度计算单元，32 个 SFU，32 个 LD/SU 单元
 - 一个 SM 有四个 Warp Scheduler，每个 Warp Scheduler 选出同一个 Warp 的两条指令去发射
@@ -167,23 +167,113 @@ Blog: [5 Things You Should Know About the New Maxwell GPU Architecture](https://
 - 4 Memory Controller，一共 256 位宽，7Gbps GDDR5 内存，每个 Memory Controller 带有 16 ROP 单元和 512KB 的 L2 缓存
 - 28nm 制程
 
-Maxwell 的 SM 叫做 SMM，它依然是四个 Warp Scheduler，但是和 Kepler 不同的是，它把计算单元也划分成了四份，每一份叫做一个 Processing Block。每个 Processing Block 里面有一个 Instruction Buffer，一个每周期 Dispatch 两条指令的 Warp Scheduler，32 个 CUDA core，1 个双精度计算单元，8 个 LD/ST unit 以及 8 个 SFU。也就是说，每个 SM 有 128 个 CUDA core，数量比 Kepler 的 192 CUDA core/SM 变少了，但是 Maxwell 也配置了更多的 SM。这些计算单元只会被 Processing Block 内的 Warp scheduler 使用。
+Maxwell 的 SM 叫做 SMM，它依然是四个 Warp Scheduler，但是和 Kepler 不同的是，它把计算单元也划分成了四份，每一份叫做一个 Processing Block（PB）。每个 Processing Block 里面有一个 Instruction Buffer，一个每周期 Dispatch 两条指令的 Warp Scheduler，32 个 CUDA core，1 个双精度计算单元，8 个 LD/ST unit 以及 8 个 SFU。也就是说，每个 SM 有 128 个 CUDA core，数量比 Kepler 的 192 CUDA core/SM 变少了，但是 Maxwell 也配置了更多的 SM。这些计算单元只会被 Processing Block 内的 Warp scheduler 使用。
 
 <figure markdown>
   ![](gpgpu_maxwell_sm.png){ width="600" }
-  <figcaption>Maxwell 架构 SM（来源：NVIDIA GeForce GTX 980）</figcation>
+  <figcaption>Maxwell 架构 SM（来源：NVIDIA GeForce GTX 980 Whitepaper）</figcation>
 </figure>
 
 Maxwell 架构的 L1 缓存和 Shared Memory 不再共享，Shared Memory 独占 96KB，然后 L1 缓存和 Texture 缓存共享空间。
 
 ## NVIDIA Pascal
 
+Whitepaper: [NVIDIA Tesla P100](https://images.nvidia.cn/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper.pdf)
+
+GP100 是 Pascal 架构的芯片，改进如下：
+
+- 支持 NVLink，双向带宽 160 GB/s
+- 使用 HBM2 作为显存，替代了 GDDR 内存
+- TSMC 16nm FinFET 工艺
+- 支持 Unified Memory，使得 CPU 和 GPU 可以共享虚拟地址空间，让数据自动进行迁移
+- 支持 Compute Preemption，使得 kernel 可以在指令级别做抢占，而不是 thread block 级别，这样就可以让调试器等交互式的任务不会阻碍其他计算任务的进行；在 Kepler 架构中，只有等一个 thread block 的所有 thread 完成，硬件才可以做上下文切换，但是如果中间遇到了调试器的断点，这时候 thread block 并没有完成，那么此时只有调试器可以使用 GPU，其他任务就无法在 GPGPU 上执行
+- GP100 有 6 个 GPC，每个 GPC 内部有 5 个 TPC，每个 TPC 内部有 2 个 SM；GP100 总共有 $6*5*2=60$ 个 SM
+- 每个 SM 有 64 个单精度 CUDA core，32 个双精度 CUDA core，4 个 texture unit
+- 8 个 512 位的内存控制器，每个内存控制器附带 512 KB L2 缓存。每两个内存控制器为一组，连接到 4 个 1024 位的 HBM2 内存
+- 支持 FP16 计算，两个 FP16 打包起来用一条指令进行计算
+
+可以看到，GP100 每个 SM 只有 64 个单精度 CUDA core，而 Maxwell 有 128 个，Kepler 有 192 个，Fermi 有 32 个，Tesla 有 8 个。GP100 的一个 SM 里有两个 Processing Block，每个 Processing Block 有一个 Instruction Buffer、一个双发射 Warp Scheduler、32 个单精度 CUDA core、16 个双精度 CUDA core、8 个 LD/ST Unit 和 8 个 SFU，和 Maxwell 基本一样。只不过 Pascal 架构每个 SM 只有两个 Processing Block，而 Maxwell 每个 SM 有四个 Processing Block。但 Pascal 架构每个 SM 有 64 KB 的 Shared memory，并且 SM 的数量比 Maxwell 的两倍还要多，因此实际上是在变相地增加 Shared memory 的数量、容量以及带宽。
+
+<figure markdown>
+  ![](gpgpu_pascal_sm.png){ width="600" }
+  <figcaption>Pascal 架构 SM（来源：NVIDIA Tesla P100 Whitepaper）</figcation>
+</figure>
+
 ## NVIDIA Volta
+
+Whitepaper: [NVIDIA TESLA V100 GPU
+ARCHITECTURE](https://images.nvidia.cn/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf)
+
+GV100 是 Volta 架构的 GPU，它的改进包括：
+
+- TSMC 12nm FFN 工艺，815 mm^2 面积，21.1 billion transistors
+- 把 Tensor Core 引入到 SM 中
+- 支持 Independent Thread Scheduling，改变了 Warp 的分叉方法，原来 Warp 分叉的时候，只能先走一个分支，再走另一个分支；从 Volta 开始，Warp 分叉以后会变成两个 Warp，因此分支的两个方向可以 Interleaved 方式执行
+- 6 个 GPC，每个 GPC 有 7 个 TPC，每个 TPC 有 2 个 SM；一共有 84 个 SM
+- 每个 SM 有 64 个 FP32 CUDA core，64 个 INT32 CUDA core，32 个 FP64 CUDA core，8 个 Tensor Core 和 4 个 Texture Unit
+- 8 个 512-bit Memory Controller
+
+GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing Block 包括：
+
+- L0 Instruction Cache
+- 一个单发射 Warp Scheduler
+- Register File
+- 16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST core，2 个 Tensor Core，1 个 SFU
+
+在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。
 
 ## NVIDIA Turing
 
+Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
+
 ## NVIDIA Ampere
+
+Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
+
+Whitepaper: [NVIDIA A100 Tensor Core GPU Architecture](https://images.nvidia.cn/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
 
 ## NVIDIA Ada Lovelace
 
+Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
+
 ## NVIDIA Hopper
+
+Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
+
+## SM 发展历史
+
+下面列出了各架构的 SM 发展历程
+
+| 架构                   | 单精度 | 双精度 | LD/ST | SFU | 发射数          |
+|------------------------|--------|--------|-------|-----|-----------------|
+| Tesla 1.0 G80          | 8      | 0      | N/A   | 2   | 1 Warp * 1 Inst |
+| Tesla 2.0 GT200        | 8      | 1      | N/A   | 2   | 1 Warp * 1 Inst |
+| Fermi GF100            | 32     | 16     | 16    | 4   | 2 Warp * 1 Inst |
+| Kepler GK110/120       | 192    | 64     | 32    | 32  | 4 Warp * 2 Inst |
+| Maxwell GM204 (per PB) | 32     | 1      | 8     | 8   | 1 Warp * 2 Inst |
+| Maxwell GM204 (per SM) | 128    | 4      | 32    | 32  | 4 Warp * 2 Inst |
+| Pascal GP100 (per PB)  | 32     | 16     | 8     | 8   | 1 Warp * 2 Inst |
+| Pascal GP100 (per SM)  | 64     | 32     | 16    | 16  | 2 Warp * 2 Inst |
+| Volta GV100 (per PB)   | 16     | 8      | 8     | 1   | 1 Warp * 1 Inst |
+| Volta GV100 (per SM)   | 64     | 32     | 32    | 4   | 4 Warp * 1 Inst |
+
+各芯片的 SM 数量和 CUDA Core 数量：
+
+- G80: 16 SM(8 TPC * 2 SM/TPC) * 8 = 128 CUDA core
+- GF100: 16 SM(4 GPC * 4 SM/GPC) * 32 = 512 CUDA core
+- GK210: 15 SM(15 SM) * 192 = 2730 CUDA core
+- GM204: 16 SM(4 GPC * 4 SM/GPC) * 128(4 PB * 32 Core/PB) = 2048 CUDA core
+- GP100: 60 SM(6 GPC * 5 TPC/GPC * 2 SM/TPC) * 64(2 PB * 32 Core/PB) = 3840 CUDA core
+- GV100: 84 SM(6 GPC * 7 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 5376 CUDA core
+- TU102: 72 SM(6 GPC * 6 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 4608 CUDA core
+- GA100: 128 SM(8 GPC * 8 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 8192 CUDA core
+- GA102: 84 SM(7 GPC * 6 TPC/GPC * 2 SM/TPC) * 128(4 PB * 32 Core/PB) = 10752 CUDA core
+- AD102: 144 SM(12 GPC * 6 TPC/GPC * 2 SM/TPC) * 128(4 PB * 32 Core/PB) = 18432 CUDA core
+- GH100: 144 SM(8 GPC * 9 TPC/GPC * 2 SM/TPC) * 128(4 PB * 32 Core/PB) = 18432 CUDA core
+
+很有意思的是，这里出现了不同的层次结构：
+
+- SM
+- TPC - SM
+- GPC - SM
+- GPC - TPC - SM
