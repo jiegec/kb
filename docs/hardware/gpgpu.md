@@ -201,8 +201,9 @@ GP100 是 Pascal 架构的芯片，改进如下：
 
 ## NVIDIA Volta
 
-Whitepaper: [NVIDIA TESLA V100 GPU
-ARCHITECTURE](https://images.nvidia.cn/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf)
+Whitepaper: [NVIDIA TESLA V100 GPU ARCHITECTURE](https://images.nvidia.cn/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf)
+
+Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/volta-tuning-guide/index.html)
 
 GV100 是 Volta 架构的 GPU，它的改进包括：
 
@@ -218,13 +219,41 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 - L0 Instruction Cache
 - 一个单发射 Warp Scheduler
 - Register File
-- 16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST core，2 个 Tensor Core，1 个 SFU
+- 16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST unit，2 个 Tensor Core，1 个 SFU
+
+<figure markdown>
+  ![](gpgpu_volta_sm.png){ width="600" }
+  <figcaption>Volta 架构 SM（来源：NVIDIA TESLA V100 GPU ARCHITECTURE Figure 5）</figcation>
+</figure>
+
+注意 Volta 的 Warp Scheduler 又回到了单发射，这是因为每个 Processing Block 的 FP32 core 变少了（GP100 是 32 个，GV100 是 16 个），例如一条涉及 32 条线程的指令被发射，那么它需要两个周期来完成，第二个周期的时候，Warp Scheduler 也会同时发射其他指令，从而实现指令级并行。
+
+根据 [Understanding instruction dispatching in Volta architecture](https://forums.developer.nvidia.com/t/understanding-instruction-dispatching-in-volta-architecture/108896/6)，实际上 LD/ST unit 并不是分布在四个 Processing Block 内，而是在 SM 级别共享，也就是说 SM 有公共的 32 个 LD/ST unit，这 32 个公共的 LD/ST unit 供四个 Processing Block 共享。
 
 在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。
 
 ## NVIDIA Turing
 
 Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
+
+TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：
+
+- 6 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM；一共是 72 个 SM
+- 每个 GPC 有一个 raster engine
+- 每个 SM 有 64 个 CUDA core，8 个 tensor core，4 个 texture unit，256 KB 寄存器堆和 96KB 的 L1/Shared Memory
+- 12 个 32-bit GDDR6 memory controller
+
+Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包括：
+
+- 16 个 FP32 core，16 个 INT32 core，2 个 Tensor Core
+- 一个单发射 Warp Scheduler
+- L0 指令缓存
+- 64KB 寄存器堆
+
+<figure markdown>
+  ![](gpgpu_turing_sm.png){ width="600" }
+  <figcaption>Turing 架构 SM（来源：NVIDIA TURING GPU ARCHITECTURE Figure 4）</figcation>
+</figure>
 
 ## NVIDIA Ampere
 
@@ -256,6 +285,8 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | Pascal GP100 (per SM)  | 64     | 32     | 16    | 16  | 2 Warp * 2 Inst |
 | Volta GV100 (per PB)   | 16     | 8      | 8     | 1   | 1 Warp * 1 Inst |
 | Volta GV100 (per SM)   | 64     | 32     | 32    | 4   | 4 Warp * 1 Inst |
+| Hopper GH100 (per PB)  | 32     | 16     | 8     | 1   | 1 Warp * 1 Inst |
+| Hopper GH100 (per SM)  | 128    | 64     | 32    | 4   | 4 Warp * 1 Inst |
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
