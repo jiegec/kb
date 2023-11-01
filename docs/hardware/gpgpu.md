@@ -255,6 +255,8 @@ Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包�
   <figcaption>Turing 架构 SM（来源：NVIDIA TURING GPU ARCHITECTURE Figure 4）</figcation>
 </figure>
 
+TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能只有单精度性能的 1/32。
+
 ## NVIDIA Ampere
 
 Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
@@ -305,16 +307,18 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | Pascal GP100 (per SM)       | 64     | 32     | 16    | 16  | 2 Warp * 2 Inst | 16            |
 | Volta GV100 (per PB)        | 16     | 8      | 8     | 4   | 1 Warp * 1 Inst | 16            |
 | Volta GV100 (per SM)        | 64     | 32     | 32    | 16  | 4 Warp * 1 Inst | 16            |
-| Turing TU102 (per PB)       | 16     | ?      | 4     | 4   | 1 Warp * 1 Inst | 16            |
-| Turing TU102 (per SM)       | 64     | ?      | 16    | 16  | 4 Warp * 1 Inst | 16            |
+| Turing TU102 (per PB)       | 16     | 0      | 4     | 4   | 1 Warp * 1 Inst | 16            |
+| Turing TU102 (per SM)       | 64     | 2      | 16    | 16  | 4 Warp * 1 Inst | 16            |
 | Ampere GA100 (per PB)       | 16     | 8      | 8     | 4   | 1 Warp * 1 Inst | 16            |
 | Ampere GA100 (per SM)       | 64     | 32     | 32    | 16  | 4 Warp * 1 Inst | 16            |
-| Ampere GA102 (per PB)       | 32     | ?      | 4     | 4   | 1 Warp * 1 Inst | 32            |
-| Ampere GA102 (per SM)       | 128    | ?      | 16    | 16  | 4 Warp * 1 Inst | 32            |
-| Ada Lovelace AD102 (per PB) | 32     | ?      | 4     | 4   | 1 Warp * 1 Inst | 32            |
-| Ada Lovelace AD102 (per SM) | 128    | ?      | 16    | 16  | 4 Warp * 1 Inst | 32            |
+| Ampere GA102 (per PB)       | 32     | 0      | 4     | 4   | 1 Warp * 1 Inst | 32            |
+| Ampere GA102 (per SM)       | 128    | 2      | 16    | 16  | 4 Warp * 1 Inst | 32            |
+| Ada Lovelace AD102 (per PB) | 32     | 0      | 4     | 4   | 1 Warp * 1 Inst | 32            |
+| Ada Lovelace AD102 (per SM) | 128    | 2      | 16    | 16  | 4 Warp * 1 Inst | 32            |
 | Hopper GH100 (per PB)       | 32     | 16     | 8     | 4   | 1 Warp * 1 Inst | 32            |
 | Hopper GH100 (per SM)       | 128    | 64     | 32    | 16  | 4 Warp * 1 Inst | 32            |
+
+注：TU102、GA102 和 AD102 都是游戏卡，因此 FP64 单元很少，每个 SM 只有两个。
 
 各架构 SM 的浮点计算性能（参考 [Throughput of Native Arithmetic Instructions](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#arithmetic-instructions-throughput-native-arithmetic-instructions) 和 [Matching CUDA arch and CUDA gencode for various NVIDIA architectures](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/)）
 
@@ -328,10 +332,10 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | Pascal (SM 6.2, GP10B)             | 256    | 128    | 4      | 32       |
 | Volta (SM 7.0, GV100)              | 128    | 64     | 32     | 16       |
 | Volta (SM 7.2, GV10B-GV11B)        | 128    | 64     | 32     | 16       |
-| Turing (SM 7.5, TU102-TU117)       | 128    | 64     | 32     | 16       |
+| Turing (SM 7.5, TU102-TU117)       | 128    | 64     | 2      | 16       |
 | Ampere (SM 8.0, GA100)             | 256    | 64     | 32     | 16       |
 | Ampere (SM 8.6, GA102-GA107)       | 256    | 128    | 2      | 16       |
-| Ampere (SM 8.7, GA10B)             | ?      | ?      | ?      | 16       |
+| Ampere (SM 8.7, GA10B)             | ?      | ?      | ?      | ?        |
 | Ada Lovelace (SM 8.9, AD102-AD107) | 128    | 128    | 2      | 16       |
 | Hopper (SM 9.0, GH100)             | 256    | 128    | 64     | 16       |
 
