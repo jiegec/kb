@@ -165,7 +165,7 @@ Control Code 主要包括如下的信息：
 - Write Dependency Barrier：设置一个 Dependency Barrier，表示这条指令需要写入某个寄存器，但是指令执行的实现不确定，用 stall count 不能保证数据在后续依赖它的指令发射前准备好，就让后续指令等待这个 Dependency Barrier
 - Wait Dependency Barrier：等待若干个 Dependency Barrier，当设置该 Barrier 上的指令执行完成，才可以调度当前指令
 
-内存层级方面，Kepler 引入了一个额外的 48KB 只读 Data Cache，用于保存只读的数据，可以提供相比 Shared/L1 cache 更高的性能。
+内存层级方面，Kepler 引入了一个额外的 48KB 只读 Data Cache，用于保存只读的数据，可以提供相比 Shared/L1 cache 更高的性能。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Kepler 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $128 / 32 = 4$ 字节的数据。
 
 GK110 有 1536 KB 的 L2 缓存。
 
@@ -191,7 +191,7 @@ Maxwell 的 SM 叫做 SMM，它依然是四个 Warp Scheduler，但是和 Kepler
   <figcaption>Maxwell 架构 SM（来源：NVIDIA GeForce GTX 980 Whitepaper）</figcation>
 </figure>
 
-Maxwell 架构的 L1 缓存和 Shared Memory 不再共享，Shared Memory 独占 96KB，然后 L1 缓存和 Texture 缓存共享空间。
+Maxwell 架构的 L1 缓存和 Shared Memory 不再共享，Shared Memory 独占 96KB，然后 L1 缓存和 Texture 缓存共享空间。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Maxwell 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $128 / 4 / 8 = 4$ 字节的数据。
 
 GM200 有 3072 KB 的 L2 缓存。
 
@@ -219,6 +219,8 @@ GP100 是 Pascal 架构的芯片，改进如下：
 </figure>
 
 GP100 有 4096 KB 的 L2 缓存。一共有 8 个内存控制器，每个内存控制器对应一个 512 KB 的 L2 slice。
+
+根据 <https://arxiv.org/pdf/1804.06826.pdf>，Pascal 架构每个周期每个 SM 可以读取 128 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $128 / 2 / 8 = 8$ 字节的数据。
 
 ## NVIDIA Volta
 
@@ -253,7 +255,7 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 根据 [Understanding instruction dispatching in Volta architecture](https://forums.developer.nvidia.com/t/understanding-instruction-dispatching-in-volta-architecture/108896/6)，实际上 LD/ST unit 并不是分布在四个 Processing Block 内，而是在 SM 级别共享，也就是说 SM 有公共的 32 个 LD/ST unit，这 32 个公共的 LD/ST unit 供四个 Processing Block 共享。
 
-在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。
+在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Volta 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 8 = 8$ 字节的数据。但根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（14 TB/s，80 个 SM，时钟频率 1530 MHz，每个 SM 每周期读取 $14 / 80 / 1530 * 1e6 = 114$ 字节）的数据。
 
 GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节。
 
@@ -296,6 +298,8 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
   <figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
 </figure>
 
+从上图可以看到，Turing 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 4 = 16$ 字节的数据。
+
 
 ## NVIDIA Ampere
 
@@ -316,6 +320,8 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
 </figure>
 
 A100 GPU 有 40 MB 的 L2 缓存，分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小。每 8 个 L2 slice 对应一个 memory controller。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 $5120 * 1410 = 7.219$ TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $5120 / 108 = 47.4$ 字节。
+
+根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
 
 ## NVIDIA Ada Lovelace
 
@@ -345,6 +351,8 @@ H100 SXM5 参数如下：
 </figure>
 
 H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。
+
+根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 $25 / 114 / 1620 * 1e6 = 135$ 字节）的数据。
 
 ## SM 发展历史
 
@@ -419,6 +427,12 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 - TPC - SM
 - GPC - SM
 - GPC - TPC - SM
+
+每个 LD/ST unit 每周期从 L1 cache 读取的数据大小：
+
+- Kepler/Maxwell：4 字节
+- Pascal/Volta: 8 字节
+- Turing: 16 字节
 
 ## SM/PB 发展历史
 
