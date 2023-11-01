@@ -293,30 +293,30 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 
 ## SM 发展历史
 
-下面列出了各架构的 SM 发展历程
+下面列出了各架构的 SM 发展历程，发射数表示方法为 Warp 数量（W）乘以每个 Warp 的发射指令数（I）：
 
-| 架构                        | 单精度 | 双精度 | SFU | LD/ST | 发射数          | 单精度/发射数 |
-|-----------------------------|--------|--------|-----|-------|-----------------|---------------|
-| Tesla 1.0 G80               | 8      | 0      | 2   | N/A   | 1 Warp * 1 Inst | 8             |
-| Tesla 2.0 GT200             | 8      | 1      | 2   | N/A   | 1 Warp * 1 Inst | 8             |
-| Fermi GF100                 | 32     | 16     | 4   | 16    | 2 Warp * 1 Inst | 16            |
-| Kepler GK110/120            | 192    | 64     | 32  | 32    | 4 Warp * 2 Inst | 24            |
-| Maxwell GM204 (per PB)      | 32     | 1      | 8   | 8     | 1 Warp * 2 Inst | 16            |
-| Maxwell GM204 (per SM)      | 128    | 4      | 32  | 32    | 4 Warp * 2 Inst | 16            |
-| Pascal GP100 (per PB)       | 32     | 16     | 8   | 8     | 1 Warp * 2 Inst | 16            |
-| Pascal GP100 (per SM)       | 64     | 32     | 16  | 16    | 2 Warp * 2 Inst | 16            |
-| Volta GV100 (per PB)        | 16     | 8      | 4   | 8     | 1 Warp * 1 Inst | 16            |
-| Volta GV100 (per SM)        | 64     | 32     | 16  | 32    | 4 Warp * 1 Inst | 16            |
-| Turing TU102 (per PB)       | 16     | 0      | 4   | 4     | 1 Warp * 1 Inst | 16            |
-| Turing TU102 (per SM)       | 64     | 2      | 16  | 16    | 4 Warp * 1 Inst | 16            |
-| Ampere GA100 (per PB)       | 16     | 8      | 4   | 8     | 1 Warp * 1 Inst | 16            |
-| Ampere GA100 (per SM)       | 64     | 32     | 16  | 32    | 4 Warp * 1 Inst | 16            |
-| Ampere GA102 (per PB)       | 32     | 0      | 4   | 4     | 1 Warp * 1 Inst | 32            |
-| Ampere GA102 (per SM)       | 128    | 2      | 16  | 16    | 4 Warp * 1 Inst | 32            |
-| Ada Lovelace AD102 (per PB) | 32     | 0      | 4   | 4     | 1 Warp * 1 Inst | 32            |
-| Ada Lovelace AD102 (per SM) | 128    | 2      | 16  | 16    | 4 Warp * 1 Inst | 32            |
-| Hopper GH100 (per PB)       | 32     | 16     | 4   | 8     | 1 Warp * 1 Inst | 32            |
-| Hopper GH100 (per SM)       | 128    | 64     | 16  | 32    | 4 Warp * 1 Inst | 32            |
+| 架构                        | 单精度 | 双精度 | SFU | LD/ST | 发射数    | 单精度/发射数 |
+|-----------------------------|--------|--------|-----|-------|-----------|---------------|
+| Tesla 1.0 G80               | 8      | 0      | 2   | N/A   | 1 W * 1 I | 8             |
+| Tesla 2.0 GT200             | 8      | 1      | 2   | N/A   | 1 W * 1 I | 8             |
+| Fermi GF100                 | 32     | 16     | 4   | 16    | 2 W * 1 I | 16            |
+| Kepler GK110/120            | 192    | 64     | 32  | 32    | 4 W * 2 I | 24            |
+| Maxwell GM204 (per PB)      | 32     | 1      | 8   | 8     | 1 W * 2 I | 16            |
+| Maxwell GM204 (per SM)      | 128    | 4      | 32  | 32    | 4 W * 2 I | 16            |
+| Pascal GP100 (per PB)       | 32     | 16     | 8   | 8     | 1 W * 2 I | 16            |
+| Pascal GP100 (per SM)       | 64     | 32     | 16  | 16    | 2 W * 2 I | 16            |
+| Volta GV100 (per PB)        | 16     | 8      | 4   | 8     | 1 W * 1 I | 16            |
+| Volta GV100 (per SM)        | 64     | 32     | 16  | 32    | 4 W * 1 I | 16            |
+| Turing TU102 (per PB)       | 16     | 0      | 4   | 4     | 1 W * 1 I | 16            |
+| Turing TU102 (per SM)       | 64     | 2      | 16  | 16    | 4 W * 1 I | 16            |
+| Ampere GA100 (per PB)       | 16     | 8      | 4   | 8     | 1 W * 1 I | 16            |
+| Ampere GA100 (per SM)       | 64     | 32     | 16  | 32    | 4 W * 1 I | 16            |
+| Ampere GA102 (per PB)       | 32     | 0      | 4   | 4     | 1 W * 1 I | 32            |
+| Ampere GA102 (per SM)       | 128    | 2      | 16  | 16    | 4 W * 1 I | 32            |
+| Ada Lovelace AD102 (per PB) | 32     | 0      | 4   | 4     | 1 W * 1 I | 32            |
+| Ada Lovelace AD102 (per SM) | 128    | 2      | 16  | 16    | 4 W * 1 I | 32            |
+| Hopper GH100 (per PB)       | 32     | 16     | 4   | 8     | 1 W * 1 I | 32            |
+| Hopper GH100 (per SM)       | 128    | 64     | 16  | 32    | 4 W * 1 I | 32            |
 
 注：TU102、GA102 和 AD102 等显卡是游戏卡，因此 FP64 单元很少，每个 SM 只有两个。
 
