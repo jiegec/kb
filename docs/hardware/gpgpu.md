@@ -251,6 +251,8 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
 
+PPT: [RTX ON – THE NVIDIA TURING GPU](https://old.hotchips.org/hc31/HC31_2.12_NVIDIA_final.pdf)
+
 TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：
 
 - 6 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM；一共是 72 个 SM
@@ -271,6 +273,19 @@ Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包�
 </figure>
 
 TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能只有单精度性能的 1/32。
+
+下面是 Turing 架构的 SM 的微架构，可以看到，它的访存部分（Memory I/O，MIO）是由放在 Processing Block 外面、SM 里面的 MIO 单元完成：
+
+<figure markdown>
+  ![](gpgpu_turing_sm_microarchitecture.png){ width="600" }
+  <figcaption>Turing 架构 SM 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
+</figure>
+
+<figure markdown>
+  ![](gpgpu_turing_memory.png){ width="600" }
+  <figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
+</figure>
+
 
 ## NVIDIA Ampere
 
