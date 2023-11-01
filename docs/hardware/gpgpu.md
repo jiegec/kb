@@ -388,3 +388,51 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 - Ampere：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
 - Ada Lovelace：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 FP32/INT32 core，1 个 Tensor Core，4 个 LD/ST unit，4 个 SFU
 - Hopper：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 FP32 core，16 个 INT32 core，16 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
+
+## Control Code
+
+前文提到，从 Kepler 架构开始，指令集加入了 Control Code 信息，用于实现调度。下面来结合一些用 CuAssembler 得到的例子，来分析这些信息的使用。
+
+首先是 Stall Count，以 Ampere SM8.0 为例，这个架构里每个 PB 只有 8 个 LD/ST unit，因此一条 Load/Store 指令需要四个周期才能发射完成。因此如果是连续的 Load/Store 质量，它们的 Stall count 会是 4：
+
+```asm
+[B------:R-:W3:-:S04]          /*0090*/                   LDG.E R8, [R2.64] ;                       /* 0x0000000402087981 */
+[B------:R-:W3:-:S04]          /*00a0*/                   LDG.E R9, [R2.64+0x4] ;                   /* 0x0000040402097981 */
+[B------:R-:W3:-:S04]          /*00b0*/                   LDG.E R10, [R2.64+0x8] ;                  /* 0x00000804020a7981 */
+[B------:R-:W3:-:S04]          /*00c0*/                   LDG.E R17, [R4.64] ;                      /* 0x0000000404117981 */
+[B------:R-:W3:-:S04]          /*00d0*/                   LDG.E R12, [R4.64+0x4] ;                  /* 0x00000404040c7981 */
+[B------:R-:W3:-:S04]          /*00e0*/                   LDG.E R13, [R6.64] ;                      /* 0x00000004060d7981 */
+[B------:R-:W3:-:S04]          /*00f0*/                   LDG.E R14, [R6.64+0x4] ;                  /* 0x00000404060e7981 */
+[B------:R-:W3:-:S01]          /*0100*/                   LDG.E R15, [R6.64+0x8] ;                  /* 0x00000804060f7981 */
+
+[B------:R-:W-:-:S04]          /*0150*/                   STG.E [R8.64], R12 ;                      /* 0x0000000c08007986 */
+[B------:R-:W-:-:S04]          /*0160*/                   STG.E [R8.64+0x4], R13 ;                  /* 0x0000040d08007986 */
+[B------:R-:W-:-:S04]          /*0170*/                   STG.E [R8.64+0x8], R14 ;                  /* 0x0000080e08007986 */
+[B------:R-:W-:-:S01]          /*0180*/                   STG.E [R8.64+0xc], R15 ;                  /* 0x00000c0f08007986 */
+```
+
+连续的 LDG/STG 的最后一条指令的 Stall count 不等于 4，是因为它的后一条指令不是 Load/Store 指令，不需要等 Load/Store 指令发射，因此不会挤占 dispatch port，就可以发射后面的指令。
+
+如果一系列的指令没有互相依赖，也不会挤占 dispatch port，就可以每个周期发射一条，此时 stall count 都是 1：
+
+```asm
+[B------:R-:W-:-:S01]          /*0010*/                   MOV R4, c[0x0][0x168] ;                   /* 0x00005a0000047a02 */
+[B------:R-:W-:-:S01]          /*0020*/                   IMAD.MOV.U32 R5, RZ, RZ, c[0x0][0x16c] ;  /* 0x00005b00ff057624 */
+[B------:R-:W-:-:S01]          /*0030*/                   MOV R2, c[0x0][0x160] ;                   /* 0x0000580000027a02 */
+[B------:R-:W-:-:S01]          /*0040*/                   IMAD.MOV.U32 R3, RZ, RZ, c[0x0][0x164] ;  /* 0x00005900ff037624 */
+[B------:R-:W-:-:S01]          /*0050*/                   MOV R6, c[0x0][0x170] ;                   /* 0x00005c0000067a02 */
+[B------:R-:W-:-:S01]          /*0060*/                   IMAD.MOV.U32 R7, RZ, RZ, c[0x0][0x174] ;  /* 0x00005d00ff077624 */
+```
+
+虽然 Ampere SM 8.0 每个 PB 只有 16 个 INT32 单元，也就是说一条 IMAD 指令需要两个周期才能发射完成，但是从上面可以看出，MOV 指令和 IMAD 指令使用不同的 dispatch port，虽然它们各自都需要两个周期来发射，但是间隔地发射使得每个周期都可以发射一条指令：
+
+| 周期 | PC   | MOV dispatch port | IMAD dispatch port   |
+|------|------|-------------------|----------------------|
+| 0    | 0010 | 0010 MOV R4       | Idle                 |
+| 1    | 0020 | 0010 MOV R4       | 0020 IMAD.MOV.U32 R5 |
+| 2    | 0030 | 0030 MOV R2       | 0020 IMAD.MOV.U32 R5 |
+| 3    | 0040 | 0030 MOV R2       | 0040 IMAD.MOV.U32 R3 |
+| 4    | 0050 | 0050 MOV R6       | 0040 IMAD.MOV.U32 R3 |
+| 5    | 0060 | 0050 MOV R6       | 0060 IMAD.MOV.U32 R7 |
+| 6    | 0070 | Other insts       | 0060 IMAD.MOV.U32 R7 |
+
