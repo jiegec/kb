@@ -135,7 +135,7 @@ Kepler 相比 Fermi 架构的主要改进：
 
 和前两代不同的是，Kepler 去掉了 TPC/GPC 这一个层级，而是把 SM 做的很大，称为 SMX，一个 GK110/GK210 有 15 个 SMX，每个 SMX 里面有：
 
-- 一个 SM 有 192 个单精度 CUDA Core，64 个双精度计算单元，32 个 SFU，32 个 LD/SU 单元
+- 一个 SM 有 192 个单精度 CUDA Core，64 个双精度计算单元，32 个 SFU，32 个 LD/ST 单元
 - 一个 SM 有四个 Warp Scheduler，每个 Warp Scheduler 选出同一个 Warp 的两条指令去发射
 - 一个 SM 有 65536 或者 131072 个 32 位寄存器
 
@@ -219,7 +219,7 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 - L0 Instruction Cache
 - 一个单发射 Warp Scheduler
 - Register File
-- 16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST unit，2 个 Tensor Core，1 个 SFU
+- 16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST unit，2 个 Tensor Core，4 个 SFU
 
 <figure markdown>
   ![](gpgpu_volta_sm.png){ width="600" }
@@ -261,32 +261,53 @@ Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/conten
 
 Whitepaper: [NVIDIA A100 Tensor Core GPU Architecture](https://images.nvidia.cn/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
 
+<figure markdown>
+  ![](gpgpu_ampere_sm.png){ width="600" }
+  <figcaption>Ampere 架构 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
+</figure>
+
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
+
+<figure markdown>
+  ![](gpgpu_ada_lovelace_sm.png){ width="600" }
+  <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcation>
+</figure>
 
 ## NVIDIA Hopper
 
 Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
 
+<figure markdown>
+  ![](gpgpu_hopper_sm.png){ width="600" }
+  <figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcation>
+</figure>
+
 ## SM 发展历史
 
 下面列出了各架构的 SM 发展历程
 
-| 架构                   | 单精度 | 双精度 | LD/ST | SFU | 发射数          |
-|------------------------|--------|--------|-------|-----|-----------------|
-| Tesla 1.0 G80          | 8      | 0      | N/A   | 2   | 1 Warp * 1 Inst |
-| Tesla 2.0 GT200        | 8      | 1      | N/A   | 2   | 1 Warp * 1 Inst |
-| Fermi GF100            | 32     | 16     | 16    | 4   | 2 Warp * 1 Inst |
-| Kepler GK110/120       | 192    | 64     | 32    | 32  | 4 Warp * 2 Inst |
-| Maxwell GM204 (per PB) | 32     | 1      | 8     | 8   | 1 Warp * 2 Inst |
-| Maxwell GM204 (per SM) | 128    | 4      | 32    | 32  | 4 Warp * 2 Inst |
-| Pascal GP100 (per PB)  | 32     | 16     | 8     | 8   | 1 Warp * 2 Inst |
-| Pascal GP100 (per SM)  | 64     | 32     | 16    | 16  | 2 Warp * 2 Inst |
-| Volta GV100 (per PB)   | 16     | 8      | 8     | 1   | 1 Warp * 1 Inst |
-| Volta GV100 (per SM)   | 64     | 32     | 32    | 4   | 4 Warp * 1 Inst |
-| Hopper GH100 (per PB)  | 32     | 16     | 8     | 1   | 1 Warp * 1 Inst |
-| Hopper GH100 (per SM)  | 128    | 64     | 32    | 4   | 4 Warp * 1 Inst |
+| 架构                        | 单精度 | 双精度 | LD/ST | SFU | 发射数          | 单精度/发射数 |
+|-----------------------------|--------|--------|-------|-----|-----------------|---------------|
+| Tesla 1.0 G80               | 8      | 0      | N/A   | 2   | 1 Warp * 1 Inst | 8             |
+| Tesla 2.0 GT200             | 8      | 1      | N/A   | 2   | 1 Warp * 1 Inst | 8             |
+| Fermi GF100                 | 32     | 16     | 16    | 4   | 2 Warp * 1 Inst | 16            |
+| Kepler GK110/120            | 192    | 64     | 32    | 32  | 4 Warp * 2 Inst | 24            |
+| Maxwell GM204 (per PB)      | 32     | 1      | 8     | 8   | 1 Warp * 2 Inst | 16            |
+| Maxwell GM204 (per SM)      | 128    | 4      | 32    | 32  | 4 Warp * 2 Inst | 16            |
+| Pascal GP100 (per PB)       | 32     | 16     | 8     | 8   | 1 Warp * 2 Inst | 16            |
+| Pascal GP100 (per SM)       | 64     | 32     | 16    | 16  | 2 Warp * 2 Inst | 16            |
+| Volta GV100 (per PB)        | 16     | 8      | 8     | 4   | 1 Warp * 1 Inst | 16            |
+| Volta GV100 (per SM)        | 64     | 32     | 32    | 16  | 4 Warp * 1 Inst | 16            |
+| Turing TU102 (per PB)       | 16     | ?      | 4     | 4   | 1 Warp * 1 Inst | 16            |
+| Turing TU102 (per SM)       | 64     | ?      | 16    | 16  | 4 Warp * 1 Inst | 16            |
+| Ampere GA100 (per PB)       | 16     | 8      | 8     | 4   | 1 Warp * 1 Inst | 16            |
+| Ampere GA100 (per SM)       | 64     | 32     | 32    | 16  | 4 Warp * 1 Inst | 16            |
+| Ada Lovelace AD102 (per PB) | 32     | ?      | 4     | 4   | 1 Warp * 1 Inst | 32            |
+| Ada Lovelace AD102 (per SM) | 128    | ?      | 16    | 16  | 4 Warp * 1 Inst | 32            |
+| Hopper GH100 (per PB)       | 32     | 16     | 8     | 1   | 1 Warp * 1 Inst | 32            |
+| Hopper GH100 (per SM)       | 128    | 64     | 32    | 4   | 4 Warp * 1 Inst | 32            |
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
@@ -308,3 +329,18 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 - TPC - SM
 - GPC - SM
 - GPC - TPC - SM
+
+## SM/PB 发展历史
+
+如果以 SM 或 PB 的最小粒度来看，它的发展历史是：
+
+- Tesla：一个 SM 只有 Instruction cache 和 Constant cache，8 个 CUDA core，2 个 SFU，16KB 的 shared memory
+- Fermi：Instruction Cache，两个单发射的 Warp Scheduler，有 32 个 CUDA core，16 个 LD/ST unit，4 个 SFU，64 KB 的 shared memory/L1 cache
+- Kepler：Instruction Cache，四个双发射的 Warp Scheduler，有 192 个 CUDA core，64 个 DP unit，32 个 SFU，32 个 LD/ST，65536 或 131072 * 32 bit 的寄存器堆，64KB 或者 128KB 的 shared memory/L1 cache，48KB 的 readonly data cache
+- Maxwell：开始拆分 Processing Block，每个 PB 内部有 Instruction Buffer，一个双发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 CUDA core，1 个 DP unit，8 个 LD/ST unit，8 个 SFU
+- Pascal：每个 PB 内部有 Instruction Buffer，一个双发射的 Warp Scheduler，32768 * 32-bit 的寄存器堆，32 个 CUDA core，16 个 DP unit，8 个 LD/ST unit，8 个 SFU
+- Volta：每个 PB 内部有 L0 Instruction Cache，一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST unit，2 个 Tensor Core，4 个 SFU
+- Turing：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，2 个 Tensor Core，4 个 LD/ST unit，4 个 SFU
+- Ampere：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
+- Ada Lovelace：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 FP32/INT32 core，1 个 Tensor Core，4 个 LD/ST unit，4 个 SFU
+- Hopper：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 FP32 core，16 个 INT32 core，16 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
