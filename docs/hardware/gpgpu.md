@@ -418,6 +418,8 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 
 前文提到，从 Kepler 架构开始，指令集加入了 Control Code 信息，用于实现调度。下面来结合一些用 CuAssembler 得到的例子，来分析这些信息的使用。
 
+### Stall count
+
 首先是 Stall Count，以 Ampere SM8.0 为例，这个架构里每个 PB 只有 8 个 LD/ST unit，因此一条 Load/Store 指令需要四个周期才能发射完成。因此如果是连续的 Load/Store 质量，它们的 Stall count 会是 4：
 
 ```asm
@@ -590,3 +592,59 @@ instruction-level parallelism, i.e. have multiple independent instructions in
 their instruction stream, fewer warps are needed because multiple independent
 instructions from a single warp can be issued back to back.
 ```
+
+网络上也可以查到一些测试指令延迟的文章，例如 <https://arxiv.org/pdf/1905.08778.pdf> 和 <https://arxiv.org/pdf/1804.06826.pdf>。
+
+### Dependency Barrier
+
+Dependency Barrier 主要是用来解决依赖的问题。
+
+前面提到过，Turing 等架构，访存指令是先进入到 MIO Queue，然后到达 SM 共享的 MIO 单元中，当 MIO 要执行指令的时候，才会从 PB 内部的寄存器堆读取操作数的值。因此这一类指令会出现寄存器延迟读取的情况，而不是像整数指令，整数指令在发射以后，很快就会去读取操作数。那么问题就出现了，如果访存指令的源寄存器与其他指令的目的寄存器重合，出现了读后写（WAR）的情况，那么及时写的指令在后面才会发射，但它依然可能会在访存指令读取操作数之前发射并修改了寄存器，这时候访存指令拿到的就是错误的寄存器的值了。因此，针对这种情况，需要设置 read barrier，如：
+
+```asm
+[B------:R0:W-:-:S09]          /*0060*/                   STL [R1], R2 ;                                                 /* 0x0000000201007387 */
+/* snip */
+[B0-----:R-:W-:-:S01]          /*0170*/                   IMAD.MOV.U32 R2, RZ, RZ, R0 ;                                  /* 0x000000ffff027224 */
+```
+
+0060 STL 指令设置了 read barrier 0，0170 IMAD 指令标记了会等待 barrier 0。那么，只有当 0060 STL 指令完成了它的操作数 R2 的读取，才会允许 0170 IMAD 指令去写入 R2 寄存器。在 GPGPU 上，这个约束可能会简化为，只有当 0060 STL 指令执行完成，才会允许发射 0170 IMAD 指令。
+
+另一方面，对于访存等延迟不确定的指令，如果它的目的寄存器是后续指令的源寄存器，也就是写后读（RAW），此时仅靠 stall count 无法保证后续指令执行的时候，前面的指令已经把结果写入到寄存器中，因此需要设置 write barrier：
+
+```asm
+[B------:R-:W0:-:S01]          /*0070*/                   LDS R5, [UR4] ;                                    /* 0x00000004ff057984 */
+[B------:R-:W-:Y:S03]          /*0080*/                   ULDC.64 UR4, c[0x0][0x118] ;                       /* 0x0000460000047ab9 */
+[B0-----:R-:W-:-:S01]          /*0090*/                   STG.E [R2.64], R5 ;                                /* 0x0000000502007986 */
+```
+
+0070 LDS 指令会写入 R5，R5 寄存器会被 0090 STG 指令读取。因此 0070 LDS 指令设置 write barrier 0，只有当它执行完成，把结果写入到 R5 寄存器，才能允许 0090 STG 指令去读取 R5 寄存器。在 GPGPU 上，这个约束可能简化为，只有当 0070 LDS 指令执行完成，才允许发射 0090 STG 质量。
+
+但是，并非所有情况下都需要设置 barrier。例如上面这段汇编，0080 ULDC 需要写 UR4 寄存器，而 0070 LDS 需要写 UR4 寄存器，这是一个读后写（WAR）的情况，看似需要 read dependency barrier。但实际上，ULDC 和 LDS 应该都在 LD/ST 单元中执行，因此它们内部可以保证顺序，不会出现读错值的问题。
+
+下面列举了一些观察到会使用 write dependency barrier 的指令：
+
+- BMOV
+- DADD
+- HMMA
+- I2F
+- LDGDEPBAR
+- LDG
+- LDL
+- LDSM
+- LDS
+- S2R
+- QSPC
+
+除了 BMOV 以外，这些指令可能是可变延迟的。
+
+一些观察到会使用 read dependency barrier 的指令：
+
+- BMOV
+- HMMA
+- LDG
+- LDGSTS
+- LDL
+- STG
+- STL
+
+除了 BMOV 以外，这些指令读取操作数的时间可能是不确定的。
