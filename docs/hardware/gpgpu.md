@@ -330,6 +330,15 @@ Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solut
 
 Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
 
+PPT: [NVIDIA HOPPER GPU: SCALING PERFORMANCE](https://hc34.hotchips.org/assets/program/conference/day1/GPU%20HPC/HC2022.NVIDIA.Choquette.vfinal01.pdf)
+
+H100 SXM5 参数如下：
+
+- TSMC 4N 制程，80 billion transistor
+- HBM3 DRAM，5 个 stack，10 个 512-bit memory controller，总共 80 GB 容量
+- H100 有 8 个 GPC，66 个 TPC，每个 TPC 有两个 SM；一共 132 个 SM
+- 每个 SM 内部有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU
+
 <figure markdown>
   ![](gpgpu_hopper_sm.png){ width="600" }
   <figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcation>
