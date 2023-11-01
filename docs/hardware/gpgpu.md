@@ -72,7 +72,9 @@ CUDA 中线程一共有三个层次：第一个是 Grid，第二个是 Block（T
 
 PPT: C.M. Wittenbrink, E. Kilgariff, and A. Prabhu, ‘‘Fermi GF100: A Graphics Processing Unit (GPU) Architecture for Compute Tessellation, Physics, and Computational Graphics,’’ IEEE Hot Chips, presentation, 2010; <https://old.hotchips.org/wp-content/uploads/hc_archives/hc22/HC22.23.110-1-Wittenbrink-Fermi-GF100.pdf>.
 
-White paper: [Fermi: NVIDIA’s Next Generation CUDA Compute Architecture](https://www.nvidia.com/content/pdf/fermi_white_papers/nvidia_fermi_compute_architecture_whitepaper.pdf)
+Whitepaper: [Fermi: NVIDIA’s Next Generation CUDA Compute Architecture](https://www.nvidia.com/content/pdf/fermi_white_papers/nvidia_fermi_compute_architecture_whitepaper.pdf)
+
+Whitepaper: [NVIDIA’s Fermi: The First Complete GPU Computing Architecture](https://www.nvidia.com/content/PDF/fermi_white_papers/P.Glaskowsky_NVIDIA's_Fermi-The_First_Complete_GPU_Architecture.pdf)
 
 Fermi 是 Tesla 的下一代 NVIDIA 显卡架构。Tesla 虽然支持了通用计算，但依然保留了很多图形计算的遗留设计。相比之下，Fermi 针对通用计算做出了更多的改变：数据缓存、更多的访存单元、双精度浮点计算、ECC 内存以及更快的原子指令。通过引入 Unified Address Space，Fermi 架构能够支持更多使用指针的 C++ 程序。
 
@@ -105,7 +107,12 @@ Tesla 架构有图形处理的惯性，只考虑了图形处理的场景，所�
   <figcaption>Fermi 架构 SM（来源：Fermi GF100 GPU Architecture Figure 3）</figcation>
 </figure>
 
-可以看到，SM 内部设置了两个 Warp Scheduler，可以同时从两个独立的 warp 去发射指令。每个 warp 只会去用 16 个 CUDA core 或者 16 个 LD/ST 单元或者 4 个 SFU 单元去执行。所以两个发射路径有独立的 CUDA core，但是 LD/ST 单元和 SFU 单元是共享的。
+<figure markdown>
+  ![](gpgpu_fermi_sm_dispatch.png){ width="600" }
+  <figcaption>Fermi 架构 SM 发射（来源：NVIDIA’s Fermi: The First Complete GPU Computing Architecture Figure 7）</figcation>
+</figure>
+
+可以看到，SM 内部设置了两个 Warp Scheduler，可以同时从两个独立的 warp 去发射指令。每个 warp 只会去用 16 个 CUDA core 或者 16 个 LD/ST 单元或者 4 个 SFU 单元去执行，一共有 4 个 dispatch port，每个 dispatch port 每个周期只能接受最多一条指令。图中表示的是，一条浮点或者整数指令，会进入某一组 CUDA core 执行，执行的时候需要两个周期，每个周期对应 16 个线程，也意味着 dispatch port 需要占用两个周期；如果是 SIN 或者 RCP 指令，则需要八个周期，每个周期对应 4 个线程；如果是访存指令，那就需要两个周期。
 
 GigaThread engine 负责把 thread block 分发给 SM，同时可以提高上下文切换的速度，使得 GPGPU 可以高效地处理来自不同应用的 kernel，根据 Fermi whitepaper：
 
@@ -149,6 +156,14 @@ Kepler 为了要支持四个 Warp Scheduler，每个周期 Dispatch 8 条指令�
 - <https://github.com/cloudcores/CuAssembler/blob/master/UserGuide.md>
 - <https://github.com/NervanaSystems/maxas/wiki/Control-Codes>
 - <https://zhuanlan.zhihu.com/p/166180054>
+
+Control Code 主要包括如下的信息：
+
+- Stall Count: 当前指令发射后，预计等待多少个周期再发射下一条指令
+- Yield Hint：当前指令发射后，建议切换到其他 Warp
+- Read Dependency Barrier：设置一个 Dependency Barrier，表示这条指令需要延迟读某个寄存器，如果后续有指令会修改同一个寄存器，那就需要保证后续的指令要等待这个 Dependency Barrier，否则可能后面的指令修改了前面指令所需要的操作数
+- Write Dependency Barrier：设置一个 Dependency Barrier，表示这条指令需要写入某个寄存器，但是指令执行的实现不确定，用 stall count 不能保证数据在后续依赖它的指令发射前准备好，就让后续指令等待这个 Dependency Barrier
+- Wait Dependency Barrier：等待若干个 Dependency Barrier，当设置该 Barrier 上的指令执行完成，才可以调度当前指令
 
 内存层级方面，Kepler 引入了一个额外的 48KB 只读 Data Cache，用于保存只读的数据，可以提供相比 Shared/L1 cache 更高的性能。
 
