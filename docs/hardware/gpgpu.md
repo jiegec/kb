@@ -315,7 +315,7 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | Tesla 1.0 G80               | 8      | 0      | 2   | N/A   | 1 W * 1 I | 8             |
 | Tesla 2.0 GT200             | 8      | 1      | 2   | N/A   | 1 W * 1 I | 8             |
 | Fermi GF100                 | 32     | 16     | 4   | 16    | 2 W * 1 I | 16            |
-| Kepler GK110/120            | 192    | 64     | 32  | 32    | 4 W * 2 I | 24            |
+| Kepler GK210                | 192    | 64     | 32  | 32    | 4 W * 2 I | 24            |
 | Maxwell GM204 (per PB)      | 32     | 1      | 8   | 8     | 1 W * 2 I | 16            |
 | Maxwell GM204 (per SM)      | 128    | 4      | 32  | 32    | 4 W * 2 I | 16            |
 | Pascal GP100 (per PB)       | 32     | 16     | 8   | 8     | 1 W * 2 I | 16            |
@@ -335,23 +335,29 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 
 注：TU102、GA102 和 AD102 等显卡是游戏卡，因此 FP64 单元很少，每个 SM 只有两个。
 
-各架构 SM 的浮点计算性能（参考 [Throughput of Native Arithmetic Instructions](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#arithmetic-instructions-throughput-native-arithmetic-instructions) 和 [Matching CUDA arch and CUDA gencode for various NVIDIA architectures](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/)）
+各架构 SM 的浮点计算性能（参考 [Throughput of Native Arithmetic Instructions](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#arithmetic-instructions-throughput-native-arithmetic-instructions) 和 [Matching CUDA arch and CUDA gencode for various NVIDIA architectures](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/) 和 [Throughput of Native Arithmetic Instructions CUDA 8.0](https://docs.nvidia.com/cuda/archive/8.0/cuda-c-programming-guide/index.html#arithmetic-instructions) 和 [CUDA - Wikipedia](https://en.wikipedia.org/wiki/CUDA)）
 
-| 架构                               | 半精度 | 单精度 | 双精度 | 特殊函数 |
-|------------------------------------|--------|--------|--------|----------|
-| Maxwell (SM 5.0, GM107-108)        | N/A    | 128    | 4      | 32       |
-| Maxwell (SM 5.2, GM200-206)        | N/A    | 128    | 4      | 32       |
-| Maxwell (SM 5.3, GM20B)            | 256    | 128    | 4      | 32       |
-| Pascal (SM 6.0, GP100)             | 128    | 64     | 32     | 16       |
-| Pascal (SM 6.1, GP102-GP108)       | 2      | 128    | 4      | 32       |
-| Pascal (SM 6.2, GP10B)             | 256    | 128    | 4      | 32       |
-| Volta (SM 7.0, GV100)              | 128    | 64     | 32     | 16       |
-| Volta (SM 7.2, GV10B-GV11B)        | 128    | 64     | 32     | 16       |
-| Turing (SM 7.5, TU102-TU117)       | 128    | 64     | 2      | 16       |
-| Ampere (SM 8.0, GA100)             | 256    | 64     | 32     | 16       |
-| Ampere (SM 8.6, GA102-GA107)       | 256    | 128    | 2      | 16       |
-| Ada Lovelace (SM 8.9, AD102-AD107) | 128    | 128    | 2      | 16       |
-| Hopper (SM 9.0, GH100)             | 256    | 128    | 64     | 16       |
+| 架构                                | 半精度 | 单精度 | 双精度 | 特殊函数 |
+|-------------------------------------|--------|--------|--------|----------|
+| Fermi (SM 2.0, GF100/GF110)         | N/A    | 32     | 16     | 4        |
+| Fermi (SM 2.1, GF104-108, GF14-119) | N/A    | 48     | 4      | 8        |
+| Kepler (SM 3.0, GK104-GK107)        | N/A    | 192    | 8      | 32       |
+| Kepler (SM 3.2, GK20A)              | N/A    | 192    | 8      | 32       |
+| Kepler (SM 3.5, GK110, GK208)       | N/A    | 192    | 64     | 32       |
+| Kepler (SM 3.7, GK210)              | N/A    | 192    | 64     | 32       |
+| Maxwell (SM 5.0, GM107-108)         | N/A    | 128    | 4      | 32       |
+| Maxwell (SM 5.2, GM200-206)         | N/A    | 128    | 4      | 32       |
+| Maxwell (SM 5.3, GM20B)             | 256    | 128    | 4      | 32       |
+| Pascal (SM 6.0, GP100)              | 128    | 64     | 32     | 16       |
+| Pascal (SM 6.1, GP102-GP108)        | 2      | 128    | 4      | 32       |
+| Pascal (SM 6.2, GP10B)              | 256    | 128    | 4      | 32       |
+| Volta (SM 7.0, GV100)               | 128    | 64     | 32     | 16       |
+| Volta (SM 7.2, GV10B-GV11B)         | 128    | 64     | 32     | 16       |
+| Turing (SM 7.5, TU102-TU117)        | 128    | 64     | 2      | 16       |
+| Ampere (SM 8.0, GA100)              | 256    | 64     | 32     | 16       |
+| Ampere (SM 8.6, GA102-GA107)        | 256    | 128    | 2      | 16       |
+| Ada Lovelace (SM 8.9, AD102-AD107)  | 128    | 128    | 2      | 16       |
+| Hopper (SM 9.0, GH100)              | 256    | 128    | 64     | 16       |
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
@@ -424,7 +430,7 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 [B------:R-:W-:-:S01]          /*0060*/                   IMAD.MOV.U32 R7, RZ, RZ, c[0x0][0x174] ;  /* 0x00005d00ff077624 */
 ```
 
-虽然 Ampere SM 8.0 每个 PB 只有 16 个 INT32 单元，也就是说一条 IMAD 指令需要两个周期才能发射完成，但是从上面可以看出，MOV 指令和 IMAD 指令使用不同的 dispatch port，虽然它们各自都需要两个周期来发射，但是间隔地发射使得每个周期都可以发射一条指令：
+虽然 Ampere SM 8.0 每个 PB 只有 16 个 INT32 和 16 个 FP 32单元，也就是说一条 IMAD 指令需要两个周期才能发射完成，但是从上面可以看出，MOV 指令和 IMAD 指令使用不同的 dispatch port，虽然它们各自都需要两个周期来发射，但是间隔地发射使得每个周期都可以发射一条指令：
 
 | 周期 | PC   | MOV dispatch port | IMAD dispatch port   |
 |------|------|-------------------|----------------------|
@@ -436,3 +442,68 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | 5    | 0060 | 0050 MOV R6       | 0060 IMAD.MOV.U32 R7 |
 | 6    | 0070 | Other insts       | 0060 IMAD.MOV.U32 R7 |
 
+
+而如果是同类型的质量，就可能会阻塞 dispatch port，因此需要大于 1 的 stall count：
+
+```asm
+[B------:R-:W-:-:S01]          /*0010*/                   IADD3 R1, R1, -0x1a0, RZ ;                                     /* 0xfffffe6001017810 */
+[B------:R-:W-:-:S01]          /*0020*/                   IMAD.MOV.U32 R2, RZ, RZ, c[0x0][0x160] ;                       /* 0x00005800ff027624 */
+[B------:R-:W-:-:S01]          /*0030*/                   ISETP.NE.AND P0, PT, RZ, c[0x0][0x160], PT ;                   /* 0x00005800ff007a0c */
+[B------:R-:W-:-:S02]          /*0040*/                   IMAD.MOV.U32 R0, RZ, RZ, c[0x0][0x18] ;                        /* 0x00000600ff007624 */
+[B------:R-:W-:-:S01]          /*0050*/                   IMAD.MOV.U32 R3, RZ, RZ, c[0x0][0x1c] ;                        /* 0x00000700ff037624 */
+```
+
+这里的 0010 IADD3 和 0020 IMAD 之间、0020 IMAD 和 0030 ISETP 之间、0030 ISETP 和 0040 IMAC 之间不会出现 dispatch port 的冲突。但是 IMAD 和 IMAD 就会出现冲突，所以 0040 IMAD 指令的 stall count 是 2。根据这些信息，可以猜测，IMAD 并没有放在 INT32 core 中执行，而是放到了 FP32 中，这样或许可以共享乘法器，减少面积。其余的 MOV，IADD3 和 ISETP 指令可能是在 INT32 core 中实现。下面的例子也说明了 IADD3 和 ISETP 大概率是同一个 dispatch port：
+
+```asm
+[B------:R-:W-:-:S02]          /*0080*/                   ISETP.NE.AND P0, PT, R2, 0x1, PT ;                             /* 0x000000010200780c */
+[B------:R-:W-:Y:S04]          /*0090*/                   IADD3 R4, P1, R1, c[0x0][0x20], RZ ;                           /* 0x0000080001047a10 */
+```
+
+再看下面一个例子，看看如何用 stall count 保证写后读（RAW）情况下，后续指令可以得到前面指令写入的正确结果：
+
+```asm
+[B------:R-:W-:-:S01]          /*01c0*/                   IMAD.X R4, RZ, RZ, c[0x0][0x54], P0 ;                          /* 0x00001500ff047624 */
+[B------:R-:W-:Y:S04]          /*01d0*/                   ISETP.GE.U32.AND P0, PT, R0, c[0x0][0x50], PT ;                /* 0x0000140000007a0c */
+[B------:R-:W-:Y:S04]          /*01e0*/                   ISETP.GE.U32.AND.EX P1, PT, R3, R4, PT, P1 ;                   /* 0x000000040300720c */
+[B------:R-:W-:-:S02]          /*01f0*/                   ISETP.GE.U32.AND.EX P3, PT, R3.reuse, c[0x0][0x54], !P1, P0 ;  /* 0x0000150003007a0c */
+[B------:R-:W-:Y:S13]          /*0200*/                   ISETP.GE.U32.AND.EX P0, PT, R3, c[0x0][0x54], !P1, P0 ;        /* 0x0000150003007a0c */
+```
+
+首先是 01c0 的 IMAD 质量，它写入 R4 寄存器，会被 01e0 ISETP 指令使用，所以这是一个写后读的依赖。如果不考虑依赖，那么 01d0 ISETP 和 01e0 ISETP 应该只需要相隔两个周期，就可以保证顺利发射，但实际上 01d0 ISETP 的 stall count 设置成了 4。这会有什么效果呢？如果把周期画出来：
+
+| 周期 | PC   | ISETP dispatch port | IMAD dispatch port |
+|------|------|---------------------|--------------------|
+| 0    | 01c0 | Idle                | 01c0 IMAD.X R4     |
+| 1    | 01d0 | 01d0 ISETP P0       | 01c0 IMAD.X R4     |
+| 2    | 01d0 | 01d0 ISETP P0       | Idle               |
+| 3    | 01d0 | Idle                | Idle               |
+| 4    | 01d0 | Idle                | Idle               |
+| 5    | 01e0 | 01e0 ISETP P1       | Idle               |
+| 6    | 01e0 | 01e0 ISETP P1       | Idle               |
+| 7    | 01e0 | Idle                | Idle               |
+| 8    | 01e0 | Idle                | Idle               |
+
+我们不知道 IMAD.X 指令需要执行多少个周期，但是可以猜测，如果 01d0 ISETP 的 stall count 设置为 2，虽然 01e0 ISETP 质量可以提前发射，但是当他读取寄存器的时候，可能 IMAD.X 还没有计算完成并且把结果写回到寄存器。
+
+而后面的 01f0 ISETP 指令依赖了 P1 和 P0，也就是 01d0 ISETP 和 01e0 ISETP 指令要写入的寄存器，这里也出现了写后读的依赖。因此 01e0 ISETP 也设置了比 2 大的 stall count：4。到 0200 ISETP 的时候，它虽然也依赖 P1 和 P0，但是由于前面已经等待了足够的周期数，不需要额外的 stall count 了，因此 01f0 的 stall count 就是 2。把整个过程写下来，就得到了如下表格：
+
+
+| 周期 | PC   | ISETP dispatch port | IMAD dispatch port |
+|------|------|---------------------|--------------------|
+| 0    | 01c0 | Idle                | 01c0 IMAD.X R4     |
+| 1    | 01d0 | 01d0 ISETP P0       | 01c0 IMAD.X R4     |
+| 2    | 01d0 | 01d0 ISETP P0       | Idle               |
+| 3    | 01d0 | Idle                | Idle               |
+| 4    | 01d0 | Idle                | Idle               |
+| 5    | 01e0 | 01e0 ISETP P1       | Idle               |
+| 6    | 01e0 | 01e0 ISETP P1       | Idle               |
+| 7    | 01e0 | Idle                | Idle               |
+| 8    | 01e0 | Idle                | Idle               |
+| 9    | 01f0 | 01f0 ISETP P3       | Idle               |
+| 10   | 01f0 | 01f0 ISETP P3       | Idle               |
+| 11   | 0200 | 0200 ISETP P0       | Idle               |
+| 12   | 0200 | 0200 ISETP P0       | Idle               |
+
+
+01f0 ISETP 指令依赖 01e0 ISETP，所以发射比它晚了 4 个周期；01e0 ISETP 指令依赖 01c0 IMAD.X，所以发射比它晚了 5 个周期。这可能意味着，IMAD.X 指令的延迟比 ISETP 要多一个周期。
