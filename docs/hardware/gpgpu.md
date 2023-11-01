@@ -528,3 +528,49 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 
 
 01f0 ISETP 指令依赖 01e0 ISETP，所以发射比它晚了 4 个周期；01e0 ISETP 指令依赖 01c0 IMAD.X，所以发射比它晚了 5 个周期。这可能意味着，IMAD.X 指令的延迟比 ISETP 要多一个周期。
+
+如果要测试连续相同指令的 stall count，可以构造 PTX 指令序列：
+
+```sm
+	mul.rn.f32 	%f2, %f1, %f0;
+	mul.rn.f32 	%f3, %f2, %f0;
+	mul.rn.f32 	%f4, %f3, %f0;
+	mul.rn.f32 	%f5, %f4, %f0;
+	mul.rn.f32 	%f6, %f5, %f0;
+	mul.rn.f32 	%f7, %f6, %f0;
+	mul.rn.f32 	%f8, %f7, %f0;
+	mul.rn.f32 	%f9, %f8, %f0;
+	mul.rn.f32 	%f10, %f9, %f0;
+	mul.rn.f32 	%f11, %f10, %f0;
+	mul.rn.f32 	%f1, %f11, %f0;
+	mul.rn.f32 	%f2, %f1, %f0;
+	mul.rn.f32 	%f3, %f2, %f0;
+	mul.rn.f32 	%f4, %f3, %f0;
+	mul.rn.f32 	%f5, %f4, %f0;
+	mul.rn.f32 	%f6, %f5, %f0;
+```
+
+这样就可以逼迫 ptxas 生成连续的 FMUL 指令：
+
+```asm
+[B------:R-:W-:Y:S04]          /*0050*/                   FMUL R0, R0, c[0x0][0x164] ;    /* 0x0000590000007a20 */
+[B------:R-:W-:Y:S04]          /*0060*/                   FMUL R0, R0, c[0x0][0x160] ;    /* 0x0000580000007a20 */
+[B------:R-:W-:Y:S04]          /*0070*/                   FMUL R0, R0, c[0x0][0x160] ;    /* 0x0000580000007a20 */
+[B------:R-:W-:Y:S04]          /*0080*/                   FMUL R0, R0, c[0x0][0x160] ;    /* 0x0000580000007a20 */
+[B------:R-:W-:Y:S04]          /*0090*/                   FMUL R0, R0, c[0x0][0x160] ;    /* 0x0000580000007a20 */
+[B------:R-:W-:Y:S04]          /*00a0*/                   FMUL R0, R0, c[0x0][0x160] ;    /* 0x0000580000007a20 */
+```
+
+可以看到，连续的 FMUL 指令，它们的 stall count 都是 4。SM 8.0 架构每个 PB 只有 16 个 FP32 core。如果把 dispatch 过程写下来，就是：
+
+
+| 周期 | PC   | FMUL dispatch port |
+|------|------|--------------------|
+| 0    | 0050 | 0050 FMUL          |
+| 1    | 0050 | 0050 FMUL          |
+| 2    | 0060 | Idle               |
+| 3    | 0060 | Idle               |
+| 4    | 0060 | 0060 FMUL          |
+| 5    | 0060 | 0060 FMUL          |
+
+由于 0060 FMUL 依赖 0050 FMUL 的计算结果，说明四个周期就是连续 FMUL 指令依赖情况下，能够实现的最小间隔。
