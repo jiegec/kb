@@ -460,6 +460,8 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 [B------:R-:W-:Y:S04]          /*0090*/                   IADD3 R4, P1, R1, c[0x0][0x20], RZ ;                           /* 0x0000080001047a10 */
 ```
 
+如果仔细看 IMAD 指令的操作数（`IMAD.MOV.U32 R2, RZ, RZ, c[0x0][0x160]`），会发现它实现的就是 MOV 指令的行为（`MOV R2, c[0x0][0x160]`），因为 RZ 恒等于零。如果直接用 MOV 指令的话，MOV 指令会和 IADD3 或 ISETP 指令抢 dispatch port，而如果把 MOV 指令的效果，用 IMAD 指令实现，就可以提升性能，因为 IMAD 指令不会和 IADD3 和 ISETP 指令出现 dispatch port 冲突。IMAD 在计算单元中执行的时候，也可以检查一下操作数，如果要实现 MOV 的语义，就不用启用乘法器和加法器了。类似地，如果需要进行频繁的整数加法，也可以拆分成 IADD 和 IMAD，放到两个流水线中同时进行，只不过 IMAD 退化成了 $1 * b + c$。这一点观察，来自于 [GPGPU中一些问题的理解与思考（3）- 指令执行吞吐与指令集设计](https://zhuanlan.zhihu.com/p/391238629)。
+
 再看下面一个例子，看看如何用 stall count 保证写后读（RAW）情况下，后续指令可以得到前面指令写入的正确结果：
 
 ```asm
