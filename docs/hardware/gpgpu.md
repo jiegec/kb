@@ -167,6 +167,8 @@ Control Code 主要包括如下的信息：
 
 内存层级方面，Kepler 引入了一个额外的 48KB 只读 Data Cache，用于保存只读的数据，可以提供相比 Shared/L1 cache 更高的性能。
 
+GK110 有 1536 KB 的 L2 缓存。
+
 ## NVIDIA Maxwell
 
 Whitepaper: [NVIDIA GeForce GTX 980](https://www.microway.com/download/whitepaper/NVIDIA_Maxwell_GM204_Architecture_Whitepaper.pdf)
@@ -191,6 +193,8 @@ Maxwell 的 SM 叫做 SMM，它依然是四个 Warp Scheduler，但是和 Kepler
 
 Maxwell 架构的 L1 缓存和 Shared Memory 不再共享，Shared Memory 独占 96KB，然后 L1 缓存和 Texture 缓存共享空间。
 
+GM200 有 3072 KB 的 L2 缓存。
+
 ## NVIDIA Pascal
 
 Whitepaper: [NVIDIA Tesla P100](https://images.nvidia.cn/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper.pdf)
@@ -213,6 +217,8 @@ GP100 是 Pascal 架构的芯片，改进如下：
   ![](gpgpu_pascal_sm.png){ width="600" }
   <figcaption>Pascal 架构 SM（来源：NVIDIA Tesla P100 Whitepaper）</figcation>
 </figure>
+
+GP100 有 4096 KB 的 L2 缓存。一共有 8 个内存控制器，每个内存控制器对应一个 512 KB 的 L2 slice。
 
 ## NVIDIA Volta
 
@@ -248,6 +254,8 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 根据 [Understanding instruction dispatching in Volta architecture](https://forums.developer.nvidia.com/t/understanding-instruction-dispatching-in-volta-architecture/108896/6)，实际上 LD/ST unit 并不是分布在四个 Processing Block 内，而是在 SM 级别共享，也就是说 SM 有公共的 32 个 LD/ST unit，这 32 个公共的 LD/ST unit 供四个 Processing Block 共享。
 
 在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。
+
+GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期。
 
 ## NVIDIA Turing
 
@@ -307,6 +315,8 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
   <figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcation>
 </figure>
 
+A100 GPU 有 40 MB 的 L2 缓存，分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小。每 8 个 L2 slice 对应一个 memory controller。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期。
+
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
@@ -324,6 +334,8 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
   ![](gpgpu_hopper_sm.png){ width="600" }
   <figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcation>
 </figure>
+
+H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。
 
 ## SM 发展历史
 
