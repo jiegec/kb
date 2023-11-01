@@ -309,10 +309,31 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | Turing TU102 (per SM)       | 64     | ?      | 16    | 16  | 4 Warp * 1 Inst | 16            |
 | Ampere GA100 (per PB)       | 16     | 8      | 8     | 4   | 1 Warp * 1 Inst | 16            |
 | Ampere GA100 (per SM)       | 64     | 32     | 32    | 16  | 4 Warp * 1 Inst | 16            |
+| Ampere GA102 (per PB)       | 32     | ?      | 4     | 4   | 1 Warp * 1 Inst | 32            |
+| Ampere GA102 (per SM)       | 128    | ?      | 16    | 16  | 4 Warp * 1 Inst | 32            |
 | Ada Lovelace AD102 (per PB) | 32     | ?      | 4     | 4   | 1 Warp * 1 Inst | 32            |
 | Ada Lovelace AD102 (per SM) | 128    | ?      | 16    | 16  | 4 Warp * 1 Inst | 32            |
 | Hopper GH100 (per PB)       | 32     | 16     | 8     | 1   | 1 Warp * 1 Inst | 32            |
 | Hopper GH100 (per SM)       | 128    | 64     | 32    | 4   | 4 Warp * 1 Inst | 32            |
+
+各架构 SM 的浮点计算性能（参考 [Throughput of Native Arithmetic Instructions](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#arithmetic-instructions-throughput-native-arithmetic-instructions) 和 [Matching CUDA arch and CUDA gencode for various NVIDIA architectures](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/)）
+
+| 架构                               | 半精度 | 单精度 | 双精度 |
+|------------------------------------|--------|--------|--------|
+| Maxwell (SM 5.0, GM107-108)        | N/A    | 128    | 4      |
+| Maxwell (SM 5.2, GM200-206)        | N/A    | 128    | 4      |
+| Maxwell (SM 5.3, GM20B)            | 256    | 128    | 4      |
+| Pascal (SM 6.0, GP100)             | 128    | 64     | 32     |
+| Pascal (SM 6.1, GP102-GP108)       | 2      | 128    | 4      |
+| Pascal (SM 6.2, GP10B)             | 256    | 128    | 4      |
+| Volta (SM 7.0, GV100)              | 128    | 64     | 32     |
+| Volta (SM 7.2, GV10B-GV11B)        | 128    | 64     | 32     |
+| Turing (SM 7.5, TU102-TU117)       | 128    | 64     | 32     |
+| Ampere (SM 8.0, GA100)             | 256    | 64     | 32     |
+| Ampere (SM 8.6, GA102-GA107)       | 256    | 128    | 2      |
+| Ampere (SM 8.7, GA10B)             | ?      | ?      | ?      |
+| Ada Lovelace (SM 8.9, AD102-AD107) | 128    | 128    | 2      |
+| Hopper (SM 9.0, GH100)             | 256    | 128    | 64     |
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
