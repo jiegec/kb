@@ -255,7 +255,7 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。
 
-GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期。
+GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节。
 
 ## NVIDIA Turing
 
@@ -315,7 +315,7 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
   <figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcation>
 </figure>
 
-A100 GPU 有 40 MB 的 L2 缓存，分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小。每 8 个 L2 slice 对应一个 memory controller。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期。
+A100 GPU 有 40 MB 的 L2 缓存，分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小。每 8 个 L2 slice 对应一个 memory controller。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 $5120 * 1410 = 7.219$ TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $5120 / 108 = 47.4$ 字节。
 
 ## NVIDIA Ada Lovelace
 
@@ -425,6 +425,13 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 - Ampere：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
 - Ada Lovelace：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 FP32/INT32 core，1 个 Tensor Core，4 个 LD/ST unit，4 个 SFU
 - Hopper：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 FP32 core，16 个 INT32 core，16 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
+
+## L2 缓存和内存发展历史
+
+| 架构           | L2 每周期读取字节数 | L2 带宽       | 内存带宽  |
+|----------------|---------------------|---------------|-----------|
+| Volta (GV100)  | 2048                | 3133.440 GB/s | 900 GB/s  |
+| Ampere (GA100) | 5120                | 7219.200 GB/s | 1555 GB/s |
 
 ## Control Code
 
