@@ -573,4 +573,20 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 | 4    | 0060 | 0060 FMUL          |
 | 5    | 0060 | 0060 FMUL          |
 
-由于 0060 FMUL 依赖 0050 FMUL 的计算结果，说明四个周期就是连续 FMUL 指令依赖情况下，能够实现的最小间隔。
+由于 0060 FMUL 依赖 0050 FMUL 的计算结果，说明四个周期就是连续 FMUL 指令依赖情况下，能够实现的最小间隔。这一点在 [CUDA C Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#multiprocessor-level) 得到了印证：
+
+```
+If all input operands are registers, latency is caused by register dependencies,
+i.e., some of the input operands are written by some previous instruction(s)
+whose execution has not completed yet. In this case, the latency is equal to the
+execution time of the previous instruction and the warp schedulers must schedule
+instructions of other warps during that time. Execution time varies depending on
+the instruction. On devices of compute capability 7.x, for most arithmetic
+instructions, it is typically 4 clock cycles. This means that 16 active warps
+per multiprocessor (4 cycles, 4 warp schedulers) are required to hide arithmetic
+instruction latencies (assuming that warps execute instructions with maximum
+throughput, otherwise fewer warps are needed). If the individual warps exhibit
+instruction-level parallelism, i.e. have multiple independent instructions in
+their instruction stream, fewer warps are needed because multiple independent
+instructions from a single warp can be issued back to back.
+```
