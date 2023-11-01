@@ -262,8 +262,13 @@ Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/conten
 Whitepaper: [NVIDIA A100 Tensor Core GPU Architecture](https://images.nvidia.cn/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
 
 <figure markdown>
-  ![](gpgpu_ampere_sm.png){ width="600" }
-  <figcaption>Ampere 架构 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
+  ![](gpgpu_ampere_ga100_sm.png){ width="600" }
+  <figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
+</figure>
+
+<figure markdown>
+  ![](gpgpu_ampere_ga102_sm.png){ width="600" }
+  <figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcation>
 </figure>
 
 ## NVIDIA Ada Lovelace
