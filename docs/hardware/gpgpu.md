@@ -337,27 +337,27 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 
 各架构 SM 的浮点计算性能（参考 [Throughput of Native Arithmetic Instructions](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#arithmetic-instructions-throughput-native-arithmetic-instructions) 和 [Matching CUDA arch and CUDA gencode for various NVIDIA architectures](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/) 和 [Throughput of Native Arithmetic Instructions CUDA 8.0](https://docs.nvidia.com/cuda/archive/8.0/cuda-c-programming-guide/index.html#arithmetic-instructions) 和 [CUDA - Wikipedia](https://en.wikipedia.org/wiki/CUDA)）
 
-| 架构                                | 半精度 | 单精度 | 双精度 | 特殊函数 |
-|-------------------------------------|--------|--------|--------|----------|
-| Fermi (SM 2.0, GF100/GF110)         | N/A    | 32     | 16     | 4        |
-| Fermi (SM 2.1, GF104-108, GF14-119) | N/A    | 48     | 4      | 8        |
-| Kepler (SM 3.0, GK104-GK107)        | N/A    | 192    | 8      | 32       |
-| Kepler (SM 3.2, GK20A)              | N/A    | 192    | 8      | 32       |
-| Kepler (SM 3.5, GK110, GK208)       | N/A    | 192    | 64     | 32       |
-| Kepler (SM 3.7, GK210)              | N/A    | 192    | 64     | 32       |
-| Maxwell (SM 5.0, GM107-108)         | N/A    | 128    | 4      | 32       |
-| Maxwell (SM 5.2, GM200-206)         | N/A    | 128    | 4      | 32       |
-| Maxwell (SM 5.3, GM20B)             | 256    | 128    | 4      | 32       |
-| Pascal (SM 6.0, GP100)              | 128    | 64     | 32     | 16       |
-| Pascal (SM 6.1, GP102-GP108)        | 2      | 128    | 4      | 32       |
-| Pascal (SM 6.2, GP10B)              | 256    | 128    | 4      | 32       |
-| Volta (SM 7.0, GV100)               | 128    | 64     | 32     | 16       |
-| Volta (SM 7.2, GV10B-GV11B)         | 128    | 64     | 32     | 16       |
-| Turing (SM 7.5, TU102-TU117)        | 128    | 64     | 2      | 16       |
-| Ampere (SM 8.0, GA100)              | 256    | 64     | 32     | 16       |
-| Ampere (SM 8.6, GA102-GA107)        | 256    | 128    | 2      | 16       |
-| Ada Lovelace (SM 8.9, AD102-AD107)  | 128    | 128    | 2      | 16       |
-| Hopper (SM 9.0, GH100)              | 256    | 128    | 64     | 16       |
+| 架构                                 | 半精度 | 单精度 | 双精度 | 特殊函数 |
+|--------------------------------------|--------|--------|--------|----------|
+| Fermi (SM 2.0, GF100/GF110)          | N/A    | 32     | 16     | 4        |
+| Fermi (SM 2.1, GF104-108, GF114-119) | N/A    | 48     | 4      | 8        |
+| Kepler (SM 3.0, GK104-GK107)         | N/A    | 192    | 8      | 32       |
+| Kepler (SM 3.2, GK20A)               | N/A    | 192    | 8      | 32       |
+| Kepler (SM 3.5, GK110, GK208)        | N/A    | 192    | 64     | 32       |
+| Kepler (SM 3.7, GK210)               | N/A    | 192    | 64     | 32       |
+| Maxwell (SM 5.0, GM107-108)          | N/A    | 128    | 4      | 32       |
+| Maxwell (SM 5.2, GM200-206)          | N/A    | 128    | 4      | 32       |
+| Maxwell (SM 5.3, GM20B)              | 256    | 128    | 4      | 32       |
+| Pascal (SM 6.0, GP100)               | 128    | 64     | 32     | 16       |
+| Pascal (SM 6.1, GP102-GP108)         | 2      | 128    | 4      | 32       |
+| Pascal (SM 6.2, GP10B)               | 256    | 128    | 4      | 32       |
+| Volta (SM 7.0, GV100)                | 128    | 64     | 32     | 16       |
+| Volta (SM 7.2, GV10B-GV11B)          | 128    | 64     | 32     | 16       |
+| Turing (SM 7.5, TU102-TU117)         | 128    | 64     | 2      | 16       |
+| Ampere (SM 8.0, GA100)               | 256    | 64     | 32     | 16       |
+| Ampere (SM 8.6, GA102-GA107)         | 256    | 128    | 2      | 16       |
+| Ada Lovelace (SM 8.9, AD102-AD107)   | 128    | 128    | 2      | 16       |
+| Hopper (SM 9.0, GH100)               | 256    | 128    | 64     | 16       |
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
