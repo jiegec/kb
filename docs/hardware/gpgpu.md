@@ -309,6 +309,10 @@ Whitepaper: [NVIDIA A100 Tensor Core GPU Architecture](https://images.nvidia.cn/
 
 PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.hotchips.org/assets/program/conference/day1/HotChips2020_GPU_NVIDIA_Choquette_v01.pdf)
 
+论文：[The A100 Datacenter GPU and Ampere Architecture](https://ieeexplore.ieee.org/abstract/document/9365803)
+
+论文：[Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis](https://ieeexplore.ieee.org/abstract/document/9926299/)
+
 <figure markdown>
   ![](gpgpu_ampere_ga100_sm.png){ width="600" }
   <figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
