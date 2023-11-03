@@ -92,19 +92,19 @@ LlamaAttention 包括：
 8. `v3 = value_states = value_states.view(bsz, q_len, self.num_key_value_heads, self.head_dim)`: `aten::view([1, 1, 4096]) = [1, 1, 32, 128]`
 9. `value_states = v3.transpose(1, 2)`: `aten::transpose([1, 1, 32, 128]) = [1, 32, 1, 128]`
 10. `cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)`: 见 LlamaRotaryEmebdding
-10. `query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin, position_ids)`: 见 apply_rotary_pos_emb
-11. `key_states = torch.cat([past_key_value[0], key_states], dim=2)`: `aten::cat([1, 32, C-1, 128], [1, 32, 1, 128]) = [1, 32, C, 128]`
-12. `value_states = torch.cat([past_key_value[1], value_states], dim=2)`: `aten::cat([1, 32, C-1, 128], [1, 32, 1, 128]) = [1, 32, C, 128]`
-1. `v4 = key_states.transpose(2, 3)`: `aten::transpose([1, 32, C, 128]) = [1, 32, 128, C]`
-10. `v5 = torch.matmul(query_states, v4)`: `aten::matmul([1, 32, 1, 128], [1, 32, 128, C]) = [1, 32, 1, C]`, 8192*C FLOP
-11. `attn_weights = v1 / math.sqrt(self.head_dim)`: `aten::div([1, 32, 1, C]) = [1, 32, 1, C]`
-12. `attn_weights = attn_weights + attention_mask`: `aten::add([1, 32, 1, C], [1, 1, 1, C]) = [1, 32, 1, C]`
-12. `v6 = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query_states.dtype)`: `aten::softmax([1, 32, 1, C]) = [1, 32, 1, C]`
-15. `attn_weights = v6.to(query_states.dtype)`: `aten::to([1, 32, 1, C]) = [1, 32, 1, C]`
-13. `attn_output = torch.matmul(attn_weights, value_states)`: `aten::matmul([1, 32, 1, C], [1, 32, C, 128]) = [1, 32, 1, 128]`: 8192*C FLOP
-14. `attn_output = attn_output.transpose(1, 2).contiguous()`: `aten::transpose([1, 32, 1, 128]) = [1, 1, 32, 128]`
-15. `attn_output = attn_output.reshape(bsz, q_len, self.hidden_size)`: `aten::reshape([1, 1, 32, 128]) = [1, 1, 4096]`
-16. `attn_output = self.o_proj(attn_output)`: `aten::linear([1, 1, 4096], [4096, 4096]) = [1, 1, 4096]`, 33554432 FLOP
+11. `query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin, position_ids)`: 见 apply_rotary_pos_emb
+12. `key_states = torch.cat([past_key_value[0], key_states], dim=2)`: `aten::cat([1, 32, C-1, 128], [1, 32, 1, 128]) = [1, 32, C, 128]`
+13. `value_states = torch.cat([past_key_value[1], value_states], dim=2)`: `aten::cat([1, 32, C-1, 128], [1, 32, 1, 128]) = [1, 32, C, 128]`
+14. `v4 = key_states.transpose(2, 3)`: `aten::transpose([1, 32, C, 128]) = [1, 32, 128, C]`
+15. `v5 = torch.matmul(query_states, v4)`: `aten::matmul([1, 32, 1, 128], [1, 32, 128, C]) = [1, 32, 1, C]`, 8192*C FLOP
+16. `attn_weights = v1 / math.sqrt(self.head_dim)`: `aten::div([1, 32, 1, C]) = [1, 32, 1, C]`
+17. `attn_weights = attn_weights + attention_mask`: `aten::add([1, 32, 1, C], [1, 1, 1, C]) = [1, 32, 1, C]`
+18. `v6 = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query_states.dtype)`: `aten::softmax([1, 32, 1, C]) = [1, 32, 1, C]`
+19. `attn_weights = v6.to(query_states.dtype)`: `aten::to([1, 32, 1, C]) = [1, 32, 1, C]`
+20. `attn_output = torch.matmul(attn_weights, value_states)`: `aten::matmul([1, 32, 1, C], [1, 32, C, 128]) = [1, 32, 1, 128]`: 8192*C FLOP
+21. `attn_output = attn_output.transpose(1, 2).contiguous()`: `aten::transpose([1, 32, 1, 128]) = [1, 1, 32, 128]`
+22. `attn_output = attn_output.reshape(bsz, q_len, self.hidden_size)`: `aten::reshape([1, 1, 32, 128]) = [1, 1, 4096]`
+23. `attn_output = self.o_proj(attn_output)`: `aten::linear([1, 1, 4096], [4096, 4096]) = [1, 1, 4096]`, 33554432 FLOP
 
 LlamaRotaryEmbedding 包括：
 
@@ -115,20 +115,20 @@ apply_rotary_pos_emb 包括：
 
 1. `v1 = cos.squeeze(1)`: `aten::squeeze([1, 1, 10, 128])`
 2. `cos = v1.squeeze(0)`: `aten::squeeze([1, 10, 128])`
-1. `v2 = cos.squeeze(1)`: `aten::squeeze([1, 1, 10, 128])`
-2. `sin = v2.squeeze(0)`: `aten::squeeze([1, 10, 128])`
-3. `v3 = cos[position_ids]`: `aten::index([10, 128])`
-3. `cos = v3.unsqueeze(1)`: `aten::unsqueeze([1, 1, 128]) = [1, 1, 1, 128]`
-3. `v4 = sin[position_ids]`: `aten::index([10, 128])`
-3. `sin = v4.unsqueeze(1)`: `aten::unsqueeze([1, 1, 128]) = [1, 1, 1, 128]`
-3. `v5 = q * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-4. `v6 = rotate_half(q)`: 见 rotate_half
-5. `v7 = v6 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-6. `q_embed = v5 + v7`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`
-7. `v8 = k * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-8. `v9 = rotate_half(k)`: rotate_half
-9. `v10 = v9 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-10. `k_embed = v8 + v10`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`
+3. `v2 = cos.squeeze(1)`: `aten::squeeze([1, 1, 10, 128])`
+4. `sin = v2.squeeze(0)`: `aten::squeeze([1, 10, 128])`
+5. `v3 = cos[position_ids]`: `aten::index([10, 128])`
+6. `cos = v3.unsqueeze(1)`: `aten::unsqueeze([1, 1, 128]) = [1, 1, 1, 128]`
+7. `v4 = sin[position_ids]`: `aten::index([10, 128])`
+8. `sin = v4.unsqueeze(1)`: `aten::unsqueeze([1, 1, 128]) = [1, 1, 1, 128]`
+9. `v5 = q * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
+10. `v6 = rotate_half(q)`: 见 rotate_half
+11. `v7 = v6 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
+12. `q_embed = v5 + v7`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`
+13. `v8 = k * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
+14. `v9 = rotate_half(k)`: rotate_half
+15. `v10 = v9 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
+16. `k_embed = v8 + v10`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`
 
 rotate_half 包括：
 
