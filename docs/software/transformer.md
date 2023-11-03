@@ -74,11 +74,11 @@ LlamaRMSNorm 包括：
 1. `hidden_states = hidden_states.to(torch.float32)`: `aten::to([1, 1, 4096]) = [1, 1, 4096]`
 2. `v1 = hidden_states.pow(2)`: `aten::pow([1, 1, 4096]) = [1, 1, 4096]`
 3. `variance = v2.mean(-1, keepdim=True)`: `aten::mean([1, 1, 4096]) = [1, 1, 1]`
-4. `v3 = variance + self.variance_epsilon`: `aten::add([1, 1, 1]) = [1, 1, 1]`
+4. `v3 = variance + self.variance_epsilon`: `aten::add([1, 1, 1]) = [1, 1, 1]`, 1 FLOP
 5. `v4 = torch.rsqrt(v3)`: `aten::rsqrt([1, 1, 1]) = [1, 1, 1]`
-6. `hidden_states = hidden_states * v4`: `aten::mul([1, 1, 4096], [1, 1, 1]) = [1, 1, 4096]`
+6. `hidden_states = hidden_states * v4`: `aten::mul([1, 1, 4096], [1, 1, 1]) = [1, 1, 4096]`, 4096 FLOP
 7. `v5 = hidden_states.to(input_dtype)`: `aten::to([1, 1, 4096]) = [1, 1, 4096]`
-8. `return self.weight * v5`: `aten::mul([4096], [1, 1, 4096])`
+8. `return self.weight * v5`: `aten::mul([4096], [1, 1, 4096])`, 4096 FLOP
 
 LlamaAttention 包括：
 
@@ -98,7 +98,7 @@ LlamaAttention 包括：
 14. `v4 = key_states.transpose(2, 3)`: `aten::transpose([1, 32, C, 128]) = [1, 32, 128, C]`
 15. `v5 = torch.matmul(query_states, v4)`: `aten::matmul([1, 32, 1, 128], [1, 32, 128, C]) = [1, 32, 1, C]`, 8192*C FLOP
 16. `attn_weights = v1 / math.sqrt(self.head_dim)`: `aten::div([1, 32, 1, C]) = [1, 32, 1, C]`
-17. `attn_weights = attn_weights + attention_mask`: `aten::add([1, 32, 1, C], [1, 1, 1, C]) = [1, 32, 1, C]`
+17. `attn_weights = attn_weights + attention_mask`: `aten::add([1, 32, 1, C], [1, 1, 1, C]) = [1, 32, 1, C]`, 32*C FLOP
 18. `v6 = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query_states.dtype)`: `aten::softmax([1, 32, 1, C]) = [1, 32, 1, C]`
 19. `attn_weights = v6.to(query_states.dtype)`: `aten::to([1, 32, 1, C]) = [1, 32, 1, C]`
 20. `attn_output = torch.matmul(attn_weights, value_states)`: `aten::matmul([1, 32, 1, C], [1, 32, C, 128]) = [1, 32, 1, 128]`: 8192*C FLOP
@@ -121,14 +121,14 @@ apply_rotary_pos_emb 包括：
 6. `cos = v3.unsqueeze(1)`: `aten::unsqueeze([1, 1, 128]) = [1, 1, 1, 128]`
 7. `v4 = sin[position_ids]`: `aten::index([10, 128])`
 8. `sin = v4.unsqueeze(1)`: `aten::unsqueeze([1, 1, 128]) = [1, 1, 1, 128]`
-9. `v5 = q * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
+9. `v5 = q * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`, 4096 FLOP
 10. `v6 = rotate_half(q)`: 见 rotate_half
-11. `v7 = v6 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-12. `q_embed = v5 + v7`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`
-13. `v8 = k * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-14. `v9 = rotate_half(k)`: rotate_half
-15. `v10 = v9 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`
-16. `k_embed = v8 + v10`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`
+11. `v7 = v6 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`, 4096 FLOP
+12. `q_embed = v5 + v7`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`, 4096 FLOP
+13. `v8 = k * cos`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`, 4096 FLOP
+14. `v9 = rotate_half(k)`: 见 rotate_half
+15. `v10 = v9 * sin`: `aten::mul([1, 32, 1, 128], [1, 1, 1, 128]) = [1, 32, 1, 128]`, 4096 FLOP
+16. `k_embed = v8 + v10`: `aten::add([1, 32, 1, 128], [1, 32, 1, 128]) = [1, 32, 1, 128]`, 4096 FLOP
 
 rotate_half 包括：
 
