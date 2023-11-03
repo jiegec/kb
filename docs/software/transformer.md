@@ -139,11 +139,11 @@ rotate_half 包括：
 
 LlamaMLP 包括：
 
-1. `v1 = self.gate_proj(x)`: `aten::linear([1, 1, 4096], [4096, 11008]) = [1, 1, 11008]`, 90177536 FLOP
+1. `v1 = self.gate_proj(x)`: `aten::linear([1, 1, 4096], [11008, 4096]) = [1, 1, 11008]`, 90177536 FLOP
 2. `v2 = self.act_fn(v1)`: `aten::silu([1, 1, 11008]) = [1, 1, 11008]`
-3. `v3 = self.up_proj(x)`: `aten::linear([1, 1, 4096], [4096, 11008]) = [1, 1, 11008]`, 90177536 FLOP
+3. `v3 = self.up_proj(x)`: `aten::linear([1, 1, 4096], [11008, 4096]) = [1, 1, 11008]`, 90177536 FLOP
 4. `v4 = v2 * v3`: `aten::mul([1, 1, 11008], [1, 1, 11008]) = [1, 1, 11008]`, 11008 FLOP
-5. `v5 = self.down_proj(v4)`: `aten::linear([1, 1, 11008], [11008, 4096]) = [1, 1, 4096]`, 90177536 FLOP
+5. `v5 = self.down_proj(v4)`: `aten::linear([1, 1, 11008], [4096, 11008]) = [1, 1, 4096]`, 90177536 FLOP
 
 所有 aten 算子：
 
