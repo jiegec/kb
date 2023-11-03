@@ -145,6 +145,10 @@ LlamaMLP 包括：
 4. `v4 = v2 * v3`: `aten::mul([1, 1, 11008], [1, 1, 11008]) = [1, 1, 11008]`, 11008 FLOP
 5. `v5 = self.down_proj(v4)`: `aten::linear([1, 1, 11008], [4096, 11008]) = [1, 1, 4096]`, 90177536 FLOP
 
+最后一个 LlamaDecoderLayer 的输出会经过 lm_head 得到 logits：
+
+1. `logits = self.lm_head(hidden_states)`: `aten::linear([1, 1, 4096], [32000, 4096]) = [1, 1, 32000]`, 262144000 FLOP
+
 所有 aten 算子：
 
 - aten::add
