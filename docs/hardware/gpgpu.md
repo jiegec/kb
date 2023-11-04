@@ -206,9 +206,9 @@ GP100 是 Pascal 架构的芯片，改进如下：
 - TSMC 16nm FinFET 工艺
 - 支持 Unified Memory，使得 CPU 和 GPU 可以共享虚拟地址空间，让数据自动进行迁移
 - 支持 Compute Preemption，使得 kernel 可以在指令级别做抢占，而不是 thread block 级别，这样就可以让调试器等交互式的任务不会阻碍其他计算任务的进行；在 Kepler 架构中，只有等一个 thread block 的所有 thread 完成，硬件才可以做上下文切换，但是如果中间遇到了调试器的断点，这时候 thread block 并没有完成，那么此时只有调试器可以使用 GPU，其他任务就无法在 GPGPU 上执行
-- GP100 有 6 个 GPC，每个 GPC 内部有 5 个 TPC，每个 TPC 内部有 2 个 SM；GP100 总共有 $6*5*2=60$ 个 SM
+- GP100 有 6 个 GPC，每个 GPC 内部有 5 个 TPC，每个 TPC 内部有 2 个 SM；GP100 总共有 $6*5*2=60$ 个 SM（`A full GP100 consists of six GPCs, 60 Pascal SMs, 30 TPCs (each including two SMs)`）
 - 每个 SM 有 64 个单精度 CUDA core，32 个双精度 CUDA core，4 个 texture unit
-- 8 个 512 位的内存控制器，每个内存控制器附带 512 KB L2 缓存。每两个内存控制器为一组，连接到 4 个 1024 位的 HBM2 内存
+- 8 个 512 位的内存控制器（`eight 512-bit memory controllers (4096 bits total)`），每个内存控制器附带 512 KB L2 缓存，总共有 4096 KB 的 L2 缓存。每两个内存控制器为一组，连接到 4 个 1024 位的 HBM2 内存（`Each memory controller is attached to 512 KB of L2 cache, and each HBM2 DRAM stack is controlled by a pair of memory controllers. The full GPU includes a total of 4096 KB of L2 cache.`）
 - 支持 FP16 计算，两个 FP16 打包起来用一条指令进行计算
 
 可以看到，GP100 每个 SM 只有 64 个单精度 CUDA core，而 Maxwell 有 128 个，Kepler 有 192 个，Fermi 有 32 个，Tesla 有 8 个。GP100 的一个 SM 里有两个 Processing Block，每个 Processing Block 有一个 Instruction Buffer、一个双发射 Warp Scheduler、32 个单精度 CUDA core、16 个双精度 CUDA core、8 个 LD/ST Unit 和 8 个 SFU，和 Maxwell 基本一样。只不过 Pascal 架构每个 SM 只有两个 Processing Block，而 Maxwell 每个 SM 有四个 Processing Block。但 Pascal 架构每个 SM 有 64 KB 的 Shared memory，并且 SM 的数量比 Maxwell 的两倍还要多，因此实际上是在变相地增加 Shared memory 的数量、容量以及带宽。
@@ -217,8 +217,6 @@ GP100 是 Pascal 架构的芯片，改进如下：
   ![](gpgpu_pascal_sm.png){ width="600" }
   <figcaption>Pascal 架构 SM（来源：NVIDIA Tesla P100 Whitepaper）</figcation>
 </figure>
-
-GP100 有 4096 KB 的 L2 缓存。一共有 8 个内存控制器，每个内存控制器对应一个 512 KB 的 L2 slice。
 
 根据 <https://arxiv.org/pdf/1804.06826.pdf>，Pascal 架构每个周期每个 SM 可以读取 128 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $128 / 2 / 8 = 8$ 字节的数据。
 
@@ -235,11 +233,11 @@ GV100 是 Volta 架构的 GPU，它的改进包括：
 - TSMC 12nm FFN 工艺，815 mm^2 面积，21.1 billion transistors
 - 把 Tensor Core 引入到 SM 中
 - 支持 Independent Thread Scheduling，改变了 Warp 的分叉方法，原来 Warp 分叉的时候，只能先走一个分支，再走另一个分支；从 Volta 开始，Warp 分叉以后会变成两个 Warp，因此分支的两个方向可以 Interleaved 方式执行
-- 6 个 GPC，每个 GPC 有 7 个 TPC，每个 TPC 有 2 个 SM；一共有 84 个 SM
-- 每个 SM 有 64 个 FP32 CUDA core，64 个 INT32 CUDA core，32 个 FP64 CUDA core，8 个 Tensor Core 和 4 个 Texture Unit
-- 8 个 512-bit Memory Controller
+- 6 个 GPC，每个 GPC 有 7 个 TPC，每个 TPC 有 2 个 SM；一共有 84 个 SM（`Six GPCs, Each GPC has: Seven TPCs (each including two SMs), 14 SMs`）
+- 每个 SM 有 64 个 FP32 CUDA core，64 个 INT32 CUDA core，32 个 FP64 CUDA core，8 个 Tensor Core 和 4 个 Texture Unit（`Each SM has: 64 FP32 cores, 64 INT32 cores, 32 FP64 cores, 8 Tensor Cores, Four texture units`）
+- 8 个 512-bit Memory Controller（`Eight 512-bit memory controllers (4096 bits total)`）
 
-GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing Block 包括：
+GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing Block 包括（`The GV100 SM is partitioned into four processing blocks, each with 16 FP32 Cores, 8 FP64 Cores, 16 INT32 Cores, two of the new mixed-precision Tensor Cores for deep learning matrix arithmetic, a new L0 instruction cache, one warp scheduler, one dispatch unit, and a 64 KB Register File. Note that the new L0 instruction cache is now used in each partition to provide higher efficiency than the instruction buffers used in prior NVIDIA GPUs. (See the Volta SM in Figure 5).`）：
 
 - L0 Instruction Cache
 - 一个单发射 Warp Scheduler
@@ -255,9 +253,9 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 根据 [Understanding instruction dispatching in Volta architecture](https://forums.developer.nvidia.com/t/understanding-instruction-dispatching-in-volta-architecture/108896/6)，实际上 LD/ST unit 并不是分布在四个 Processing Block 内，而是在 SM 级别共享，也就是说 SM 有公共的 32 个 LD/ST unit，这 32 个公共的 LD/ST unit 供四个 Processing Block 共享。
 
-在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Volta 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 8 = 8$ 字节的数据。但根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（14 TB/s，80 个 SM，时钟频率 1530 MHz，每个 SM 每周期读取 $14 / 80 / 1530 * 1e6 = 114$ 字节）的数据。
+在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算（` the Volta GV100 SM includes separate FP32 and INT32 cores, allowing simultaneous execution of FP32 and INT32 operations at full throughput`）。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Volta 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 8 = 8$ 字节的数据。但根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（14 TB/s，80 个 SM，时钟频率 1530 MHz，每个 SM 每周期读取 $14 / 80 / 1530 * 1e6 = 114$ 字节）的数据。
 
-GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期（`compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.`）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节。
+GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 KB of L2 cache.`），分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据（`32 B/clk/slice`），因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期（`compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.`）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节。
 
 ## NVIDIA Turing
 
@@ -267,12 +265,12 @@ PPT: [RTX ON – THE NVIDIA TURING GPU](https://old.hotchips.org/hc31/HC31_2.12_
 
 TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：
 
-- 6 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM；一共是 72 个 SM
-- 每个 GPC 有一个 raster engine
-- 每个 SM 有 64 个 CUDA core，8 个 tensor core，4 个 texture unit，256 KB 寄存器堆和 96KB 的 L1/Shared Memory
-- 12 个 32-bit GDDR6 memory controller
+- 6 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM；一共是 72 个 SM（`The TU102 GPU includes six Graphics Processing Clusters (GPCs), 36 Texture Processing Clusters (TPCs), and 72 Streaming Multiprocessors (SMs).`）
+- 每个 GPC 有一个 raster engine（`Each GPC includes a dedicated raster engine`）
+- 每个 SM 有 64 个 CUDA core，8 个 tensor core，4 个 texture unit，256 KB 寄存器堆和 96KB 的 L1/Shared Memory（`Each SM contains 64 CUDA Cores, eight Tensor Cores, a 256 KB register file, four texture units, and 96 KB of L1/shared memory`）
+- 12 个 32-bit GDDR6 memory controller（`12 32-bit GDDR6 memory controllers (384-bits total)`）
 
-Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包括：
+Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包括（`The Turing SM is partitioned into four processing blocks, each with 16 FP32 Cores, 16 INT32 Cores, two Tensor Cores, one warp scheduler, and one dispatch unit. Each block includes a new L0 instruction cache and a 64 KB register file. The four processing blocks share a combined 96 KB L1 data cache/shared memory.`）：
 
 - 16 个 FP32 core，16 个 INT32 core，2 个 Tensor Core
 - 一个单发射 Warp Scheduler
@@ -284,7 +282,7 @@ Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包�
   <figcaption>Turing 架构 SM（来源：NVIDIA TURING GPU ARCHITECTURE Figure 4）</figcation>
 </figure>
 
-TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能只有单精度性能的 1/32。
+TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能只有单精度性能的 1/32。（`The TU102 GPU also features 144 FP64 units (two per SM), which are not depicted in this diagram. The FP64 TFLOP rate is 1/32nd the TFLOP rate of FP32 operations. The small number of FP64 hardware units are included to ensure any programs with FP64 code operates correctly.`）
 
 下面是 Turing 架构的 SM 的微架构，可以看到，它的访存部分（Memory I/O，MIO）是由放在 Processing Block 外面、SM 里面的 MIO 单元完成：
 
@@ -298,7 +296,7 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
   <figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
 </figure>
 
-从上图可以看到，Turing 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 4 = 16$ 字节的数据。
+从上图可以看到，Turing 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 4 = 16$ 字节的数据。Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
 
 
 ## NVIDIA Ampere
@@ -334,8 +332,7 @@ A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU inc
 
 ### GA102
 
-GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。（`GA10X includes FP32 processing on both datapaths, doubling the peak processing rate for FP32 operations. One datapath in each partition consists of 16 FP32 CUDA Cores capable of executing 16 FP32 operations per clock. Another datapath
-consists of both 16 FP32 CUDA Cores and 16 INT32 Cores, and is capable of executing either 16 FP32 operations OR 16 INT32 operations per clock. As a result of this new design, each GA10x SM partition is capable of executing either 32 FP32 operations per clock, or 16 FP32 and 16 INT32 operations per clock. `）
+GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。（`GA10X includes FP32 processing on both datapaths, doubling the peak processing rate for FP32 operations. One datapath in each partition consists of 16 FP32 CUDA Cores capable of executing 16 FP32 operations per clock. Another datapath consists of both 16 FP32 CUDA Cores and 16 INT32 Cores, and is capable of executing either 16 FP32 operations OR 16 INT32 operations per clock. As a result of this new design, each GA10x SM partition is capable of executing either 32 FP32 operations per clock, or 16 FP32 and 16 INT32 operations per clock. `）
 
 <figure markdown>
   ![](gpgpu_ampere_ga102_sm.png){ width="600" }
@@ -352,9 +349,10 @@ Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solut
 
 Ada Lovelace 架构的 AD102 包括：
 
-- 12 个 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM：一共 144 个 SM
-- 每个 SM 有四个 Processing Block，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，1 个第四代 Tensor Core，4 个 LD/ST unit，4 个 SFU
-- 此外每个 SM 还有 2 个 FP64 core
+- 12 个 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM：一共 144 个 SM（`The full AD102 GPU includes 12 Graphics Processing Clusters (GPCs), 72 Texture Processing Clusters (TPCs), 144 Streaming Multiprocessors (SMs)`）
+- 12 个 32 位内存控制器，一共 384 位（`a 384-bit memory interface with 12 32-bit memory controllers`）
+- 每个 SM 有四个 Processing Block，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，1 个第四代 Tensor Core，4 个 LD/ST unit，4 个 SFU（`Each SM in AD10x GPUs contain 128 CUDA Cores, one Ada Third-Generation RT Core, four Ada Fourth-Generation Tensor Cores, four Texture Units, a 256 KB Register File, and 128 KB of L1/Shared Memory`，`Like prior GPUs, the AD10x SM is divided into four processing blocks (or partitions), with each partition containing a 64 KB register file, an L0 instruction cache, one warp scheduler, one dispatch unit, 16 CUDA Cores that are dedicated for processing FP32 operations (up to 16 FP32 operations per clock), 16 CUDA Cores that can process FP32 or INT32 operations (16 FP32 operations per clock OR 16 INT32 operations per clock), one Ada Fourth-Generation Tensor Core, four Load/Store units, and a Special Function Unit (SFU) which executes transcendental and graphics interpolation instructions.`）
+- 此外每个 SM 还有 2 个 FP64 core（`The AD102 GPU also includes 288 FP64 Cores (2 per SM) which are not depicted in the above diagram. The FP64 TFLOP rate is 1/64th the TFLOP rate of FP32 operations. The small number of FP64 Cores are included to ensure any programs with FP64 code operate correctly, including FP64 Tensor Core code.`）
 
 <figure markdown>
   ![](gpgpu_ada_lovelace_sm.png){ width="600" }
@@ -369,9 +367,9 @@ PPT: [NVIDIA HOPPER GPU: SCALING PERFORMANCE](https://hc34.hotchips.org/assets/p
 
 H100 SXM5 参数如下：
 
-- TSMC 4N 制程，80 billion transistor
-- HBM3 DRAM，5 个 stack，10 个 512-bit memory controller，总共 80 GB 容量
-- H100 有 8 个 GPC，66 个 TPC，每个 TPC 有两个 SM；一共 132 个 SM
+- TSMC 4N 制程，80 billion transistor（`The full GH100 GPU that powers the H100 GPU is fabricated using TSMC’s 4N process customized for NVIDIA, with 80 billion transistors, a die size of 814 mm2, and higher frequency design.`）
+- HBM3 DRAM，5 个 stack，10 个 512-bit memory controller，总共 80 GB 容量（`6 HBM3 or HBM2e stacks, 12 512-bit Memory Controllers`）
+- H100 SXM5 有 8 个 GPC，66 个 TPC，每个 TPC 有两个 SM；一共 132 个 SM（`8 GPCs, 66 TPCs, 2 SMs/TPC, 132 SMs per GPU`）
 - 每个 SM 内部有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU
 
 <figure markdown>
@@ -379,9 +377,11 @@ H100 SXM5 参数如下：
   <figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcation>
 </figure>
 
-H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。
+H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。（`A 50 MB L2 cache in H100 is 1.25x larger than A100’s 40 MB L2.`）
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 $25 / 114 / 1620 * 1e6 = 135$ 字节）的数据。
+
+CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
 
 ## SM 发展历史
 
@@ -440,14 +440,16 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 
 | 架构                 | FP32 | INT32 | FP32/INT32 | FP64 | LD/ST | Tensor Core | SFU |
 |----------------------|------|-------|------------|------|-------|-------------|-----|
-| Maxwell (GM204)      | 32   | ?     | 0          | 0    | 8     | 0           | 8   |
-| Pascal (GP100)       | 32   | ?     | 0          | 16   | 8     | 0           | 8   |
+| Maxwell (GM204)      | 0    | 0     | 32         | 0    | 8     | 0           | 8   |
+| Pascal (GP100)       | 0    | 0     | 32         | 16   | 8     | 0           | 8   |
 | Volta (GV100)        | 16   | 16    | 0          | 8    | 8     | 2x 1st Gen  | 4   |
 | Turing (TU102)       | 16   | 16    | 0          | 0    | 4     | 2x 2nd Gen  | 4   |
 | Ampere (GA100)       | 16   | 16    | 0          | 8    | 8     | 1x 3rd Gen  | 4   |
 | Ampere (GA102)       | 16   | 0     | 16         | 0    | 4     | 1x 3rd Gen  | 4   |
 | Ada Lovelace (AD102) | 16   | 0     | 16         | 0    | 4     | 1x 4th Gen  | 4   |
 | Hopper (GH100)       | 32   | 16    | 0          | 16   | 8     | 1x 4th Gen  | 4   |
+
+注：Volta 把 FP32/INT32 core 拆分，使得可以同时执行两类指令，而 Pascal 不行。（`Unlike Pascal GPUs, which could not execute FP32 and INT32 instructions simultaneously, the Volta GV100 SM includes separate FP32 and INT32 cores, allowing simultaneous execution of FP32 and INT32 operations at full throughput, while also increasing instruction issue throughput.`）
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
