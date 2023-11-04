@@ -257,7 +257,7 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Volta 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 8 = 8$ 字节的数据。但根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（14 TB/s，80 个 SM，时钟频率 1530 MHz，每个 SM 每周期读取 $14 / 80 / 1530 * 1e6 = 114$ 字节）的数据。
 
-GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节。
+GV100 有 6144 KB 的 L2 缓存，分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据，因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期（`compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.`）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节。
 
 ## NVIDIA Turing
 
@@ -313,29 +313,38 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
 
 论文：[Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis](https://ieeexplore.ieee.org/abstract/document/9926299/)
 
+### GA100
+
 完整的 GA100 芯片包括：
 
-- 8 个 GPC，每个 GPC 有 8 个 TPC，每个 TPC 有 2 个 SM：一共 128 个 SM
+- 8 个 GPC，每个 GPC 有 8 个 TPC，每个 TPC 有 2 个 SM：一共 128 个 SM（`8 GPCs, 8 TPCs/GPC, 2 SMs/TPC, 16 SMs/GPC, 128 SMs per full GPU`）
 - 每个 SM 有 4 个 Processing Block，每个 PB 有：16 个 INT32 core，16 个 FP32 core，8 个 FP64 core，1 个第三代 Tensor Core，8 个 LD/ST unit 和 4 个 SFU
-- 6 个 HBM2 stack，对应 12 个 512-bit memory controller
+- 6 个 HBM2 stack，对应 12 个 512-bit memory controller（`6 HBM2 stacks, 12 512-bit Memory Controllers`）
 
-每个 SM 的 L1 Data Cache/Shared Memory 总量增加到了 192 KB。
+每个 SM 的 L1 Data Cache/Shared Memory 总量增加到了 192 KB。（`192 KB of combined shared memory and L1 data cache, 1.5x larger than V100 SM`）
 
 <figure markdown>
   ![](gpgpu_ampere_ga100_sm.png){ width="600" }
   <figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
 </figure>
 
-GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。
+A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU includes 40 MB of L2 cache, which is 6.7x larger than Tesla V100 L2 cache.`），分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小，每 8 个 L2 slice 对应一个 memory controller（`Each L2 cache partition is divided into 40 L2 cache slices. Eight 512 KB L2 slices are associated with each memory controller.`）。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期（`The A100 L2 read bandwidth is 5120 Bytes/clk`）。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 $5120 * 1410 = 7.219$ TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $5120 / 108 = 47.4$ 字节。
+
+根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
+
+### GA102
+
+GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。（`GA10X includes FP32 processing on both datapaths, doubling the peak processing rate for FP32 operations. One datapath in each partition consists of 16 FP32 CUDA Cores capable of executing 16 FP32 operations per clock. Another datapath
+consists of both 16 FP32 CUDA Cores and 16 INT32 Cores, and is capable of executing either 16 FP32 operations OR 16 INT32 operations per clock. As a result of this new design, each GA10x SM partition is capable of executing either 32 FP32 operations per clock, or 16 FP32 and 16 INT32 operations per clock. `）
 
 <figure markdown>
   ![](gpgpu_ampere_ga102_sm.png){ width="600" }
   <figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcation>
 </figure>
 
-A100 GPU 有 40 MB 的 L2 缓存，分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小。每 8 个 L2 slice 对应一个 memory controller。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 $5120 * 1410 = 7.219$ TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $5120 / 108 = 47.4$ 字节。
+GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 组 512KB 的 L2 缓存，每组对应一个内存控制器，L2 一共是 6144 KB。（`The memory subsystem of GA102 consists of twelve 32-bit memory controllers (384-bit total). 512 KB of L2 cache is paired with each 32-bit memory controller, for a total of 6144 KB on the full GA102 GPU.`）。
 
-根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
+GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的 L1 带宽是 219 GB/s（指的是每个 SM 的 L1 带宽，一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的 L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 166$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
 ## NVIDIA Ada Lovelace
 
@@ -482,17 +491,27 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 - Ada Lovelace：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 FP32/INT32 core，1 个 Tensor Core，4 个 LD/ST unit，4 个 SFU
 - Hopper：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 FP32 core，16 个 INT32 core，16 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU
 
-## L2 缓存和内存发展历史
+## 内存层次
 
-| 架构                      | L2 大小  | L2 每周期读取字节数 | L2 带宽       | 内存带宽  |
-|---------------------------|----------|---------------------|---------------|-----------|
-| Kepler (GK110)            | 1536 KB  | ?                   | ?             | ?         |
-| Maswell (GM200)           | 3072 KB  | ?                   | ?             | ?         |
-| Pascal (GP100, P100)      | 4096 KB  | ?                   | ?             | 732 GB/s  |
-| Volta (GV100, V100)       | 6144 KB  | 2048                | 3133.440 GB/s | 900 GB/s  |
-| Ampere (GA100, A100)      | 40960 KB | 5120                | 7219.200 GB/s | 1555 GB/s |
-| Ada Lovelace (AD102, L40) | 98304 KB | ?                   | ?             | 864 GB/s  |
-| Hopper (GH100, H100 SXM5) | 51200 KB | ?                   | ?             | 3352 GB/s |
+| 架构                      | L1 B/clk/SM | L2 大小  | L2 B/clk | L2 带宽       | 内存带宽  |
+|---------------------------|-------------|----------|----------|---------------|-----------|
+| Kepler (GK110)            |             | 1536 KB  | ?        | ?             | ?         |
+| Maxwell (GM200)           |             | 3072 KB  | ?        | ?             | ?         |
+| Pascal (GP100, P100)      |             | 4096 KB  | ?        | ?             | 732 GB/s  |
+| Volta (GV100, V100)       |             | 6144 KB  | 2048     | 3133.440 GB/s | 900 GB/s  |
+| Turing (TU102)            | 64          | ?        | ?        | ?             | ?         |
+| Ampere (GA100, A100)      |             | 40960 KB | 5120     | 7219.200 GB/s | 1555 GB/s |
+| Ampere (GA102)            | 128         | ?        | ?        | ?             | ?         |
+| Ada Lovelace (AD102, L40) |             | 98304 KB | ?        | ?             | 864 GB/s  |
+| Hopper (GH100, H100 SXM5) |             | 51200 KB | ?        | ?             | 3352 GB/s |
+
+备注：
+
+- L2 带宽计算方法：频率 * 每周期读取字节数。
+- `A100 2.3x L2 BW vs V100`: $7219.200 / 3133.40 = 2.3$
+- `A100 6.7x L2 capacity vs V100`: $40960 / 6144 = 6.7$
+- `A100 1.7x DRAM BW vs V100`: $1555 / 900 = 1.7$
+
 
 ## Control Code
 
