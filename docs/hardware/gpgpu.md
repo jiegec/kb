@@ -313,10 +313,20 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
 
 论文：[Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis](https://ieeexplore.ieee.org/abstract/document/9926299/)
 
+完整的 GA100 芯片包括：
+
+- 8 个 GPC，每个 GPC 有 8 个 TPC，每个 TPC 有 2 个 SM：一共 128 个 SM
+- 每个 SM 有 4 个 Processing Block，每个 PB 有：16 个 INT32 core，16 个 FP32 core，8 个 FP64 core，1 个第三代 Tensor Core，8 个 LD/ST unit 和 4 个 SFU
+- 6 个 HBM2 stack，对应 12 个 512-bit memory controller
+
+每个 SM 的 L1 Data Cache/Shared Memory 总量增加到了 192 KB。
+
 <figure markdown>
   ![](gpgpu_ampere_ga100_sm.png){ width="600" }
   <figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
 </figure>
+
+GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。
 
 <figure markdown>
   ![](gpgpu_ampere_ga102_sm.png){ width="600" }
@@ -330,6 +340,12 @@ A100 GPU 有 40 MB 的 L2 缓存，分为两个 partition，每个 partition 有
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
+
+Ada Lovelace 架构的 AD102 包括：
+
+- 12 个 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM：一共 144 个 SM
+- 每个 SM 有四个 Processing Block，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，1 个第四代 Tensor Core，4 个 LD/ST unit，4 个 SFU
+- 此外每个 SM 还有 2 个 FP64 core
 
 <figure markdown>
   ![](gpgpu_ada_lovelace_sm.png){ width="600" }
@@ -410,6 +426,19 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 | Ampere (SM 8.6, GA102-GA107)         | 256    | 128    | 2      | 16       |
 | Ada Lovelace (SM 8.9, AD102-AD107)   | 128    | 128    | 2      | 16       |
 | Hopper (SM 9.0, GH100)               | 256    | 128    | 64     | 16       |
+
+各架构每个 PB 中包括的单元数量：
+
+| 架构                 | FP32 | INT32 | FP32/INT32 | FP64 | LD/ST | Tensor Core | SFU |
+|----------------------|------|-------|------------|------|-------|-------------|-----|
+| Maxwell (GM204)      | 32   | ?     | 0          | 0    | 8     | 0           | 8   |
+| Pascal (GP100)       | 32   | ?     | 0          | 16   | 8     | 0           | 8   |
+| Volta (GV100)        | 16   | 16    | 0          | 8    | 8     | 2x 1st Gen  | 4   |
+| Turing (TU102)       | 16   | 16    | 0          | 0    | 4     | 2x 2nd Gen  | 4   |
+| Ampere (GA100)       | 16   | 16    | 0          | 8    | 8     | 1x 3rd Gen  | 4   |
+| Ampere (GA102)       | 16   | 0     | 16         | 0    | 4     | 1x 3rd Gen  | 4   |
+| Ada Lovelace (AD102) | 16   | 0     | 16         | 0    | 4     | 1x 4th Gen  | 4   |
+| Hopper (GH100)       | 32   | 16    | 0          | 16   | 8     | 1x 4th Gen  | 4   |
 
 各芯片的 SM 数量和 CUDA Core 数量：
 
