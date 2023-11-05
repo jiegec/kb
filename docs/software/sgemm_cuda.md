@@ -371,6 +371,35 @@ sum[xx][yy] +=
     bTile[ii - i][threadIdx.y * BLOCK_SIZE_PER_THREAD + yy];
 ```
 
-不过 Bank Conflict 依然是存在的：对于 threadIdx.x=0 和 threadIdx.x=4 的两个线程，它们的地址差是 `4 * 8(BLOCK_SIZE_PER_THREAD) * 4(sizeof(float)) = 128`，就会出现 Bank Conflict。但发生 Bank Conflict 的情况降低到了四分之一。
+不过 Bank Conflict 依然是存在的：对于 threadIdx.x=0 和 threadIdx.x=4 的两个线程，它们的地址差是 `4 * 8(BLOCK_SIZE_PER_THREAD) * 4(sizeof(float)) = 128`，就会出现 Bank Conflict。但发生 Bank Conflict 的情况降低到了四分之一。如果想要更进一步，还可以调整 x 和 y 的比例，进一步减少 Bank Conflict。
 
 这样写还有一个附带的好处：由于 xx 和 yy 都在内层循环，ii 是外层循环，把内存循环的循环变量参与到最后一维的下标中，可以改善内存局部性，并且也方便 NVCC 去优化，例如使用 LDS.128 指令，一条指令从 shared memory 读取 128 位的连续数据。
+
+## SGEMM v5
+
+v5 相比 v4 的改进在于 Double Buffering：现在的流程是每轮先读取数据到 shared memory，再从 shared memory 中读取数据来计算。但实际上，计算的时候访存单元是空闲的，可以让访存单元去读取下一轮的 shared memory 所要的数据，然后为了减少存储空间，把 Buffer 空间复制两份，一份用来给当前轮做计算，同时去读取数据到另一份，再把两份交换一下，这就是 Double Buffering。
+
+首先是在 Shared Memory 上分配两倍的 Buffer 空间：
+
+```c
+// double buffering
+__shared__ float aTile[2][SHARED_K_DIMENSION][BLOCK_SIZE_PER_THREAD_BLOCK];
+__shared__ float bTile[2][SHARED_K_DIMENSION][BLOCK_SIZE_PER_THREAD_BLOCK];
+```
+
+接着思考：每一轮循环需要做的事情，包括计算当前轮的数据，以及读取下一轮的 shared memory，那么多次循环的效果是：
+
+1. 计算第一轮的数据，读取第二轮的数据
+2. 计算第二轮的数据，读取第三轮的数据
+3. 等等
+4. 计算倒数第二轮的数据，读取最后一轮的数据
+
+这时候你会发现：缺少了读取第一轮的数据和计算最后一轮的数据，这两个步骤放在循环外，那就是：
+
+1. 读取第一轮的数据
+2. 在 K 维度上循环：计算第 i 轮的数据，读取第 i+1 轮的数据
+3. 计算最后一轮的数据
+
+同时用 `buffer_index` 维护当前轮的数据在 Double Buffer 的哪一个 Buffer 上，那么要计算的时候，用 `double_index` 作为下标，表示这一轮在用的 Buffer；写入数据的时候，就用 `double_index ^ 1` 作为下标，表示下一轮要用到的 Buffer；一轮完成后，交换两个 Buffer，只需要 `buffer_index ^= 1`。
+
+## 性能数据
