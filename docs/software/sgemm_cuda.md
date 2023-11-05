@@ -401,3 +401,43 @@ __shared__ float bTile[2][SHARED_K_DIMENSION][BLOCK_SIZE_PER_THREAD_BLOCK];
 3. 计算最后一轮的数据
 
 同时用 `buffer_index` 维护当前轮的数据在 Double Buffer 的哪一个 Buffer 上，那么要计算的时候，用 `buffer_index` 作为下标，表示这一轮在用的 Buffer；写入数据的时候，就用 `buffer_index ^ 1` 作为下标，表示下一轮要用到的 Buffer；一轮完成后，交换两个 Buffer，只需要 `buffer_index ^= 1`。
+
+读取第一轮数据到 Shared Memory：
+
+```c
+int buffer_index = 0;
+// ...
+aTile[buffer_index][local_y + j][local_x] =
+    a[IDX2C(block_x + local_x, block_y + local_y + j, k)];
+// ...
+bTile[buffer_index][local_x][local_y + j] =
+        b[IDX2C(block_x + local_x, block_y + local_y + j, n)];
+```
+
+循环中，读取下一轮的数据到 Shared Memory：
+
+```c
+// ...
+aTile[buffer_index ^ 1][local_y + j][local_x] =
+    a[IDX2C(block_x + local_x, block_y + local_y + j, k)];
+// ...
+bTile[buffer_index ^ 1][local_x][local_y + j] =
+    b[IDX2C(block_x + local_x, block_y + local_y + j, n)];
+```
+
+计算时，用当前轮的 Buffer：
+
+```c
+sum[xx][yy] += aTile[buffer_index][ii - real_i]
+                    [threadIdx.x * BLOCK_SIZE_PER_THREAD + xx] *
+                bTile[buffer_index][ii - real_i]
+                    [threadIdx.y * BLOCK_SIZE_PER_THREAD + yy];
+```
+
+一轮结束后，更新 `buffer_index`：
+
+```c
+buffer_index ^= 1;
+```
+
+最后一轮计算也是用 `buffer_index` 做下标，和上面一样，这里就不重复了。
