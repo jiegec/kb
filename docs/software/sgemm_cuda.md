@@ -401,5 +401,3 @@ __shared__ float bTile[2][SHARED_K_DIMENSION][BLOCK_SIZE_PER_THREAD_BLOCK];
 3. 计算最后一轮的数据
 
 同时用 `buffer_index` 维护当前轮的数据在 Double Buffer 的哪一个 Buffer 上，那么要计算的时候，用 `double_index` 作为下标，表示这一轮在用的 Buffer；写入数据的时候，就用 `double_index ^ 1` 作为下标，表示下一轮要用到的 Buffer；一轮完成后，交换两个 Buffer，只需要 `buffer_index ^= 1`。
-
-## 性能数据
