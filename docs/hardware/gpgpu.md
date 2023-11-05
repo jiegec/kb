@@ -296,7 +296,7 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
   <figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
 </figure>
 
-从上图可以看到，Turing 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $256 / 4 / 4 = 16$ 字节的数据。Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
+Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
 
 
 ## NVIDIA Ampere
@@ -341,7 +341,7 @@ GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 
 
 GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 组 512KB 的 L2 缓存，每组对应一个内存控制器，L2 一共是 6144 KB。（`The memory subsystem of GA102 consists of twelve 32-bit memory controllers (384-bit total). 512 KB of L2 cache is paired with each 32-bit memory controller, for a total of 6144 KB on the full GA102 GPU.`）。
 
-GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的 L1 带宽是 219 GB/s（指的是每个 SM 的 L1 带宽，一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的 L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 166$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
+GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 166$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
 ## NVIDIA Ada Lovelace
 
@@ -472,11 +472,6 @@ CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对�
 - GPC - SM
 - GPC - TPC - SM
 
-每个 LD/ST unit 每周期从 L1 cache 读取的数据大小：
-
-- Kepler/Maxwell：4 字节
-- Pascal/Volta: 8 字节
-- Turing: 16 字节
 
 ## SM/PB 发展历史
 
@@ -495,17 +490,17 @@ CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对�
 
 ## 内存层次
 
-| 架构                      | L1 B/clk/SM | L2 大小  | L2 B/clk | L2 带宽       | 内存带宽  |
-|---------------------------|-------------|----------|----------|---------------|-----------|
-| Kepler (GK110)            |             | 1536 KB  | ?        | ?             | ?         |
-| Maxwell (GM200)           |             | 3072 KB  | ?        | ?             | ?         |
-| Pascal (GP100, P100)      |             | 4096 KB  | ?        | ?             | 732 GB/s  |
-| Volta (GV100, V100)       |             | 6144 KB  | 2048     | 3133.440 GB/s | 900 GB/s  |
-| Turing (TU102)            | 64          | ?        | ?        | ?             | ?         |
-| Ampere (GA100, A100)      |             | 40960 KB | 5120     | 7219.200 GB/s | 1555 GB/s |
-| Ampere (GA102)            | 128         | ?        | ?        | ?             | ?         |
-| Ada Lovelace (AD102, L40) |             | 98304 KB | ?        | ?             | 864 GB/s  |
-| Hopper (GH100, H100 SXM5) |             | 51200 KB | ?        | ?             | 3352 GB/s |
+| 架构                      | L2 大小  | L2 B/clk | L2 带宽       | 内存带宽  |
+|---------------------------|----------|----------|---------------|-----------|
+| Kepler (GK110)            | 1536 KB  | ?        | ?             | ?         |
+| Maxwell (GM200)           | 3072 KB  | ?        | ?             | ?         |
+| Pascal (GP100, P100)      | 4096 KB  | ?        | ?             | 732 GB/s  |
+| Volta (GV100, V100)       | 6144 KB  | 2048     | 3133.440 GB/s | 900 GB/s  |
+| Turing (TU102)            | ?        | ?        | ?             | ?         |
+| Ampere (GA100, A100)      | 40960 KB | 5120     | 7219.200 GB/s | 1555 GB/s |
+| Ampere (GA102)            | ?        | ?        | ?             | ?         |
+| Ada Lovelace (AD102, L40) | 98304 KB | ?        | ?             | 864 GB/s  |
+| Hopper (GH100, H100 SXM5) | 51200 KB | ?        | ?             | 3352 GB/s |
 
 备注：
 
