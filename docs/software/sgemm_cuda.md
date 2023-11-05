@@ -371,7 +371,7 @@ sum[xx][yy] +=
     bTile[ii - i][threadIdx.y * BLOCK_SIZE_PER_THREAD + yy];
 ```
 
-不过 Bank Conflict 依然是存在的：对于 threadIdx.x=0 和 threadIdx.x=4 的两个线程，它们的地址差是 `4 * 8(BLOCK_SIZE_PER_THREAD) * 4(sizeof(float)) = 128`，就会出现 Bank Conflict。但发生 Bank Conflict 的情况降低到了四分之一。如果想要更进一步，还可以调整 x 和 y 的比例，进一步减少 Bank Conflict。
+不过 Bank Conflict 依然是存在的：对于 threadIdx.x=0 和 threadIdx.x=4 的两个线程，它们的地址差是 `4 * 8(BLOCK_SIZE_PER_THREAD) * 4(sizeof(float)) = 128`，就会出现 Bank Conflict。但发生 Bank Conflict 的情况降低到了四分之一。如果想要更进一步，还可以调整 x 和 y 的比例，进一步减少 Bank Conflict，使得每个周期都可以打满 Shared memory 带宽。
 
 这样写还有一个附带的好处：由于 xx 和 yy 都在内层循环，ii 是外层循环，把内存循环的循环变量参与到最后一维的下标中，可以改善内存局部性，并且也方便 NVCC 去优化，例如使用 LDS.128 指令，一条指令从 shared memory 读取 128 位的连续数据。
 
@@ -400,4 +400,4 @@ __shared__ float bTile[2][SHARED_K_DIMENSION][BLOCK_SIZE_PER_THREAD_BLOCK];
 2. 在 K 维度上循环：计算第 i 轮的数据，读取第 i+1 轮的数据
 3. 计算最后一轮的数据
 
-同时用 `buffer_index` 维护当前轮的数据在 Double Buffer 的哪一个 Buffer 上，那么要计算的时候，用 `double_index` 作为下标，表示这一轮在用的 Buffer；写入数据的时候，就用 `double_index ^ 1` 作为下标，表示下一轮要用到的 Buffer；一轮完成后，交换两个 Buffer，只需要 `buffer_index ^= 1`。
+同时用 `buffer_index` 维护当前轮的数据在 Double Buffer 的哪一个 Buffer 上，那么要计算的时候，用 `buffer_index` 作为下标，表示这一轮在用的 Buffer；写入数据的时候，就用 `buffer_index ^ 1` 作为下标，表示下一轮要用到的 Buffer；一轮完成后，交换两个 Buffer，只需要 `buffer_index ^= 1`。
