@@ -60,7 +60,7 @@ CUDA stream 在创建的时候会被绑定到创建时的当前 CUDA device（`A
 
 虽然 stream 之间不保证顺序，但有时候，又希望在 stream 之间建立一个临时的依赖关系。此时可以用 event 来实现：首先用 `cudaEventRecord` 函数，把一个 stream 上的任务记录下来（`Captures in event the contents of stream at the time of this call. event and stream must be on the same CUDA context. Calls such as cudaEventQuery() or cudaStreamWaitEvent() will then examine or wait for completion of the work that was captured`），之后就可以用 `cudaStreamWaitEvent` 函数在另一个 stream 上等待 event 记录下来的任务完成（`cudaStreamWaitEvent() takes a stream and an event as parameters (see Events for a description of events) and makes all the commands added to the given stream after the call to cudaStreamWaitEvent() delay their execution until the given event has completed.`）。
 
-## Implicit/Explicit Synchronization
+### Implicit/Explicit Synchronization
 
 Stream 保证了任务在 GPU 上执行的顺序，但是它们和 Host 代码依然是异步的。为了让 Host 代码可以等待 GPU 上的任务完成，可以用 `cudaDeviceSynchronize` 等待所有 stream 上的任务完成（`cudaDeviceSynchronize() waits until all preceding commands in all streams of all host threads have completed.`），或者用 `cudaStreamSynchronize` 来等待具体某个 stream 上的任务完成（`cudaStreamSynchronize()takes a stream as a parameter and waits until all preceding commands in the given stream have completed. It can be used to synchronize the host with a specific stream, allowing other streams to continue executing on the device.`）。
 
@@ -88,4 +88,8 @@ k_3<<<1, 1, 0, s>>>();
 `k_2` 在 NULL(legacy) stream 上提交，因此会等待 `k_1` 完成，而其后的 `k_3` 又会等 `k_2` 完成。
 
 可以看到，这其实都是在打补丁：现成代码不能破坏，怎么办？默认用 legacy stream 机制，不得不四处同步，如果程序要想要逃离这个困境，就得创建一个 nonblocking 的 stream。对于新代码，要么打开 per thread 参数，把默认 thread 都换成正常的 stream；要么每次 launch 的时候，都显式指定一个 stream。
+
+### Stream Ordered Memory Allocator
+
+解决 NULL(legacy) stream 的历史遗留问题以后，还有一个操作会成为同步点：内存分配，内存分配的时候会同步所有的 CUDA stream（`Managing memory allocations using cudaMalloc and cudaFree causes GPU to synchronize across all executing CUDA streams.`）。于是新的 CUDA 也给内存分配添加了异步版本，和 Stream 绑定在一起：`cudaMallocAsync` 和 `cudaFreeAsync` 函数。具体使用方法，可以见 [API Fundamentals (cudaMallocAsync and cudaFreeAsync)](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#api-fundamentals-cudamallocasync-and-cudafreeasync)。
 
