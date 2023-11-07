@@ -18,7 +18,7 @@ NVIDIA Tesla 架构是第一代支持 CUDA 的 NVIDIA 显卡架构，也是从�
 
 <figure markdown>
   ![](gpgpu_tesla_overview.png){ width="600" }
-  <figcaption>Tesla 架构总览（来源：NVIDIA Tesla: A Unified Graphics and Computing Architecture Figure 1）</figcation>
+  <figcaption>Tesla 架构总览（来源：NVIDIA Tesla: A Unified Graphics and Computing Architecture Figure 1）</figcaption>
 </figure>
 
 图的上方是 Host CPU，CPU 通过 PCIe 等方式访问 GPU。根据要进行的任务类型，经过不同类型的预处理，但最终 Vertex/Pixel/Compute 任务都会通过 Streaming Processor Array (SPA)，也就是 TPC-SM-SP 三层次组成的大量计算核心来进行。这其实就是前面说的，把原来分别完成的任务，统一到相同的 processor 来完成。除了计算以外，针对 texture 和 raster 等图形相关的需求，设计了单独的硬件来加速，例如每个 TPC 都有自己的 Texture unit 和 Texture L1，在 L2 Slice 旁边还有 Raster operation processor (ROP)。虽然有 L2 缓存，但是这个缓存仅用于纹理处理，而没有用于 SPA。
@@ -29,7 +29,7 @@ NVIDIA Tesla 架构是第一代支持 CUDA 的 NVIDIA 显卡架构，也是从�
 
 <figure markdown>
   ![](gpgpu_tesla_tpc.png){ width="600" }
-  <figcaption>Tesla TPC 架构（来源：NVIDIA Tesla: A Unified Graphics and Computing Architecture Figure 2）</figcation>
+  <figcaption>Tesla TPC 架构（来源：NVIDIA Tesla: A Unified Graphics and Computing Architecture Figure 2）</figcaption>
 </figure>
 
 每个 TPC 包括一个 Geometry controller 和一个 SM Controller (SMC)，下面是两个 SM，最后是 Texture unit 和它内部的 Texture L1。每个 SM 有 8 个 SP。Geometry controller 是用于配合 vertex shader 和 geometry shader 的，这里就不深入分析了。下面主要分析 SM。
@@ -93,7 +93,7 @@ GF100 是 Fermi 架构的一款核心，它的配置如下：
 
 <figure markdown>
   ![](gpgpu_fermi_overview.png){ width="600" }
-  <figcaption>Fermi 架构总览（来源：Fermi GF100 GPU Architecture Figure 2）</figcation>
+  <figcaption>Fermi 架构总览（来源：Fermi GF100 GPU Architecture Figure 2）</figcaption>
 </figure>
 
 Fermi 架构在 SM 内部相比 Tesla 变化比较大：Tesla 每个 SM 只有 8 个 SP，而 Fermi 每个 SM 里面有 32 个 CUDA core，CUDA core 约等于 Tesla 的 SP，也就是说是四倍的关系。虽然 Fermi 架构的 SM 数量和 Tesla 相同，都是 16，但是从 CUDA core 的数量上看，从 $16 * 8 = 128$ 提升到了 $16 * 32 = 512$ 个。SFU 单元也从 Tesla 的每个 SM 两个，提升到了每个 SM 四个。Fermi 的 CUDA core 实现了浮点乘加融合（FMA），每个 SM 每周期可以进行 16 个双精度浮点乘加操作。Tesla 的浮点并没有完全按照 IEEE754 标准实现，例如不支持 subnormal 浮点，而 Fermi 实现了完整的支持，并且实现了 IEEE754 标准的 rounding mode。
@@ -104,12 +104,12 @@ Tesla 架构有图形处理的惯性，只考虑了图形处理的场景，所�
 
 <figure markdown>
   ![](gpgpu_fermi_sm.png){ width="600" }
-  <figcaption>Fermi 架构 SM（来源：Fermi GF100 GPU Architecture Figure 3）</figcation>
+  <figcaption>Fermi 架构 SM（来源：Fermi GF100 GPU Architecture Figure 3）</figcaption>
 </figure>
 
 <figure markdown>
   ![](gpgpu_fermi_sm_dispatch.png){ width="600" }
-  <figcaption>Fermi 架构 SM 发射（来源：NVIDIA’s Fermi: The First Complete GPU Computing Architecture Figure 7）</figcation>
+  <figcaption>Fermi 架构 SM 发射（来源：NVIDIA’s Fermi: The First Complete GPU Computing Architecture Figure 7）</figcaption>
 </figure>
 
 可以看到，SM 内部设置了两个 Warp Scheduler，可以同时从两个独立的 warp 去发射指令。每个 warp 只会去用 16 个 CUDA core 或者 16 个 LD/ST 单元或者 4 个 SFU 单元去执行，一共有 4 个 dispatch port，每个 dispatch port 每个周期只能接受最多一条指令。图中表示的是，一条浮点或者整数指令，会进入某一组 CUDA core 执行，执行的时候需要两个周期，每个周期对应 16 个线程，也意味着 dispatch port 需要占用两个周期；如果是 SIN 或者 RCP 指令，则需要八个周期，每个周期对应 4 个线程；如果是访存指令，那就需要两个周期。
@@ -125,7 +125,7 @@ GigaThread engine 负责把 thread block 分发给 SM，同时可以提高上下
 
 <figure markdown>
   ![](gpgpu_tesla_fermi_comparison.png){ width="600" }
-  <figcaption>Tesla 和 Fermi 架构对比（来源：Fermi Whitepaper Summary Table）</figcation>
+  <figcaption>Tesla 和 Fermi 架构对比（来源：Fermi Whitepaper Summary Table）</figcaption>
 </figure>
 
 ## NVIDIA Kepler
@@ -148,7 +148,7 @@ Kepler 相比 Fermi 架构的主要改进：
 
 <figure markdown>
   ![](gpgpu_kepler_sm.png){ width="600" }
-  <figcaption>Kepler 架构 SM（来源：NVIDIA’s Next Generation CUDA Compute Architecture: Kepler TM GK110/210）</figcation>
+  <figcaption>Kepler 架构 SM（来源：NVIDIA’s Next Generation CUDA Compute Architecture: Kepler TM GK110/210）</figcaption>
 </figure>
 
 Kepler 为了要支持四个 Warp Scheduler，每个周期 Dispatch 8 条指令，简化了 Warp Scheduler 的工作方式：由于计算指令的延迟是固定的，因此可以由编译器来计算一些指令的调度，从而减轻了硬件调度的负担，硬件可以直接从指令中读取预先计算好的信息，然后在调度 Warp 的时候，根据这些信息防止一些 Warp 被调度。这个信息应该是保存在 Control Code/Instruction 中的，网上也有一些针对 Control Code/Instruction 编码的研究：
@@ -188,7 +188,7 @@ Maxwell 的 SM 叫做 SMM，它依然是四个 Warp Scheduler，但是和 Kepler
 
 <figure markdown>
   ![](gpgpu_maxwell_sm.png){ width="600" }
-  <figcaption>Maxwell 架构 SM（来源：NVIDIA GeForce GTX 980 Whitepaper）</figcation>
+  <figcaption>Maxwell 架构 SM（来源：NVIDIA GeForce GTX 980 Whitepaper）</figcaption>
 </figure>
 
 Maxwell 架构的 L1 缓存和 Shared Memory 不再共享，Shared Memory 独占 96KB，然后 L1 缓存和 Texture 缓存共享空间。根据 <https://arxiv.org/pdf/1804.06826.pdf>，Maxwell 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $128 / 4 / 8 = 4$ 字节的数据。
@@ -215,7 +215,7 @@ GP100 是 Pascal 架构的芯片，改进如下：
 
 <figure markdown>
   ![](gpgpu_pascal_sm.png){ width="600" }
-  <figcaption>Pascal 架构 SM（来源：NVIDIA Tesla P100 Whitepaper）</figcation>
+  <figcaption>Pascal 架构 SM（来源：NVIDIA Tesla P100 Whitepaper）</figcaption>
 </figure>
 
 根据 <https://arxiv.org/pdf/1804.06826.pdf>，Pascal 架构每个周期每个 SM 可以读取 128 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 $128 / 2 / 8 = 8$ 字节的数据。
@@ -246,7 +246,7 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 <figure markdown>
   ![](gpgpu_volta_sm.png){ width="600" }
-  <figcaption>Volta 架构 SM（来源：NVIDIA TESLA V100 GPU ARCHITECTURE Figure 5）</figcation>
+  <figcaption>Volta 架构 SM（来源：NVIDIA TESLA V100 GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
 
 注意 Volta 的 Warp Scheduler 又回到了单发射，这是因为每个 Processing Block 的 FP32 core 变少了（GP100 是 32 个，GV100 是 16 个），例如一条涉及 32 条线程的指令被发射，那么它需要两个周期来完成，第二个周期的时候，Warp Scheduler 也会同时发射其他指令，从而实现指令级并行。
@@ -279,7 +279,7 @@ Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包�
 
 <figure markdown>
   ![](gpgpu_turing_sm.png){ width="600" }
-  <figcaption>Turing 架构 SM（来源：NVIDIA TURING GPU ARCHITECTURE Figure 4）</figcation>
+  <figcaption>Turing 架构 SM（来源：NVIDIA TURING GPU ARCHITECTURE Figure 4）</figcaption>
 </figure>
 
 TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能只有单精度性能的 1/32。（`The TU102 GPU also features 144 FP64 units (two per SM), which are not depicted in this diagram. The FP64 TFLOP rate is 1/32nd the TFLOP rate of FP32 operations. The small number of FP64 hardware units are included to ensure any programs with FP64 code operates correctly.`）
@@ -288,12 +288,12 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
 
 <figure markdown>
   ![](gpgpu_turing_sm_microarchitecture.png){ width="600" }
-  <figcaption>Turing 架构 SM 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
+  <figcaption>Turing 架构 SM 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcaption>
 </figure>
 
 <figure markdown>
   ![](gpgpu_turing_memory.png){ width="600" }
-  <figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcation>
+  <figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcaption>
 </figure>
 
 Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
@@ -321,7 +321,7 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
 
 <figure markdown>
   ![](gpgpu_ampere_ga100_sm.png){ width="600" }
-  <figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcation>
+  <figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcaption>
 </figure>
 
 A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU includes 40 MB of L2 cache, which is 6.7x larger than Tesla V100 L2 cache.`），分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小，每 8 个 L2 slice 对应一个 memory controller（`Each L2 cache partition is divided into 40 L2 cache slices. Eight 512 KB L2 slices are associated with each memory controller.`）。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 $2 * 40 * 64 = 5120$ 字节每周期（`The A100 L2 read bandwidth is 5120 Bytes/clk`）。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 $5120 * 1410 = 7.219$ TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $5120 / 108 = 47.4$ 字节。
@@ -336,7 +336,7 @@ GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 
 
 <figure markdown>
   ![](gpgpu_ampere_ga102_sm.png){ width="600" }
-  <figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcation>
+  <figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcaption>
 </figure>
 
 GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 组 512KB 的 L2 缓存，每组对应一个内存控制器，L2 一共是 6144 KB。（`The memory subsystem of GA102 consists of twelve 32-bit memory controllers (384-bit total). 512 KB of L2 cache is paired with each 32-bit memory controller, for a total of 6144 KB on the full GA102 GPU.`）。
@@ -356,7 +356,7 @@ Ada Lovelace 架构的 AD102 包括：
 
 <figure markdown>
   ![](gpgpu_ada_lovelace_sm.png){ width="600" }
-  <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcation>
+  <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
 
 ## NVIDIA Hopper
@@ -374,7 +374,7 @@ H100 SXM5 参数如下：
 
 <figure markdown>
   ![](gpgpu_hopper_sm.png){ width="600" }
-  <figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcation>
+  <figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcaption>
 </figure>
 
 H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。（`A 50 MB L2 cache in H100 is 1.25x larger than A100’s 40 MB L2.`）

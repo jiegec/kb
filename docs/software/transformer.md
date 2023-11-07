@@ -172,6 +172,82 @@ LlamaMLP 包括：
 - aten::unsqueeze
 - aten::view
 
+## FlashAttention
+
+论文：[FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/abs/2205.14135)
+
+代码：[Dao-AILab/flash-attention](https://github.com/Dao-AILab/flash-attention)
+
+主要针对 Transformer 训练中的 Attention 计算进行优化。Attention 计算的是：
+
+\(S = QK^T, P = \mathrm{softmax}(S), O = PV\)
+
+其中 Q、K 和 V 矩阵规模都是 $N*d$，S 和 P 矩阵规模是 $N*N$，O 矩阵规模是 $N*d$，N 是序列长度，d 是 head dimension。实际上 $S$ 矩阵还会除以一个系数，但是这个优化起来比较简单，就忽略了。朴素算法就是这三个步骤分别算，但是就比较慢。核心问题是 softmax 操作。softmax 的定义是：
+
+\(\mathrm{softmax}(x) = \frac{e^{x_i}}{\Sigma_j e^{x_j}}\)
+
+分子是对应项的 exp，分母是所有项的 exp 之和。所以 softmax 的按定义算的方法就是：所有元素求 exp，然后求 exp 的和，再集体做除法。
+
+但是这么算会有一个问题：元素的 exp 可能会很大，导致精度比较差。因此实际计算的时候，会先计算出元素的最大值 $x_m$，然后分子分母同时除以最大值的 exp：
+
+\(\mathrm{softmax}(x) = \frac{e^{x_i-x_m}}{\Sigma_j e^{x_j-x_m}}\)
+
+这样计算的精度会比较好，因为 exp 的值都在 0 和 1 之间。这也意味着 softmax 的计算需要先求 max，然后每个元素减去 max 后，求 exp，再求元素的 exp 之和，最后每个元素再除以 exp 之和。准确地说，因为这里的输入是矩阵，所以是对矩阵的每一行分别算 softmax。
+
+但是这样的求法意味着需要先把完整的 softmax 输入求出来，使得 tiling 变得困难。为了 tiling，FlashAttention 采用了一种分块的 softmax 计算方法：首先对每一块分别做 softmax，但是按照定义，max 和 sum 都应该是完整向量的 max 和 sum，而如果分块去计算 softmax，此时的 max 和 sum 是块内的，因此需要进行后处理，把分块的 softmax 纠正成正确的 softmax：
+
+假如有两个块分别做了 softmax，结果是两个向量 $x_1$ 和 $x_2$，计算时的 max 记为 $m_1$ 和 $m_2$，分子记为 $f(x_1)$ 和 $f(x_2)$，分母记为 $l(x_1)$ 和 $l(x_2)$。那么合并后的向量的 max 就是 $m=\max(m_1, m_2)$，接下来计算出完整的 softmax：分子来自于两个向量，但是需要把 $m_1$ $m_2$ 和 $m$ 的差异补上，那就是 $e^{m_1-m}f(x_1)$ 和 $e^{m_2-m}f(x_2)$ 两部分拼接起来；分母则是两个向量的部分，把 max 差异纠正后再求和：$e^{m_1-m}l(x_1)+e^{m_2-m}l(x_2)$。论文中是这么表示的：
+
+<figure markdown>
+  ![](transformer_blocked_softmax.png){ width="600" }
+  <figcaption>分块 softmax（来源：FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness）</figcaption>
+</figure>
+
+因此计算 softmax 的时候可以先分块进行，最后再把结果纠正过来。能分块了以后，就可以做 kernel fusion，和矩阵乘法、Masking、Dropout 合并起来，让中间结果在 GPU 内部完成，而不是先写到显存里再读回来。
+
+论文的 Algorithm 1 和 2 给出了融合后的 Kernel 的伪代码。思路是：
+
+1. 对 Q、K 和 V 分块
+2. 对于每个块，计算当前块的 $QK^T$ 结果，然后计算 rowmax（每行计算出一个最大值），每个元素减去 rowmax 再 exp，得到 softmax 函数的分子；再求和，得到 softmax 函数的分母
+3. 把刚算出来的 softmax 结果和之前计算的 softmax 结果合并，得到一组新的 softmax 系数
+4. 更新当前的输出矩阵：把旧的分母乘回来，就得到旧的分子，把旧的分子乘上 exp 系数，再加上新的分子，结果再除以新的分子；这一步和迭代更新平均值很像：旧的平均值乘以旧的元素个数，加上新的元素再除以新的元素个数
+
+然后在中间穿插 dropout 和 masking 等细节，就得到了最终的实现。对这个过程讲的比较清楚的是下面这个图：
+
+<figure markdown>
+  ![](transformer_flash_attention.png){ width="600" }
+  <figcaption>Flash Attention（来源：FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning）</figcaption>
+</figure>
+
+右下角 Rescaling to correct denominator 就是上面说的，把旧的分母乘回来，再计算出新的值。标量乘矩阵在上面的式子里表示成了对角矩阵和矩阵的乘法。
+
+不过，这份伪代码距离实际的 CUDA 实现，还有很多细节上的优化。此外，论文还对梯度反向传播进行了优化，毕竟是服务于训练：思路是，前向计算的时候，因为 kernel fusion 的原因，跳过了中间结果的运算，所以反向传播的时候，就重新计算一下 attention，再求梯度。
+
+## FlashAttention 2
+
+论文：[FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning](https://tridao.me/publications/flash2/flash2.pdf)
+
+代码：[Dao-AILab/flash-attention](https://github.com/Dao-AILab/flash-attention)
+
+FlashAttention 2 相比 FlashAttention 的主要区别是并行的方式。第一个版本是在 batch 和 head 维度上进行并行，也就是说，每个 CUDA thread block 对应一个 batch size 和一个 attention head，一共有 batch size 乘以 head 个数那么多个 thread block。
+
+而第二个版本在 sequence length 维度上也引入了并行，使得 GPU 的利用率可以继续提升。此外，在计算局部 softmax 的时候，也做了修改：不着急计算局部的 softmax，而是分别维护分子和分母，到算完了以后，再算分子除以坟墓。
+
+## FlashDecoding
+
+博客：[Flash-Decoding for long-context inference](https://crfm.stanford.edu/2023/10/12/flashdecoding.html)
+
+Flash Decoding 是针对长上下文场景下的推理：KV cache 的读取变成了一个瓶颈。所以 Flash-Decoding 的思路就是，并行读取 KV-cache，并且在 sequence length 维度上并行 attention 计算。当然了，并行了以后，就要拆成多块分别求 softmax，也需要 Flash Attention 的合并方法来保证最终 softmax 结果的正确性。
+
+## FlashDecoding++
+
+论文：[FLASHDECODING++: FASTER LARGE LANGUAGE MODEL INFERENCE ON GPUS](https://arxiv.org/pdf/2311.01282.pdf)
+
+这篇论文也是针对 transformer 推理的优化，主要的优化点：
+
+1. Flash Attention 论文解决了 softmax 的分块计算问题，但是每次需要计算一个 max；FlashDecoding++ 选择根据数据的分布去估计一个 max，之后再纠正，可以减少一些同步
+2. 针对 batch 维度小的矩阵乘法进行优化
+
 
 ## 参考文献
 

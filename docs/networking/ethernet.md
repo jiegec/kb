@@ -88,7 +88,7 @@ IEEE 802.3 Figure 36-4 中给了一个例子，就是在发送一段数据的时
 
 <figure markdown>
   ![](ethernet_1000basex.png){ width="500" }
-  <figcaption>1000 BASE-X 的分层（图源 802.3 Clause 36）</figcation>
+  <figcaption>1000 BASE-X 的分层（图源 802.3 Clause 36）</figcaption>
 </figure>
 
 
@@ -96,7 +96,7 @@ IEEE 802.3 Figure 36-4 中给了一个例子，就是在发送一段数据的时
 
 <figure markdown>
   ![](ethernet_xilinx_pcs_pma.png){ width="500" }
-  <figcaption>Xilinx PCS/PMA IP（图源 Xilinx PCS/PMA IP Datasheet）</figcation>
+  <figcaption>Xilinx PCS/PMA IP（图源 Xilinx PCS/PMA IP Datasheet）</figcaption>
 </figure>
 
 左边通过 GMII 连接到内部的 MAC，右边连接到 SFP 上，通过光模块，连接到光纤。这里光模块只需要负责光电转换。另一种比较常见的形式，就是 MAC 在 FPGA 内部，PHY（包括 PCS/PMA/PMD）都在 FPGA 外部，此时 FPGA IO 上就是各种 MII。
@@ -172,7 +172,7 @@ MDI 在以太网的分层里，其实就是 PHY 与 PHY 之间的媒介，对于
 
 <figure markdown>
   ![](ethernet_1000baset.png){ width="500" }
-  <figcaption>1000BASE-T（图源 802.3 Clause 40）</figcation>
+  <figcaption>1000BASE-T（图源 802.3 Clause 40）</figcaption>
 </figure>
 
 物理层往上通过 GMII 连接 MAC，往下通过 MDI 连接其他网络设备。物理层又包括 PCS 和 PMA。

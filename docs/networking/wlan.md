@@ -6,14 +6,14 @@
 
 <figure markdown>
   ![](wlan_mac.png){ width="500" }
-  <figcaption>802.11 MAC 帧格式（图源 802.11-1997）</figcation>
+  <figcaption>802.11 MAC 帧格式（图源 802.11-1997）</figcaption>
 </figure>
 
 前两个字节 Frame Control 的定义如 802.11-1997 Figure 13：
 
 <figure markdown>
   ![](wlan_frame_control.png){ width="500" }
-  <figcaption>802.11 MAC Frame Control（图源 802.11-1997）</figcation>
+  <figcaption>802.11 MAC Frame Control（图源 802.11-1997）</figcaption>
 </figure>
 
 根据 Type 和 Subtype 字段决定了帧的类型，如管理（Management）帧，控制（Control）帧和数据（Data）帧。
@@ -38,7 +38,7 @@ HR-DSSS 工作在 2.4 GHz 频段上，常用的是 13 个 channel，中心频率
 
 <figure markdown>
   ![](wlan_channels.png){ width="500" }
-  <figcaption>802.11 2.4GHz Channels（图源 IEEE 802.11 Wikipedia）</figcation>
+  <figcaption>802.11 2.4GHz Channels（图源 IEEE 802.11 Wikipedia）</figcaption>
 </figure>
 
 这就是为什么通常会把 2.4GHz 无线路由器的 channel 固定为 1、6 或 11。
@@ -78,7 +78,7 @@ OFDM 的核心思想就是采用多个载波信号，这些载波信号的频率
 
 <figure markdown>
   ![](wlan_ofdm_circuit.png){ width="500" }
-  <figcaption>802.11 OFDM PHY（图源 IEEE 802.11）</figcation>
+  <figcaption>802.11 OFDM PHY（图源 IEEE 802.11）</figcaption>
 </figure>
 
 图中的缩写：

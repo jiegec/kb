@@ -87,7 +87,7 @@ $$
 
 <figure markdown>
   ![](cg_glortho.png){ width="300" }
-  <figcaption>正交投影矩阵（图源 <a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml">glOrtho</a>）</figcation>
+  <figcaption>正交投影矩阵（图源 <a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml">glOrtho</a>）</figcaption>
 </figure>
 
 mesa 中的实现：
@@ -212,7 +212,7 @@ $$
 
 <figure markdown>
   ![](cg_gluperspective.png){ width="300" }
-  <figcaption>透视投影矩阵（图源 <a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml">gluPerspective</a>）</figcation>
+  <figcaption>透视投影矩阵（图源 <a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml">gluPerspective</a>）</figcaption>
 </figure>
 
 和上面的结果看似不同，但只要设定 $r=-l, t=-b, f=\frac{n}{t}, aspect=\frac{r}{t}$，两个矩阵就是一样的。也就是说 gluPerspective 采用了透视投影的特殊情况：左右和上下对称。
@@ -262,19 +262,19 @@ OpenGL 中，经过 Model 和 View 矩阵映射后得到 Eye Coordinates，相�
 
 <figure markdown>
   ![](cg_axis_3d.png){ width="300" }
-  <figcaption>相机的 eye，up 和 center 示意图，其中 up 在 Y-Z 平面内</figcation>
+  <figcaption>相机的 eye，up 和 center 示意图，其中 up 在 Y-Z 平面内</figcaption>
 </figure>
 
 <figure markdown>
   ![](cg_axis_2d.png){ width="300" }
-  <figcaption>center 和 up 对应屏幕的位置</figcation>
+  <figcaption>center 和 up 对应屏幕的位置</figcaption>
 </figure>
 
 对 $F$ 进行标准化，得到 $f$；对 UP 进行标准化，得到 $u$；由于 $u$ 和 $f$ 确定了 Y-Z 平面，所以求 X 方向的向量，直接计算叉积即可：$s = f \times u$，由于 $f$ 指向 -Z，$u$ 在 Y-Z 平面中 Y 为正的半平面，所以得到的 s 指向的是屏幕的右侧，不妨规定右侧是 X 正半轴（右手系）。此时再叉积，得到 Y 轴的方向：$y = s \times f$。
 
 <figure markdown>
   ![](cg_axis_cross.png){ width="300" }
-  <figcaption>s 和 y 向量的计算方式，图中没有体现向量的长度</figcation>
+  <figcaption>s 和 y 向量的计算方式，图中没有体现向量的长度</figcaption>
 </figure>
 
 此时三个轴上的向量都有了：X 轴正方向是 s，Y 轴正方向是 y，Z 轴负方向是 f。由于叉积以前已经做了标准化，所以这三个向量都是单位向量。那么坐标系的变换矩阵应该实现下面的映射：
