@@ -104,3 +104,28 @@ y &= g^{r^{-1}sk}g^{-r^{-1}H(m)+nq} \bmod p
 此时会发现无法从 $r$ 推断出 $g^k \bmod p$ 的值，中间差了 $q$ 的整数倍。后面的 $g^{nq} \bmod p$ 也无法计算。
 
 更加完整的讨论可以见 [Can we recover public key from DSA signatures as we can from ECDSA?](https://crypto.stackexchange.com/questions/107260/can-we-recover-public-key-from-dsa-signatures-as-we-can-from-ecdsa)。
+
+## Nonce Reuse Attack
+
+在生成 ECDSA 签名的时候，注意不能用固定的 nonce（$k$），否则会被攻击。假如攻击者用一对 ECDSA key pair 对不同的两个消息 $m_1$ 和 $m_2$ 分别做了一次签名，并且采用了相同的 nonce，那么：
+
+两次签名的 nonce $k$ 相等，因此 $x_1$ 相等，$r$ 也相等，只有 $s$ 不同：
+
+\begin{align}
+s_1 &= k^{-1}(z_1 + rd_A) \bmod n \\
+s_2 &= k^{-1}(z_2 + rd_A) \bmod n
+\end{align}
+
+签名是公开信息，也就是说 $r$、$s_1$ 和 $s_2$ 是攻击者已知的。此外消息 $m_1$ 和 $m_2$ 也是已知的，所以攻击者可以求出 $z_1$ 和 $z_2$。现在尝试求解 $d_A$：
+
+\begin{align}
+s_1 &= k^{-1}(z_1 + rd_A) \bmod n \\
+s_2 &= k^{-1}(z_2 + rd_A) \bmod n \\
+k &= s_1^{-1}(z_1 + rd_A) \bmod n \\
+k &= s_2^{-1}(z_2 + rd_A) \bmod n \\
+s_1^{-1}(z_1 + rd_A) &= s_2^{-1}(z_2 + rd_A) \bmod n \\
+(s_1^{-1} - s_2^{-1})rd_A &= s_2^{-1}z_2 - s_1^{-1}z_1 \bmod n \\
+d_A &= r^{-1}(s_1^{-1} - s_2^{-1})^{-1}(s_2^{-1}z_2 - s_1^{-1}z_1) \bmod n
+\end{align}
+
+这样就把私钥 $d_A$ 求了出来。
