@@ -133,4 +133,12 @@ $$
 ax^2 + y^2 = 1 + dx^2y^2
 $$
 
+Twisted Edwards curve 的点的加法如下：
+
+$$
+(x_1, y_1) + (x_2, y_2) = (\frac{x_1y_2+y_1x_2}{1+dx_1x_2y_1y_2},\frac{y_1y_2-ax_1x_2}{1-dx_1x_2y_1y_2})
+$$
+
+点可以用齐次坐标表示：$(X, Y, Z, T)$ 对应 $(x,y)$ 满足 $x=X/Z, y=Y/Z, x*y=T/Z$。
+
 Twisted Edwards curve 可以用在 [EdDSA](https://en.wikipedia.org/wiki/EdDSA) 签名算法中。
