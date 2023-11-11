@@ -6,7 +6,7 @@
 
 - [CUDA 矩阵乘法终极优化指南](https://zhuanlan.zhihu.com/p/410278370)
 - [[施工中] CUDA GEMM 理论性能分析与 kernel 优化](https://zhuanlan.zhihu.com/p/441146275)
-- [CUDA SGEMM矩阵乘法优化笔记——从入门到cublas](https://zhuanlan.zhihu.com/p/518857175)
+- [CUDA SGEMM 矩阵乘法优化笔记——从入门到 cublas](https://zhuanlan.zhihu.com/p/518857175)
 - [CUDA Ampere Tensor Core HGEMM 矩阵乘法优化笔记 —— Up To 131 TFLOPS!](https://zhuanlan.zhihu.com/p/555339335)
 
 ## SGEMM 定义

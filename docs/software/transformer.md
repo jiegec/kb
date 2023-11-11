@@ -178,6 +178,8 @@ LlamaMLP 包括：
 
 代码：[Dao-AILab/flash-attention](https://github.com/Dao-AILab/flash-attention)
 
+推荐阅读：[FlashAttention 核心逻辑以及 V1 V2 差异总结](https://zhuanlan.zhihu.com/p/665170554)
+
 主要针对 Transformer 训练中的 Attention 计算进行优化。Attention 计算的是：
 
 \(S = QK^T, P = \mathrm{softmax}(S), O = PV\)

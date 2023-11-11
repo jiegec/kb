@@ -25,7 +25,7 @@ CUDA 上的异步任务包括：
 
 ### Memcpy 异步问题
 
-针对 Memcpy 的异步问题，这里需要涉及到一些设计细节：对于 Host to Device Memcpy，由于数据所在的页默认是可换出的（pageable），因此如果要把数据 DMA 到 device，有可能 DMA 到中途，页被操作系统换出，数据被替换成了别的页的内容，此时就会传输错误的数据。因此实际上会先复制一份 src 数组的内容到 staging memory 上，再从 staging memory DMA 到 Device（`the pageable buffer has been copied to the staging memory for DMA transfer to device memory`）。自然，staging memory 会放在 pinned/page-locked（不可换出） 内存上，保证在 DMA 的时候，数据一直在内存中。这个过程可以看 [How to Optimize Data Transfers in CUDA C/C++](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/) 的图解。也可以直接在 CUDA 中分配 pinned 内存，这样在 memcpy 的时候就不会多一个拷贝的开销，但是 pinned 内存也不建议开太多，否则在内存吃紧的时候，会发现无页可换。
+针对 Memcpy 的异步问题，这里需要涉及到一些设计细节：对于 Host to Device Memcpy，由于数据所在的页默认是可换出的（pageable），因此如果要把数据 DMA 到 device，有可能 DMA 到中途，页被操作系统换出，数据被替换成了别的页的内容，此时就会传输错误的数据。因此实际上会先复制一份 src 数组的内容到 staging memory 上，再从 staging memory DMA 到 Device（`the pageable buffer has been copied to the staging memory for DMA transfer to device memory`）。自然，staging memory 会放在 pinned/page-locked（不可换出）内存上，保证在 DMA 的时候，数据一直在内存中。这个过程可以看 [How to Optimize Data Transfers in CUDA C/C++](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/) 的图解。也可以直接在 CUDA 中分配 pinned 内存，这样在 memcpy 的时候就不会多一个拷贝的开销，但是 pinned 内存也不建议开太多，否则在内存吃紧的时候，会发现无页可换。
 
 而 64KB 可能是一个阈值，如果要复制的数据小于 64KB，可能就不走 DMA 的方式，而是直接由 CPU 把数据通过 PCIe 复制到 GPU 上。但是为什么小于 64KB 就是异步，大于 64KB 是“同步”，我并没有想明白。在 [API synchronization behavior](https://docs.nvidia.com/cuda/cuda-runtime-api/api-sync-behavior.html#api-sync-behavior__memcpy-async) 对于 memcpy 的同步/异步性质有另一份表述：
 
