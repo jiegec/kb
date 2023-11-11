@@ -530,6 +530,12 @@ $ setpci -s 80:02.0 190.B
 
 另一种方案是 PCIe 交换机（如 [PEX 8747](https://docs.broadcom.com/doc/12351854)），缺点是成本较高，增加了延迟，好处是灵活性很强，不需要 CPU 额外配置，可以外接更多设备，并且设备空闲时可以让出带宽。例如一个 x16 使用 Bifurcation 方法可以拆成两个 x8，也可以使用 PCIe 交换机连接两个 x16，类似网络，这两个 x16 共享带宽，下游的两个设备之间也可以直接通信，这个在 HPC 场景下会比较常见，例如使用 PCIe 交换机连接显卡和 IB 网卡。
 
+### 推荐阅读
+
+- [LogicJitterGibbs 资料整理：可以学习 1W 小时的 PCIe](https://zhuanlan.zhihu.com/p/447134701)
+- [intel 部分桌面级 CPU 的 pcie 通道拆分另类低成本实现](https://www.bilibili.com/read/cv15596863)
+- [Intel Alder Lake 12 代酷睿 CPU PCIe 拆分实现方法](https://www.bilibili.com/read/cv16530665)
+
 ## CXL
 
 CXL 的标准是公开下载的：https://www.computeexpresslink.org/download-the-specification，下文参考的是 2022 年 8 月 1 日的 CXL 3.0 版本。
@@ -732,10 +738,3 @@ IOMMU 在硬件上的实现方式类似 CPU 上的 MMU，只不过对象是 PCIe
 </figure>
 
 图中上半部分对应的是片上总线，例如 AXI；下半部分对应的是 PCIe。可以看到，从处理器（PE）到外设（Device/EP）的流量是不会经过 SMMU 翻译的，而只有当外设要访问内存（Memory）的时候，它会经过 SMMU 进行地址转换，用转换后的物理地址访问内存。
-
-
-## 推荐阅读
-
-- [LogicJitterGibbs 资料整理：可以学习 1W 小时的 PCIe](https://zhuanlan.zhihu.com/p/447134701)
-- [intel 部分桌面级 CPU 的 pcie 通道拆分另类低成本实现](https://www.bilibili.com/read/cv15596863)
-- [Intel Alder Lake 12 代酷睿 CPU PCIe 拆分实现方法](https://www.bilibili.com/read/cv16530665)
