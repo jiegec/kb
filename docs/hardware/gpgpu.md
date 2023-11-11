@@ -729,6 +729,7 @@ Dependency Barrier 主要是用来解决依赖的问题。
 - LDSM
 - LDS
 - S2R
+- S2UR
 - QSPC
 
 除了 BMOV 以外，这些指令可能是可变延迟的。
@@ -740,7 +741,9 @@ Dependency Barrier 主要是用来解决依赖的问题。
 - LDG
 - LDGSTS
 - LDL
+- LDS
 - STG
 - STL
+- STS
 
 除了 BMOV 以外，这些指令读取操作数的时间可能是不确定的。
