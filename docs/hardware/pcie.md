@@ -712,6 +712,28 @@ CXL.mem 用于扩展内存，根据类型的不同，它可能单独使用，也
 
 对于 Type 2 的设备（有 CXL.cache）来说，Device 既有自己的缓存，又有自己的内存，所以这时候就比较复杂了。例如 Host 在读取数据的时候（MemRd，SnpData/SnpInv/SnpCur），还需要对 Device Cache 进行 Snoop（SnpData/SnpInv/SnpCur），保证缓存的一致性。Host 想要写入数据到 Device Memory 的时候，如果此时 Device Cache 中有 Dirty 数据，需要进行写合并，再把合并后的数据写入到 Device Memory。当 Device 想要从自己的缓存读取数据，又缺失的时候，首先需要判断数据在 Host 端的缓存中，还是在 Device Memory 中，不同的偏置（Bias）模式决定了数据应该放在 Host 还是 Device 的缓存上。Device 要写入数据的时候，如果 Host 中缓存了该缓存行，则需要 Back-Invalidation。为了支持这些场景，CXL.cache 和 CXL.mem 会比较复杂。
 
+## IOMMU
+
+IOMMU 在硬件上的实现方式类似 CPU 上的 MMU，只不过对象是 PCIe 设备，当 PCIe 设备在发起内存读写请求的时候，需要经过 IOMMU，IOMMU 按照预先配置好的设定进行地址转换，如果转换不成功，那就拒绝请求，保证了安全性。
+
+但是有些情况下 IOMMU 不能保证给每个设备都单独一个地址转换，也就是说，不能保证把每个设备的地址空间都隔离开，可能有若干个设备需要共享同一个地址空间映射。此时这些共享地址空间的设备就组成一个 IOMMU Group，Group 内的设备不隔离，Group 之间隔离。
+
+各平台定义了自己的 IOMMU 标准：
+
+- [AMD I/O Virtualization Technology (IOMMU) Specification](https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/specifications/48882_IOMMU.pdf)
+- [Intel VT-d](https://cdrdv2-public.intel.com/671081/vt-directed-io-spec.pdf)
+- [ARM SMMU v3](https://developer.arm.com/documentation/ihi0070/latest/)
+
+以 ARM SMMU 为例，它在总线上的位置见下图：
+
+<figure markdown>
+  ![](iommu_smmu.png){ width="600" }
+  <figcaption>SMMU（图源 ARM IHI 0070 F.a）</figcaption>
+</figure>
+
+图中上半部分对应的是片上总线，例如 AXI；下半部分对应的是 PCIe。可以看到，从处理器（PE）到外设（Device/EP）的流量是不会经过 SMMU 翻译的，而只有当外设要访问内存（Memory）的时候，它会经过 SMMU 进行地址转换，用转换后的物理地址访问内存。
+
+
 ## 推荐阅读
 
 - [LogicJitterGibbs 资料整理：可以学习 1W 小时的 PCIe](https://zhuanlan.zhihu.com/p/447134701)
