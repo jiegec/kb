@@ -733,7 +733,7 @@ IOMMU 在硬件上的实现方式类似 CPU 上的 MMU，只不过对象是 PCIe
 以 ARM SMMU 为例，它在总线上的位置见下图：
 
 <figure markdown>
-  ![](iommu_smmu.png){ width="600" }
+  ![](pcie_iommu_smmu.png){ width="600" }
   <figcaption>SMMU（图源 ARM IHI 0070 F.a）</figcaption>
 </figure>
 
