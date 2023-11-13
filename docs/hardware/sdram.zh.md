@@ -62,6 +62,13 @@ DDR SDRAM 通常会有一个数字来代表它的性能，例如 DDR4-2133 中�
 
 具体地，每个 Memory array 的 65536 x 128 x 64 的规格里，65536 表示 row 的数量，每个 row 保存了 $128 * 64 = 8192$ 位的数据，同时也是图 1 中 `Sense amplifier` 到 `I/O gating, DM mask logic` 之间传输的位宽。每个 row 有 1024 个 column，每个 column 保存了 8 位的数据（对应 `1 Gig x 8` 中的 8）。由于 DDR4 的 prefetch 宽度是 8n，所以一次访问会取出 8 个 column 的数据，也就是 64 位。那么每个 row 就是 128 个 64 位数据，这就是上面所说的 65536 x 128 x 64 的 128 x 64 的来源。
 
+每个 row 有 1024 个 column，所以 column 地址就有 10 位。但实际上，因为 Burst Length 是 8，所以实际上高 7 位（对应 `128 x 64` 的 128）会选择出 8 个 column，低 3 位决定了这些 column 的传输顺序，这是为了方便缓存 refill 的优化，把要读取的部分先取出来：
+
+<figure markdown>
+  ![](sdram_ddr4_burst.png){ width="800" }
+  <figcaption>DDR4 Bust 类型和 Column 次序（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+</figure>
+
 ## Prefetch
 
 SDRAM 有 Prefetch 的概念，含义就是一次读取会取出位宽的多少倍的数据出来。例如上面的 `1 Gig x 8` 的 SDRAM，其 I/O 数据位宽是 8 位（见右侧的 `DQ` 信号）。但实际上从 `Global I/O Gating` 出来的数据是 64 位，差了一个 8 的因子，这就是 DDR4 的 8n Prefetch。这是因为，DDR4 SDRAM 的 IO 频率是很高的，例如 3200 MT/s 对应的 I/O 时钟频率是 1600 MHz，而实际的 Memory array 频率做不到这么高，而是工作在 400 MHz，为了弥补频率的差距，一次读取 8 倍位宽的数据。体现在 I/O 上就是一次读操作得到 8 份数据，也就是 Burst Length 为 8，通过 DDR 方式在四个时钟周期内传输。
@@ -72,7 +79,7 @@ DDR5 把 Prefetch 提高到了 16n，这也就是为什么看到的 DDR5 的数�
 
 ## 访问模式
 
-SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 row 为单位进行存取。在前面的例子中，一个 row 有 8192 位的数据，但是一次读或写操作只涉及 64 位的数据，因此一次读操作需要：
+SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 row 为单位进行存取。在前面的例子（`1 Gig x 8`）中，一个 row 有 8192 位的数据，但是一次读或写操作只涉及 64 位的数据，因此一次读操作需要：
 
 1. 第一步，先把数据所在的整个 row 取出来
 2. 第二步，在 row 里读出想要的数据
@@ -109,7 +116,7 @@ SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序�
 1. 访问带有局部性的数据性能会更好，只需要连续地进行 Read，减少 Activate 和 Precharge 次数
 2. 不断访问不同的 row 的数据，会导致需要来回地 Activate，Read，Precharge 循环
 3. 访问 row 和访问 row 中的数据分成两个阶段，两个阶段可以使用同样的地址信号，使得内存总容量很大
-4. 而如果访问总是命中同一个 row，就可以获得接近理论的传输速率，如图 2
+4. 而如果访问总是命中同一个 row，就不需要 Activate 和 Prechage，可以持续 Read，获得接近理论的传输速率，如图：
 
 <figure markdown>
   ![](sdram_ddr3_consecutive_read.png){ width="800" }
@@ -120,7 +127,7 @@ SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序�
 
 ## Bank Group
 
-DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page hit 的时间是 tccd_S 还是 tccd_L? - Ricky Li 的回答 - 知乎](https://www.zhihu.com/question/59944554/answer/989376138) 的观点：DDR4 的 Memory array 频率相比 DDR3 提高，因此同一个 Row 内无法实现完美的连续读取，即两个相邻的读操作需要隔 5 个周期，而每次读传输 4 个周期的数据，利用率最高 80%，见下图：
+DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page hit 的时间是 tccd_S 还是 tccd_L? - Ricky Li 的回答 - 知乎](https://www.zhihu.com/question/59944554/answer/989376138) 的观点：DDR4 的 Memory array 频率相比 DDR3 提高，因此在 `I/O Gating` 上，即使命中了 Row，即使用了多个属于同一个 `I/O Gating` 的 Bank，也无法实现完美的连续读取，即两个相邻的读操作需要隔 5 个周期，而每次读传输 4 个周期的数据，利用率最高 80%，见下图：
 
 <figure markdown>
   ![](sdram_ddr4_nonconsecutive_read.png){ width="800" }
@@ -136,11 +143,10 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 <figure markdown>
   ![](sdram_ddr4_array.png){ width="400" }
-  <figcaption>DDR4 SDRAM 存储部分（图源 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf?rev=8634cc61670d40f69207f5f572a2bfdd">Micron Datasheet</a>）</figcaption>
+  <figcaption>DDR4 SDRAM 512 Meg x 16 存储部分（图源 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/ddr4/8gb_ddr4_sdram.pdf?rev=8634cc61670d40f69207f5f572a2bfdd">Micron Datasheet</a>）</figcaption>
 </figure>
 
-
-这意味着 DDR4 可以多个 Bank Group 同时进行读操作，并且流水线式输出，例如第一个 Bank Group 读取了数据，在 I/O 上用四个周期传输完数据，立马第二个 Bank Group 读取的数据就接上了，又传输了四个周期的数据，波形如下图：
+每个 Bank Group 有自己的 `I/O Gating` 以后，DDR4 下可以多个 Bank Group 同时进行读操作，并且流水线式输出，例如第一个 Bank Group 读取了数据，在 I/O 上用四个周期传输完数据，立马第二个 Bank Group 读取的数据就接上了，又传输了四个周期的数据，波形如下图：
 
 <figure markdown>
   ![](sdram_consecutive_read.png){ width="800" }
@@ -153,8 +159,8 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 上面已经提到，在 DDR SDRAM 内部的层次从大到小有：
 
-1. Bank Group：DDR4 引入
-2. Bank：每个 Bank 同时只有一个 Row 被激活
+1. Bank Group：DDR4 引入，通过 Bank Group 掩盖 DDR4 同一个 Bank Group 内连续读的延迟 tCCD_L
+2. Bank：每个 Bank 同时只有一个 Row 被激活，通过多个 Bank 掩盖 Activate/Precharge 的延迟
 3. Row：Activate/Precharge 的单位
 4. Column：每个 Column 保存 n 个 Cell，n 是 SDRAM 的位宽
 5. Cell：每个 Cell 保存 1 bit 的数据
@@ -177,7 +183,7 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 - ROW_LRANK_COLUMN_BANK
 - ROW_COLUMN_BANK_INTLV
 
-就是将地址的不同部分映射到 DRAM 的几个地址：Row，Column，Bank。可以想象，不同的地址映射方式针对不同的访存模式会有不同的性能。对于连续的内存访问，ROW_COLUMN_BANK 方式是比较适合的，因为连续的访问会分布到不同的 Bank 上，这样性能就会更好。
+就是将地址的不同部分映射到 DRAM 的几个地址：Row，Column，Bank。可以想象，不同的地址映射方式针对不同的访存模式会有不同的性能。对于连续的内存访问，ROW_COLUMN_BANK 方式是比较适合的，因为连续的访问会分布到不同的 Bank 上，这样可以比较好地掩盖 Activate/Precharge 延迟，性能就会更好。
 
 ## 接口
 
@@ -191,9 +197,10 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 DDR3 和 DDR4 的不同点：
 
 1. 地址信号：DDR3 是 A0-A14，DDR4 是 A0-A17，其中 A14-A16 复用了引脚
-2. DDR4 引入了 Bank Group，所以多出了 BA0-BA1 引脚
-3. DDR3 中的 RAS_n、CAS_n 和 WE_n 在 DDR4 中被复用为了 A14-A16
-4. DDR4 额外添加了 ACT_n 控制信号
+2. DDR4 引入了 Bank Group，所以多出了 BG0-BG1 引脚作为 Bank Group 地址
+3. DDR4 引入了 Bank Group 后，总 Bank 数量是 $4*4=16$；DDR3 的 Bank 数量是 8
+4. DDR3 中的 RAS_n、CAS_n 和 WE_n 在 DDR4 中被复用为了 A14-A16，目的是更大的容量
+5. DDR4 额外添加了 ACT_n 控制信号
 
 ## 拓扑
 
