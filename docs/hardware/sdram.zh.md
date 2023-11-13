@@ -127,7 +127,7 @@ SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序�
 
 ## Bank Group
 
-DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page hit 的时间是 tccd_S 还是 tccd_L? - Ricky Li 的回答 - 知乎](https://www.zhihu.com/question/59944554/answer/989376138) 的观点：DDR4 的 Memory array 频率相比 DDR3 提高，因此在 `I/O Gating` 上，即使命中了 Row，即使用了多个属于同一个 `I/O Gating` 的 Bank，也无法实现完美的连续读取，即两个相邻的读操作需要隔 5 个周期，而每次读传输 4 个周期的数据，利用率最高 80%，见下图：
+DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page hit 的时间是 tccd_S 还是 tccd_L? - Ricky Li 的回答 - 知乎](https://www.zhihu.com/question/59944554/answer/989376138) 和 [DDR4 为何会引入 tCCD_L 和 tCCD_S](https://blog.csdn.net/hemlok/article/details/133275312) 的观点：DDR4 的 Memory array 频率相比 DDR3 提高，因此在 `I/O Gating` 上，即使命中了 Row，即使用了多个属于同一个 `I/O Gating` 的 Bank，也无法实现完美的连续读取，即两个相邻的读操作需要隔 5 个周期，而每次读传输 4 个周期的数据，利用率最高 80%，见下图：
 
 <figure markdown>
   ![](sdram_ddr4_nonconsecutive_read.png){ width="800" }
@@ -184,6 +184,32 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 - ROW_COLUMN_BANK_INTLV
 
 就是将地址的不同部分映射到 DRAM 的几个地址：Row，Column，Bank。可以想象，不同的地址映射方式针对不同的访存模式会有不同的性能。对于连续的内存访问，ROW_COLUMN_BANK 方式是比较适合的，因为连续的访问会分布到不同的 Bank 上，这样可以比较好地掩盖 Activate/Precharge 延迟，性能就会更好。
+
+## 时序参数
+
+下面列出 DDR4 的主要时序参数：
+
+- tCCD_S: 对不同 Bank Group 进行 CAS 时，CAS 到 CAS 的延迟（CAS to CAS delay short），如 4 周期
+- tCCD_L: 对相同 Bank Group 进行 CAS 时，CAS 到 CAS 的延迟（CAS to CAS delay long），如 6 周期
+- tRRD_S: 对不同 Bank Group 进行 ACTIVATE 时，ACT 到 ACT 的延迟（ACT to ACT delay short），如 4 周期
+- tRRD_L: 对相同 Bank Group 进行 ACTIVATE 时，ACT 到 ACT 的延迟（ACT to ACT delay long），如 6 周期
+- tWTR_S：对不同 Bank Group 先 WRITE 后 READ 时，WRITE 完成写入（最后一个数据写入完成）到 READ 的延迟（Write to Read short）
+- tWTR_L：对相同 Bank Group 先 WRITE 后 READ 时，WRITE 完成写入（最后一个数据写入完成）到 READ 的延迟（Write to Read long）
+- tREFI：内存控制器需要按照 tREFI 的间隔发送 REFRESH 命令（Refresh Interval）
+- tRFC：两次 REFRESH 命令的最小间隔（Refresh Cycle）
+- tFAW: 在连续的 FAW 时间内，最多发送四个 ACTIVATE 命令（Four Activate Window），换句话说，第 i 次 ACTIVATE 和第 i+4 次 ACTIVATE 至少间隔 tFAW 时间
+- tRP：PRECHARGE 命令发送以后，到对同一个 Bank 的下一个命令的延迟（Precharge）
+- tRTP：对同一个 Bank 的 READ 到 PRE 的最小间隔（Read to Precharge）
+- tRAS：对同一个 Bank 的 ACT 到 PRE 的最小间隔（RAS active time，Activate to Precharge）
+- tRCD：对同一个 Bank 的 ACT 到 READ/WRITE 的最小间隔（Activate to Read/Write delay）
+- tRC：对同一个 Bank 的 ACT 到 ACT/PRE 的最小间隔（Activate to Activate/Precharge delay）
+- CL：CAS Latency，用于计算 Read Latency
+- CWL：CAS Write Latency，用于计算 Write Latency
+- AL：Additive Latency，用于计算 Read Latency
+- RL：Read Latency
+- WL：Write Latency
+
+Additive Latency 看似人为增加了命令的延迟，但实际上，内存控制器也会提前 AL 个周期去发送命令。例如，设置 AL 以后，可以连续发送 ACT 和 READ 命令，通过 AL 使得 READ 命令延迟生效，以满足 tRCD 时序要求，同时命令总线上空闲了出来。
 
 ## 接口
 
