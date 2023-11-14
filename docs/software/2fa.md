@@ -10,11 +10,11 @@
 
 ## OTP
 
-通常是 6 位的动态数字密码，分为 TOTP（Time-based）和 HOTP（HMAC-based）两种，一般会在用 Authenticator App 里面，也有一些硬件的 OTP 设备。配置是，通常会输出一个二维码，供 Authenticator App 扫描，读取出里面的 secret，它就可以计算出正确的 OTP 密码。
+通常是 6 位的动态数字密码，分为 TOTP（Time-based）和 HOTP（HMAC-based）两种，一般会在用 Authenticator App 里面，也有一些硬件的 OTP 设备，例如 [RSA SecurID](https://en.wikipedia.org/wiki/RSA_SecurID)。配置时，通常会输出一个二维码，供 Authenticator App 扫描，读取出里面的 secret，它就可以计算出正确的 OTP 密码。
 
-常见的登录形式是，输入用户名或密码后，提示输入 6 位动态数字密码。一些时候也支持在密码后紧跟 6 位动态密码
+常见的登录形式是，输入用户名或密码后，提示输入 6 位动态数字密码。一些时候也支持在密码后紧跟 6 位动态密码。
 
-有时也不是数字密码，例如 Yubico OTP 就是一串小写字母。此时的操作方法是，输入用户名和密码，不提交，而是长按 Yubikey 的触摸点，那么它就会模拟键盘输入 OTP 并回车。此时密码就会跟着 Yubico OTP 一起发送到服务器，完成认证。
+有时 OTP 也不是纯数字，例如 Yubico OTP 就是一串小写字母。此时的操作方法是，输入用户名和密码，不提交，而是长按 Yubikey 的触摸点，那么它就会模拟键盘输入 OTP 并回车。此时密码就会跟着 Yubico OTP 一起发送到服务器，完成认证。
 
 ## Security Key
 
