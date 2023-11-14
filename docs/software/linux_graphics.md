@@ -120,6 +120,6 @@ Wayland 在这个思路上走得更远：把绘制的大部分工作交给 Clien
 
 ## DRM & KMS
 
-Direct Rendering Manager（DRM） 是内核里负责和硬件打交道，同时又给用户态提供硬件加速能力的驱动。在用户态一侧，则是 Mesa 提供 OpenGL/Vulkan 等图形 API。
+Direct Rendering Manager（DRM） 是内核里负责和硬件打交道，同时又给用户态提供硬件加速能力的驱动。在用户态一侧，则是 Mesa 提供 OpenGL/Vulkan 等图形 API。可以用 [drm_info](https://gitlab.freedesktop.org/emersion/drm_info) 查看系统中 DRM 设备的状态。
 
 [Kernel Mode Setting（KMS）](https://www.kernel.org/doc/html/v4.15/gpu/drm-kms.html) 是让内核负责配置显示输出的分辨率等等模式（Mode Set），因为只有确定了分辨率等参数，才能确定 framebuffer 的大小和格式。
