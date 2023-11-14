@@ -26,9 +26,11 @@ U2F 是早期的协议，后来改名为 CTAP 的第一个版本 CTAP1，现在�
 
 Passkey 或者 Passwordless 其实不能算在 2FA 里面，因为它的目的是，用 Security Key 的技术和 API，去取代密码的存在。它用的其实还是 CTAP 协议和 WebAuthn 的 API，只不过因为替代了密码，所以换了一个好记的名字 `Passkey`。
 
-当然了，既然是替代密码，就不能用普通的触摸，而是要用生物认证方法，例如指纹、人脸等等。
+当然了，它用到了 CTAP2 的新功能：Resident Key/Discoverable Credentials。在 U2F 时代，数据是保存在网站服务端的，用户在网站上登录，网站服务端发送数据给浏览器，浏览器转给 Key，Key 拿到数据以后，根据自己的密钥进行签名，从而实现认证；而有了 Resident Key 以后，Key 也会保存数据，浏览器从 Key 中枚举 Resident Key，根据 metadata，筛选出属于当前访问的网站的数据，再发给 Key，剩下的流程是一样的。这个过程可以阅读 [WebAuthn Resident Key: Discoverable Credentials as Passkeys](https://www.corbado.com/blog/webauthn-resident-key-discoverable-credentials-passkeys)。不过毕竟硬件空间有限，Resident Key 数量也是有限的。
 
-此外，原来由物理 Security Key 提供的功能，现在也可以直接在电脑上安全地实现了：利用平台上的一些安全机制，例如 Secure Enclave，TPM 等等，结合 Touch ID/Face ID 等生物认证系统，提供一个类似 Security Key 的功能。所以某种意义上来说，这是在抢 Yubikey 等 Security Key 的生意。
+当然了，既然是替代密码（甚至替代用户名），就不能用普通的触摸，而是要用生物认证方法，例如指纹、人脸等等。
+
+此外，原来由物理 Security Key 提供的功能，现在也可以直接在电脑上安全地实现了：利用平台上的一些安全机制，例如 Secure Enclave，TPM 等等，结合 Touch ID/Face ID/Windows Hello 等生物认证系统，提供一个类似 Security Key 的功能。所以某种意义上来说，这是在抢 Yubikey 等 Security Key 的生意。
 
 ## 小结
 
