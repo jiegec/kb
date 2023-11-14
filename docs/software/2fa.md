@@ -30,7 +30,7 @@ Passkey 或者 Passwordless 其实不能算在 2FA 里面，因为它的目的�
 
 当然了，既然是替代密码（甚至替代用户名），就不能用普通的触摸，而是要用生物认证方法，例如指纹、人脸等等。
 
-此外，原来由物理 Security Key 提供的功能，现在也可以直接在电脑上安全地实现了：利用平台上的一些安全机制，例如 Secure Enclave，TPM 等等，结合 Touch ID/Face ID/Windows Hello 等生物认证系统，提供一个类似 Security Key 的功能。所以某种意义上来说，这是在抢 Yubikey 等 Security Key 的生意。
+此外，原来由物理 Security Key 提供的功能，现在也可以直接在电脑上安全地实现了：利用平台上的一些安全机制，例如 Secure Enclave，TPM 等等，结合 Touch ID/Face ID/Windows Hello 等生物认证系统，提供一个类似 Security Key 的功能。而且在电脑上实现，不太需要考虑 Resident Key 的上限问题。所以某种意义上来说，这是在抢 Yubikey 等 Security Key 的生意。
 
 ## 小结
 
