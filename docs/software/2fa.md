@@ -20,7 +20,7 @@
 
 以 Yubikey 为代表的硬件密钥，协议通常是 U2F（早期）或者 CTAP2（比较新），一般是输入用户名密码以后，插入 Security Key 并触摸 Key 上的指定位置，从而完成认证。
 
-U2F 是早期的协议，后来改名为 CTAP 的第一个版本 CTAP1，现在最新版是 CTAP2。除了 CTAP 以外，还有一个用于网站的 API：WebAuthn。
+U2F 是早期的协议，后来改名为 CTAP 的第一个版本 CTAP1，现在最新版是 CTAP2。除了 CTAP 以外，还有一个用于网站的 API：WebAuthn。开发这些标准的是 FIDO Alliance 组织。
 
 ## Passkey/Passwordless
 
@@ -30,3 +30,13 @@ Passkey 或者 Passwordless 其实不能算在 2FA 里面，因为它的目的�
 
 此外，原来由物理 Security Key 提供的功能，现在也可以直接在电脑上安全地实现了：利用平台上的一些安全机制，例如 Secure Enclave，TPM 等等，结合 Touch ID/Face ID 等生物认证系统，提供一个类似 Security Key 的功能。所以某种意义上来说，这是在抢 Yubikey 等 Security Key 的生意。
 
+## 小结
+
+总结下来，其实就是这么一些认证方法：
+
+1. 密码
+2. 短信
+3. OTP
+4. CTAP
+
+视具体情况，可能会要求其中一到多个认证方法。
