@@ -1,4 +1,4 @@
-# CXL
+# CXL (Compute Express Link)
 
 CXL 的标准是公开下载的：https://www.computeexpresslink.org/download-the-specification，下文参考的是 2022 年 8 月 1 日的 CXL 3.0 版本。
 

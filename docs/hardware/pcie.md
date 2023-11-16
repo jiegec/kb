@@ -1,4 +1,4 @@
-# PCIe
+# PCIe (Peripheral Component Interconnect Express)
 
 ## 分层
 

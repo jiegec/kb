@@ -1,4 +1,4 @@
-# CMOS
+# CMOS (Complementary Metal Oxide Semiconductor)
 
 ## MOSFET
 

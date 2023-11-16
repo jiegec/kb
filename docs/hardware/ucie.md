@@ -1,4 +1,4 @@
-# UCIe
+# UCIe (Universal Chiplet Interconnect Express)
 
 UCIe 的标准可以在官网上申请，申请后过几天会在邮箱里收到 UCIe 的标准 PDF。下文参考的是 UCIe 1.1（2023 年 7 月 10 日 版本）。按照 UCIe 标准要求，这里列出 UCIe 标准的版权信息： `© 2022–2023 UNIVERSAL CHIPLET INTERCONNECT EXPRESS, INC. ALL RIGHTS RESERVED`。
 

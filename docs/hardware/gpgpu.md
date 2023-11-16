@@ -1,4 +1,4 @@
-# GPGPU
+# GPGPU (General Purpose Graphics Processing Unit)
 
 GPGPU 是 General Purpose Graphics Processing Unit 的缩写，意思是支持通用用途的图形处理单元，是在显卡的基础上，通过 CUDA 等编程接口，使得用户可以对显卡进行编程，在显卡上执行自定义的程序。
 

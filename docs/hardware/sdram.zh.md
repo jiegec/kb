@@ -1,4 +1,4 @@
-# SDRAM
+# SDRAM (Synchronous Dynamic Random Access Memory)
 
 ## 特点
 
