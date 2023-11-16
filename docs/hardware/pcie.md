@@ -396,15 +396,15 @@ if (PcdGetBool(PcdSrIovSupport) && (PciDevice->SrIovCapabilityOffset != 0)) {
 
 ## PCIe 6.0
 
-PCIe 6.0 引入了 PAM4 来替代原来的 NRZ，实现了波特率不变的情况下速度翻倍，并且不再使用 128b/130b，为了解决 PAM4 带来的更高的错误率，引入了 FEC，CRC 还有格雷码，以及新的 FLIT。
+PCIe 6.0 引入了 PAM4 来替代原来的 NRZ，实现了波特率不变的情况下速度翻倍，并且不再使用 128b/130b，为了解决 PAM4 带来的更高的错误率，引入了 FEC，CRC 还有格雷码，并且为了 FEC 引入了 FLIT。
 
-网上可以搜到关于 PCIe 的 PPT：https://pcisig.com/sites/default/files/files/PCIe%206.0%20Webinar_Final_.pdf 和 https://www.openfabrics.org/wp-content/uploads/2022-workshop/2022-workshop-presentations/206_DDasSharma.pdf，以及关于 FLIT 的博客：https://pcisig.com/blog/pcie%C2%AE-60-specification-webinar-qa-deeper-dive-flit-mode-pam4-and-forward-error-correction-fec
+网上可以搜到关于 PCIe 的 PPT：[PCIe® 6.0 Specification: The Interconnect for I/O Needs of the Future](https://pcisig.com/sites/default/files/files/PCIe%206.0%20Webinar_Final_.pdf) 和 [PCIE® 6.0 SPECIFICATION: A HIGH-PERFORMANCE I/O INTERCONNECT FOR ADVANCED NETWORKING APPLICATIONS](https://www.openfabrics.org/wp-content/uploads/2022-workshop/2022-workshop-presentations/206_DDasSharma.pdf)，以及关于 FLIT 的博客：[The PCIe® 6.0 Specification Webinar Q&A: A Deeper Dive into FLIT Mode, PAM4, and Forward Error Correction (FEC)](https://pcisig.com/blog/pcie%C2%AE-60-specification-webinar-qa-deeper-dive-flit-mode-pam4-and-forward-error-correction-fec)
 
-总结 FLIT 的要点：
+总结 FLIT (Flow Control Unit) 的要点：
 
-1. 每个 FLIT 固定长度 256 字节，其中 236 字节传输 TLP，6 字节传输 DLLP，8 字节传输 CRC，6 字节传输 FEC。
-2. 接受方接受到 FLIT 后，会尝试进行 FEC 解码，并且尝试修复错误，再进行 CRC 校验。如果中途出现了错误，则会发送一个 NAK 给发送方。
-2. 一个 TLP 可能跨越多个 FLIT，一个 FLIT 可能包括多个 TLP，根据 TLP 大小而定。TLP 不需要对齐到 FLIT 的开头或者结尾。
+1. 每个 FLIT 固定长度 256 字节，其中 236 字节传输 TLP，6 字节传输 DLLP，8 字节传输 CRC，6 字节传输 FEC。固定长度的是为了使用 FEC（`FLIT mode is adopted for the PCIe 6.0 architecture because error correction needs to operate on fixed sized packets.`）。
+2. 接受方接受到 FLIT 后，会尝试进行 FEC 解码，并且尝试修复错误，再进行 CRC 校验。如果中途出现了错误，则会发送一个 NAK 给发送方（`After a FLIT is received, the receiving device performs the FEC decode, which corrects any correctable error within each FEC group. After the decode, the CRC check is performed. If the CRC check fails, the receiving device can indicate that the FLIT has not been successfully received by sending a NAK (no acknowledgment) back to the transmitting device.`）。发送方会重新发送 FLIT（`The NAK causes a replay, resulting in the FLIT being replayed and delivered without any errors.`）。
+2. 一个 TLP 可能跨越多个 FLIT，一个 FLIT 可能包括多个 TLP，根据 TLP 大小而定。TLP 不需要对齐到 FLIT 的开头或者结尾（`One TLP can span over multiple FLITs and one FLIT can have multiple TLPs, depending on the size of the TLP. The 236 Bytes in each FLIT of 256 Bytes can be used to transfer a partial TLP, as well as one or more TLPs.`）。
 
 可以发现，FLIT 的 CRC 用了 8 个字节，不再需要原来 TLP 和 DLLP 中的 ECRC 和 LCRC。在之前的 PCIe 版本，TLP 的可选 Digest 是 4 个字节的 ECRC，TLP+DLLP 的 LCRC 是 4 字节。具体采用多少字节的 CRC，和目标的错误率，以及传输的字节数相关。
 

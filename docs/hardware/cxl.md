@@ -179,3 +179,24 @@ CXL.mem 用于扩展内存，根据类型的不同，它可能单独使用，也
 对于 Type 3 的设备（无 CXL.cache）来说，Device 就是一个扩展的内存，比较简单，只需要支持读写内存就可以了。Host 发送 `MemRd*`，Device 响应 MemData；Host 发送 `MemWr*`，Device 响应 Cmp。
 
 对于 Type 2 的设备（有 CXL.cache）来说，Device 既有自己的缓存，又有自己的内存，所以这时候就比较复杂了。例如 Host 在读取数据的时候（MemRd，SnpData/SnpInv/SnpCur），还需要对 Device Cache 进行 Snoop（SnpData/SnpInv/SnpCur），保证缓存的一致性。Host 想要写入数据到 Device Memory 的时候，如果此时 Device Cache 中有 Dirty 数据，需要进行写合并，再把合并后的数据写入到 Device Memory。当 Device 想要从自己的缓存读取数据，又缺失的时候，首先需要判断数据在 Host 端的缓存中，还是在 Device Memory 中，不同的偏置（Bias）模式决定了数据应该放在 Host 还是 Device 的缓存上。Device 要写入数据的时候，如果 Host 中缓存了该缓存行，则需要 Back-Invalidation。为了支持这些场景，CXL.cache 和 CXL.mem 会比较复杂。
+
+## CXL 链路层
+
+前面提到过，CXL.io 实际上就是 PCIe，所以 CXL.io 的链路层采用的就是 PCIe 的链路层。
+
+而对于 CXL.cache 和 CXL.mem，CXL 定义了 68B Flit 模式和 256B Flit 模式。
+
+其中 68B Flit 拆分成四个 Slot，每个 Slot 16 字节，可以保存不同组合的 CXL 请求/响应，其中第一个 Slot（Slot 0）开头还有 Flit Header。最后还有 2 个字节的 CRC，没有 FEC。也是因为 68B Flit 没有 FEC，所以只用于不高于 32GT/s 的链路，更高就需要用包括 FEC 的 256B Flit 模式。
+
+256B Flit 模式有两种：
+
+1. Standard 256B Flit 包括开头 2 个字节的头部，然后是 15 个 Slot，最后是 2 字节的 Credit Return，8 字节的 CRC 和 6 字节的 FEC。
+2. Latency Optimized 256B Flit 包括开头 2 个字节的头部，然后是 8 个 Slot（共 120 字节），紧接着是 6 字节的 CRC，接着是剩下的 7 个 Slot，2B 的 Credit Return，Slot 8 的最后 2 字节，6 字节的 FEC 和 6 字节的 CRC。
+
+两种的格式的区别在于，Latency Optimized 256B Flit 把 CRC 拆散成了两部分，放在中间和结尾，并且花费了更多的空间（6+6B）。这样，每收到 128B 就可以做 CRC 检查，不用等到收到完整的 256B。下面是这两种 CXL 256B Flit 和 PCIe 256B Flit 的对比示意图：
+
+<figure markdown>
+  ![](cxl_flit_comparison.png){ width="400" }
+  <figcaption>CXL 和 PCIe FLIT 格式对比（图源 <a href="https://community.cadence.com/cadence_blogs_8/b/fv/posts/cxl-3-0-scales-the-future-data-center">CXL 3.0 Scales the Future Data Center</a>）</figcaption>
+</figure>
+
