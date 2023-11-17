@@ -90,13 +90,25 @@ CRC 是把数据当成一个 GF(2) 多项式的系数，除以已知的多项式
 
 下面给出不同检错纠错码的对比：
 
-|              | 编辑距离    | 数据位数         | 冗余位数             | 总位数          |
-| ------------ | ------- | ------------ | ---------------- | ------------ |
-| 奇偶校验         | $2$     | $n$          | $1$              | $n+1$        |
-| 重复编码         | $n$     | $1$          | $n-1$            | $n$          |
-| Hamming 码    | $3$     | $2^r-r-1$    | r                | $2^r-1$      |
-| 扩展 Hamming 码 | $4$     | $2^r-r-1$    | $r+1$            | $2^r$        |
-| Reed Solomon | $n-k+1$ | $k\log_2(q)$ | $(n-k)\log_2(q)$ | $n\log_2(q)$ |
+|                 | 编辑距离 | 数据位数     | 冗余位数         | 总位数       |
+|-----------------|----------|--------------|------------------|--------------|
+| 奇偶校验        | $2$      | $n$          | $1$              | $n+1$        |
+| 重复编码        | $n$      | $1$          | $n-1$            | $n$          |
+| Hamming 码      | $3$      | $2^r-r-1$    | r                | $2^r-1$      |
+| 扩展 Hamming 码 | $4$      | $2^r-r-1$    | $r+1$            | $2^r$        |
+| Reed Solomon    | $n-k+1$  | $k\log_2(q)$ | $(n-k)\log_2(q)$ | $n\log_2(q)$ |
+
+## 实践
+
+很多协议采用了检错纠错码来保证数据的可靠性，例如：
+
+1. 以太网 FCS（Frame Check Sequence）：4 字节的 CRC，保护一个 MTU 加头部大小的数据
+2. IP（Internet Protocol）：2 字节的 Internet Checksum，保护一个 IP 头部的数据
+3. PCIe TLP（Transaction Layer Packet）：4 字节的 CRC，保护一个 TLP 的数据
+4. PCIe DLLP（Data Link Layer Packet）：2 或 4 字节的 CRC，保护一个 DLLP 的数据
+5. CXL 68B FLIT：2 字节的 CRC，保护 64 字节的数据
+6. CXL Standard 256B FLIT：8 字节的 CRC，6 字节的 FEC，保护 242 字节的数据
+7. CXL Latency Optimized 256B FLIT：前半部分 6 字节的 CRC 保护 122 字节的数据，后半部分 6 字节的 CRC 保护 116 字节的数据；最后 6 字节的 FEC 保护完整的 FLIT
 
 ## 参考文档
 
