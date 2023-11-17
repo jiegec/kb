@@ -1,4 +1,4 @@
-# I2C
+# I2C (Inter-Integrated Circuit)
 
 ## 接口
 
