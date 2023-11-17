@@ -398,16 +398,23 @@ if (PcdGetBool(PcdSrIovSupport) && (PciDevice->SrIovCapabilityOffset != 0)) {
 
 PCIe 6.0 引入了 PAM4 来替代原来的 NRZ，实现了波特率不变的情况下速度翻倍，并且不再使用 128b/130b，为了解决 PAM4 带来的更高的错误率，引入了 FEC，CRC 还有格雷码，并且为了 FEC 引入了 FLIT。
 
-网上可以搜到关于 PCIe 的 PPT：[PCIe® 6.0 Specification: The Interconnect for I/O Needs of the Future](https://pcisig.com/sites/default/files/files/PCIe%206.0%20Webinar_Final_.pdf) 和 [PCIE® 6.0 SPECIFICATION: A HIGH-PERFORMANCE I/O INTERCONNECT FOR ADVANCED NETWORKING APPLICATIONS](https://www.openfabrics.org/wp-content/uploads/2022-workshop/2022-workshop-presentations/206_DDasSharma.pdf)，以及关于 FLIT 的博客：[The PCIe® 6.0 Specification Webinar Q&A: A Deeper Dive into FLIT Mode, PAM4, and Forward Error Correction (FEC)](https://pcisig.com/blog/pcie%C2%AE-60-specification-webinar-qa-deeper-dive-flit-mode-pam4-and-forward-error-correction-fec)
+网上可以搜到关于 PCIe 的 PPT：[PCIe® 6.0 Specification: The Interconnect for I/O Needs of the Future](https://pcisig.com/sites/default/files/files/PCIe%206.0%20Webinar_Final_.pdf) 和 [PCIE® 6.0 SPECIFICATION: A HIGH-PERFORMANCE I/O INTERCONNECT FOR ADVANCED NETWORKING APPLICATIONS](https://www.openfabrics.org/wp-content/uploads/2022-workshop/2022-workshop-presentations/206_DDasSharma.pdf)，以及关于 FLIT 的博客：[The PCIe® 6.0 Specification Webinar Q&A: A Deeper Dive into FLIT Mode, PAM4, and Forward Error Correction (FEC)](https://pcisig.com/blog/pcie%C2%AE-60-specification-webinar-qa-deeper-dive-flit-mode-pam4-and-forward-error-correction-fec)，关于 FEC 和 CRC 的博客：[PCIe 6.0 Verification of FEC and CRC](https://www.synopsys.com/blogs/chip-design/pcie-6-verifaction-fec-crc.html)
 
 总结 FLIT (Flow Control Unit) 的要点：
 
 1. 每个 FLIT 固定长度 256 字节，其中 236 字节传输 TLP，6 字节传输 DLLP，8 字节传输 CRC，6 字节传输 FEC。固定长度的是为了使用 FEC（`FLIT mode is adopted for the PCIe 6.0 architecture because error correction needs to operate on fixed sized packets.`）。
 2. 接受方接受到 FLIT 后，会尝试进行 FEC 解码，并且尝试修复错误，再进行 CRC 校验。如果中途出现了错误，则会发送一个 NAK 给发送方（`After a FLIT is received, the receiving device performs the FEC decode, which corrects any correctable error within each FEC group. After the decode, the CRC check is performed. If the CRC check fails, the receiving device can indicate that the FLIT has not been successfully received by sending a NAK (no acknowledgment) back to the transmitting device.`）。发送方会重新发送 FLIT（`The NAK causes a replay, resulting in the FLIT being replayed and delivered without any errors.`）。
 2. 一个 TLP 可能跨越多个 FLIT，一个 FLIT 可能包括多个 TLP，根据 TLP 大小而定。TLP 不需要对齐到 FLIT 的开头或者结尾（`One TLP can span over multiple FLITs and one FLIT can have multiple TLPs, depending on the size of the TLP. The 236 Bytes in each FLIT of 256 Bytes can be used to transfer a partial TLP, as well as one or more TLPs.`）。
-3. 具体地，FLIT 的 6 字节 FEC 分为三组，每组 2 字节，分别保护三分之一的数据，并且是交错的，每一组都可以纠正一个字节的错误。这个叫做 3-way interleaved ECC。这样做的好处是，如果某个 lane 上连续出现 16 位的错误，那么它错误的范围在每组里最多影响一个字节，而这三组分别都可以纠正一个字节的错误，这样就可以正确地纠正错误（`The FEC is a 3-way interleaved ECC, with each ECC code capable of correcting a single Byte error. The interleaving is done so that a burst error of up to 16 bits in any Lane does not impact more than a Byte in each interleaved ECC code word.`）。为什么是 3 这个奇数呢？因为 Lane 的个数是 2 的幂次，如果用 3 组的话，正好每个 Lane 上连续的字节对应到不同的 FCC 分组。再往上，5 组 ECC 也是可以的。
 
 可以发现，FLIT 的 CRC 用了 8 个字节，不再需要原来 TLP 和 DLLP 中的 ECRC 和 LCRC。在之前的 PCIe 版本，TLP 的可选 Digest 是 4 个字节的 ECRC，TLP+DLLP 的 LCRC 是 4 字节。具体采用多少字节的 CRC，和目标的错误率，以及传输的字节数相关。
+
+具体地，FLIT 的 6 字节 FEC 分为三组，每组 2 字节，分别保护三分之一的数据，并且是交错的（见下图的三种颜色，每个颜色对应一组 FEC），每一组都可以纠正一个字节的错误。这个叫做 3-way interleaved ECC。这样做的好处是，如果某个 lane 上出现连续 16 位的错误（例如 Lane 0 的字节 0、16 和 32 出错），那么它错误的范围在每组里最多影响一个字节（蓝色组影响 0，黄色组影响 16，绿色组影响 32），而这三组分别都可以纠正一个字节的错误，这样就可以正确地纠正错误（`The FEC is a 3-way interleaved ECC, with each ECC code capable of correcting a single Byte error. The interleaving is done so that a burst error of up to 16 bits in any Lane does not impact more than a Byte in each interleaved ECC code word.`）。图示见下：
+
+<figure markdown>
+  ![](pcie_fec_interleave.png){ width="600" }
+  <figcaption>PCIe FLIT 3-Way Interleave ECC 图示（图源 <a href="https://www.synopsys.com/blogs/chip-design/pcie-6-verifaction-fec-crc.html">PCIe 6.0 Verification of FEC and CRC</a>）</figcaption>
+</figure>
+为什么是 3 这个奇数呢？因为 Lane 的个数是 2 的幂次，如果用 3 组的话，正好每个 Lane 上连续的字节对应到不同的 FCC 分组。再往上，5 组 ECC 也是可以的。
 
 ## ATS
 
