@@ -151,6 +151,8 @@ Kepler 相比 Fermi 架构的主要改进：
   <figcaption>Kepler 架构 SM（来源：NVIDIA’s Next Generation CUDA Compute Architecture: Kepler TM GK110/210）</figcaption>
 </figure>
 
+不过根据 [Inside Kepler, Nvidia’s Strong Start on 28 nm](https://chipsandcheese.com/2023/11/24/inside-kepler-nvidias-strong-start-on-28-nm/)，Kepler 每个 SM 内部分为四个 Partition（SMSP，Streaming Multiprocessor Sub Partition），每个 Partition 包括一个双发射的 Warp Scheduler，32 个 FP32 core，8 个 SFU。四个 Partition 以外还有 64 个 shared FP32 core。或许 SMSP 的概念从 Kepler 这一代就有了（`For all GPUs since Kepler (with exception to GP100) there are 4 SMSP per SM.`，见 [https://forums.developer.nvidia.com/t/question-about-smsp-and-sm/154560/2](https://forums.developer.nvidia.com/t/question-about-smsp-and-sm/154560)），只不过在绘制它的 SM 图示的时候，还没有分开画。或许是觉得共享的 FP32 不容易画吧。从 Kepler 的下一代 Maxwell 开始，就没有共享的 FP32 单元了，所有计算单元都是归到某个 partition 下。（`As with SMX, each SMM has four warp schedulers. Unlike SMX, however, all SMM core functional units are assigned to a particular scheduler, with no shared units. Along with the selection of a power-of-two number of CUDA Cores per SM, which simplifies scheduling and reduces stall cycles, this partitioning of SM computational resources in SMM is a major component of the streamlined efficiency of SMM.`，来源 [Tuning CUDA Applications for Maxwell](https://docs.nvidia.com/cuda/maxwell-tuning-guide/index.html#instruction-scheduling)）。
+
 Kepler 为了要支持四个 Warp Scheduler，每个周期 Dispatch 8 条指令，简化了 Warp Scheduler 的工作方式：由于计算指令的延迟是固定的，因此可以由编译器来计算一些指令的调度，从而减轻了硬件调度的负担，硬件可以直接从指令中读取预先计算好的信息，然后在调度 Warp 的时候，根据这些信息防止一些 Warp 被调度。这个信息应该是保存在 Control Code/Instruction 中的，网上也有一些针对 Control Code/Instruction 编码的研究：
 
 - <https://github.com/cloudcores/CuAssembler/blob/master/UserGuide.md>
