@@ -5,7 +5,7 @@
 以 $P$ 为周期的周期函数 $s(x)$ 可以分解为一系列三角函数之和：
 
 $$
-s(x) = A_0 + \Sigma_{n=1}^{\infty}(A_n \cos(\frac{2 \pi nx}{P}) + B_n \sin(\frac{2 \pi nx}{P}))
+s(x) = A_0 + \sum_{n=1}^{\infty}(A_n \cos(\frac{2 \pi nx}{P}) + B_n \sin(\frac{2 \pi nx}{P}))
 $$
 
 为了计算系数 $A_n$ 和 $B_n$，在一个周期上计算如下积分：
@@ -36,9 +36,9 @@ $$
 带入到傅立叶级数展开式：
 
 \begin{align}
-s(x) &= A_0 + \Sigma_{n=1}^{\infty}(A_n \cos(\frac{2 \pi nx}{P}) + B_n \sin(\frac{2 \pi nx}{P})) \\
-&= A_0 + \Sigma_{n=1}^{\infty}(A_n \frac{e^{\frac{2 \pi nxi}{P}} + e^{\frac{-2 \pi nxi}{P}}}{2} + B_n \frac{e^{\frac{2 \pi nxi}{P}} - e^{\frac{-2 \pi nxi}{P}}}{2i}) \\
-&= A_0 + \Sigma_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}} + \frac{A_n + B_n i}{2} e^{\frac{-2 \pi nxi}{P}})
+s(x) &= A_0 + \sum_{n=1}^{\infty}(A_n \cos(\frac{2 \pi nx}{P}) + B_n \sin(\frac{2 \pi nx}{P})) \\
+&= A_0 + \sum_{n=1}^{\infty}(A_n \frac{e^{\frac{2 \pi nxi}{P}} + e^{\frac{-2 \pi nxi}{P}}}{2} + B_n \frac{e^{\frac{2 \pi nxi}{P}} - e^{\frac{-2 \pi nxi}{P}}}{2i}) \\
+&= A_0 + \sum_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}} + \frac{A_n + B_n i}{2} e^{\frac{-2 \pi nxi}{P}})
 \end{align}
 
 记 $F_n = \frac{A_n - B_ni}{2}$，把 $A_n$ 和 $B_n$ 的定义延拓到 $n$ 为负数，发现：
@@ -51,16 +51,16 @@ B_{-n} &= \frac{2}{P} \int_P s(x) \sin(\frac{-2 \pi nx}{P}) \mathrm{d} x = -B_n
 再带入傅立叶展开式，得到
 
 \begin{align}
-s(x) &= A_0 + \Sigma_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}} + \frac{A_n + B_n i}{2} e^{\frac{-2 \pi nxi}{P}}) \\
-&= A_0 + \Sigma_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}} + \frac{A_{-n} - B_{-n} i}{2} e^{\frac{2 \pi (-n)xi}{P}}) \\
-&= A_0 + \Sigma_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}}) + \Sigma_{n=1}^{\infty}(\frac{A_{-n} - B_{-n} i}{2} e^{\frac{2 \pi (-n)xi}{P}}) \\
-&= A_0 + \Sigma_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}}) + \Sigma_{n=-\infty}^{-1}(\frac{A_n - B_n i}{2} e^{\frac{2 \pi nxi}{P}}) \\
+s(x) &= A_0 + \sum_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}} + \frac{A_n + B_n i}{2} e^{\frac{-2 \pi nxi}{P}}) \\
+&= A_0 + \sum_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}} + \frac{A_{-n} - B_{-n} i}{2} e^{\frac{2 \pi (-n)xi}{P}}) \\
+&= A_0 + \sum_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}}) + \sum_{n=1}^{\infty}(\frac{A_{-n} - B_{-n} i}{2} e^{\frac{2 \pi (-n)xi}{P}}) \\
+&= A_0 + \sum_{n=1}^{\infty}((\frac{A_n - B_n i}{2}) e^{\frac{2 \pi nxi}{P}}) + \sum_{n=-\infty}^{-1}(\frac{A_n - B_n i}{2} e^{\frac{2 \pi nxi}{P}}) \\
 \end{align}
 
 记 $F_0 = A_0$，那么上式可以写成：
 
 $$
-s(x) = \Sigma_{n=-\infty}^{\infty} F_n e^{\frac{2 \pi nxi}{P}}
+s(x) = \sum_{n=-\infty}^{\infty} F_n e^{\frac{2 \pi nxi}{P}}
 $$
 
 其中 $F_0 = A_0 = \frac{1}{P} \int_P s(x) \mathrm{d} x$，同时：
@@ -73,7 +73,7 @@ F_n &= \frac{A_n - B_ni}{2} = \frac{1}{2}(\frac{2}{P} \int_P s(x) \cos(\frac{2 \
 这个通项公式对 $n=0$ 也成立。因此复指数形式的傅立叶系数为：
 
 \begin{align}
-s(x) &= \Sigma_{n=-\infty}^{\infty} F_n e^{\frac{2 \pi nxi}{P}} \\
+s(x) &= \sum_{n=-\infty}^{\infty} F_n e^{\frac{2 \pi nxi}{P}} \\
 F_n &= \frac{1}{P} \int_P s(x) e^{\frac{-2 \pi nxi}{P}} \mathrm{d} x
 \end{align}
 
@@ -155,15 +155,15 @@ $$
 
 ## 离散时间傅立叶变换
 
-离散时间傅立叶变换（DTFT）是傅立叶变换的离散时间版本：时域上是离散的。频域依然是连续的。它的定义是：
+离散时间傅立叶变换（DTFT）是傅立叶变换的离散时间版本：时域上是离散的。频域依然是连续的。离散时间傅立叶变换是傅立叶变换的特殊形式，它把一个离散的无限长序列 $x[n]$，对应到单位时间周期的冲激串函数的幅度上，得到 $f(t) = \sum_{n=-\infty}^{\infty} x[n] \delta(t-n)$，再进行傅立叶变换：
 
-$$
-X_{2 \pi}(\omega) = \sum_{n = - \infty}^{\infty} x[n]e^{-i \omega n}
-$$
+\begin{align}
+\hat{f}(\omega) &= \int_{-\infty}^{\infty} f(t) e^{- i \omega t} \mathrm{d}t \\
+&= \int_{-\infty}^{\infty} (\sum_{n=-\infty}^{\infty} x[n] \delta(t-n)) e^{- i \omega t} \mathrm{d}t \\
+&= \sum_{n = - \infty}^{\infty} x[n] e^{-i \omega n}
+\end{align}
 
-其中 $x[n]$ 就是离散的序列。
-
-离散时间傅立叶变换是傅立叶变换的特殊形式，它把一个离散的序列，对应到冲激串函数的幅度上，再进行傅立叶变换，简化以后，就得到了上面的形式。为了简化，直接要求冲激串函数的周期为 1，这样就把采样率归一化了。
+为了简化，直接要求冲激串函数的周期为 1，这样就把采样率归一化了。
 
 如果限定离散序列 $x[n]$ 为有限长度，那么相当于对时域乘以一个矩形窗。假设有限的长度为 $L$，也就是 $n$ 的取值范围从所有整数缩小到 $\{0, 1, \cdots, L-1\}$，那么有限长度离散序列的离散时间傅立叶变换为：
 
