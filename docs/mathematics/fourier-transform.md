@@ -81,13 +81,13 @@ F_n &= \frac{1}{P} \int_P s(x) e^{\frac{-2 \pi nxi}{P}} \mathrm{d} x
 
 傅立叶级数：对周期函数的分解。
 
-非周期函数，可以看成是周期无穷大的周期函数，也就是 $P \to \infty$。但是这样计算出来的 $F_n$ 也趋向于零。如果去掉系数 $\frac{1}{P}$，把积分上下限替换为正负 $\infty$，进行代换 $\xi = \frac{n}{P}$，就可以把傅立叶级数变成傅立叶变换：
+非周期函数，可以看成是周期无穷大的周期函数，也就是 $P \to \infty$。但是这样计算出来的 $F_n$ 也趋向于零。如果去掉系数 $\frac{1}{P}$，把积分上下限替换为正负 $\infty$，进行代换 $\xi = \frac{n}{P}$，就可以把傅立叶级数：
 
 $$
 F_n = \frac{1}{P} \int_P s(x) e^{\frac{-2 \pi nxi}{P}} \mathrm{d} x
 $$
 
-Fourier Transform：给定 $f(x)$，傅立叶变换得到 $\hat{f}(\xi)$
+变成傅立叶变换 Fourier Transform：给定 $f(x)$，傅立叶变换得到 $\hat{f}(\xi)$
 
 $$
 \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) e^{-2\pi i \xi x} \mathrm{d}x
