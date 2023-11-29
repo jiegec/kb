@@ -140,43 +140,45 @@ Text：默认以 (x,y) 为左下角，绘制一段文字
 
 ```svg
 <rect x="10" y="10" width="180" height="280" fill="red" />
-<text x="20" y="30" dominant-baseline="text-bottom">text-bottom</text>
-<line x1="20" y1="30" x2="150" y2="30" stroke="blue" stroke-width="1" />
-<text x="20" y="60" dominant-baseline="alphabetic">alphabetic</text>
-<line x1="20" y1="60" x2="150" y2="60" stroke="blue" stroke-width="1" />
-<text x="20" y="90" dominant-baseline="ideographic">ideographic</text>
-<line x1="20" y1="90" x2="150" y2="90" stroke="blue" stroke-width="1" />
-<text x="20" y="120" dominant-baseline="middle">middle</text>
-<line x1="20" y1="120" x2="150" y2="120" stroke="blue" stroke-width="1" />
-<text x="20" y="150" dominant-baseline="central">central</text>
-<line x1="20" y1="150" x2="150" y2="150" stroke="blue" stroke-width="1" />
-<text x="20" y="180" dominant-baseline="mathematical">mathematical</text>
-<line x1="20" y1="180" x2="150" y2="180" stroke="blue" stroke-width="1" />
-<text x="20" y="210" dominant-baseline="hanging">hanging</text>
-<line x1="20" y1="210" x2="150" y2="210" stroke="blue" stroke-width="1" />
-<text x="20" y="240" dominant-baseline="text-top">text-top</text>
-<line x1="20" y1="240" x2="150" y2="240" stroke="blue" stroke-width="1" />
+<text x="20" y="30" dominant-baseline="text-bottom">text-bottom abc123</text>
+<line x1="20" y1="30" x2="160" y2="30" stroke="blue" stroke-width="1" />
+<text x="20" y="60" dominant-baseline="alphabetic">alphabetic abc123</text>
+<line x1="20" y1="60" x2="160" y2="60" stroke="blue" stroke-width="1" />
+<text x="20" y="90" dominant-baseline="ideographic">ideographic abc123</text>
+<line x1="20" y1="90" x2="160" y2="90" stroke="blue" stroke-width="1" />
+<text x="20" y="120" dominant-baseline="middle">middle abc123</text>
+<line x1="20" y1="120" x2="160" y2="120" stroke="blue" stroke-width="1" />
+<text x="20" y="150" dominant-baseline="central">central abc123</text>
+<line x1="20" y1="150" x2="160" y2="150" stroke="blue" stroke-width="1" />
+<text x="20" y="180" dominant-baseline="mathematical">mathematical abc123</text>
+<line x1="20" y1="180" x2="160" y2="180" stroke="blue" stroke-width="1" />
+<text x="20" y="210" dominant-baseline="hanging">hanging abc123</text>
+<line x1="20" y1="210" x2="160" y2="210" stroke="blue" stroke-width="1" />
+<text x="20" y="240" dominant-baseline="text-top">text-top abc123</text>
+<line x1="20" y1="240" x2="160" y2="240" stroke="blue" stroke-width="1" />
 ```
 
 <svg height="250px" xmlns="http://www.w3.org/2000/svg">
     <rect x="10" y="10" width="180" height="280" fill="red" />
-    <text x="20" y="30" dominant-baseline="text-bottom">text-bottom</text>
-    <line x1="20" y1="30" x2="150" y2="30" stroke="blue" stroke-width="1" />
-    <text x="20" y="60" dominant-baseline="alphabetic">alphabetic</text>
-    <line x1="20" y1="60" x2="150" y2="60" stroke="blue" stroke-width="1" />
-    <text x="20" y="90" dominant-baseline="ideographic">ideographic</text>
-    <line x1="20" y1="90" x2="150" y2="90" stroke="blue" stroke-width="1" />
-    <text x="20" y="120" dominant-baseline="middle">middle</text>
-    <line x1="20" y1="120" x2="150" y2="120" stroke="blue" stroke-width="1" />
-    <text x="20" y="150" dominant-baseline="central">central</text>
-    <line x1="20" y1="150" x2="150" y2="150" stroke="blue" stroke-width="1" />
-    <text x="20" y="180" dominant-baseline="mathematical">mathematical</text>
-    <line x1="20" y1="180" x2="150" y2="180" stroke="blue" stroke-width="1" />
-    <text x="20" y="210" dominant-baseline="hanging">hanging</text>
-    <line x1="20" y1="210" x2="150" y2="210" stroke="blue" stroke-width="1" />
-    <text x="20" y="240" dominant-baseline="text-top">text-top</text>
-    <line x1="20" y1="240" x2="150" y2="240" stroke="blue" stroke-width="1" />
+    <text x="20" y="30" dominant-baseline="text-bottom">text-bottom abc123</text>
+    <line x1="20" y1="30" x2="160" y2="30" stroke="blue" stroke-width="1" />
+    <text x="20" y="60" dominant-baseline="alphabetic">alphabetic abc123</text>
+    <line x1="20" y1="60" x2="160" y2="60" stroke="blue" stroke-width="1" />
+    <text x="20" y="90" dominant-baseline="ideographic">ideographic abc123</text>
+    <line x1="20" y1="90" x2="160" y2="90" stroke="blue" stroke-width="1" />
+    <text x="20" y="120" dominant-baseline="middle">middle abc123</text>
+    <line x1="20" y1="120" x2="160" y2="120" stroke="blue" stroke-width="1" />
+    <text x="20" y="150" dominant-baseline="central">central abc123</text>
+    <line x1="20" y1="150" x2="160" y2="150" stroke="blue" stroke-width="1" />
+    <text x="20" y="180" dominant-baseline="mathematical">mathematical abc123</text>
+    <line x1="20" y1="180" x2="160" y2="180" stroke="blue" stroke-width="1" />
+    <text x="20" y="210" dominant-baseline="hanging">hanging abc123</text>
+    <line x1="20" y1="210" x2="160" y2="210" stroke="blue" stroke-width="1" />
+    <text x="20" y="240" dominant-baseline="text-top">text-top abc123</text>
+    <line x1="20" y1="240" x2="160" y2="240" stroke="blue" stroke-width="1" />
 </svg>
+
+这些值来自于字体的 [baseline 设置](https://en.wikipedia.org/wiki/Baseline_(typography))，见 [The 'bsln' table](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6bsln.html)。
 
 ## ellipse
 
