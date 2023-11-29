@@ -282,6 +282,47 @@ viewBox 表示要显示坐标轴上哪个范围的内容，四个数字 `min-x m
     <line x1="0" y1="0" x2="100" y2="100" stroke="blue" />
 </svg>
 
+## animate
+
+animate 可以动态地更新 SVG 的元素属性，从而实现动画效果。例如，动态地设置圆的半径：
+
+```svg
+<circle cx="50" cy="50" fill="blue">
+    <animate
+        attributeName="r"
+        values="0;40;0"
+        dur="4s"
+        repeatCount="indefinite" />
+</circle>
+<circle cx="150" cy="50" fill="red">
+    <animate
+        attributeName="r"
+        values="40;0"
+        dur="2s"
+        repeatCount="indefinite" />
+</circle>
+```
+
+<svg xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" fill="blue">
+        <animate
+            attributeName="r"
+            values="0;40;0"
+            dur="4s"
+            repeatCount="indefinite" />
+    </circle>
+    <circle cx="150" cy="50" fill="red">
+        <animate
+            attributeName="r"
+            values="40;0"
+            dur="2s"
+            repeatCount="indefinite" />
+    </circle>
+</svg>
+
+上面的代码表示对 `circle` 的半径属性 `r` 设置动态更新，规则是从 0 到 40 再变回 0。一次循环花费 5s，无限循环。
+
 ## 参考
 
 - <https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html>
+- <https://developer.mozilla.org/en-US/docs/Web/SVG>
