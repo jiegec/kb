@@ -322,6 +322,28 @@ animate 可以动态地更新 SVG 的元素属性，从而实现动画效果。�
 
 上面的代码表示对 `circle` 的半径属性 `r` 设置动态更新，规则是从 0 到 40 再变回 0。一次循环花费 5s，无限循环。
 
+如果要让元素按照路径移动，可以用 `animateMotion` 指定移动的路径：
+
+```svg
+<path d="M 10 10 L 90 10, 90 90, 10 90 z" fill="none" stroke="black" />
+<circle r="5" fill="blue">
+    <animateMotion
+        path="M 10 10 L 90 10, 90 90, 10 90 z"
+        dur="4s"
+        repeatCount="indefinite" />
+</circle>
+```
+
+<svg xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 10 L 90 10, 90 90, 10 90 z" fill="none" stroke="black" />
+    <circle r="5" fill="blue">
+        <animateMotion
+            path="M 10 10 L 90 10, 90 90, 10 90 z"
+            dur="4s"
+            repeatCount="indefinite" />
+    </circle>
+</svg>
+
 ## 参考
 
 - <https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html>
