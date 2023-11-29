@@ -25,7 +25,7 @@ Line：从 (x1, y1) 到 (x2,y2) 连一条直线：
 <line x1="0" y1="0" x2="100" y2="100" stroke="blue" stroke-width="10" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="100" x2="100" y2="0" stroke="black" />
     <line x1="0" y1="0" x2="100" y2="100" stroke="blue" stroke-width="10" />
 </svg>
@@ -39,7 +39,7 @@ Line：从 (x1, y1) 到 (x2,y2) 连一条直线：
 <line x1="0" y1="100" x2="0" y2="0" stroke="black" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="0" x2="100" y2="0" stroke="black" />
     <line x1="100" y1="0" x2="100" y2="100" stroke="black" />
     <line x1="100" y1="100" x2="0" y2="100" stroke="black" />
@@ -56,7 +56,7 @@ Rect：以 (x,y) 为左上角，绘制一个 width x height 的矩形：
 <rect x="10" y="10" width="80" height="80" fill="red" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="0" x2="100" y2="0" stroke="black" />
     <line x1="0" y1="0" x2="0" y2="100" stroke="black" />
     <rect x="10" y="10" width="80" height="80" fill="red" />
@@ -72,7 +72,7 @@ Text：默认以 (x,y) 为左下角，绘制一段文字
 <circle cx="20" cy="30" r="2" fill="blue" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <rect x="10" y="10" width="110" height="30" fill="red" />
     <text x="20" y="30">Hello, World!</text>
     <circle cx="20" cy="30" r="2" fill="blue" />
@@ -90,7 +90,7 @@ Text：默认以 (x,y) 为左下角，绘制一段文字
 <circle cx="65" cy="30" r="2" fill="blue" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <rect x="10" y="10" width="110" height="30" fill="red" />
     <text x="65" y="30" text-anchor="middle">Hello, World!</text>
     <circle cx="65" cy="30" r="2" fill="blue" />
@@ -108,7 +108,7 @@ Text：默认以 (x,y) 为左下角，绘制一段文字
 <circle cx="100" cy="90" r="2" fill="blue" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <rect x="10" y="10" width="180" height="90" fill="red" />
     <text x="100" y="30" text-anchor="start">start</text>
     <circle cx="100" cy="30" r="2" fill="blue" />
@@ -128,7 +128,7 @@ Text：默认以 (x,y) 为左下角，绘制一段文字
 <circle cx="65" cy="25" r="2" fill="blue" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <rect x="10" y="10" width="110" height="30" fill="red" />
     <text x="65" y="25" text-anchor="middle" dominant-baseline="middle">Hello, World!</text>
     <circle cx="65" cy="25" r="2" fill="blue" />
@@ -190,7 +190,7 @@ Ellipse：椭圆或者圆，以 (cx, cy) 为中心，(rx, ry) 为 X 和 Y 方向
 <ellipse cx="50" cy="50" rx="40" ry="40" fill="red" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="0" x2="100" y2="0" stroke="black" />
     <line x1="0" y1="0" x2="0" y2="100" stroke="black" />
     <ellipse cx="50" cy="50" rx="40" ry="40" fill="red" />
@@ -204,7 +204,7 @@ Ellipse：椭圆或者圆，以 (cx, cy) 为中心，(rx, ry) 为 X 和 Y 方向
 <circle cx="50" cy="50" r="40" fill="blue" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="0" x2="100" y2="0" stroke="black" />
     <line x1="0" y1="0" x2="0" y2="100" stroke="black" />
     <circle cx="50" cy="50" r="40" fill="blue" />
@@ -218,7 +218,7 @@ path 允许用比较灵活的语法来绘制一段图形，语法类似于：移
 <path d="M 0 0 L 100 0, 100 100, 0 100" stroke="black" fill="none" />
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <path d="M 0 0 L 100 0, 100 100, 0 100" stroke="black" fill="none" />
 </svg>
 
@@ -303,7 +303,7 @@ animate 可以动态地更新 SVG 的元素属性，从而实现动画效果。�
 </circle>
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <circle cx="50" cy="50" fill="blue">
         <animate
             attributeName="r"
@@ -334,7 +334,7 @@ animate 可以动态地更新 SVG 的元素属性，从而实现动画效果。�
 </circle>
 ```
 
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg height="100px" xmlns="http://www.w3.org/2000/svg">
     <path d="M 10 10 L 90 10, 90 90, 10 90 z" fill="none" stroke="black" />
     <circle r="5" fill="blue">
         <animateMotion
