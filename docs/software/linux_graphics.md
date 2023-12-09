@@ -58,7 +58,7 @@ efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
 1. 内核接管 framebuffer，生成一个 console（驱动是 [fbcon](https://docs.kernel.org/fb/fbcon.html)），内核负责 console 到 framebuffer 的绘制；相比之前的 `console -> VGA driver (INT 10h) -> hardware`，有统一的 framebuffer 驱动以后，变成了 `console -> fbcon -> fbdev driver -> hardware`
 2. 同时创建设备 [`/dev/fb*`](https://docs.kernel.org/fb/framebuffer.html)，用户可以通过读写这些设备文件来修改 framebuffer 的内容；此外，还可以用 ioctl 命令去操控 framebuffer（定义在 `linux/fb.h`）
 
-现在如果安装了 Linux 发行版，又没有启动图形界面，那么大概率看到的就是一个 fbcon 驱动提供的 console，底层是 efifb 或者平台相关的 fb 驱动，例如 i915drmfb（Intel 显卡），nouveaudrmfb（NVIDIA 显卡），astdrmfb（ASPEED 显卡）等等。
+现在如果安装了 Linux 发行版，又没有启动图形界面，那么大概率看到的就是一个 fbcon 驱动提供的 console，底层是 efifb 或者平台相关的 fb 驱动，例如 i915drmfb（Intel 显卡），nouveaudrmfb（NVIDIA 显卡），astdrmfb（ASPEED 显卡）等等。也可能是用户态的 [kmscon](https://wiki.archlinux.org/title/KMSCON) 程序提供的 console，代替 fbcon 的功能，用 drm 或者 fbdev 在用户态实现 console 绘制。
 
 图形界面，例如 X11，也可以用 fbdev 的 framebuffer 来绘制内容：[xf86-video-fbdev](https://gitlab.freedesktop.org/xorg/driver/xf86-video-fbdev)。
 

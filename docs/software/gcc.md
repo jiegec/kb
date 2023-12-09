@@ -386,3 +386,44 @@ deleting insn with uid = 6.
    ...]
   "preparation-statements")
 ```
+
+## 构建用于开发的 GCC
+
+完整的 GCC 需要经过 bootstrap，但是为了开发，可以简化：
+
+```shell
+mkdir gcc-build
+cd gcc-build
+../gcc/configure --prefix=$PREFIX --enable-languages=c,c++ --disable-bootstrap CFLAGS="-g -O0" CXXFLAGS="-g -O0"
+make -j8
+make install -j8
+```
+
+交叉编译：给 configure 添加参数 `--target=loongarch64-unknown-linux-gnu`，但是有一些组件可能会因为缺少交叉编译环境而无法编译，可以只编译和安装 gcc：`make all-gcc && make install-gcc`。
+
+## 调试 GCC
+
+给 GCC 传递编译选项，可以让 GCC 打印中间结果，见 [GCC Developer Options](https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html)：`-fdump-tree-all -fdump-rtl-all -dP`。想要更加详细的日志，可以用 `-fdump-tree-all-details` 甚至 `-fdump-tree-all-all`。
+
+为了给 GCC 打断点，可以添加 `-v` 参数，找到实际的 `cc1` 命令行调用，再用调试器调试 cc1。GCC 提供了 gdbinit 配置：`gcc/gdbinit.in`。
+
+## 测试 GCC
+
+参考：[Installing GCC: Testing](https://gcc.gnu.org/install/test.html) [Working with the testsuite](https://dmalcolm.fedorapeople.org/gcc/newbies-guide/working-with-the-testsuite.html)
+
+运行所有 gcc 测试：`make check-gcc`。针对测试类型进行过滤：
+
+```shell
+# test according to all files named execute.exp
+make check-gcc RUNTESTFLAGS="execute.exp"
+# test according to all files named execute.exp
+# ./gcc/testsuite/g++.target/loongarch/loongarch.exp
+# ./gcc/testsuite/gcc.target/loongarch/loongarch.exp
+make check-gcc RUNTESTFLAGS="loongarch.exp"
+```
+
+进一步，限制到某个测例，例如要测试 `gcc.target/loongarch/cas-acquire.c`：
+
+```shell
+make check-gcc RUNTESTFLAGS="loongarch.exp='cas-acquire.c'"
+```
