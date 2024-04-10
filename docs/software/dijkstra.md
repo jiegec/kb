@@ -40,7 +40,7 @@ Q 是一个优先队列，队列每个元素都有优先级，支持如下操作
 根据优先队列的不同实现，得到不同的时间复杂度：
 
 1. 用数组实现优先队列，则 $T_{dp}=O(1), T_{em}=O(|V|)$，因此时间复杂度是 $O(|E|+|V|^2)=O(|V|^2)$
-2. 用平衡树或者堆实现优先队列，则 $T_{dp}=O(\log{|V|}), T_{em}=O(\log{|V|})$，算法总时间复杂度为 $O((|E|+|V|)\log{|V|})$
+2. 用平衡树或者堆（需要额外记录每个顶点在堆中的位置，随着堆的更新而更新）实现优先队列，则 $T_{dp}=O(\log{|V|}), T_{em}=O(\log{|V|})$，算法总时间复杂度为 $O((|E|+|V|)\log{|V|})$
 3. 用 Fibonacci 堆实现优先队列，则 $T_{dp}=O(1), T_{em}=O(\log{|V|})$，算法总时间复杂度为 $O(|E|+|V|\log{|V|})$
 
 最近一篇论文 [A Randomized Algorithm for Single-Source Shortest Path on Undirected Real-Weighted Graphs](https://arxiv.org/pdf/2307.04139.pdf) 提出了 $O(|E|\sqrt{\log{|V|}\log{\log{|V|}}})$ 的 Dijkstra 变种算法。
