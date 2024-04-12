@@ -1,0 +1,2425 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Knowledge Base of @jiegec">
+      
+      
+      
+        <link rel="canonical" href="https://jia.je/kb/hardware/bus_protocol.html">
+      
+      
+        <link rel="prev" href="bow.html">
+      
+      
+        <link rel="next" href="cache_coherence_protocol.html">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>总线协议 - 杰哥的知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-3109FRSVTT"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-3109FRSVTT",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-3109FRSVTT",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="总线协议 - 杰哥的知识库" >
+      
+        <meta  property="og:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/bus_protocol.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://jia.je/kb/hardware/bus_protocol.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="总线协议 - 杰哥的知识库" >
+      
+        <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/bus_protocol.png" >
+      
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="杰哥的知识库" class="md-header__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            杰哥的知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              总线协议
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../en/hardware/bus_protocol.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="bus_protocol.html" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+    
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cryptography/ec.html" class="md-tabs__link">
+          
+  
+    
+  
+  密码学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="acc_rv.html" class="md-tabs__link">
+          
+  
+    
+  
+  硬件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
+          
+  
+    
+  
+  数学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../networking/ethernet.html" class="md-tabs__link">
+          
+  
+    
+  
+  网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../software/2fa.html" class="md-tabs__link">
+          
+  
+    
+  
+  软件
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="杰哥的知识库" class="md-nav__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    杰哥的知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    密码学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            密码学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ec.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    椭圆曲线
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ecdsa.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECDSA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/lll.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLL 格基规约算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/montgomery_mul_mod.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Montgomery 模乘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/zk_snark.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zk-SNARK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    硬件
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            硬件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acc_rv.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ACC RV (Road vehicles - Advanced Cost-driven Chiplet Interface) 车规级芯粒互联接口标准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aib.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AIB (Advanced Interface Bus)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="async_sram.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异步 SRAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bow.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BoW (Bunch of Wires)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    总线协议
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="bus_protocol.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    总线协议
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      功能
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      简易总线协议
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wishbone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wishbone
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wishbone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wishbone-classic-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wishbone Classic Standard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wishbone-classic-pipelined" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wishbone Classic Pipelined
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axi" class="md-nav__link">
+    <span class="md-ellipsis">
+      AXI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tilelink" class="md-nav__link">
+    <span class="md-ellipsis">
+      TileLink
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TileLink">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      接口
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axi_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      和 AXI 的对比
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cache_coherence_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    缓存一致性协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cmos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CMOS (Complementary Metal Oxide Semiconductor)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cxl.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CXL (Compute Express Link)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="display_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    显示接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="error_detection_correction_code.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    检错纠错码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gpgpu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPGPU (General Purpose Graphics Processing Unit)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="high_speed_serial.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高速串行通信
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="i2c.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I2C (Inter-Integrated Circuit)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logic_levels.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑电平标准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="motherboard.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="on_chip_networks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    片上网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ooo_cpu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    乱序执行 CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscillator.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    振荡器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pcie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PCIe (Peripheral Component Interconnect Express)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sdram.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SDRAM (Synchronous Dynamic Random Access Memory)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spi.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SPI (Serial Peripheral Interface)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ucie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UCIe (Universal Chiplet Interconnect Express)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数学
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            数学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    抽象代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    傅立叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概率论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/score.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Score
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    网络
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ethernet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    以太网
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/infiniband.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InfiniBand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/spanning_tree_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STP 协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/vlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/wlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    软件
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            软件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/2fa.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2FA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/atomic_instructions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    原子指令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机图形学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cpio.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cpio 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/dijkstra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dijkstra 算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/gcc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GCC Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/linux_graphics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 图形软件栈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SGEMM on CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/svg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SVG
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/tar.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tar 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/transformer.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  
+    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/bus_protocol.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="_1">总线协议</h1>
+<h2 id="_2">功能</h2>
+<p>总线通常用于连接 CPU 和外设（包括内存），为了更好的兼容性和可复用性，能否设计一个统一的协议，其中 CPU 实现的是发起请求的一方（又称为 master），外设实现的是接收请求的一方（又称为 slave），那么如果要添加外设、或者替换 CPU 实现，都会变得比较简单，减少了许多适配的工作量。</p>
+<p>一个总线协议需要包括哪些内容？对于 CPU 来说，程序会读写内存，读写内存就需要将以下几个信号传输到内存：</p>
+<ol>
+<li>地址（<code>addr</code>）：例如 32 位地址</li>
+<li>数据（<code>w_data</code> 和 <code>r_data</code>）：分别是写数据和读数据，宽度通常为 32 位或 64 位，也就是一个时钟周期可以传输的数据量</li>
+<li>读还是写（<code>we</code>）：高表示写，低表示读</li>
+<li>字节有效（<code>be</code>）：例如为了实现单字节写，虽然 <code>w_data</code> 可能是 32 位宽，但是实际写入的是其中的一个字节</li>
+</ol>
+<p>除了请求的内容以外，为了表示 CPU 想要发送请求，还需要添加 <code>valid</code> 信号：高表示发送请求，低表示不发送请求。很多时候，外设的速度比较慢，可能无法保证每个周期都可以处理请求，因此外设可以提供一个 <code>ready</code> 信号：当 <code>valid=1 &amp;&amp; ready=1</code> 的时候，发送并处理请求；当 <code>valid=1 &amp;&amp; ready=0</code> 的时候，表示外设还没有准备好，此时 CPU 需要一直保持 <code>valid=1</code> 不变，等到外设准备好后，<code>valid=1 &amp;&amp; ready=1</code> 请求生效。</p>
+<h2 id="_3">简易总线协议</h2>
+<p>结合上文，可以设计一个简易总线协议，分别得到 master 和 slave 端的信号列表。约定在命名的时候用 <code>_o</code> 表示输出、<code>_i</code> 表示输入，那么 master 端（CPU 端）的信号：</p>
+<ol>
+<li><code>clock_i</code>：时钟输入</li>
+<li><code>valid_o</code>：高表示 master 想要发送请求</li>
+<li><code>ready_i</code>：高表示 slave 准备好处理请求</li>
+<li><code>addr_o</code>：master 想要读写的地址</li>
+<li><code>we_o</code>：master 想要读还是写</li>
+<li><code>data_o</code>：master 想要写入的数据</li>
+<li><code>be_o</code>：master 读写的字节使能，用于实现单字节写等</li>
+<li><code>data_i</code>：slave 提供给 master 的读取的数据</li>
+</ol>
+<p>除了时钟都是输入以外，把上面其余的信号输入、输出对称一下，就可以得到 slave 端（外设端）的信号：</p>
+<ol>
+<li><code>clock_i</code>：时钟输入</li>
+<li><code>valid_i</code>：高表示 master 想要发送请求</li>
+<li><code>ready_o</code>：高表示 slave 准备好处理请求</li>
+<li><code>addr_i</code>：master 想要读写的地址</li>
+<li><code>we_i</code>：master 想要读还是写</li>
+<li><code>data_i</code>：master 想要写入的数据</li>
+<li><code>be_i</code>：master 读写的字节使能，用于实现单字节写等</li>
+<li><code>data_o</code>：slave 提供给 master 的读取的数据</li>
+</ol>
+<p>以上面的总线协议为例，绘制出一个可能的波形图（以 master 的信号为例）：</p>
+<figure>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "clock", wave: "p.........", node: ".abcdefgh"},
+      { name: "valid_o", wave: "0101.01..0"},
+      { name: "ready_i", wave: "010.101..0"},
+      { name: "addr_o", wave: "x=x=.x===x", data: ["0x01", "0x02", "0x03", "0x01", "0x02"]},
+      { name: "we_o", wave: "x1x0.x101x"},
+      { name: "data_o", wave: "x=xxxx=x=x", data: ["0x12", "0x56", "0x9a"]},
+      { name: "be_o", wave: "x=x=.x=x=x", data: ["0x1", "0x1", "0x1", "0x1"]},
+      { name: "data_i", wave: "xxxx=xx=xx", data: ["0x34", "0x12"]},
+    ]
+}</script>
+<figcaption>简易总线协议的波形图</caption>
+</figcaption>
+</figure>
+<ul>
+<li><code>a</code> 周期：此时 <code>valid_o=1 &amp;&amp; ready_i=1</code> 说明有请求发生，此时 <code>we_o=1</code> 说明是一个写操作，并且写入地址是 <code>addr_o=0x01</code>，写入的数据是 <code>data_o=0x12</code></li>
+<li><code>b</code> 周期：此时 <code>valid_o=0 &amp;&amp; ready_i=0</code> 说明无事发生</li>
+<li><code>c</code> 周期：此时 <code>valid_o=1 &amp;&amp; ready_i=0</code> 说明 master 想要从地址 0x02（<code>addr_o=0x02</code>）读取数据（<code>we_o=0</code>），但是 slave 没有接受（<code>ready_i=0</code>）</li>
+<li><code>d</code> 周期：此时 <code>valid_o=1 &amp;&amp; ready_i=1</code> 说明有请求发生，master 从地址 0x02（<code>addr_o=0x02</code>）读取数据（<code>we_o=0</code>），读取的数据为 0x34（<code>data_i=0x34</code>）</li>
+<li><code>e</code> 周期：此时 <code>valid_o=0 &amp;&amp; ready_i=0</code> 说明无事发生</li>
+<li><code>f</code> 周期：此时 <code>valid_o=1 &amp;&amp; ready_i=1</code> 说明有请求发生，master 向地址 0x03（<code>addr_o=0x03</code>）写入数据（<code>we_o=1</code>），写入的数据为 0x56（<code>data_i=0x56</code>）</li>
+<li><code>g</code> 周期：此时 <code>valid_o=1 &amp;&amp; ready_i=1</code> 说明有请求发生，master 从地址 0x01（<code>addr_o=0x01</code>）读取数据（<code>we_o=0</code>），读取的数据为 0x12（<code>data_i=0x12</code>）</li>
+<li><code>h</code> 周期：此时 <code>valid_o=1 &amp;&amp; ready_i=1</code> 说明有请求发生，master 向地址 0x02（<code>addr_o=0x02</code>）写入数据（<code>we_o=1</code>），写入的数据为 0x9a（<code>data_i=0x9a</code>）</li>
+</ul>
+<p>观察上面的波形，得到如下几条规律：</p>
+<ol>
+<li>master 想要发起请求的时候，就设置 <code>valid_o=1</code>；当 slave 可以接受请求的时候，就设置 <code>ready_i=1</code>；在 <code>valid_o=1 &amp;&amp; ready_i=1</code> 时视为一次请求</li>
+<li>如果 master 发起请求，同时 slave 不能接收请求，即 <code>valid_o=1 &amp;&amp; ready_i=0</code>，此时 master 要保持 <code>addr_o</code> <code>we_o</code> <code>data_o</code> 和 <code>be_o</code> 不变，直到请求结束，这一点非常重要</li>
+<li>当 master 不发起请求的时候，即 <code>valid_o=0</code>，此时总线上的信号都视为无效数据，不应该进行处理；对于读操作，只有在 <code>valid_o=1 &amp;&amp; ready_i=1</code> 时 <code>data_i</code> 上的数据是有效的</li>
+<li>可以连续多个周期发生请求，即 <code>valid_o=1 &amp;&amp; ready_i=1</code> 连续多个周期等于一，此时是理想情况，可以达到总线最高的传输速度</li>
+</ol>
+<p>这样就实现了一个简易的总线协议。</p>
+<h2 id="wishbone">Wishbone</h2>
+<p>Wishbone 是一个在开源社区广泛使用的总线协议，其分为多个版本，下面介绍其中的 Wishbone Classic Standard 和 Wishbone Classic Pipelined。</p>
+<h3 id="wishbone-classic-standard">Wishbone Classic Standard</h3>
+<p>最简单的 Wishbone 版本叫做 Wishbone Classic Standard，其设计思路和上面的简易总线协议非常相似，下面将两者进行一个对比。Wishbone Classic Standard 协议的 master 端（CPU 端）的信号：</p>
+<ol>
+<li><code>CLK_I</code>: 时钟输入，即简易总线协议中的 <code>clock_i</code></li>
+<li><code>STB_O</code>：高表示 master 要发送请求，即简易总线协议中的 <code>valid_o</code></li>
+<li><code>ACK_I</code>：高表示 slave 处理请求，即简易总线协议中的 <code>ready_i</code></li>
+<li><code>ADR_O</code>：master 想要读写的地址，即简易总线协议中的 <code>addr_o</code></li>
+<li><code>WE_O</code>：master 想要读还是写，即简易总线协议中的 <code>we_o</code></li>
+<li><code>DAT_O</code>：master 想要写入的数据，即简易总线协议中的 <code>data_o</code></li>
+<li><code>SEL_O</code>：master 读写的字节使能，即简易总线协议中的 <code>be_o</code></li>
+<li><code>DAT_I</code>：master 从 slave 读取的数据，即简易总线协议中的 <code>data_i</code></li>
+<li><code>CYC_O</code>：总线的使能信号，无对应的简易总线协议信号</li>
+</ol>
+<p>此处忽略了一些可选信号。除了最后一个 <code>CYC_O</code>，其他的信号其实就是上文的简易总线协议。<code>CYC_O</code> 的可以认为是 master 想要占用 slave 的总线接口，在常见的使用场景下，直接认为 <code>CYC_O=STB_O</code>。它的用途是：</p>
+<ol>
+<li>占用 slave 的总线接口，不允许其他 master 访问</li>
+<li>简化 interconnect 的实现</li>
+</ol>
+<p>把上面简易总线协议的波形图改成 Wishbone Classic Standard，就可以得到：</p>
+<figure>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "CLK_I", wave: "p.........", node: ".abcdefgh"},
+      { name: "CYC_O", wave: "0101.01..0"},
+      { name: "STB_O", wave: "0101.01..0"},
+      { name: "ACK_I", wave: "010.101..0"},
+      { name: "ADR_O", wave: "x=x=.x===x", data: ["0x01", "0x02", "0x03", "0x01", "0x02"]},
+      { name: "WE_O", wave: "x1x0.x101x"},
+      { name: "DAT_O", wave: "x=xxxx=x=x", data: ["0x12", "0x56", "0x9a"]},
+      { name: "SEL_O", wave: "x=x=.x=x=x", data: ["0x1", "0x1", "0x1", "0x1"]},
+      { name: "DAT_I", wave: "xxxx=xx=xx", data: ["0x34", "0x12"]},
+    ]
+}</script>
+<figcaption>Wishbone Classic Standard 的波形图</caption>
+</figcaption>
+</figure>
+<h3 id="wishbone-classic-pipelined">Wishbone Classic Pipelined</h3>
+<p>Wishbone Classic Standard 协议非常简单，但是会遇到一个问题：假设实现的是一个 SRAM 控制器，它的读操作有一个周期的延迟，也就是说，在这个周期给出地址，需要在下一个周期才可以得到结果。在 Wishbone Classic Standard 中，就会出现下面的波形：</p>
+<figure>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "CLK_I", wave: "p.....", node: ".abcd"},
+      { name: "CYC_O", wave: "01...0"},
+      { name: "STB_O", wave: "01...0"},
+      { name: "ACK_I", wave: "0.1010"},
+      { name: "ADR_O", wave: "x=.=.x", data: ["0x01", "0x02"]},
+      { name: "WE_O", wave: "x0...x"},
+      { name: "DAT_O", wave: "xxxxxx"},
+      { name: "SEL_O", wave: "x=...x", data: ["0x1"]},
+      { name: "DAT_I", wave: "xx=x=x", data: ["0x12", "0x34"]},
+    ]
+}</script>
+<figcaption>Wishbone Classic Standard 实现 SRAM 控制器的波形图</caption>
+</figcaption>
+</figure>
+<ul>
+<li><code>a</code> 周期：master 给出读地址 0x01，此时 SRAM 控制器开始读取，但是此时数据还没有读取回来，所以 <code>ACK_I=0</code></li>
+<li><code>b</code> 周期：此时 SRAM 完成了读取，把读取的数据 0x12 放在 <code>DAT_I</code> 并设置 <code>ACK_I=1</code></li>
+<li><code>c</code> 周期：master 给出下一个读地址 0x02，SRAM 要重新开始读取</li>
+<li><code>d</code> 周期：此时 SRAM 完成了第二次读取，把读取的数据 0x34 放在 <code>DAT_I</code> 并设置 <code>ACK_I=1</code></li>
+</ul>
+<p>从波形来看，功能没有问题，但是每两个周期才能进行一次读操作，发挥不了最高的性能。在 <code>a</code> 周期给出第一个地址，在 <code>b</code> 周期得到第一个数据，那么如果能在 <code>b</code> 周期的时候给出第二个地址，就可以在 <code>c</code> 周期得到第二个数据，这样就可以实现流水线式的每个周期进行一次读操作。但是，Wishbone Classic Standard 要求 <code>b</code> 周期时第一次请求还没有结束，因此需要修改协议，来实现流水线式的请求。</p>
+<p>实现思路也很简单：既然 Wishbone Classic Standard 认为 <code>b</code> 周期时，第一次请求还没有结束，那就让第一次请求提前在 <code>a</code> 周期完成，只不过它的数据要等到 <code>b</code> 周期才能给出。实际上，这个时候的一次读操作，可以认为分成了两部分：首先是 master 向 slave 发送读请求，这个请求在 <code>a</code> 周期完成；然后是 slave 向 master 发送读的结果，这个结果在 <code>b</code> 周期完成。为了实现这个功能，进行如下修改：</p>
+<ul>
+<li>添加 <code>STALL_I</code> 信号：<code>CYC_O=1 &amp;&amp; STB_O=1 &amp;&amp; STALL_I=0</code> 表示进行一次读请求</li>
+<li>修改 <code>ACK_I</code> 信号含义：<code>CYC_O=1 &amp;&amp; STB_O=1 &amp;&amp; ACK_I=1</code> 表示一次读响应</li>
+</ul>
+<p>进行如上修改，就得到了 Wishbone Classic Pipelined 总线协议。上面的两次连续读操作波形如下：</p>
+<figure>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "CLK_I", wave: "p....", node: ".abcd"},
+      { name: "CYC_O", wave: "01..0"},
+      { name: "STB_O", wave: "01.0."},
+      { name: "STALL_I", wave: "0...."},
+      { name: "ACK_I", wave: "0.1.0"},
+      { name: "ADR_O", wave: "x==xx", data: ["0x01", "0x02"]},
+      { name: "WE_O", wave: "x0.xx"},
+      { name: "DAT_O", wave: "xxxxx"},
+      { name: "SEL_O", wave: "x=.xx", data: ["0x1"]},
+      { name: "DAT_I", wave: "xx==x", data: ["0x12", "0x34"]},
+    ]
+}</script>
+<figcaption>Wishbone Classic Pipelined 实现 SRAM 控制器的波形图</caption>
+</figcaption>
+</figure>
+<ul>
+<li><code>a</code> 周期：master 请求读地址 0x01，slave 接收读请求（<code>STALL_O=0</code>）</li>
+<li><code>b</code> 周期：slave 返回读请求结果 0x12，并设置 <code>ACK_I=1</code>；同时 master 请求读地址 0x02，slave 接收读请求（<code>STALL_O=0</code>）</li>
+<li><code>c</code> 周期：slave 返回读请求结果 0x34，并设置 <code>ACK_I=1</code>；master 不再发起请求，设置 <code>STB_O=0</code></li>
+<li><code>d</code> 周期：所有请求完成，master 设置 <code>CYC_O=0</code></li>
+</ul>
+<p>这样就利用 Wishbone Classic Pipelined 协议实现了一个每周期进行一次读操作的 slave。</p>
+<h2 id="axi">AXI</h2>
+<p>AXI 总线协议是 ARM 公司提出的总线协议，在 ARM 处理器以及 Xilinx FPGA 内使用的比较广泛。</p>
+<p>AXI 的信号分成五个 Channel：</p>
+<ol>
+<li>AW（Address Write）：写请求的地址会通过 AW Channel 发送给 Slave</li>
+<li>W（Write）：写请求的数据会通过 W Channel 发送给 Slave</li>
+<li>B：写响应会通过 B Channel 发送给 Master</li>
+<li>AR（Address Read）：读请求的地址会通过 AR Channel 发送给 Slave</li>
+<li>R（Read）：读响应会通过 R Channel 发送给 Slave</li>
+</ol>
+<p>每个 Channel 都包括 <code>valid-ready</code> 式的握手信号，对于 AW、W 和 AR Channel，Master 是发送方，Slave 是接收方；对于 R 和 B Channel，Slave 是发送方，Master 是接收方。</p>
+<p>可见 AXI 的设计把请求和响应的过程拆开，并且允许总线上同时有多个正在进行的请求：不用等待响应回来，就可以发送新的请求。因此 AXI 可以更好地利用内存的并行度，达到更高的性能，代价就是设计更加复杂。</p>
+<p>为了完成一次写请求，Master 需要：</p>
+<ol>
+<li>通过 AW Channel 发送要写入的地址、写入的长度等信息给 Slave</li>
+<li>通过 W Channel 发送要写入的数据，支持 Burst，也就是使用多个周期完成一个写请求的数据传输</li>
+<li>在 B Channel 上等待 Slave 回复写入完成的响应</li>
+</ol>
+<p>为了完成一次读请求，Master 需要：</p>
+<ol>
+<li>通过 AR Channel 发送要读取的地址、读取的长度等信息给 Slave</li>
+<li>在 R Channel 上等待 Slave 回复读取的数据，支持 Burst，也就是使用多个周期完成一个读响应的数据传输</li>
+</ol>
+<p>由于 AXI 上可以同时进行多个请求，为了让 Master 可以区分出 B 和 R Channel 上的响应与请求的对应关系，每个请求和响应都附带了一个 ID，那么 Master 在请求中附带了什么 ID，Slave 在响应的时候，也要附带相同的 ID。对于同一个 ID 的请求，其顺序是受保证的。</p>
+<p>AXI 有支持缓存一致性协议的扩展：ACE，其内容在 <a href="cache_coherence_protocol.html">一致性协议</a> 中介绍。</p>
+<h2 id="tilelink">TileLink</h2>
+<p>TileLink 总线协议是 SiFive 公司提出的总线协议，在 Rocket Chip 相关的项目中使用比较广泛。根据 <a href="https://github.com/chipsalliance/omnixtend/blob/master/OmniXtend-1.0.3/spec/TileLink-1.8.0.pdf">TileLink Spec 1.8.0</a>，TileLink 分为以下三种：</p>
+<ul>
+<li>TL-UL: 只支持读写，不支持 burst，类比 AXI-Lite</li>
+<li>TL-UH：支持读写，原子指令，预取，支持 burst，类比 AXI+ATOP（AXI5 引入的原子操作）</li>
+<li>TL-C：在 TL-UH 基础上支持缓存一致性协议，类比 AXI+ACE/CHI</li>
+</ul>
+<p>本文主要讨论前两种，TL-C 的内容在 <a href="cache_coherence_protocol.html">一致性协议</a> 中介绍。</p>
+<h3 id="_4">接口</h3>
+<p>TileLink Uncached(TL-UL 和 TL-UH) 包括了两个 channel：</p>
+<ul>
+<li>A channel: M-&gt;S 发送请求，类比 AXI 的 AR/AW/W</li>
+<li>D channel: S-&gt;M 发送响应，类比 AXI 的 R/W</li>
+</ul>
+<p>因此 TileLink 每个周期只能发送读或者写的请求，而 AXI 可以同时在 AR 和 AW channel 上发送请求。</p>
+<p>一些请求的例子：</p>
+<ul>
+<li>读：M-&gt;S 在 A channel 上发送 Get，S-&gt;M 在 D channel 上发送 AccessAckData</li>
+<li>写：M-&gt;S 在 A channel 上发送 PutFullData/PutPartialData，S-&gt;M 在 D channel 是发送 AccessAck</li>
+<li>原子操作：M-&gt;S 在 A channel 上发送 ArithmeticData/LogicalData，S-&gt;M 在 D channel 上发送 AccessAckData</li>
+<li>预取操作：M-&gt;S 在 A channel 上发送 Intent，S-&gt;M 在 D channel 上发送 AccessAck</li>
+</ul>
+<h3 id="axi_1">和 AXI 的对比</h3>
+<p>和 AXI 对比，TileLink 把读和写进行了合并，所有的读写请求都通过 A channel 发送，所有的响应都通过 D channel 回复。这样做简化了硬件的实现，但如果 CPU 希望同时进行大量的读写，可能 AXI 可以实现更高的性能。</p>
+<p>下面分析 TileLink 和 AXI 协议的桥接模块的实现方法。</p>
+<p>首先针对 <a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L59">AXI4ToTL</a> 模块的例子，来分析一下如何把一个 AXI4 Master 转换为 TileLink。</p>
+<p>针对 AXI4 和 TileLink 的区别进行设计：一个是读写 channel 合并了，所以这里需要一个 Arbiter；其次 AXI4 中 AW 和 W 是分开的，这里也需要进行合并。这个模块并不考虑 Burst 的情况，而是由 <a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/Fragmenter.scala#L14=">AXI4Fragmenter</a> 来进行拆分，即添加若干个 AW beat，和 W 进行配对。</p>
+<p>具体到代码实现上，首先把 AR channel <a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L86=">对应到</a> 到 A channel 上：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">val</span><span class="w"> </span><span class="n">r_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Wire</span><span class="p">(</span><span class="n">out</span><span class="p">.</span><span class="n">a</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">r_out</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">ar</span><span class="p">.</span><span class="n">valid</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">r_out</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">:&lt;=</span><span class="w"> </span><span class="n">edgeOut</span><span class="p">.</span><span class="nc">Get</span><span class="p">(</span><span class="n">r_id</span><span class="p">,</span><span class="w"> </span><span class="n">r_addr</span><span class="p">,</span><span class="w"> </span><span class="n">r_size</span><span class="p">).</span><span class="n">_2</span>
+</span></code></pre></div>
+<p>然后 AW+W channel 也<a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L119=">连接</a> 到 A channel，由于不用考虑 burst 的情况，这里在 aw 和 w 同时 valid 的时候才认为有请求。</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">val</span><span class="w"> </span><span class="n">w_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Wire</span><span class="p">(</span><span class="n">out</span><span class="p">.</span><span class="n">a</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">in</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">w_out</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">last</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">in</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">ready</span><span class="w">  </span><span class="o">:=</span><span class="w"> </span><span class="n">w_out</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">valid</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">w_out</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">valid</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">w_out</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">:&lt;=</span><span class="w"> </span><span class="n">edgeOut</span><span class="p">.</span><span class="nc">Put</span><span class="p">(</span><span class="n">w_id</span><span class="p">,</span><span class="w"> </span><span class="n">w_addr</span><span class="p">,</span><span class="w"> </span><span class="n">w_size</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">strb</span><span class="p">).</span><span class="n">_2</span>
+</span></code></pre></div>
+<p>为了区分请求的类型，读写的 id 增加了若干位，最低位 0 表示读，1 表示写，剩下几位是请求编号，这样发出去的是不同 id 的多个请求。</p>
+<p>然后，把读和写的 A channel <a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L155=">连接</a>到 Arbiter 上：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nc">TLArbiter</span><span class="p">(</span><span class="nc">TLArbiter</span><span class="p">.</span><span class="n">roundRobin</span><span class="p">)(</span><span class="n">out</span><span class="p">.</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">r_out</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">w_out</span><span class="p">))</span>
+</span></code></pre></div>
+<p>其余的部分则是对 D channel 进行判断，有数据的转给 R channel，没有数据的转给 B channel：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">out</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">Mux</span><span class="p">(</span><span class="n">d_hasData</span><span class="p">,</span><span class="w"> </span><span class="n">ok_r</span><span class="p">.</span><span class="n">ready</span><span class="p">,</span><span class="w"> </span><span class="n">ok_b</span><span class="p">.</span><span class="n">ready</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">ok_r</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d_hasData</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">ok_b</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">d_hasData</span>
+</span></code></pre></div>
+<p>最后处理了一下 TileLink 和 AXI4 对写请求返回确认的区别：TileLink 中，可以在第一个 burst beat 就返回确认，而 AXI4 需要在最后一个 burst beat 之后返回确认。</p>
+<p>再来看一下反过来的转换，即从 TileLink Master 到 AXI。由于 TileLink 同时只能进行读或者写，所以它首先做了一个虚构的 arw channel，可以理解为合并了 ar 和 aw channel 的 AXI4，这个设计在 SpinalHDL 的代码中也能看到。然后再根据是否是写入，分别<a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L153=">连接</a>到 ar 和 aw channel：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">val</span><span class="w"> </span><span class="n">queue_arw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Queue</span><span class="p">.</span><span class="n">irrevocable</span><span class="p">(</span><span class="n">out_arw</span><span class="p">,</span><span class="w"> </span><span class="n">entries</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span><span class="w"> </span><span class="n">flow</span><span class="o">=</span><span class="n">combinational</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">out</span><span class="p">.</span><span class="n">ar</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">queue_arw</span><span class="p">.</span><span class="n">bits</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">out</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">queue_arw</span><span class="p">.</span><span class="n">bits</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">out</span><span class="p">.</span><span class="n">ar</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">queue_arw</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">queue_arw</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">wen</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">out</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">queue_arw</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w">  </span><span class="n">queue_arw</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">wen</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">queue_arw</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">Mux</span><span class="p">(</span><span class="n">queue_arw</span><span class="p">.</span><span class="n">bits</span><span class="p">.</span><span class="n">wen</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">aw</span><span class="p">.</span><span class="n">ready</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">ar</span><span class="p">.</span><span class="n">ready</span><span class="p">)</span>
+</span></code></pre></div>
+<p><a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L197=">这里</a>处理了 aw 和 w 的 valid 信号：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">in</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">!</span><span class="n">stall</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nc">Mux</span><span class="p">(</span><span class="n">a_isPut</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">doneAW</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">out_arw</span><span class="p">.</span><span class="n">ready</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">out_w</span><span class="p">.</span><span class="n">ready</span><span class="p">,</span><span class="w"> </span><span class="n">out_arw</span><span class="p">.</span><span class="n">ready</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">out_arw</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">!</span><span class="n">stall</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nc">Mux</span><span class="p">(</span><span class="n">a_isPut</span><span class="p">,</span><span class="w"> </span><span class="o">!</span><span class="n">doneAW</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">out_w</span><span class="p">.</span><span class="n">ready</span><span class="p">,</span><span class="w"> </span><span class="nc">Bool</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">out_w</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">!</span><span class="n">stall</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a_isPut</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">doneAW</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">out_arw</span><span class="p">.</span><span class="n">ready</span><span class="p">)</span>
+</span></code></pre></div>
+<p>这样做的原因是，在 TileLink 中，每个 burst 都是一个 a channel 上的请求，而 AXI4 中，只有第一个 burst 有 aw 请求，所有 burst 都有 w 请求，因此这里用 doneAW 信号来进行区分。</p>
+<p>接着，要把 b 和 r channel 上的结果连接到 d channel，根据上面的经验，<a href="https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L205=">这里</a> 又是一个 arbitration：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">val</span><span class="w"> </span><span class="n">r_wins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="p">.</span><span class="n">r</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b_delay</span><span class="w"> </span><span class="o">=/=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">r_holds_d</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">out</span><span class="p">.</span><span class="n">r</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">r_wins</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">out</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">r_wins</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">in</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">Mux</span><span class="p">(</span><span class="n">r_wins</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">r</span><span class="p">.</span><span class="n">valid</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">valid</span><span class="p">)</span>
+</span></code></pre></div>
+<p>最后还处理了一下请求和结果顺序的问题。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年4月12日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年4月12日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+  
+
+
+
+<!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
+<h2 id="__comments">评论</h2>
+<!-- Insert generated snippet here -->
+
+<script src="https://giscus.app/client.js"
+      data-repo="jiegec/kb"
+      data-repo-id="R_kgDOJZwffg"
+      data-category="General"
+      data-category-id="DIC_kwDOJZwffs4CV-wv"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async>
+</script>
+                
+
+  <script>
+    var language = "";
+    if (language === "None") {
+      language = "zh";
+    }
+    var prefix = "";
+    var suffix = "";
+    if (language === "zh") {
+      prefix = "图 ";
+      suffix = "：";
+    } else {
+      // en
+      prefix = "Figure ";
+      suffix = ": ";
+    }
+    /* prepend the counter to the figcaption content */
+    var styles = `figure figcaption:before { content: "${prefix}" counter(figureCounter) "${suffix}" }`;
+
+    var styleSheet = document.createElement("style")
+    styleSheet.innerText = styles
+    document.head.appendChild(styleSheet)
+  </script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="bow.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: BoW (Bunch of Wires)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                BoW (Bunch of Wires)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="cache_coherence_protocol.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 缓存一致性协议">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                缓存一致性协议
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiajie Chen
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/skins/default.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../javascripts/tablesort.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body>
+</html>

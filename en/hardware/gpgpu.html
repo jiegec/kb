@@ -1,0 +1,3493 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Knowledge Base of @jiegec">
+      
+      
+      
+        <link rel="canonical" href="https://jia.je/kb/en/hardware/gpgpu.html">
+      
+      
+        <link rel="prev" href="error_detection_correction_code.html">
+      
+      
+        <link rel="next" href="high_speed_serial.html">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>GPGPU (General Purpose Graphics Processing Unit) - Jiegec's Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-3109FRSVTT"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-3109FRSVTT",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-3109FRSVTT",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="GPGPU (General Purpose Graphics Processing Unit) - Jiegec's Knowledge Base" >
+      
+        <meta  property="og:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/gpgpu.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://jia.je/kb/en/hardware/gpgpu.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="GPGPU (General Purpose Graphics Processing Unit) - Jiegec's Knowledge Base" >
+      
+        <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/gpgpu.png" >
+      
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gpgpu-general-purpose-graphics-processing-unit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiegec's Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GPGPU (General Purpose Graphics Processing Unit)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="gpgpu.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../hardware/gpgpu.html" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cryptography/ec.html" class="md-tabs__link">
+          
+  
+    
+  
+  Cryptography
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="acc_rv.html" class="md-tabs__link">
+          
+  
+    
+  
+  Hardware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
+          
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../networking/ethernet.html" class="md-tabs__link">
+          
+  
+    
+  
+  Networking
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../software/2fa.html" class="md-tabs__link">
+          
+  
+    
+  
+  Software
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Jiegec's Knowledge Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cryptography
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ec.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    椭圆曲线
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ecdsa.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECDSA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/lll.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLL 格基规约算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/montgomery_mul_mod.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Montgomery 模乘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/zk_snark.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zk-SNARK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acc_rv.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ACC RV (Road vehicles - Advanced Cost-driven Chiplet Interface) 车规级芯粒互联接口标准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aib.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AIB (Advanced Interface Bus)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="async_sram.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asynchronous SRAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bow.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BoW (Bunch of Wires)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bus_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    总线协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cache_coherence_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    缓存一致性协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cmos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CMOS (Complementary Metal Oxide Semiconductor)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cxl.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CXL (Compute Express Link)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="display_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    显示接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="error_detection_correction_code.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    检错纠错码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    GPGPU (General Purpose Graphics Processing Unit)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="gpgpu.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    GPGPU (General Purpose Graphics Processing Unit)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-tesla" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Tesla
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-fermi" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Fermi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-kepler" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Kepler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-maxwell" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Maxwell
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-pascal" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Pascal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-volta" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Volta
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-turing" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Turing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-ampere" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Ampere
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NVIDIA Ampere">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ga100" class="md-nav__link">
+    <span class="md-ellipsis">
+      GA100
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ga102" class="md-nav__link">
+    <span class="md-ellipsis">
+      GA102
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-ada-lovelace" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Ada Lovelace
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvidia-hopper" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Hopper
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sm" class="md-nav__link">
+    <span class="md-ellipsis">
+      SM 发展历史
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smpb" class="md-nav__link">
+    <span class="md-ellipsis">
+      SM/PB 发展历史
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存层次
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stall-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stall count
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-barrier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency Barrier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="high_speed_serial.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高速串行通信
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="i2c.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I2C (Inter-Integrated Circuit)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logic_levels.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logic level standards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="motherboard.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="on_chip_networks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    片上网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ooo_cpu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    乱序执行 CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscillator.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    振荡器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pcie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PCIe (Peripheral Component Interconnect Express)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sdram.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SDRAM (Synchronous Dynamic Random Access Memory)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spi.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SPI (Serial Peripheral Interface)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ucie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UCIe (Universal Chiplet Interconnect Express)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Mathematics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Mathematics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    抽象代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    傅立叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概率论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/score.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Score
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ethernet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    以太网
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/infiniband.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InfiniBand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/spanning_tree_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STP 协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/vlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/wlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Software
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/2fa.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2FA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/atomic_instructions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    原子指令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机图形学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cpio.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cpio 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/dijkstra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dijkstra 算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/gcc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GCC Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/linux_graphics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 图形软件栈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SGEMM on CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/svg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SVG
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/tar.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tar 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/transformer.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  
+    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/gpgpu.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="gpgpu-general-purpose-graphics-processing-unit">GPGPU (General Purpose Graphics Processing Unit)</h1>
+<p>GPGPU 是 General Purpose Graphics Processing Unit 的缩写，意思是支持通用用途的图形处理单元，是在显卡的基础上，通过 CUDA 等编程接口，使得用户可以对显卡进行编程，在显卡上执行自定义的程序。</p>
+<p>下面分析一些经典的 GPGPU 的架构。</p>
+<h2 id="nvidia-tesla">NVIDIA Tesla</h2>
+<p>论文：E. Lindholm, J. Nickolls, S. Oberman and J. Montrym, "NVIDIA Tesla: A Unified Graphics and Computing Architecture," in IEEE Micro, vol. 28, no. 2, pp. 39-55, March-April 2008, doi: 10.1109/MM.2008.31.</p>
+<p>NVIDIA Tesla 架构是第一代支持 CUDA 的 NVIDIA 显卡架构，也是从纯粹的显卡到支持通用计算的 GPGPU 转变的开始。</p>
+<p>传统的显卡执行的是固定的流程，如果学习过 OpenGL，会知道图形渲染会采用 Graphics Pipeline，所以显卡也是针对这个 Pipeline 去实现的。这个 Pipeline 中的 vertex shader 和 fragment shader 部分已经有了可编程的能力，所以早期的 GPU 就分别给这两部分设计处理器，所以 GPU 里面既有 vertex processor，又有 pixel-fragment processor。分开的好处是可以分别优化，缺点是很多时候 processor 任务量不匹配，导致硬件资源的浪费。</p>
+<p>因此 Tesla 的设计目的就是用一个单独的 processor 完成所有可编程的任务，既可以完成已有的 vertex shader 和 fragment shader 的执行，又可以实现未来 Graphics Pipeline 可能会增加的新的 shader 类型，例如论文中提到的 DX10 引入的 geometry shader。如不做合并，那么每次图形 API 要添加 shader，硬件就要加一个单独的单元，这个复杂度不可接受，而且旧硬件也没办法兼容新的 API。合并了以后，如果合并以后的 processor 足够通用，那就可以实现各种 shader，至少计算能力上不会有问题，只是说是否需要针对某些 shader 去做优化。</p>
+<p>既然确定了要用一个单独的 processor 来完成所有的可编程的计算，下面就来介绍这个 processor 是怎么实现的。以 GeForce 8800 GPU (G80) 为例，它有 8 个 Texture Processor Cluster (TPC)，每个 TPC 内部有两个 Streaming Multiprocessor（SM），每个 SM 里面有 8 个 Streaming Processor（SP）。（<code>a GeForce 8800 GPU with 128 streaming-processor (SP) cores organized as 16 streaming multiprocessors (SMs) in eight independent processing units called texture/processor clusters (TPCs).</code>）而具体执行计算的就是 SP，进行整数、浮点运算等等。架构图如下：</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_tesla_overview.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_tesla_overview.png" width="600" /></a>
+  </p>
+<figcaption>Tesla 架构总览（来源：NVIDIA Tesla: A Unified Graphics and Computing Architecture Figure 1）</figcaption>
+</figure>
+<p>图的上方是 Host CPU，CPU 通过 PCIe 等方式访问 GPU。根据要进行的任务类型，经过不同类型的预处理，但最终 Vertex/Pixel/Compute 任务都会通过 Streaming Processor Array (SPA)，也就是 TPC-SM-SP 三层次组成的大量计算核心来进行。这其实就是前面说的，把原来分别完成的任务，统一到相同的 processor 来完成。除了计算以外，针对 texture 和 raster 等图形相关的需求，设计了单独的硬件来加速，例如每个 TPC 都有自己的 Texture unit 和 Texture L1，在 L2 Slice 旁边还有 Raster operation processor (ROP)。虽然有 L2 缓存，但是这个缓存仅用于纹理处理，而没有用于 SPA。</p>
+<p>在这个框架下，就可以去实现 Graphics Pipeline 了。图中的 Input assembler 收集 vertex shader 计算需要的各种图形信息，然后 Vertex work distribution 通过 round-robin 的方式 把 vertex shader 计算任务分发到 SPA 上。于是 SPA 就会执行 vertex shader 的代码。vertex shader 的输出会继续留在 GPGPU 上，到 pixel-fragment processing 的时候，又是由 SPA 来执行 fragment shader 的代码。</p>
+<p>那么接下来来看 TPC 的内部架构。</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_tesla_tpc.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_tesla_tpc.png" width="600" /></a>
+  </p>
+<figcaption>Tesla TPC 架构（来源：NVIDIA Tesla: A Unified Graphics and Computing Architecture Figure 2）</figcaption>
+</figure>
+<p>每个 TPC 包括一个 Geometry controller 和一个 SM Controller (SMC)，下面是两个 SM，最后是 Texture unit 和它内部的 Texture L1。每个 SM 有 8 个 SP。Geometry controller 是用于配合 vertex shader 和 geometry shader 的，这里就不深入分析了。下面主要分析 SM。</p>
+<p>SM 是执行计算的主要部件，内部有 8 个 SP，两个 Special Function Unit（SFU，用于计算三角函数等特殊数学函数以及插值），一个多线程的取指令和 Issue 单元（MT Issue），一个指令缓存（I Cache），一个常量缓存（C Cache）和 16 KB 的共享内存（Shared memory）。注意 SM 内部没有数据缓存。每个 SP 包括一个浮点乘加单元（MAD，Multiply Add，没有乘加融合），每个 SFU 包括四个浮点乘法器。SP 工作在 1.5 GHz 的频率下，每个 SM 的单精度浮点峰值性能是 36 GFLOPS。这个 36 GFLOPS 包括了 SP 内的 MAD 单元的 <span class="arithmatex">\(8 * 2 * 1.5 = 24\)</span> GFLOPS 以及 SFU 内的浮点加法单元的 <span class="arithmatex">\(2 * 4 * 1.5 = 12\)</span> GFLOPS。（<code>The GeForce 8800 Ultra clocks the SPs and SFU units at 1.5 GHz, for a peak of 36 Gflops per SM. To optimize power and area efficiency, some SM non-data-path units operate at half the SP clock rate.</code>）</p>
+<p>SM 以 warp 为单位来并行执行多个线程，一个 warp 有 32 个线程，每个 SM 可以同时执行 768 个线程，也就是 24 个 warp。SM 在执行的时候，会选择一个准备好执行下一条指令的 warp 去发射指令。当 warp 分叉的时候，先完成分支一个方向的执行，再完成分支另一个方向，直到两边重新汇聚到同一条指令，此时整个 warp 又可以继续同时执行。</p>
+<p>负责 warp 调度的就是 SM warp scheduler。它运行在 1.5GHz 的一半频率，也就是 750MHz。它每个周期会从 24 个 warp 中选择一个去调度（<code>The SM warp scheduler operates at half the 1.5-GHz processor clock rate. At each cycle, it selects one of the 24 warps to execute a SIMT warp instruction</code>），被调度的 warp 的 32 个线程会被拆成两组，每组 16 个线程，然后用四个 1.5GHz 频率的周期去执行：因为 SP 只有 8 个，所以每个周期最多进行 8 个线程的执行，32 个线程的话就需要 4 个周期（<code>An issued warp instruction executes as two sets of 16 threads over four processor cycles.</code>）。在实现 warp 调度的时候，warp scheduler 采用了 scoreboard 机制，跟踪哪些 warp 可以被 issue。调度的时候，在可以被 issue 的 warp 里面，根据优先级、指令类型和公平性等原则去调度 warp。</p>
+<p>每个 SP 上执行的指令支持：浮点，整数，位运算，类型转换，特殊函数，控制流，内存读写和 Texture。现在找不到 Tesla 架构的指令集列表，但是在 <a href="https://docs.nvidia.com/cuda/archive/8.0/cuda-binary-utilities/index.html#fermi">Fermi Instruction Set</a> 可以看到 Tesla 的下一代架构 Fermi 的指令集列表。</p>
+<p>为了提升内存访问带宽，SM 会对同一个 warp 对 local 或者 global memory 的访问进行合并，把连续的访问合并成一个大的访问，从而提升性能。Tesla 架构还引入了原子指令，包括整数加法、整数最小最大值、逻辑运算、swap 和 Compare-And-Swap（CAS）。关于原子指令的部分，可以阅读 <a href="../software/atomic_instructions.html">原子指令</a> 的介绍。</p>
+<p>内存部分，Tesla 架构的 DRAM 宽度是 384 位，分为 6 组，每组 64 位，也对应了六分之一的显存容量，以及物理地址空间。Tesla 架构已经引入了虚拟内存，所有指令涉及到的地址都是虚拟地址。页表保存在 local memory 里，并且也有相应的 TLB 层次来减少 page table walk 的次数。Tesla 架构没有数据缓存，因为按照传统的图形流程，一般是从内存中读取纹理，进行一系列计算，然后写入结果到内存中。因此 Tesla 架构只针对纹理读取设置了 L1 和 L2 缓存。</p>
+<p>CUDA 中，有 thread block 的概念，也就是 cooperative thread array（CTA），cooperative 指的是这些 thread 可以通过 shared memory 和 __syncthreads 来协同完成一些计算。因为它们需要使用 shared memory，自然 CTA 会被归到某个 SM 下面，而不会跨越多个 SM 去执行。每个 SM 可以支持最多同时执行 8 个 CTA。</p>
+<p>CUDA 中线程一共有三个层次：第一个是 Grid，第二个是 Block（Thread Block，Cooperative Thread Array），第三个是 Thread。Thread 独享自己的 local memory，Block 内的所有 Thread 共享 Shared memory，Grid 内的所有 Thread 共享 Global memory。这样三个线程层次就和三种类型的内存对应上了。Local memory 虽然是线程局部的，但实际上也是保存在显存中，只不过不会被其他线程访问，用来保存栈和临时变量。只有 Shared memory 是放在 SM 内部的，供同一个 CTA 内的线程共享。</p>
+<p>最后，论文总结了采用 Tesla 架构的 GeForce 8800 Ultra GPU 的参数：</p>
+<ul>
+<li>681 million transistors, 470 mm^2;</li>
+<li>TSMC 90-nm CMOS;</li>
+<li>128 SP cores in 16 SMs; 每个 SM 内有 8 个 SP，所以 <span class="arithmatex">\(8 * 16 = 128\)</span></li>
+<li>12,288 processor threads; 每个 SM 可以调度 24 个 warp，所以 <span class="arithmatex">\(16 * 24 * 32 = 12288\)</span></li>
+<li>1.5-GHz processor clock rate;</li>
+<li>peak 576 Gflops in processors; 每个 SM 是 36 Gflops，所以 <span class="arithmatex">\(36 * 16 = 576\)</span></li>
+<li>768-Mbyte GDDR3 DRAM; 每个 GDDR3 channel 内存有 128MB，一共 6 个 channel，所以 <span class="arithmatex">\(128 * 6 = 768\)</span></li>
+<li>384-pin DRAM interface; 每个 GDDR3 channel 是 64 位，所以 <span class="arithmatex">\(64 * 6 = 384\)</span></li>
+<li>1.08-GHz DRAM clock;</li>
+<li>104-Gbyte/s peak bandwidth; 每个 GDDR3 channel 是 64 位，所以 <span class="arithmatex">\(1.08 * 64 / 8 * 2 * 6 = 103.68\)</span></li>
+<li>typical power of 150W at 1.3V.</li>
+</ul>
+<p>在 G80 之后，还有一个 Tesla 架构的芯片：GT200，采用了 Tesla 2.0 架构，65nm 制程工艺。Tesla 2.0 相比 Tesla 1.0，引入了双精度浮点计算。</p>
+<h2 id="nvidia-fermi">NVIDIA Fermi</h2>
+<p>论文：C. M. Wittenbrink, E. Kilgariff and A. Prabhu, "Fermi GF100 GPU Architecture," in IEEE Micro, vol. 31, no. 2, pp. 50-59, March-April 2011, doi: 10.1109/MM.2011.24.</p>
+<p>PPT: C.M. Wittenbrink, E. Kilgariff, and A. Prabhu, ‘‘Fermi GF100: A Graphics Processing Unit (GPU) Architecture for Compute Tessellation, Physics, and Computational Graphics,’’ IEEE Hot Chips, presentation, 2010; <a href="https://old.hotchips.org/wp-content/uploads/hc_archives/hc22/HC22.23.110-1-Wittenbrink-Fermi-GF100.pdf">https://old.hotchips.org/wp-content/uploads/hc_archives/hc22/HC22.23.110-1-Wittenbrink-Fermi-GF100.pdf</a>.</p>
+<p>Whitepaper: <a href="https://www.nvidia.com/content/pdf/fermi_white_papers/nvidia_fermi_compute_architecture_whitepaper.pdf">Fermi: NVIDIA’s Next Generation CUDA Compute Architecture</a></p>
+<p>Whitepaper: <a href="https://www.nvidia.com/content/PDF/fermi_white_papers/P.Glaskowsky_NVIDIA's_Fermi-The_First_Complete_GPU_Architecture.pdf">NVIDIA’s Fermi: The First Complete GPU Computing Architecture</a></p>
+<p>Fermi 是 Tesla 的下一代 NVIDIA 显卡架构。Tesla 虽然支持了通用计算，但依然保留了很多图形计算的遗留设计。相比之下，Fermi 针对通用计算做出了更多的改变：数据缓存、更多的访存单元、双精度浮点计算、ECC 内存以及更快的原子指令。通过引入 Unified Address Space，Fermi 架构能够支持更多使用指针的 C++ 程序。</p>
+<p>GF100 是 Fermi 架构的一款核心，它的配置如下：</p>
+<ul>
+<li>16 SM, 32 CUDA cores/SM, 512 CUDA cores in total</li>
+<li>3 billion transistors, 40nm TSMC process</li>
+<li>6Gbytes GDDR5 memory</li>
+<li>384-bit memory interface, 6 channels</li>
+<li>16 PolyMorph engines</li>
+<li>4 raster units</li>
+<li>64 texture units</li>
+<li>48 ROP(raster operation processor) units</li>
+</ul>
+<p>从微架构方面，Fermi 架构把 Tesla 架构的 TPC 改名为 Graphics Processor Clusters（GPC），毕竟 Texture 现在显得不再那么重要。GT100 有 4 个 GPC，每个 GPC 有 4 个 SM，所以一共是 16 个 SM。SM 个数相比 Tesla 架构没有变化，但是从 8 TPC 乘以 2 SM/TPC 变成了 4 GPC 乘以 4 SM/GPC。内存依然是 6 通道。新增了一个 GigaThread engine，每个 GPC 内有一个 PolyMorph engine 和 rasterizer（Tesla 架构整个 GPU 只有一个 rasterizer）。架构图见下：</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_fermi_overview.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_fermi_overview.png" width="600" /></a>
+  </p>
+<figcaption>Fermi 架构总览（来源：Fermi GF100 GPU Architecture Figure 2）</figcaption>
+</figure>
+<p>Fermi 架构在 SM 内部相比 Tesla 变化比较大：Tesla 每个 SM 只有 8 个 SP，而 Fermi 每个 SM 里面有 32 个 CUDA core，CUDA core 约等于 Tesla 的 SP，也就是说是四倍的关系。虽然 Fermi 架构的 SM 数量和 Tesla 相同，都是 16，但是从 CUDA core 的数量上看，从 <span class="arithmatex">\(16 * 8 = 128\)</span> 提升到了 <span class="arithmatex">\(16 * 32 = 512\)</span> 个。SFU 单元也从 Tesla 的每个 SM 两个，提升到了每个 SM 四个。Fermi 的 CUDA core 实现了浮点乘加融合（FMA），每个 SM 每周期可以进行 16 个双精度浮点乘加操作。Tesla 的浮点并没有完全按照 IEEE754 标准实现，例如不支持 subnormal 浮点，而 Fermi 实现了完整的支持，并且实现了 IEEE754 标准的 rounding mode。</p>
+<p>此外，Fermi 架构还把 Load/Store（LD/ST）单元独立出来，每个 SM 有 16 个 LD/ST 单元，地址空间也从 32 位扩大到了 64 位。寄存器堆保存了 32768 个 32 位寄存器。</p>
+<p>Tesla 架构有图形处理的惯性，只考虑了图形处理的场景，所以没有设置数据缓存，认为程序只会从内存中读取纹理，因此只设置了纹理的 L1 和 L2 缓存。但是缺少数据缓存对于基于 CUDA 的通用计算程序是致命的。Fermi 架构引入了 L1 和 L2 数据缓存。Fermi 架构的 Shared Memory 和 L1 数据缓存大小是可配置的，二者共享 64 KB 的空间，可以选择 48KB Shared Memory 加 16KB 的 L1 数据缓存，也可以选择 16KB Shared Memory 和 48KB 的 L1 数据缓存。Fermi 架构的 L2 缓存采用的是写回（write-back）策略。</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_fermi_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_fermi_sm.png" width="600" /></a>
+  </p>
+<figcaption>Fermi 架构 SM（来源：Fermi GF100 GPU Architecture Figure 3）</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_fermi_sm_dispatch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_fermi_sm_dispatch.png" width="600" /></a>
+  </p>
+<figcaption>Fermi 架构 SM 发射（来源：NVIDIA’s Fermi: The First Complete GPU Computing Architecture Figure 7）</figcaption>
+</figure>
+<p>可以看到，SM 内部设置了两个 Warp Scheduler，可以同时从两个独立的 warp 去发射指令。每个 warp 只会去用 16 个 CUDA core 或者 16 个 LD/ST 单元或者 4 个 SFU 单元去执行，一共有 4 个 dispatch port，每个 dispatch port 每个周期只能接受最多一条指令。图中表示的是，一条浮点或者整数指令，会进入某一组 CUDA core 执行，执行的时候需要两个周期，每个周期对应 16 个线程，也意味着 dispatch port 需要占用两个周期；如果是 SIN 或者 RCP 指令，则需要八个周期，每个周期对应 4 个线程；如果是访存指令，那就需要两个周期。</p>
+<p>GigaThread engine 负责把 thread block 分发给 SM，同时可以提高上下文切换的速度，使得 GPGPU 可以高效地处理来自不同应用的 kernel，根据 Fermi whitepaper：</p>
+<ul>
+<li>10x faster application context switching: below 25 microseconds</li>
+<li>Concurrent kernel execution: different kernels of the same application context can execute on the GPU at the same time</li>
+<li>Out of Order thread block execution</li>
+<li>Dual overlapped memory transfer engines</li>
+</ul>
+<p>下面是 Tesla 1.0、Tesla 2.0 和 Fermi 架构的 GPU 的对比表格：</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_tesla_fermi_comparison.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_tesla_fermi_comparison.png" width="600" /></a>
+  </p>
+<figcaption>Tesla 和 Fermi 架构对比（来源：Fermi Whitepaper Summary Table）</figcaption>
+</figure>
+<h2 id="nvidia-kepler">NVIDIA Kepler</h2>
+<p>Whitepaper: <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/tesla-product-literature/NVIDIA-Kepler-GK110-GK210-Architecture-Whitepaper.pdf">NVIDIA’s Next Generation CUDA Compute Architecture: Kepler TM GK110/210</a></p>
+<p>Datasheet: <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/documents/NV-DS-Tesla-KCompute-Arch-May-2012-LR.pdf">NVIDIA® KEPLER GK110 NEXT-GENERATION CUDA® COMPUTE ARCHITECTURE</a></p>
+<p>Kepler 相比 Fermi 架构的主要改进：</p>
+<ol>
+<li>Dynamic Parallelism 和 Grid Management Unit：不仅 CPU 可以提交任务到 GPU 执行，GPU 自己也可以提交任务到自己上去执行</li>
+<li>Hyper-Q：允许多个 CPU 核心同时向 GPU 提交任务，把硬件任务队列从 1 增加到了 32 个。每个 CUDA stream 会对应到一个硬件任务队列，因此增加硬件任务队列，可以减少 false dependency。</li>
+<li>GPUDirect：支持 RDMA</li>
+</ol>
+<p>和前两代不同的是，Kepler 去掉了 TPC/GPC 这一个层级，而是把 SM 做的很大，称为 SMX，一个 GK110/GK210 有 15 个 SMX，每个 SMX 里面有：</p>
+<ul>
+<li>一个 SM 有 192 个单精度 CUDA Core，64 个双精度计算单元，32 个 SFU，32 个 LD/ST 单元</li>
+<li>一个 SM 有四个 Warp Scheduler，每个 Warp Scheduler 选出同一个 Warp 的两条指令去发射</li>
+<li>一个 SM 有 65536 或者 131072 个 32 位寄存器</li>
+</ul>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_kepler_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_kepler_sm.png" width="600" /></a>
+  </p>
+<figcaption>Kepler 架构 SM（来源：NVIDIA’s Next Generation CUDA Compute Architecture: Kepler TM GK110/210）</figcaption>
+</figure>
+<p>不过根据 <a href="https://chipsandcheese.com/2023/11/24/inside-kepler-nvidias-strong-start-on-28-nm/">Inside Kepler, Nvidia’s Strong Start on 28 nm</a>，Kepler 每个 SM 内部分为四个 Partition（SMSP，Streaming Multiprocessor Sub Partition），每个 Partition 包括一个双发射的 Warp Scheduler，32 个 FP32 core，8 个 SFU。四个 Partition 以外还有 64 个 shared FP32 core。或许 SMSP 的概念从 Kepler 这一代就有了（<code>For all GPUs since Kepler (with exception to GP100) there are 4 SMSP per SM.</code>，见 <a href="https://forums.developer.nvidia.com/t/question-about-smsp-and-sm/154560">https://forums.developer.nvidia.com/t/question-about-smsp-and-sm/154560/2</a>），只不过在绘制它的 SM 图示的时候，还没有分开画。或许是觉得共享的 FP32 不容易画吧。从 Kepler 的下一代 Maxwell 开始，就没有共享的 FP32 单元了，所有计算单元都是归到某个 partition 下。（<code>As with SMX, each SMM has four warp schedulers. Unlike SMX, however, all SMM core functional units are assigned to a particular scheduler, with no shared units. Along with the selection of a power-of-two number of CUDA Cores per SM, which simplifies scheduling and reduces stall cycles, this partitioning of SM computational resources in SMM is a major component of the streamlined efficiency of SMM.</code>，来源 <a href="https://docs.nvidia.com/cuda/maxwell-tuning-guide/index.html#instruction-scheduling">Tuning CUDA Applications for Maxwell</a>）。</p>
+<p>Kepler 为了要支持四个 Warp Scheduler，每个周期 Dispatch 8 条指令，简化了 Warp Scheduler 的工作方式：由于计算指令的延迟是固定的，因此可以由编译器来计算一些指令的调度，从而减轻了硬件调度的负担，硬件可以直接从指令中读取预先计算好的信息，然后在调度 Warp 的时候，根据这些信息防止一些 Warp 被调度。这个信息应该是保存在 Control Code/Instruction 中的，网上也有一些针对 Control Code/Instruction 编码的研究：</p>
+<ul>
+<li><a href="https://github.com/cloudcores/CuAssembler/blob/master/UserGuide.md">https://github.com/cloudcores/CuAssembler/blob/master/UserGuide.md</a></li>
+<li><a href="https://github.com/NervanaSystems/maxas/wiki/Control-Codes">https://github.com/NervanaSystems/maxas/wiki/Control-Codes</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/166180054">https://zhuanlan.zhihu.com/p/166180054</a></li>
+</ul>
+<p>Control Code 主要包括如下的信息：</p>
+<ul>
+<li>Stall Count: 当前指令发射后，预计等待多少个周期再发射下一条指令</li>
+<li>Yield Hint：当前指令发射后，建议切换到其他 Warp</li>
+<li>Read Dependency Barrier：设置一个 Dependency Barrier，表示这条指令需要延迟读某个寄存器，如果后续有指令会修改同一个寄存器，那就需要保证后续的指令要等待这个 Dependency Barrier，否则可能后面的指令修改了前面指令所需要的操作数</li>
+<li>Write Dependency Barrier：设置一个 Dependency Barrier，表示这条指令需要写入某个寄存器，但是指令执行的实现不确定，用 stall count 不能保证数据在后续依赖它的指令发射前准备好，就让后续指令等待这个 Dependency Barrier</li>
+<li>Wait Dependency Barrier：等待若干个 Dependency Barrier，当设置该 Barrier 上的指令执行完成，才可以调度当前指令</li>
+</ul>
+<p>内存层级方面，Kepler 引入了一个额外的 48KB 只读 Data Cache，用于保存只读的数据，可以提供相比 Shared/L1 cache 更高的性能。根据 <a href="https://arxiv.org/pdf/1804.06826.pdf">https://arxiv.org/pdf/1804.06826.pdf</a>，Kepler 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 <span class="arithmatex">\(128 / 32 = 4\)</span> 字节的数据。</p>
+<p>GK110 有 1536 KB 的 L2 缓存。</p>
+<h2 id="nvidia-maxwell">NVIDIA Maxwell</h2>
+<p>Whitepaper: <a href="https://www.microway.com/download/whitepaper/NVIDIA_Maxwell_GM204_Architecture_Whitepaper.pdf">NVIDIA GeForce GTX 980</a></p>
+<p>PPT: <a href="https://developer.download.nvidia.cn/assets/events/GDC15/GEFORCE/Maxwell_Archictecture_GDC15.pdf">New GPU Features of NVIDIA’s Maxwell Architecture</a></p>
+<p>Blog: <a href="https://developer.nvidia.com/blog/5-things-you-should-know-about-new-maxwell-gpu-architecture/">5 Things You Should Know About the New Maxwell GPU Architecture</a></p>
+<p>虽然 Kepler 把 GPC 层次去掉了，但是 Maxwell 架构又把 GPC 加回来了。Maxwell 分为两代，第一代的 GM107 以及第二代的 GM204。GM204 是一个 Maxwell 架构的 GPU 芯片：</p>
+<ul>
+<li>4 GPC，每个 GPC 有一个 raster engine 和四个 SMM</li>
+<li>16 SMM，每个 SMM 有 128 个 CUDA core，一个 PolyMorph engine 和 8 个 texture unit</li>
+<li>4 Memory Controller，一共 256 位宽，7Gbps GDDR5 内存，每个 Memory Controller 带有 16 ROP 单元和 512KB 的 L2 缓存</li>
+<li>28nm 制程</li>
+</ul>
+<p>Maxwell 的 SM 叫做 SMM，它依然是四个 Warp Scheduler，但是和 Kepler 不同的是，它把计算单元也划分成了四份，每一份叫做一个 Processing Block（PB）。每个 Processing Block 里面有一个 Instruction Buffer，一个每周期 Dispatch 两条指令的 Warp Scheduler，32 个 CUDA core，1 个双精度计算单元，8 个 LD/ST unit 以及 8 个 SFU。也就是说，每个 SM 有 128 个 CUDA core，数量比 Kepler 的 192 CUDA core/SM 变少了，但是 Maxwell 也配置了更多的 SM。这些计算单元只会被 Processing Block 内的 Warp scheduler 使用。</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_maxwell_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_maxwell_sm.png" width="600" /></a>
+  </p>
+<figcaption>Maxwell 架构 SM（来源：NVIDIA GeForce GTX 980 Whitepaper）</figcaption>
+</figure>
+<p>Maxwell 架构的 L1 缓存和 Shared Memory 不再共享，Shared Memory 独占 96KB，然后 L1 缓存和 Texture 缓存共享空间。根据 <a href="https://arxiv.org/pdf/1804.06826.pdf">https://arxiv.org/pdf/1804.06826.pdf</a>，Maxwell 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 <span class="arithmatex">\(128 / 4 / 8 = 4\)</span> 字节的数据。</p>
+<p>GM200 有 3072 KB 的 L2 缓存。</p>
+<h2 id="nvidia-pascal">NVIDIA Pascal</h2>
+<p>Whitepaper: <a href="https://images.nvidia.cn/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper.pdf">NVIDIA Tesla P100</a></p>
+<p>GP100 是 Pascal 架构的芯片，改进如下：</p>
+<ul>
+<li>支持 NVLink，双向带宽 160 GB/s</li>
+<li>使用 HBM2 作为显存，替代了 GDDR 内存</li>
+<li>TSMC 16nm FinFET 工艺</li>
+<li>支持 Unified Memory，使得 CPU 和 GPU 可以共享虚拟地址空间，让数据自动进行迁移</li>
+<li>支持 Compute Preemption，使得 kernel 可以在指令级别做抢占，而不是 thread block 级别，这样就可以让调试器等交互式的任务不会阻碍其他计算任务的进行；在 Kepler 架构中，只有等一个 thread block 的所有 thread 完成，硬件才可以做上下文切换，但是如果中间遇到了调试器的断点，这时候 thread block 并没有完成，那么此时只有调试器可以使用 GPU，其他任务就无法在 GPGPU 上执行</li>
+<li>GP100 有 6 个 GPC，每个 GPC 内部有 5 个 TPC，每个 TPC 内部有 2 个 SM；GP100 总共有 <span class="arithmatex">\(6*5*2=60\)</span> 个 SM（<code>A full GP100 consists of six GPCs, 60 Pascal SMs, 30 TPCs (each including two SMs)</code>）</li>
+<li>每个 SM 有 64 个单精度 CUDA core，32 个双精度 CUDA core，4 个 texture unit</li>
+<li>8 个 512 位的内存控制器（<code>eight 512-bit memory controllers (4096 bits total)</code>），每个内存控制器附带 512 KB L2 缓存，总共有 4096 KB 的 L2 缓存。每两个内存控制器为一组，连接到 4 个 1024 位的 HBM2 内存（<code>Each memory controller is attached to 512 KB of L2 cache, and each HBM2 DRAM stack is controlled by a pair of memory controllers. The full GPU includes a total of 4096 KB of L2 cache.</code>）</li>
+<li>支持 FP16 计算，两个 FP16 打包起来用一条指令进行计算</li>
+</ul>
+<p>可以看到，GP100 每个 SM 只有 64 个单精度 CUDA core，而 Maxwell 有 128 个，Kepler 有 192 个，Fermi 有 32 个，Tesla 有 8 个。GP100 的一个 SM 里有两个 Processing Block，每个 Processing Block 有一个 Instruction Buffer、一个双发射 Warp Scheduler、32 个单精度 CUDA core、16 个双精度 CUDA core、8 个 LD/ST Unit 和 8 个 SFU，和 Maxwell 基本一样。只不过 Pascal 架构每个 SM 只有两个 Processing Block，而 Maxwell 每个 SM 有四个 Processing Block。但 Pascal 架构每个 SM 有 64 KB 的 Shared memory，并且 SM 的数量比 Maxwell 的两倍还要多，因此实际上是在变相地增加 Shared memory 的数量、容量以及带宽。</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_pascal_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_pascal_sm.png" width="600" /></a>
+  </p>
+<figcaption>Pascal 架构 SM（来源：NVIDIA Tesla P100 Whitepaper）</figcaption>
+</figure>
+<p>根据 <a href="https://arxiv.org/pdf/1804.06826.pdf">https://arxiv.org/pdf/1804.06826.pdf</a>，Pascal 架构每个周期每个 SM 可以读取 128 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 <span class="arithmatex">\(128 / 2 / 8 = 8\)</span> 字节的数据。</p>
+<h2 id="nvidia-volta">NVIDIA Volta</h2>
+<p>Whitepaper: <a href="https://images.nvidia.cn/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf">NVIDIA TESLA V100 GPU ARCHITECTURE</a></p>
+<p>Tuning Guide: <a href="https://docs.nvidia.com/cuda/volta-tuning-guide/index.html">Tuning CUDA Applications for Volta</a></p>
+<p>PPT: <a href="https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf">VOLTA: PROGRAMMABILITY AND PERFORMANCE</a></p>
+<p>GV100 是 Volta 架构的 GPU，它的改进包括：</p>
+<ul>
+<li>TSMC 12nm FFN 工艺，815 mm^2 面积，21.1 billion transistors</li>
+<li>把 Tensor Core 引入到 SM 中</li>
+<li>支持 Independent Thread Scheduling，改变了 Warp 的分叉方法，原来 Warp 分叉的时候，只能先走一个分支，再走另一个分支；从 Volta 开始，Warp 分叉以后会变成两个 Warp，因此分支的两个方向可以 Interleaved 方式执行</li>
+<li>6 个 GPC，每个 GPC 有 7 个 TPC，每个 TPC 有 2 个 SM；一共有 84 个 SM（<code>Six GPCs, Each GPC has: Seven TPCs (each including two SMs), 14 SMs</code>）</li>
+<li>每个 SM 有 64 个 FP32 CUDA core，64 个 INT32 CUDA core，32 个 FP64 CUDA core，8 个 Tensor Core 和 4 个 Texture Unit（<code>Each SM has: 64 FP32 cores, 64 INT32 cores, 32 FP64 cores, 8 Tensor Cores, Four texture units</code>）</li>
+<li>8 个 512-bit Memory Controller（<code>Eight 512-bit memory controllers (4096 bits total)</code>）</li>
+</ul>
+<p>GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing Block 包括（<code>The GV100 SM is partitioned into four processing blocks, each with 16 FP32 Cores, 8 FP64 Cores, 16 INT32 Cores, two of the new mixed-precision Tensor Cores for deep learning matrix arithmetic, a new L0 instruction cache, one warp scheduler, one dispatch unit, and a 64 KB Register File. Note that the new L0 instruction cache is now used in each partition to provide higher efficiency than the instruction buffers used in prior NVIDIA GPUs. (See the Volta SM in Figure 5).</code>）：</p>
+<ul>
+<li>L0 Instruction Cache</li>
+<li>一个单发射 Warp Scheduler</li>
+<li>Register File</li>
+<li>16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST unit，2 个 Tensor Core，4 个 SFU</li>
+</ul>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_volta_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_volta_sm.png" width="600" /></a>
+  </p>
+<figcaption>Volta 架构 SM（来源：NVIDIA TESLA V100 GPU ARCHITECTURE Figure 5）</figcaption>
+</figure>
+<p>注意 Volta 的 Warp Scheduler 又回到了单发射，这是因为每个 Processing Block 的 FP32 core 变少了（GP100 是 32 个，GV100 是 16 个），例如一条涉及 32 条线程的指令被发射，那么它需要两个周期来完成，第二个周期的时候，Warp Scheduler 也会同时发射其他指令，从而实现指令级并行。</p>
+<p>根据 <a href="https://forums.developer.nvidia.com/t/understanding-instruction-dispatching-in-volta-architecture/108896/6">Understanding instruction dispatching in Volta architecture</a>，实际上 LD/ST unit 并不是分布在四个 Processing Block 内，而是在 SM 级别共享，也就是说 SM 有公共的 32 个 LD/ST unit，这 32 个公共的 LD/ST unit 供四个 Processing Block 共享。</p>
+<p>在 Volta 架构中，L1 Data Cache 和 Shared memory 再次共享。同时引入了 L0 Instruction Cache，每个 Processing Block 内部都有一个。此外，FP32 单元从 INT32 单元独立出来，使得它们可以同时进行计算（<code>the Volta GV100 SM includes separate FP32 and INT32 cores, allowing simultaneous execution of FP32 and INT32 operations at full throughput</code>）。根据 <a href="https://arxiv.org/pdf/1804.06826.pdf">https://arxiv.org/pdf/1804.06826.pdf</a>，Volta 架构每个周期每个 SM 可以读取 256 字节的数据，也就是说，每个 LD/ST unit 每周期可以读取 <span class="arithmatex">\(256 / 4 / 8 = 8\)</span> 字节的数据。但根据 <a href="https://github.com/te42kyfo/gpu-benches">https://github.com/te42kyfo/gpu-benches</a> 实测，每个 SM 每周期只能读取不到 128 字节（14 TB/s，80 个 SM，时钟频率 1530 MHz，每个 SM 每周期读取 <span class="arithmatex">\(14 / 80 / 1530 * 1e6 = 114\)</span> 字节）的数据。</p>
+<p>GV100 有 6144 KB 的 L2 缓存（<code>The full GV100 GPU includes a total of 6144 KB of L2 cache.</code>），分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据（<code>32 B/clk/slice</code>），因此整个 L2 缓存的读带宽是 <span class="arithmatex">\(64 * 32 = 2048\)</span> 字节每周期（<code>compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.</code>）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 <span class="arithmatex">\(2048 * 1530 = 3.133\)</span> TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 <span class="arithmatex">\(2048 / 80 = 25.6\)</span> 字节（<code>V100 has a peak math rate of 125 FP16 Tensor TFLOPS, an off-chip memory bandwidth of approx. 900 GB/s, and an on-chip L2 bandwidth of 3.1 TB/s, giving it a ops:byte ratio between 40 and 139, depending on the source of an operation’s data (on-chip or off-chip memory).</code>）。</p>
+<h2 id="nvidia-turing">NVIDIA Turing</h2>
+<p>Whitepaper: <a href="https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf">NVIDIA TURING GPU ARCHITECTURE</a></p>
+<p>PPT: <a href="https://old.hotchips.org/hc31/HC31_2.12_NVIDIA_final.pdf">RTX ON – THE NVIDIA TURING GPU</a></p>
+<p>TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：</p>
+<ul>
+<li>6 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM；一共是 72 个 SM（<code>The TU102 GPU includes six Graphics Processing Clusters (GPCs), 36 Texture Processing Clusters (TPCs), and 72 Streaming Multiprocessors (SMs).</code>）</li>
+<li>每个 GPC 有一个 raster engine（<code>Each GPC includes a dedicated raster engine</code>）</li>
+<li>每个 SM 有 64 个 CUDA core，8 个 tensor core，4 个 texture unit，256 KB 寄存器堆和 96KB 的 L1/Shared Memory（<code>Each SM contains 64 CUDA Cores, eight Tensor Cores, a 256 KB register file, four texture units, and 96 KB of L1/shared memory</code>）</li>
+<li>12 个 32-bit GDDR6 memory controller（<code>12 32-bit GDDR6 memory controllers (384-bits total)</code>）</li>
+</ul>
+<p>Turing 架构的 SM 分成四个 Processing Block，每个 Processing Block 包括（<code>The Turing SM is partitioned into four processing blocks, each with 16 FP32 Cores, 16 INT32 Cores, two Tensor Cores, one warp scheduler, and one dispatch unit. Each block includes a new L0 instruction cache and a 64 KB register file. The four processing blocks share a combined 96 KB L1 data cache/shared memory.</code>）：</p>
+<ul>
+<li>16 个 FP32 core，16 个 INT32 core，2 个 Tensor Core</li>
+<li>一个单发射 Warp Scheduler</li>
+<li>L0 指令缓存</li>
+<li>64KB 寄存器堆</li>
+</ul>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_turing_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_turing_sm.png" width="600" /></a>
+  </p>
+<figcaption>Turing 架构 SM（来源：NVIDIA TURING GPU ARCHITECTURE Figure 4）</figcaption>
+</figure>
+<p>TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能只有单精度性能的 1/32。（<code>The TU102 GPU also features 144 FP64 units (two per SM), which are not depicted in this diagram. The FP64 TFLOP rate is 1/32nd the TFLOP rate of FP32 operations. The small number of FP64 hardware units are included to ensure any programs with FP64 code operates correctly.</code>）</p>
+<p>下面是 Turing 架构的 SM 的微架构，可以看到，它的访存部分（Memory I/O，MIO）是由放在 Processing Block 外面、SM 里面的 MIO 单元完成：</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_turing_sm_microarchitecture.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_turing_sm_microarchitecture.png" width="600" /></a>
+  </p>
+<figcaption>Turing 架构 SM 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_turing_memory.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_turing_memory.png" width="600" /></a>
+  </p>
+<figcaption>Turing 架构 MIO 微架构（来源：RTX ON – THE NVIDIA TURING GPU）</figcaption>
+</figure>
+<p>Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（<code>increasing its hit bandwidth by 2x per TPC compared to Pascal</code>）</p>
+<h2 id="nvidia-ampere">NVIDIA Ampere</h2>
+<p>Whitepaper: <a href="https://images.nvidia.cn/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf">NVIDIA A100 Tensor Core GPU Architecture</a></p>
+<p>PPT: <a href="https://hc32.hotchips.org/assets/program/conference/day1/HotChips2020_GPU_NVIDIA_Choquette_v01.pdf">NVIDIA A100 GPU: PERFORMANCE &amp; INNOVATION FOR GPU COMPUTING</a></p>
+<p>论文：<a href="https://ieeexplore.ieee.org/abstract/document/9365803">The A100 Datacenter GPU and Ampere Architecture</a></p>
+<p>论文：<a href="https://ieeexplore.ieee.org/abstract/document/9926299/">Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis</a></p>
+<h3 id="ga100">GA100</h3>
+<p>完整的 GA100 芯片包括：</p>
+<ul>
+<li>8 个 GPC，每个 GPC 有 8 个 TPC，每个 TPC 有 2 个 SM：一共 128 个 SM（<code>8 GPCs, 8 TPCs/GPC, 2 SMs/TPC, 16 SMs/GPC, 128 SMs per full GPU</code>）</li>
+<li>每个 SM 有 4 个 Processing Block，每个 PB 有：16 个 INT32 core，16 个 FP32 core，8 个 FP64 core，1 个第三代 Tensor Core，8 个 LD/ST unit 和 4 个 SFU</li>
+<li>6 个 HBM2 stack，对应 12 个 512-bit memory controller（<code>6 HBM2 stacks, 12 512-bit Memory Controllers</code>）</li>
+</ul>
+<p>每个 SM 的 L1 Data Cache/Shared Memory 总量增加到了 192 KB。（<code>192 KB of combined shared memory and L1 data cache, 1.5x larger than V100 SM</code>）</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_ampere_ga100_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_ampere_ga100_sm.png" width="600" /></a>
+  </p>
+<figcaption>Ampere 架构 GA100 SM（来源：NVIDIA A100 Tensor Core GPU Architecture Figure 7）</figcaption>
+</figure>
+<p>A100 GPU 有 40 MB 的 L2 缓存（<code>The A100 GPU in the A100 Tensor Core GPU includes 40 MB of L2 cache, which is 6.7x larger than Tesla V100 L2 cache.</code>），分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小，每 8 个 L2 slice 对应一个 memory controller（<code>Each L2 cache partition is divided into 40 L2 cache slices. Eight 512 KB L2 slices are associated with each memory controller.</code>）。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 <span class="arithmatex">\(2 * 40 * 64 = 5120\)</span> 字节每周期（<code>The A100 L2 read bandwidth is 5120 Bytes/clk</code>）。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 <span class="arithmatex">\(5120 * 1410 = 7.219\)</span> TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 <span class="arithmatex">\(5120 / 108 = 47.4\)</span> 字节。</p>
+<p>根据 <a href="https://github.com/te42kyfo/gpu-benches">https://github.com/te42kyfo/gpu-benches</a> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 <span class="arithmatex">\(19 / 108 / 1410 * 1e6 = 125\)</span> 字节）的数据。</p>
+<h3 id="ga102">GA102</h3>
+<p>Whitepaper: <a href="https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf">NVIDIA AMPERE GA102 GPU ARCHITECTURE</a></p>
+<p>GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。（<code>GA10X includes FP32 processing on both datapaths, doubling the peak processing rate for FP32 operations. One datapath in each partition consists of 16 FP32 CUDA Cores capable of executing 16 FP32 operations per clock. Another datapath consists of both 16 FP32 CUDA Cores and 16 INT32 Cores, and is capable of executing either 16 FP32 operations OR 16 INT32 operations per clock. As a result of this new design, each GA10x SM partition is capable of executing either 32 FP32 operations per clock, or 16 FP32 and 16 INT32 operations per clock.</code>）</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_ampere_ga102_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_ampere_ga102_sm.png" width="600" /></a>
+  </p>
+<figcaption>Ampere 架构 GA102 SM（来源：NVIDIA NVIDIA AMPERE GA102 GPU ARCHITECTURE Figure 3）</figcaption>
+</figure>
+<p>GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 组 512KB 的 L2 缓存，每组对应一个内存控制器，L2 一共是 6144 KB。（<code>The memory subsystem of GA102 consists of twelve 32-bit memory controllers (384-bit total). 512 KB of L2 cache is paired with each 32-bit memory controller, for a total of 6144 KB on the full GA102 GPU.</code>）。</p>
+<p>GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（<code>GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)</code>）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 <span class="arithmatex">\(1710 * 16 * 8 = 219\)</span> GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 <span class="arithmatex">\(1815 * 16 * 4 = 166\)</span> GB/s）。（<code>Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.</code>）</p>
+<h2 id="nvidia-ada-lovelace">NVIDIA Ada Lovelace</h2>
+<p>Whitepaper: <a href="https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf">NVIDIA ADA GPU ARCHITECTURE</a></p>
+<p>Ada Lovelace 架构的 AD102 包括：</p>
+<ul>
+<li>12 个 GPC，每个 GPC 有 6 个 TPC，每个 TPC 有 2 个 SM：一共 144 个 SM（<code>The full AD102 GPU includes 12 Graphics Processing Clusters (GPCs), 72 Texture Processing Clusters (TPCs), 144 Streaming Multiprocessors (SMs)</code>）</li>
+<li>12 个 32 位内存控制器，一共 384 位（<code>a 384-bit memory interface with 12 32-bit memory controllers</code>）</li>
+<li>每个 SM 有四个 Processing Block，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，1 个第四代 Tensor Core，4 个 LD/ST unit，4 个 SFU（<code>Each SM in AD10x GPUs contain 128 CUDA Cores, one Ada Third-Generation RT Core, four Ada Fourth-Generation Tensor Cores, four Texture Units, a 256 KB Register File, and 128 KB of L1/Shared Memory</code>，<code>Like prior GPUs, the AD10x SM is divided into four processing blocks (or partitions), with each partition containing a 64 KB register file, an L0 instruction cache, one warp scheduler, one dispatch unit, 16 CUDA Cores that are dedicated for processing FP32 operations (up to 16 FP32 operations per clock), 16 CUDA Cores that can process FP32 or INT32 operations (16 FP32 operations per clock OR 16 INT32 operations per clock), one Ada Fourth-Generation Tensor Core, four Load/Store units, and a Special Function Unit (SFU) which executes transcendental and graphics interpolation instructions.</code>）</li>
+<li>此外每个 SM 还有 2 个 FP64 core（<code>The AD102 GPU also includes 288 FP64 Cores (2 per SM) which are not depicted in the above diagram. The FP64 TFLOP rate is 1/64th the TFLOP rate of FP32 operations. The small number of FP64 Cores are included to ensure any programs with FP64 code operate correctly, including FP64 Tensor Core code.</code>）</li>
+</ul>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_ada_lovelace_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_ada_lovelace_sm.png" width="600" /></a>
+  </p>
+<figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
+</figure>
+<h2 id="nvidia-hopper">NVIDIA Hopper</h2>
+<p>Whitepaper: <a href="https://resources.nvidia.com/en-us-tensor-core">NVIDIA H100 Tensor Core GPU Architecture</a></p>
+<p>PPT: <a href="https://hc34.hotchips.org/assets/program/conference/day1/GPU%20HPC/HC2022.NVIDIA.Choquette.vfinal01.pdf">NVIDIA HOPPER GPU: SCALING PERFORMANCE</a></p>
+<p>H100 SXM5 参数如下：</p>
+<ul>
+<li>TSMC 4N 制程，80 billion transistor（<code>The full GH100 GPU that powers the H100 GPU is fabricated using TSMC’s 4N process customized for NVIDIA, with 80 billion transistors, a die size of 814 mm2, and higher frequency design.</code>）</li>
+<li>HBM3 DRAM，5 个 stack，10 个 512-bit memory controller，总共 80 GB 容量（<code>6 HBM3 or HBM2e stacks, 12 512-bit Memory Controllers</code>）</li>
+<li>H100 SXM5 有 8 个 GPC，66 个 TPC，每个 TPC 有两个 SM；一共 132 个 SM（<code>8 GPCs, 66 TPCs, 2 SMs/TPC, 132 SMs per GPU</code>）</li>
+<li>每个 SM 内部有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU</li>
+</ul>
+<figure>
+<p><a class="glightbox" href="../../hardware/gpgpu_hopper_sm.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/gpgpu_hopper_sm.png" width="600" /></a>
+  </p>
+<figcaption>Hopper 架构 SM（来源：NVIDIA H100 Tensor Core GPU Architecture Figure 7）</figcaption>
+</figure>
+<p>H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。（<code>A 50 MB L2 cache in H100 is 1.25x larger than A100’s 40 MB L2.</code>）</p>
+<p>根据 <a href="https://github.com/te42kyfo/gpu-benches">https://github.com/te42kyfo/gpu-benches</a> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 <span class="arithmatex">\(25 / 114 / 1620 * 1e6 = 135\)</span> 字节）的数据。</p>
+<p>CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（<code>H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.</code>）其中 Thread Block 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（<code>The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.</code>）</p>
+<h2 id="sm">SM 发展历史</h2>
+<p>下面列出了各架构的 SM 发展历程，发射数表示方法为 Warp 数量（W）乘以每个 Warp 的发射指令数（I）：</p>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>单精度</th>
+<th>双精度</th>
+<th>SFU</th>
+<th>LD/ST</th>
+<th>发射数</th>
+<th>单精度/发射数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tesla 1.0 G80</td>
+<td>8</td>
+<td>0</td>
+<td>2</td>
+<td>N/A</td>
+<td>1 W * 1 I</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Tesla 2.0 GT200</td>
+<td>8</td>
+<td>1</td>
+<td>2</td>
+<td>N/A</td>
+<td>1 W * 1 I</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Fermi GF100</td>
+<td>32</td>
+<td>16</td>
+<td>4</td>
+<td>16</td>
+<td>2 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Kepler GK210</td>
+<td>192</td>
+<td>64</td>
+<td>32</td>
+<td>32</td>
+<td>4 W * 2 I</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Maxwell GM204 (per PB)</td>
+<td>32</td>
+<td>1</td>
+<td>8</td>
+<td>8</td>
+<td>1 W * 2 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Maxwell GM204 (per SM)</td>
+<td>128</td>
+<td>4</td>
+<td>32</td>
+<td>32</td>
+<td>4 W * 2 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Pascal GP100 (per PB)</td>
+<td>32</td>
+<td>16</td>
+<td>8</td>
+<td>8</td>
+<td>1 W * 2 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Pascal GP100 (per SM)</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+<td>16</td>
+<td>2 W * 2 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Volta GV100 (per PB)</td>
+<td>16</td>
+<td>8</td>
+<td>4</td>
+<td>8</td>
+<td>1 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Volta GV100 (per SM)</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+<td>32</td>
+<td>4 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Turing TU102 (per PB)</td>
+<td>16</td>
+<td>0</td>
+<td>4</td>
+<td>4</td>
+<td>1 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Turing TU102 (per SM)</td>
+<td>64</td>
+<td>2</td>
+<td>16</td>
+<td>16</td>
+<td>4 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Ampere GA100 (per PB)</td>
+<td>16</td>
+<td>8</td>
+<td>4</td>
+<td>8</td>
+<td>1 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Ampere GA100 (per SM)</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+<td>32</td>
+<td>4 W * 1 I</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Ampere GA102 (per PB)</td>
+<td>32</td>
+<td>0</td>
+<td>4</td>
+<td>4</td>
+<td>1 W * 1 I</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Ampere GA102 (per SM)</td>
+<td>128</td>
+<td>2</td>
+<td>16</td>
+<td>16</td>
+<td>4 W * 1 I</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Ada Lovelace AD102 (per PB)</td>
+<td>32</td>
+<td>0</td>
+<td>4</td>
+<td>4</td>
+<td>1 W * 1 I</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Ada Lovelace AD102 (per SM)</td>
+<td>128</td>
+<td>2</td>
+<td>16</td>
+<td>16</td>
+<td>4 W * 1 I</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Hopper GH100 (per PB)</td>
+<td>32</td>
+<td>16</td>
+<td>4</td>
+<td>8</td>
+<td>1 W * 1 I</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Hopper GH100 (per SM)</td>
+<td>128</td>
+<td>64</td>
+<td>16</td>
+<td>32</td>
+<td>4 W * 1 I</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+<p>注：TU102、GA102 和 AD102 等显卡是游戏卡，因此 FP64 单元很少，每个 SM 只有两个。</p>
+<p>各架构 SM 的浮点计算性能（参考 <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#arithmetic-instructions-throughput-native-arithmetic-instructions">Throughput of Native Arithmetic Instructions</a> 和 <a href="https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/">Matching CUDA arch and CUDA gencode for various NVIDIA architectures</a> 和 <a href="https://docs.nvidia.com/cuda/archive/8.0/cuda-c-programming-guide/index.html#arithmetic-instructions">Throughput of Native Arithmetic Instructions CUDA 8.0</a> 和 <a href="https://en.wikipedia.org/wiki/CUDA">CUDA - Wikipedia</a>）</p>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>半精度</th>
+<th>单精度</th>
+<th>双精度</th>
+<th>特殊函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fermi (SM 2.0, GF100/GF110)</td>
+<td>N/A</td>
+<td>32</td>
+<td>16</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Fermi (SM 2.1, GF104-108, GF114-119)</td>
+<td>N/A</td>
+<td>48</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Kepler (SM 3.0, GK104-GK107)</td>
+<td>N/A</td>
+<td>192</td>
+<td>8</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Kepler (SM 3.2, GK20A)</td>
+<td>N/A</td>
+<td>192</td>
+<td>8</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Kepler (SM 3.5, GK110, GK208)</td>
+<td>N/A</td>
+<td>192</td>
+<td>64</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Kepler (SM 3.7, GK210)</td>
+<td>N/A</td>
+<td>192</td>
+<td>64</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Maxwell (SM 5.0, GM107-108)</td>
+<td>N/A</td>
+<td>128</td>
+<td>4</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Maxwell (SM 5.2, GM200-206)</td>
+<td>N/A</td>
+<td>128</td>
+<td>4</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Maxwell (SM 5.3, GM20B)</td>
+<td>256</td>
+<td>128</td>
+<td>4</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Pascal (SM 6.0, GP100)</td>
+<td>128</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Pascal (SM 6.1, GP102-GP108)</td>
+<td>2</td>
+<td>128</td>
+<td>4</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Pascal (SM 6.2, GP10B)</td>
+<td>256</td>
+<td>128</td>
+<td>4</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Volta (SM 7.0, GV100)</td>
+<td>128</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Volta (SM 7.2, GV10B-GV11B)</td>
+<td>128</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Turing (SM 7.5, TU102-TU117)</td>
+<td>128</td>
+<td>64</td>
+<td>2</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Ampere (SM 8.0, GA100)</td>
+<td>256</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Ampere (SM 8.6, GA102-GA107)</td>
+<td>256</td>
+<td>128</td>
+<td>2</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Ada Lovelace (SM 8.9, AD102-AD107)</td>
+<td>128</td>
+<td>128</td>
+<td>2</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Hopper (SM 9.0, GH100)</td>
+<td>256</td>
+<td>128</td>
+<td>64</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<p>各架构每个 PB 中包括的单元数量：</p>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>FP32</th>
+<th>INT32</th>
+<th>FP32/INT32</th>
+<th>FP64</th>
+<th>LD/ST</th>
+<th>Tensor Core</th>
+<th>SFU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Maxwell (GM204)</td>
+<td>0</td>
+<td>0</td>
+<td>32</td>
+<td>0</td>
+<td>8</td>
+<td>0</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Pascal (GP100)</td>
+<td>0</td>
+<td>0</td>
+<td>32</td>
+<td>16</td>
+<td>8</td>
+<td>0</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Volta (GV100)</td>
+<td>16</td>
+<td>16</td>
+<td>0</td>
+<td>8</td>
+<td>8</td>
+<td>2x 1st Gen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Turing (TU102)</td>
+<td>16</td>
+<td>16</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>2x 2nd Gen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Ampere (GA100)</td>
+<td>16</td>
+<td>16</td>
+<td>0</td>
+<td>8</td>
+<td>8</td>
+<td>1x 3rd Gen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Ampere (GA102)</td>
+<td>16</td>
+<td>0</td>
+<td>16</td>
+<td>0</td>
+<td>4</td>
+<td>1x 3rd Gen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Ada Lovelace (AD102)</td>
+<td>16</td>
+<td>0</td>
+<td>16</td>
+<td>0</td>
+<td>4</td>
+<td>1x 4th Gen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Hopper (GH100)</td>
+<td>32</td>
+<td>16</td>
+<td>0</td>
+<td>16</td>
+<td>8</td>
+<td>1x 4th Gen</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>注：Volta 把 FP32/INT32 core 拆分，使得可以同时执行两类指令，而 Pascal 不行。（<code>Unlike Pascal GPUs, which could not execute FP32 and INT32 instructions simultaneously, the Volta GV100 SM includes separate FP32 and INT32 cores, allowing simultaneous execution of FP32 and INT32 operations at full throughput, while also increasing instruction issue throughput.</code>）</p>
+<p>各芯片的 SM 数量和 CUDA Core 数量：</p>
+<ul>
+<li>G80: 16 SM(8 TPC * 2 SM/TPC) * 8 = 128 CUDA core</li>
+<li>GF100: 16 SM(4 GPC * 4 SM/GPC) * 32 = 512 CUDA core</li>
+<li>GK210: 15 SM(15 SM) * 192 = 2730 CUDA core</li>
+<li>GM204: 16 SM(4 GPC * 4 SM/GPC) * 128(4 PB * 32 Core/PB) = 2048 CUDA core</li>
+<li>GP100: 60 SM(6 GPC * 5 TPC/GPC * 2 SM/TPC) * 64(2 PB * 32 Core/PB) = 3840 CUDA core</li>
+<li>GV100: 84 SM(6 GPC * 7 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 5376 CUDA core</li>
+<li>TU102: 72 SM(6 GPC * 6 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 4608 CUDA core</li>
+<li>GA100: 128 SM(8 GPC * 8 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 8192 CUDA core</li>
+<li>GA102: 84 SM(7 GPC * 6 TPC/GPC * 2 SM/TPC) * 128(4 PB * 32 Core/PB) = 10752 CUDA core</li>
+<li>AD102: 144 SM(12 GPC * 6 TPC/GPC * 2 SM/TPC) * 128(4 PB * 32 Core/PB) = 18432 CUDA core</li>
+<li>GH100: 144 SM(8 GPC * 9 TPC/GPC * 2 SM/TPC) * 128(4 PB * 32 Core/PB) = 18432 CUDA core</li>
+</ul>
+<p>很有意思的是，这里出现了不同的层次结构：</p>
+<ul>
+<li>SM</li>
+<li>TPC - SM</li>
+<li>GPC - SM</li>
+<li>GPC - TPC - SM</li>
+</ul>
+<h2 id="smpb">SM/PB 发展历史</h2>
+<p>如果以 SM 或 PB 的最小粒度来看，它的发展历史是：</p>
+<ul>
+<li>Tesla：一个 SM 只有 Instruction cache 和 Constant cache，8 个 CUDA core，2 个 SFU，16KB 的 shared memory</li>
+<li>Fermi：Instruction Cache，两个单发射的 Warp Scheduler，有 32 个 CUDA core，16 个 LD/ST unit，4 个 SFU，64 KB 的 shared memory/L1 cache</li>
+<li>Kepler：Instruction Cache，四个双发射的 Warp Scheduler，有 192 个 CUDA core，64 个 DP unit，32 个 SFU，32 个 LD/ST，65536 或 131072 * 32 bit 的寄存器堆，64KB 或者 128KB 的 shared memory/L1 cache，48KB 的 readonly data cache</li>
+<li>Maxwell：开始拆分 Processing Block，每个 PB 内部有 Instruction Buffer，一个双发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 CUDA core，1 个 DP unit，8 个 LD/ST unit，8 个 SFU</li>
+<li>Pascal：每个 PB 内部有 Instruction Buffer，一个双发射的 Warp Scheduler，32768 * 32-bit 的寄存器堆，32 个 CUDA core，16 个 DP unit，8 个 LD/ST unit，8 个 SFU</li>
+<li>Volta：每个 PB 内部有 L0 Instruction Cache，一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，8 个 LD/ST unit，2 个 Tensor Core，4 个 SFU</li>
+<li>Turing：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，2 个 Tensor Core，4 个 LD/ST unit，4 个 SFU</li>
+<li>Ampere：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 INT32 core，8 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU</li>
+<li>Ada Lovelace：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，16 个 FP32 core，16 个 FP32/INT32 core，1 个 Tensor Core，4 个 LD/ST unit，4 个 SFU</li>
+<li>Hopper：每个 PB 内部有一个单发射的 Warp Scheduler，16384 * 32-bit 的寄存器堆，32 个 FP32 core，16 个 INT32 core，16 个 FP64 core，1 个 Tensor Core，8 个 LD/ST unit，4 个 SFU</li>
+</ul>
+<h2 id="_1">内存层次</h2>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>L2 大小</th>
+<th>L2 B/clk</th>
+<th>L2 带宽</th>
+<th>内存带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kepler (GK110)</td>
+<td>1536 KB</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Maxwell (GM200)</td>
+<td>3072 KB</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Pascal (GP100, P100)</td>
+<td>4096 KB</td>
+<td>?</td>
+<td>?</td>
+<td>732 GB/s</td>
+</tr>
+<tr>
+<td>Volta (GV100, V100)</td>
+<td>6144 KB</td>
+<td>2048</td>
+<td>3133.440 GB/s</td>
+<td>900 GB/s</td>
+</tr>
+<tr>
+<td>Turing (TU102)</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Ampere (GA100, A100)</td>
+<td>40960 KB</td>
+<td>5120</td>
+<td>7219.200 GB/s</td>
+<td>1555 GB/s</td>
+</tr>
+<tr>
+<td>Ampere (GA102)</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Ada Lovelace (AD102, L40)</td>
+<td>98304 KB</td>
+<td>?</td>
+<td>?</td>
+<td>864 GB/s</td>
+</tr>
+<tr>
+<td>Hopper (GH100, H100 SXM5)</td>
+<td>51200 KB</td>
+<td>?</td>
+<td>?</td>
+<td>3352 GB/s</td>
+</tr>
+</tbody>
+</table>
+<p>备注：</p>
+<ul>
+<li>L2 带宽计算方法：频率 * 每周期读取字节数。</li>
+<li><code>A100 2.3x L2 BW vs V100</code>: <span class="arithmatex">\(7219.200 / 3133.40 = 2.3\)</span></li>
+<li><code>A100 6.7x L2 capacity vs V100</code>: <span class="arithmatex">\(40960 / 6144 = 6.7\)</span></li>
+<li><code>A100 1.7x DRAM BW vs V100</code>: <span class="arithmatex">\(1555 / 900 = 1.7\)</span></li>
+</ul>
+<h2 id="control-code">Control Code</h2>
+<p>前文提到，从 Kepler 架构开始，指令集加入了 Control Code 信息，用于实现调度。下面来结合一些用 CuAssembler 得到的例子，来分析这些信息的使用。</p>
+<h3 id="stall-count">Stall count</h3>
+<p>首先是 Stall Count，以 Ampere SM8.0 为例，这个架构里每个 PB 只有 8 个 LD/ST unit，因此一条 Load/Store 指令需要四个周期才能发射完成。因此如果是连续的 Load/Store 质量，它们的 Stall count 会是 4：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0090*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R8</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R2.64</span><span class="p">]</span><span class="w"> </span><span class="c1">;                       /* 0x0000000402087981 */</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00a0*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R9</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R2.64</span><span class="err">+</span><span class="mi">0x4</span><span class="p">]</span><span class="w"> </span><span class="c1">;                   /* 0x0000040402097981 */</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00b0*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R10</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R2.64</span><span class="err">+</span><span class="mi">0x8</span><span class="p">]</span><span class="w"> </span><span class="c1">;                  /* 0x00000804020a7981 */</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00c0*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R17</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R4.64</span><span class="p">]</span><span class="w"> </span><span class="c1">;                      /* 0x0000000404117981 */</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00d0*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R12</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R4.64</span><span class="err">+</span><span class="mi">0x4</span><span class="p">]</span><span class="w"> </span><span class="c1">;                  /* 0x00000404040c7981 */</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00e0*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R13</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R6.64</span><span class="p">]</span><span class="w"> </span><span class="c1">;                      /* 0x00000004060d7981 */</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00f0*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R14</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R6.64</span><span class="err">+</span><span class="mi">0x4</span><span class="p">]</span><span class="w"> </span><span class="c1">;                  /* 0x00000404060e7981 */</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="err">[</span><span class="nl">B------:R-:W3:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0100*/</span><span class="w">                   </span><span class="no">LDG.E</span><span class="w"> </span><span class="no">R15</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">R6.64</span><span class="err">+</span><span class="mi">0x8</span><span class="p">]</span><span class="w"> </span><span class="c1">;                  /* 0x00000804060f7981 */</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0150*/</span><span class="w">                   </span><span class="no">STG.E</span><span class="w"> </span><span class="p">[</span><span class="no">R8.64</span><span class="p">],</span><span class="w"> </span><span class="no">R12</span><span class="w"> </span><span class="c1">;                      /* 0x0000000c08007986 */</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0160*/</span><span class="w">                   </span><span class="no">STG.E</span><span class="w"> </span><span class="p">[</span><span class="no">R8.64</span><span class="err">+</span><span class="mi">0x4</span><span class="p">],</span><span class="w"> </span><span class="no">R13</span><span class="w"> </span><span class="c1">;                  /* 0x0000040d08007986 */</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0170*/</span><span class="w">                   </span><span class="no">STG.E</span><span class="w"> </span><span class="p">[</span><span class="no">R8.64</span><span class="err">+</span><span class="mi">0x8</span><span class="p">],</span><span class="w"> </span><span class="no">R14</span><span class="w"> </span><span class="c1">;                  /* 0x0000080e08007986 */</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0180*/</span><span class="w">                   </span><span class="no">STG.E</span><span class="w"> </span><span class="p">[</span><span class="no">R8.64</span><span class="err">+</span><span class="mi">0xc</span><span class="p">],</span><span class="w"> </span><span class="no">R15</span><span class="w"> </span><span class="c1">;                  /* 0x00000c0f08007986 */</span>
+</span></code></pre></div>
+<p>连续的 LDG/STG 的最后一条指令的 Stall count 不等于 4，是因为它的后一条指令不是 Load/Store 指令，不需要等 Load/Store 指令发射，因此不会挤占 dispatch port，就可以发射后面的指令。</p>
+<p>如果一系列的指令没有互相依赖，也不会挤占 dispatch port，就可以每个周期发射一条，此时 stall count 都是 1：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0010*/</span><span class="w">                   </span><span class="no">MOV</span><span class="w"> </span><span class="no">R4</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x168</span><span class="p">]</span><span class="w"> </span><span class="c1">;                   /* 0x00005a0000047a02 */</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0020*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R5</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x16c</span><span class="p">]</span><span class="w"> </span><span class="c1">;  /* 0x00005b00ff057624 */</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0030*/</span><span class="w">                   </span><span class="no">MOV</span><span class="w"> </span><span class="no">R2</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;                   /* 0x0000580000027a02 */</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0040*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R3</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x164</span><span class="p">]</span><span class="w"> </span><span class="c1">;  /* 0x00005900ff037624 */</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0050*/</span><span class="w">                   </span><span class="no">MOV</span><span class="w"> </span><span class="no">R6</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x170</span><span class="p">]</span><span class="w"> </span><span class="c1">;                   /* 0x00005c0000067a02 */</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0060*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R7</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x174</span><span class="p">]</span><span class="w"> </span><span class="c1">;  /* 0x00005d00ff077624 */</span>
+</span></code></pre></div>
+<p>虽然 Ampere SM 8.0 每个 PB 只有 16 个 INT32 和 16 个 FP 32 单元，也就是说一条 IMAD 指令需要两个周期才能发射完成，但是从上面可以看出，MOV 指令和 IMAD 指令使用不同的 dispatch port，虽然它们各自都需要两个周期来发射，但是间隔地发射使得每个周期都可以发射一条指令：</p>
+<table>
+<thead>
+<tr>
+<th>周期</th>
+<th>PC</th>
+<th>MOV dispatch port</th>
+<th>IMAD dispatch port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0010</td>
+<td>0010 MOV R4</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0020</td>
+<td>0010 MOV R4</td>
+<td>0020 IMAD.MOV.U32 R5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0030</td>
+<td>0030 MOV R2</td>
+<td>0020 IMAD.MOV.U32 R5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0040</td>
+<td>0030 MOV R2</td>
+<td>0040 IMAD.MOV.U32 R3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0050</td>
+<td>0050 MOV R6</td>
+<td>0040 IMAD.MOV.U32 R3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0060</td>
+<td>0050 MOV R6</td>
+<td>0060 IMAD.MOV.U32 R7</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0070</td>
+<td>Other insts</td>
+<td>0060 IMAD.MOV.U32 R7</td>
+</tr>
+</tbody>
+</table>
+<p>而如果是同类型的质量，就可能会阻塞 dispatch port，因此需要大于 1 的 stall count：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0010*/</span><span class="w">                   </span><span class="no">IADD3</span><span class="w"> </span><span class="no">R1</span><span class="p">,</span><span class="w"> </span><span class="no">R1</span><span class="p">,</span><span class="w"> </span><span class="mi">-0</span><span class="no">x1a0</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="w"> </span><span class="c1">;                                     /* 0xfffffe6001017810 */</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0020*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R2</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;                       /* 0x00005800ff027624 */</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0030*/</span><span class="w">                   </span><span class="no">ISETP.NE.AND</span><span class="w"> </span><span class="no">P0</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">],</span><span class="w"> </span><span class="no">PT</span><span class="w"> </span><span class="c1">;                   /* 0x00005800ff007a0c */</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S02</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0040*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x18</span><span class="p">]</span><span class="w"> </span><span class="c1">;                        /* 0x00000600ff007624 */</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0050*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R3</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x1c</span><span class="p">]</span><span class="w"> </span><span class="c1">;                        /* 0x00000700ff037624 */</span>
+</span></code></pre></div>
+<p>这里的 0010 IADD3 和 0020 IMAD 之间、0020 IMAD 和 0030 ISETP 之间、0030 ISETP 和 0040 IMAC 之间不会出现 dispatch port 的冲突。但是 IMAD 和 IMAD 就会出现冲突，所以 0040 IMAD 指令的 stall count 是 2。根据这些信息，可以猜测，IMAD 并没有放在 INT32 core 中执行，而是放到了 FP32 中，这样或许可以共享乘法器，减少面积。其余的 MOV，IADD3 和 ISETP 指令可能是在 INT32 core 中实现。下面的例子也说明了 IADD3 和 ISETP 大概率是同一个 dispatch port：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S02</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0080*/</span><span class="w">                   </span><span class="no">ISETP.NE.AND</span><span class="w"> </span><span class="no">P0</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">R2</span><span class="p">,</span><span class="w"> </span><span class="mi">0x1</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="w"> </span><span class="c1">;                             /* 0x000000010200780c */</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0090*/</span><span class="w">                   </span><span class="no">IADD3</span><span class="w"> </span><span class="no">R4</span><span class="p">,</span><span class="w"> </span><span class="no">P1</span><span class="p">,</span><span class="w"> </span><span class="no">R1</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x20</span><span class="p">],</span><span class="w"> </span><span class="no">RZ</span><span class="w"> </span><span class="c1">;                           /* 0x0000080001047a10 */</span>
+</span></code></pre></div>
+<p>如果仔细看 IMAD 指令的操作数（<code>IMAD.MOV.U32 R2, RZ, RZ, c[0x0][0x160]</code>），会发现它实现的就是 MOV 指令的行为（<code>MOV R2, c[0x0][0x160]</code>），因为 RZ 恒等于零。如果直接用 MOV 指令的话，MOV 指令会和 IADD3 或 ISETP 指令抢 dispatch port，而如果把 MOV 指令的效果，用 IMAD 指令实现，就可以提升性能，因为 IMAD 指令不会和 IADD3 和 ISETP 指令出现 dispatch port 冲突。IMAD 在计算单元中执行的时候，也可以检查一下操作数，如果要实现 MOV 的语义，就不用启用乘法器和加法器了。类似地，如果需要进行频繁的整数加法，也可以拆分成 IADD 和 IMAD，放到两个流水线中同时进行，只不过 IMAD 退化成了 <span class="arithmatex">\(1 * b + c\)</span>。这一点观察，来自于 <a href="https://zhuanlan.zhihu.com/p/391238629">GPGPU 中一些问题的理解与思考（3）- 指令执行吞吐与指令集设计</a>。</p>
+<p>再看下面一个例子，看看如何用 stall count 保证写后读（RAW）情况下，后续指令可以得到前面指令写入的正确结果：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*01c0*/</span><span class="w">                   </span><span class="no">IMAD.X</span><span class="w"> </span><span class="no">R4</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x54</span><span class="p">],</span><span class="w"> </span><span class="no">P0</span><span class="w"> </span><span class="c1">;                          /* 0x00001500ff047624 */</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*01d0*/</span><span class="w">                   </span><span class="no">ISETP.GE.U32.AND</span><span class="w"> </span><span class="no">P0</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x50</span><span class="p">],</span><span class="w"> </span><span class="no">PT</span><span class="w"> </span><span class="c1">;                /* 0x0000140000007a0c */</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*01e0*/</span><span class="w">                   </span><span class="no">ISETP.GE.U32.AND.EX</span><span class="w"> </span><span class="no">P1</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">R3</span><span class="p">,</span><span class="w"> </span><span class="no">R4</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">P1</span><span class="w"> </span><span class="c1">;                   /* 0x000000040300720c */</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">[</span><span class="nl">B------:R-:W-:</span><span class="err">-:</span><span class="nf">S02</span><span class="p">]</span><span class="w">          </span><span class="cm">/*01f0*/</span><span class="w">                   </span><span class="no">ISETP.GE.U32.AND.EX</span><span class="w"> </span><span class="no">P3</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">R3.reuse</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x54</span><span class="p">],</span><span class="w"> </span><span class="p">!</span><span class="no">P1</span><span class="p">,</span><span class="w"> </span><span class="no">P0</span><span class="w"> </span><span class="c1">;  /* 0x0000150003007a0c */</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S13</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0200*/</span><span class="w">                   </span><span class="no">ISETP.GE.U32.AND.EX</span><span class="w"> </span><span class="no">P0</span><span class="p">,</span><span class="w"> </span><span class="no">PT</span><span class="p">,</span><span class="w"> </span><span class="no">R3</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x54</span><span class="p">],</span><span class="w"> </span><span class="p">!</span><span class="no">P1</span><span class="p">,</span><span class="w"> </span><span class="no">P0</span><span class="w"> </span><span class="c1">;        /* 0x0000150003007a0c */</span>
+</span></code></pre></div>
+<p>首先是 01c0 的 IMAD 质量，它写入 R4 寄存器，会被 01e0 ISETP 指令使用，所以这是一个写后读的依赖。如果不考虑依赖，那么 01d0 ISETP 和 01e0 ISETP 应该只需要相隔两个周期，就可以保证顺利发射，但实际上 01d0 ISETP 的 stall count 设置成了 4。这会有什么效果呢？如果把周期画出来：</p>
+<table>
+<thead>
+<tr>
+<th>周期</th>
+<th>PC</th>
+<th>ISETP dispatch port</th>
+<th>IMAD dispatch port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>01c0</td>
+<td>Idle</td>
+<td>01c0 IMAD.X R4</td>
+</tr>
+<tr>
+<td>1</td>
+<td>01d0</td>
+<td>01d0 ISETP P0</td>
+<td>01c0 IMAD.X R4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>01d0</td>
+<td>01d0 ISETP P0</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>3</td>
+<td>01d0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>4</td>
+<td>01d0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>5</td>
+<td>01e0</td>
+<td>01e0 ISETP P1</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>6</td>
+<td>01e0</td>
+<td>01e0 ISETP P1</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>7</td>
+<td>01e0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>8</td>
+<td>01e0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+</tbody>
+</table>
+<p>我们不知道 IMAD.X 指令需要执行多少个周期，但是可以猜测，如果 01d0 ISETP 的 stall count 设置为 2，虽然 01e0 ISETP 质量可以提前发射，但是当他读取寄存器的时候，可能 IMAD.X 还没有计算完成并且把结果写回到寄存器。</p>
+<p>而后面的 01f0 ISETP 指令依赖了 P1 和 P0，也就是 01d0 ISETP 和 01e0 ISETP 指令要写入的寄存器，这里也出现了写后读的依赖。因此 01e0 ISETP 也设置了比 2 大的 stall count：4。到 0200 ISETP 的时候，它虽然也依赖 P1 和 P0，但是由于前面已经等待了足够的周期数，不需要额外的 stall count 了，因此 01f0 的 stall count 就是 2。把整个过程写下来，就得到了如下表格：</p>
+<table>
+<thead>
+<tr>
+<th>周期</th>
+<th>PC</th>
+<th>ISETP dispatch port</th>
+<th>IMAD dispatch port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>01c0</td>
+<td>Idle</td>
+<td>01c0 IMAD.X R4</td>
+</tr>
+<tr>
+<td>1</td>
+<td>01d0</td>
+<td>01d0 ISETP P0</td>
+<td>01c0 IMAD.X R4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>01d0</td>
+<td>01d0 ISETP P0</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>3</td>
+<td>01d0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>4</td>
+<td>01d0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>5</td>
+<td>01e0</td>
+<td>01e0 ISETP P1</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>6</td>
+<td>01e0</td>
+<td>01e0 ISETP P1</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>7</td>
+<td>01e0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>8</td>
+<td>01e0</td>
+<td>Idle</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>9</td>
+<td>01f0</td>
+<td>01f0 ISETP P3</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>10</td>
+<td>01f0</td>
+<td>01f0 ISETP P3</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>11</td>
+<td>0200</td>
+<td>0200 ISETP P0</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0200</td>
+<td>0200 ISETP P0</td>
+<td>Idle</td>
+</tr>
+</tbody>
+</table>
+<p>01f0 ISETP 指令依赖 01e0 ISETP，所以发射比它晚了 4 个周期；01e0 ISETP 指令依赖 01c0 IMAD.X，所以发射比它晚了 5 个周期。这可能意味着，IMAD.X 指令的延迟比 ISETP 要多一个周期。</p>
+<p>如果要测试连续相同指令的 stall count，可以构造 PTX 指令序列：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    mul.rn.f32  %f2, %f1, %f0;
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    mul.rn.f32  %f3, %f2, %f0;
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    mul.rn.f32  %f4, %f3, %f0;
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    mul.rn.f32  %f5, %f4, %f0;
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    mul.rn.f32  %f6, %f5, %f0;
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    mul.rn.f32  %f7, %f6, %f0;
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    mul.rn.f32  %f8, %f7, %f0;
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    mul.rn.f32  %f9, %f8, %f0;
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    mul.rn.f32  %f10, %f9, %f0;
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    mul.rn.f32  %f11, %f10, %f0;
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    mul.rn.f32  %f1, %f11, %f0;
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    mul.rn.f32  %f2, %f1, %f0;
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    mul.rn.f32  %f3, %f2, %f0;
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    mul.rn.f32  %f4, %f3, %f0;
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    mul.rn.f32  %f5, %f4, %f0;
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    mul.rn.f32  %f6, %f5, %f0;
+</span></code></pre></div>
+<p>这样就可以逼迫 ptxas 生成连续的 FMUL 指令：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0050*/</span><span class="w">                   </span><span class="no">FMUL</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x164</span><span class="p">]</span><span class="w"> </span><span class="c1">;    /* 0x0000590000007a20 */</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0060*/</span><span class="w">                   </span><span class="no">FMUL</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;    /* 0x0000580000007a20 */</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0070*/</span><span class="w">                   </span><span class="no">FMUL</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;    /* 0x0000580000007a20 */</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0080*/</span><span class="w">                   </span><span class="no">FMUL</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;    /* 0x0000580000007a20 */</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0090*/</span><span class="w">                   </span><span class="no">FMUL</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;    /* 0x0000580000007a20 */</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S04</span><span class="p">]</span><span class="w">          </span><span class="cm">/*00a0*/</span><span class="w">                   </span><span class="no">FMUL</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x160</span><span class="p">]</span><span class="w"> </span><span class="c1">;    /* 0x0000580000007a20 */</span>
+</span></code></pre></div>
+<p>可以看到，连续的 FMUL 指令，它们的 stall count 都是 4。SM 8.0 架构每个 PB 只有 16 个 FP32 core。如果把 dispatch 过程写下来，就是：</p>
+<table>
+<thead>
+<tr>
+<th>周期</th>
+<th>PC</th>
+<th>FMUL dispatch port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0050</td>
+<td>0050 FMUL</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0050</td>
+<td>0050 FMUL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0060</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0060</td>
+<td>Idle</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0060</td>
+<td>0060 FMUL</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0060</td>
+<td>0060 FMUL</td>
+</tr>
+</tbody>
+</table>
+<p>由于 0060 FMUL 依赖 0050 FMUL 的计算结果，说明四个周期就是连续 FMUL 指令依赖情况下，能够实现的最小间隔。这一点在 <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#multiprocessor-level">CUDA C Programming Guide</a> 得到了印证：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>If all input operands are registers, latency is caused by register dependencies,
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>i.e., some of the input operands are written by some previous instruction(s)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>whose execution has not completed yet. In this case, the latency is equal to the
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>execution time of the previous instruction and the warp schedulers must schedule
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>instructions of other warps during that time. Execution time varies depending on
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>the instruction. On devices of compute capability 7.x, for most arithmetic
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>instructions, it is typically 4 clock cycles. This means that 16 active warps
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>per multiprocessor (4 cycles, 4 warp schedulers) are required to hide arithmetic
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>instruction latencies (assuming that warps execute instructions with maximum
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>throughput, otherwise fewer warps are needed). If the individual warps exhibit
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>instruction-level parallelism, i.e. have multiple independent instructions in
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>their instruction stream, fewer warps are needed because multiple independent
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>instructions from a single warp can be issued back to back.
+</span></code></pre></div>
+<p>网络上也可以查到一些测试指令延迟的文章，例如 <a href="https://arxiv.org/pdf/1905.08778.pdf">https://arxiv.org/pdf/1905.08778.pdf</a> 和 <a href="https://arxiv.org/pdf/1804.06826.pdf">https://arxiv.org/pdf/1804.06826.pdf</a>。</p>
+<h3 id="dependency-barrier">Dependency Barrier</h3>
+<p>Dependency Barrier 主要是用来解决依赖的问题。</p>
+<p>前面提到过，Turing 等架构，访存指令是先进入到 MIO Queue，然后到达 SM 共享的 MIO 单元中，当 MIO 要执行指令的时候，才会从 PB 内部的寄存器堆读取操作数的值。因此这一类指令会出现寄存器延迟读取的情况，而不是像整数指令，整数指令在发射以后，很快就会去读取操作数。那么问题就出现了，如果访存指令的源寄存器与其他指令的目的寄存器重合，出现了读后写（WAR）的情况，那么及时写的指令在后面才会发射，但它依然可能会在访存指令读取操作数之前发射并修改了寄存器，这时候访存指令拿到的就是错误的寄存器的值了。因此，针对这种情况，需要设置 read barrier，如：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="err">[</span><span class="nl">B------:R0:W-:</span><span class="err">-:</span><span class="nf">S09</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0060*/</span><span class="w">                   </span><span class="no">STL</span><span class="w"> </span><span class="p">[</span><span class="no">R1</span><span class="p">],</span><span class="w"> </span><span class="no">R2</span><span class="w"> </span><span class="c1">;                                                 /* 0x0000000201007387 */</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="cm">/* snip */</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="err">[</span><span class="nl">B0-----:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0170*/</span><span class="w">                   </span><span class="no">IMAD.MOV.U32</span><span class="w"> </span><span class="no">R2</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">RZ</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="w"> </span><span class="c1">;                                  /* 0x000000ffff027224 */</span>
+</span></code></pre></div>
+<p>0060 STL 指令设置了 read barrier 0，0170 IMAD 指令标记了会等待 barrier 0。那么，只有当 0060 STL 指令完成了它的操作数 R2 的读取，才会允许 0170 IMAD 指令去写入 R2 寄存器。在 GPGPU 上，这个约束可能会简化为，只有当 0060 STL 指令执行完成，才会允许发射 0170 IMAD 指令。</p>
+<p>另一方面，对于访存等延迟不确定的指令，如果它的目的寄存器是后续指令的源寄存器，也就是写后读（RAW），此时仅靠 stall count 无法保证后续指令执行的时候，前面的指令已经把结果写入到寄存器中，因此需要设置 write barrier：</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="err">[</span><span class="nl">B------:R-:W0:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0070*/</span><span class="w">                   </span><span class="no">LDS</span><span class="w"> </span><span class="no">R5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">UR4</span><span class="p">]</span><span class="w"> </span><span class="c1">;                                    /* 0x00000004ff057984 */</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="err">[</span><span class="nl">B------:R-:W-:Y:</span><span class="nf">S03</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0080*/</span><span class="w">                   </span><span class="no">ULDC.64</span><span class="w"> </span><span class="no">UR4</span><span class="p">,</span><span class="w"> </span><span class="no">c</span><span class="p">[</span><span class="mi">0x0</span><span class="p">][</span><span class="mi">0x118</span><span class="p">]</span><span class="w"> </span><span class="c1">;                       /* 0x0000460000047ab9 */</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="err">[</span><span class="nl">B0-----:R-:W-:</span><span class="err">-:</span><span class="nf">S01</span><span class="p">]</span><span class="w">          </span><span class="cm">/*0090*/</span><span class="w">                   </span><span class="no">STG.E</span><span class="w"> </span><span class="p">[</span><span class="no">R2.64</span><span class="p">],</span><span class="w"> </span><span class="no">R5</span><span class="w"> </span><span class="c1">;                                /* 0x0000000502007986 */</span>
+</span></code></pre></div>
+<p>0070 LDS 指令会写入 R5，R5 寄存器会被 0090 STG 指令读取。因此 0070 LDS 指令设置 write barrier 0，只有当它执行完成，把结果写入到 R5 寄存器，才能允许 0090 STG 指令去读取 R5 寄存器。在 GPGPU 上，这个约束可能简化为，只有当 0070 LDS 指令执行完成，才允许发射 0090 STG 质量。</p>
+<p>但是，并非所有情况下都需要设置 barrier。例如上面这段汇编，0080 ULDC 需要写 UR4 寄存器，而 0070 LDS 需要写 UR4 寄存器，这是一个读后写（WAR）的情况，看似需要 read dependency barrier。但实际上，ULDC 和 LDS 应该都在 LD/ST 单元中执行，因此它们内部可以保证顺序，不会出现读错值的问题。</p>
+<p>下面列举了一些观察到会使用 write dependency barrier 的指令：</p>
+<ul>
+<li>BMOV</li>
+<li>DADD</li>
+<li>HMMA</li>
+<li>I2F</li>
+<li>LDGDEPBAR</li>
+<li>LDG</li>
+<li>LDL</li>
+<li>LDSM</li>
+<li>LDS</li>
+<li>S2R</li>
+<li>S2UR</li>
+<li>QSPC</li>
+</ul>
+<p>除了 BMOV 以外，这些指令可能是可变延迟的。</p>
+<p>一些观察到会使用 read dependency barrier 的指令：</p>
+<ul>
+<li>BMOV</li>
+<li>HMMA</li>
+<li>LDG</li>
+<li>LDGSTS</li>
+<li>LDL</li>
+<li>LDS</li>
+<li>STG</li>
+<li>STL</li>
+<li>STS</li>
+</ul>
+<p>除了 BMOV 以外，这些指令读取操作数的时间可能是不确定的。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年4月12日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年4月12日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+  
+
+
+
+<!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
+<h2 id="__comments">Comments</h2>
+<!-- Insert generated snippet here -->
+
+<script src="https://giscus.app/client.js"
+      data-repo="jiegec/kb"
+      data-repo-id="R_kgDOJZwffg"
+      data-category="General"
+      data-category-id="DIC_kwDOJZwffs4CV-wv"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async>
+</script>
+                
+
+  <script>
+    var language = "";
+    if (language === "None") {
+      language = "zh";
+    }
+    var prefix = "";
+    var suffix = "";
+    if (language === "zh") {
+      prefix = "图 ";
+      suffix = "：";
+    } else {
+      // en
+      prefix = "Figure ";
+      suffix = ": ";
+    }
+    /* prepend the counter to the figcaption content */
+    var styles = `figure figcaption:before { content: "${prefix}" counter(figureCounter) "${suffix}" }`;
+
+    var styleSheet = document.createElement("style")
+    styleSheet.innerText = styles
+    document.head.appendChild(styleSheet)
+  </script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="error_detection_correction_code.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: 检错纠错码">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                检错纠错码
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="high_speed_serial.html" class="md-footer__link md-footer__link--next" aria-label="Next: 高速串行通信">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                高速串行通信
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiajie Chen
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/skins/default.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../javascripts/tablesort.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

@@ -1,0 +1,2492 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Knowledge Base of @jiegec">
+      
+      
+      
+        <link rel="canonical" href="https://jia.je/kb/en/hardware/spi.html">
+      
+      
+        <link rel="prev" href="sdram.html">
+      
+      
+        <link rel="next" href="ucie.html">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>SPI (Serial Peripheral Interface) - Jiegec's Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-3109FRSVTT"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-3109FRSVTT",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-3109FRSVTT",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="SPI (Serial Peripheral Interface) - Jiegec's Knowledge Base" >
+      
+        <meta  property="og:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/spi.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://jia.je/kb/en/hardware/spi.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="SPI (Serial Peripheral Interface) - Jiegec's Knowledge Base" >
+      
+        <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/spi.png" >
+      
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spi-serial-peripheral-interface" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jiegec's Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SPI (Serial Peripheral Interface)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="spi.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../hardware/spi.html" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cryptography/ec.html" class="md-tabs__link">
+          
+  
+    
+  
+  Cryptography
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="acc_rv.html" class="md-tabs__link">
+          
+  
+    
+  
+  Hardware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
+          
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../networking/ethernet.html" class="md-tabs__link">
+          
+  
+    
+  
+  Networking
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../software/2fa.html" class="md-tabs__link">
+          
+  
+    
+  
+  Software
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Jiegec's Knowledge Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cryptography
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ec.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    椭圆曲线
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ecdsa.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECDSA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/lll.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLL 格基规约算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/montgomery_mul_mod.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Montgomery 模乘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/zk_snark.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zk-SNARK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acc_rv.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ACC RV (Road vehicles - Advanced Cost-driven Chiplet Interface) 车规级芯粒互联接口标准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aib.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AIB (Advanced Interface Bus)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="async_sram.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asynchronous SRAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bow.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BoW (Bunch of Wires)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bus_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    总线协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cache_coherence_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    缓存一致性协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cmos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CMOS (Complementary Metal Oxide Semiconductor)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cxl.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CXL (Compute Express Link)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="display_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    显示接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="error_detection_correction_code.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    检错纠错码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gpgpu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPGPU (General Purpose Graphics Processing Unit)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="high_speed_serial.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高速串行通信
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="i2c.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I2C (Inter-Integrated Circuit)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logic_levels.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logic level standards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="motherboard.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="on_chip_networks.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    片上网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ooo_cpu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    乱序执行 CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscillator.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    振荡器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pcie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PCIe (Peripheral Component Interconnect Express)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sdram.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SDRAM (Synchronous Dynamic Random Access Memory)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SPI (Serial Peripheral Interface)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="spi.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SPI (Serial Peripheral Interface)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      接口
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      波形
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI Flash
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SPI Flash">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spi-nand-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI NAND Flash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spi-nor-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI NOR Flash
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-eeprom" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI EEPROM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd" class="md-nav__link">
+    <span class="md-ellipsis">
+      SD 卡
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI 以太网控制器
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      键盘和触摸板
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-vs-i2c" class="md-nav__link">
+    <span class="md-ellipsis">
+      SPI vs I2C
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axi-quad-spi" class="md-nav__link">
+    <span class="md-ellipsis">
+      AXI Quad SPI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AXI Quad SPI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtex-ultrascale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtex UltraScale+ 时序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artix-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Artix 7 时序
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ucie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UCIe (Universal Chiplet Interconnect Express)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Mathematics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Mathematics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    抽象代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    傅立叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/probability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概率论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/score.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Score
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ethernet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    以太网
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/infiniband.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InfiniBand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/spanning_tree_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STP 协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/vlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/wlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Software
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/2fa.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2FA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/atomic_instructions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    原子指令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机图形学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cpio.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cpio 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/dijkstra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dijkstra 算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/gcc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GCC Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/linux_graphics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 图形软件栈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SGEMM on CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/svg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SVG
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/tar.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tar 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/transformer.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  
+    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/spi.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="spi-serial-peripheral-interface">SPI (Serial Peripheral Interface)</h1>
+<h2 id="_1">接口</h2>
+<p>SPI 协议涉及到四个信号：</p>
+<ul>
+<li>SCLK: 时钟信号，Master -&gt; Slave</li>
+<li>MOSI：数据信号，Master -&gt; Slave</li>
+<li>MISO：数据信号，Slave -&gt; Master</li>
+<li>CS：芯片使能，一般是低有效</li>
+</ul>
+<p>要通过 SPI 协议发送命令的时候，通常需要先拉低 CS，然后启动 SCLK 时钟，同时收发数据。注意 SPI 是全双工的，也就是发送的同时也在接收，只不过通常来说，外设等到主机发送了命令本身，才知道要回复什么，所以很多时候命令设计成了事实上的半双工：前半部分主机在发命令，外设发送无用的数据；后半部分外设在发送响应，主机发送无用的数据。</p>
+<h2 id="_2">波形</h2>
+<p>SPI 有不同的类型，下面讲一种比较常见的配置（即 CPOL=0，CPHA=0），在这种模式下，Master 和 Slave 都是在时钟的下降沿修改输出的数据，然后在时钟（<code>sclk</code>）的上升沿对接收到的数据进行采样：</p>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "clk", wave: "p........"},
+      { name: "sclk", wave: "0.101010."},
+      { name: "mosi", wave: "03.4.5.x."},
+      { name: "miso", wave: "06.7.8.x."},
+      { name: "cs_n", wave: "10......1"},
+    ]
+}</script>
+<p>波形图中，时钟（<code>sclk</code>）上升沿时，数据处于稳定的状态，所以此时 Master 对 MISO 采样，Slave 对 MOSI 采样，可以得到稳定的数据；时钟下降沿时，Master 和 Slave 修改输出的数据。</p>
+<p>实际在 RTL 中实现的时候，Master 可以不写 negedge 逻辑，而是写一个分频器，在分频出来的负半周期里，实现数据的修改，如上图中的 <code>clk</code> 分频到 <code>sclk</code>。一般使用一个状态机来实现 SPI Master，记录当前传输到哪一个 bit，以及记录当前是 <code>sclk</code> 的正半周期还是负半周期。</p>
+<p>SPI 本身很简单，所以核心不在 SPI，而是在 SPI 之上定义的各种协议。</p>
+<h2 id="spi-flash">SPI Flash</h2>
+<p>SPI Flash 是一种很常见的 SPI 外设，可以用来访问 NAND/NOR Flash。</p>
+<p>为了提升性能，很多 SPI Flash 还会提供 Dual SPI 和 Quad SPI 模式。标准的 SPI 中，Master 到 Slave 和 Slave 到 Master 分别是一根信号线，如果要继续提高性能，那就要引入更多的信号线来进行数据传输，所以 Dual SPI 就是让原来的 MISO 和 MOSI 都可以同时发送数据；Quad SPI 则是又额外添加了两个信号线来进行数据传输。</p>
+<p>常见的 SPI Flash 厂家：</p>
+<ul>
+<li>Spansion -&gt; Cypress -&gt; Infineon</li>
+<li>Numonyx -&gt; Micron</li>
+<li>Winbond</li>
+<li>GigaDevice</li>
+<li>Macronix</li>
+</ul>
+<h3 id="spi-nand-flash">SPI NAND Flash</h3>
+<p>下面以 <a href="https://www.alliancememory.com/wp-content/uploads/pdf/flash/AllianceMemory_SPI_NAND_Flash_July2020_Rev1.0.pdf">Alliance Memory SPI NAND Flash Datasheet</a> 为例子，看看通常 SPI Flash 都支持哪些命令，都是如何传输数据的。</p>
+<p>这款 SPI NAND Flash 的内部存储分为三层：</p>
+<ol>
+<li>Block：数量不定</li>
+<li>Page：每个 Block 包括 64 个 Page</li>
+<li>Byte：每个 Page 包括一定数量的 Byte，常见的有 2112(2048+64)、2176(2048+128)、4352(4096+256)</li>
+</ol>
+<p>NAND Flash 的读取粒度是 Page，这就是为什么 NAND Flash 更像块设备。一次读取过程分为三个步骤：</p>
+<ol>
+<li>发送 13H(Page Read to Cache) 命令，把一个 Page 的数据读取到 NAND Flash 内部的 Cache 中</li>
+<li>不断发送 0FH(Get Feature) 命令，直到 NAND Flash 表示 Page Read to Cache 命令完成</li>
+<li>发送 Read from Cache 命令，考虑到传输的方式不同，有以下几种：<ol>
+<li>Read from Cache x1 IO(03H/0BH): Master 给出 1 字节命令，2 字节地址和 1 字节 dummy 数据，共 8(COMMAND)+16(ADDR)+8(DUMMY) 个周期，之后 Slave 从 MISO 给出数据</li>
+<li>Read from Cache x2 IO(3BH): Slave 同时通过 MISO 和 MOSI 给出数据</li>
+<li>Read from Cache x4 IO(6BH): Slave 同时通过 MISO、MOSI、WP# 和 HOLD# 给出数据</li>
+<li>Read from Cache Dual IO(BBH): 在 3BH 的基础上，Master 也同时通过 MISO 和 MOSI 给出地址和 dummy 字节，所以 Master 只占用 8(COMMAND)+8(ADDR)+4(DUMMY) 个周期的时间发送</li>
+<li>Read from Cache Quad IO(EBH): 在 6BH 的基础上，Master 也同时通过四个数据信号给出地址和 dummy 字节，所以 Master 只占用 8(COMMAND)+4(ADDR)+2(DUMMY) 个周期的时间发送</li>
+</ol>
+</li>
+</ol>
+<p>写入的时候，由于 NAND Flash 的特性，首先需要擦除，把一个 Block 的内容全部擦除，需要注意每个 Block 包括多个 Page，所以擦除的粒度是很粗的。擦除过的 Page 才可以进行写入，具体步骤是：</p>
+<ol>
+<li>发送 06H(Write Enable) 允许写入</li>
+<li>发送 02H(Program Load) 或 32H(Program Load x4) 把要写入的数据传输给 NAND Flash 中的 Cache；02H 和 32H 的区别就是后者同时在四个信号线上传输数据</li>
+<li>发送 10H(Program Execute) 进行实际的写入操作，从 Cache 到 Flash 存储</li>
+<li>不断发送 0FH(Get Feature) 命令，直到 Program Execute 操作完成</li>
+</ol>
+<h3 id="spi-nor-flash">SPI NOR Flash</h3>
+<p>NOR Flash 和 NAND Flash 的区别在于，NOR Flash 可以随机访问，可以提供 XIP 支持。下面以 <a href="https://www.micron.com/-/media/client/global/documents/products/data-sheet/nor-flash/serial-nor/n25q/n25q_128mb_3v_65nm.pdf">128Mb, 3V, Multiple I/O Serial Flash Memory</a> 为例子看看它是如何读写的。</p>
+<p>SPI NOR Flash 读取的时候，只需要一条命令就可以了：READ/FAST READ。其中 READ 命令比较简单：发送 Command，发送地址，然后 Slave 紧接着就会发送数据；FAST READ 可以达到更高的频率，但是为了让 NOR Flash 有时间读取数据，在 Master 发送 Command 和地址后，还需要发送 Dummy cycles，然后 Slave 才会发送数据。和前面一样，FAST READ 也支持不同的 IO 类型，例如 Dual Output，Dual Input/Output，Quad Output，Quad Input/Output。一些比较高端的 SPI NOR Flash 还支持 DTR（Double Transfer Rate），实际上就是 DDR，在时钟上升沿和下降沿都采样数据。</p>
+<p>写入的时候，和 NAND Flash 一样，也需要先擦除，再写入。SPI Flash 的存储层级是：</p>
+<ol>
+<li>Sector</li>
+<li>Subsector</li>
+<li>Page</li>
+<li>Byte</li>
+</ol>
+<p>擦除的粒度是 Sector 或者 Subsector，写入的粒度是 Page。写入的时候，也需要首先发送 WRITE ENABLE 命令，再发送 PAGE PROGRAM 命令。NOR Flash 在 Program 上也比较简化，直接 Program 即可，不需要先写入到 Cache，再进行 Program。</p>
+<p>NOR Flash 还提供了 XIP Mode 来加快随机访问：启用 XIP 模式后，给出一个地址，等待 Dummy cycles 后，就可以读出数据，不需要像前面那样发送 COMMAND，减少了延迟。当然了，即使不打开 NOR Flash 的 XIP Mode，也可以在 SPI 控制器里实现 XIP，只不过每次读取都要发一次 READ 命令。</p>
+<h2 id="spi-eeprom">SPI EEPROM</h2>
+<p>SPI EEPROM 和 SPI NOR Flash 比较类似，但是 EEPROM 更小，也更加简单，例如写入的时候，不需要擦除。感兴趣的可以在 <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/22040c_cn.pdf">SPI 串行 EEPROM 系列数据手册</a> 中查看命令列表，这里就不赘述了。</p>
+<h2 id="sd">SD 卡</h2>
+<p>SD 卡除了 SD Bus 以外，还支持 SPI 模式（最新的 SDUC 不支持 SPI 模式），所以也可以用 SPI 来读写 SD 卡。</p>
+<p>SD 卡比较特别的一点是，它需要比较复杂的初始化流程：</p>
+<ol>
+<li>首先要发送 CMD0 命令，同时 CS 拉低，使得 SD 卡进入 SPI 模式</li>
+<li>对于 SDHC SD 卡，需要发送 CMD8 来协商工作电压范围</li>
+<li>重复发送 ACMD41 命令（CMD55 + CMD41 = ACMD41）进行初始化，直到 SD 卡回复初始化完成</li>
+<li>发送 CMD58 命令以读取 OCR 寄存器的值</li>
+</ol>
+<p>比较有意思的是命令的传输方式。每个命令有一个 6 位的命令编号，例如 CMD0 的编号就是 0，CMD55 的编号就是 55；还带有四字节的参数。每个命令会组装成一个 48 位的分组：</p>
+<ol>
+<li>bit[47]=0: Start Bit</li>
+<li>bit[46]=1: Transmission Bit</li>
+<li>bit[45:40]: Command Index</li>
+<li>bit[39:8]: Argument</li>
+<li>bit[7:1]: CRC7</li>
+<li>bit[0]=1: End Bit</li>
+</ol>
+<p>可见额外多了一个 CRC7 的校验和。</p>
+<p>SD 卡规定，SPI 模式下，所有的数据传输都是对齐到 8 位，也就是从 CS 拉低开始算，每 8 个时钟上升沿是一个字节，无论命令还是响应，都在 8 位的边界上传输。</p>
+<p>想要读取数据的话，就要发送 READ_SINGLE_BLOCK 命令，参数就是要读取的 Block 地址，Block 地址的单位在 SDSC 上是字节，在 SDHC 和 SDXC 上是 512 字节。SD 卡回先回复一个字节的响应，然后开始发数据，数据从 Start Block Token 开始，然后是一个 Block 的数据（通常是 512 字节），最后再两个字节的 CRC16。</p>
+<p>写数据则是发送 WRITE_BLOCK 命令，SD 卡回复一个字节的响应，然后控制器开始传输数据，数据从 Start Block Token 开始，接着是要写入的数据，最后是两个字节的 CRC16，然后 SD 卡回复一个字节的响应，标志着写入成功。</p>
+<h2 id="spi">SPI 以太网控制器</h2>
+<p>有一些以太网产品提供了 SPI 接口，例如 <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ8851SNL-Single-Port-Ethernet-Controller-with-SPI-DS00002381C.pdf">KSZ8851SNL/SNLI</a>，集成了 MAC 和 PHY，直接连接 MDI/MDI-X 接口，虽然最高只支持百兆网，但是接口上确实非常简单。</p>
+<p>SPI 上发送的命令就两类：一类是读写寄存器，一类是读写 RX/TX FIFO。</p>
+<h2 id="_3">键盘和触摸板</h2>
+<p>一些型号的苹果电脑的键盘和触摸板是通过 SPI 接口访问的，在 Linux 中有相应的 applespi 驱动。</p>
+<h2 id="spi-vs-i2c">SPI vs I2C</h2>
+<p>SPI 和 I2C 的区别在于，前者信号更多，全双工传输；后者信号更少，半双工传输。SPI 通过 CS 信号选择 Slave 芯片，I2C 通过地址进行区分。此外 I2C 还需要 Pull up resistor，这样如果没有设备响应，就会 NACK。</p>
+<p>一些芯片提供了 SPI 或 I2C 的选项：共用两个信号，允许用户选择用 I2C 还是 SPI。例如 <a href="http://cdn.sparkfun.com/datasheets/Dev/Arduino/Shields/WolfsonWM8731.pdf">WM8731</a>，既支持 I2C（记为 2-wire mode），又支持 SPI（记为 3-wire mode）。一般这种时候，SPI 和 I2C 就是用来配置一些寄存器的，另外可能还有一些接口，例如 WM8731 负责声音数据传输的实际上是 I2S。</p>
+<h2 id="axi-quad-spi">AXI Quad SPI</h2>
+<p>AXI Quad SPI 是一个 SPI 协议的控制器，它支持 XIP（eXecute In Place）模式，即可以暴露一个只读 AXI Slave 接口，当接收到读请求的时候，就发送 SPI NOR Flash 命令去对应的地址进行读取，然后返回结果。由于不同厂家的 SPI NOR Flash 支持有所不同，所以 IP 上的设置可以看到厂家的选择。</p>
+<p>特别地，一个常见的需求是希望访问 Cfg（Configuration）Flash，亦即用来保存 Bitstream 的 Flash。当 FPGA 上电的时候，如果启动模式设置为 SPI Flash，FPGA 就会向 Cfg Flash 读取 Bitstream，Cfg Flash 需要连接到 FPGA 的指定引脚上，当 FPGA 初始化的时候由内部逻辑驱动，初始化完成后又要转交给用户逻辑。转交的方式就是通过 STARTUP 系列的 primitive。</p>
+<p>通常，如果要连接外部的 SPI Flash，需要连接几条信号线到顶层，然后通过 xdc 把信号绑定到引脚上，然后引脚连接了一个外部的 SPI Flash。但由于 Cfg Flash 比较特殊，所以信号从 AXI Quad SPI 直接连到 STARTUP 系列的 primitive 上。如果是采用 STARTUPE2 原语的 7 系列的 FPGA，那么只有时钟会通过 STARTUPE2 pritimive 连接到 SPI Flash 上，其他数据信号还是正常通过顶层绑定；如果是采用 STARTUPE3 原语的 UltraScale 系列的 FPGA，那么时钟和数据都通过 STARTUPE3 primitive 连接到 SPI Flash。</p>
+<h3 id="virtex-ultrascale">Virtex UltraScale+ 时序</h3>
+<p>把信号连好了只是第一步，因为外设对时序要求比较复杂，如果用一个比较高直接跑，很大可能就读取到错误的数据了。AXI Quad SPI 已经在生成的文件里提供了一个样例的 xdc，在文档里也有体现。对于 Virtex Ultrascale+ 系列的 FPGA，它内容如下：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c">#### All the delay numbers have to be provided by the user</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c">#### Following are the SPI device parameters</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c">#### Max Tco</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">set</span><span class="w"> </span>tco_max<span class="w"> </span><span class="mi">7</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c">#### Min Tco</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">set</span><span class="w"> </span>tco_min<span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c">#### Setup time requirement</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">set</span><span class="w"> </span>tsu<span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c">#### Hold time requirement</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">set</span><span class="w"> </span>th<span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c">#####################################################################################################</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c"># STARTUPE3 primitive included inside IP for US+                                                             #</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c">#####################################################################################################</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">set</span><span class="w"> </span>tdata_trace_delay_max<span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="k">set</span><span class="w"> </span>tdata_trace_delay_min<span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">set</span><span class="w"> </span>tclk_trace_delay_max<span class="w"> </span><span class="mf">0.2</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="k">set</span><span class="w"> </span>tclk_trace_delay_min<span class="w"> </span><span class="mf">0.2</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nv">create_generated_clock</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>source<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>axi_quad_spi_0<span class="o">/</span>ext_spi_clk<span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>CCLK<span class="k">]</span><span class="w"> </span><span class="o">-</span>edges<span class="w"> </span><span class="k">{</span><span class="nv">3</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">7</span><span class="k">}</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nv">set_input_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>max<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tco_max</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_max</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tclk_trace_delay_max</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_IN<span class="k">[</span><span class="o">*</span><span class="k">]]</span><span class="w"> </span><span class="o">-</span>clock_fall<span class="k">;</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nv">set_input_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>min<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tco_min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tclk_trace_delay_min</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_IN<span class="k">[</span><span class="o">*</span><span class="k">]]</span><span class="w"> </span><span class="o">-</span>clock_fall<span class="k">;</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span>setup<span class="w"> </span><span class="o">-</span>from<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>to<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span>hold<span class="w"> </span><span class="o">-</span>end<span class="w"> </span><span class="o">-</span>from<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>to<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="nv">set_output_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>max<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tsu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$tclk_trace_delay_min</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_OUT<span class="k">[</span><span class="o">*</span><span class="k">]];</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nv">set_output_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>min<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tdata_trace_delay_min</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$th</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$tclk_trace_delay_max</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_OUT<span class="k">[</span><span class="o">*</span><span class="k">]];</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span>setup<span class="w"> </span><span class="o">-</span>start<span class="w"> </span><span class="o">-</span>from<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span><span class="w"> </span><span class="o">-</span>to<span class="w"> </span>clk_sck
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span>hold<span class="w"> </span><span class="o">-</span>from<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span><span class="w"> </span><span class="o">-</span>to<span class="w"> </span>clk_sck
+</span></code></pre></div>
+<p>分段来看这个 xdc 都做了什么：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">create_generated_clock</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>source<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>axi_quad_spi_0<span class="o">/</span>ext_spi_clk<span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>CCLK<span class="k">]</span><span class="w"> </span><span class="o">-</span>edges<span class="w"> </span><span class="k">{</span><span class="nv">3</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">7</span><span class="k">}</span>
+</span></code></pre></div>
+<p>首先，它创建了一个时钟 <code>clk_sck</code>。CCLK 是 STARTUP 输出的实际时钟，会连接到 Cfg Flash 的时钟信号上。而 AXI Quad SPI 的 ext_spi_clk 会输出到 CCLK 上，因此这里是一个生成的时钟，并且指定上下边沿的位置。<code>edges</code> 参数有三个，分别表示上升、下降和上升沿分别的位置。1 表示源时钟的第一个上升沿，2 表示源时钟的第一个下降沿，以此类推，所以 {3, 5, 7} 的意思就是频率减半，相位差半个周期。</p>
+<p>接着最主要的就是，怎么设置延迟。可以看到，代码中首先定义了一些参数：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c">#### Max Tco</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">set</span><span class="w"> </span>tco_max<span class="w"> </span><span class="mi">7</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c">#### Min Tco</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">set</span><span class="w"> </span>tco_min<span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c">#### Setup time requirement</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">set</span><span class="w"> </span>tsu<span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c">#### Hold time requirement</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">set</span><span class="w"> </span>th<span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c">#### Trace delay</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">set</span><span class="w"> </span>tdata_trace_delay_max<span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">set</span><span class="w"> </span>tdata_trace_delay_min<span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="k">set</span><span class="w"> </span>tclk_trace_delay_max<span class="w"> </span><span class="mf">0.2</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">set</span><span class="w"> </span>tclk_trace_delay_min<span class="w"> </span><span class="mf">0.2</span>
+</span></code></pre></div>
+<p>首先是 <span class="arithmatex">\(t_{co}\)</span>，表示的是 SPI Flash 的时钟到输出的延迟。以 SPI Flash 型号 Micron MT25QU02GCBB8E12-0SIT 为例子，可以从它的 <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/nor-flash/serial-nor/mt25q/die-rev-b/mt25q_qlkt_u_02g_cbb_0.pdf">Datasheet</a> 看到，时钟到输出的延迟应该是 Max 7ns：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Clock LOW to output valid under 30pF Max 7ns
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Clock LOW to output valid under 10pF Max 6ns
+</span></code></pre></div>
+<p>因此 <code>tco_max</code> 设为 7，<code>tco_min</code> 默认即可，因为 Datasheet 中没有做要求。</p>
+<p>然后 <span class="arithmatex">\(t_{su}\)</span> 和 <span class="arithmatex">\(t_h\)</span> 则是输入的 setup 和 hold time。类似的，可以查到 SPI Flash 的参数：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Data in setup time Min 2.5ns
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Data in hold time Min 2ns
+</span></code></pre></div>
+<p>所以 <code>tsu</code> 设为 2.5，<code>th</code> 设为 2。</p>
+<p>接下来则是 tdata 和 tclk 的 trace delay。这指的是从 FPGA 引脚到 SPI Flash 引脚的信号传输延迟。这个延迟可以从板子的布线上测量长度来估计出来，一个简单的估算方法：光速 <span class="arithmatex">\(3*10^8 \mathrm{m/s}\)</span>，假设电信号传播速度是光速的一半，可以得到延迟和长度的比值： <span class="arithmatex">\(0.06 \mathrm{ns/cm} = 0.15 \mathrm{ns/inch}\)</span>。</p>
+<p>下面讨论这些变量如何参与到 input/output delay 的计算中。</p>
+<p>首先考虑 input delay。它指的是，从 SPI Flash 到 FPGA 的数据，相对于时钟的延迟。这个延迟由三部分组成：</p>
+<ol>
+<li>从 FPGA 输出的时钟 CCLK 到 SPI Flash 的时钟有延迟 <span class="arithmatex">\(t_{clk}\)</span>，下图 <code>a -&gt; b</code></li>
+<li>从 SPI Flash 的时钟到数据输出有延迟 <span class="arithmatex">\(t_{co}\)</span>，下图 <code>b -&gt; c</code></li>
+<li>从 SPI Flash 的数据到 FPGA 的数据输入有延迟 <span class="arithmatex">\(t_{data}\)</span>，下图 <code>c -&gt; d</code></li>
+</ol>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "clk_fpga", wave: "p..", node: ".a" },
+      { name: "clk_flash", wave: "p...", node: "..b", phase: 2.7 },
+      { name: "data_flash", wave: "3456", node: "..c", phase: 2.5 },
+      { name: "data_fpga", wave: "3456", node: "..d", phase: 2.3 },
+    ],
+  config: { hscale: 3 },
+}</script>
+<p>因此总延迟就是 <span class="arithmatex">\(t_{clk}+t_{co}+t_{data}\)</span>，就可以得到对应的设置：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">set_input_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>max<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tco_max</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_max</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tclk_trace_delay_max</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_IN<span class="k">[</span><span class="o">*</span><span class="k">]]</span><span class="w"> </span><span class="o">-</span>clock_fall<span class="k">;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nv">set_input_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>min<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tco_min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tclk_trace_delay_min</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_IN<span class="k">[</span><span class="o">*</span><span class="k">]]</span><span class="w"> </span><span class="o">-</span>clock_fall<span class="k">;</span>
+</span></code></pre></div>
+<p>接下来要考虑 output delay。虽然 output delay 也有 min 和 max，但其含义有所区别，需要分别考虑。</p>
+<p>首先是 max，它对应的是 setup time。如果定义时间 0 为时钟的上升沿，沿更早的时间为正的时间轴，沿更晚的时间为负的时间轴。期望目标是，数据到达寄存器输入的时间大于 setup time，此时可以满足 setup 条件。为了计算 max output delay，需要考虑的是从 FPGA 数据输出到 SPI Flash 上时钟的延迟。</p>
+<p>假设 FPGA CCLK 时钟上升沿在 <span class="arithmatex">\(0\)</span> 时刻（下图的 <code>a</code>），那么 SPI Flash 时钟上升沿在 <span class="arithmatex">\(-t_{clk}\)</span> 时刻（下图的 <code>b</code>）。假设 FPGA 数据输出时刻为 <span class="arithmatex">\(t_0\)</span>（通常为正，下图的 <code>c</code>），那么 FPGA 数据输出到达 SPI Flash 在 <span class="arithmatex">\(t_0-t_{data}\)</span> 时刻（下图的 <code>d</code>），为了保证 <span class="arithmatex">\(t_0-t_{data}\)</span> 在 <span class="arithmatex">\(-t_{clk}\)</span> 时刻之前（下图的 <code>d -&gt; b</code>）至少 <span class="arithmatex">\(t_{su}\)</span> 时间到达，可以得到表达式：</p>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "clk_fpga", wave: "p..", node: ".a" },
+      { name: "clk_flash", wave: "p...", node: "..b", phase: 2.7 },
+      { name: "data_fpga", wave: "3456", node: "..c", phase: 3.6 },
+      { name: "data_flash", wave: "3456", node: "..d", phase: 3.4 }
+    ],
+  config: { hscale: 3 },
+}</script>
+<div class="arithmatex">\[
+t_0 - t_{data} &gt; -t_{clk} + t_{su}
+\]</div>
+<p>化简一下，就可以得到 <span class="arithmatex">\(t_0 &gt; t_{data} + t_{su} - t_{clk}\)</span>，如果考虑极端情况，右侧 <span class="arithmatex">\(t_{data}\)</span> 取最大值，<span class="arithmatex">\(t_{clk}\)</span> 取最小值，就可以得到约束：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">set_output_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>max<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tsu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$tclk_trace_delay_min</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_OUT<span class="k">[</span><span class="o">*</span><span class="k">]];</span>
+</span></code></pre></div>
+<p>接下来考虑 output delay 的 min，这对应的是 hold time。此时的目标是数据到达 SPI Flash 寄存器的时候，距离上升沿时间超过了 <span class="arithmatex">\(t_h\)</span>。按照同样的假设，如果 FPGA CCLK 时钟上升沿在 0 时刻（下图的 <code>a</code>），那么 SPI Flash 时钟上升沿在 <span class="arithmatex">\(-t_{clk}\)</span> 时刻（下图的 <code>b</code>）。假设 FPGA 数据输出时刻为 <span class="arithmatex">\(t_0\)</span>（下图的 <code>c</code>），那么 FPGA 数据输出到达 SPI Flash 在 <span class="arithmatex">\(t_0-t_{data}\)</span> 时刻（下图的 <code>d</code>），为了满足 hold 条件，可以得到：</p>
+<script type="WaveDrom">{
+  signal:
+    [
+      { name: "clk_fpga", wave: "p..", node: ".a" },
+      { name: "data_fpga", wave: "3456", node: "..c", phase: 2.6 },
+      { name: "clk_flash", wave: "p...", node: "..b", phase: 2.3 },
+      { name: "data_flash", wave: "3456", node: "..d", phase: 2.2 },
+    ],
+  config: { hscale: 3 },
+}</script>
+<div class="arithmatex">\[
+t_0 - t_{data} &lt; -t_{clk} - t_h
+\]</div>
+<p>化简以后，可以得到 <span class="arithmatex">\(t_0 &lt; t_{data} - t_{clk} - t_h\)</span>，按照极限来取，<span class="arithmatex">\(t_{data}\)</span> 取最小值，<span class="arithmatex">\(t_{clk}\)</span> 取最大值，就得到了最终的时序约束：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">set_output_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>min<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tdata_trace_delay_min</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$th</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$tclk_trace_delay_max</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>STARTUP<span class="o">*/</span>DATA_OUT<span class="k">[</span><span class="o">*</span><span class="k">]];</span>
+</span></code></pre></div>
+<p>这样就可以实现 FPGA 和 SPI Flash 之间的正常通讯了。这里比较绕的就是时间轴的定义，和平常思考的方向是反过来的。而且，这里的 min 和 max 并不是指 <span class="arithmatex">\([\min, \max]\)</span>，而是 <span class="arithmatex">\((-\inf, \min] \cup [\max, \inf)\)</span>。代入上面的数据，可以得到 <span class="arithmatex">\(\max=2.05, \min=-2.95, t_0 \in (\inf, -2.95] \cup [2.05, \inf)\)</span>。如果变化的时刻距离时钟上升沿太接近，就会导致在 SPI Flash 侧出现不满足 setup 或者 hold 约束的情况。</p>
+<p>也可以换个角度来理解 min 和 max：对于同一个周期的时钟和数据来说，数据相对时钟有一个延迟，这个延迟不能太小，至少要满足 hold，所以这是一个最小的延迟；同时这个延迟不能太大，最多需要满足下一个时钟上升沿的 setup，所以这是一个最大的延迟。如果从这个角度来看，那就是延迟在一个 <span class="arithmatex">\([\min, \max]\)</span> 的范围内。但是，这样在计算的时候就需要把时钟周期纳入到 <span class="arithmatex">\(\max\)</span> 的计算中，比如 <span class="arithmatex">\(\max=t_c-t_{su}\)</span>。如果把坐标轴修改一下，原点变成原来的下一个时钟周期的上升沿，x 的正方向变成反向，此时公式里不会出现时钟周期，就可以得到上面的形式了。</p>
+<h3 id="artix-7">Artix 7 时序</h3>
+<p>对于更常见的 7 Series FPGA，比如 Artix 7，它采用的是 STARTUPE2 原语，只有时钟是通过 STARTUPE2 原语的 USRCCLKO 信号传递到 CCLK 引脚上的，其他数据信号都是需要在顶层信号绑定对应的引脚。在 AXI Quad SPI 文档中，描述了 STARTUPE2 所需要的时序约束：</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c"># You must provide all the delay numbers</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c"># CCLK delay is 0.5, 6.7 ns min/max for K7-2; refer Data sheet</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c"># Consider the max delay for worst case analysis</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">set</span><span class="w"> </span>cclk_delay<span class="w"> </span><span class="mf">6.7</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c"># Following are the SPI device parameters</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c"># Max Tco</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">set</span><span class="w"> </span>tco_max<span class="w"> </span><span class="mi">7</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c"># Min Tco</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="k">set</span><span class="w"> </span>tco_min<span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c"># Setup time requirement</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="k">set</span><span class="w"> </span>tsu<span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="c"># Hold time requirement</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="k">set</span><span class="w"> </span>th<span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="c"># Following are the board/trace delay numbers</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="c"># Assumption is that all Data lines are matched</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="k">set</span><span class="w"> </span>tdata_trace_delay_max<span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="k">set</span><span class="w"> </span>tdata_trace_delay_min<span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="k">set</span><span class="w"> </span>tclk_trace_delay_max<span class="w"> </span><span class="mf">0.2</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="k">set</span><span class="w"> </span>tclk_trace_delay_min<span class="w"> </span><span class="mf">0.2</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="c">### End of user provided delay numbers</span>
+</span></code></pre></div>
+<p>可以看到，这一部分和上面 UltraScale+ 部分差不多，只是多一个 <code>cclk_delay</code> 变量，这是因为 Artix 7 中，时钟只能创建到 USRCCLKO 引脚上。但是实际 SPI Flash 接收到的时钟，首先从 USRCCLKO 到 CCLK 引脚，然后再通过 PCB 上的线传播到 SPI Flash，所以需要手动添加一个偏移，这个偏移就是 USRCCLKO 到 CCLK 的延迟，可以在 <a href="https://www.xilinx.com/support/documentation/data_sheets/ds181_Artix_7_Data_Sheet.pdf">Artix 7 Data Sheet</a> 里面看到：对于 1.0V，-2 速度的 FPGA，这个延迟最小值为 0.50ns，最大值为 6.70ns，这里采用了最大值。</p>
+<p>剩下的约束，除了时钟部分以外，和上面分析的 UltraScale+ 时序约束计算方法是相同的。不同点在于，这里约束了从 AXI Quad SPI 到 STARTUPE2 的路由时延，从 0.1ns 到 1.5ns，然后又从 USRCCLKO 创建了一个分频 + 延迟 <code>cclk_delay</code> 纳秒的时钟，作为 SPI Flash 上 SCK 引脚的时钟。</p>
+<div class="language-tcl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c"># this is to ensure min routing delay from SCK generation to STARTUP input</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c"># User should change this value based on the results</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c"># having more delay on this net reduces the Fmax</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nv">set_max_delay</span><span class="w"> </span><span class="mf">1.5</span><span class="w"> </span><span class="o">-</span>from<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hier<span class="w"> </span><span class="o">*</span>SCK_O_reg_reg<span class="o">/</span>C<span class="k">]</span><span class="w"> </span><span class="o">-</span>to<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hier
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="o">*</span><span class="nv">USRCCLKO</span><span class="k">]</span><span class="w"> </span><span class="o">-</span>datapath_only
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nv">set_min_delay</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">-</span>from<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hier<span class="w"> </span><span class="o">*</span>SCK_O_reg_reg<span class="o">/</span>C<span class="k">]</span><span class="w"> </span><span class="o">-</span>to<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hier
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="o">*</span><span class="nv">USRCCLKO</span><span class="k">]</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c"># Following command creates a divide by 2 clock</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c"># It also takes into account the delay added by STARTUP block to route the CCLK</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nv">create_generated_clock</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>source<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="o">*</span><span class="nv">axi_quad_spi_1</span><span class="o">/</span>ext_spi_clk<span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*</span>USRCCLKO<span class="k">]</span><span class="w"> </span><span class="o">-</span>edges<span class="w"> </span><span class="k">{</span><span class="nv">3</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">7</span><span class="k">}</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="nv">-edge_shift</span><span class="w"> </span><span class="k">[</span><span class="nb">list</span><span class="w"> </span><span class="nv">$cclk_delay</span><span class="w"> </span><span class="nv">$cclk_delay</span><span class="w"> </span><span class="nv">$cclk_delay</span><span class="k">]</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="c"># Data is captured into FPGA on the second rising edge of ext_spi_clk after the SCK</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="nv">falling</span><span class="w"> </span>edge
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="c"># Data is driven by the FPGA on every alternate rising_edge of ext_spi_clk</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="nv">set_input_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>max<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tco_max</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_max</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="nv">$tclk_trace_delay_max</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>IO<span class="o">*</span>_IO<span class="k">]</span><span class="w"> </span><span class="o">-</span>clock_fall<span class="k">;</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="nv">set_input_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>min<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tco_min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_min</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="nv">$tclk_trace_delay_min</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>IO<span class="o">*</span>_IO<span class="k">]</span><span class="w"> </span><span class="o">-</span>clock_fall<span class="k">;</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span>setup<span class="w"> </span><span class="o">-</span>from<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>to<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="nv">-hierarchical</span><span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span>hold<span class="w"> </span><span class="o">-</span>end<span class="w"> </span><span class="o">-</span>from<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>to<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="nv">-hierarchical</span><span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="c"># Data is captured into SPI on the following rising edge of SCK</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="c"># Data is driven by the IP on alternate rising_edge of the ext_spi_clk</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="nv">set_output_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>max<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tsu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$tdata_trace_delay_max</span><span class="w"> </span><span class="o">-</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="nv">$tclk_trace_delay_min</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>IO<span class="o">*</span>_IO<span class="k">];</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="nv">set_output_delay</span><span class="w"> </span><span class="o">-</span>clock<span class="w"> </span>clk_sck<span class="w"> </span><span class="o">-</span>min<span class="w"> </span><span class="k">[expr</span><span class="w"> </span><span class="nv">$tdata_trace_delay_min</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$th</span><span class="w"> </span><span class="o">-</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="nv">$tclk_trace_delay_max</span><span class="k">]</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>IO<span class="o">*</span>_IO<span class="k">];</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span>setup<span class="w"> </span><span class="o">-</span>start<span class="w"> </span><span class="o">-</span>from<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="nv">-hierarchical</span><span class="w"> </span><span class="o">*/</span>ext_spi_clk<span class="k">]]</span><span class="w"> </span><span class="o">-</span>to<span class="w"> </span>clk_sck
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="nv">set_multicycle_path</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span>hold<span class="w"> </span><span class="o">-</span>from<span class="w"> </span><span class="k">[</span><span class="nv">get_clocks</span><span class="w"> </span><span class="o">-</span>of_objects<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="w"> </span><span class="o">*/</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="nv">ext_spi_clk</span><span class="k">]]</span><span class="w"> </span><span class="o">-</span>to<span class="w"> </span>clk_sck
+</span></code></pre></div>
+<p>一个 Artix 7 上配置 STARTUP SPI Flash 的例子 <a href="https://github.com/trivialmips/nontrivial-mips/blob/master/vivado/NonTrivialMIPS.srcs/constrs_1/new/io_timings.xdc">io_timings.xdc</a> 可供参考。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年4月12日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年4月12日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+  
+
+
+
+<!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
+<h2 id="__comments">Comments</h2>
+<!-- Insert generated snippet here -->
+
+<script src="https://giscus.app/client.js"
+      data-repo="jiegec/kb"
+      data-repo-id="R_kgDOJZwffg"
+      data-category="General"
+      data-category-id="DIC_kwDOJZwffs4CV-wv"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async>
+</script>
+                
+
+  <script>
+    var language = "";
+    if (language === "None") {
+      language = "zh";
+    }
+    var prefix = "";
+    var suffix = "";
+    if (language === "zh") {
+      prefix = "图 ";
+      suffix = "：";
+    } else {
+      // en
+      prefix = "Figure ";
+      suffix = ": ";
+    }
+    /* prepend the counter to the figcaption content */
+    var styles = `figure figcaption:before { content: "${prefix}" counter(figureCounter) "${suffix}" }`;
+
+    var styleSheet = document.createElement("style")
+    styleSheet.innerText = styles
+    document.head.appendChild(styleSheet)
+  </script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="sdram.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: SDRAM (Synchronous Dynamic Random Access Memory)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                SDRAM (Synchronous Dynamic Random Access Memory)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="ucie.html" class="md-footer__link md-footer__link--next" aria-label="Next: UCIe (Universal Chiplet Interconnect Express)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                UCIe (Universal Chiplet Interconnect Express)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Jiajie Chen
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/skins/default.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../javascripts/tablesort.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body>
+</html>
