@@ -2304,6 +2304,7 @@
 </figure>
 <p>A100 GPU 有 40 MB 的 L2 缓存（<code>The A100 GPU in the A100 Tensor Core GPU includes 40 MB of L2 cache, which is 6.7x larger than Tesla V100 L2 cache.</code>），分为两个 partition，每个 partition 有 40 个 L2 slice，每个 slice 是 512 KB 的大小，每 8 个 L2 slice 对应一个 memory controller（<code>Each L2 cache partition is divided into 40 L2 cache slices. Eight 512 KB L2 slices are associated with each memory controller.</code>）。每个 slice 每周期可以读取 64B 的数据，因此整个 L2 缓存的读带宽是 <span class="arithmatex">\(2 * 40 * 64 = 5120\)</span> 字节每周期（<code>The A100 L2 read bandwidth is 5120 Bytes/clk</code>）。L2 缓存工作在和 SM 同一个频率下，按 1410 MHz 频率来算，L2 缓存带宽是 <span class="arithmatex">\(5120 * 1410 = 7.219\)</span> TB/s，A100 的内存带宽是 1.555 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 <span class="arithmatex">\(5120 / 108 = 47.4\)</span> 字节。</p>
 <p>根据 <a href="https://github.com/te42kyfo/gpu-benches">https://github.com/te42kyfo/gpu-benches</a> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 <span class="arithmatex">\(19 / 108 / 1410 * 1e6 = 125\)</span> 字节）的数据。</p>
+<p>A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 <code>432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS</code>。</p>
 <h3 id="ga102">GA102</h3>
 <p>Whitepaper: <a href="https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf">NVIDIA AMPERE GA102 GPU ARCHITECTURE</a></p>
 <p>GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 FP32 core，一个 Tensor Core，4 个 LD/ST unit 和 4 个 SFU。也就是从这一代开始，出现了 FP32/INT32 混合的 core，使得 FP32 峰值性能翻倍，但是这个峰值也更难达到，因为达到峰值意味着不用到 FP32/INT32 core 的 INT32 部分。（<code>GA10X includes FP32 processing on both datapaths, doubling the peak processing rate for FP32 operations. One datapath in each partition consists of 16 FP32 CUDA Cores capable of executing 16 FP32 operations per clock. Another datapath consists of both 16 FP32 CUDA Cores and 16 INT32 Cores, and is capable of executing either 16 FP32 operations OR 16 INT32 operations per clock. As a result of this new design, each GA10x SM partition is capable of executing either 32 FP32 operations per clock, or 16 FP32 and 16 INT32 operations per clock.</code>）</p>
@@ -3319,7 +3320,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年11月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年5月29日</span>
   </span>
 
     
