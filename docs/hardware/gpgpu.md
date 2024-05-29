@@ -330,6 +330,8 @@ A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU inc
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
 
+A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。
+
 ### GA102
 
 Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
