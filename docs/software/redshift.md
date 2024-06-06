@@ -65,7 +65,7 @@ Distribution key 主要涉及到 slice 之间的数据分布方式，以及查�
 
 ### Fact Table 和 Dimension Table
 
-在 Redshift 文档里会涉及到两个数据分析的概念：Fact Table 和 Dimension Table。Fact Table 一般是保记录某个事情的发生，这个事情涉及到了哪些人，哪些物品，发生在什么时间。这些涉及到的人和物品的信息都是用 ID 保存下来，然后用另一个 Dimension 表来具体保存每个人的信息，每个物品的信息，等等。
+在 Redshift 文档里会涉及到两个数据分析的概念：Fact Table 和 Dimension Table。Fact Table 一般是记录了某个事情的发生，这个事情涉及到了哪些人，哪些物品，发生在什么时间。这些涉及到的人和物品的信息都是用 ID 保存下来，然后用另外的若干个 Dimension 表来具体保存每个人的信息，每个物品的信息，等等。
 
 例如，对于一个网上购物系统，Fact Table 记录了所有订单，订单记录了买家的 ID，卖家的 ID，商品的 ID，商品的数量和价格，然后有多个 Dimension Table，所有买家是一个表，卖家是一个表，所有商品也是一个表。
 
