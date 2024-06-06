@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="zh" class="no-js">
+<html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/hardware/i2c.html">
+        <link rel="canonical" href="https://jia.je/kb/en/software/redshift.html">
       
       
-        <link rel="prev" href="high_speed_serial.html">
+        <link rel="prev" href="linux_graphics.html">
       
       
-        <link rel="next" href="logic_levels.html">
+        <link rel="next" href="sgemm_cuda.html">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
-        <title>I2C (Inter-Integrated Circuit) - 杰哥的知识库</title>
+        <title>Amazon Redshift - Jiegec's Knowledge Base</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
       
       
 
@@ -52,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="I2C (Inter-Integrated Circuit) - 杰哥的知识库" >
+        <meta  property="og:title"  content="Amazon Redshift - Jiegec's Knowledge Base" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/i2c.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/redshift.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,19 +85,19 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/hardware/i2c.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/en/software/redshift.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="I2C (Inter-Integrated Circuit) - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="Amazon Redshift - Jiegec's Knowledge Base" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/i2c.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/redshift.png" >
       
     
     
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -106,7 +106,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -118,8 +118,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#i2c-inter-integrated-circuit" class="md-skip">
-          跳转至
+        <a href="#amazon-redshift" class="md-skip">
+          Skip to content
         </a>
       
     </div>
@@ -131,8 +131,8 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../index.html" title="杰哥的知识库" class="md-header__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -146,13 +146,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            杰哥的知识库
+            Jiegec's Knowledge Base
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              I2C (Inter-Integrated Circuit)
+              Amazon Redshift
             
           </span>
         </div>
@@ -166,20 +166,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="选择当前语言">
+    <button class="md-header__button md-icon" aria-label="Select language">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24Z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../en/hardware/i2c.html" hreflang="en" class="md-select__link">
+            <a href="redshift.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="i2c.html" hreflang="zh" class="md-select__link">
+            <a href="../../software/redshift.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -198,21 +198,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="查找">
+      <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -225,7 +225,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            正在初始化搜索引擎
+            Initializing search
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -236,7 +236,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+        <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
@@ -257,7 +257,7 @@
         
           
             
-<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -271,7 +271,7 @@
   
     
   
-  主页
+  Home
 
       </a>
     </li>
@@ -290,7 +290,7 @@
   
     
   
-  密码学
+  Cryptography
 
         </a>
       </li>
@@ -301,18 +301,16 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="acc_rv.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../hardware/acc_rv.html" class="md-tabs__link">
           
   
     
   
-  硬件
+  Hardware
 
         </a>
       </li>
@@ -332,7 +330,7 @@
   
     
   
-  数学
+  Mathematics
 
         </a>
       </li>
@@ -352,7 +350,7 @@
   
     
   
-  网络
+  Networking
 
         </a>
       </li>
@@ -363,16 +361,18 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../software/2fa.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2fa.html" class="md-tabs__link">
           
   
     
   
-  软件
+  Software
 
         </a>
       </li>
@@ -402,19 +402,19 @@
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="杰哥的知识库" class="md-nav__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    杰哥的知识库
+    Jiegec's Knowledge Base
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+      <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
@@ -438,7 +438,7 @@
         
   
   <span class="md-ellipsis">
-    主页
+    Home
   </span>
   
 
@@ -487,7 +487,7 @@
             
   
   <span class="md-ellipsis">
-    密码学
+    Cryptography
   </span>
   
 
@@ -497,7 +497,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            密码学
+            Cryptography
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -617,10 +617,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -671,36 +669,35 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
-    硬件
+    Hardware
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            硬件
+            Hardware
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -711,7 +708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="acc_rv.html" class="md-nav__link">
+      <a href="../hardware/acc_rv.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -732,7 +729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="aib.html" class="md-nav__link">
+      <a href="../hardware/aib.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -753,11 +750,11 @@
   
   
     <li class="md-nav__item">
-      <a href="async_sram.html" class="md-nav__link">
+      <a href="../hardware/async_sram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    异步 SRAM
+    Asynchronous SRAM
   </span>
   
 
@@ -774,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bow.html" class="md-nav__link">
+      <a href="../hardware/bow.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -795,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bus_protocol.html" class="md-nav__link">
+      <a href="../hardware/bus_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -816,7 +813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cache_coherence_protocol.html" class="md-nav__link">
+      <a href="../hardware/cache_coherence_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -837,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmos.html" class="md-nav__link">
+      <a href="../hardware/cmos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -858,7 +855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cxl.html" class="md-nav__link">
+      <a href="../hardware/cxl.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -879,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="display_interface.html" class="md-nav__link">
+      <a href="../hardware/display_interface.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -900,7 +897,7 @@
   
   
     <li class="md-nav__item">
-      <a href="error_detection_correction_code.html" class="md-nav__link">
+      <a href="../hardware/error_detection_correction_code.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -921,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gpgpu.html" class="md-nav__link">
+      <a href="../hardware/gpgpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -942,7 +939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="high_speed_serial.html" class="md-nav__link">
+      <a href="../hardware/high_speed_serial.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -960,129 +957,14 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    I2C (Inter-Integrated Circuit)
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="i2c.html" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    I2C (Inter-Integrated Circuit)
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      接口
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i2c" class="md-nav__link">
-    <span class="md-ellipsis">
-      I2C 控制器实现
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      上层协议
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i2c-eeprom" class="md-nav__link">
-    <span class="md-ellipsis">
-      I2C EEPROM
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i2c-audio-codec" class="md-nav__link">
-    <span class="md-ellipsis">
-      I2C Audio Codec
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i2c-sensor" class="md-nav__link">
-    <span class="md-ellipsis">
-      I2C Sensor
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="logic_levels.html" class="md-nav__link">
+      <a href="../hardware/i2c.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    逻辑电平标准
+    I2C (Inter-Integrated Circuit)
   </span>
   
 
@@ -1099,7 +981,28 @@
   
   
     <li class="md-nav__item">
-      <a href="motherboard.html" class="md-nav__link">
+      <a href="../hardware/logic_levels.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logic level standards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/motherboard.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1120,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="on_chip_networks.html" class="md-nav__link">
+      <a href="../hardware/on_chip_networks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1141,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ooo_cpu.html" class="md-nav__link">
+      <a href="../hardware/ooo_cpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1162,7 +1065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oscillator.html" class="md-nav__link">
+      <a href="../hardware/oscillator.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1183,7 +1086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="pcie.html" class="md-nav__link">
+      <a href="../hardware/pcie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1204,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="sdram.html" class="md-nav__link">
+      <a href="../hardware/sdram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1225,7 +1128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="spi.html" class="md-nav__link">
+      <a href="../hardware/spi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1246,7 +1149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ucie.html" class="md-nav__link">
+      <a href="../hardware/ucie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1305,7 +1208,7 @@
             
   
   <span class="md-ellipsis">
-    数学
+    Mathematics
   </span>
   
 
@@ -1315,7 +1218,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            数学
+            Mathematics
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1450,7 +1353,7 @@
             
   
   <span class="md-ellipsis">
-    网络
+    Networking
   </span>
   
 
@@ -1460,7 +1363,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            网络
+            Networking
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1580,8 +1483,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1614,35 +1519,36 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    软件
+    Software
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            软件
+            Software
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1653,7 +1559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/2fa.html" class="md-nav__link">
+      <a href="2fa.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1674,7 +1580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/atomic_instructions.html" class="md-nav__link">
+      <a href="atomic_instructions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1695,7 +1601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cg.html" class="md-nav__link">
+      <a href="cg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1716,7 +1622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cpio.html" class="md-nav__link">
+      <a href="cpio.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1737,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cuda.html" class="md-nav__link">
+      <a href="cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1758,7 +1664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/dijkstra.html" class="md-nav__link">
+      <a href="dijkstra.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1779,7 +1685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/gcc.html" class="md-nav__link">
+      <a href="gcc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1800,7 +1706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_graphics.html" class="md-nav__link">
+      <a href="linux_graphics.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1818,10 +1724,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../software/redshift.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Amazon Redshift
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="redshift.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1830,6 +1756,86 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      最佳实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distribution-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distribution key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fact-table-dimension-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fact Table 和 Dimension Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用的系统表
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1842,7 +1848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+      <a href="sgemm_cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1863,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/svg.html" class="md-nav__link">
+      <a href="svg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1884,7 +1890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/tar.html" class="md-nav__link">
+      <a href="tar.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1905,7 +1911,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/transformer.html" class="md-nav__link">
+      <a href="transformer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1942,7 +1948,7 @@
                   
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/i2c.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/redshift.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1950,68 +1956,57 @@
   
 
 
-<h1 id="i2c-inter-integrated-circuit">I2C (Inter-Integrated Circuit)</h1>
-<h2 id="_1">接口</h2>
-<p>I2C 协议涉及到两个信号：</p>
+<h1 id="amazon-redshift">Amazon Redshift</h1>
+<p>本文基于 <a href="https://docs.aws.amazon.com/redshift/latest/dg/welcome.html">Amazon Redshift Database Developer Guide</a> 整理。</p>
+<h2 id="_1">架构</h2>
+<p>文档：<a href="https://docs.aws.amazon.com/redshift/latest/dg/c_redshift_system_overview.html">Amazon Redshift System and architecture overview</a></p>
+<p>Redshift 集群由若干个 compute node 组成，如果有两个或以上的 compute nodes，还有一个额外的 leader node。客户端和 leader node 通信，如果只有一个 compute node，那么它也会充当 leader node 的作用。</p>
+<p>数据分布式地保存在 S3 和 compute node 的本地 SSD 存储上，通过 Redshift Managed Storage（RMS）自动管理，本地 SSD 存储相当于是 S3 的 cache。</p>
+<p>为了并行性，数据会分布到各个 compute node 上，更进一步，每个 compute node 分为多个 slice，slice 会平分 compute node 的各种资源，所以实际上数据分发的粒度是 slice。每个 slice 内部进行计算，然后把结果发送到 leader node 上进行合并，最后发给客户端。</p>
+<p>那么为了性能，最好是每个 slice 只用到本地的数据，尽量避免 slice 之间需要数据通信的情况。为了分发数据到各个 slice，Redshift 设计了 distribution key，用户可以指定 distribution key 以及 distribution style，决定数据如何分发到各个 slice 里，目的是后续查询的时候可以更快地找到要用到的数据。</p>
+<p>Redshift 采用列式存储，同一列相邻行的数据是连续存放的，类似于 column major 的矩阵保存形式。由于每一列的大小一般比较小，并且很多时候是定长的，所以可以更加紧密地保存下来，也方便进行压缩。查询时，可以只访问要用到的列，不去读取没访问到的列的数据，省下来这部分 I/O 时间。Redshift 采用 1MB 大小的块，用来存储每一列的数据。</p>
+<p>Redshift 支持请求缓存，在进行 SQL 查询的时候，如果曾经完成过同样的 SQL 查询，并且这段时间内数据没有变化，那么可以从请求缓存中直接把结果取出来，不用重新查询。</p>
+<h2 id="_2">最佳实践</h2>
+<p>文档：<a href="https://docs.aws.amazon.com/redshift/latest/dg/best-practices.html">Amazon Redshift Best practices</a></p>
+<h3 id="distribution-key">Distribution key</h3>
+<p>Distribution key 和 distribution style 决定了数据如何分布在各个 slice 中。如果预先设好的分布方案与实际查询时所期望的分布方案不同，就需要通信以重新分发数据，那么性能就会受到影响。除此之外，还尽量要保证不同 slice 比较均匀地分到数据，避免少数 slice 保存和处理大部分数据，影响并行性，同理，进行查询的时候，也要尽量保证每个 slice 都有自己的计算可以做。</p>
+<p><a href="https://docs.aws.amazon.com/redshift/latest/dg/c_choosing_dist_sort.html">Distribution Style</a> 有这么几种：</p>
+<ol>
+<li>AUTO：由 Redshift 自动选择</li>
+<li>EVEN：没有 Distribution key，插入数据时直接 Round-robin 式把数据分发到各个 slice 上</li>
+<li>KEY：按照 Distribution key（某一个 column）进行分发，如果某两行在 Distribution key 下的值相同，那么这两行会被分到同一个 slice 上</li>
+<li>ALL：把数据复制到所有的 node 上，每个 node 保存一份完整的数据，供所有 slice 读取</li>
+</ol>
+<p>选择 Distribution style 的时候，要结合 workload 来进行分析。如果主要的查询是对两个表进行 join，把要 join 的 key 设为 Distribution key 是比较合理的方案，这样两个表的数据里的具有同一个 join key 的行会保存在同一个 slice 内部，那么每个 slice 内部就可以完成 join 操作，不需要在 slice 之间通信。</p>
+<p>更详细的原则见 <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_designating_distribution_styles.html">Designating distribution styles</a>，简单总结一下：</p>
+<ol>
+<li>经常 join 的 key，就设为对应 table 的 distribution key</li>
+<li>每个 table 的 distribution key 只能有一个，但是要 join 多个表，怎么办？选性能影响最大的那个，根据要 join 的表的大小来估计，估计大小时不要忘记考虑 filter</li>
+<li>实在不好设计 distribution key，又想提升查询性能，可以用 ALL distribution style，用空间换时间</li>
+<li>对于性能影响不大的表，可以让 Redshift 自动选择</li>
+</ol>
+<p>为了确认分布方案是否合理，可以用 EXPLAIN 语句获取常用 SQL 查询的 Query Plan，可以看到 Redshift 是怎么执行这条 SQL 语句的，在里面就可以看到不同 Distribution key 的影响。</p>
+<h3 id="sort-key">Sort key</h3>
+<p>文档：<a href="https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-sort-key.html">Choose the best sort key</a> 和 <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html">Working with sort keys</a></p>
+<p>除了 Distribution key 以外，还有一个很重要的概念，就是 Sort key。Sort key 对应数据库里的索引（Index），其实就是把数据按照什么顺序排序，方便查询。传统数据库每个表支持多个 Index，每个 Index 可以用不同的 Key，那么查询的时候，就可以利用这些 Index 来加速查询。Redshift 则不同，它每个表只有一个 Index，用 Sort key 排序，所以 Sort key 的选取对性能也是很重要的。</p>
+<p>Distribution key 主要涉及到 slice 之间的数据分布方式，以及查询时 slice 之间需要多少的数据传输。而 Sort key 主要涉及的是 slice 内部实现查询时，能否高效地进行。</p>
+<p>例如对两个表进行 join 的时候，如果两个表都按照 join key 排好了序，那就可以用类似归并排序的归并操作，双指针快速地同时遍历两边的表的同一个 join key。如果没排好序，那就要 fallback 到哈希表 join，从一个表构建哈希表，遍历另一个表，然后在哈希表里寻找 join key 匹配的行。再比如对某些列进行过滤的时候，如果已经按列排好序，那就可以很快地找到上下界，不用一个个去遍历。</p>
+<p>相比 Distribution key 只能设置一个列，Sort key 则更加灵活，它支持如下模式：</p>
+<ol>
+<li>COMPOUND：可以指定多个列，按多关键字排序，那么按照 Sort key 的前缀列进行查询的时候，就可以利用排好序的性质，提升查询性能</li>
+<li>INTERLEAVED：可以指定多个列，但最多 8 列，它相比 COMPOUND 更复杂，加载数据时更慢，但是比较灵活，不一定要查询前缀列，可以任意组合</li>
+</ol>
+<p>特别地，如果只有一个列需要排序，这个列的内容又有很多相同前缀的时候（例如大量 URL 开头都是 <code>https://www</code>），COMPOUND 模式下，它为了节省字符串比较时间，可能会只选取字符串的前若干个字节（从 <code>STV_BLOCKLIST</code> 的 <code>minvalue</code> 和 <code>maxvalue</code> 来推断，是前 8 个字节）来排序，这样排序的效果就变差了；而 INTERLEAVED 模式会做的更好。</p>
+<h3 id="fact-table-dimension-table">Fact Table 和 Dimension Table</h3>
+<p>在 Redshift 文档里会涉及到两个数据分析的概念：Fact Table 和 Dimension Table。Fact Table 一般是保记录某个事情的发生，这个事情涉及到了哪些人，哪些物品，发生在什么时间。这些涉及到的人和物品的信息都是用 ID 保存下来，然后用另一个 Dimension 表来具体保存每个人的信息，每个物品的信息，等等。</p>
+<p>例如，对于一个网上购物系统，Fact Table 记录了所有订单，订单记录了买家的 ID，卖家的 ID，商品的 ID，商品的数量和价格，然后有多个 Dimension Table，所有买家是一个表，卖家是一个表，所有商品也是一个表。</p>
+<p>这样，Fact Table 就是有大量的到 Dimension Table 的 Foreign Key。查询的时候，通常会把 Fact Table 和多个 Dimension Table join 起来。例如要找到所有卖家在每个商品卖出的总价格，那就把 Fact Table 和卖家表和商品表 join 起来，然后按卖家和商品进行 group by，对价格做求和。</p>
+<p>如果要对这个例子优化，那么就要比较卖家表和商品表谁更大，一般来说，商品比卖家多，join 商品表花的时间更长，那就让订单列表（Fact Table）和商品表都设置商品 ID 为 Distribution key。此时卖家表没有商品 ID 这一列，没法按照商品 ID 来分发，如果设置卖家 ID 为 Distribution key，那卖家的分布和商品的分布不同，就会涉及到比较多的通信，但考虑到卖家比较少，性能影响可能比较小。如果要很好的性能，那么卖家表可以设置为 ALL distribution style，那么每个 node 都有一份卖家，每个 slice 可以从本地找到卖家的信息，不需要额外的通信。对于 Sort key，由于订单列表和商品表需要在商品 ID 上进行 join，很自然地可以把商品 ID 设置为 sort key。订单列表和卖家表需要在卖家 ID 上进行 join，于是卖家表可以把卖家 ID 设置为 sort key。</p>
+<h2 id="_3">常用的系统表</h2>
 <ul>
-<li>SCL: 时钟信号，Master -&gt; Slave</li>
-<li>SDA：数据信号，Master &lt;-&gt; Slave</li>
+<li><a href="https://docs.aws.amazon.com/redshift/latest/dg/r_SVL_QLOG.html">SVL_QLOG</a>：记录了 SQL 查询日志</li>
+<li><a href="https://docs.aws.amazon.com/redshift/latest/dg/r_STV_BLOCKLIST.html">STV_BLOCKLIST</a>：记录了每个 1MB block 的信息</li>
 </ul>
-<p>由于只有一个数据信号，所以 SDA 由 Master 和 Slave 轮流输出。一次请求的开始条件是，SDA 从 1 变成 0，之后 SCL 从 1 变成 0。开始请求以后，每次 SCL 上升沿采样一位的数据。请求结束时，SCL 从 0 变成 1，然后 SDA 从 0 变成 1。一次请求的波形如下：</p>
-<script type="WaveDrom">{
-  signal:
-    [
-      { name: "scl", wave: "1.0101010|.101..."},
-      { name: "sda", wave: "10....1..|0....1.", phase: -0.1},
-      { name: "i2c", wave: "34.5.....|6.7....", data: ["idle", "start", "data", "ack", "stop"]},
-    ]
-}</script>
-<ol>
-<li>idle 阶段，scl 和 sda 都是 1</li>
-<li>start 阶段，首先是 sda 变成 0，之后是 scl 变成 0</li>
-<li>data/ack 阶段，在 scl 上升沿采样数据，在 scl 下降沿（准确来说，负半周期）修改数据</li>
-<li>stop 阶段，首先是 scl 变成 1，之后是 sda 变成 1</li>
-</ol>
-<p>传输数据的时候，需要保证 sda 在 scl 正半周期的时候保持不变。如果变了，那就是 start 或者 stop。因此，在 data/ack 阶段，建议保证 sda 的变化相比 scl 下降沿有一个延迟（Hold Time，一般的要求是 Min 0us）。实现方法可能是在分频的时候，先拉低 scl，下一个周期再修改 sda。</p>
-<p>这里的 data/ack 指的则是传输的具体内容：例如 master 要传输 7 位的地址和 1 位的读使能，响应地址的 slave 要返回 ack；之后，无论是 master 还是 slave 发送数据，接收的一方都要返回 ack。ack 是低有效，意味着 0 表示成功（ack），1 表示失败（nack）。</p>
-<p>由于 sda 带有上拉电阻，所以如果没有 slave 响应，ack 阶段的 sda 就会变成 1，意味着失败（nack）。</p>
-<h2 id="i2c">I2C 控制器实现</h2>
-<p>结合上面的 I2C 波形，可以设计一个状态机：</p>
-<ol>
-<li>INIT 状态：初始情况下，SCL 和 SDA 都为 1，要发送数据的时候，转移到 START1 状态</li>
-<li>START1 状态：设置 SDA=0，当达到分频条件时，转移到 START2 状态</li>
-<li>START2 状态：设置 SCL=0，当达到分频条件时，START 发送完成，转移到 SEND 状态</li>
-<li>SEND 状态：当达到分频条件时，SCL 取反，如果 SCL 要从 1 变成 0，延迟一个周期，再输出 1 位的数据到 SDA 上，保证 SDA 的变化在 SCL 的负半周期；同时统计传输位数，每传输 8 位，就要等待一个周期让 Slave 响应 ACK，此时要设置 inout 输出为高阻态；如果要转换传输方向，即 Master 要读取数据，那么转移到 RECV 状态；如果传输结束，转移到 STOP1 状态</li>
-<li>RECV 状态：当达到分频条件时，SCL 取反，如果 SCL 从 0 变成 1，对 SDA 进行采样并且保存下来；同时统计传输位数，每传输 8 位，就要在 SDA 输出一次 ACK；如果传输结束，转移到 STOP1 状态</li>
-<li>STOP1 状态：设置 SCL=1，当达到分频条件时，转移到 STOP2 状态</li>
-<li>STOP2 状态：设置 SDA=1，当达到分频条件时，转移到 INIT 状态</li>
-</ol>
-<p>分频是因为一般 I2C 的频率比较低，是 kHz 的量级。需要按照控制逻辑的主频，结合外设能接受的 I2C 频率范围，计算出分频的倍数。</p>
-<h2 id="_2">上层协议</h2>
-<p>在此基础上，可以设计上层协议，例如 <a href="http://cdn.sparkfun.com/datasheets/Dev/Arduino/Shields/WolfsonWM8731.pdf">WM8731</a>，支持通过 I2C 写入内部寄存器，一次写操作分为以下步骤：</p>
-<ol>
-<li>start</li>
-<li>master 发送 7 位的设备地址和 0（表示写），slave 发送 ack</li>
-<li>master 发送 7 位的寄存器地址 和 1 位的寄存器数据，slave 发送 ack</li>
-<li>master 发送 8 位的寄存器数据，slave 发送 ack</li>
-<li>stop</li>
-</ol>
-<p>这里的第二步发送的 7 位地址 + 读/写位是标准的，I2C Slave 都会根据 7 位地址来决定是否由自己来响应。此后的数据的定义，则是各个芯片按照各自的协议来进行。</p>
-<p>为了让多个同型号 I2C 芯片可以同时使用，通常芯片提供了一些引脚来配置它的地址，那么在设计的时候，给不同的芯片设置不同的地址，就解决了地址冲突的问题。</p>
-<h2 id="i2c-eeprom">I2C EEPROM</h2>
-<p>以 <a href="https://ww1.microchip.com/downloads/en/devicedoc/doc0336.pdf">AT24C32/AT24C64</a> 为例，它提供了一个 I2C 接口的 EEPROM，支持如下操作：</p>
-<p>写入数据：start，7 位设备地址，W，ACK；写入地址的高 8 位，ack；写入地址的低 8 位，ack；数据的每个字节，ack；最终 stop。</p>
-<p>读取数据：start，7 位设备地址，W，ack；读取地址的高 8 位，ack；读取地址的低 8 位，ack；start，7 位设备地址，R，ack；数据的每个字节，ack；最终不想读的时候 nack，stop。</p>
-<p>可以看到，这里设计成写操作的时候，只有 Master 到 Slave 的数据传输，反过来读操作的时候，只有 Slave 到 Master 的数据传输。因此，为了传输读取的地址，要首先“写入”读取的地址，再进行一次读操作，把数据读出来。</p>
-<h2 id="i2c-audio-codec">I2C Audio Codec</h2>
-<p>上面的例子中的 <a href="http://cdn.sparkfun.com/datasheets/Dev/Arduino/Shields/WolfsonWM8731.pdf">WM8731</a> 实际上就是一个 Audio Codec，可以通过 I2C 对其寄存器进行写入。WM8731 的寄存器地址有 9 位，每个寄存器有 8 位的数据，因此写入流程是：start，7 位设备地址，W，ack；7 位寄存器地址，1 位寄存器数据，ack；8 位寄存器数据，ack；stop。</p>
-<h2 id="i2c-sensor">I2C Sensor</h2>
-<p>举一个传感器的例子：<a href="https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/docs/datasheet/unit/gesture/paj7620u2_datasheet.pdf">PAJ7620U2: Integrated Gesture Recognition Sensor </a>，它也提供了一个寄存器读写的接口，支持如下操作：</p>
-<p>单次写入：start，7 位设备地址，W，ack；8 位地址，ack；8 位数据，ack；stop。</p>
-<p>单次读取：start，7 位设备地址，W，ack；8 位地址，ack；stop；start，7 位设备地址，R，ack；8 位数据，nack；stop。这里的读取也拆成了两步：第一步“写入”读取的地址，第二步读取出数据。最后的 nack 表示 master 不需要读取更多的数据。</p>
-<p>如果要批量读取的话，只要在单次读取的基础上，读取数据的时候发 ack，等到不需要继续读的时候再发 nack，就可以连续读取多个寄存器的数据。</p>
-<p>这些命令格式和上面的 I2C EEPROM 基本是一样的。</p>
-<p>颜色传感器 <a href="https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf">TCS3472</a> 的命令格式也是类似的。</p>
 
 
 
@@ -2031,20 +2026,20 @@
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="最后更新">
+    <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年11月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月6日</span>
   </span>
 
     
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="创建日期">
+    <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年5月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月6日</span>
   </span>
 
     
@@ -2058,7 +2053,7 @@
 
 
 <!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
-<h2 id="__comments">评论</h2>
+<h2 id="__comments">Comments</h2>
 <!-- Insert generated snippet here -->
 
 <script src="https://giscus.app/client.js"
@@ -2111,7 +2106,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-  回到页面顶部
+  Back to top
 </button>
         
       </main>
@@ -2120,33 +2115,33 @@
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="high_speed_serial.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 高速串行通信">
+          <a href="linux_graphics.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Linux 图形软件栈">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                上一页
+                Previous
               </span>
               <div class="md-ellipsis">
-                高速串行通信
+                Linux 图形软件栈
               </div>
             </div>
           </a>
         
         
           
-          <a href="logic_levels.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 逻辑电平标准">
+          <a href="sgemm_cuda.html" class="md-footer__link md-footer__link--next" aria-label="Next: SGEMM on CUDA">
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                下一页
+                Next
               </span>
               <div class="md-ellipsis">
-                逻辑电平标准
+                SGEMM on CUDA
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2184,12 +2179,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
@@ -2201,8 +2196,8 @@
       
         <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
       
-        <script src="../javascripts/tablesort.js"></script>
+        <script src="../../javascripts/tablesort.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body>
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
