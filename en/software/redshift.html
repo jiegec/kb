@@ -1997,6 +1997,7 @@
 <li>INTERLEAVED：可以指定多个列，但最多 8 列，它相比 COMPOUND 更复杂，加载数据时更慢，但是比较灵活，不一定要查询前缀列，可以任意组合</li>
 </ol>
 <p>特别地，如果只有一个列需要排序，这个列的内容又有很多相同前缀的时候（例如大量 URL 开头都是 <code>https://www</code>），COMPOUND 模式下，它为了节省字符串比较时间，可能会只选取字符串的前若干个字节（从 <code>STV_BLOCKLIST</code> 的 <code>minvalue</code> 和 <code>maxvalue</code> 来推断，是前 8 个字节）来排序，这样排序的效果就变差了；而 INTERLEAVED 模式会做的更好，因为经过了压缩。</p>
+<p>此外，INTERLEAVED 模式下，如果不断地往一个已经有数据的表里添加新数据，数据分布出现变化，那么性能会逐渐变差，需要用 VACUUM REINDEX 命令重新进行排序。具体原因，可以在下面的分析文章里了解到。</p>
 <p>关于 Sort key 背后的实现原理，推荐阅读 <a href="https://chartio.com/blog/understanding-interleaved-sort-keys-in-amazon-redshift-part-1/">Interleaved Sort Keys in Amazon Redshift, Part 1</a> 和 <a href="https://chartio.com/blog/interleaved-sort-keys-part-2/">Interleaved Sort Keys in Amazon Redshift, Part 2</a>：它解释了 Redshift 的 Sort key 实现方法，也可以解释上面提到的各种内容。</p>
 <h3 id="fact-table-dimension-table">Fact Table 和 Dimension Table</h3>
 <p>在 Redshift 文档里会涉及到两个数据分析的概念：Fact Table 和 Dimension Table。Fact Table 一般是记录了某个事情的发生，这个事情涉及到了哪些人，哪些物品，发生在什么时间。这些涉及到的人和物品的信息都是用 ID 保存下来，然后用另外的若干个 Dimension 表来具体保存每个人的信息，每个物品的信息，等等。</p>
