@@ -48,7 +48,7 @@ Distribution key 和 distribution style 决定了数据如何分布在各个 sli
 
 文档：[Choose the best sort key](https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-sort-key.html) 和 [Working with sort keys](https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html)
 
-除了 Distribution key 以外，还有一个很重要的概念，就是 Sort key。Sort key 对应数据库里的索引（Index），其实就是把数据按照什么顺序排序，方便查询。传统数据库每个表支持多个 Index，每个 Index 可以用不同的 Key，那么查询的时候，就可以利用这些 Index 来加速查询。Redshift 则不同，它每个表只有一个 Index，用 Sort key 排序，所以 Sort key 的选取对性能也是很重要的。
+除了 Distribution key 以外，还有一个很重要的概念，就是 Sort key。Sort key 对应数据库里的索引（Index），其实就是把数据按照什么顺序排序，方便查询。传统数据库每个表支持多个 Index，每个 Index 可以用不同的 Key，那么查询的时候，就可以利用这些 Index 来加速查询。Redshift 则不同，它每个表相当于只有一个 Index：数据用 Sort key 排好序并保存，没有额外的 B 树，只是保存了每个 Block 的最大最小值，所以 Sort key 的选取对性能也是很重要的。
 
 Distribution key 主要涉及到 slice 之间的数据分布方式，以及查询时 slice 之间需要多少的数据传输。而 Sort key 主要涉及的是 slice 内部实现查询时，能否高效地进行。
 
@@ -59,7 +59,9 @@ Distribution key 主要涉及到 slice 之间的数据分布方式，以及查�
 1. COMPOUND：可以指定多个列，按多关键字排序，那么按照 Sort key 的前缀列进行查询的时候，就可以利用排好序的性质，提升查询性能
 2. INTERLEAVED：可以指定多个列，但最多 8 列，它相比 COMPOUND 更复杂，加载数据时更慢，但是比较灵活，不一定要查询前缀列，可以任意组合
 
-特别地，如果只有一个列需要排序，这个列的内容又有很多相同前缀的时候（例如大量 URL 开头都是 `https://www`），COMPOUND 模式下，它为了节省字符串比较时间，可能会只选取字符串的前若干个字节（从 `STV_BLOCKLIST` 的 `minvalue` 和 `maxvalue` 来推断，是前 8 个字节）来排序，这样排序的效果就变差了；而 INTERLEAVED 模式会做的更好。
+特别地，如果只有一个列需要排序，这个列的内容又有很多相同前缀的时候（例如大量 URL 开头都是 `https://www`），COMPOUND 模式下，它为了节省字符串比较时间，可能会只选取字符串的前若干个字节（从 `STV_BLOCKLIST` 的 `minvalue` 和 `maxvalue` 来推断，是前 8 个字节）来排序，这样排序的效果就变差了；而 INTERLEAVED 模式会做的更好，因为经过了压缩。
+
+关于 Sort key 背后的实现原理，推荐阅读 [Interleaved Sort Keys in Amazon Redshift, Part 1](https://chartio.com/blog/understanding-interleaved-sort-keys-in-amazon-redshift-part-1/) 和 [Interleaved Sort Keys in Amazon Redshift, Part 2](https://chartio.com/blog/interleaved-sort-keys-part-2/)：它解释了 Redshift 的 Sort key 实现方法，也可以解释上面提到的各种内容。
 
 ### Fact Table 和 Dimension Table
 
