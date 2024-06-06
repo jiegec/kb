@@ -61,6 +61,8 @@ Distribution key 主要涉及到 slice 之间的数据分布方式，以及查�
 
 特别地，如果只有一个列需要排序，这个列的内容又有很多相同前缀的时候（例如大量 URL 开头都是 `https://www`），COMPOUND 模式下，它为了节省字符串比较时间，可能会只选取字符串的前若干个字节（从 `STV_BLOCKLIST` 的 `minvalue` 和 `maxvalue` 来推断，是前 8 个字节）来排序，这样排序的效果就变差了；而 INTERLEAVED 模式会做的更好，因为经过了压缩。
 
+此外，INTERLEAVED 模式下，如果不断地往一个已经有数据的表里添加新数据，数据分布出现变化，那么性能会逐渐变差，需要用 VACUUM REINDEX 命令重新进行排序。具体原因，可以在下面的分析文章里了解到。
+
 关于 Sort key 背后的实现原理，推荐阅读 [Interleaved Sort Keys in Amazon Redshift, Part 1](https://chartio.com/blog/understanding-interleaved-sort-keys-in-amazon-redshift-part-1/) 和 [Interleaved Sort Keys in Amazon Redshift, Part 2](https://chartio.com/blog/interleaved-sort-keys-part-2/)：它解释了 Redshift 的 Sort key 实现方法，也可以解释上面提到的各种内容。
 
 ### Fact Table 和 Dimension Table
