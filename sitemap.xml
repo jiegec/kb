@@ -2,700 +2,714 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://jia.je/kb/index.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/index.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/index.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/cryptography/ec.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/ec.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/ec.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/cryptography/ecdsa.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/ecdsa.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/ecdsa.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/cryptography/lll.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/lll.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/lll.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/cryptography/montgomery_mul_mod.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/montgomery_mul_mod.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/montgomery_mul_mod.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/cryptography/zk_snark.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/zk_snark.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/zk_snark.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/acc_rv.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/acc_rv.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/acc_rv.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/aib.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/aib.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/aib.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/async_sram.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/async_sram.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/async_sram.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/bow.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/bow.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bow.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/bus_protocol.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/bus_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bus_protocol.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/cache_coherence_protocol.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cache_coherence_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cache_coherence_protocol.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/cmos.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cmos.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cmos.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/cxl.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cxl.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cxl.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/display_interface.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/display_interface.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/display_interface.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/error_detection_correction_code.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/error_detection_correction_code.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/error_detection_correction_code.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/gpgpu.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/gpgpu.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/gpgpu.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/high_speed_serial.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/high_speed_serial.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/high_speed_serial.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/i2c.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/i2c.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/i2c.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/logic_levels.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/logic_levels.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/logic_levels.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/motherboard.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/motherboard.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/motherboard.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/on_chip_networks.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/on_chip_networks.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/on_chip_networks.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/ooo_cpu.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ooo_cpu.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ooo_cpu.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/oscillator.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/oscillator.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/oscillator.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/pcie.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/pcie.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/pcie.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/sdram.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/sdram.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/sdram.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/spi.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/spi.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/spi.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/ucie.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ucie.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ucie.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/mathematics/abstract-algebra.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/abstract-algebra.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/abstract-algebra.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/mathematics/fourier-transform.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/fourier-transform.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/fourier-transform.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/mathematics/probability.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/probability.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/probability.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/mathematics/score.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/score.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/score.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/networking/ethernet.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/ethernet.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/ethernet.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/networking/infiniband.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/infiniband.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/infiniband.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/networking/spanning_tree_protocol.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/spanning_tree_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/spanning_tree_protocol.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/networking/vlan.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/vlan.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/vlan.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/networking/wlan.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/wlan.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/wlan.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/2fa.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/2fa.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/2fa.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/atomic_instructions.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/atomic_instructions.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/atomic_instructions.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/software/aws-pricing.html</loc>
+        <lastmod>2024-06-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/aws-pricing.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/aws-pricing.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/software/cg.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/cg.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cg.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/cpio.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/cpio.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cpio.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/cuda.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/cuda.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cuda.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/dijkstra.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/dijkstra.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/dijkstra.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/gcc.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/gcc.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/gcc.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/linux_graphics.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/linux_graphics.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/linux_graphics.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/redshift.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/redshift.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/redshift.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/sgemm_cuda.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/sgemm_cuda.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/sgemm_cuda.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/svg.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/svg.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/svg.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/tar.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/tar.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/tar.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/transformer.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/transformer.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/transformer.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/index.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/index.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/index.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cryptography/ec.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/ec.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/ec.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cryptography/ecdsa.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/ecdsa.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/ecdsa.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cryptography/lll.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/lll.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/lll.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cryptography/montgomery_mul_mod.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/montgomery_mul_mod.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/montgomery_mul_mod.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cryptography/zk_snark.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/zk_snark.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/zk_snark.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/acc_rv.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/acc_rv.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/acc_rv.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/aib.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/aib.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/aib.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/async_sram.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/async_sram.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/async_sram.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/bow.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bow.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/bow.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/bus_protocol.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bus_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/bus_protocol.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/cache_coherence_protocol.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cache_coherence_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cache_coherence_protocol.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/cmos.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cmos.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cmos.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/cxl.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cxl.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cxl.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/display_interface.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/display_interface.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/display_interface.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/error_detection_correction_code.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/error_detection_correction_code.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/error_detection_correction_code.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/gpgpu.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/gpgpu.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/gpgpu.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/high_speed_serial.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/high_speed_serial.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/high_speed_serial.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/i2c.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/i2c.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/i2c.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/logic_levels.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/logic_levels.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/logic_levels.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/motherboard.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/motherboard.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/motherboard.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/on_chip_networks.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/on_chip_networks.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/on_chip_networks.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/ooo_cpu.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ooo_cpu.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ooo_cpu.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/oscillator.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/oscillator.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/oscillator.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/pcie.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/pcie.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/pcie.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/sdram.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/sdram.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/sdram.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/spi.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/spi.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/spi.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/ucie.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ucie.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ucie.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/mathematics/abstract-algebra.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/abstract-algebra.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/abstract-algebra.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/mathematics/fourier-transform.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/fourier-transform.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/fourier-transform.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/mathematics/probability.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/probability.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/probability.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/mathematics/score.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/mathematics/score.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/mathematics/score.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/networking/ethernet.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/ethernet.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/ethernet.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/networking/infiniband.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/infiniband.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/infiniband.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/networking/spanning_tree_protocol.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/spanning_tree_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/spanning_tree_protocol.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/networking/vlan.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/vlan.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/vlan.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/networking/wlan.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/networking/wlan.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/networking/wlan.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/2fa.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/2fa.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/2fa.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/atomic_instructions.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/atomic_instructions.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/atomic_instructions.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/en/software/aws-pricing.html</loc>
+        <lastmod>2024-06-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/aws-pricing.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/aws-pricing.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/en/software/cg.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cg.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/cg.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/cpio.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cpio.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/cpio.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/cuda.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/cuda.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/cuda.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/dijkstra.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/dijkstra.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/dijkstra.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/gcc.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/gcc.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/gcc.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/linux_graphics.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/linux_graphics.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/linux_graphics.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/redshift.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/redshift.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/redshift.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/sgemm_cuda.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/sgemm_cuda.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/sgemm_cuda.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/svg.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/svg.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/svg.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/tar.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/tar.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/tar.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/transformer.html</loc>
-        <lastmod>2024-06-06</lastmod>
+        <lastmod>2024-06-10</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/transformer.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/transformer.html"/>
