@@ -39,7 +39,7 @@ static void __section(".inittext") bios_putchar(int ch)
 
 上文提到，从 VBE 2.0 开始，提供了 framebuffer 功能，使得内核可以比较自由地控制要绘制的内容，只需要把绘制的内容放到内存里，交给 VBE 就可以把内容显示出来。framebuffer 可以由内核来负责绘制，把用户态程序往 stdout 输出的文字绘制到 framebuffer 里面；也可以把 framebuffer 交给用户态，启动 X11 server 等等。
 
-于是内核是怎么处理 framebuffer 的呢？framebuffer 可能由不同的硬件提供，所以需要一套设备类型来统一处理 framebuffer，那就是 fbdev。那么，VBE 2.0 提供的 framebuffer 功能，在 Linux 下的驱动就由  [vesafb](https://docs.kernel.org/fb/vesafb.html) 驱动（`drivers/video/fbdev/vesafb.c`） 提供。
+于是内核是怎么处理 framebuffer 的呢？framebuffer 可能由不同的硬件提供，所以需要一套设备类型来统一处理 framebuffer，那就是 fbdev。那么，VBE 2.0 提供的 framebuffer 功能，在 Linux 下的驱动就由  [vesafb](https://docs.kernel.org/fb/vesafb.html) 驱动（`drivers/video/fbdev/vesafb.c`）提供。
 
 在启动的时候，Linux 内核会通过 VBE 的 Function 01h - Return VBE Mode Information 配置 framebuffer，如果配置成功，就会拿到一个物理地址 `lfb_base`（linear frame buffer base），以及对应的 frame buffer 格式。
 
@@ -70,7 +70,7 @@ X11 是常用的图形界面系统，它的架构是比较传统的 Client/Serve
 
 这种 Client/Server 的设计使得 X11 可以远程使用：经典的 SSH X Forwarding，就是在远程系统上运行 X Client，用本地的 X Server 显示。
 
-Client 和 Server 之间的通信协议是 [X Window System Protocol](https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html)，用户可以用 libX11（Xlib）或者 XCB（X C Binding）直接在 X Protocol 层次上进行开发。下面是一个例子，用 libX11（Xlib） 库来和 X Server 建立连接，创建窗口并绘制的例子（来自 [Rosetta Code](https://rosettacode.org/wiki/Window_creation/X11#C)）：
+Client 和 Server 之间的通信协议是 [X Window System Protocol](https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html)，用户可以用 libX11（Xlib）或者 XCB（X C Binding）直接在 X Protocol 层次上进行开发。下面是一个例子，用 libX11（Xlib）库来和 X Server 建立连接，创建窗口并绘制的例子（来自 [Rosetta Code](https://rosettacode.org/wiki/Window_creation/X11#C)）：
 
 ```c
 #include <X11/Xlib.h>
@@ -120,6 +120,6 @@ Wayland 在这个思路上走得更远：把绘制的大部分工作交给 Clien
 
 ## DRM & KMS
 
-Direct Rendering Manager（DRM） 是内核里负责和硬件打交道，同时又给用户态提供硬件加速能力的驱动。在用户态一侧，则是 Mesa 提供 OpenGL/Vulkan 等图形 API。可以用 [drm_info](https://gitlab.freedesktop.org/emersion/drm_info) 查看系统中 DRM 设备的状态。
+Direct Rendering Manager（DRM）是内核里负责和硬件打交道，同时又给用户态提供硬件加速能力的驱动。在用户态一侧，则是 Mesa 提供 OpenGL/Vulkan 等图形 API。可以用 [drm_info](https://gitlab.freedesktop.org/emersion/drm_info) 查看系统中 DRM 设备的状态。
 
 [Kernel Mode Setting（KMS）](https://www.kernel.org/doc/html/v4.15/gpu/drm-kms.html) 是让内核负责配置显示输出的分辨率等等模式（Mode Set），因为只有确定了分辨率等参数，才能确定 framebuffer 的大小和格式。

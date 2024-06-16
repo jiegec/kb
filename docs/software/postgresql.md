@@ -133,3 +133,22 @@ evaluation order:
 - ALTER TABLE table OWNER TO role
 - REASSIGN OWNED BY roleA TO roleB
 - DROP OWNED BY role
+
+## Backup and restore
+
+- Backup one database: pg_dump database > database.sql
+- Backup all databases: pg_dumpall > database.sql
+- Restore after creating database: psql database < database.sql
+- Backup and restore for replication: pg_dump dbA | psql dbB
+
+## Upgrade major version
+
+1. Backup old database
+2. Install new version of PostgreSQL while keeping the old one
+3. Restore backup to the new version manually, or use `pg_upgrade`
+
+## DB cluster management
+
+- Initialize PostgreSQL: initdb -D path
+- Start PostgreSQL interactively: postgres -D path
+- Start/stop PostgreSQL as daemon: pg_ctl -D path start/stop
