@@ -54,6 +54,6 @@ Actions: extract values from Dataset
 
 Supports caching in memory: cache()
 
-Execute raw SQL queries: `spark.sql(query)`
+Execute raw SQL queries: `spark.sql(query)`, https://spark.apache.org/docs/latest/api/sql/
 
 Register a Dataset as a temporary view in SQL: `df.createOrReplaceTempView(name)`
