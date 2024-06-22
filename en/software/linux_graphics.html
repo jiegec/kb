@@ -2008,7 +2008,7 @@
  的 <a href="https://en.wikipedia.org/wiki/UEFI#GOP">Graphics Output Protocol (GOP)</a>。</p>
 <h2 id="framebuffer">framebuffer</h2>
 <p>上文提到，从 VBE 2.0 开始，提供了 framebuffer 功能，使得内核可以比较自由地控制要绘制的内容，只需要把绘制的内容放到内存里，交给 VBE 就可以把内容显示出来。framebuffer 可以由内核来负责绘制，把用户态程序往 stdout 输出的文字绘制到 framebuffer 里面；也可以把 framebuffer 交给用户态，启动 X11 server 等等。</p>
-<p>于是内核是怎么处理 framebuffer 的呢？framebuffer 可能由不同的硬件提供，所以需要一套设备类型来统一处理 framebuffer，那就是 fbdev。那么，VBE 2.0 提供的 framebuffer 功能，在 Linux 下的驱动就由  <a href="https://docs.kernel.org/fb/vesafb.html">vesafb</a> 驱动（<code>drivers/video/fbdev/vesafb.c</code>） 提供。</p>
+<p>于是内核是怎么处理 framebuffer 的呢？framebuffer 可能由不同的硬件提供，所以需要一套设备类型来统一处理 framebuffer，那就是 fbdev。那么，VBE 2.0 提供的 framebuffer 功能，在 Linux 下的驱动就由  <a href="https://docs.kernel.org/fb/vesafb.html">vesafb</a> 驱动（<code>drivers/video/fbdev/vesafb.c</code>）提供。</p>
 <p>在启动的时候，Linux 内核会通过 VBE 的 Function 01h - Return VBE Mode Information 配置 framebuffer，如果配置成功，就会拿到一个物理地址 <code>lfb_base</code>（linear frame buffer base），以及对应的 frame buffer 格式。</p>
 <p>UEFI 也是类似的：Linux 的 <a href="https://docs.kernel.org/fb/efifb.html">efifb</a> 驱动会从 UEFI 中获取到 framebuffer 的地址等信息：</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>efifb: probing for efifb
@@ -2028,7 +2028,7 @@
 <h2 id="x11">X11</h2>
 <p>X11 是常用的图形界面系统，它的架构是比较传统的 Client/Server：系统中运行一个 X Server，然后用户程序是 X Client。X Client 通过 Socket 和 X Server 通讯，告诉 X Server 需要绘制哪些图形；X Server 负责显示以及键盘鼠标的交互，如果用户操作了键盘鼠标，则会把相应的事件通过 Socket 通知 X Client。</p>
 <p>这种 Client/Server 的设计使得 X11 可以远程使用：经典的 SSH X Forwarding，就是在远程系统上运行 X Client，用本地的 X Server 显示。</p>
-<p>Client 和 Server 之间的通信协议是 <a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html">X Window System Protocol</a>，用户可以用 libX11（Xlib）或者 XCB（X C Binding）直接在 X Protocol 层次上进行开发。下面是一个例子，用 libX11（Xlib） 库来和 X Server 建立连接，创建窗口并绘制的例子（来自 <a href="https://rosettacode.org/wiki/Window_creation/X11#C">Rosetta Code</a>）：</p>
+<p>Client 和 Server 之间的通信协议是 <a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html">X Window System Protocol</a>，用户可以用 libX11（Xlib）或者 XCB（X C Binding）直接在 X Protocol 层次上进行开发。下面是一个例子，用 libX11（Xlib）库来和 X Server 建立连接，创建窗口并绘制的例子（来自 <a href="https://rosettacode.org/wiki/Window_creation/X11#C">Rosetta Code</a>）：</p>
 <div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;X11/Xlib.h&gt;</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -2071,7 +2071,7 @@
 <p>可见在 X11 的架构下，实际负责绘制的是 Server，Client 会把命令发送给 Server。但是这样做效率会比较低，因为要在 Client 和 Server 之间来回通信。因此后来 X11 引入了 Direct Rendering Infrastructure（DRI）：Client 和 GPU 通信，进行硬件加速的绘制，而不是 Client 发送给 Server，让 Server 去和 GPU 通信。</p>
 <p>Wayland 在这个思路上走得更远：把绘制的大部分工作交给 Client，此时 Server 要负责的就是把来自不同 Client 绘制的内容组合成最后显示的结果，因此 Wayland 的 Server 叫做 Compositor。Server 和 Client 之间通过 CPU 上的内存（通过 shared memory，shm）或者 GPU 上的内存（通过 DMABUF）来传输要绘制的像素。其实就是每个 Client 都有自己的 framebuffer，然后 Server 把来自不同 Client 的 framebuffer 组装成最终显示出来的 framebuffer。</p>
 <h2 id="drm-kms">DRM &amp; KMS</h2>
-<p>Direct Rendering Manager（DRM） 是内核里负责和硬件打交道，同时又给用户态提供硬件加速能力的驱动。在用户态一侧，则是 Mesa 提供 OpenGL/Vulkan 等图形 API。可以用 <a href="https://gitlab.freedesktop.org/emersion/drm_info">drm_info</a> 查看系统中 DRM 设备的状态。</p>
+<p>Direct Rendering Manager（DRM）是内核里负责和硬件打交道，同时又给用户态提供硬件加速能力的驱动。在用户态一侧，则是 Mesa 提供 OpenGL/Vulkan 等图形 API。可以用 <a href="https://gitlab.freedesktop.org/emersion/drm_info">drm_info</a> 查看系统中 DRM 设备的状态。</p>
 <p><a href="https://www.kernel.org/doc/html/v4.15/gpu/drm-kms.html">Kernel Mode Setting（KMS）</a> 是让内核负责配置显示输出的分辨率等等模式（Mode Set），因为只有确定了分辨率等参数，才能确定 framebuffer 的大小和格式。</p>
 
 
@@ -2095,7 +2095,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年12月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月16日</span>
   </span>
 
     

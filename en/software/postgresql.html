@@ -1902,6 +1902,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup and restore
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-major-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade major version
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db-cluster-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB cluster management
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2181,6 +2208,25 @@
 <li>ALTER TABLE table OWNER TO role</li>
 <li>REASSIGN OWNED BY roleA TO roleB</li>
 <li>DROP OWNED BY role</li>
+</ul>
+<h2 id="backup-and-restore">Backup and restore</h2>
+<ul>
+<li>Backup one database: pg_dump database &gt; database.sql</li>
+<li>Backup all databases: pg_dumpall &gt; database.sql</li>
+<li>Restore after creating database: psql database &lt; database.sql</li>
+<li>Backup and restore for replication: pg_dump dbA | psql dbB</li>
+</ul>
+<h2 id="upgrade-major-version">Upgrade major version</h2>
+<ol>
+<li>Backup old database</li>
+<li>Install new version of PostgreSQL while keeping the old one</li>
+<li>Restore backup to the new version manually, or use <code>pg_upgrade</code></li>
+</ol>
+<h2 id="db-cluster-management">DB cluster management</h2>
+<ul>
+<li>Initialize PostgreSQL: initdb -D path</li>
+<li>Start PostgreSQL interactively: postgres -D path</li>
+<li>Start/stop PostgreSQL as daemon: pg_ctl -D path start/stop</li>
 </ul>
 
 
