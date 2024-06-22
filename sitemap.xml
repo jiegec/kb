@@ -344,6 +344,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/sgemm_cuda.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/software/spark.html</loc>
+        <lastmod>2024-06-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/spark.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/spark.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/software/svg.html</loc>
         <lastmod>2024-06-22</lastmod>
         <changefreq>daily</changefreq>
@@ -706,6 +713,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/sgemm_cuda.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/sgemm_cuda.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/software/spark.html</loc>
+        <lastmod>2024-06-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/spark.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/spark.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/svg.html</loc>
