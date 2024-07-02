@@ -2280,7 +2280,7 @@ current cache in the Reserved state.
 <p>TileLink 为了实现缓存一致性，在已有的 A 和 D channel 以外，它引入了三个 channel：B、C 和 E，支持三种操作：</p>
 <ul>
 <li>Acquire：M-&gt;S 在 A channel 上发送 Acquire，S-&gt;M 在 D channel 上发送 Grant，然后 M-&gt;S 在 E channel 上发送 GrantAck；功能是获取一个 copy，可以看到这个和 Get 是类似的，都是在 A channel 上发送请求，在 D channel 上接受响应，只不过额外需要在 E channel 上发送 GrantAck。</li>
-<li>Release：M-&gt;S 在 C channel 上发送 Release，S-&gt;M 在 D channel 上发送 ReleaseAck；功能是删除自己的 copy，一般是缓存行要被换出的时候，发送 ReleaseData 来写回 Dirty 数据</li>
+<li>Release：M-&gt;S 在 C channel 上发送 Release/ReleaseData，S-&gt;M 在 D channel 上发送 ReleaseAck；功能是删除自己的 copy，一般是缓存行要被换出的时候，如果要写回 Dirty 数据，就用 ReleaseData，否则用 Release</li>
 <li>Probe：S-&gt;M 在 B channel 上发送 Probe，M-&gt;S 在 C channel 上发送 ProbeAck；功能是要求 M 删除自己的 copy，通常是有某一个缓存发送了 Acquire，导致其他缓存需要降低权限</li>
 </ul>
 <p>可以看到，A C E 三个 channel 是 M-&gt;S，B D 两个 channel 是 S-&gt;M。</p>
@@ -2531,7 +2531,7 @@ current cache in the Reserved state.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月2日</span>
   </span>
 
     
