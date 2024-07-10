@@ -22,11 +22,11 @@
 
 ## Path History
 
-除了记录所有分支的 Taken/Not Taken 历史到 GHR 里，还可以只记录 Taken 分支的分支地址以及分支目的地址，保存到 Path History Register 里，代替 GHR 的作用。Intel 采用的是这个方案，每个 Taken 分支生成若干位的值，异或到 PHR 左移若干位的结果，成为新的 PHR。
+除了记录所有分支的 Taken/Not Taken 历史到 GHR 里，还可以只记录 Taken 分支的分支地址以及分支目的地址，保存到 Path History Register 里，代替 GHR 的作用。Intel 采用的是这个方案，每个 Taken 分支生成若干位的值，异或到 PHR 左移若干位的结果，成为新的 PHR，比较新的 Intel 处理器的 PHR 可以最多记录 194 个 Taken 分支的信息。
 
 ## TAGE
 
-流行的分支预测器，由一个 base predictor 以及若干个 PHT 组成。不同的 PHT 采用了不同的 GHR/PHR 位数，位数呈几何级数。预测时，base predictor 和所有 PHT 同时预测，最后采用给出预测里采用的历史位数最多的那一个。
+[TAGE](https://inria.hal.science/hal-03408381/document) 是流行的分支预测器，由一个 base predictor 以及若干个 PHT 组成。不同的 PHT 采用了不同的 GHR/PHR 位数，位数呈几何级数。预测时，base predictor 和所有 PHT 同时预测，最后采用给出预测里采用的历史位数最多的那一个。
 
 PHT 的每个项记录了：
 
