@@ -12,7 +12,7 @@
 
 ## Two level predictor
 
-记录最近若干个分支的跳转/不跳转历史，保存在 Global History Register 里面，再用 GHR 作为 index 去访问 Pattern History Table，PHT 的每一项也是一个 2 bit saturating counter，剩下的逻辑和 Bimodal 一样。
+记录最近若干个分支的跳转/不跳转历史，保存在 Global History Register 里面，再用 GHR 作为 index 去访问 Pattern History Table，PHT 的每一项也是一个 2 bit saturating counter，剩下的逻辑和 Bimodal 一样。有时候 GHR 也被称为 Direction History Register(DHR)。
 
 如果把 PC 和 GHR 异或后作为 index 访问 PHT，就是 Gshare 算法。如果把 PC 和 GHR 拼接起来作为 index 访问 PHT，就是 Gselect 算法。
 
