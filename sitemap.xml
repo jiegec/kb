@@ -92,6 +92,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cmos.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/hardware/conditional_branch_predictor.html</loc>
+        <lastmod>2024-07-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/conditional_branch_predictor.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/conditional_branch_predictor.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/hardware/cxl.html</loc>
         <lastmod>2024-07-10</lastmod>
         <changefreq>daily</changefreq>
@@ -461,6 +468,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cmos.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cmos.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/hardware/conditional_branch_predictor.html</loc>
+        <lastmod>2024-07-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/conditional_branch_predictor.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/conditional_branch_predictor.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/cxl.html</loc>
