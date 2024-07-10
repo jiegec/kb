@@ -16,7 +16,7 @@
         <link rel="prev" href="cmos.html">
       
       
-        <link rel="next" href="cxl.html">
+        <link rel="next" href="cpu_microarchitecture.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -670,6 +670,8 @@
       
         
       
+        
+      
     
     
       
@@ -963,6 +965,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cpu_microarchitecture.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU 微架构分析
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -2049,7 +2072,7 @@
 <h2 id="bimodal-predictor">Bimodal predictor</h2>
 <p>对分支地址求 hash，得到的 hash 取模作为 index 去访问一个表，表的每一项是一个 2-bit saturating counter，0 和 1 预测 not taken，2 和 3 预测 taken。执行完分支后，如果 taken，则对应 counter 加一；否则对应 counter 减一。</p>
 <h2 id="two-level-predictor">Two level predictor</h2>
-<p>记录最近若干个分支的跳转/不跳转历史，保存在 Global History Register 里面，再用 GHR 作为 index 去访问 Pattern History Table，PHT 的每一项也是一个 2 bit saturating counter，剩下的逻辑和 Bimodal 一样。</p>
+<p>记录最近若干个分支的跳转/不跳转历史，保存在 Global History Register 里面，再用 GHR 作为 index 去访问 Pattern History Table，PHT 的每一项也是一个 2 bit saturating counter，剩下的逻辑和 Bimodal 一样。有时候 GHR 也被称为 Direction History Register(DHR)。</p>
 <p>如果把 PC 和 GHR 异或后作为 index 访问 PHT，就是 Gshare 算法。如果把 PC 和 GHR 拼接起来作为 index 访问 PHT，就是 Gselect 算法。</p>
 <h2 id="local-history">Local History</h2>
 <p>也可以记录每个分支自己的跳转/不跳转历史，保存在 Branch History Table 里面：根据 PC 从 Branch History Table 里找到该分支的 Local History，再用 Local History 访问 PHT。也可以把 Local History 和 PC 结合起来作为 index 访问 PHT。</p>
@@ -2199,13 +2222,13 @@
         
         
           
-          <a href="cxl.html" class="md-footer__link md-footer__link--next" aria-label="Next: CXL (Compute Express Link)">
+          <a href="cpu_microarchitecture.html" class="md-footer__link md-footer__link--next" aria-label="Next: CPU 微架构分析">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CXL (Compute Express Link)
+                CPU 微架构分析
               </div>
             </div>
             <div class="md-footer__button md-icon">
