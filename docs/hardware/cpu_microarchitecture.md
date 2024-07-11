@@ -542,6 +542,8 @@ void bhb_update(uint58_t *bhb_state, unsigned long src, unsigned long dst) {
 
 Apple M1 是大小核架构，大核 Firestorm 架构，小核 Icestorm 架构。
 
+注：Apple M1 和 Apple A14 Bionic 用的都是 Firestorm+Icestorm 架构，Apple M2 和 Apple A15 Bionic 用的都是 Avalanche+Blizzard 架构。
+
 ### Linux PMU
 
 在 Linux 下用 perf_event_open 访问 Apple M1 的 PMU 需要传特殊的参数：
