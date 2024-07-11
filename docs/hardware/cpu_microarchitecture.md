@@ -537,3 +537,55 @@ void bhb_update(uint58_t *bhb_state, unsigned long src, unsigned long dst) {
 - [Pathfinder: High-Resolution Control-Flow Attacks Exploiting the Conditional Branch Predictor ](https://pathfinder.cpusec.org/)
 - [Indirector: High-Precision Branch Target Injection Attacks Exploiting the Indirect Branch Predictor](https://indirector.cpusec.org/)
 - [现代分支预测：从学术界到工业界](https://blog.eastonman.com/blog/2023/12/modern-branch-prediction-from-academy-to-industry/)
+
+## Apple M1
+
+Apple M1 是大小核架构，大核 Firestorm 架构，小核 Icestorm 架构。
+
+### Linux PMU
+
+在 Linux 下用 perf_event_open 访问 Apple M1 的 PMU 需要传特殊的参数：
+
+1. perf_event_attr 的 type 必须是 0xA(Icestorm) 或者 0xB(Firestorm)，根据要 Profile 的核决定传哪个
+2. perf_event_attr 的 config 的取值见 [dougallj/applecpu](https://github.com/dougallj/applecpu/blob/0e6bc3f6038fa7b3959ab66b33ae25b707edc186/timer-hacks/bench.py#L85) 的 COUNTER_NAMES，例如测量周期数就是 0x02，测量分支错误预测次数就是 0xcb
+3. perf_event_attr 的 exclude_guest 必须设为 1，否则会得到 EOPNOTSUPP
+
+### RAS 大小
+
+RAS 大小的测试方法是构造不同深度的递归函数调用，通过观察性能来判断 RAS 是否保存了所有返回地址。
+
+Apple M1 Firestorm:
+
+![](cpu_microarchitecture_apple_m1_firestorm_ras.png)
+
+拐点为 50 的调用深度，说明 Apple M1 Firestorm 的 RAS 有 50 项。
+
+Apple M1 Icestorm:
+
+![](cpu_microarchitecture_apple_m1_icestorm_ras.png)
+
+拐点为 32 的调用深度，说明 Apple M1 Icestorm 的 RAS 有 32 项。
+
+### BTB 大小
+
+BTB 大小的测试方法是构造一系列的分支（无条件跳转）指令，如果 BTB 不够大，无法保存下所有跳转指令的目的地址，性能就会出现下降。由于很多 BTB 采用组相连的方式组织，因此跳转指令的地址也会影响 BTB 的实际容量：如果这些跳转指令的地址都映射到了 BTB 的一部分 Set 上，那么其余的 Set 将无法利用。因此测试 BTB 的时候，不仅要修改分支的数量，还要修改分支的地址间隔（stride）。
+
+Apple M1 Firestorm:
+
+首先看 Stride=4B，也就是所有跳转指令地址上都是连续的，没有额外的空间，此时跳转指令数量和每个跳转指令的周期数关系是：
+
+![](cpu_microarchitecture_apple_m1_firestorm_btb_stride_4b.png)
+
+可以看到，在 1024 个分支之前都可以做到每周期一个分支指令，说明这是第一级的 BTB，大小为 1024；之后很长一段都是三周期一个分支指令，直到 40000+ 才开始超过三周期，而正好 M1 Firestorm 的 L1 指令缓存是 192KB，按 4B 一个分支算就是 49152 个分支，基本和 40000+ 的拐点一致，说明 M1 Firestorm 的 L1 指令是作为第二级 BTB 存在的。
+
+进一步，通过插入 NOP 指令增加分支的间距，可以观察到不同 stride 下拐点出现了变化：
+
+![](cpu_microarchitecture_apple_m1_firestorm_btb_stride_4b_8b_16b.png)
+
+- stride=4B 时，第一级 BTB 拐点为 1024，第二级 BTB 拐点为 49152
+- stride=8B 时，第一级 BTB 拐点为 512，第二级 BTB 拐点为 24576
+- stride=16B 时，第一级 BTB 拐点为 256，第二级 BTB 拐点为 12288
+
+这是典型的组相连的场景：假如 Index 位取的是地址的 `[n:2]` 位，当 stride=8B 时，地址的 `[2]` 位必然为 0，此时 Index 只能是偶数，那么奇数 Index 的项就被浪费了，表现出来的容量只有原来 1024 的一半，也就是 512。进一步，stride=16B 时，Index 只能是 4 的倍数，容量只有 1024 的四分之一，也就是 256。
+
+不断增加 stride，stride=1024B 时拐点为 4，stride=2048B 拐点为 2，stride=4096B 拐点依然为 2，说明第一级 BTB 是 2 Way，此时 Index 位数取的是地址的 `[10:2]` 位。
