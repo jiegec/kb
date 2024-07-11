@@ -703,3 +703,25 @@ ROB 按程序执行顺序保存了乱序执行的指令，以保证异常时可�
 - [Apple Microarchitecture Research by Dougall Johnson](https://dougallj.github.io/applecpu/firestorm.html)
 - [Apple M1 Icestorm 微架构评测（上）:重铸小核荣光](https://zhuanlan.zhihu.com/p/611213899)
 - [Apple M1 Icestorm 微架构（下）:重铸小核荣光](https://zhuanlan.zhihu.com/p/613097964)
+
+## 多种处理器架构的 ROB 测试
+
+AMD Zen 1: 大约 192 条
+
+![](cpu_microarchitecture_rob_zen1.png)
+
+AMD Zen 2: 大约 224 条
+
+![](cpu_microarchitecture_rob_zen2.png)
+
+ARM Neoverse N1: 大约 128 条
+
+![](cpu_microarchitecture_rob_neoverse_n1.png)
+
+Intel Broadwell: 大约 192 条
+
+![](cpu_microarchitecture_rob_broadwell.png)
+
+Intel Ivy Bridge EP: 大约 168 条
+
+![](cpu_microarchitecture_rob_ivy_bridge_ep.png)
