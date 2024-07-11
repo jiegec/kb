@@ -466,7 +466,7 @@ second_target:
 8. B11 xor T5: 和论文一致
 9. B12 xor T1
 
-和论文不一致的多出来的三组 xor 关系，通过邮件和论文作者联系后，得知：这三组关系在 PHR 阶段没有 XOR 关系，但是在 tag 计算的时候，这三组关系最终会计算出相同的 tag，导致 PHT（Pattern History Table） 出现冲突，分支预测错误率 50%。根据论文作者的建议，在两个随机跳转的分支中间加入 8 次对齐的跳转，使得 PHR 左移 16 位，那么多出来的三组 xor 关系就会计算出不同的 PHT index，不再导致 50% 的分支预测错误率，此时真正的在 PHR 中有 xor 关系的组得到保留：
+和论文不一致的多出来的三组 xor 关系，通过邮件和论文作者联系后，得知：这三组关系在 PHR 阶段没有 XOR 关系，但是在 tag 计算的时候，这三组关系最终会计算出相同的 tag，导致 PHT（Pattern History Table）出现冲突，分支预测错误率 50%。根据论文作者的建议，在两个随机跳转的分支中间加入 8 次对齐的跳转，使得 PHR 左移 16 位，那么多出来的三组 xor 关系就会计算出不同的 PHT index，不再导致 50% 的分支预测错误率，此时真正的在 PHR 中有 xor 关系的组得到保留：
 
 ![](cpu_microarchitecture_branch_target_pair_good.png)
 
@@ -549,6 +549,70 @@ Apple M1 是大小核架构，大核 Firestorm 架构，小核 Icestorm 架构�
 1. perf_event_attr 的 type 必须是 0xA(Icestorm) 或者 0xB(Firestorm)，根据要 Profile 的核决定传哪个
 2. perf_event_attr 的 config 的取值见 [dougallj/applecpu](https://github.com/dougallj/applecpu/blob/0e6bc3f6038fa7b3959ab66b33ae25b707edc186/timer-hacks/bench.py#L85) 的 COUNTER_NAMES，例如测量周期数就是 0x02，测量分支错误预测次数就是 0xcb
 3. perf_event_attr 的 exclude_guest 必须设为 1，否则会得到 EOPNOTSUPP
+
+counter 计数器的值，也可以在 macOS 上从 `plutil -p /usr/share/kpep/a14.plist` 命令输出里看到：
+
+- RETIRE_UOP (1, 0x1): All retired uops
+- CORE_ACTIVE_CYCLE (2, 0x2): Cycles while the core was active
+- L1I_TLB_FILL (4, 0x4): Translations filled into the L1 Instruction TLB
+- L1D_TLB_FILL (5, 0x5): Translations filled into the L1 Data TLB
+- MMU_TABLE_WALK_INSTRUCTION (7, 0x7): Table walk memory requests on behalf of instruction fetches
+- MMU_TABLE_WALK_DATA (8, 0x8): Table walk memory requests on behalf of data accesses
+- L2_TLB_MISS_INSTRUCTION (10, 0xa): Instruction fetches that missed in the L2 TLB
+- L2_TLB_MISS_DATA (11, 0xb): Loads and stores that missed in the L2 TLB
+- MMU_VIRTUAL_MEMORY_FAULT_NONSPEC (13, 0xd): Memory accesses that reached retirement that triggered any of the MMU virtual memory faults
+- SCHEDULE_UOP (82, 0x52): Uops issued by the scheduler to any execution unit
+- INTERRUPT_PENDING (108, 0x6c): Cycles while an interrupt was pending because it was masked
+- MAP_STALL_DISPATCH (112, 0x70): Cycles while the Map Unit was stalled because of Dispatch back pressure
+- MAP_REWIND (117, 0x75): Cycles while the Map Unit was blocked while rewinding due to flush and restart
+- MAP_STALL (118, 0x76): Cycles while the Map Unit was stalled for any reason
+- MAP_INT_UOP (124, 0x7c): Mapped Integer Unit uops
+- MAP_LDST_UOP (125, 0x7d): Mapped Load and Store Unit uops, including GPR to vector register converts
+- MAP_SIMD_UOP (126, 0x7e): Mapped Advanced SIMD and FP Unit uops
+- FLUSH_RESTART_OTHER_NONSPEC (132, 0x84): Pipeline flush and restarts that were not due to branch mispredictions or memory order violations
+- INST_ALL (140, 0x8c): All retired instructions
+- INST_BRANCH (141, 0x8d): Retired branch instructions including calls and returns
+- INST_BRANCH_CALL (142, 0x8e): Retired subroutine call instructions
+- INST_BRANCH_RET (143, 0x8f): Retired subroutine return instructions
+- INST_BRANCH_TAKEN (144, 0x90): Retired taken branch instructions
+- INST_BRANCH_INDIR (147, 0x93): Retired indirect branch instructions including indirect calls
+- INST_BRANCH_COND (148, 0x94): Retired conditional branch instructions (counts only B.cond)
+- INST_INT_LD (149, 0x95): Retired load Integer Unit instructions
+- INST_INT_ST (150, 0x96): Retired store Integer Unit instructions
+- INST_INT_ALU (151, 0x97): Retired non-branch and non-load/store Integer Unit instructions
+- INST_SIMD_LD (152, 0x98): Retired load Advanced SIMD and FP Unit instructions
+- INST_SIMD_ST (153, 0x99): Retired store Advanced SIMD and FP Unit instructions
+- INST_SIMD_ALU (154, 0x9a): Retired non-load/store Advanced SIMD and FP Unit instructions
+- INST_LDST (155, 0x9b): Retired load and store instructions
+- INST_BARRIER (156, 0x9c): Retired data barrier instructions
+- L1D_TLB_ACCESS (160, 0xa0): Load and store accesses to the L1 Data TLB
+- L1D_TLB_MISS (161, 0xa1): Load and store accesses that missed the L1 Data TLB
+- L1D_CACHE_MISS_ST (162, 0xa2): Stores that missed the L1 Data Cache
+- L1D_CACHE_MISS_LD (163, 0xa3): Loads that missed the L1 Data Cache
+- LD_UNIT_UOP (166, 0xa6): Uops that flowed through the Load Unit
+- ST_UNIT_UOP (167, 0xa7): Uops that flowed through the Store Unit
+- L1D_CACHE_WRITEBACK (168, 0xa8): Dirty cache lines written back from the L1D Cache toward the Shared L2 Cache
+- LDST_X64_UOP (177, 0xb1): Load and store uops that crossed a 64B boundary
+- LDST_XPG_UOP (178, 0xb2): Load and store uops that crossed a 16KiB page boundary
+- ATOMIC_OR_EXCLUSIVE_SUCC (179, 0xb3): Atomic or exclusive instruction successfully completed
+- ATOMIC_OR_EXCLUSIVE_FAIL (180, 0xb4): Atomic or exclusive instruction failed (due to contention)
+- L1D_CACHE_MISS_LD_NONSPEC (191, 0xbf): Retired loads that missed in the L1 Data Cache
+- L1D_CACHE_MISS_ST_NONSPEC (192, 0xc0): Retired stores that missed in the L1 Data Cache
+- L1D_TLB_MISS_NONSPEC (193, 0xc1): Retired loads and stores that missed in the L1 Data TLB
+- ST_MEMORY_ORDER_VIOLATION_NONSPEC (196, 0xc4): Retired stores that triggered memory order violations
+- BRANCH_COND_MISPRED_NONSPEC (197, 0xc5): Retired conditional branch instructions that mispredicted
+- BRANCH_INDIR_MISPRED_NONSPEC (198, 0xc6): Retired indirect branch instructions including calls and returns that mispredicted
+- BRANCH_RET_INDIR_MISPRED_NONSPEC (200, 0xc8): Retired return instructions that mispredicted
+- BRANCH_CALL_INDIR_MISPRED_NONSPEC (202, 0xca): Retired indirect call instructions mispredicted
+- BRANCH_MISPRED_NONSPEC (203, 0xcb): Retired branch instructions including calls and returns that mispredicted
+- L1I_TLB_MISS_DEMAND (212, 0xd4): Demand instruction fetches that missed in the L1 Instruction TLB
+- MAP_DISPATCH_BUBBLE (214, 0xd6): Bubble detected in dispatch stage
+- L1I_CACHE_MISS_DEMAND (219, 0xdb): Demand fetch misses that require a new cache line fill of the L1 Instruction Cache
+- FETCH_RESTART (222, 0xde): Fetch Unit internal restarts for any reason. Does not include branch mispredicts
+- ST_NT_UOP (229, 0xe5): Store uops that executed with non-temporal hint
+- LD_NT_UOP (230, 0xe6): Load uops that executed with non-temporal hint
+
+以上结果是用 [python3 cpu_microarchitecture_apple_pmc_dump.py /usr/share/kpep/a14.plist](./cpu_microarchitecture_apple_pmc_dump.py) 命令跑出来的。
 
 ### RAS 大小
 
@@ -633,3 +697,9 @@ ROB 按程序执行顺序保存了乱序执行的指令，以保证异常时可�
 ![](cpu_microarchitecture_apple_m1_icestorm_prf.png)
 
 用 add 指令测试的则是物理通用寄存器堆（Physical Register File，PRF）的大小：寄存器重命名时，会给目的寄存器分配一个新的物理通用寄存器，同时记录下该架构寄存器原来映射的旧物理通用寄存器，当指令从 ROB 中提交时，旧的物理通用寄存器才得到释放。由于 load 指令堵塞了 ROB 的提交，导致 ROB 里有大量的 add 指令，每条 add 指令都分配了一个物理通用寄存器，并且都还没有释放，此时拐点出现，说明物理通用寄存器堆已经慢了，新的 add 指令阻塞在重命名阶段。
+
+### 参考文献
+
+- [Apple Microarchitecture Research by Dougall Johnson](https://dougallj.github.io/applecpu/firestorm.html)
+- [Apple M1 Icestorm 微架构评测（上）:重铸小核荣光](https://zhuanlan.zhihu.com/p/611213899)
+- [Apple M1 Icestorm 微架构（下）:重铸小核荣光](https://zhuanlan.zhihu.com/p/613097964)
