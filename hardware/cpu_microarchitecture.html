@@ -1015,6 +1015,57 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apple-m1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apple M1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apple M1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-pmu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux PMU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ras" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAS 大小
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#btb" class="md-nav__link">
+    <span class="md-ellipsis">
+      BTB 大小
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#robprf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROB/PRF 大小
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2612,6 +2663,121 @@
 <li><a href="https://indirector.cpusec.org/">Indirector: High-Precision Branch Target Injection Attacks Exploiting the Indirect Branch Predictor</a></li>
 <li><a href="https://blog.eastonman.com/blog/2023/12/modern-branch-prediction-from-academy-to-industry/">现代分支预测：从学术界到工业界</a></li>
 </ul>
+<h2 id="apple-m1">Apple M1</h2>
+<p>Apple M1 是大小核架构，大核 Firestorm 架构，小核 Icestorm 架构。</p>
+<h3 id="linux-pmu">Linux PMU</h3>
+<p>在 Linux 下用 perf_event_open 访问 Apple M1 的 PMU 需要传特殊的参数：</p>
+<ol>
+<li>perf_event_attr 的 type 必须是 0xA(Icestorm) 或者 0xB(Firestorm)，根据要 Profile 的核决定传哪个</li>
+<li>perf_event_attr 的 config 的取值见 <a href="https://github.com/dougallj/applecpu/blob/0e6bc3f6038fa7b3959ab66b33ae25b707edc186/timer-hacks/bench.py#L85">dougallj/applecpu</a> 的 COUNTER_NAMES，例如测量周期数就是 0x02，测量分支错误预测次数就是 0xcb</li>
+<li>perf_event_attr 的 exclude_guest 必须设为 1，否则会得到 EOPNOTSUPP</li>
+</ol>
+<h3 id="ras">RAS 大小</h3>
+<p>RAS 大小的测试方法是构造不同深度的递归函数调用，通过观察性能来判断 RAS 是否保存了所有返回地址。</p>
+<p>Apple M1 Firestorm:</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_firestorm_ras.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_firestorm_ras.png" /></a></p>
+<p>拐点为 50 的调用深度，说明 Apple M1 Firestorm 的 RAS 有 50 项。</p>
+<p>Apple M1 Icestorm:</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_icestorm_ras.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_icestorm_ras.png" /></a></p>
+<p>拐点为 32 的调用深度，说明 Apple M1 Icestorm 的 RAS 有 32 项。</p>
+<h3 id="btb">BTB 大小</h3>
+<p>BTB 大小的测试方法是构造一系列的分支（无条件跳转）指令，如果 BTB 不够大，无法保存下所有跳转指令的目的地址，性能就会出现下降。由于很多 BTB 采用组相连的方式组织，因此跳转指令的地址也会影响 BTB 的实际容量：如果这些跳转指令的地址都映射到了 BTB 的一部分 Set 上，那么其余的 Set 将无法利用。因此测试 BTB 的时候，不仅要修改分支的数量，还要修改分支的地址间隔（stride）。</p>
+<p>Apple M1 Firestorm:</p>
+<p>首先看 Stride=4B，也就是所有跳转指令地址上都是连续的，没有额外的空间，此时跳转指令数量和每个跳转指令的周期数关系是：</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_firestorm_btb_stride_4b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_firestorm_btb_stride_4b.png" /></a></p>
+<p>可以看到，在 1024 个分支之前都可以做到每周期一个分支指令，说明这是第一级的 BTB，大小为 1024；之后很长一段都是三周期一个分支指令，直到 40000+ 才开始超过三周期，而正好 M1 Firestorm 的 L1 指令缓存是 192KB，按 4B 一个分支算就是 49152 个分支，基本和 40000+ 的拐点一致，说明 M1 Firestorm 的 L1 指令是作为第二级 BTB 存在的。</p>
+<p>进一步，通过插入 NOP 指令增加分支的间距，可以观察到不同 stride 下拐点出现了变化：</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_firestorm_btb_stride_4b_8b_16b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_firestorm_btb_stride_4b_8b_16b.png" /></a></p>
+<ul>
+<li>stride=4B 时，第一级 BTB 拐点为 1024，第二级 BTB 拐点为 49152</li>
+<li>stride=8B 时，第一级 BTB 拐点为 512，第二级 BTB 拐点为 24576</li>
+<li>stride=16B 时，第一级 BTB 拐点为 256，第二级 BTB 拐点为 12288</li>
+</ul>
+<p>这是典型的组相连的场景：假如 Index 位取的是地址的 <code>[n:2]</code> 位，当 stride=8B 时，地址的 <code>[2]</code> 位必然为 0，此时 Index 只能是偶数，那么奇数 Index 的项就被浪费了，表现出来的容量只有原来 1024 的一半，也就是 512。进一步，stride=16B 时，Index 只能是 4 的倍数，容量只有 1024 的四分之一，也就是 256。</p>
+<p>不断增加 stride，stride=1024B 时拐点为 4，stride=2048B 拐点为 2，stride=4096B 拐点依然为 2，说明第一级 BTB 是 2 Way，此时 Index 位数取的是地址的 <code>[10:2]</code> 位。</p>
+<p>Apple M1 Icestorm:</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_icestorm_btb_stride_4b_8b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_icestorm_btb_stride_4b_8b.png" /></a></p>
+<p>和 Firestorm 类似，stride=4B 时，第一级 BTB 大小可以看出也是 1024 项，并且从 stride=8B 时第一个拐点前推，可知第一级 BTB 也是组相连；第二级 BTB 依然由 L1 指令缓存提供，Icestorm 的指令缓存是 128KB，对应 32768 个分支，当 stride=4B 时即使超过 32768 个分支也没有看到明显的性能下降，预计预取器起到了作用；当 stride=8B 时第二个拐点是 16384，说明 L1 指令缓存是组相连，符合预期。</p>
+<p>不过在 stride 增大时，第一级 BTB 的拐点并不总是相应除以 2:</p>
+<table>
+<thead>
+<tr>
+<th>stride</th>
+<th>size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>8</td>
+<td>512</td>
+</tr>
+<tr>
+<td>16</td>
+<td>256</td>
+</tr>
+<tr>
+<td>32</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>64</td>
+<td>512</td>
+</tr>
+<tr>
+<td>128</td>
+<td>256</td>
+</tr>
+<tr>
+<td>256</td>
+<td>128</td>
+</tr>
+<tr>
+<td>512</td>
+<td>64</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>32</td>
+</tr>
+<tr>
+<td>2048</td>
+<td>16</td>
+</tr>
+<tr>
+<td>4096</td>
+<td>8</td>
+</tr>
+<tr>
+<td>8192</td>
+<td>4</td>
+</tr>
+<tr>
+<td>16384</td>
+<td>2</td>
+</tr>
+<tr>
+<td>32768</td>
+<td>2</td>
+</tr>
+<tr>
+<td>65536</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>目测是 Index 位数做了一些哈希，而不是直接取地址的位数，地址涉及了 <code>[15:2]</code>。第一级 BTB 是 2 Way。</p>
+<h3 id="robprf">ROB/PRF 大小</h3>
+<p>ROB 按程序执行顺序保存了乱序执行的指令，以保证异常时可以精确恢复。测试 ROB 大小时，通常方法是构造一系列 pointer chasing 的 load 指令，它需要很长的时间执行，然后在这些 load 之间插入很多 nop 指令，当 ROB 可以容纳下多个 load 指令时，性能会比较好；当 ROB 只能容纳下一个 load 指令时，性能会下降。</p>
+<p>使用这个方法测量，使用 nop 填充 ROB 时，可以得到 Icestorm 的 ROB 容量在 412-415 左右：</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_icestorm_rob_nop.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_icestorm_rob_nop.png" /></a></p>
+<p>但在网上可以看到 M1 Firestorm ROB 大小的不同的分析，这是因为 M1 Firestorm 的 ROB 不是传统的每条指令一个 ROB 表项的设计，而是允许多条指令放在同一个表项里，但又对同一个表项里的多条指令添加了一些限制，因此用不同指令序列测出来的 ROB 大小就会不一样：大量的 NOP 大概率可以紧密地填满表项里的多条指令，因此表现出来的 ROB 容量就很大；如果可以构造出一个指令序列，使得每条指令都独占一个 ROB 条目，那才可以测出真实的 ROB 大小。</p>
+<p>把 NOP 修改成整数 add 指令，可以看到拐点在 77-79 左右：</p>
+<p><a class="glightbox" href="cpu_microarchitecture_apple_m1_icestorm_prf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_apple_m1_icestorm_prf.png" /></a></p>
+<p>用 add 指令测试的则是物理通用寄存器堆（Physical Register File，PRF）的大小：寄存器重命名时，会给目的寄存器分配一个新的物理通用寄存器，同时记录下该架构寄存器原来映射的旧物理通用寄存器，当指令从 ROB 中提交时，旧的物理通用寄存器才得到释放。由于 load 指令堵塞了 ROB 的提交，导致 ROB 里有大量的 add 指令，每条 add 指令都分配了一个物理通用寄存器，并且都还没有释放，此时拐点出现，说明物理通用寄存器堆已经慢了，新的 add 指令阻塞在重命名阶段。</p>
 
 
 
@@ -2634,7 +2800,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月11日</span>
   </span>
 
     
