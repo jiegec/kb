@@ -357,11 +357,17 @@ second_target:
 
 dummy branch 越少，说明越早被移位出 PHR。由于它们总是 2 位一组，猜测 PHR 每个 taken 分支会左移 2 位。再根据移位出去的顺序，可以预测高位是 B15 和 B14，接下来是 B13 和 B12，最后到低位是 B3、B4、T0 和 T1。
 
-用同样的方法在 Skylake 上测试：
+用同样的方法在 Skylake 上测试，首先测试分支地址：
 
 ![](cpu_microarchitecture_branch_align_dummy_skylake.png)
 
 可见 Skylake 也是每个跳转的分支 PHR 移 2 位，然后从低位到高位的顺序是：B3 B4 B7 B8 B11 B12 B5 B6 B9 B10 B13 B14 B15 B16 B17 B18。
+
+再测试 Skylake 上目的地址：
+
+![](cpu_microarchitecture_target_align_dummy_skylake.png)
+
+那么 T0 T1 是和 B3 B4 在一起，T2 T3 是和 B7 B8 在一起，T4 T5 是和 B11 B12 在一起。
 
 ### PHR 中分支地址和目的地址各 bit 的异或关系
 
