@@ -2516,9 +2516,12 @@
 </tbody>
 </table>
 <p>dummy branch 越少，说明越早被移位出 PHR。由于它们总是 2 位一组，猜测 PHR 每个 taken 分支会左移 2 位。再根据移位出去的顺序，可以预测高位是 B15 和 B14，接下来是 B13 和 B12，最后到低位是 B3、B4、T0 和 T1。</p>
-<p>用同样的方法在 Skylake 上测试：</p>
+<p>用同样的方法在 Skylake 上测试，首先测试分支地址：</p>
 <p><a class="glightbox" href="cpu_microarchitecture_branch_align_dummy_skylake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_branch_align_dummy_skylake.png" /></a></p>
 <p>可见 Skylake 也是每个跳转的分支 PHR 移 2 位，然后从低位到高位的顺序是：B3 B4 B7 B8 B11 B12 B5 B6 B9 B10 B13 B14 B15 B16 B17 B18。</p>
+<p>再测试 Skylake 上目的地址：</p>
+<p><a class="glightbox" href="cpu_microarchitecture_target_align_dummy_skylake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_target_align_dummy_skylake.png" /></a></p>
+<p>那么 T0 T1 是和 B3 B4 在一起，T2 T3 是和 B7 B8 在一起，T4 T5 是和 B11 B12 在一起。</p>
 <h3 id="phr-bit_1">PHR 中分支地址和目的地址各 bit 的异或关系</h3>
 <p>由于 PHR 里每 2 位可能涉及到分支地址或者目的地址一共 4 位信息，推测里面有异或的计算存在，那就枚举这些位的 pair，如果某个 pair 下，分支预测错误率 50%，而不是 25%，说明它们在 PHR 里相互抵消，也就是出现 xor 的关系。编写 NASM 测试：</p>
 <div class="language-nasm highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">; reproduce Figure 4 of Half&amp;Half</span>
