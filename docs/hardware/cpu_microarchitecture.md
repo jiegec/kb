@@ -10,7 +10,7 @@
 - [Pathfinder: High-Resolution Control-Flow Attacks Exploiting the Conditional Branch Predictor ](https://pathfinder.cpusec.org/)
 - [Indirector: High-Precision Branch Target Injection Attacks Exploiting the Indirect Branch Predictor](https://indirector.cpusec.org/)
 
-因其逆向的精细程度而感到好奇，因此尝试进行复现，主要是针对条件分支预测器。复现平台为 Alder Lake 架构的 i9-12900KS。
+因其逆向的精细程度而感到好奇，因此尝试进行复现，主要是针对条件分支预测器。复现平台为 Alder Lake 架构的 i9-12900KS 和 Skylake 架构的 Xeon D-2146NT。
 
 ### 复现
 
@@ -71,6 +71,12 @@ second_target:
 ![](cpu_microarchitecture_phr_length.png)
 
 说明 Intel Alder Lake 架构下，分支预测的历史只能记录最多 194 个分支。把中间的 dummy branch 的总是跳转改成总是不跳转，发现总的错误预测率一直是 25%，说明 Intel Alder Lake 的分支预测历史不记录不跳转的分支。而 Path History Register(PHR) 是符合这个特性的一种设计，猜测 Intel 采用了这个方案。
+
+在 Skylake 下测试：
+
+![](cpu_microarchitecture_phr_length_skylake.png)
+
+可以得出 Skylake 架构下分支预测的历史只能记录最近 93 个跳转的分支。
 
 ### PHR 采用的分支地址和目的地址位数
 
@@ -350,6 +356,12 @@ second_target:
 | B3, B4, T0, T1  | 193            |
 
 dummy branch 越少，说明越早被移位出 PHR。由于它们总是 2 位一组，猜测 PHR 每个 taken 分支会左移 2 位。再根据移位出去的顺序，可以预测高位是 B15 和 B14，接下来是 B13 和 B12，最后到低位是 B3、B4、T0 和 T1。
+
+用同样的方法在 Skylake 上测试：
+
+![](cpu_microarchitecture_branch_align_dummy_skylake.png)
+
+可见 Skylake 也是每个跳转的分支 PHR 移 2 位，然后从低位到高位的顺序是：B3 B4 B7 B8 B11 B12 B5 B6 B9 B10 B13 B14 B15 B16 B17 B18。
 
 ### PHR 中分支地址和目的地址各 bit 的异或关系
 
