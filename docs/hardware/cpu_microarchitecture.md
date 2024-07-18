@@ -544,6 +544,24 @@ void bhb_update(uint58_t *bhb_state, unsigned long src, unsigned long dst) {
 
 不过 Haswell 架构的 PHR 的位数，Half&Half 与 Reading privileged memory with a side-channel 的结果对不上，前者认为是 93x2，后者认为是 29x2。我在 Broadwell 和 Ivy Bridge EP 架构的处理器上测出来都是 93 个分支。
 
+### PHT 的 Index 或 Tag 函数用到的分支地址位数
+
+得到 PHR 的计算过程后，下一步就是对 PHT 进行分析。PHT 采用组相连结构，PC 和 PHR 计算出 Index，找到 Set，然后在 Set 内部找到 Tag 匹配的项目，而 Tag 也是用 PC 和 PHR 计算出来的。那么，如果 Index 和 Tag 的计算函数都只涉及到了 PC 的部分位数，那么当两个分支的 PC 的这部分位数相同，且 PHR 也相同的时候，PHT 将无法区分这两个分支，导致分支预测错误率提高。
+
+按照这个思路，论文设计了 Listing 6 的实验：构造两个方向相反的分支，采用相同的 PHR，然后这两个分支的低若干位都是 0，然后观察 PC 多少位是 0 的时候，分支预测错误率提高。
+
+在 Skylake 上进行测试，复现了论文中的结果：
+
+![](cpu_microarchitecture_pht_branch_bits_skylake.png)
+
+说明 Index 或 Tag 函数只用到了 PC 的低 12 位。
+
+在 Alder Lake 上测试，得到的结果如图：
+
+![](cpu_microarchitecture_pht_branch_bits_alder_lake.png)
+
+说明 Index 或 Tag 函数只用到了 PC 的低 16 位。这个结果也和 Indirector 里得到的 Intel IBP 的 PHT Tag 函数计算方式一致，说明 CBP 和 IBP 可能采用了类似的 Tag 函数设计。
+
 
 ### 其他测试
 
