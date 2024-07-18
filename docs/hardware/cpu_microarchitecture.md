@@ -578,7 +578,7 @@ void bhb_update(uint58_t *bhb_state, unsigned long src, unsigned long dst) {
 
 ![](cpu_microarchitecture_phr_index_hash_alder_lake.png)
 
-这里测试的和论文中稍有不同：这里横坐标是移位 PHR 的分支的个数，而不是 k 的位置，但也可以通过分支个数计算出 k 的位置。从图里可以看到峰值的横座标呈一个等差数列：158，167，176，185，194。公差为 9，对应 18 个 bit。这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。
+这里测试的和论文中稍有不同：这里横坐标是移位 PHR 的分支的个数，而不是 k 的位置，但也可以通过分支个数计算出 k 的位置。从图里可以看到峰值的横座标呈一个等差数列：67, 76, ... 193。公差为 9，对应 18 个 bit。这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。
 
 
 ### 参考文献
