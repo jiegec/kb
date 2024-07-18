@@ -1010,17 +1010,23 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pht-index-phr-hash" class="md-nav__link">
     <span class="md-ellipsis">
-      其他测试
+      PHT Index 中 PHR 的 Hash 算法
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="PHT Index 中 PHR 的 Hash 算法">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       参考文献
     </span>
@@ -1080,7 +1086,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       参考文献
     </span>
@@ -2712,9 +2718,12 @@
 <p>进一步，为了测试 PHT 中每个 Set 的路数，需要构造若干个分支，它们的 Index 相同，但是 Tag 不同，那么这些分支都会对应到同一个 Set 里，然后一个 Set 里记录的分支个数，就是每个 Set 的路数。论文构造了 Listing 7 实验，通过操控 PC 地址低位和分支个数，观察可以正确预测的分支个数，进而对 PHT 的结构进行推断。在 Alder Lake 上复现了测试：</p>
 <p><a class="glightbox" href="../../hardware/cpu_microarchitecture_pht_way_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_pht_way_alder_lake.png" /></a></p>
 <p>可以看到，第一个拐点是 4 个分支，说明是 4 路组相连。然后在 32 到 36 的地方出现了一个小的不那么平的平台，这是因为 PC[5] 参与到了 Index 计算当中，此时分支会分布在两个 Set 里，每个 Set 可以保存 4 个分支，加起来总共可以正确预测 8 个分支。</p>
-<h3 id="_3">其他测试</h3>
-<p>未完待续。。。</p>
-<h3 id="_4">参考文献</h3>
+<h2 id="pht-index-phr-hash">PHT Index 中 PHR 的 Hash 算法</h2>
+<p>论文构造了一个测试，目的是判断 PHT Index 中哪些 PHR 异或到了同一个位上，方法是，由于已知 PHT 是四路组相连，也知道 PHT Index 只用了 PC[5]，其他的 PC 没有用到，所以构造四个分支，它们都用 PHR=0k000...0 作为预测的输入，那么它们会被映射到同一个 Set 上；再构造四个分支，它们都用 PHR=000....0k0...0 作为预测的输入，此时 k 的位置会变化，这四个分支也会被映射到同一个 Set 上。如果前四个分支和后四个分支的 PHR 计算出同一个 Index，那就出现了冲突，分支预测错误率提高。</p>
+<p>按照这个思路，在 Alder Lake 上进行了测试：</p>
+<p><a class="glightbox" href="../../hardware/cpu_microarchitecture_phr_index_hash_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_phr_index_hash_alder_lake.png" /></a></p>
+<p>这里测试的和论文中稍有不同：这里横坐标是移位 PHR 的分支的个数，而不是 k 的位置，但也可以通过分支个数计算出 k 的位置。从图里可以看到峰值的横座标呈一个等差数列：158，167，176，185，194。公差为 9，对应 18 个 bit。这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。</p>
+<h3 id="_3">参考文献</h3>
 <ul>
 <li><a href="https://halfandhalf.cpusec.org/">Half&amp;Half: Demystifying Intel's Directional Branch Predictors for Fast, Secure Partitioned Execution</a></li>
 <li><a href="https://pathfinder.cpusec.org/">Pathfinder: High-Resolution Control-Flow Attacks Exploiting the Conditional Branch Predictor </a></li>
@@ -2900,7 +2909,7 @@
 <p>把 NOP 修改成整数 add 指令，可以看到拐点在 77-79 左右：</p>
 <p><a class="glightbox" href="../../hardware/cpu_microarchitecture_apple_m1_icestorm_prf.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_apple_m1_icestorm_prf.png" /></a></p>
 <p>用 add 指令测试的则是物理通用寄存器堆（Physical Register File，PRF）的大小：寄存器重命名时，会给目的寄存器分配一个新的物理通用寄存器，同时记录下该架构寄存器原来映射的旧物理通用寄存器，当指令从 ROB 中提交时，旧的物理通用寄存器才得到释放。由于 load 指令堵塞了 ROB 的提交，导致 ROB 里有大量的 add 指令，每条 add 指令都分配了一个物理通用寄存器，并且都还没有释放，此时拐点出现，说明物理通用寄存器堆已经慢了，新的 add 指令阻塞在重命名阶段。</p>
-<h3 id="_5">参考文献</h3>
+<h3 id="_4">参考文献</h3>
 <ul>
 <li><a href="https://dougallj.github.io/applecpu/firestorm.html">Apple Microarchitecture Research by Dougall Johnson</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/611213899">Apple M1 Icestorm 微架构评测（上）:重铸小核荣光</a></li>
