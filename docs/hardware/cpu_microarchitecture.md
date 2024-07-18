@@ -562,6 +562,14 @@ void bhb_update(uint58_t *bhb_state, unsigned long src, unsigned long dst) {
 
 说明 Index 或 Tag 函数只用到了 PC 的低 16 位。这个结果也和 Indirector 里得到的 Intel IBP 的 PHT Tag 函数计算方式一致，说明 CBP 和 IBP 可能采用了类似的 Tag 函数设计。
 
+### PHT 中每个 Set 的路数
+
+进一步，为了测试 PHT 中每个 Set 的路数，需要构造若干个分支，它们的 Index 相同，但是 Tag 不同，那么这些分支都会对应到同一个 Set 里，然后一个 Set 里记录的分支个数，就是每个 Set 的路数。论文构造了 Listing 7 实验，通过操控 PC 地址低位和分支个数，观察可以正确预测的分支个数，进而对 PHT 的结构进行推断。在 Alder Lake 上复现了测试：
+
+![](cpu_microarchitecture_pht_way_alder_lake.png)
+
+可以看到，第一个拐点是 4 个分支，说明是 4 路组相连。然后在 32 到 36 的地方出现了一个小的不那么平的平台，这是因为 PC[5] 参与到了 Index 计算当中，此时分支会分布在两个 Set 里，每个 Set 可以保存 4 个分支，加起来总共可以正确预测 8 个分支。
+
 
 ### 其他测试
 
