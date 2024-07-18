@@ -2722,7 +2722,7 @@
 <p>论文构造了一个测试，目的是判断 PHT Index 中哪些 PHR 异或到了同一个位上，方法是，由于已知 PHT 是四路组相连，也知道 PHT Index 只用了 PC[5]，其他的 PC 没有用到，所以构造四个分支，它们都用 PHR=0k000...0 作为预测的输入，那么它们会被映射到同一个 Set 上；再构造四个分支，它们都用 PHR=000....0k0...0 作为预测的输入，此时 k 的位置会变化，这四个分支也会被映射到同一个 Set 上。如果前四个分支和后四个分支的 PHR 计算出同一个 Index，那就出现了冲突，分支预测错误率提高。</p>
 <p>按照这个思路，在 Alder Lake 上进行了测试：</p>
 <p><a class="glightbox" href="cpu_microarchitecture_phr_index_hash_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_phr_index_hash_alder_lake.png" /></a></p>
-<p>这里测试的和论文中稍有不同：这里横坐标是移位 PHR 的分支的个数，而不是 k 的位置，但也可以通过分支个数计算出 k 的位置。从图里可以看到峰值的横座标呈一个等差数列：158，167，176，185，194。公差为 9，对应 18 个 bit。这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。</p>
+<p>这里测试的和论文中稍有不同：这里横坐标是移位 PHR 的分支的个数，而不是 k 的位置，但也可以通过分支个数计算出 k 的位置。从图里可以看到峰值的横座标呈一个等差数列：67, 76, ... 193。公差为 9，对应 18 个 bit。这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。</p>
 <h3 id="_3">参考文献</h3>
 <ul>
 <li><a href="https://halfandhalf.cpusec.org/">Half&amp;Half: Demystifying Intel's Directional Branch Predictors for Fast, Secure Partitioned Execution</a></li>
