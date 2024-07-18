@@ -993,6 +993,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pht-index-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHT 的 Index 或 Tag 函数用到的分支地址位数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       其他测试
@@ -2681,6 +2690,15 @@
 <p>这和 Half&amp;Half 论文里的 Figure 14 也是一致的：</p>
 <p><a class="glightbox" href="../../hardware/cpu_microarchitecture_haswell_phr_footprint.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_haswell_phr_footprint.png" /></a></p>
 <p>不过 Haswell 架构的 PHR 的位数，Half&amp;Half 与 Reading privileged memory with a side-channel 的结果对不上，前者认为是 93x2，后者认为是 29x2。我在 Broadwell 和 Ivy Bridge EP 架构的处理器上测出来都是 93 个分支。</p>
+<h3 id="pht-index-tag">PHT 的 Index 或 Tag 函数用到的分支地址位数</h3>
+<p>得到 PHR 的计算过程后，下一步就是对 PHT 进行分析。PHT 采用组相连结构，PC 和 PHR 计算出 Index，找到 Set，然后在 Set 内部找到 Tag 匹配的项目，而 Tag 也是用 PC 和 PHR 计算出来的。那么，如果 Index 和 Tag 的计算函数都只涉及到了 PC 的部分位数，那么当两个分支的 PC 的这部分位数相同，且 PHR 也相同的时候，PHT 将无法区分这两个分支，导致分支预测错误率提高。</p>
+<p>按照这个思路，论文设计了 Listing 6 的实验：构造两个方向相反的分支，采用相同的 PHR，然后这两个分支的低若干位都是 0，然后观察 PC 多少位是 0 的时候，分支预测错误率提高。</p>
+<p>在 Skylake 上进行测试，复现了论文中的结果：</p>
+<p><a class="glightbox" href="../../hardware/cpu_microarchitecture_pht_branch_bits_skylake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_pht_branch_bits_skylake.png" /></a></p>
+<p>说明 Index 或 Tag 函数只用到了 PC 的低 12 位。</p>
+<p>在 Alder Lake 上测试，得到的结果如图：</p>
+<p><a class="glightbox" href="../../hardware/cpu_microarchitecture_pht_branch_bits_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_pht_branch_bits_alder_lake.png" /></a></p>
+<p>说明 Index 或 Tag 函数只用到了 PC 的低 16 位。这个结果也和 Indirector 里得到的 Intel IBP 的 PHT Tag 函数计算方式一致，说明 CBP 和 IBP 可能采用了类似的 Tag 函数设计。</p>
 <h3 id="_3">其他测试</h3>
 <p>未完待续。。。</p>
 <h3 id="_4">参考文献</h3>
@@ -2908,7 +2926,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月18日</span>
   </span>
 
     
