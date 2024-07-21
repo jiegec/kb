@@ -1010,20 +1010,14 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#pht-index-phr-hash" class="md-nav__link">
     <span class="md-ellipsis">
       PHT Index 中 PHR 的 Hash 算法
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="PHT Index 中 PHR 的 Hash 算法">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
@@ -2718,11 +2712,12 @@
 <p>进一步，为了测试 PHT 中每个 Set 的路数，需要构造若干个分支，它们的 Index 相同，但是 Tag 不同，那么这些分支都会对应到同一个 Set 里，然后一个 Set 里记录的分支个数，就是每个 Set 的路数。论文构造了 Listing 7 实验，通过操控 PC 地址低位和分支个数，观察可以正确预测的分支个数，进而对 PHT 的结构进行推断。在 Alder Lake 上复现了测试：</p>
 <p><a class="glightbox" href="../../hardware/cpu_microarchitecture_pht_way_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_pht_way_alder_lake.png" /></a></p>
 <p>可以看到，第一个拐点是 4 个分支，说明是 4 路组相连。然后在 32 到 36 的地方出现了一个小的不那么平的平台，这是因为 PC[5] 参与到了 Index 计算当中，此时分支会分布在两个 Set 里，每个 Set 可以保存 4 个分支，加起来总共可以正确预测 8 个分支。</p>
-<h2 id="pht-index-phr-hash">PHT Index 中 PHR 的 Hash 算法</h2>
-<p>论文构造了一个测试，目的是判断 PHT Index 中哪些 PHR 异或到了同一个位上，方法是，由于已知 PHT 是四路组相连，也知道 PHT Index 只用了 PC[5]，其他的 PC 没有用到，所以构造四个分支，它们都用 PHR=0k000...0 作为预测的输入，那么它们会被映射到同一个 Set 上；再构造四个分支，它们都用 PHR=000....0k0...0 作为预测的输入，此时 k 的位置会变化，这四个分支也会被映射到同一个 Set 上。如果前四个分支和后四个分支的 PHR 计算出同一个 Index，那就出现了冲突，分支预测错误率提高。</p>
+<h3 id="pht-index-phr-hash">PHT Index 中 PHR 的 Hash 算法</h3>
+<p>论文构造了一个测试，目的是判断 PHT Index 中哪些 PHR 异或到了同一个位上，方法是，由于已知 PHT 是四路组相连，也知道 PHT Index 只用了 PC[5]，其他的 PC 没有用到，所以构造四个分支，它们都用 PHR=k000...0 作为预测的输入，那么它们会被映射到同一个 Set 上；再构造四个分支，它们都用 PHR=000....0k0...0 作为预测的输入，此时 k 的位置会变化，这四个分支也会被映射到同一个 Set 上。如果前四个分支和后四个分支的 PHR 计算出同一个 Index，那就出现了冲突，分支预测错误率提高。</p>
 <p>按照这个思路，在 Alder Lake 上进行了测试：</p>
 <p><a class="glightbox" href="../../hardware/cpu_microarchitecture_phr_index_hash_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_phr_index_hash_alder_lake.png" /></a></p>
-<p>这里测试的和论文中稍有不同：这里横坐标是移位 PHR 的分支的个数，而不是 k 的位置，但也可以通过分支个数计算出 k 的位置。从图里可以看到峰值的横座标呈一个等差数列：67, 76, ... 193。公差为 9，对应 18 个 bit。这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。</p>
+<p>这里测试的和论文中稍有不同：这里横坐标是设置 PHR 为 k0 之后再移位 PHR 的分支的个数，而不是 k 的位置，于是可以通过分支个数计算出 k 的位置：k 的下标是横座标乘以二加一。从图里可以看到峰值的横座标呈一个等差数列：67, 76, ... 193，数列的公差为 9，对应 18 个 bit，说明 PHR[387] 和 PHR[369] 和 PHR[351] 等等等是异或在一起的关系，最后成为了 Index 的某一位。</p>
+<p>这个结果和 Indirector 的 IBP 的 Index Hash 是一致的，虽然一个是 CBP，一个是 IBP。暂时还没有往更小的历史长度测，是因为会涉及到更多的 PHT 表，此时需要修改分支个数，保证填满小的和大的 PHT。</p>
 <h3 id="_3">参考文献</h3>
 <ul>
 <li><a href="https://halfandhalf.cpusec.org/">Half&amp;Half: Demystifying Intel's Directional Branch Predictors for Fast, Secure Partitioned Execution</a></li>
@@ -2948,7 +2943,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月21日</span>
   </span>
 
     
