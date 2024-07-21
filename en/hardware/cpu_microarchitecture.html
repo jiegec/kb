@@ -2712,6 +2712,13 @@
 <p>进一步，为了测试 PHT 中每个 Set 的路数，需要构造若干个分支，它们的 Index 相同，但是 Tag 不同，那么这些分支都会对应到同一个 Set 里，然后一个 Set 里记录的分支个数，就是每个 Set 的路数。论文构造了 Listing 7 实验，通过操控 PC 地址低位和分支个数，观察可以正确预测的分支个数，进而对 PHT 的结构进行推断。在 Alder Lake 上复现了测试：</p>
 <p><a class="glightbox" href="../../hardware/cpu_microarchitecture_pht_way_alder_lake.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/cpu_microarchitecture_pht_way_alder_lake.png" /></a></p>
 <p>可以看到，第一个拐点是 4 个分支，说明是 4 路组相连。然后在 32 到 36 的地方出现了一个小的不那么平的平台，这是因为 PC[5] 参与到了 Index 计算当中，此时分支会分布在两个 Set 里，每个 Set 可以保存 4 个分支，加起来总共可以正确预测 8 个分支。</p>
+<p>修改 Listing 7 里 k 的位置，当它出现在 PHR[133] 时，相连度还是 4，而出现在 PHR[131] 时，相连度提高到了 8，说明第二大的 PHT 只用了 PHR 的低 132 位。继续向下调，k 出现在 PHR[69] 时，相连度还是 8，而出现在 PHR[67] 时，相连度提高到了 12。说明第三大的 PHT 只用了 PHR 的低 68 位。继续把 k 向下移动，则看不到更大的相连度，说明 Intel Alder Lake 的 PHT 只有三个：</p>
+<ol>
+<li>最小的 PHT 使用了 68 位的 PHR 历史</li>
+<li>中等大小的 PHT 使用了 132 位的 PHR 历史</li>
+<li>最大的 PHT 使用了完整 388 位的 PHR 历史</li>
+</ol>
+<p>并且它们都是四路组相连。</p>
 <h3 id="pht-index-phr-hash">PHT Index 中 PHR 的 Hash 算法</h3>
 <p>论文构造了一个测试，目的是判断 PHT Index 中哪些 PHR 异或到了同一个位上，方法是，由于已知 PHT 是四路组相连，也知道 PHT Index 只用了 PC[5]，其他的 PC 没有用到，所以构造四个分支，它们都用 PHR=k000...0 作为预测的输入，那么它们会被映射到同一个 Set 上；再构造四个分支，它们都用 PHR=000....0k0...0 作为预测的输入，此时 k 的位置会变化，这四个分支也会被映射到同一个 Set 上。如果前四个分支和后四个分支的 PHR 计算出同一个 Index，那就出现了冲突，分支预测错误率提高。</p>
 <p>按照这个思路，在 Alder Lake 上进行了测试：</p>
