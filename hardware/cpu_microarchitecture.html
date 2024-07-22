@@ -2353,6 +2353,7 @@
 <p><a class="glightbox" href="cpu_microarchitecture_target_align.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_target_align.png" /></a></p>
 <p>说明目的地址只有低 6 位参与到了 PHR 计算当中。</p>
 <p>那么 PHR 计算涉及到了分支地址的低 16 位和目的地址的低 6 位，接下来就要进一步分析它们具体怎么参与到 PHR 计算当中。</p>
+<p>用同样的方法测试 Skylake 架构，可以得到 PHR 计算涉及到了分支地址的低 19 位和目的地址的低 6 位。</p>
 <h3 id="phr-bit">PHR 中分支地址和目的地址各 bit 的位置</h3>
 <p>接下来，要测试分支地址和目的地址如何参与到 PHR 计算当中。PHR 是一个移位寄存器，而 16 位的分支地址不可能一个分支就全部移位出去，因此可以修改分支地址的部分位，观察经过多少个分支，才会从 PHR 里被移位出去，通过不同 bit 移位出去的分支个数，可以推断出 PHR 的结构。</p>
 <p>于是修改代码，去修改分支地址和目的地址的一个 bit，然后在两个随机跳转的分支中间插入可变个数的 dummy branch：</p>
@@ -2950,7 +2951,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月22日</span>
   </span>
 
     
