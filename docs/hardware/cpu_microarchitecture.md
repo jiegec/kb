@@ -540,7 +540,7 @@ void bhb_update(uint58_t *bhb_state, unsigned long src, unsigned long dst) {
 }
 ```
 
-这和 Half&Half 论文里的 Figure 14 也是一致的：
+这和 Half&Half 论文里的 Figure 14 也是一致的（除了 B13 出现了两次，论文应该是写错了，第二个 B13 应该为 B15）：
 
 ![](cpu_microarchitecture_haswell_phr_footprint.png)
 
