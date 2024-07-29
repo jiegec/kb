@@ -789,3 +789,17 @@ Intel Broadwell: 大约 192 条
 Intel Ivy Bridge EP: 大约 168 条
 
 ![](cpu_microarchitecture_rob_ivy_bridge_ep.png)
+
+## 多种处理器架构的核间通信延迟测试
+
+测试工具：https://github.com/clamchowder/Microbenchmarks/tree/master/CoherencyLatency
+
+测试结果：
+
+Apple M1:
+
+![](cpu_microarchitecture_apple_m1_coherency_latency.png)
+
+Intel i9-12900KS:
+
+![](cpu_microarchitecture_i9_12900ks_coherency_latency.png)
