@@ -803,3 +803,7 @@ Apple M1:
 Intel i9-12900KS:
 
 ![](cpu_microarchitecture_i9_12900ks_coherency_latency.png)
+
+Intel i9-14900K:
+
+![](cpu_microarchitecture_i9_14900k_coherency_latency.png)
