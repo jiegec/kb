@@ -807,3 +807,89 @@ Intel i9-12900KS:
 Intel i9-14900K:
 
 ![](cpu_microarchitecture_i9_14900k_coherency_latency.png)
+
+## 香山
+
+文档：[分支预测 (Branch Prediction) - XiangShan 官方文档](https://xiangshan-doc.readthedocs.io/zh-cn/latest/frontend/bp/)
+
+### 雁栖湖
+
+yanqihu 版本：[OpenXiangShan/XiangShan yanqihu branch](https://github.com/OpenXiangShan/XiangShan/tree/yanqihu)
+
+[香山处理器分支预测部件设计实现](https://raw.githubusercontent.com/OpenXiangShan/XiangShan-doc/main/slides/20210625-RVWC-%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E9%83%A8%E4%BB%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.pdf)
+
+FetchWidth: 以 32 bit 为单位，每个周期的取指令宽度，默认是 8，也就是 ICache 每个周期出 32 字节，可以在 ICacheResp 的 data 字段里看到：
+
+```scala
+class ICacheResp extends ICacheBundle
+{
+  val pc = UInt(VAddrBits.W)
+  val data = UInt((FetchWidth * 32).W)
+  val mmio = Bool()
+  val mask = UInt(PredictWidth.W)
+  val ipf = Bool() // page fault
+  val acf = Bool() // access fault
+}
+```
+
+但是由于有 RVC 的存在，32 字节可能会放 16 条指令，yanqihu 架构会对这 16 个可能的位置都做分支预测，这就是 PredictWidth，开启 RVC 时 PredictWidth 是两倍的 FetchWidth 也就是 16，不开启时 PredictWidth 等于 FetchWidth 也就是 8。下面都按开启了 RVC 来讨论。Predict Width 计算公式如下：
+
+```scala
+val PredictWidth = FetchWidth * (if (HasCExtension) 2 else 1)
+```
+
+预测的时候，MicroBTB 设置了 PredictWidth = 16 个 bank，每个 bank 预测对应位置上的指令，预测它：
+
+- 是不是条件分支指令
+- 是不是间接跳转指令
+- 如果跳转，目的地址是多少
+
+```scala
+class ReadResp extends XSBundle
+{
+    val valid = Bool()
+    val taken = Bool()
+    val target = UInt(VAddrBits.W)
+    val is_RVC = Bool()
+    val is_Br = Bool()
+}
+```
+
+每个 bank 内是 16 个全相连的 entry，每个 entry 记录了：
+
+- is_Br: 是否间接跳转
+- is_RVC: 是否压缩指令
+- valid: 是否合法
+- 2 bit pred: 两位的饱和计数器，预测分支方向
+- 20 bit tag: 用于找到匹配的全相连的 entry，如果 FetchWidth 是 4，一次取 32 字节，那么 tag 就是舍弃 PC 低 5 位后取 20 位
+- 20 bit lower: 目的地址相对分支地址的偏移，由于指令对齐到 2，不需要保存偏移的最低 1 位
+
+于是 MicroBTB 的输出就是每个 predict bank 的这些信息：
+
+```scala
+class MicroBTBResp extends Resp
+{
+    val targets = Vec(PredictWidth, UInt(VAddrBits.W))
+    val hits = Vec(PredictWidth, Bool())
+    val takens = Vec(PredictWidth, Bool())
+    val brMask = Vec(PredictWidth, Bool())
+    val is_RVC = Vec(PredictWidth, Bool())
+}
+```
+
+拿到每个可能的指令位置的预测结果以后，再找到第一个跳转的分支，取其目的地址，作为下一个周期的 fetch 地址。这样的 MicroBTB，对于 32B 的每个 2B 的位置，都可以记录 16 个分支指令的信息，总共可以记录 256 个分支，每个分支只会出现一次。
+
+MicroBTB 的预测是 Next Line Predictor，不会引入额外的气泡，但是时序比较紧张，所以做的比较小，因此还有更大的 BTB，默认设置下，BTB 大小是 2048 项，2 路组相连，又分为 16 个 bank，折算下来就是 64 个 Set。BTB 每个 entry 记录了：
+
+- isBr: 是否间接跳转
+- isRVC: 是否压缩指令
+- valid: 是否合法
+- 28 bit tag: 用于找到匹配的全相连的 entry，28 等于 39(虚拟地址位数) - 5(一次 fetch 32B) - 6(index 位数, log2(64))
+- 13 bit lower: 目的地址相对分支地址的偏移，由于指令对齐到 2，不需要保存偏移的最低 1 位
+- 1 bit extend: 如果 lower 位数不够，把目的地址保存在另外的地方
+
+当偏移过大，无法存到 lower 内时，BTB 保存了额外 64 个 39 位宽的目的地址数组，直接映射，当 extern=1 时用于目的地址。
+
+2 位饱和计数器另外维护在 BIM 结构内。
+
+类似地，其他的分支预测部件，例如 TAGE，都按相同的方式组了 bank。
