@@ -1111,6 +1111,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      香山
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="香山">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      雁栖湖
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      南湖
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2947,6 +2980,77 @@
 <p><a class="glightbox" href="cpu_microarchitecture_i9_12900ks_coherency_latency.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_i9_12900ks_coherency_latency.png" /></a></p>
 <p>Intel i9-14900K:</p>
 <p><a class="glightbox" href="cpu_microarchitecture_i9_14900k_coherency_latency.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="cpu_microarchitecture_i9_14900k_coherency_latency.png" /></a></p>
+<h2 id="_6">香山</h2>
+<p>文档：<a href="https://xiangshan-doc.readthedocs.io/zh-cn/latest/frontend/bp/">分支预测 (Branch Prediction) - XiangShan 官方文档</a></p>
+<h3 id="_7">雁栖湖</h3>
+<p>yanqihu 版本：<a href="https://github.com/OpenXiangShan/XiangShan/tree/yanqihu">OpenXiangShan/XiangShan yanqihu branch</a></p>
+<p><a href="https://raw.githubusercontent.com/OpenXiangShan/XiangShan-doc/main/slides/20210625-RVWC-%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E9%83%A8%E4%BB%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.pdf">香山处理器分支预测部件设计实现</a></p>
+<p>FetchWidth: 以 32 bit 为单位，每个周期的取指令宽度，默认是 8，也就是 ICache 每个周期出 32 字节，可以在 ICacheResp 的 data 字段里看到：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ICacheResp</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">ICacheBundle</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">pc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">VAddrBits</span><span class="p">.</span><span class="nc">W</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">((</span><span class="nc">FetchWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">32</span><span class="p">).</span><span class="nc">W</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">mmio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">PredictWidth</span><span class="p">.</span><span class="nc">W</span><span class="p">)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ipf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span><span class="w"> </span><span class="c1">// page fault</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">acf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span><span class="w"> </span><span class="c1">// access fault</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>但是由于有 RVC 的存在，32 字节可能会放 16 条指令，yanqihu 架构会对这 16 个可能的位置都做分支预测，这就是 PredictWidth，开启 RVC 时 PredictWidth 是两倍的 FetchWidth 也就是 16，不开启时 PredictWidth 等于 FetchWidth 也就是 8。下面都按开启了 RVC 来讨论。Predict Width 计算公式如下：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">val</span><span class="w"> </span><span class="nc">PredictWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">FetchWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">HasCExtension</span><span class="p">)</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+<p>预测的时候，MicroBTB 设置了 PredictWidth = 16 个 bank，每个 bank 预测对应位置上的指令，预测它：</p>
+<ul>
+<li>是不是条件分支指令</li>
+<li>是不是间接跳转指令</li>
+<li>如果跳转，目的地址是多少</li>
+</ul>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ReadResp</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">XSBundle</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">taken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">VAddrBits</span><span class="p">.</span><span class="nc">W</span><span class="p">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">is_RVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">is_Br</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>每个 bank 内是 16 个全相连的 entry，每个 entry 记录了：</p>
+<ul>
+<li>is_Br: 是否间接跳转</li>
+<li>is_RVC: 是否压缩指令</li>
+<li>valid: 是否合法</li>
+<li>2 bit pred: 两位的饱和计数器，预测分支方向</li>
+<li>20 bit tag: 用于找到匹配的全相连的 entry，如果 FetchWidth 是 4，一次取 32 字节，那么 tag 就是舍弃 PC 低 5 位后取 20 位</li>
+<li>20 bit lower: 目的地址相对分支地址的偏移，由于指令对齐到 2，不需要保存偏移的最低 1 位</li>
+</ul>
+<p>于是 MicroBTB 的输出就是每个 predict bank 的这些信息：</p>
+<div class="language-scala highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MicroBTBResp</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Resp</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">targets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Vec</span><span class="p">(</span><span class="nc">PredictWidth</span><span class="p">,</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">VAddrBits</span><span class="p">.</span><span class="nc">W</span><span class="p">))</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">hits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Vec</span><span class="p">(</span><span class="nc">PredictWidth</span><span class="p">,</span><span class="w"> </span><span class="nc">Bool</span><span class="p">())</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">takens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Vec</span><span class="p">(</span><span class="nc">PredictWidth</span><span class="p">,</span><span class="w"> </span><span class="nc">Bool</span><span class="p">())</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">brMask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Vec</span><span class="p">(</span><span class="nc">PredictWidth</span><span class="p">,</span><span class="w"> </span><span class="nc">Bool</span><span class="p">())</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">is_RVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Vec</span><span class="p">(</span><span class="nc">PredictWidth</span><span class="p">,</span><span class="w"> </span><span class="nc">Bool</span><span class="p">())</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>拿到每个可能的指令位置的预测结果以后，再找到第一个跳转的分支，取其目的地址，作为下一个周期的 fetch 地址。这样的 MicroBTB，对于 32B 的每个 2B 的位置，都可以记录 16 个分支指令的信息，总共可以记录 256 个分支，每个分支只会出现一次。</p>
+<p>MicroBTB 的预测是 Next Line Predictor，不会引入额外的气泡，但是时序比较紧张，所以做的比较小，因此还有更大的 BTB，默认设置下，BTB 大小是 2048 项，2 路组相连，又分为 16 个 bank，折算下来就是 64 个 Set。BTB 每个 entry 记录了：</p>
+<ul>
+<li>isBr: 是否间接跳转</li>
+<li>isRVC: 是否压缩指令</li>
+<li>valid: 是否合法</li>
+<li>28 bit tag: 用于找到匹配的全相连的 entry，28 等于 39(虚拟地址位数) - 5(一次 fetch 32B) - 6(index 位数, log2(64))</li>
+<li>13 bit lower: 目的地址相对分支地址的偏移，由于指令对齐到 2，不需要保存偏移的最低 1 位</li>
+<li>1 bit extend: 如果 lower 位数不够，把目的地址保存在另外的地方</li>
+</ul>
+<p>当偏移过大，无法存到 lower 内时，BTB 保存了额外 64 个 39 位宽的目的地址数组，直接映射，当 extern=1 时用于目的地址。</p>
+<p>2 位饱和计数器另外维护在 BIM 结构内。</p>
+<p>类似地，其他的分支预测部件，例如 TAGE，都按相同的方式组了 bank。</p>
+<h3 id="_8">南湖</h3>
+<p><a href="https://raw.githubusercontent.com/OpenXiangShan/XiangShan-doc/main/slides/20220825-RVSC-%E9%A6%99%E5%B1%B1%E5%A4%84%E7%90%86%E5%99%A8%E5%89%8D%E7%AB%AF%E5%8F%96%E6%8C%87%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B.pdf">香山处理器前端取指架构演进</a></p>
+<p>雁栖湖是 coupled 前端，南湖改成了 decoupled 前端。分支预测方面，之前雁栖湖的 BTB 是每个分支一个 entry，预测的时候需要对 32B 的每个 2B 分别预测，16 路并行，再处理 16 路的结果。南湖的设计则不同，根据 fetch 地址，预测从这个 fetch 地址开始的 32B 字节（不一定对齐到缓存行），这段空间内的最多两条分支指令。这样做的原因是，常见的代码里分支指令的密度并没有那么高，以 32B 的粒度查询 2 个分支，而不像雁栖湖那样并行查询 16 个分支。</p>
+<p>虽然最多可以记录两个分支，但是记录两个的前提是第一个是条件分支指令，此时同时预测两条分支指令，如果第一条不跳转，那就用第二条指令的跳转方向决定下一次预测的地址。如果第一条就是直接跳转指令，那么保存第二条分支指令就没有意义了。如果 32B 区间内有多于两条分支指令，那么预测的时候，每次最多只能预测两个分支，不跳转的 fallthrough 地址成为第二个分支指令的下一条地址。而不是起始地址加 32B。</p>
+<p>当然，这个设计也有一个缺点：同一条分支指令可能出现在多个 entry 当中，因为他们的起始地址不同。</p>
 
 
 
@@ -2969,7 +3073,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年8月15日</span>
   </span>
 
     
