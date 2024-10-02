@@ -444,3 +444,26 @@ BRDF（Bidirectional reflectance distribution function）指的是在一个表�
 另外还推荐阅读：
 
 - [What are the coordinates?](https://medium.com/@christophkrautz/what-are-the-coordinates-225f1ec0dd78)
+
+## 抗锯齿/超分辨率/帧生成
+
+- SSAA(Super Sampling Anti Aliasing)/FSAA(Full Scene Anti Aliasing): 按更高的分辨率渲染，再降采样到屏幕分辨率，计算量很大。
+- MSAA(Multi Sampling Anti Aliasing)：按更高的分辨率来进行覆盖测试和深度测试，即一个像素有多个采样点，每个采样点都要找到覆盖了这个点的三角形，但每个三角形只进行一次着色（SSAA 是每个采样点进行一次着色），着色结果会复制到这个三角形覆盖的所有采样点上。如果有多个三角形覆盖了不同的采样点，最后相当于是按照覆盖的采样点个数加权平均。最坏情况下，每个采样点都属于不同的三角形，这时候性能会退化为 SSAA，但大多数情况，一个像素的多个采样点属于同一个三角形，这时候性能就很好。
+- NVIDIA DLSS(Deep Learning Super Sampling) 1.0：按更低的分辨率渲染，用 AI 进行超分辨率，再降采样到屏幕分辨率上，例如 1920x1080 渲染，AI 超分辨率到 15360x8640，再降采样到 3840x2160。每个游戏需要专门训练模型，经过 AI 超分辨率，一个像素变成 64 个像素。
+- NVIDIA DLSS(Deep Learning Super Sampling) 2.0：和 DLSS 1.0 不同，DLSS 2.0 是一种 TAAU（Temporal Anti Aliasing Upscaling）算法，Temporal 意思是利用了多帧的信息，去预测高分辨率的输出。DLSS 2.0 支持不同的超分辨率档位：Quality 就是按照长宽各是原来 66.7% 的分辨率去渲染，Balanced 是 58.0%，Performance 是 50.0%。用低分辨率渲染以后，再用通用的 AI 超分辨率网络，不再需要给每个游戏训练单独的网络。
+- NVIDIA DLSS(Deep Learning Super Sampling) 3.0：引入了帧生成技术，每渲染一张图，就生成出新的一张图，即有一半的图像是生成出来的。
+- NIS(NVIDIA Image Scaling)：开源的图形缩放和锐化算法，非 AI，无时序信息。用低分辨率渲染，再用 NIS 进行放大，即实现了超分辨率。
+- AMD FSR(FidelityFX Super Resolution) 1：和 NIS 类似，开源的图形缩放和锐化算法，非 AI，无时序信息。前身是 Fidelity Contrast Adaptive Sharping（CAS）锐化技术。
+- AMD FSR(FidelityFX Super Resolution) 2：开源的图形缩放和锐化算法，非 AI，引入了时序信息。
+- AMD FSR(FidelityFX Super Resolution) 3：开源的图形缩放和锐化算法，非 AI，引入了时序信息和帧生成。
+- AFMF(AMD Fluid Motion Frames)：在 AMD 驱动上实现的帧生成，软件无感知。
+- Intel XeSS(Xe Super Sampling)：开源，类 DLSS，用 AI 进行超分辨率。
+
+参考：
+
+- [请问 FXAA、FSAA 与 MSAA 有什么区别？效果和性能上哪个好？](https://www.zhihu.com/question/20236638)
+- [A Quick Overview of MSAA](https://therealmjp.github.io/posts/msaa-overview/)
+- [免费的性能增强是怎么来的？DLSS/NIS/FSR 技术解析](https://www.bilibili.com/video/BV1Qi4y117tf/)
+- [Deep learning super sampling](https://en.wikipedia.org/wiki/Deep_learning_super_sampling)
+- [GPUOpen](https://en.wikipedia.org/wiki/GPUOpen)
+- [详细剖析 AMD FSR 算法](https://zhuanlan.zhihu.com/p/401030221)

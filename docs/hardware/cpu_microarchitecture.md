@@ -884,7 +884,7 @@ MicroBTB 的预测是 Next Line Predictor，不会引入额外的气泡，但是
 - isBr: 是否间接跳转
 - isRVC: 是否压缩指令
 - valid: 是否合法
-- 28 bit tag: 用于找到匹配的全相连的 entry，28 等于 39(虚拟地址位数) - 5(一次 fetch 32B) - 6(index 位数, log2(64))
+- 28 bit tag: 用于找到匹配的全相连的 entry，28 等于 39(虚拟地址位数) - 5(一次 fetch 32B) - 6(index 位数，log2(64))
 - 13 bit lower: 目的地址相对分支地址的偏移，由于指令对齐到 2，不需要保存偏移的最低 1 位
 - 1 bit extend: 如果 lower 位数不够，把目的地址保存在另外的地方
 
