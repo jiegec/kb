@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/en/software/redshift.html">
+        <link rel="canonical" href="https://jia.je/kb/en/software/linux_scheduler.html">
       
       
-        <link rel="prev" href="postgresql.html">
+        <link rel="prev" href="linux_graphics.html">
       
       
-        <link rel="next" href="sgemm_cuda.html">
+        <link rel="next" href="postgresql.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Amazon Redshift - Jiegec's Knowledge Base</title>
+        <title>Linux Scheduler - Jiegec's Knowledge Base</title>
       
     
     
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Amazon Redshift - Jiegec's Knowledge Base" >
+        <meta  property="og:title"  content="Linux Scheduler - Jiegec's Knowledge Base" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/redshift.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/linux_scheduler.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,15 +85,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/en/software/redshift.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/en/software/linux_scheduler.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Amazon Redshift - Jiegec's Knowledge Base" >
+        <meta  name="twitter:title"  content="Linux Scheduler - Jiegec's Knowledge Base" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/redshift.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/linux_scheduler.png" >
       
     
     
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#amazon-redshift" class="md-skip">
+        <a href="#linux-scheduler" class="md-skip">
           Skip to content
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Amazon Redshift
+              Linux Scheduler
             
           </span>
         </div>
@@ -173,13 +173,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="redshift.html" hreflang="en" class="md-select__link">
+            <a href="linux_scheduler.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../../software/redshift.html" hreflang="zh" class="md-select__link">
+            <a href="../../software/linux_scheduler.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -1822,10 +1822,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="linux_scheduler.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linux Scheduler
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="linux_scheduler.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1834,6 +1854,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cfs-completely-fair-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      CFS Completely Fair Scheduler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eevdf-earliest-eligible-virtual-deadline-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      EEVDF Earliest Eligible Virtual Deadline First
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      runqueue
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1864,30 +1940,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Amazon Redshift
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="redshift.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="redshift.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1896,86 +1952,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      架构
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      最佳实践
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="最佳实践">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#distribution-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      Distribution key
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sort-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sort key
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fact-table-dimension-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fact Table 和 Dimension Table
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      常用的系统表
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2109,7 +2085,7 @@
                   
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/software/redshift.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/linux_scheduler.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -2117,58 +2093,33 @@
   
 
 
-<h1 id="amazon-redshift">Amazon Redshift</h1>
-<p>本文基于 <a href="https://docs.aws.amazon.com/redshift/latest/dg/welcome.html">Amazon Redshift Database Developer Guide</a> 整理。</p>
-<h2 id="_1">架构</h2>
-<p>文档：<a href="https://docs.aws.amazon.com/redshift/latest/dg/c_redshift_system_overview.html">Amazon Redshift System and architecture overview</a></p>
-<p>Redshift 集群由若干个 compute node 组成，如果有两个或以上的 compute nodes，还有一个额外的 leader node。客户端和 leader node 通信，如果只有一个 compute node，那么它也会充当 leader node 的作用。</p>
-<p>数据分布式地保存在 S3 和 compute node 的本地 SSD 存储上，通过 Redshift Managed Storage（RMS）自动管理，本地 SSD 存储相当于是 S3 的 cache。</p>
-<p>为了并行性，数据会分布到各个 compute node 上，更进一步，每个 compute node 分为多个 slice，slice 会平分 compute node 的各种资源，所以实际上数据分发的粒度是 slice。每个 slice 内部进行计算，然后把结果发送到 leader node 上进行合并，最后发给客户端。</p>
-<p>那么为了性能，最好是每个 slice 只用到本地的数据，尽量避免 slice 之间需要数据通信的情况。为了分发数据到各个 slice，Redshift 设计了 distribution key，用户可以指定 distribution key 以及 distribution style，决定数据如何分发到各个 slice 里，目的是后续查询的时候可以更快地找到要用到的数据。</p>
-<p>Redshift 采用列式存储，同一列相邻行的数据是连续存放的，类似于 column major 的矩阵保存形式。由于每一列的大小一般比较小，并且很多时候是定长的，所以可以更加紧密地保存下来，也方便进行压缩。查询时，可以只访问要用到的列，不去读取没访问到的列的数据，省下来这部分 I/O 时间。Redshift 采用 1MB 大小的块，用来存储每一列的数据。</p>
-<p>Redshift 支持请求缓存，在进行 SQL 查询的时候，如果曾经完成过同样的 SQL 查询，并且这段时间内数据没有变化，那么可以从请求缓存中直接把结果取出来，不用重新查询。</p>
-<h2 id="_2">最佳实践</h2>
-<p>文档：<a href="https://docs.aws.amazon.com/redshift/latest/dg/best-practices.html">Amazon Redshift Best practices</a></p>
-<h3 id="distribution-key">Distribution key</h3>
-<p>Distribution key 和 distribution style 决定了数据如何分布在各个 slice 中。如果预先设好的分布方案与实际查询时所期望的分布方案不同，就需要通信以重新分发数据，那么性能就会受到影响。除此之外，还尽量要保证不同 slice 比较均匀地分到数据，避免少数 slice 保存和处理大部分数据，影响并行性，同理，进行查询的时候，也要尽量保证每个 slice 都有自己的计算可以做。</p>
-<p><a href="https://docs.aws.amazon.com/redshift/latest/dg/c_choosing_dist_sort.html">Distribution Style</a> 有这么几种：</p>
-<ol>
-<li>AUTO：由 Redshift 自动选择</li>
-<li>EVEN：没有 Distribution key，插入数据时直接 Round-robin 式把数据分发到各个 slice 上</li>
-<li>KEY：按照 Distribution key（某一个 column）进行分发，如果某两行在 Distribution key 下的值相同，那么这两行会被分到同一个 slice 上</li>
-<li>ALL：把数据复制到所有的 node 上，每个 node 保存一份完整的数据，供所有 slice 读取</li>
-</ol>
-<p>选择 Distribution style 的时候，要结合 workload 来进行分析。如果主要的查询是对两个表进行 join，把要 join 的 key 设为 Distribution key 是比较合理的方案，这样两个表的数据里的具有同一个 join key 的行会保存在同一个 slice 内部，那么每个 slice 内部就可以完成 join 操作，不需要在 slice 之间通信。</p>
-<p>更详细的原则见 <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_designating_distribution_styles.html">Designating distribution styles</a>，简单总结一下：</p>
-<ol>
-<li>经常 join 的 key，就设为对应 table 的 distribution key</li>
-<li>每个 table 的 distribution key 只能有一个，但是要 join 多个表，怎么办？选性能影响最大的那个，根据要 join 的表的大小来估计，估计大小时不要忘记考虑 filter</li>
-<li>实在不好设计 distribution key，又想提升查询性能，可以用 ALL distribution style，用空间换时间</li>
-<li>对于性能影响不大的表，可以让 Redshift 自动选择</li>
-</ol>
-<p>为了确认分布方案是否合理，可以用 EXPLAIN 语句获取常用 SQL 查询的 Query Plan，可以看到 Redshift 是怎么执行这条 SQL 语句的，在里面就可以看到不同 Distribution key 的影响。</p>
-<h3 id="sort-key">Sort key</h3>
-<p>文档：<a href="https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-sort-key.html">Choose the best sort key</a> 和 <a href="https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html">Working with sort keys</a></p>
-<p>除了 Distribution key 以外，还有一个很重要的概念，就是 Sort key。Sort key 对应数据库里的索引（Index），其实就是把数据按照什么顺序排序，方便查询。传统数据库每个表支持多个 Index，每个 Index 可以用不同的 Key，那么查询的时候，就可以利用这些 Index 来加速查询。Redshift 则不同，它每个表相当于只有一个 Index：数据用 Sort key 排好序并保存，没有额外的 B 树，只是保存了每个 Block 的最大最小值，所以 Sort key 的选取对性能也是很重要的。</p>
-<p>Distribution key 主要涉及到 slice 之间的数据分布方式，以及查询时 slice 之间需要多少的数据传输。而 Sort key 主要涉及的是 slice 内部实现查询时，能否高效地进行。</p>
-<p>例如对两个表进行 join 的时候，如果两个表都按照 join key 排好了序，那就可以用类似归并排序的归并操作，双指针快速地同时遍历两边的表的同一个 join key。如果没排好序，那就要 fallback 到哈希表 join，从一个表构建哈希表，遍历另一个表，然后在哈希表里寻找 join key 匹配的行。再比如对某些列进行过滤的时候，如果已经按列排好序，那就可以很快地找到上下界，不用一个个去遍历。</p>
-<p>相比 Distribution key 只能设置一个列，Sort key 则更加灵活，它支持如下模式：</p>
-<ol>
-<li>COMPOUND：可以指定多个列，按多关键字排序，那么按照 Sort key 的前缀列进行查询的时候，就可以利用排好序的性质，提升查询性能</li>
-<li>INTERLEAVED：可以指定多个列，但最多 8 列，它相比 COMPOUND 更复杂，加载数据时更慢，但是比较灵活，不一定要查询前缀列，可以任意组合</li>
-</ol>
-<p>特别地，如果只有一个列需要排序，这个列的内容又有很多相同前缀的时候（例如大量 URL 开头都是 <code>https://www</code>），COMPOUND 模式下，它为了节省字符串比较时间，可能会只选取字符串的前若干个字节（从 <code>STV_BLOCKLIST</code> 的 <code>minvalue</code> 和 <code>maxvalue</code> 来推断，是前 8 个字节）来排序，这样排序的效果就变差了；而 INTERLEAVED 模式会做的更好，因为经过了压缩。</p>
-<p>此外，INTERLEAVED 模式下，如果不断地往一个已经有数据的表里添加新数据，数据分布出现变化，那么性能会逐渐变差，需要用 VACUUM REINDEX 命令重新进行排序。具体原因，可以在下面的分析文章里了解到。</p>
-<p>关于 Sort key 背后的实现原理，推荐阅读 <a href="https://chartio.com/blog/understanding-interleaved-sort-keys-in-amazon-redshift-part-1/">Interleaved Sort Keys in Amazon Redshift, Part 1</a> 和 <a href="https://chartio.com/blog/interleaved-sort-keys-part-2/">Interleaved Sort Keys in Amazon Redshift, Part 2</a>：它解释了 Redshift 的 Sort key 实现方法，也可以解释上面提到的各种内容。</p>
-<h3 id="fact-table-dimension-table">Fact Table 和 Dimension Table</h3>
-<p>在 Redshift 文档里会涉及到两个数据分析的概念：Fact Table 和 Dimension Table。Fact Table 一般是记录了某个事情的发生，这个事情涉及到了哪些人，哪些物品，发生在什么时间。这些涉及到的人和物品的信息都是用 ID 保存下来，然后用另外的若干个 Dimension 表来具体保存每个人的信息，每个物品的信息，等等。</p>
-<p>例如，对于一个网上购物系统，Fact Table 记录了所有订单，订单记录了买家的 ID，卖家的 ID，商品的 ID，商品的数量和价格，然后有多个 Dimension Table，所有买家是一个表，卖家是一个表，所有商品也是一个表。</p>
-<p>这样，Fact Table 就是有大量的到 Dimension Table 的 Foreign Key。查询的时候，通常会把 Fact Table 和多个 Dimension Table join 起来。例如要找到所有卖家在每个商品卖出的总价格，那就把 Fact Table 和卖家表和商品表 join 起来，然后按卖家和商品进行 group by，对价格做求和。</p>
-<p>如果要对这个例子优化，那么就要比较卖家表和商品表谁更大，一般来说，商品比卖家多，join 商品表花的时间更长，那就让订单列表（Fact Table）和商品表都设置商品 ID 为 Distribution key。此时卖家表没有商品 ID 这一列，没法按照商品 ID 来分发，如果设置卖家 ID 为 Distribution key，那卖家的分布和商品的分布不同，就会涉及到比较多的通信，但考虑到卖家比较少，性能影响可能比较小。如果要很好的性能，那么卖家表可以设置为 ALL distribution style，那么每个 node 都有一份卖家，每个 slice 可以从本地找到卖家的信息，不需要额外的通信。对于 Sort key，由于订单列表和商品表需要在商品 ID 上进行 join，很自然地可以把商品 ID 设置为 sort key。订单列表和卖家表需要在卖家 ID 上进行 join，于是卖家表可以把卖家 ID 设置为 sort key。</p>
-<h2 id="_3">常用的系统表</h2>
+<h1 id="linux-scheduler">Linux Scheduler</h1>
+<h2 id="cfs-completely-fair-scheduler">CFS Completely Fair Scheduler</h2>
+<p>文档：<a href="https://docs.kernel.org/scheduler/sched-design-CFS.html">CFS Scheduler</a></p>
+<p>设计目标：建模一个理想的多任务 CPU，它以相同的速度并行运行多个任务，每个任务运行的时间一样长。</p>
+<p>但是这样的 CPU 不存在，不同的任务需要分时执行。因此需要记录每个任务执行的时间，让不同任务可以得到相同的 CPU 时间。CFS 要做的是，让可以运行的任务尽量得到相同的 CPU 时间。那就要找到那些没有得到足够 CPU 时间的任务，去调度它们。</p>
+<p>为了记录进程的 CPU 时间任务，CFS 给每个 Task 记录了一个 virtual runtime，那么如果一个任务的 virtual runtime 比别人都少，那就说明它得到的 CPU 时间不够，要调度它。</p>
+<p>因此，调度实际上就是要找到当前 virtual runtime 最小的任务。CFS 用平衡树来维护这个信息，调度 virtual runtime 最小的任务，从平衡树中删除，当任务运行了一段时间后，回到调度器，它的 virtual runtime 增加，再插入平衡树。</p>
+<p>virtual runtime 和实际 runtime 的区别是，它考虑了优先级：通过 nice 可以设置任务的权重，权重大的，相同运行时间，virtual runtime 增加的少，那么就会被分到更多的 CPU 时间。</p>
+<p>注意 CFS 考虑的是某个核上的进程的调度，它不管进程被调度到哪个核上。</p>
+<h2 id="eevdf-earliest-eligible-virtual-deadline-first">EEVDF Earliest Eligible Virtual Deadline First</h2>
+<p>文档：<a href="https://docs.kernel.org/scheduler/sched-eevdf.html">EEVDF Scheduler</a></p>
+<p>EEVDF 是在 CFS 基础上的改进。CFS 主要考虑的是公平性，讲究的是所有任务得到一样多的 CPU 时间。EEVDF 除了考虑公平性，还要考虑及时性，改进 Latency。</p>
+<p>它的思路是，统计每个任务的实际运行时间和预期运行时间，如果实际运行的比预期的少，才会被考虑去调度（Eligible）：实际比预期少的时间叫做 lag，那么 Eligible 意味着 lag 非负。Eligible 的任务可能有多个，此时选取它们 virtual deadline 最小的那个任务去调度。virtual deadline 怎么计算的呢？论文<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=805acf7726282721504c8f00575d91ebfd750564">Earliest Eligible Virtual Deadline First: A Flexible and Accurate Mechanism for Proportional Share Resource Allocation</a> 中是这么分析的：</p>
+<p>考虑一个实时系统，有一个需要定期进行的任务，例如视频解码，在时间 t 收到了一帧的数据，需要解码并显示到屏幕上，那么为了显示的流畅，肯定要在下一帧之前完成。假设每 T 时间会收到一帧，需要 r 时间完成解码，那么这个任务每 T 时间就要获得 r 的 CPU 时间。用 CFS 的话来说，它的权重占所有任务的 <span class="arithmatex">\(r/T\)</span>，记为 f。</p>
+<p>那么反过来，假如我知道一个任务的权重占比是 f，我希望它在什么时刻之前完成呢？假如我在 t 时刻收到一帧，我希望任务在下一帧之前完成，也就是要在 <span class="arithmatex">\(t+T\)</span> 时刻前完成。而 <span class="arithmatex">\(f=r/T\)</span>，那么 <span class="arithmatex">\(T=r/f\)</span>，带入 <span class="arithmatex">\(t+T\)</span>，得到 <span class="arithmatex">\(t+\frac{r}{f}\)</span>。它计算的是：假如这是一个定期执行的实时任务，它应该在什么时刻之前完成？这个式子已经很接近最终的 virtual deadline 计算方法。</p>
+<h2 id="runqueue">runqueue</h2>
+<p>runqueue 是 Linux 的 per cpu 数据结构，维护了在这个核上要运行的任务。为了负载均衡，把机器的不同核心用起来，需要在不同 cpu 的 runqueue 之间迁移任务。为了实现合理的负载均衡，调度器需要知道处理器的拓扑，这是通过 <a href="https://docs.kernel.org/scheduler/sched-domains.html">Sched Domain</a> 来表示的。</p>
+<p>Domain 呈一个树型结构，每个结点是 CPU 核的一个划分，父结点是子结点的超集，比如 SMT 同一个物理核的两个逻辑核，同一个 NUMA Node，整个 Socket，所有核。通过这个树型结构，内核调度器就可以知道 CPU 核心的拓扑。</p>
+<p>接着是在这棵树上进行负载均衡。每个 Domain 可以有若干个 Group，每个 Group 记录了若干个 CPU 核心，那么负载均衡的粒度就是 Group，保证同一个 Domain 下，不同 Group 的负载是差不多的。Group 的负载，就是这个 Group 内所有核的负载之和。</p>
+<p>Linux 内核会定期进行负载均衡，检查 Domain 里面，有没有哪个 Group 负载最高，如果有，尝试把任务挪到其他的 Group 的 runqueue 内部。</p>
+<p>那么，对于 SMT 来说，每个物理核成为一个 Group，Group 内就是两个逻辑核。通过负载均衡，先给每个 Group 的其中一个核分配任务，如果所有 Group 都有任务了，再向 SMT 的第二个逻辑核上分配任务。</p>
+<h2 id="_1">参考</h2>
 <ul>
-<li><a href="https://docs.aws.amazon.com/redshift/latest/dg/r_SVL_QLOG.html">SVL_QLOG</a>：记录了 SQL 查询日志</li>
-<li><a href="https://docs.aws.amazon.com/redshift/latest/dg/r_STV_BLOCKLIST.html">STV_BLOCKLIST</a>：记录了每个 1MB block 的信息</li>
+<li><a href="http://arthurchiao.art/blog/linux-cfs-design-and-implementation-zh/">Linux CFS 调度器：原理、设计与内核实现（2023）</a></li>
+<li><a href="https://hackmd.io/@Kuanch/eevdf">EEVDF Patch Notes</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/704413081">Linux 内核：EEVDF 调度器详解</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/683775984">CFS 的覆灭，Linux 新调度器 EEVDF 详解</a></li>
 </ul>
 
 
@@ -2192,7 +2143,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月31日</span>
   </span>
 
     
@@ -2202,7 +2153,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月31日</span>
   </span>
 
     
@@ -2281,7 +2232,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="postgresql.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: PostgreSQL">
+          <a href="linux_graphics.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Linux 图形软件栈">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -2291,20 +2242,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                PostgreSQL
+                Linux 图形软件栈
               </div>
             </div>
           </a>
         
         
           
-          <a href="sgemm_cuda.html" class="md-footer__link md-footer__link--next" aria-label="Next: SGEMM on CUDA">
+          <a href="postgresql.html" class="md-footer__link md-footer__link--next" aria-label="Next: PostgreSQL">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                SGEMM on CUDA
+                PostgreSQL
               </div>
             </div>
             <div class="md-footer__button md-icon">
