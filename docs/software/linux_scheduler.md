@@ -28,6 +28,18 @@ EEVDF 是在 CFS 基础上的改进。CFS 主要考虑的是公平性，讲究�
 
 那么反过来，假如我知道一个任务的权重占比是 f，我希望它在什么时刻之前完成呢？假如我在 t 时刻收到一帧，我希望任务在下一帧之前完成，也就是要在 $t+T$ 时刻前完成。而 $f=r/T$，那么 $T=r/f$，带入 $t+T$，得到 $t+\frac{r}{f}$。它计算的是：假如这是一个定期执行的实时任务，它应该在什么时刻之前完成？这个式子已经很接近最终的 virtual deadline 计算方法。
 
+## runqueue
+
+runqueue 是 Linux 的 per cpu 数据结构，维护了在这个核上要运行的任务。为了负载均衡，把机器的不同核心用起来，需要在不同 cpu 的 runqueue 之间迁移任务。为了实现合理的负载均衡，调度器需要知道处理器的拓扑，这是通过 [Sched Domain](https://docs.kernel.org/scheduler/sched-domains.html) 来表示的。
+
+Domain 呈一个树型结构，每个结点是 CPU 核的一个划分，父结点是子结点的超集，比如 SMT 同一个物理核的两个逻辑核，同一个 NUMA Node，整个 Socket，所有核。通过这个树型结构，内核调度器就可以知道 CPU 核心的拓扑。
+
+接着是在这棵树上进行负载均衡。每个 Domain 可以有若干个 Group，每个 Group 记录了若干个 CPU 核心，那么负载均衡的粒度就是 Group，保证同一个 Domain 下，不同 Group 的负载是差不多的。Group 的负载，就是这个 Group 内所有核的负载之和。
+
+Linux 内核会定期进行负载均衡，检查 Domain 里面，有没有哪个 Group 负载最高，如果有，尝试把任务挪到其他的 Group 的 runqueue 内部。
+
+那么，对于 SMT 来说，每个物理核成为一个 Group，Group 内就是两个逻辑核。通过负载均衡，先给每个 Group 的其中一个核分配任务，如果所有 Group 都有任务了，再向 SMT 的第二个逻辑核上分配任务。
+
 ## 参考
 
 - [Linux CFS 调度器：原理、设计与内核实现（2023）](http://arthurchiao.art/blog/linux-cfs-design-and-implementation-zh/)
