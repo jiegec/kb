@@ -512,6 +512,16 @@ DRAM 的数据存储在电容中。典型的 1T DRAM Cell 内部构造如下：
 - HBM2: [Samsung 2400 MT/s](https://semiconductor.samsung.com/dram/hbm/hbm2-aquabolt/)
 - HBM2E: [Micron 3200 MT/s](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/hbm2e/8gb_and_16gb_hbm2e_dram.pdf)
 
+## UDIMM/RDIMM/LRDIMM
+
+具体到 DIMM，又有不同的类型：
+
+- UDIMM(Unbuffered DIMM): 没有额外的寄存器打拍
+- RDIMM(Registered DIMM): 对地址、命令和时钟信号加寄存器打拍，数据信号不加寄存器
+- LRDIMM(Load Reduced DIMM): 在 RDIMM 的基础上，给数据信号也加上寄存器
+
+随着寄存器的增加，延迟增加，但是也能达到更高的频率，更大的容量。
+
 ## 相关阅读
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
