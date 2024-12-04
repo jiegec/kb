@@ -44,9 +44,28 @@ CMOS 全称是 Complementary metal–oxide–semiconductor，意思就是拿 PMO
 以及在工艺库里常见的 AOI（And Or Invert）和 OAI（Or And Invert）门：
 
 <figure markdown>
-  ![CMOD AOI and OAI Gate](cmos_aoi_oai_gate.png){ width="400" }
+  ![CMOS AOI and OAI Gate](cmos_aoi_oai_gate.png){ width="400" }
   <figcaption> CMOS 实现 AOI 和 OAI 门（图源 <a href="https://www.geeksforgeeks.org/cmos-logic-gate/">CMOS Logic Gate - Geeks for Geeks</a>）</figcaption>
 </figure>
 
 CMOS 在实现数字电路的时候，并没有用到它的线性区和饱和区的特性，只用到了 $V_{GS}$ 和 $V_{th}$ 的大小以及是否有电流的关系，可以认为 PMOS 和 NMOS 就是一个用电压控制的开关。
 
+## Planar FET, FinFET, GAAFET and MBCFET
+
+下面来讨论一下 CMOS 电路的工艺。前面讲到，CMOS 有三个源（S），栅（G）和漏（D），当 G 施加足够高的电压时，S 和 D 之间可以有电流通过。从物理上，这三个电级的位置就决定了它生产的难度以及能够实现的晶体管密度：
+
+<figure markdown>
+  ![Planar FET, FinFET, GAAFET and MBCFET](cmos_fet.png){ width="400" }
+  <figcaption> 不同的 FET 物理构造 3D 示意图（图源 <a href="https://www.anandtech.com/show/14333/samsung-announces-3nm-gaa-mbcfet-pdk-version-01">Samsung</a>）</figcaption>
+</figure>
+
+<figure markdown>
+  ![FinFET, GAAFET and MBCFET](cmos_fet_2d.png){ width="400" }
+  <figcaption> 不同的 FET 物理构造 2D 切面图（图源 <a href="https://www.researchgate.net/publication/360743373_On_the_Vertically_Stacked_Gate-All-Around_Nanosheet_and_Nanowire_Transistor_Scaling_beyond_the_5_nm_Technology_Node">On the Vertically Stacked Gate-All-Around Nanosheet and Nanowire Transistor Scaling beyond the 5 nm Technology Node</a>）</figcaption>
+</figure>
+
+1. Planar FET：前后是 S 和 D，然后 G 盖在上面，当 G 施加电压时，在 G 下部、S 和 D 之间聚集电子，形成电流。
+2. FinFET：前后是 S 和 D，G 夹住 S 和 D 之间的通道，三面环绕。
+3. GAAFET(Nanowire)/MBCFET(Nanosheet)：前后三条是 S 和 D，G 夹住三对 S 和 D 之间的通道，四面环绕。
+
+随着制程发展，G 和 S-D 之间通道的接触面越来越多，实现更高的晶体管密度，生产工艺也更加复杂。
