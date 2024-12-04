@@ -906,6 +906,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#planar-fet-finfet-gaafet-and-mbcfet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planar FET, FinFET, GAAFET and MBCFET
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2111,11 +2120,29 @@
 </figure>
 <p>以及在工艺库里常见的 AOI（And Or Invert）和 OAI（Or And Invert）门：</p>
 <figure>
-<p><a class="glightbox" href="cmos_aoi_oai_gate.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="CMOD AOI and OAI Gate" src="cmos_aoi_oai_gate.png" width="400" /></a>
+<p><a class="glightbox" href="cmos_aoi_oai_gate.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="CMOS AOI and OAI Gate" src="cmos_aoi_oai_gate.png" width="400" /></a>
   </p>
 <figcaption> CMOS 实现 AOI 和 OAI 门（图源 <a href="https://www.geeksforgeeks.org/cmos-logic-gate/">CMOS Logic Gate - Geeks for Geeks</a>）</figcaption>
 </figure>
 <p>CMOS 在实现数字电路的时候，并没有用到它的线性区和饱和区的特性，只用到了 <span class="arithmatex">\(V_{GS}\)</span> 和 <span class="arithmatex">\(V_{th}\)</span> 的大小以及是否有电流的关系，可以认为 PMOS 和 NMOS 就是一个用电压控制的开关。</p>
+<h2 id="planar-fet-finfet-gaafet-and-mbcfet">Planar FET, FinFET, GAAFET and MBCFET</h2>
+<p>下面来讨论一下 CMOS 电路的工艺。前面讲到，CMOS 有三个源（S），栅（G）和漏（D），当 G 施加足够高的电压时，S 和 D 之间可以有电流通过。从物理上，这三个电级的位置就决定了它生产的难度以及能够实现的晶体管密度：</p>
+<figure>
+<p><a class="glightbox" href="cmos_fet.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Planar FET, FinFET, GAAFET and MBCFET" src="cmos_fet.png" width="400" /></a>
+  </p>
+<figcaption> 不同的 FET 物理构造 3D 示意图（图源 <a href="https://www.anandtech.com/show/14333/samsung-announces-3nm-gaa-mbcfet-pdk-version-01">Samsung</a>）</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" href="cmos_fet_2d.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="FinFET, GAAFET and MBCFET" src="cmos_fet_2d.png" width="400" /></a>
+  </p>
+<figcaption> 不同的 FET 物理构造 2D 切面图（图源 <a href="https://www.researchgate.net/publication/360743373_On_the_Vertically_Stacked_Gate-All-Around_Nanosheet_and_Nanowire_Transistor_Scaling_beyond_the_5_nm_Technology_Node">On the Vertically Stacked Gate-All-Around Nanosheet and Nanowire Transistor Scaling beyond the 5 nm Technology Node</a>）</figcaption>
+</figure>
+<ol>
+<li>Planar FET：前后是 S 和 D，然后 G 盖在上面，当 G 施加电压时，在 G 下部、S 和 D 之间聚集电子，形成电流。</li>
+<li>FinFET：前后是 S 和 D，G 夹住 S 和 D 之间的通道，三面环绕。</li>
+<li>GAAFET(Nanowire)/MBCFET(Nanosheet)：前后三条是 S 和 D，G 夹住三对 S 和 D 之间的通道，四面环绕。</li>
+</ol>
+<p>随着制程发展，G 和 S-D 之间通道的接触面越来越多，实现更高的晶体管密度，生产工艺也更加复杂。</p>
 
 
 
@@ -2138,7 +2165,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年11月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月4日</span>
   </span>
 
     

@@ -1,0 +1,12 @@
+--2024-12-04 22:53:51--  https://images.anandtech.com/doci/14333/FET_575px.png
+Resolving images.anandtech.com (images.anandtech.com)... 216.137.39.44, 216.137.39.71, 216.137.39.86, ...
+Connecting to images.anandtech.com (images.anandtech.com)|216.137.39.44|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 69716 (68K) [image/png]
+Saving to: ‘FET_575px.png’
+
+     0K .......... .......... .......... .......... .......... 73%  175K 0s
+    50K .......... ........                                   100%  178M=0.3s
+
+2024-12-04 22:53:52 (238 KB/s) - ‘FET_575px.png’ saved [69716/69716]
+
