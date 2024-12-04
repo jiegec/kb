@@ -65,7 +65,7 @@ CMOS 在实现数字电路的时候，并没有用到它的线性区和饱和区
 </figure>
 
 1. Planar FET：前后是 S 和 D，然后 G 盖在上面，当 G 施加电压时，在 G 下部、S 和 D 之间聚集电子，形成电流。
-2. FinFET：前后是 S 和 D，G 夹住 S 和 D 之间的通道，三面环绕。
-3. GAAFET(Nanowire)/MBCFET(Nanosheet)：前后三条是 S 和 D，G 夹住三对 S 和 D 之间的通道，四面环绕。
+2. FinFET：前后是 S 和 D，G 从上方、左侧和右侧来夹住 S 和 D 之间的通道，三面环绕。
+3. GAAFET(Nanowire)/MBCFET(Nanosheet)：前后三条是 S 和 D，G 从四个方向夹住三对 S 和 D 之间的通道，四面环绕。
 
 随着制程发展，G 和 S-D 之间通道的接触面越来越多，实现更高的晶体管密度，生产工艺也更加复杂。
