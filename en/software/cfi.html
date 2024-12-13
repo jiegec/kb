@@ -2130,8 +2130,9 @@
 <h2 id="_3">地址签名和验证</h2>
 <p>此外还有一种防止攻击的技术，就是对地址进行签名和验证。它的思想是，攻击者想要挟持控制流，那就需要把正常的地址覆盖掉，变成攻击者控制的地址。如果处理器能够区分正常的地址和攻击者构造的地址，那就实现了防护。地址签名和验证就是这样的技术，它使用签名和验证算法，使用处理器内部的密钥，对正常地址进行签名，签名会放在地址高位上：由于目前虚拟地址空间没有用完，所以高位地址可以用来存储签名的信息。那么使用地址的时候，会去验证这个地址是否是合法的，由硬件生成的。攻击者不知道处理器内部的密钥，想要篡改地址时，无法给出正确的签名，于是无法通过检验。</p>
 <p>ARM PAC(Pointer Authentication Code) 就是这样的技术。编译时，可以用 <code>-mbranch-protection=pac-ret</code> 来启用 PAC，或者进一步用 <code>-mbranch-protection=standard</code> 来同时使用 BTI 和 PAC 两个保护机制。可以用 <code>readelf -n $BINARY</code> 来查看它是否启用了这些保护机制：<code>Properties: AArch64 feature: BTI, PAC</code>。</p>
-<p>除了签名和认证以外，还有一个很类似的技术，但它主要不是用于安全，而是用于检测内存访问溢出：Memory Tagging。它也是在地址高位添加一些信息，去标识这个指针应该范围的内存范围，但是这个信息没有密码学的保护，允许篡改。这个技术主要是用来加速 Address Sanitizer 一类的技术，给地址和内存上色，只有颜色相同的情况下才允许访问。不过由于颜色数量有限，它是可能漏掉一些错误的访问的。在没有 Memory Tagging 之前，Address Sanitizer 为了检查每次访存是否越界，开销会比较大。编译时，用 <code>-fsanitize=address</code> 启用 Address Sanitizer，用 <code>-fsanitize=hwaddress</code> 启用基于上述硬件加速的 Hardware Address Sanitizer。</p>
+<p>除了签名和认证以外，还有一个很类似的技术，但它主要不是用于安全，而是用于检测内存访问溢出：Memory Tagging。它也是在地址高位添加一些信息，去标识这个指针应该范围的内存范围，但是这个信息没有密码学的保护，允许篡改。这个技术主要是用来加速 Address Sanitizer 一类的技术，给地址和内存上色，只有颜色相同的情况下才允许访问。不过由于颜色数量有限，它是可能漏掉一些错误的访问的。在没有 Memory Tagging 之前，Address Sanitizer 为了检查每次访存是否越界，开销会比较大。</p>
 <p>无论是 PAC 还是 Memory Tagging，都需要硬件在访存时，忽略地址的高位，这个特性一般叫 Top Byte Ignore 或者 Linear Address Masking。这些多出来的位数，可以归软件来自由发挥，也可以启用 PAC 或 Memory Tagging 来让硬件参与使用。</p>
+<p>编译时，用 <code>-fsanitize=address</code> 启用 Address Sanitizer，用 <code>-fsanitize=hwaddress</code> 启用基于地址高位被忽略的 Hardware Address Sanitizer。基于 Memory Tagging 的 Memory Tagging Sanitizer 可以用 <code>-fsanitize=memtag</code> 开启，但目前支持的平台还很少。</p>
 
 
 
