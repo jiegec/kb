@@ -35,6 +35,8 @@ ARM GCS(Guarded Control Stack) 也是类似的技术，用一个单独的栈来�
 
 ARM PAC(Pointer Authentication Code) 就是这样的技术。编译时，可以用 `-mbranch-protection=pac-ret` 来启用 PAC，或者进一步用 `-mbranch-protection=standard` 来同时使用 BTI 和 PAC 两个保护机制。可以用 `readelf -n $BINARY` 来查看它是否启用了这些保护机制：`Properties: AArch64 feature: BTI, PAC`。
 
-除了签名和认证以外，还有一个很类似的技术，但它主要不是用于安全，而是用于检测内存访问溢出：Memory Tagging。它也是在地址高位添加一些信息，去标识这个指针应该范围的内存范围，但是这个信息没有密码学的保护，允许篡改。这个技术主要是用来加速 Address Sanitizer 一类的技术，给地址和内存上色，只有颜色相同的情况下才允许访问。不过由于颜色数量有限，它是可能漏掉一些错误的访问的。在没有 Memory Tagging 之前，Address Sanitizer 为了检查每次访存是否越界，开销会比较大。编译时，用 `-fsanitize=address` 启用 Address Sanitizer，用 `-fsanitize=hwaddress` 启用基于上述硬件加速的 Hardware Address Sanitizer。
+除了签名和认证以外，还有一个很类似的技术，但它主要不是用于安全，而是用于检测内存访问溢出：Memory Tagging。它也是在地址高位添加一些信息，去标识这个指针应该范围的内存范围，但是这个信息没有密码学的保护，允许篡改。这个技术主要是用来加速 Address Sanitizer 一类的技术，给地址和内存上色，只有颜色相同的情况下才允许访问。不过由于颜色数量有限，它是可能漏掉一些错误的访问的。在没有 Memory Tagging 之前，Address Sanitizer 为了检查每次访存是否越界，开销会比较大。
 
 无论是 PAC 还是 Memory Tagging，都需要硬件在访存时，忽略地址的高位，这个特性一般叫 Top Byte Ignore 或者 Linear Address Masking。这些多出来的位数，可以归软件来自由发挥，也可以启用 PAC 或 Memory Tagging 来让硬件参与使用。
+
+编译时，用 `-fsanitize=address` 启用 Address Sanitizer，用 `-fsanitize=hwaddress` 启用基于地址高位被忽略的 Hardware Address Sanitizer。基于 Memory Tagging 的 Memory Tagging Sanitizer 可以用 `-fsanitize=memtag` 开启，但目前支持的平台还很少。
