@@ -2223,12 +2223,13 @@
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">        </span><span class="p">(</span><span class="nv">sign_extend:DI</span><span class="w"> </span><span class="p">(</span><span class="nv">mult:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">a0</span><span class="w"> </span><span class="nv">[77]</span><span class="p">)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">                </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="nv">a1</span><span class="w"> </span><span class="nv">[78]</span><span class="p">))))</span>
 </span></code></pre></div>
-<p>表示这个指令的作用是，把 int32 类型的 a0 寄存器的值乘以 int32 类型的 a1 寄存器的值，结果符号扩展到 int64，写入到 a0 寄存器中。其中表示类型的是 DI/SI，下面是一个简单的名字和位数的对应关系：</p>
+<p>表示这个指令的作用是，把 int32 类型的 a0 寄存器的值乘以 int32 类型的 a1 寄存器的值，结果符号扩展到 int64，写入到 a0 寄存器中。其中表示类型的是 <a href="https://gcc.gnu.org/onlinedocs/gccint/Machine-Modes.html">DI/SI</a>，下面是一个简单的名字和位数的对应关系：</p>
 <ul>
 <li>整数：B(Bit)I=1, Q(Quarter)I=8, H(Half)I=16, S(Single)I=32, D(Double)I=64, T(Tetra)I=128</li>
 <li>浮点：Q(Quarter)F=8, H(Half)F=16, S(Single)F=32, D(Double)F=64, T(Tetra)F=128</li>
 <li>十进制浮点：*D</li>
-<li>有理数：*Q</li>
+<li>定点数（_Fract）：*Q，无符号在开头加 U</li>
+<li>累加器（_Accum）：*A，无符号在开头加 U</li>
 <li>复数：*C</li>
 </ul>
 <p>稍微和习惯不同的是 Q 表示 Quarter 而不是 Quad。</p>
@@ -2269,7 +2270,7 @@
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;mode&quot;</span><span class="w"> </span><span class="s">&quot;SI&quot;</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
 </span></code></pre></div>
 <p>最后是一些额外的属性，这个是用来给运算标记类型的，例如要针对处理器流水线进行优化，那就需要知道每个指令会被分到哪个流水线里面。</p>
-<p>完整的格式如下：</p>
+<p><a href="https://gcc.gnu.org/onlinedocs/gccint/Patterns.html">完整的格式</a>如下：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">(</span><span class="nv">define_insn</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="s">&quot;condition&quot;</span>
@@ -2411,7 +2412,7 @@
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="n">DONE</span><span class="p">;</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">})</span>
 </span></code></pre></div>
-<p>完整的 <code>define_split</code> 定义如下：</p>
+<p>完整的 <a href="https://gcc.gnu.org/onlinedocs/gccint/Insn-Splitting.html"><code>define_split</code></a> 定义如下：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">(</span><span class="nv">define-split</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="s">&quot;condition&quot;</span>
@@ -2478,6 +2479,19 @@
 </span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>make<span class="w"> </span>install<span class="w"> </span>-j8
 </span></code></pre></div>
 <p>交叉编译：给 configure 添加参数 <code>--target=loongarch64-unknown-linux-gnu</code>，但是有一些组件可能会因为缺少交叉编译环境而无法编译，可以只编译和安装 gcc：<code>make all-gcc &amp;&amp; make install-gcc</code>。</p>
+<p>交叉编译时，由于 libgcc 会依赖 libc，但构建 libc 又需要连接 libgcc，所以实际的构建顺序是这样的：</p>
+<ol>
+<li>构建 binutils</li>
+<li>构建一个不依赖 libc 的 gcc+libgcc，编译的时候设置：<ol>
+<li>--without-headers：没有 C 头文件</li>
+<li>--disable-threads：没有 pthread</li>
+<li>--disable-shared：动态链接依赖 libc</li>
+</ol>
+</li>
+<li>构建 libc，如果 libc 需要 linux 头文件，则还需要在 linux 源码中进行 headers_install</li>
+<li>再构建一个依赖 libc 的 gcc+libgcc</li>
+</ol>
+<p>还有一种办法，是用 newlib 来做一个简单的空壳 libc 实现，这样可以直接一步到位。</p>
 <h2 id="gcc_1">调试 GCC</h2>
 <p>给 GCC 传递编译选项，可以让 GCC 打印中间结果，见 <a href="https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html">GCC Developer Options</a>：<code>-fdump-tree-all -fdump-rtl-all -dP</code>。想要更加详细的日志，可以用 <code>-fdump-tree-all-details</code> 甚至 <code>-fdump-tree-all-all</code>。</p>
 <p>为了给 GCC 打断点，可以添加 <code>-v</code> 参数，找到实际的 <code>cc1</code> 命令行调用，再用调试器调试 cc1。GCC 提供了 gdbinit 配置：<code>gcc/gdbinit.in</code>。</p>
@@ -2516,7 +2530,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年12月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月2日</span>
   </span>
 
     
