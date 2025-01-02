@@ -60,12 +60,13 @@ GCC 的 RTL 是采用 Lisp 语言描述的低层次的中间语言，是转换�
                 (reg:SI 11 a1 [78]))))
 ```
 
-表示这个指令的作用是，把 int32 类型的 a0 寄存器的值乘以 int32 类型的 a1 寄存器的值，结果符号扩展到 int64，写入到 a0 寄存器中。其中表示类型的是 DI/SI，下面是一个简单的名字和位数的对应关系：
+表示这个指令的作用是，把 int32 类型的 a0 寄存器的值乘以 int32 类型的 a1 寄存器的值，结果符号扩展到 int64，写入到 a0 寄存器中。其中表示类型的是 [DI/SI](https://gcc.gnu.org/onlinedocs/gccint/Machine-Modes.html)，下面是一个简单的名字和位数的对应关系：
 
 - 整数：B(Bit)I=1, Q(Quarter)I=8, H(Half)I=16, S(Single)I=32, D(Double)I=64, T(Tetra)I=128
 - 浮点：Q(Quarter)F=8, H(Half)F=16, S(Single)F=32, D(Double)F=64, T(Tetra)F=128
 - 十进制浮点：*D
-- 有理数：*Q
+- 定点数（_Fract）：*Q，无符号在开头加 U
+- 累加器（_Accum）：*A，无符号在开头加 U
 - 复数：*C
 
 稍微和习惯不同的是 Q 表示 Quarter 而不是 Quad。
