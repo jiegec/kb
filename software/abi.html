@@ -1707,6 +1707,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mips" class="md-nav__link">
     <span class="md-ellipsis">
       MIPS
@@ -1719,6 +1728,15 @@
   <a href="#x86" class="md-nav__link">
     <span class="md-ellipsis">
       x86
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ilp32-on-64-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ILP32 on 64-bit
     </span>
   </a>
   
@@ -2122,6 +2140,11 @@
 
 
 <h1 id="abi-application-binary-interface">ABI (Application Binary Interface)</h1>
+<h2 id="data-model">Data Model</h2>
+<ul>
+<li>LP64: long &amp; pointer are 64 bit, int is 32 bit</li>
+<li>ILP64: long, pointer &amp; int are 32 bit</li>
+</ul>
 <h2 id="mips">MIPS</h2>
 <p>MIPS 有多种 ABI：</p>
 <ol>
@@ -2157,6 +2180,13 @@
 <li><a href="https://gitlab.com/x86-psABIs/i386-ABI">i386 abi</a>: i*86-linux-gnu</li>
 <li><a href="https://refspecs.linuxbase.org/elf/x86_64-abi-0.99.pdf">amd64 abi</a>: x86_64-linux-gnu</li>
 <li><a href="https://sites.google.com/site/x32abi/">x32 abi</a>: AMD64 上的 ILP32 ABI，32 位指针， x86_64-linux-gnux32 target</li>
+</ul>
+<h2 id="ilp32-on-64-bit">ILP32 on 64-bit</h2>
+<ul>
+<li><a href="https://web.archive.org/web/20160121005457/http://techpubs.sgi.com/library/manuals/2000/007-2816-005/pdf/007-2816-005.pdf">MIPS N32</a></li>
+<li><a href="https://wiki.debian.org/Arm64ilp32Port">ARM64 ILP32</a></li>
+<li><a href="https://sites.google.com/site/x32abi/">AMD64 X32 ABI</a></li>
+<li><a href="https://lwn.net/Articles/951187/">RISC-V 64 ILP32 ABI</a></li>
 </ul>
 
 
