@@ -3,7 +3,7 @@
 ## Data Model
 
 - LP64: long & pointer are 64 bit, int is 32 bit
-- ILP64: long, pointer & int are 32 bit
+- ILP32: long, pointer & int are 32 bit
 
 ## MIPS
 
