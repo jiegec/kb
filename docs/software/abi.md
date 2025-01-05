@@ -1,5 +1,10 @@
 # ABI (Application Binary Interface)
 
+## Data Model
+
+- LP64: long & pointer are 64 bit, int is 32 bit
+- ILP64: long, pointer & int are 32 bit
+
 ## MIPS
 
 MIPS 有多种 ABI：
@@ -33,3 +38,9 @@ MIPS 有多种 ABI：
 - [amd64 abi](https://refspecs.linuxbase.org/elf/x86_64-abi-0.99.pdf): x86_64-linux-gnu
 - [x32 abi](https://sites.google.com/site/x32abi/): AMD64 上的 ILP32 ABI，32 位指针， x86_64-linux-gnux32 target
 
+## ILP32 on 64-bit
+
+- [MIPS N32](https://web.archive.org/web/20160121005457/http://techpubs.sgi.com/library/manuals/2000/007-2816-005/pdf/007-2816-005.pdf)
+- [ARM64 ILP32](https://wiki.debian.org/Arm64ilp32Port)
+- [AMD64 X32 ABI](https://sites.google.com/site/x32abi/)
+- [RISC-V 64 ILP32 ABI](https://lwn.net/Articles/951187/)
