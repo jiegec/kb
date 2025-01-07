@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/hardware/async_sram.html">
+        <link rel="canonical" href="https://jia.je/kb/software/linux_mm.html">
       
       
-        <link rel="prev" href="aib.html">
+        <link rel="prev" href="linux_graphics.html">
       
       
-        <link rel="next" href="bow.html">
+        <link rel="next" href="linux_scheduler.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>异步 SRAM - 杰哥的知识库</title>
+        <title>Linux 内存管理（Memory Management） - 杰哥的知识库</title>
       
     
     
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="异步 SRAM - 杰哥的知识库" >
+        <meta  property="og:title"  content="Linux 内存管理（Memory Management） - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/async_sram.zh.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/linux_mm.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,15 +85,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/hardware/async_sram.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/software/linux_mm.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="异步 SRAM - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="Linux 内存管理（Memory Management） - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/async_sram.zh.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/linux_mm.png" >
       
     
     
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sram" class="md-skip">
+        <a href="#linux-memory-management" class="md-skip">
           跳转至
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              异步 SRAM
+              Linux 内存管理（Memory Management）
             
           </span>
         </div>
@@ -173,13 +173,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../en/hardware/async_sram.html" hreflang="en" class="md-select__link">
+            <a href="../en/software/linux_mm.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="async_sram.html" hreflang="zh" class="md-select__link">
+            <a href="linux_mm.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -301,13 +301,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="acc_rv.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../hardware/acc_rv.html" class="md-tabs__link">
           
   
     
@@ -363,11 +361,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../software/2fa.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2fa.html" class="md-tabs__link">
           
   
     
@@ -617,10 +617,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -677,22 +675,21 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -703,7 +700,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             硬件
@@ -717,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="acc_rv.html" class="md-nav__link">
+      <a href="../hardware/acc_rv.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -738,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="aib.html" class="md-nav__link">
+      <a href="../hardware/aib.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -756,30 +753,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    异步 SRAM
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="async_sram.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../hardware/async_sram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -788,104 +765,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      特点
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      结构
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      接口
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      拼接
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      时序
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="时序">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      读时序
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      写时序
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sram-cell" class="md-nav__link">
-    <span class="md-ellipsis">
-      SRAM Cell
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -898,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bow.html" class="md-nav__link">
+      <a href="../hardware/bow.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -919,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bus_protocol.html" class="md-nav__link">
+      <a href="../hardware/bus_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -940,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cache_coherence_protocol.html" class="md-nav__link">
+      <a href="../hardware/cache_coherence_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -961,7 +840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmos.html" class="md-nav__link">
+      <a href="../hardware/cmos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="conditional_branch_predictor.html" class="md-nav__link">
+      <a href="../hardware/conditional_branch_predictor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1003,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cpu_microarchitecture.html" class="md-nav__link">
+      <a href="../hardware/cpu_microarchitecture.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1024,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cxl.html" class="md-nav__link">
+      <a href="../hardware/cxl.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1045,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="display_interface.html" class="md-nav__link">
+      <a href="../hardware/display_interface.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1066,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="error_detection_correction_code.html" class="md-nav__link">
+      <a href="../hardware/error_detection_correction_code.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1087,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gpgpu.html" class="md-nav__link">
+      <a href="../hardware/gpgpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1108,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="high_speed_serial.html" class="md-nav__link">
+      <a href="../hardware/high_speed_serial.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1129,7 +1008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="i2c.html" class="md-nav__link">
+      <a href="../hardware/i2c.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1150,7 +1029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="logic_levels.html" class="md-nav__link">
+      <a href="../hardware/logic_levels.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1171,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="motherboard.html" class="md-nav__link">
+      <a href="../hardware/motherboard.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1192,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="nand_flash.html" class="md-nav__link">
+      <a href="../hardware/nand_flash.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1213,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="on_chip_networks.html" class="md-nav__link">
+      <a href="../hardware/on_chip_networks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1234,7 +1113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ooo_cpu.html" class="md-nav__link">
+      <a href="../hardware/ooo_cpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1255,7 +1134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oscillator.html" class="md-nav__link">
+      <a href="../hardware/oscillator.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1276,7 +1155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="pcie.html" class="md-nav__link">
+      <a href="../hardware/pcie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1297,7 +1176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="sdram.html" class="md-nav__link">
+      <a href="../hardware/sdram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1318,7 +1197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="spi.html" class="md-nav__link">
+      <a href="../hardware/spi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1339,7 +1218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ucie.html" class="md-nav__link">
+      <a href="../hardware/ucie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1673,8 +1552,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1721,21 +1602,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -1746,7 +1628,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             软件
@@ -1760,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/2fa.html" class="md-nav__link">
+      <a href="2fa.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1781,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/abi.html" class="md-nav__link">
+      <a href="abi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1802,7 +1684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/atomic_instructions.html" class="md-nav__link">
+      <a href="atomic_instructions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1823,7 +1705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/aws-pricing.html" class="md-nav__link">
+      <a href="aws-pricing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1844,7 +1726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cfi.html" class="md-nav__link">
+      <a href="cfi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1865,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cg.html" class="md-nav__link">
+      <a href="cg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1886,7 +1768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cpio.html" class="md-nav__link">
+      <a href="cpio.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1907,7 +1789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cuda.html" class="md-nav__link">
+      <a href="cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1928,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/dijkstra.html" class="md-nav__link">
+      <a href="dijkstra.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1949,7 +1831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/gcc.html" class="md-nav__link">
+      <a href="gcc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1970,7 +1852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_graphics.html" class="md-nav__link">
+      <a href="linux_graphics.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1988,10 +1870,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../software/linux_mm.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linux 内存管理（Memory Management）
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="linux_mm.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2000,6 +1902,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transparent-huge-page-thp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transparent Huge Page (THP)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#same-page-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Same Page Merging
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2012,7 +1952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_scheduler.html" class="md-nav__link">
+      <a href="linux_scheduler.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2033,7 +1973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/postgresql.html" class="md-nav__link">
+      <a href="postgresql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2054,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/redshift.html" class="md-nav__link">
+      <a href="redshift.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2075,7 +2015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+      <a href="sgemm_cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2096,7 +2036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/spark.html" class="md-nav__link">
+      <a href="spark.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2117,7 +2057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/svg.html" class="md-nav__link">
+      <a href="svg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2138,7 +2078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/tar.html" class="md-nav__link">
+      <a href="tar.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2159,7 +2099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/transformer.html" class="md-nav__link">
+      <a href="transformer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2196,7 +2136,7 @@
                   
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/async_sram.zh.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/linux_mm.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2204,133 +2144,18 @@
   
 
 
-<h1 id="sram">异步 SRAM</h1>
-<h2 id="_1">特点</h2>
-<p>异步 SRAM 的特点：</p>
-<ol>
-<li>接口简单：控制器给出地址和控制信号，经过固定延迟后就可以得到数据，不需要校准</li>
-<li>提供 MB 级别的 RAM：单芯片可以提供 KB 到 MB 级别的 RAM，通过并联多个 SRAM，可以得到更大的容量</li>
-<li>高速异步 SRAM 延迟在 10ns 的级别</li>
-</ol>
-<h2 id="_2">结构</h2>
-<p>异步 SRAM 内部以一个数组的形式保存数据。例如一个 2048K x 16 的异步 SRAM，有 2048K 个行，每行保存了 16 位的数据，总共保存了 <span class="arithmatex">\(2048\mathrm{K} * 16\mathrm{b} = 32 \mathrm{Mb}\)</span> 的数据。</p>
-<p>异步 SRAM 的结构见图 1。控制器在访问异步 SRAM 的时候，给出一个行的地址，异步 SRAM 就会读取一行的数据。由于一共有 2048K 个行，所以地址需要的位数是 <span class="arithmatex">\(\log_2(2048\mathrm{K})=21\)</span>，对应下图的 <code>A0-A20</code>。地址通过 <code>DECODER</code>，从数组中取出要访问的数据，放到 <code>COLUMN IO</code> 中。</p>
-<figure>
-<p><a class="glightbox" href="async_sram_diagram.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Async SRAM Diagram" src="async_sram_diagram.png" width="400" /></a>
-  </p>
-<figcaption>异步 SRAM 的结构框图（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
-</figure>
-<p>对于读操作，内存控制器在 <code>A0-A20</code> 上提供地址，经过 <code>DECODER</code> 从 <code>2048K x 16 MEMORY ARRAY</code> 中读取数据到 <code>COLUMN IO</code>，控制逻辑 <code>CONTROL CIRCUIT</code> 根据读操作（<code>WE#=1, OE#=0</code>），把数据输出到 <code>I/O DATA CIRCUIT</code>。</p>
-<p>对于写操作，内存控制器在 <code>A0-A20</code> 上提供地址，在 <code>I/O</code> 上提供要写入的数据，在 <code>UB#/LB#</code> 上提供字节使能。异步 SRAM 从 <code>MEMORY ARRAY</code> 中读取数组中现有的数据，结合 <code>UB#/LB#</code> 与 <code>I/O</code>，计算出新的值，再写入内存。其中 <code>UB#</code> 和 <code>LB#</code> 分别是高 8 位和低 8 位的字节使能（低有效）。如果旧数据是 <code>1234</code>，内存控制器要写入的值是 <code>5678</code>，那么内存中的值更新为：</p>
-<table>
-<thead>
-<tr>
-<th>UB#</th>
-<th>LB#</th>
-<th>结果</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>5678</td>
-<td>全部采用新值</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1278</td>
-<td>仅写入低字节</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>5634</td>
-<td>仅写入高字节</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1234</td>
-<td>全部采用旧值</td>
-</tr>
-</tbody>
-</table>
-<h2 id="_3">接口</h2>
-<p>异步 SRAM 暴露了一个单口 RAM 接口，同时只能进行读或者写其中一个操作。典型的异步 SRAM 包括如下的信号：</p>
-<ol>
-<li>地址信号 A：位数根据深度决定，例如 2048K 的深度对应 21 位地址</li>
-<li>数据信号 I/O：位数等于宽度，例如 8 或 16 位</li>
-<li>片选信号 CS#（或者叫 CE#）：低有效，CS# 等于 0 时工作</li>
-<li>输出使能信号 OE#：低有效，OE# 等于 0 时 SRAM 输出，OE# 等于 1 时 SRAM 输入</li>
-<li>写使能信号 WE#：低有效，WE# 等于 0 时写，WE# 等于 1 时读</li>
-<li>字节使能信号 UB#/LB#：低有效，对应两个字节，等于 0 时更新，等于 1 时不变</li>
-</ol>
-<p>一些异步 SRAM 的宽度是 8 位，此时没有字节使能信号。</p>
-<h2 id="_4">拼接</h2>
-<p>如果想要更大容量的异步 SRAM，可以拼接多个异步 SRAM。拼接的时候可以采用两种方式：</p>
-<p>一种是在宽度上拼接，例如拼接两个相同深度、宽度为 16 的异步 SRAM，得到一个宽度为 32 的异步 SRAM：</p>
-<figure>
-<p><a class="glightbox" href="async_sram_width_concat.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="async_sram_width_concat.png" width="400" /></a>
-  </p>
-<figcaption>在宽度上拼接异步 SRAM</figcaption>
-</figure>
-<p>地址信号（A）和控制信号（OE#、WE#、CE#）连接到所有异步 SRAM，数据信号（DQ）和字节使能信号（WE0-3#）则连接到不同的异步 SRAM，形成两倍的数据宽度。</p>
-<p>另一种是在深度上拼接，保持宽度不变，增加存储容量。例如拼接两个异步 SRAM，得到一个深度翻倍的异步 SRAM。每次访问的时候，只会访问其中一个异步 SRAM，通过地址来区分。</p>
-<p>例如要拼接两个 21 位地址的异步 SRAM，得到一个 22 位地址的异步 SRAM，如果用地址的最高位来选择访问哪个异步 SRAM，那么可以设定：<code>CS0#=CS# | A[21], CS1#=CS# | ~A[21]</code>，其余的信号都连接到所有的异步 SRAM。由于异步 SRAM 在 <code>CS#=1</code> 的时候，输出引脚处于高阻态状态，所以多个芯片可以共享一个数据总线，只需要保证总线上同时只有一个芯片在输出：</p>
-<figure>
-<p><a class="glightbox" href="async_sram_depth_concat.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="async_sram_depth_concat.png" width="600" /></a>
-  </p>
-<figcaption>在深度上拼接异步 SRAM</figcaption>
-</figure>
-<p>实践中，可以混合两种拼接方法。</p>
-<h2 id="_5">时序</h2>
-<h3 id="_6">读时序</h3>
-<p>异步 SRAM 之所以叫做异步，是因为它没有时钟信号。此时读时序体现为，控制器给出地址，到异步 SRAM 给出数据的延迟。以 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">IS61/64WV204816ALL 异步 SRAM 芯片</a> 为例，读时序见下图：</p>
-<figure>
-<p><a class="glightbox" href="async_sram_read_timing.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="async_sram_read_timing.png" width="600" /></a>
-  </p>
-<figcaption>异步 SRAM 读时序（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
-</figure>
+<h1 id="linux-memory-management">Linux 内存管理（Memory Management）</h1>
+<h2 id="transparent-huge-page-thp">Transparent Huge Page (THP)</h2>
+<p>文档：<a href="https://docs.kernel.org/admin-guide/mm/transhuge.html">Transparent Hugepage Support</a></p>
+<p>自动合并多个连续的虚拟地址-物理地址映射，到粒度更粗的一级页，比如 512 个 4KB 合并到一个 2MB 页，当然物理地址也要连续。合并的粒度受限于页表的设计，只能一级一级的合并。</p>
+<p>mTHP(multi size THP)：更细粒度的合并，不节省内存，但是告诉硬件，有若干个 PTE 的映射是连续的（Contiguous PTE），节省 TLB。需要硬件支持：</p>
 <ul>
-<li><span class="arithmatex">\(t_{RC}\)</span>：读周期时间，这段时间内地址不变，Min 10ns</li>
-<li><span class="arithmatex">\(t_{AA}\)</span>：地址访问时间，数据在地址改变后 <span class="arithmatex">\(t_{AA}\)</span> 时间给出，Max 10ns</li>
-<li><span class="arithmatex">\(t_{OHA}\)</span>：Output Hold 时间，这段时间内数据不变，Min 2.5ns</li>
+<li>RISC-V：Svnapot，N=1 表示 16 个连续的 4KB page，一共 64KB 对应一个 TLB entry</li>
+<li>ARMv8: Contiguous bit，设置后，连续若干个 page 对应一个 TLB entry，例如 16 个连续的 4KB page 对应一个 TLB entry</li>
 </ul>
-<p>在 <span class="arithmatex">\(t_{OHA}\)</span> 结束到 <span class="arithmatex">\(t_{AA}\)</span> 结束中间的这段时间，输出数据是不确定的。</p>
-<h3 id="_7">写时序</h3>
-<p>写时序则比较复杂，并且可以有多种写入的条件，下面列出其中一种：</p>
-<figure>
-<p><a class="glightbox" href="async_sram_write_timing.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="async_sram_write_timing.png" width="600" /></a>
-  </p>
-<figcaption>异步 SRAM 写时序（图源 <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>）</figcaption>
-</figure>
-<p>写时序中比较核心的是 <code>WE#</code> 的上升沿，相对这个时间点，有如下比较重要时序要求：</p>
-<ul>
-<li><span class="arithmatex">\(t_{WC}\)</span>：地址需要保持 <span class="arithmatex">\(t_{WC}\)</span> 的时间不变，Min 10ns</li>
-<li><span class="arithmatex">\(t_{AW}\)</span>：地址相对 <code>WE#</code> 的上升沿的 Setup 时间，Min 8ns</li>
-<li><span class="arithmatex">\(t_{HA}\)</span>：地址相对 <code>WE#</code> 的上升沿的 Hold 时间，Min 0ns</li>
-<li><span class="arithmatex">\(t_{PWE}\)</span>：<code>WE#</code> 维持 0 的时间，Min 8ns</li>
-<li><span class="arithmatex">\(t_{SD}\)</span>：数据相对 <code>WE#</code> 的上升沿的 Setup 时间，Min 6ns</li>
-<li><span class="arithmatex">\(t_{HD}\)</span>：数据相对 <code>WE#</code> 的上升沿的 Hold 时间，Min 0ns</li>
-<li><span class="arithmatex">\(t_{SA}\)</span>：地址相对 <code>WE#</code> 的下降沿的 Setup 时间，Min 0ns</li>
-</ul>
-<h2 id="sram-cell">SRAM Cell</h2>
-<p>典型的 SRAM Cell 由 6 个晶体管组成，内部构造如下图：</p>
-<figure>
-<p><a class="glightbox" href="async_sram_cell_6t.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="6T SRAM Cell" src="async_sram_cell_6t.png" width="400" /></a>
-  </p>
-<figcaption>6T SRAM Cell 内部构造（图源 <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>）</figcaption>
-</figure>
-<p>其中 M1 和 M2 组成一个 Inverter，M3 和 M4 组成一个 Inverter，两个 Inverter 组成下面的等价电路：</p>
-<figure>
-<p><a class="glightbox" href="async_sram_cell.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SRAM Cell" src="async_sram_cell.png" width="400" /></a>
-  </p>
-<figcaption>SRAM Cell 的电路（图源 <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>）</figcaption>
-</figure>
-<p>这就是一个 latch，可以稳定地保存 1 bit 的数据。M5 和 M6 两个晶体管是用来实现读和写的。当 WL 使能的时候，M5 和 M6 导通，此时 BL 和 Q 导通，BLbar 和 Qbar 导通。此时就可以通过 BL 和 BLbar 进行读写。</p>
+<h2 id="same-page-merging">Same Page Merging</h2>
+<p>文档：<a href="https://docs.kernel.org/admin-guide/mm/ksm.html">Kernel Samepage Merging</a></p>
+<p>节省内存，多个虚拟页映射到一个物理页</p>
 
 
 
@@ -2353,7 +2178,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年5月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月7日</span>
   </span>
 
     
@@ -2363,7 +2188,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年4月22日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月7日</span>
   </span>
 
     
@@ -2442,7 +2267,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="aib.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: AIB (Advanced Interface Bus)">
+          <a href="linux_graphics.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux 图形软件栈">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2452,20 +2277,20 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                AIB (Advanced Interface Bus)
+                Linux 图形软件栈
               </div>
             </div>
           </a>
         
         
           
-          <a href="bow.html" class="md-footer__link md-footer__link--next" aria-label="下一页: BoW (Bunch of Wires)">
+          <a href="linux_scheduler.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux Scheduler">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                BoW (Bunch of Wires)
+                Linux Scheduler
               </div>
             </div>
             <div class="md-footer__button md-icon">
