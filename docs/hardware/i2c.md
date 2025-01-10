@@ -86,3 +86,9 @@ I2C 协议涉及到两个信号：
 这些命令格式和上面的 I2C EEPROM 基本是一样的。
 
 颜色传感器 [TCS3472](https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf) 的命令格式也是类似的。
+
+## Dual Slave Address
+
+I2C 的每个 slave 都有一个地址，那么不同 slave 的地址应该也是不同的。但假如要用多个同型号的芯片，怎么办？所以很多芯片的 slave 地址是可以改的，通过一些引脚的拉高或拉低来配置。
+
+但也有一些芯片（如[VCNL36828P](https://www.vishay.com/docs/80306/vcnl36828p.pdf)）用了一个特别的方法来配置不同的 slave 地址：正接和反接。正接就是 master 的 SCL 接 slave 的 SCL，master 的 SDA 接 slave 的 SDA；反接就是 master 的 SCL 接 slave 的 SDA，master 的 SDA 接 slave 的 SCL。正接和反接都可以正常工作，用的是不同的 slave 地址，并且这个操作对 master 来说是透明的，其他 slave 依然是正接。背后的实现原理也可以猜到：slave 侧检测 SCL 和 SDA 的信号，观察是正的还是反的，然后根据接的方法，找到正确的信号对应关系，保证逻辑正确性，同时使用不同的 slave 地址。
