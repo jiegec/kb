@@ -36,7 +36,7 @@ MIPS 有多种 ABI：
 
 - [i386 abi](https://gitlab.com/x86-psABIs/i386-ABI): i*86-linux-gnu
 - [amd64 abi](https://refspecs.linuxbase.org/elf/x86_64-abi-0.99.pdf): x86_64-linux-gnu
-- [x32 abi](https://sites.google.com/site/x32abi/): AMD64 上的 ILP32 ABI，32 位指针， x86_64-linux-gnux32 target
+- [x32 abi](https://sites.google.com/site/x32abi/): AMD64 上的 ILP32 ABI，32 位指针，x86_64-linux-gnux32 target
 
 ## ILP32 on 64-bit
 

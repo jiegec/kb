@@ -4,7 +4,7 @@
 
 文档：[Transparent Hugepage Support](https://docs.kernel.org/admin-guide/mm/transhuge.html)
 
-自动合并多个连续的虚拟地址-物理地址映射，到粒度更粗的一级页，比如 512 个 4KB 合并到一个 2MB 页，当然物理地址也要连续。合并的粒度受限于页表的设计，只能一级一级的合并。
+自动合并多个连续的虚拟地址 - 物理地址映射，到粒度更粗的一级页，比如 512 个 4KB 合并到一个 2MB 页，当然物理地址也要连续。合并的粒度受限于页表的设计，只能一级一级的合并。
 
 mTHP(multi size THP)：更细粒度的合并，不节省内存，但是告诉硬件，有若干个 PTE 的映射是连续的（Contiguous PTE），节省 TLB。需要硬件支持：
 
