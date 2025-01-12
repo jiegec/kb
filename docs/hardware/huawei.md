@@ -1,10 +1,5 @@
 # 华为芯片
 
-## tsv110
-
-- part id 0xd01
-- 华为云 kc1 实例
-
 ## 麒麟 9000s
 
 - 首发：Mate 60
@@ -48,16 +43,56 @@
 - [华为 Mate70 Pro+ 性能分析：麒麟 9020 来啦！](https://www.bilibili.com/video/BV1j6iYYHEYG)
 - [HUAWEI PLA-AL10](https://browser.geekbench.com/v6/cpu/9233574)
 
+## hip07
+
+- hip07 from DSDT oem table id
+- hi1616
+
+来源：
+
+- [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
+- [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
+
+## hip08
+
+- tsv110
+- part id 0xd01
+- No SVE
+- 华为云 kc1 实例
+- hip08 from DSDT oem table id
+- hi1620
+- kunpeng 920
+
+来源：
+
+- [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
+- [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
+- [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
+
+
 ## hip09
 
 - ARMv8.5-A
 - SVE
 - part id 0xd02，和麒麟 9000s 大核一样
 - 华为云 kc2 实例
+- kunpeng 930
 
 来源：
 
 - [Add hip09 machine discribtion](https://github.com/openeuler-mirror/gcc/commit/d9131757175667d35e74d9ee84689039990af768)
+- [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
+
+## hip10
+
+- ARMv8.5-A
+- SVE
+- part id 0xd03，和麒麟 9010 大核一样
+
+来源：
+
+- [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
+- [dpdk/config/arm/meson.build](https://github.com/DPDK/dpdk/blob/fd51012de5369679e807be1d6a81d63ef15015ce/config/arm/meson.build#L275)
 
 ## hip10c
 
