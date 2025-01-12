@@ -83,6 +83,12 @@
 - [Add hip09 machine discribtion](https://github.com/openeuler-mirror/gcc/commit/d9131757175667d35e74d9ee84689039990af768)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
 
+## hip09a
+
+来源：
+
+- [ACPI/IORT: Add PMCG platform information for HiSilicon HIP09A](https://github.com/torvalds/linux/commit/c2b46ae022704a2d845e59461fa24431ad627022)
+
 ## hip10
 
 - ARMv8.5-A
