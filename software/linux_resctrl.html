@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/networking/wlan.html">
+        <link rel="canonical" href="https://jia.je/kb/software/linux_resctrl.html">
       
       
-        <link rel="prev" href="vlan.html">
+        <link rel="prev" href="linux_mm.html">
       
       
-        <link rel="next" href="../software/2fa.html">
+        <link rel="next" href="linux_scheduler.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>WLAN - 杰哥的知识库</title>
+        <title>Linux 资源控制（Resource Control） - 杰哥的知识库</title>
       
     
     
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="WLAN - 杰哥的知识库" >
+        <meta  property="og:title"  content="Linux 资源控制（Resource Control） - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/networking/wlan.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/linux_resctrl.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,15 +85,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/networking/wlan.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/software/linux_resctrl.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="WLAN - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="Linux 资源控制（Resource Control） - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/networking/wlan.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/linux_resctrl.png" >
       
     
     
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#wlan" class="md-skip">
+        <a href="#linux-resource-control" class="md-skip">
           跳转至
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              WLAN
+              Linux 资源控制（Resource Control）
             
           </span>
         </div>
@@ -173,13 +173,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../en/networking/wlan.html" hreflang="en" class="md-select__link">
+            <a href="../en/software/linux_resctrl.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="wlan.html" hreflang="zh" class="md-select__link">
+            <a href="linux_resctrl.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -341,13 +341,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="ethernet.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../networking/ethernet.html" class="md-tabs__link">
           
   
     
@@ -363,11 +361,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../software/2fa.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2fa.html" class="md-tabs__link">
           
   
     
@@ -1409,12 +1409,210 @@
       
   
   
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    网络
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ethernet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    以太网
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/infiniband.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InfiniBand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/spanning_tree_protocol.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STP 协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/vlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/wlan.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WLAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -1441,24 +1639,24 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    网络
+    软件
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            网络
+            软件
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1469,11 +1667,11 @@
   
   
     <li class="md-nav__item">
-      <a href="ethernet.html" class="md-nav__link">
+      <a href="2fa.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    以太网
+    2FA
   </span>
   
 
@@ -1490,11 +1688,11 @@
   
   
     <li class="md-nav__item">
-      <a href="infiniband.html" class="md-nav__link">
+      <a href="abi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    InfiniBand
+    ABI (Application Binary Interface)
   </span>
   
 
@@ -1511,11 +1709,11 @@
   
   
     <li class="md-nav__item">
-      <a href="spanning_tree_protocol.html" class="md-nav__link">
+      <a href="atomic_instructions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    STP 协议
+    原子指令
   </span>
   
 
@@ -1532,11 +1730,179 @@
   
   
     <li class="md-nav__item">
-      <a href="vlan.html" class="md-nav__link">
+      <a href="aws-pricing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    VLAN
+    AWS Pricing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cfi.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    控制流完整性 Control Flow Integrity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cg.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机图形学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cpio.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cpio 文件格式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cuda.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CUDA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dijkstra.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dijkstra 算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gcc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GCC Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="linux_graphics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 图形软件栈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="linux_mm.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 内存管理（Memory Management）
   </span>
   
 
@@ -1562,482 +1928,7 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    WLAN
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="wlan.html" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    WLAN
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#mac" class="md-nav__link">
-    <span class="md-ellipsis">
-      MAC 层帧格式
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#phy" class="md-nav__link">
-    <span class="md-ellipsis">
-      PHY
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="PHY">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#80211b" class="md-nav__link">
-    <span class="md-ellipsis">
-      802.11b
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#80211g" class="md-nav__link">
-    <span class="md-ellipsis">
-      802.11g
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#80211n" class="md-nav__link">
-    <span class="md-ellipsis">
-      802.11n
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#80211ac" class="md-nav__link">
-    <span class="md-ellipsis">
-      802.11ac
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#80211ax" class="md-nav__link">
-    <span class="md-ellipsis">
-      802.11ax
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ofdm" class="md-nav__link">
-    <span class="md-ellipsis">
-      OFDM 对比
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    软件
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            软件
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/2fa.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    2FA
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/abi.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ABI (Application Binary Interface)
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/atomic_instructions.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    原子指令
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/aws-pricing.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    AWS Pricing
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/cfi.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    控制流完整性 Control Flow Integrity
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/cg.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    计算机图形学
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/cpio.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    cpio 文件格式
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/cuda.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    CUDA
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/dijkstra.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Dijkstra 算法
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/gcc.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    GCC Internals
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/linux_graphics.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Linux 图形软件栈
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/linux_mm.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Linux 内存管理（Memory Management）
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../software/linux_resctrl.html" class="md-nav__link">
+      <a href="linux_resctrl.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2046,6 +1937,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -2058,7 +1950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_scheduler.html" class="md-nav__link">
+      <a href="linux_scheduler.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2079,7 +1971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/postgresql.html" class="md-nav__link">
+      <a href="postgresql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2100,7 +1992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/redshift.html" class="md-nav__link">
+      <a href="redshift.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2121,7 +2013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+      <a href="sgemm_cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2142,7 +2034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/spark.html" class="md-nav__link">
+      <a href="spark.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2163,7 +2055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/svg.html" class="md-nav__link">
+      <a href="svg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2184,7 +2076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/tar.html" class="md-nav__link">
+      <a href="tar.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2205,7 +2097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/transformer.html" class="md-nav__link">
+      <a href="transformer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2242,7 +2134,7 @@
                   
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/networking/wlan.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/linux_resctrl.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2250,212 +2142,45 @@
   
 
 
-<h1 id="wlan">WLAN</h1>
-<h2 id="mac">MAC 层帧格式</h2>
-<p>802.11 MAC 层的帧格式，如 802.11-1997 Figure 12：</p>
-<figure>
-<p><a class="glightbox" href="wlan_mac.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="wlan_mac.png" width="500" /></a>
-  </p>
-<figcaption>802.11 MAC 帧格式（图源 802.11-1997）</figcaption>
-</figure>
-<p>前两个字节 Frame Control 的定义如 802.11-1997 Figure 13：</p>
-<figure>
-<p><a class="glightbox" href="wlan_frame_control.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="wlan_frame_control.png" width="500" /></a>
-  </p>
-<figcaption>802.11 MAC Frame Control（图源 802.11-1997）</figcaption>
-</figure>
-<p>根据 Type 和 Subtype 字段决定了帧的类型，如管理（Management）帧，控制（Control）帧和数据（Data）帧。</p>
-<p>无线路由器定期发送 Beacon frame，告诉客户端自己广播了哪些 SSID。客户端也可以主动发送 Probe Request frame 来询问有没有路由器有对应的 SSID，如果有，路由器回复一个 Probe Response frame。</p>
-<h2 id="phy">PHY</h2>
-<p>802.11 支持很多种 PHY，常见的有 802.11 b/g/n/ac/ax。起名也很有意思：</p>
+<h1 id="linux-resource-control">Linux 资源控制（Resource Control）</h1>
+<p>在 Linux 上运行的程序，共享了缓存和内存，那么它们之间是会互相影响性能的。如果想要给某些程序预留一定的资源，可以用 Linux resctrl(resource control) 机制来实现。</p>
+<p>它背后依赖的是硬件的功能，比如 Intel 实现的 Resource Director Technology(RDT)，分为以下几个部分：</p>
+<ol>
+<li>Monitoring：主要是监控缓存和内存的状态，包括：<ol>
+<li>Cache Monitoring Technology (CMT)，监控程序的 L3 缓存占用</li>
+<li>Memory Bandwidth Monitoring (MBM)，监控程序的内存带宽使用</li>
+</ol>
+</li>
+<li>Allocation：主要是限制缓存和使用，包括：<ol>
+<li>Cache Allocation Technology (CAT)，限制程序的 L2/L3 占用，把程序划分到若干个类（Class of Service，简称 COS 或者叫 CLOS）里面，每个类对应一个 bitmask</li>
+<li>Code and Data Prioritization (CDP)，在 CAT 的基础上，分别限制程序的指令和数据的 L2/L3 占用：每个 CAT 的类有从一个 bitmask 变成有两个 bitmask，一个用于数据，一个用于指令</li>
+<li>Memory Bandwidth Allocation (MBA)，限制程序的内存带宽使用</li>
+</ol>
+</li>
+<li>针对 PCIe/CXL 外设访问 L3/内存的 Monitoring 和 Allocation</li>
+</ol>
+<p>ARMv8-A 平台上类似的功能叫做 MPAM(Memory System Resource Partitioning and Monitoring)。</p>
+<p>Linux 的 resctrl 功能通过 sysfs 挂载 resctrl 来暴露：</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mount<span class="w"> </span>-t<span class="w"> </span>resctrl<span class="w"> </span>resctrl<span class="w"> </span>/sys/fs/resctrl
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># create a new resource group called p0</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>mkdir<span class="w"> </span>/sys/fs/resctrl/p0
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># add cpu 0-1 (bitmask 3) to p0</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">echo</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/fs/resctrl/p0/cpus
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># add tasks(processes/threads) to p0</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">echo</span><span class="w"> </span>pid0,pid1<span class="w"> </span>&gt;<span class="w"> </span>/sys/fs/resctrl/p0/tasks
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># set L2 #0 bitmask to 0xffc00 for p0</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># you can change global settings at /sys/fs/resctrl/schemata</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;L2:0=ffc00;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/fs/resctrl/p0/schemata
+</span></code></pre></div>
+<p>这样处理完，在核心 0-1 上运行的程序，就只会用到 L2 的由 0xffc00 指定的那部分缓存容量。</p>
+<p>参考：</p>
 <ul>
-<li>802.11b: High Rate，最高 11 Mbps</li>
-<li>802.11g: Extended Rate，最高 54 Mbps</li>
-<li>802.11n: High Throughput，最高 600 Mbps</li>
-<li>802.11ac: Very High Throughput，最高 6933 Mbps</li>
-<li>802.11ax: High Efficiency，最高 9608 Mbps</li>
+<li><a href="https://www.redhat.com/en/blog/performance-tuning-at-the-edge">Performance tuning at the edge using Cache Allocation Technology </a></li>
+<li><a href="https://docs.kernel.org/arch/x86/resctrl.html">User Interface for Resource Control feature</a></li>
+<li><a href="https://developer.arm.com/documentation/108032/0100/A-closer-look-at-MPAM-software/Linux-MPAM-overview/Configuring-MPAM-via-resctrl-file-system">Configuring MPAM via resctrl file-system</a></li>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/use-intel-resource-director-technology-to-allocate-last-level-cache-llc.html">Use Intel® Resource Director Technology to Allocate Last Level Cache (LLC)</a></li>
+<li><a href="https://github.com/intel/intel-cmt-cat/wiki/resctrl">resctrl</a></li>
 </ul>
-<h3 id="80211b">802.11b</h3>
-<p>首先看 <a href="https://ieeexplore.ieee.org/document/972833">802.11b</a>，802.11b 是对 802.11 的补充，主要定义了第 18 章 <code>High Rate, direct sequence spread spectrum PHY specification</code>，缩写 HR-DSSS。</p>
-<p>HR-DSSS 工作在 2.4 GHz 频段上，常用的是 13 个 channel，中心频率从 2412 MHz 到 2472 MHz 不等，呈等差数列，公差是 5 MHz。HR-DSSS 会占用 22MHz 的频谱，从中心频率减 11 MHz 到中心频率加 11 MHz，所以相邻 channel 会有干扰，见下图（取自 <a href="https://en.wikipedia.org/wiki/IEEE_802.11">Wikipedia</a>）</p>
-<figure>
-<p><a class="glightbox" href="wlan_channels.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="wlan_channels.png" width="500" /></a>
-  </p>
-<figcaption>802.11 2.4GHz Channels（图源 IEEE 802.11 Wikipedia）</figcaption>
-</figure>
-<p>这就是为什么通常会把 2.4GHz 无线路由器的 channel 固定为 1、6 或 11。</p>
-<p>那么，HR-DSSS 如何把数据调制为 2.4GHz 上的信号呢？HR-DSSS 支持不同的速率，例如 1、2、5.5 和 11 Mbps，这些二进制的数据需要按照一定的方法调制到 2.4 GHz 的载波上。</p>
-<p>首先是最简单的情况，例如在 channel 1 上传输 1 Mbps 的数据，802.11 采用的是 DSSS 的方法。简单来说，对于输入的每个位，扩展成 11 个 bit，这样就得到了一个 11 MHz 的基带信号，然后再把基带信号通过 DBPSK 调制到 2412 MHz 的载波信号上。</p>
-<p>这个扩展过程是这样的：如果数据位是 0，那就输出 10110111000（Barker 码）；如果数据位是 1，那就输出 01001000111。实际上就是把 1 位的信息重复了 11 次再发出去，看起来很浪费，但很好地解决了干扰的问题，即使传输中出现了错误，接受方也很容易从 11 位的数据中恢复出原来的数据。</p>
-<p>2 Mbps 的传输方式类似，只不过每个 symbol 传输两位的数据，所以采用 DQPSK 的调制方法，频率保持不变，实现了两倍的数据传输速率。</p>
-<p>5.5 Mbps 和 11 Mbps 则采用了其他方法。由于上面的 1 比 11 的转换比例太浪费了，所以为了提升速度，5.5 Mbps 和 11 Mbps 时采用的是 CCK 编码方式，具体来说，5.5 Mbps 的时候，输入的 4 个 bit 会映射为 8 个 chip，类似地 11 Mbps 的时候，输入的 8 个 bit 也映射到 8 个 chip。每个 chip 都是复数，采用 DQPSK 进行调制。</p>
-<p>可以看到，整个过程都是在冗余：速率低的时候，就冗余很多份；速率高的时候，冗余就比较少。实际上，5.5 Mbps 和 11 Mbps 还可以采用可选的 PBCC 进行编码，下面摘抄了 <a href="https://rfmw.em.keysight.com/wireless/helpfiles/89600b/webhelp/subsystems/wlan-dsss/content/dsss_about_datamodfmt.htm">About Data Modulation Format (802.11b/g DSSS/CCK/PBCC)</a> 中 802.11b 不同速率和编码方式的表格：</p>
-<table>
-<thead>
-<tr>
-<th>Data Modulation Formats</th>
-<th>Spread Sequence Code scheme</th>
-<th>Data Rate(Mbps)</th>
-<th>Symbol Rate(Msps)</th>
-<th>Chip Rate (Mcps)</th>
-<th>Bits per Symbol</th>
-<th>Modulation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Barker 1</td>
-<td>11 Chip Barker</td>
-<td>1</td>
-<td>1</td>
-<td>11</td>
-<td>1</td>
-<td>DBPSK</td>
-</tr>
-<tr>
-<td>Barker 2</td>
-<td>11 Chip Barker</td>
-<td>2</td>
-<td>1</td>
-<td>11</td>
-<td>2</td>
-<td>DQPSK</td>
-</tr>
-<tr>
-<td>CCK 5.5</td>
-<td>8 chip CCK</td>
-<td>5.5</td>
-<td>1.375</td>
-<td>11</td>
-<td>4</td>
-<td>DQPSK</td>
-</tr>
-<tr>
-<td>CCK 11</td>
-<td>8 chip CCK</td>
-<td>11</td>
-<td>1.375</td>
-<td>11</td>
-<td>8</td>
-<td>DQPSK</td>
-</tr>
-<tr>
-<td>PBCC 5.5</td>
-<td>PBCC</td>
-<td>5.5</td>
-<td>11</td>
-<td>N/A</td>
-<td>0.5</td>
-<td>QPSK</td>
-</tr>
-<tr>
-<td>PBCC 11</td>
-<td>PBCC</td>
-<td>11</td>
-<td>11</td>
-<td>N/A</td>
-<td>1</td>
-<td>QPSK</td>
-</tr>
-</tbody>
-</table>
-<h3 id="80211g">802.11g</h3>
-<p><a href="https://ieeexplore.ieee.org/document/1210624">802.11g</a> 定义了第 19 章 <code>Extended Rate PHY specification</code>，也就是 ERP(Extended Rate PHY)，其主要采用的技术是 OFDM，连起来就是 ERP-OFDM，额外支持更多速率：6、9、12、18、24、36、48 和 54 Mbps。各种调制技术的速率对比：</p>
-<ul>
-<li>DSSS: 802.11 1/2 Mbps</li>
-<li>CCK: 802.11b 5.5/11 Mbps</li>
-<li>OFDM: 802.11g 6/9/12/18/24/36/48/54 Mbps</li>
-<li>PBCC: 802.11b 5.5/11 Mbps, 802.11g 22/33 Mbps</li>
-</ul>
-<p>OFDM 的核心思想就是采用多个载波信号，这些载波信号的频率呈等差数列，同时保证各载波相互正交，这样就提高了数据传输速率。为了保证正交，相邻载波信号的频率的差要满足 <span class="arithmatex">\(\Delta{f} = k / T_U\)</span> ，其中 k 是正整数， <span class="arithmatex">\(T_U\)</span> 是每个 symbol 的时间（引用 <a href="https://zh.wikipedia.org/zh-cn/%E6%AD%A3%E4%BA%A4%E9%A0%BB%E5%88%86%E5%A4%8D%E7%94%A8#%E6%AD%A3%E4%BA%A4">wikipedia</a>）。下面是 802.11 标准中的 OFDM PHY 的组成：</p>
-<figure>
-<p><a class="glightbox" href="wlan_ofdm_circuit.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="wlan_ofdm_circuit.png" width="500" /></a>
-  </p>
-<figcaption>802.11 OFDM PHY（图源 IEEE 802.11）</figcaption>
-</figure>
-<p>图中的缩写：</p>
-<ul>
-<li>FEC: Forward Error Correction</li>
-<li>IFFT/FFT: Inverse Fast Fourier Transform/Fast Fourier Transform</li>
-<li>GI: Guard Interval</li>
-<li>I/Q: In-phase/Quadrature</li>
-<li>HPA: High Power Amplifier</li>
-<li>LNA: Low Noise Amplifier</li>
-<li>AGC: Automatic Gain Control</li>
-<li>AFC: Automatic Frequency Control</li>
-</ul>
-<p>802.11g 的信号带宽是 20MHz，分成 52 个子载波，子载波的间距是 0.3125 MHz（20 MHz / 64，<span class="arithmatex">\(T_{FFT}=3.2 \mu s, \Delta{f} = 1 / T_{FFT}\)</span> ），所以实际上只占了 <span class="arithmatex">\(0.3125 \mathrm{MHz} * 52 = 16.25 \mathrm{MHz}\)</span> 的频谱。其中 48 个用于传输数据，每个载波上可以采用不同的调制方法。54 Mbps 是怎么算的呢？802.11g 的 Symbol rate 是 250000 每秒（因为 <span class="arithmatex">\(T_{SYM} = 3.2 + 0.8 = 4 \mu s\)</span> ），如果使用 64-QAM 调制，那么每个 symbol 对应 6 个 bit，然后使用纠错码，纠错的时候浪费了 1/4 的位，实际数据占 3/4，一共 48 个载波，那么数据速率就是 <span class="arithmatex">\(48 * 250000 * 6 * 3/4 = 54 \mathrm{Mbps}\)</span> 。</p>
-<h3 id="80211n">802.11n</h3>
-<p>802.11n 在 802.11g 的基础上添加了 MIMO，也就是可以用多个天线同时传输。</p>
-<p>首先还是考虑单天线的情况，基本和 802.11g 相同，区别是采用了 52（ <span class="arithmatex">\(N_{SD}\)</span> ）个 OFDM 子载波用于传输数据，同时纠错码带来的浪费比例从 1/4 降到了 1/6，所以数据速率是 <span class="arithmatex">\(52 * 250000 * 6 * 5/6 = 65 \mathrm{Mbps}\)</span> 。802.11n 还提供了 Short GI（Guard Interval）选项，把 GI 从 800 ns 降低到 400ns，使得每个 symbol 的时间可以从 <span class="arithmatex">\(3.2 + 0.8 = 4 \mu s\)</span>) 降低到 <span class="arithmatex">\(3.2 + 0.4 = 3.6 \mu s\)</span> ，此时的数据速率达到 <span class="arithmatex">\(52 * 1000000 / 3.6 * 6 * 5/6 = 72.2 \mathrm{Mbps}\)</span>。</p>
-<p>除此之外，802.11n 还引入了 40 MHz 频宽的选项，以占用更多频谱为代价，换来可以用 108 个子载波来传输数据，此时数据速率可以达到 <span class="arithmatex">\(108 * 1000000 / 3.6 * 6 * 5 / 6 = 150 \mathrm{Mbps}\)</span>。</p>
-<p>考虑多天线，如果同时两根天线传输数据，那么数据速率就是两倍，达到 <span class="arithmatex">\(300 \mathrm{Mbps}\)</span> ；最高可以同时四根天线传输数据，所以数据速率最高理论值是 <span class="arithmatex">\(600 \mathrm{Mbps}\)</span> 。</p>
-<h3 id="80211ac">802.11ac</h3>
-<p>802.11ac 添加了 160 MHz 频宽的选项，可以提供 468 个子载波，调制方式从 64-QAM 提升到 256-QAM，同时最大可以有 8 根天线同时传输数据，最大数据速率是 <span class="arithmatex">\(468 * 1000000 / 3.6 * 8 * 5 / 6 * 8 = 6933.3 \mathrm{Mbps}\)</span> 。</p>
-<p>由此可见，提高无线网络的速率的方法就是提高上式的各个系数：</p>
-<ul>
-<li>子载波数量：增加频宽，或者在频宽一定的时候，留出更多的子载波用于数据，提升较大，但频率不能太宽</li>
-<li>Symbol 时间：减少 Guard Interval，提升不大</li>
-<li>QAM 位数：从 PSK 到 4-QAM 到 64-QAM 到 256-QAM，提升难度较大</li>
-<li>纠错码开销：不会超过 1，难以提升</li>
-<li>更多天线：从 1 到 4 到 8，未来到 16，逐步提升</li>
-</ul>
-<p>所以要进一步提升性能，主要从子载波数量、QAM 位数和 MIMO 数量上做文章。</p>
-<h3 id="80211ax">802.11ax</h3>
-<p>802.11ax 可以提供 1960 个子载波（间距从 312.5 kHz 缩小到 78.125 kHz，<span class="arithmatex">\(\Delta{f} = 78.125 kHz, T_{FFT} = 1 / \Delta{f} = 12.8 \mu s\)</span> ），调制方式从 256-QAM 提升到 1024-QAM，但是 <span class="arithmatex">\(T_{SYM}\)</span> 也提高到了 <span class="arithmatex">\(12.8 + 0.8 = 13.6 \mu s\)</span> ，最大数据速率是 <span class="arithmatex">\(1960 * 1000000 / 13.6 * 10 * 5 / 6 * 8 = 9607.8 \mathrm{Mbps}\)</span> 。</p>
-<h3 id="ofdm">OFDM 对比</h3>
-<p>下面总结了使用 OFDM 的 PHY 的各项参数，其中 Data rate 的计算公式：<code>Subcarrier * 1000000 / T_{SYM} * Coding Rate * MIMO streams</code>。</p>
-<table>
-<thead>
-<tr>
-<th>Standard</th>
-<th>Subcarrier</th>
-<th>T_{SYM}</th>
-<th>QAM bits</th>
-<th>Coding Rate</th>
-<th>MIMO streams</th>
-<th>Data rate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>802.11g</td>
-<td>48</td>
-<td>4 us</td>
-<td>6</td>
-<td>3/4</td>
-<td>1</td>
-<td>54 Mbps</td>
-</tr>
-<tr>
-<td>802.11n</td>
-<td>108</td>
-<td>3.6 us</td>
-<td>6</td>
-<td>5/6</td>
-<td>4</td>
-<td>600 Mbps</td>
-</tr>
-<tr>
-<td>802.11ac</td>
-<td>468</td>
-<td>3.6 us</td>
-<td>8</td>
-<td>5/6</td>
-<td>8</td>
-<td>6933.3 Mbps</td>
-</tr>
-<tr>
-<td>802.11ax</td>
-<td>1960</td>
-<td>13.6 us</td>
-<td>10</td>
-<td>5/6</td>
-<td>8</td>
-<td>9607.8 Mbps</td>
-</tr>
-</tbody>
-</table>
 
 
 
@@ -2478,7 +2203,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年11月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月14日</span>
   </span>
 
     
@@ -2488,7 +2213,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月14日</span>
   </span>
 
     
@@ -2567,7 +2292,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="vlan.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: VLAN">
+          <a href="linux_mm.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux 内存管理（Memory Management）">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2577,20 +2302,20 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                VLAN
+                Linux 内存管理（Memory Management）
               </div>
             </div>
           </a>
         
         
           
-          <a href="../software/2fa.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 2FA">
+          <a href="linux_scheduler.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux Scheduler">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                2FA
+                Linux Scheduler
               </div>
             </div>
             <div class="md-footer__button md-icon">
