@@ -1131,6 +1131,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nvidia-blackwell" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Blackwell
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sm" class="md-nav__link">
     <span class="md-ellipsis">
       SM 发展历史
@@ -2669,6 +2678,10 @@
 <p>H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存。（<code>A 50 MB L2 cache in H100 is 1.25x larger than A100’s 40 MB L2.</code>）</p>
 <p>根据 <a href="https://github.com/te42kyfo/gpu-benches">https://github.com/te42kyfo/gpu-benches</a> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 <span class="arithmatex">\(25 / 114 / 1620 * 1e6 = 135\)</span> 字节）的数据。</p>
 <p>CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（<code>H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.</code>）其中 Thread Block 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（<code>The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.</code>）</p>
+<h2 id="nvidia-blackwell">NVIDIA Blackwell</h2>
+<p>Whitepaper: <a href="https://resources.nvidia.com/en-us-blackwell-architecture">NVIDIA Blackwell Architecture Technical Brief</a></p>
+<p>Datasheet: <a href="https://resources.nvidia.com/en-us-blackwell-architecture/datasheet">NVIDIA Blackwell Datasheet</a></p>
+<p>Datasheet: <a href="https://resources.nvidia.com/en-us-dgx-systems/dgx-b200-datasheet">NVIDIA DGX B200 Datasheet</a></p>
 <h2 id="sm">SM 发展历史</h2>
 <p>下面列出了各架构的 SM 发展历程，发射数表示方法为 Warp 数量（W）乘以每个 Warp 的发射指令数（I）：</p>
 <table>
@@ -3642,7 +3655,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年5月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月19日</span>
   </span>
 
     
