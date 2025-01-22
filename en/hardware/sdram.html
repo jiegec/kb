@@ -1322,6 +1322,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#timing-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Timing Parameters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#interface" class="md-nav__link">
     <span class="md-ellipsis">
       Interface
@@ -1418,6 +1427,15 @@
   <a href="#comparison-of-ddr-variants" class="md-nav__link">
     <span class="md-ellipsis">
       Comparison of DDR variants
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#udimmrdimmlrdimm" class="md-nav__link">
+    <span class="md-ellipsis">
+      UDIMM/RDIMM/LRDIMM
     </span>
   </a>
   
@@ -2462,6 +2480,12 @@
 </figure>
 <p>Each memory array is 65536 x 128 x 64, called a Bank; four Banks form a Bank Group, and there are 4 Bank Groups, so the total capacity is <span class="arithmatex">\(65536 * 128 * 64 * 4 * 4 = 8 \mathrm{Gb}\)</span>.</p>
 <p>Specifically, in the 65536 x 128 x 64 specification of each memory array, 65536 represents the number of rows, each row holds <span class="arithmatex">\(128 * 64 = 8192\)</span> bits of data, and is also the bit width of the transfer between <code>Sense amplifier</code> and <code>I/O gating, DM mask logic</code> in Figure 1. Each row has 1024 columns, and each column holds 8 bits of data (corresponding to the 8 in <code>1 Gig x 8</code>). Since the DDR4 prefetch width is 8n, an access takes out 8 columns of data, or 64 bits. So each row has 128 of 64 bits, which is the source of the 128 x 64 in the 65536 x 128 x 64 above.</p>
+<p>Each row contains 1024 columns, so the column address requires 10 bits. However, since the Burst Length is 8, the upper 7 bits (corresponding to <code>128 x 64</code> for 128) are used to select 8 columns, while the lower 3 bits determine the transmission order of these columns. This optimization is designed to facilitate cache refill by pre-fetching the required data:</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/sdram_ddr4_burst.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/sdram_ddr4_burst.png" width="800" /></a>
+  </p>
+<figcaption>DDR4 Burst Type and Column Order (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+</figure>
 <h2 id="prefetch">Prefetch</h2>
 <p>SDRAM has the concept of prefetch, which is how many times the bit width of the data is fetched out in one read. For example, the <code>1 Gig x 8</code> SDRAM above has an I/O data bit width of 8 bits (see the <code>DQ</code> signal on the right). This is because the IO frequency of DDR4 SDRAM is very high, e.g. 3200 MT/s corresponds to an I/O clock frequency of 1600 MHz, while the actual memory array frequency is not as high. The actual memory array frequency is that high, but operates at 400 MHz, so to make up for the difference in frequency, the data is read 8 times the bit width at a time. This is reflected in the I/O, which is a single read operation to get 8 copies of data, i.e. burst length of 8, which is transferred in four clock cycles via DDR.</p>
 <p>Interestingly, DDR4 memory modules are 64 bits wide, so a single read operation yields <span class="arithmatex">\(64 * 8 / 8 = 64B\)</span> of data, which is exactly the size of the CPU cache lines.</p>
@@ -2563,6 +2587,30 @@
 <li>ROW_COLUMN_BANK_INTLV</li>
 </ul>
 <p>As you can imagine, different address mapping methods will have different performance for different access modes. For sequential memory accesses, the ROW_COLUMN_BANK method is more suitable, because sequential accesses are distributed to different banks, so the performance will be better.</p>
+<h2 id="timing-parameters">Timing Parameters</h2>
+<p>Below are the main timing parameters for DDR4:</p>
+<ul>
+<li>tCCD_S: CAS to CAS delay short, the delay between CAS commands to different Bank Groups, e.g., 4 cycles.</li>
+<li>tCCD_L: CAS to CAS delay long, the delay between CAS commands to the same Bank Group, e.g., 6 cycles.</li>
+<li>tRRD_S: ACT to ACT delay short, the delay between ACTIVATE commands to different Bank Groups, e.g., 4 cycles.</li>
+<li>tRRD_L: ACT to ACT delay long, the delay between ACTIVATE commands to the same Bank Group, e.g., 6 cycles.</li>
+<li>tWTR_S: Write to Read short, the delay from the completion of a WRITE (last data written) to a READ command to a different Bank Group.</li>
+<li>tWTR_L: Write to Read long, the delay from the completion of a WRITE (last data written) to a READ command to the same Bank Group.</li>
+<li>tREFI: Refresh Interval, the interval at which the memory controller needs to send REFRESH commands.</li>
+<li>tRFC: Refresh Cycle, the minimum interval between two REFRESH commands.</li>
+<li>tFAW: Four Activate Window, the maximum number of ACTIVATE commands that can be sent within a continuous tFAW period. In other words, the i-th ACTIVATE and the (i+4)-th ACTIVATE must be at least tFAW apart.</li>
+<li>tRP: Precharge, the delay from sending a PRECHARGE command to the next command to the same Bank.</li>
+<li>tRTP: Read to Precharge, the minimum interval between a READ and a PRECHARGE command to the same Bank.</li>
+<li>tRAS: RAS active time, the minimum interval between an ACTIVATE and a PRECHARGE command to the same Bank.</li>
+<li>tRCD: Activate to Read/Write delay, the minimum interval between an ACTIVATE and a READ/WRITE command to the same Bank.</li>
+<li>tRC: Activate to Activate/Precharge delay, the minimum interval between an ACTIVATE and the next ACTIVATE/PRECHARGE command to the same Bank.</li>
+<li>CL: CAS Latency, used to calculate Read Latency.</li>
+<li>CWL: CAS Write Latency, used to calculate Write Latency.</li>
+<li>AL: Additive Latency, used to calculate Read Latency.</li>
+<li>RL: Read Latency.</li>
+<li>WL: Write Latency.</li>
+</ul>
+<p>Additive Latency may seem like an artificial increase in command delay, but in reality, the memory controller also sends commands AL cycles in advance. For example, after setting AL, ACT and READ commands can be sent consecutively, with the READ command delayed by AL to meet the tRCD timing requirement, while freeing up the command bus.</p>
 <h2 id="interface">Interface</h2>
 <p>The following pins are drawn for DDR3 and DDR4:</p>
 <figure>
@@ -2939,6 +2987,14 @@
 <li>HBM2: <a href="https://semiconductor.samsung.com/dram/hbm/hbm2-aquabolt/">Samsung 2400 MT/s</a></li>
 <li>HBM2E: <a href="https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/hbm2e/8gb_and_16gb_hbm2e_dram.pdf">Micron 3200 MT/s</a></li>
 </ul>
+<h2 id="udimmrdimmlrdimm">UDIMM/RDIMM/LRDIMM</h2>
+<p>Specifically for DIMMs, there are different types:</p>
+<ul>
+<li>UDIMM (Unbuffered DIMM): No additional register buffering</li>
+<li>RDIMM (Registered DIMM): Register buffering for address, command, and clock signals, but not for data signals</li>
+<li>LRDIMM (Load Reduced DIMM): Based on RDIMM, it also adds register buffering for data signals</li>
+</ul>
+<p>As the number of registers increases, latency also increases, but it allows for higher frequencies and greater capacity.</p>
 <h2 id="related-reading">Related Reading</h2>
 <ul>
 <li><a href="https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html">DDR4 Bank Groups in Embedded Applications</a></li>
@@ -2949,7 +3005,7 @@
 <li><a href="https://www.utmel.com/blog/categories/memory%20chip/will-hbm-replace-ddr-and-become-computer-memory">Will HBM replace DDR and become Computer Memory?</a></li>
 </ul>
 <h2 id="acknowledgement">Acknowledgement</h2>
-<p>The English version is kindly translated with the help of DeepL Translator.</p>
+<p>The English version is kindly translated with the help of DeepL Translator and DeepSeek.</p>
 
 
 
@@ -2972,7 +3028,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 22, 2025</span>
   </span>
 
     
