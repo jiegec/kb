@@ -2247,16 +2247,22 @@
 <h3 id="ffe-feed-forward-equalization">FFE Feed-Forward Equalization</h3>
 <p>在时域数字信号上工作，等价于一个 Finite Impulse Response (FIR)，相当于把一个方波分解成几个小的方波，线性。</p>
 <figure>
-<p><a class="glightbox" href="signal_processing_ffe.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="CTLE" src="signal_processing_ffe.png" width="400" /></a>
+<p><a class="glightbox" href="signal_processing_ffe.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="FFE" src="signal_processing_ffe.png" width="400" /></a>
   </p>
 <figcaption>FFE（图源 <a href="RX FIR & CTLE Equalization">https://people.engr.tamu.edu/spalermo/ecen689/lecture18_ee689_rx_fir_ctle_eq.pdf</a>）</figcaption>
 </figure>
 <h3 id="dfe-decision-feedback-equalization">DFE Decision-Feedback Equalization</h3>
 <p>在时域数字信号上工作，从信号解析出是当前传输的是什么符号后，根据该符号生成信号，来抵消该符号对后续符号的干扰，非线性（因为从信号判断符号是非线性的）。</p>
+<p>假如先传输符号 A，再传输符号 B，那么 A 会给 B 带来干扰。在接收到 B 的时候，已经知道 A 是什么了。为了能够正确地接收 B，首先计算出 A 对 B 的干扰，去掉这个干扰，再判断 B 是什么。更进一步，每个符号可能对后续的多个符号带来干扰，那么可以用类似的方法来去掉前若干个符号对当前符号的干扰。</p>
 <figure>
-<p><a class="glightbox" href="signal_processing_dfe.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="CTLE" src="signal_processing_dfe.png" width="400" /></a>
+<p><a class="glightbox" href="signal_processing_dfe.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="DFE" src="signal_processing_dfe.png" width="400" /></a>
   </p>
 <figcaption>DFE（图源 <a href="Post 8: Eye-opening Experience with DFE">https://docs.keysight.com/eesofapps/post-8-eye-opening-experience-with-dfe-678068404.html</a>）</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" href="signal_processing_dfe2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="DFE" src="signal_processing_dfe2.png" width="400" /></a>
+  </p>
+<figcaption>DFE（图源 <a href="The Decision-Feedback Equalizer">http://www.seas.ucla.edu/brweb/papers/Journals/BRFall17DFE.pdf</a>）</figcaption>
 </figure>
 <h2 id="_2">参考</h2>
 <ul>
@@ -2268,6 +2274,7 @@
 <li><a href="https://docs.keysight.com/eesofapps/post-8-eye-opening-experience-with-dfe-678068404.html">Post 8: Eye-opening Experience with DFE</a></li>
 <li><a href="https://people.engr.tamu.edu/spalermo/ecen689/lecture18_ee689_rx_fir_ctle_eq.pdf">RX FIR &amp; CTLE Equalization</a></li>
 <li><a href="https://people.engr.tamu.edu/spalermo/ecen689/ECEN689_lab5.pdf">ECEN 689 High-Speed Links Circuits and Systems Lab5 Equalization Circuits</a></li>
+<li><a href="http://www.seas.ucla.edu/brweb/papers/Journals/BRFall17DFE.pdf">The Decision-Feedback Equalizer</a></li>
 </ul>
 
 
