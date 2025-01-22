@@ -1,8 +1,29 @@
-# UCIe (Universal Chiplet Interconnect Express)
+# Chiplet Interface
+
+## ACC RV (Road vehicles - Advanced Cost-driven Chiplet Interface) 车规级芯粒互联接口标准
+
+车规级芯粒互联接口标准 – 草案
+
+Road vehicles - Advanced Cost-driven Chiplet Interface (ACC_RV 1.0)
+
+标准链接：<http://www.iiisct.com/smart/upload/CMS1/202303/ACC_RV%201.0.pdf>
+
+ACC RV 1.0 包括如下层次：
+
+1. 协议层 Protocol Layer：支持 CXL 3.0（Standard 256B Flit），AXI 4.0 或者自定义的 Stream 协议
+2. 链路层 Link Layer：可靠传输，链路适配
+3. 数字物理层 Digital Physical Layer
+4. 电气物理层 Electrical Physical Layer
+
+## BoW (Bunch of Wires)
+
+Specification: <https://opencomputeproject.github.io/ODSA-BoW/bow_specification.html> <https://www.opencompute.org/documents/bow-specification-v2-0d-1-pdf> <https://www.opencompute.org/documents/bunch-of-wires-phy-specification-pdf>
+
+## UCIe (Universal Chiplet Interconnect Express)
 
 UCIe 的标准可以在官网上申请，申请后过几天会在邮箱里收到 UCIe 的标准 PDF。下文参考的是 UCIe 1.1（2023 年 7 月 10 日 版本）。按照 UCIe 标准要求，这里列出 UCIe 标准的版权信息： `© 2022–2023 UNIVERSAL CHIPLET INTERCONNECT EXPRESS, INC. ALL RIGHTS RESERVED`。
 
-## 介绍
+### 介绍
 
 UCIe 是一个用于 Chiplet 的互联协议，把一个 package 上的多个 die 连接起来。它支持不同的协议：标准的 PCIe 和 CXL，通用的 Streaming 协议，或者自定义的协议。
 
@@ -14,7 +35,7 @@ UCIe 从高到低分为三层：
 2. 中间的 Die-to-Die Adapter
 3. 底层的 Physical Layer
 
-## Protocol Layer & Die-to-Die Adapter
+### Protocol Layer & Die-to-Die Adapter
 
 Protocol Layer 支持 PCIe、CXL 或者通用的 Streaming 协议。
 
@@ -37,7 +58,14 @@ PCIe 从 6.0 开始，引入了 256B 的 FLIT，因此如果要在 UCIe 上跑 P
 
 上文的 FDI 意思是 Flit-aware D2D Interface，是 Protocol Layer 和 D2D Adapter 之间的接口；RDi 的意思是 Raw D2D Interface，是 D2D Adapter 和 Physical Layer 之间的接口。
 
-## Physical Layer
+### Physical Layer
 
 物理层拿到的就是一系列的 64B 数据，根据链路的宽度，分布到不同的 Lane 上。
 
+## AIB (Advanced Interface Bus)
+
+Specification: <https://github.com/chipsalliance/AIB-specification>
+
+Whitepaper: <https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/accelerating-innovation-through-aib-whitepaper.pdf>
+
+RTL Example: <https://github.com/chipsalliance/aib-protocols> <https://github.com/chipsalliance/aib-phy-hardware>
