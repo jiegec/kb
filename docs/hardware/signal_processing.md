@@ -22,7 +22,7 @@
 在时域数字信号上工作，等价于一个 Finite Impulse Response (FIR)，相当于把一个方波分解成几个小的方波，线性。
 
 <figure markdown>
-  ![CTLE](signal_processing_ffe.png){ width="400" }
+  ![FFE](signal_processing_ffe.png){ width="400" }
   <figcaption>FFE（图源 <a href="RX FIR & CTLE Equalization">https://people.engr.tamu.edu/spalermo/ecen689/lecture18_ee689_rx_fir_ctle_eq.pdf</a>）</figcaption>
 </figure>
 
@@ -30,9 +30,16 @@
 
 在时域数字信号上工作，从信号解析出是当前传输的是什么符号后，根据该符号生成信号，来抵消该符号对后续符号的干扰，非线性（因为从信号判断符号是非线性的）。
 
+假如先传输符号 A，再传输符号 B，那么 A 会给 B 带来干扰。在接收到 B 的时候，已经知道 A 是什么了。为了能够正确地接收 B，首先计算出 A 对 B 的干扰，去掉这个干扰，再判断 B 是什么。更进一步，每个符号可能对后续的多个符号带来干扰，那么可以用类似的方法来去掉前若干个符号对当前符号的干扰。
+
 <figure markdown>
-  ![CTLE](signal_processing_dfe.png){ width="400" }
+  ![DFE](signal_processing_dfe.png){ width="400" }
   <figcaption>DFE（图源 <a href="Post 8: Eye-opening Experience with DFE">https://docs.keysight.com/eesofapps/post-8-eye-opening-experience-with-dfe-678068404.html</a>）</figcaption>
+</figure>
+
+<figure markdown>
+  ![DFE](signal_processing_dfe2.png){ width="400" }
+  <figcaption>DFE（图源 <a href="The Decision-Feedback Equalizer">http://www.seas.ucla.edu/brweb/papers/Journals/BRFall17DFE.pdf</a>）</figcaption>
 </figure>
 
 ## 参考
@@ -45,3 +52,4 @@
 - [Post 8: Eye-opening Experience with DFE](https://docs.keysight.com/eesofapps/post-8-eye-opening-experience-with-dfe-678068404.html)
 - [RX FIR & CTLE Equalization](https://people.engr.tamu.edu/spalermo/ecen689/lecture18_ee689_rx_fir_ctle_eq.pdf)
 - [ECEN 689 High-Speed Links Circuits and Systems Lab5 Equalization Circuits](https://people.engr.tamu.edu/spalermo/ecen689/ECEN689_lab5.pdf)
+- [The Decision-Feedback Equalizer](http://www.seas.ucla.edu/brweb/papers/Journals/BRFall17DFE.pdf)
