@@ -1396,6 +1396,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ddr5-dfe" class="md-nav__link">
+    <span class="md-ellipsis">
+      DDR5 DFE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       相关阅读
@@ -2941,6 +2950,19 @@
 <li>LRDIMM(Load Reduced DIMM): 在 RDIMM 的基础上，给数据信号也加上寄存器</li>
 </ul>
 <p>随着寄存器的增加，延迟增加，但是也能达到更高的频率，更大的容量。</p>
+<h2 id="ddr5-dfe">DDR5 DFE</h2>
+<p>DDR5 引入了 DFE 来改进信号完整性。关于 DFE，详见 <a href="signal_processing.html">信号处理</a> 中的介绍。</p>
+<p>DDR5 支持 4-Tap DFE，也就是说，考虑的是最近四个符号对当前符号带来的干扰，对应四个系数。为了测量出这四个系数，在训练的时候，首先发出一个脉冲，然后观察它的响应，通过不断调整系数，抵消它对后续符号的干扰。</p>
+<figure>
+<p><a class="glightbox" href="sdram_ddr5_dfe.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="sdram_ddr5_dfe.png" width="800" /></a>
+  </p>
+<figcaption>DDR5 DFE（图源 <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>）</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" href="sdram_ddr5_dfe2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="sdram_ddr5_dfe2.png" width="800" /></a>
+  </p>
+<figcaption>DDR5 DFE（图源 <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>）</figcaption>
+</figure>
 <h2 id="_11">相关阅读</h2>
 <ul>
 <li><a href="https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html">DDR4 Bank Groups in Embedded Applications</a></li>

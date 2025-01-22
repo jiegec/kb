@@ -1396,6 +1396,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ddr5-dfe" class="md-nav__link">
+    <span class="md-ellipsis">
+      DDR5 DFE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#related-reading" class="md-nav__link">
     <span class="md-ellipsis">
       Related Reading
@@ -2949,6 +2958,19 @@
 <li>LRDIMM (Load Reduced DIMM): Based on RDIMM, it also adds register buffering for data signals</li>
 </ul>
 <p>As the number of registers increases, latency also increases, but it allows for higher frequencies and greater capacity.</p>
+<h2 id="ddr5-dfe">DDR5 DFE</h2>
+<p>DDR5 introduces DFE (Decision Feedback Equalization) to enhance signal integrity. For details about DFE, refer to the introduction in <a href="signal_processing.html">Signal Processing</a>.</p>
+<p>DDR5 supports a 4-Tap DFE, meaning it accounts for interference caused by the four most recent symbols on the current symbol, corresponding to four coefficients. To measure these four coefficients, during training, a pulse is first transmitted, and its response is observed. By continuously adjusting the coefficients, the interference imposed on subsequent symbols is mitigated.</p>
+<figure>
+<p><a class="glightbox" href="../../hardware/sdram_ddr5_dfe.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/sdram_ddr5_dfe.png" width="800" /></a>
+  </p>
+<figcaption>DDR5 DFE (Source <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>)</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" href="../../hardware/sdram_ddr5_dfe2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/sdram_ddr5_dfe2.png" width="800" /></a>
+  </p>
+<figcaption>DDR5 DFE (Source <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>)</figcaption>
+</figure>
 <h2 id="related-reading">Related Reading</h2>
 <ul>
 <li><a href="https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html">DDR4 Bank Groups in Embedded Applications</a></li>
