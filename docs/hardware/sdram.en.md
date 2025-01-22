@@ -521,6 +521,22 @@ Specifically for DIMMs, there are different types:
 
 As the number of registers increases, latency also increases, but it allows for higher frequencies and greater capacity.
 
+## DDR5 DFE
+
+DDR5 introduces DFE (Decision Feedback Equalization) to enhance signal integrity. For details about DFE, refer to the introduction in [Signal Processing](./signal_processing.md).
+
+DDR5 supports a 4-Tap DFE, meaning it accounts for interference caused by the four most recent symbols on the current symbol, corresponding to four coefficients. To measure these four coefficients, during training, a pulse is first transmitted, and its response is observed. By continuously adjusting the coefficients, the interference imposed on subsequent symbols is mitigated.
+
+<figure markdown>
+  ![](sdram_ddr5_dfe.png){ width="800" }
+  <figcaption>DDR5 DFE (Source <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>)</figcaption>
+</figure>
+
+<figure markdown>
+  ![](sdram_ddr5_dfe2.png){ width="800" }
+  <figcaption>DDR5 DFE (Source <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>)</figcaption>
+</figure>
+
 ## Related Reading
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)

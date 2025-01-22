@@ -522,6 +522,22 @@ DRAM 的数据存储在电容中。典型的 1T DRAM Cell 内部构造如下：
 
 随着寄存器的增加，延迟增加，但是也能达到更高的频率，更大的容量。
 
+## DDR5 DFE
+
+DDR5 引入了 DFE 来改进信号完整性。关于 DFE，详见 [信号处理](./signal_processing.md) 中的介绍。
+
+DDR5 支持 4-Tap DFE，也就是说，考虑的是最近四个符号对当前符号带来的干扰，对应四个系数。为了测量出这四个系数，在训练的时候，首先发出一个脉冲，然后观察它的响应，通过不断调整系数，抵消它对后续符号的干扰。
+
+<figure markdown>
+  ![](sdram_ddr5_dfe.png){ width="800" }
+  <figcaption>DDR5 DFE（图源 <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>）</figcaption>
+</figure>
+
+<figure markdown>
+  ![](sdram_ddr5_dfe2.png){ width="800" }
+  <figcaption>DDR5 DFE（图源 <a href="https://www.tek.com.cn/-/media/china-marketing-documents/ddr5_webinar_oct2020_tektronix_bitwise.pdf">Meeting the 5 Key DDR5 Test Challenges as We Migrate to Next Gen Memory</a>）</figcaption>
+</figure>
+
 ## 相关阅读
 
 - [DDR4 Bank Groups in Embedded Applications](https://www.synopsys.com/designware-ip/technical-bulletin/ddr4-bank-groups.html)
