@@ -232,6 +232,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ucie.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/hardware/usb_hci.html</loc>
+        <lastmod>2025-01-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/usb_hci.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/usb_hci.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/mathematics/abstract-algebra.html</loc>
         <lastmod>2025-01-22</lastmod>
         <changefreq>daily</changefreq>
@@ -678,6 +685,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ucie.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ucie.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/hardware/usb_hci.html</loc>
+        <lastmod>2025-01-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/usb_hci.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/usb_hci.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/mathematics/abstract-algebra.html</loc>
