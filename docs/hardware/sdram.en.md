@@ -62,6 +62,13 @@ Each memory array is 65536 x 128 x 64, called a Bank; four Banks form a Bank Gro
 
 Specifically, in the 65536 x 128 x 64 specification of each memory array, 65536 represents the number of rows, each row holds $128 * 64 = 8192$ bits of data, and is also the bit width of the transfer between `Sense amplifier` and `I/O gating, DM mask logic` in Figure 1. Each row has 1024 columns, and each column holds 8 bits of data (corresponding to the 8 in `1 Gig x 8`). Since the DDR4 prefetch width is 8n, an access takes out 8 columns of data, or 64 bits. So each row has 128 of 64 bits, which is the source of the 128 x 64 in the 65536 x 128 x 64 above.
 
+Each row contains 1024 columns, so the column address requires 10 bits. However, since the Burst Length is 8, the upper 7 bits (corresponding to `128 x 64` for 128) are used to select 8 columns, while the lower 3 bits determine the transmission order of these columns. This optimization is designed to facilitate cache refill by pre-fetching the required data:
+
+<figure markdown>
+  ![](sdram_ddr4_burst.png){ width="800" }
+  <figcaption>DDR4 Burst Type and Column Order (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+</figure>
+
 ## Prefetch
 
 SDRAM has the concept of prefetch, which is how many times the bit width of the data is fetched out in one read. For example, the `1 Gig x 8` SDRAM above has an I/O data bit width of 8 bits (see the `DQ` signal on the right). This is because the IO frequency of DDR4 SDRAM is very high, e.g. 3200 MT/s corresponds to an I/O clock frequency of 1600 MHz, while the actual memory array frequency is not as high. The actual memory array frequency is that high, but operates at 400 MHz, so to make up for the difference in frequency, the data is read 8 times the bit width at a time. This is reflected in the I/O, which is a single read operation to get 8 copies of data, i.e. burst length of 8, which is transferred in four clock cycles via DDR.
@@ -177,6 +184,32 @@ If you study SDRAM memory controllers, such as [MIG on Xilinx FPGA](https://www.
 - ROW_COLUMN_BANK_INTLV
 
 As you can imagine, different address mapping methods will have different performance for different access modes. For sequential memory accesses, the ROW_COLUMN_BANK method is more suitable, because sequential accesses are distributed to different banks, so the performance will be better.
+
+## Timing Parameters
+
+Below are the main timing parameters for DDR4:
+
+- tCCD_S: CAS to CAS delay short, the delay between CAS commands to different Bank Groups, e.g., 4 cycles.
+- tCCD_L: CAS to CAS delay long, the delay between CAS commands to the same Bank Group, e.g., 6 cycles.
+- tRRD_S: ACT to ACT delay short, the delay between ACTIVATE commands to different Bank Groups, e.g., 4 cycles.
+- tRRD_L: ACT to ACT delay long, the delay between ACTIVATE commands to the same Bank Group, e.g., 6 cycles.
+- tWTR_S: Write to Read short, the delay from the completion of a WRITE (last data written) to a READ command to a different Bank Group.
+- tWTR_L: Write to Read long, the delay from the completion of a WRITE (last data written) to a READ command to the same Bank Group.
+- tREFI: Refresh Interval, the interval at which the memory controller needs to send REFRESH commands.
+- tRFC: Refresh Cycle, the minimum interval between two REFRESH commands.
+- tFAW: Four Activate Window, the maximum number of ACTIVATE commands that can be sent within a continuous tFAW period. In other words, the i-th ACTIVATE and the (i+4)-th ACTIVATE must be at least tFAW apart.
+- tRP: Precharge, the delay from sending a PRECHARGE command to the next command to the same Bank.
+- tRTP: Read to Precharge, the minimum interval between a READ and a PRECHARGE command to the same Bank.
+- tRAS: RAS active time, the minimum interval between an ACTIVATE and a PRECHARGE command to the same Bank.
+- tRCD: Activate to Read/Write delay, the minimum interval between an ACTIVATE and a READ/WRITE command to the same Bank.
+- tRC: Activate to Activate/Precharge delay, the minimum interval between an ACTIVATE and the next ACTIVATE/PRECHARGE command to the same Bank.
+- CL: CAS Latency, used to calculate Read Latency.
+- CWL: CAS Write Latency, used to calculate Write Latency.
+- AL: Additive Latency, used to calculate Read Latency.
+- RL: Read Latency.
+- WL: Write Latency.
+
+Additive Latency may seem like an artificial increase in command delay, but in reality, the memory controller also sends commands AL cycles in advance. For example, after setting AL, ACT and READ commands can be sent consecutively, with the READ command delayed by AL to meet the tRCD timing requirement, while freeing up the command bus.
 
 ## Interface
 
@@ -460,12 +493,12 @@ Data in DRAM is stored in capacitors. The internal structure of a typical 1T DRA
 
 A comparison of DDR, LPDDR, GDDR and HBM is given below:
 
-|              | DDR4      | DDR5      | LPDDR4    | LPDDR5    | GDDR5   | GDDR6   | HBM2     |
-| ------------ | --------- | --------- | --------- | --------- | ------- | ------- | -------- |
-| Channels   | 1         | 2         | 2         | 2         | 2       | 2       | 8        |
+|                  | DDR4      | DDR5      | LPDDR4    | LPDDR5    | GDDR5   | GDDR6   | HBM2     |
+|------------------|-----------|-----------|-----------|-----------|---------|---------|----------|
+| Channels         | 1         | 2         | 2         | 2         | 2       | 2       | 8        |
 | Bits per Channel | 64        | 32        | 16        | 16/32     | 16      | 16      | 128      |
-| Data rate (MT/s)   | 3200      | 5600      | 4266      | 6400      | 9000    | 24000   | 2400     |
-| Bandwidth (GB/s)  | 25.6 GB/s | 44.8 GB/s | 17.1 GB/s | 25.6 GB/s | 36 GB/s | 96 GB/s | 307 GB/s |
+| Data rate (MT/s) | 3200      | 5600      | 4266      | 6400      | 9000    | 24000   | 2400     |
+| Bandwidth (GB/s) | 25.6 GB/s | 44.8 GB/s | 17.1 GB/s | 25.6 GB/s | 36 GB/s | 96 GB/s | 307 GB/s |
 
 Data rates are based on the highest performance available:
 
@@ -478,6 +511,15 @@ Data rates are based on the highest performance available:
 - HBM2: [Samsung 2400 MT/s](https://semiconductor.samsung.com/dram/hbm/hbm2-aquabolt/)
 - HBM2E: [Micron 3200 MT/s](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/dram/hbm2e/8gb_and_16gb_hbm2e_dram.pdf)
 
+## UDIMM/RDIMM/LRDIMM
+
+Specifically for DIMMs, there are different types:
+
+- UDIMM (Unbuffered DIMM): No additional register buffering
+- RDIMM (Registered DIMM): Register buffering for address, command, and clock signals, but not for data signals
+- LRDIMM (Load Reduced DIMM): Based on RDIMM, it also adds register buffering for data signals
+
+As the number of registers increases, latency also increases, but it allows for higher frequencies and greater capacity.
 
 ## Related Reading
 
@@ -490,4 +532,4 @@ Data rates are based on the highest performance available:
 
 ## Acknowledgement
 
-The English version is kindly translated with the help of DeepL Translator.
+The English version is kindly translated with the help of DeepL Translator and DeepSeek.

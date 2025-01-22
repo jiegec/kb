@@ -66,7 +66,7 @@ DDR SDRAM 通常会有一个数字来代表它的性能，例如 DDR4-2133 中�
 
 <figure markdown>
   ![](sdram_ddr4_burst.png){ width="800" }
-  <figcaption>DDR4 Bust 类型和 Column 次序（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+  <figcaption>DDR4 Burst 类型和 Column 次序（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
 </figure>
 
 ## Prefetch
@@ -494,11 +494,11 @@ DRAM 的数据存储在电容中。典型的 1T DRAM Cell 内部构造如下：
 
 下面给出 DDR，LPDDR，GDDR 和 HBM 的对比：
 
-|              | DDR4      | DDR5      | LPDDR4    | LPDDR5    | GDDR5   | GDDR6   | HBM2     |
-| ------------ | --------- | --------- | --------- | --------- | ------- | ------- | -------- |
-| Channel 数量   | 1         | 2         | 2         | 2         | 2       | 2       | 8        |
+|                 | DDR4      | DDR5      | LPDDR4    | LPDDR5    | GDDR5   | GDDR6   | HBM2     |
+|-----------------|-----------|-----------|-----------|-----------|---------|---------|----------|
+| Channel 数量    | 1         | 2         | 2         | 2         | 2       | 2       | 8        |
 | 每 Channel 位宽 | 64        | 32        | 16        | 16/32     | 16      | 16      | 128      |
-| 数据速率（MT/s）   | 3200      | 5600      | 4266      | 6400      | 9000    | 24000   | 2400     |
+| 数据速率（MT/s）  | 3200      | 5600      | 4266      | 6400      | 9000    | 24000   | 2400     |
 | 总带宽（GB/s）    | 25.6 GB/s | 44.8 GB/s | 17.1 GB/s | 25.6 GB/s | 36 GB/s | 96 GB/s | 307 GB/s |
 
 数据速率按照能查到的型号的最高性能：
