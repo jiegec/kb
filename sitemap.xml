@@ -43,32 +43,11 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cryptography/zk_snark.html"/>
     </url>
     <url>
-        <loc>https://jia.je/kb/hardware/acc_rv.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/acc_rv.html"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/acc_rv.html"/>
-    </url>
-    <url>
-        <loc>https://jia.je/kb/hardware/aib.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/aib.html"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/aib.html"/>
-    </url>
-    <url>
         <loc>https://jia.je/kb/hardware/async_sram.html</loc>
         <lastmod>2025-01-22</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/async_sram.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/async_sram.html"/>
-    </url>
-    <url>
-        <loc>https://jia.je/kb/hardware/bow.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/bow.html"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bow.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/bus_protocol.html</loc>
@@ -83,6 +62,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cache_coherence_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cache_coherence_protocol.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/hardware/chiplet.html</loc>
+        <lastmod>2025-01-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/chiplet.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/chiplet.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/cmos.html</loc>
@@ -223,13 +209,6 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/spi.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/spi.html"/>
-    </url>
-    <url>
-        <loc>https://jia.je/kb/hardware/ucie.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ucie.html"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ucie.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/hardware/usb_hci.html</loc>
@@ -498,32 +477,11 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cryptography/zk_snark.html"/>
     </url>
     <url>
-        <loc>https://jia.je/kb/en/hardware/acc_rv.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/acc_rv.html"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/acc_rv.html"/>
-    </url>
-    <url>
-        <loc>https://jia.je/kb/en/hardware/aib.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/aib.html"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/aib.html"/>
-    </url>
-    <url>
         <loc>https://jia.je/kb/en/hardware/async_sram.html</loc>
         <lastmod>2025-01-22</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/async_sram.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/async_sram.html"/>
-    </url>
-    <url>
-        <loc>https://jia.je/kb/en/hardware/bow.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/bow.html"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/bow.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/bus_protocol.html</loc>
@@ -538,6 +496,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/cache_coherence_protocol.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/cache_coherence_protocol.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/hardware/chiplet.html</loc>
+        <lastmod>2025-01-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/chiplet.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/chiplet.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/cmos.html</loc>
@@ -678,13 +643,6 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/spi.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/spi.html"/>
-    </url>
-    <url>
-        <loc>https://jia.je/kb/en/hardware/ucie.html</loc>
-        <lastmod>2025-01-22</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/hardware/ucie.html"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/hardware/ucie.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/hardware/usb_hci.html</loc>
