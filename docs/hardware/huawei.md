@@ -62,6 +62,8 @@
 - hip08 from DSDT oem table id
 - hi1620
 - kunpeng 920
+- 2.6 GHz
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
 
 来源：
 
@@ -119,3 +121,17 @@
 来源：
 
 - [Add hip11 CPU pipeline scheduling](https://github.com/openeuler-mirror/gcc/commit/824fccdab1d3c5e87fb88b31f0eeb7abd1b35c1f)
+
+## Kunpeng 920B
+
+- Kunpeng 920 V200 7270Z
+- 64 cores/socket
+- SVE
+- SMT2
+- 2.9 GHz
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
+
+来源：
+
+- [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
+- [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
