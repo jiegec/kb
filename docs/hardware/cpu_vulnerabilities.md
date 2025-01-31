@@ -13,17 +13,17 @@
 - 代码：
 	```asm
 	; rcx = kernel address, rbx = probe array
-	mov al, byte [rcx]
-	shl rax, 0xc
-	mov rbx, qword [rbx + rax]
+	mov al, byte [rcx]         ; read one byte from kernel space
+	shl rax, 0xc               ; multiply by 4096
+	mov rbx, qword [rbx + rax] ; access probe array
 	```
 - 从内核地址 rcx 读取一个字节，左移 0xc，也就是乘以 4096，再去访问 rbx 指向的数组。那么每个可能的 al 放在不同的页上，避免预取器干扰后续的测量
-- 缓解措施：Kernel Page Table Isolation/KPTI/PTI/KAISER([论文 KASLR is Dead: Long Live KASLR](https://gruss.cc/files/kaiser.pdf))，在用户态的页表里，不要映射整个内核态空间，那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据
+- 缓解措施：Kernel Page Table Isolation/KPTI/PTI/KAISER([论文 KASLR is Dead: Long Live KASLR](https://gruss.cc/files/kaiser.pdf))，在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表；那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据
 - PoC：[paboldin/meltdown-exploit](https://github.com/paboldin/meltdown-exploit)
 	- 这个 PoC 先用 root 权限读取 `/proc/kallsyms`，找到内核符号 `linux_proc_banner` 的地址，这主要是为了展示，方便拿到内核态地址，实际攻击者是没有 root 权限的
 	- 访问 `/proc/version`，使得 `linux_proc_banner` 符号在缓存中
 	- 在用户态用 Meltdown 读取内核态的 `linux_proc_banner` 的结果
-	- 在 Intel Xeon E5-2603 v4 上关闭 KPTI 后成功复现，成功读出来 `%s version %s (d`：
+	- 在 Intel Xeon E5-2603 v4 上关闭 KPTI（内核 cmdline 添加 `mitigations=off`）后成功复现，成功读出来 `%s version %s (d`：
 		```
 		cached = 30, uncached = 316, threshold 97
 		read ffffffffa2400260 = 25 % (score=999/1000)
