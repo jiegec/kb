@@ -2226,8 +2226,10 @@
 <h2 id="meltdown">Meltdown</h2>
 <ul>
 <li><a href="https://meltdownattack.com/meltdown.pdf">论文 Meltdown: Reading Kernel Memory from User Space</a></li>
+<li><a href="https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html">Reading privileged memory with a side-channel</a></li>
 <li><a href="https://nvd.nist.gov/vuln/detail/cve-2017-5754">CVE-2017-5754</a></li>
 <li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/rogue-data-cache-load.html">Rogue Data Cache Load / CVE-2017-5754 / INTEL-SA-00088</a></li>
+<li>Meltdown 和 Spectre 一起被提出，其中 Variant 1 和 2 属于 Spectre，Variant 3 就是 Meltdown</li>
 <li>允许用户态程序读取完整的内核态地址空间</li>
 <li>原理：<ul>
 <li>硬件为了性能，在验证 load 指令的权限是否正确之前，提前把 load 指令的结果传递给了后续的指令，后续发现 load 指令的的权限错误后，再进行回滚</li>
@@ -2278,7 +2280,7 @@
 </ul>
 </li>
 <li>Meltdown 的变种：<ul>
-<li>Meltdown variant 3a, Rogue System Register Read, <a href="https://nvd.nist.gov/vuln/detail/cve-2018-3640">CVE-2018-3640</a>, <a href="https://github.com/lgeek/spec_poc_arm">lgeek/spec_poc_arm</a> 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的</li>
+<li>Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, <a href="https://nvd.nist.gov/vuln/detail/cve-2018-3640">CVE-2018-3640</a>, <a href="https://github.com/lgeek/spec_poc_arm">lgeek/spec_poc_arm</a> 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的</li>
 </ul>
 </li>
 </ul>
