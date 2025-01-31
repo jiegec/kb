@@ -2245,7 +2245,11 @@
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nf">mov</span><span class="w"> </span><span class="no">rbx</span><span class="p">,</span><span class="w"> </span><span class="no">qword</span><span class="w"> </span><span class="p">[</span><span class="no">rbx</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">rax</span><span class="p">]</span><span class="w"> </span><span class="c1">; access probe array</span>
 </span></code></pre></div></li>
 <li>从内核地址 rcx 读取一个字节，左移 0xc，也就是乘以 4096，再去访问 rbx 指向的数组。那么每个可能的 al 放在不同的页上，避免预取器干扰后续的测量</li>
-<li>缓解措施：Kernel Page Table Isolation/KPTI/PTI/KAISER(<a href="https://gruss.cc/files/kaiser.pdf">论文 KASLR is Dead: Long Live KASLR</a>)，在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表；那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据</li>
+<li>缓解措施：<ul>
+<li>软件上：Kernel Page Table Isolation/KPTI/PTI/KAISER(<a href="https://gruss.cc/files/kaiser.pdf">论文 KASLR is Dead: Long Live KASLR</a>)，在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表；那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据</li>
+<li>硬件上：提早对权限的检查，避免以错误权限读出来的数据被用于后续的指令</li>
+</ul>
+</li>
 <li>PoC：<a href="https://github.com/paboldin/meltdown-exploit">paboldin/meltdown-exploit</a><ul>
 <li>这个 PoC 先用 root 权限读取 <code>/proc/kallsyms</code>，找到内核符号 <code>linux_proc_banner</code> 的地址，这主要是为了展示，方便拿到内核态地址，实际攻击者是没有 root 权限的</li>
 <li>访问 <code>/proc/version</code>，使得 <code>linux_proc_banner</code> 符号在缓存中</li>
@@ -2271,6 +2275,10 @@
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>VULNERABLE
 </span></code></pre></div></li>
 <li>继续增加读取的字节数，可以得到完整的 <code>linux_proc_banner</code> 的内容：<code>%s version %s (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) %s</code></li>
+</ul>
+</li>
+<li>Meltdown 的变种：<ul>
+<li>Meltdown variant 3a, Rogue System Register Read, <a href="https://nvd.nist.gov/vuln/detail/cve-2018-3640">CVE-2018-3640</a>, <a href="https://github.com/lgeek/spec_poc_arm">lgeek/spec_poc_arm</a> 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的</li>
 </ul>
 </li>
 </ul>
