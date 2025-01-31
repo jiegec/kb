@@ -26,7 +26,7 @@
 - 缓解措施：
 	- 软件上：Kernel Page Table Isolation/KPTI/PTI/KAISER([论文 KASLR is Dead: Long Live KASLR](https://gruss.cc/files/kaiser.pdf))，在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表；那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据
 	- 硬件上：提早对权限的检查，避免以错误权限读出来的数据被用于后续的指令
-- PoC：[paboldin/meltdown-exploit](https://github.com/paboldin/meltdown-exploit)
+- PoC：[IAIK/meltdown](https://github.com/IAIK/meltdown) [paboldin/meltdown-exploit](https://github.com/paboldin/meltdown-exploit)，下面分析后一个 PoC：
 	- 这个 PoC 先用 root 权限读取 `/proc/kallsyms`，找到内核符号 `linux_proc_banner` 的地址，这主要是为了展示，方便拿到内核态地址，实际攻击者是没有 root 权限的
 	- 访问 `/proc/version`，使得 `linux_proc_banner` 符号在缓存中
 	- 在用户态用 Meltdown 读取内核态的 `linux_proc_banner` 的结果
@@ -52,8 +52,7 @@
 		VULNERABLE
 		```
 	- 继续增加读取的字节数，可以得到完整的 `linux_proc_banner` 的内容：`%s version %s (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) %s`
-- Meltdown 的变种：
-	- Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, [CVE-2018-3640](https://nvd.nist.gov/vuln/detail/cve-2018-3640), [lgeek/spec_poc_arm](https://github.com/lgeek/spec_poc_arm) 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的
+- Meltdown 的变种：Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, [CVE-2018-3640](https://nvd.nist.gov/vuln/detail/cve-2018-3640), [lgeek/spec_poc_arm](https://github.com/lgeek/spec_poc_arm) 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的
 
 ## KASLR
 
