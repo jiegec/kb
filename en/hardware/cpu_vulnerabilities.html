@@ -2252,7 +2252,7 @@
 <li>硬件上：提早对权限的检查，避免以错误权限读出来的数据被用于后续的指令</li>
 </ul>
 </li>
-<li>PoC：<a href="https://github.com/paboldin/meltdown-exploit">paboldin/meltdown-exploit</a><ul>
+<li>PoC：<a href="https://github.com/IAIK/meltdown">IAIK/meltdown</a> <a href="https://github.com/paboldin/meltdown-exploit">paboldin/meltdown-exploit</a>，下面分析后一个 PoC：<ul>
 <li>这个 PoC 先用 root 权限读取 <code>/proc/kallsyms</code>，找到内核符号 <code>linux_proc_banner</code> 的地址，这主要是为了展示，方便拿到内核态地址，实际攻击者是没有 root 权限的</li>
 <li>访问 <code>/proc/version</code>，使得 <code>linux_proc_banner</code> 符号在缓存中</li>
 <li>在用户态用 Meltdown 读取内核态的 <code>linux_proc_banner</code> 的结果</li>
@@ -2279,10 +2279,7 @@
 <li>继续增加读取的字节数，可以得到完整的 <code>linux_proc_banner</code> 的内容：<code>%s version %s (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) %s</code></li>
 </ul>
 </li>
-<li>Meltdown 的变种：<ul>
-<li>Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, <a href="https://nvd.nist.gov/vuln/detail/cve-2018-3640">CVE-2018-3640</a>, <a href="https://github.com/lgeek/spec_poc_arm">lgeek/spec_poc_arm</a> 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的</li>
-</ul>
-</li>
+<li>Meltdown 的变种：Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, <a href="https://nvd.nist.gov/vuln/detail/cve-2018-3640">CVE-2018-3640</a>, <a href="https://github.com/lgeek/spec_poc_arm">lgeek/spec_poc_arm</a> 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的</li>
 </ul>
 <h2 id="kaslr">KASLR</h2>
 <ul>
