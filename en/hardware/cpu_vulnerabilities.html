@@ -2471,12 +2471,16 @@
 <li>顾名思义，针对的是 Return Stack Buffer，它是一个栈，call 的时候压栈，ret 的时候弹栈，那么如果 ret 的时候，栈已经空了，也就是所谓的 Underflow，此时会有什么样的行为？</li>
 <li>在部分处理器上，当 Return Stack Buffer 为空的时候，ret 的预测会交给间接分支预测器去预测，而间接分支预测器在之前 Spectre Variant 2 Branch Target Injection 的时候，就被攻击过了</li>
 <li>Intel 处理器对 Return Stack Buffer Underflow 的处理方式有如下几种类型：<ul>
-<li>RSB Alternate (RSBA)：RSB 为空时，用间接分支预测器预测 ret，会受到其他特权级的影响</li>
+<li>RSB Alternate (RSBA)：RSB 为空时，用间接分支预测器预测 ret，会受到其他特权级的影响，此时会有安全问题</li>
 <li>Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则不会受到其他特权级的影响</li>
-<li>RRSBA_DIS_S: RSB 为空时，用间接分支预测器预测 ret，无论是否打开了 eIBRS，都不会受到其他特权级的影响</li>
+<li>RRSBA_DIS_S: 可以通过配置 <code>MSR_IA32_SPEC_CTRL.RRSBA_DIS_S = 1</code>，使得在 RSB 为空时，不去预测 ret 的目的地址</li>
 </ul>
 </li>
-<li>缓解措施：RSB stuffing/filling</li>
+<li>缓解措施：<ul>
+<li>RSB stuffing/filling</li>
+<li>RRSBA_DIS_S</li>
+</ul>
+</li>
 </ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
