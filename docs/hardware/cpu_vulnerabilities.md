@@ -23,7 +23,7 @@
 	- 类似的问题还出现在从用户态复制数据的时候：需要调用 `access_ok` 函数来判断指针是否合法，但这个判断也需要分支预测，可能会在错误路径上产生问题
 	- 缓解措施：
 		- Bounds Clipping
-		- 加入 lfence 指令阻止错误路径上的 load 指令被执行
+		- 特定场景下（例如 usercopy 和 swapgs）加入 lfence 指令阻止错误路径上的 load 指令被执行
 		- Supervisor-Mode Access Prevention (SMAP)
 - Variant 2: Branch Target Injection (BTI)
 	- [CVE-2017-5715](https://nvd.nist.gov/vuln/detail/cve-2017-5715)
@@ -181,6 +181,7 @@
 - 只保护了间接分支的预测，不保护 Return Stack Buffer
 - 只避免了用户态对内核态的间接预测器的影响，但不同用户态进程间（包括虚拟机之间）还是会互相影响
 - IBRS 包括了 STIBP 的功能：如果开启了 IBRS，那么同一个物理核的两个逻辑核之间的间接分支预测器也会被隔离
+- 此外 IBRS 还会保证内核态和 Enclave 以及 SMM（System Management Mode）之间的隔离，在 Linux 里称这个功能为 IBRS_FW，表示对固件的保护
 - 修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection
 
 ### Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)
@@ -214,26 +215,18 @@
 - Itlb multihit
 - L1tf
 - Mds
-- Meltdown
 - Mmio stable data
 - Reg file data sampling
 - Retbleed
 - Spec rstack overflow
 - Spec store bypass
-- Spectre v1
-- Spectre v2
 - Srbds
 - Tsx async abort
 - __user pointer sanitization
-- usercopy barrier
-- swapgs barrier
-- IBPB
-- STIBP
 - PBRSB-EIBRS
 - BHI
+- BHI_DIS_S
 - PTE Inversion
-- Retpoline
-- IBRS_FW
 - RSB filling
 - Zenbleed
 - Safe RET
