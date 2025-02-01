@@ -2364,7 +2364,7 @@
 <li>类似的问题还出现在从用户态复制数据的时候：需要调用 <code>access_ok</code> 函数来判断指针是否合法，但这个判断也需要分支预测，可能会在错误路径上产生问题</li>
 <li>缓解措施：<ul>
 <li>Bounds Clipping</li>
-<li>加入 lfence 指令阻止错误路径上的 load 指令被执行</li>
+<li>特定场景下（例如 usercopy 和 swapgs）加入 lfence 指令阻止错误路径上的 load 指令被执行</li>
 <li>Supervisor-Mode Access Prevention (SMAP)</li>
 </ul>
 </li>
@@ -2530,6 +2530,7 @@
 <li>只保护了间接分支的预测，不保护 Return Stack Buffer</li>
 <li>只避免了用户态对内核态的间接预测器的影响，但不同用户态进程间（包括虚拟机之间）还是会互相影响</li>
 <li>IBRS 包括了 STIBP 的功能：如果开启了 IBRS，那么同一个物理核的两个逻辑核之间的间接分支预测器也会被隔离</li>
+<li>此外 IBRS 还会保证内核态和 Enclave 以及 SMM（System Management Mode）之间的隔离，在 Linux 里称这个功能为 IBRS_FW，表示对固件的保护</li>
 <li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
 </ul>
 <h3 id="enhanced-indirect-branch-restricted-speculation-enhanced-ibrs">Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)</h3>
@@ -2563,26 +2564,18 @@
 <li>Itlb multihit</li>
 <li>L1tf</li>
 <li>Mds</li>
-<li>Meltdown</li>
 <li>Mmio stable data</li>
 <li>Reg file data sampling</li>
 <li>Retbleed</li>
 <li>Spec rstack overflow</li>
 <li>Spec store bypass</li>
-<li>Spectre v1</li>
-<li>Spectre v2</li>
 <li>Srbds</li>
 <li>Tsx async abort</li>
 <li>__user pointer sanitization</li>
-<li>usercopy barrier</li>
-<li>swapgs barrier</li>
-<li>IBPB</li>
-<li>STIBP</li>
 <li>PBRSB-EIBRS</li>
 <li>BHI</li>
+<li>BHI_DIS_S</li>
 <li>PTE Inversion</li>
-<li>Retpoline</li>
-<li>IBRS_FW</li>
 <li>RSB filling</li>
 <li>Zenbleed</li>
 <li>Safe RET</li>
