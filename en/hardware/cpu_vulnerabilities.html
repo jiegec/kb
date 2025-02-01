@@ -912,6 +912,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      漏洞
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="漏洞">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spectre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spectre
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#meltdown" class="md-nav__link">
     <span class="md-ellipsis">
       Meltdown
@@ -919,13 +938,114 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
+  <a href="#mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓解措施 Mitigations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="缓解措施 Mitigations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#kaslr" class="md-nav__link">
     <span class="md-ellipsis">
       KASLR
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-page-table-isolation-kptiptikaiser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kernel Page Table Isolation (KPTI/PTI/KAISER)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retpoline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retpoline
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor-mode-execution-prevention-smep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supervisor-Mode Execution Prevention (SMEP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor-mode-access-prevention-smap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supervisor-Mode Access Prevention (SMAP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounds-clipping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bounds Clipping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indirect-branch-restricted-speculation-ibrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indirect Branch Restricted Speculation (IBRS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enhanced-indirect-branch-restricted-speculation-enhanced-ibrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-threaded-indirect-branch-predictors-stibp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single Threaded Indirect Branch Predictors (STIBP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indirect-branch-prediction-barrier-ibpb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indirect Branch Prediction Barrier (IBPB)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2223,7 +2343,50 @@
 
 
 <h1 id="cpu">CPU 漏洞和缓解措施</h1>
-<h2 id="meltdown">Meltdown</h2>
+<h2 id="_1">漏洞</h2>
+<h3 id="spectre">Spectre</h3>
+<ul>
+<li><a href="https://spectreattack.com/spectre.pdf">论文 Spectre Attacks: Exploiting Speculative Execution</a></li>
+<li><a href="https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html">Reading privileged memory with a side-channel</a></li>
+<li><a href="https://docs.kernel.org/admin-guide/hw-vuln/spectre.html">Spectre Side Channels</a></li>
+<li>有两个变种：Variant 1 和 Variant 2（Variant 3 是 Meltdown）</li>
+<li>Variant 1: Bounds Check Bypass<ul>
+<li><a href="https://nvd.nist.gov/vuln/detail/cve-2017-5753">CVE-2017-5753</a></li>
+<li>原理：访问数组的时候，通常会有边界检查，这个边界检查是通过条件分支实现的；即使边界检查失败，如果分支预测器预测它会检查成功，就会导致错误路径上的代码被执行，进而产生可以被观察到的副作用</li>
+<li>攻击方法：非 root 用户利用 eBPF 在内核态中运行自定义代码，虽然 eBPF 强制做了边界检查，但处理器会执行错误路径，从而泄漏内核态的信息</li>
+<li>具体到 Linux 内核中，有一个场景是 swapgs：在切换上下文的时候，需要切换 gs 段的基地址，那么这个基地址应该用内核态的还是用户态的，就要根据具体情况来判断，而这就会引入条件分支：
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="no">coming</span><span class="w"> </span><span class="no">from</span><span class="w"> </span><span class="no">user</span><span class="w"> </span><span class="no">space</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nf">swapgs</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nf">mov</span><span class="w"> </span><span class="nv">%gs</span><span class="p">:</span><span class="err">&lt;</span><span class="no">percpu_offset</span><span class="err">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nv">%reg</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nf">mov</span><span class="w"> </span><span class="p">(</span><span class="nv">%reg</span><span class="p">),</span><span class="w"> </span><span class="nv">%reg1</span>
+</span></code></pre></div></li>
+<li>如果在内核态在分支预测的错误路径上，跳过了 swapgs，直接用用户态的基地址去访问内存，就产生了安全问题</li>
+<li>类似的问题还出现在从用户态复制数据的时候：需要调用 <code>access_ok</code> 函数来判断指针是否合法，但这个判断也需要分支预测，可能会在错误路径上产生问题</li>
+<li>缓解措施：<ul>
+<li>Bounds Clipping</li>
+<li>加入 lfence 指令阻止错误路径上的 load 指令被执行</li>
+<li>Supervisor-Mode Access Prevention (SMAP)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Variant 2: Branch Target Injection (BTI)<ul>
+<li><a href="https://nvd.nist.gov/vuln/detail/cve-2017-5715">CVE-2017-5715</a></li>
+<li>原理：CPU 的分支预测器的状态是全局共享的，因此可以在虚拟机内控制分支预测器的状态，当 CPU 控制权回到宿主机时（比如进行一次 hypercall），CPU 会使用虚拟机准备好的分支预测器的状态来进行分支预测，从而推测执行了原本宿主机不会执行的代码，具体方法是欺骗 BTB 或间接分支预测器，注入攻击者指定的分支目的地址，使得 CPU 在预测错误路径上预测执行攻击者指定的代码；类似的方法也可以用于从用户态攻击内核态</li>
+<li>用类似的方法，还可以注入 Return Stack Buffer，也就是对 return 返回地址的预测</li>
+<li>缓解措施：<ul>
+<li>Retpoline</li>
+<li>Indirect Branch Restricted Speculation (IBRS)</li>
+<li>Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)</li>
+<li>Single Threaded Indirect Branch Predictors (STIBP)</li>
+<li>Indirect Branch Prediction Barrier (IBPB)</li>
+<li>Supervisor-Mode Execution Prevention (SMEP)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="meltdown">Meltdown</h3>
 <ul>
 <li><a href="https://meltdownattack.com/meltdown.pdf">论文 Meltdown: Reading Kernel Memory from User Space</a></li>
 <li><a href="https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html">Reading privileged memory with a side-channel</a></li>
@@ -2241,14 +2404,14 @@
 </ul>
 </li>
 <li>代码：
-    <div class="language-asm highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">; rcx = kernel address, rbx = probe array</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nf">mov</span><span class="w"> </span><span class="no">al</span><span class="p">,</span><span class="w"> </span><span class="no">byte</span><span class="w"> </span><span class="p">[</span><span class="no">rcx</span><span class="p">]</span><span class="w">         </span><span class="c1">; read one byte from kernel space</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nf">shl</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">0xc</span><span class="w">               </span><span class="c1">; multiply by 4096</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nf">mov</span><span class="w"> </span><span class="no">rbx</span><span class="p">,</span><span class="w"> </span><span class="no">qword</span><span class="w"> </span><span class="p">[</span><span class="no">rbx</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">rax</span><span class="p">]</span><span class="w"> </span><span class="c1">; access probe array</span>
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">; rcx = kernel address, rbx = probe array</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nf">mov</span><span class="w"> </span><span class="no">al</span><span class="p">,</span><span class="w"> </span><span class="no">byte</span><span class="w"> </span><span class="p">[</span><span class="no">rcx</span><span class="p">]</span><span class="w">         </span><span class="c1">; read one byte from kernel space</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nf">shl</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">0xc</span><span class="w">               </span><span class="c1">; multiply by 4096</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nf">mov</span><span class="w"> </span><span class="no">rbx</span><span class="p">,</span><span class="w"> </span><span class="no">qword</span><span class="w"> </span><span class="p">[</span><span class="no">rbx</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">rax</span><span class="p">]</span><span class="w"> </span><span class="c1">; access probe array</span>
 </span></code></pre></div></li>
 <li>从内核地址 rcx 读取一个字节，左移 0xc，也就是乘以 4096，再去访问 rbx 指向的数组。那么每个可能的 al 放在不同的页上，避免预取器干扰后续的测量</li>
 <li>缓解措施：<ul>
-<li>软件上：Kernel Page Table Isolation/KPTI/PTI/KAISER(<a href="https://gruss.cc/files/kaiser.pdf">论文 KASLR is Dead: Long Live KASLR</a>)，在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表；那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据</li>
+<li>软件上：Kernel Page Table Isolation</li>
 <li>硬件上：提早对权限的检查，避免以错误权限读出来的数据被用于后续的指令</li>
 </ul>
 </li>
@@ -2257,34 +2420,142 @@
 <li>访问 <code>/proc/version</code>，使得 <code>linux_proc_banner</code> 符号在缓存中</li>
 <li>在用户态用 Meltdown 读取内核态的 <code>linux_proc_banner</code> 的结果</li>
 <li>在 Intel Xeon E5-2603 v4 上关闭 KPTI（内核 cmdline 添加 <code>mitigations=off</code>）后成功复现，成功读出来 <code>%s version %s (d</code>：
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cached = 30, uncached = 316, threshold 97
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>read ffffffffa2400260 = 25 % (score=999/1000)
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>read ffffffffa2400261 = 73 s (score=1000/1000)
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>read ffffffffa2400262 = 20   (score=1000/1000)
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>read ffffffffa2400263 = 76 v (score=1000/1000)
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>read ffffffffa2400264 = 65 e (score=1000/1000)
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>read ffffffffa2400265 = 72 r (score=1000/1000)
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>read ffffffffa2400266 = 73 s (score=1000/1000)
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>read ffffffffa2400267 = 69 i (score=1000/1000)
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>read ffffffffa2400268 = 6f o (score=1000/1000)
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>read ffffffffa2400269 = 6e n (score=1000/1000)
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>read ffffffffa240026a = 20   (score=1000/1000)
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>read ffffffffa240026b = 25 % (score=1000/1000)
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>read ffffffffa240026c = 73 s (score=1000/1000)
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>read ffffffffa240026d = 20   (score=1000/1000)
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>read ffffffffa240026e = 28 ( (score=1000/1000)
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>read ffffffffa240026f = 64 d (score=1000/1000)
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>VULNERABLE
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cached = 30, uncached = 316, threshold 97
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>read ffffffffa2400260 = 25 % (score=999/1000)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>read ffffffffa2400261 = 73 s (score=1000/1000)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>read ffffffffa2400262 = 20   (score=1000/1000)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>read ffffffffa2400263 = 76 v (score=1000/1000)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>read ffffffffa2400264 = 65 e (score=1000/1000)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>read ffffffffa2400265 = 72 r (score=1000/1000)
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>read ffffffffa2400266 = 73 s (score=1000/1000)
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>read ffffffffa2400267 = 69 i (score=1000/1000)
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>read ffffffffa2400268 = 6f o (score=1000/1000)
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>read ffffffffa2400269 = 6e n (score=1000/1000)
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>read ffffffffa240026a = 20   (score=1000/1000)
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>read ffffffffa240026b = 25 % (score=1000/1000)
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>read ffffffffa240026c = 73 s (score=1000/1000)
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>read ffffffffa240026d = 20   (score=1000/1000)
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>read ffffffffa240026e = 28 ( (score=1000/1000)
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>read ffffffffa240026f = 64 d (score=1000/1000)
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>VULNERABLE
 </span></code></pre></div></li>
 <li>继续增加读取的字节数，可以得到完整的 <code>linux_proc_banner</code> 的内容：<code>%s version %s (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) %s</code></li>
 </ul>
 </li>
 <li>Meltdown 的变种：Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, <a href="https://nvd.nist.gov/vuln/detail/cve-2018-3640">CVE-2018-3640</a>, <a href="https://github.com/lgeek/spec_poc_arm">lgeek/spec_poc_arm</a> 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的</li>
 </ul>
-<h2 id="kaslr">KASLR</h2>
+<h2 id="mitigations">缓解措施 Mitigations</h2>
+<h3 id="kaslr">KASLR</h3>
 <ul>
 <li>KASLR: Kernel Address Space Layout Randomization</li>
 <li>随机化内核地址，避免攻击者猜测出内核地址</li>
+</ul>
+<h3 id="kernel-page-table-isolation-kptiptikaiser">Kernel Page Table Isolation (KPTI/PTI/KAISER)</h3>
+<ul>
+<li>又称 KAISER：<a href="https://gruss.cc/files/kaiser.pdf">论文 KASLR is Dead: Long Live KASLR</a></li>
+<li>在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表</li>
+<li>那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据</li>
+<li>修复 Meltdown 漏洞</li>
+</ul>
+<h3 id="retpoline">Retpoline</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/retpoline-branch-target-injection-mitigation.html">Retpoline</a></li>
+<li>把间接分支替换为 call/ret 对，同时把栈上的地址改成实际的目的地址，强迫硬件用 Return Stack Buffer 做预测，但由于覆盖了返回地址，Return Stack Buffer 总是会预测错误，在错误路径上循环执行 pause-lfence-jmp 三条指令，不会被攻击者控制，但会损失性能</li>
+<li>针对间接跳转：
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># for indirect jmp:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># before:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nf">jmp</span><span class="w"> </span><span class="p">*</span><span class="nv">%rax</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># after:</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nf">call</span><span class="w"> </span><span class="no">load_label</span><span class="w"> </span><span class="c1"># push the address of capture_ret_spec to the stack</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nl">capture_ret_spec:</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nf">pause</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nf">lfence</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nf">jmp</span><span class="w"> </span><span class="no">capture_ret_spec</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nl">load_label:</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nf">mov</span><span class="w"> </span><span class="nv">%rax</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w"> </span><span class="c1"># override the return address on the top of the stack</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="nf">ret</span><span class="w"> </span><span class="c1"># the return stack buffer predicts to jump to capture_ret_spec</span>
+</span></code></pre></div></li>
+<li>针对间接调用：
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># for indirect call:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># before:</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nf">call</span><span class="w"> </span><span class="p">*</span><span class="nv">%rax</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># after:</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nf">jmp</span><span class="w"> </span><span class="no">label2</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nl">label0:</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="no">label1</span><span class="w"> </span><span class="c1"># push the address of capture_ret_spec to the stack</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nl">capture_ret_spec:</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nf">pause</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nf">lfence</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nf">jmp</span><span class="w"> </span><span class="no">capture_ret_spec</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nl">label1:</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="nv">%rax</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w"> </span><span class="c1"># override the return address</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="nf">ret</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="nl">label2:</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="no">label0</span><span class="w"> </span><span class="c1"># use extra call to maintain real return address</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="c1"># continue execution</span>
+</span></code></pre></div></li>
+<li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
+</ul>
+<h3 id="supervisor-mode-execution-prevention-smep">Supervisor-Mode Execution Prevention (SMEP)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/best-practices/related-intel-security-features-technologies.html">Supervisor-Mode Execution Prevention (SMEP)</a> 在内核态下，禁止运行（包括推测运行）用户态地址空间内的代码，这样就缩小了攻击者可利用的代码范围</li>
+<li>又称 Intel® OS Guard</li>
+<li>SMEP 本身不能修复漏洞，但可以给攻击者创造更多限制</li>
+</ul>
+<h3 id="supervisor-mode-access-prevention-smap">Supervisor-Mode Access Prevention (SMAP)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/best-practices/related-intel-security-features-technologies.html">Supervisor-Mode Access Prevention (SMAP)</a> 在内核态下，禁止访问（包括推测访问）用户态空间的内存，缩小攻击者可以利用的内存范围；代价是在需要访问用户态空间的内存时，内核需要临时关闭 SMAP</li>
+<li>SMAP 相当于是把 SMEP 的限制从执行权限扩展到了读写权限</li>
+<li>SMAP 本身不能修复漏洞，但可以给攻击者创造更多限制</li>
+</ul>
+<h3 id="bounds-clipping">Bounds Clipping</h3>
+<ul>
+<li>边界检查如果用条件分支实现，可能会在分支预测的错误路径上访问边界外的内存</li>
+<li>Bounds Clipping 以性能损失为代价，把边界检查的条件分支变成计算，从而避免了错误路径的预测执行</li>
+<li>Linux 的实现： <a href="https://www.kernel.org/doc/Documentation/speculation.txt"><code>array_index_nospec</code></a> 宏</li>
+<li>修复 Spectre Variant 1 即 Bounds Check Bypass 漏洞</li>
+</ul>
+<h3 id="indirect-branch-restricted-speculation-ibrs">Indirect Branch Restricted Speculation (IBRS)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/indirect-branch-restricted-speculation.html">Indirect Branch Restricted Speculation (IBRS)</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/white-papers/111006-architecture-guidelines-update-amd64-technology-indirect-branch-control-extension.pdf">AMD64 TECHNOLOGY INDIRECT BRANCH CONTROL EXTENSION</a></li>
+<li>从用户态切换到内核态后，在内核态设置 <code>IA32_SPEC_CTRL.IBRS = 1</code> 可以保证内核态后续间接分支的预测不会被用户态影响</li>
+<li>只保护了间接分支的预测，不保护 Return Stack Buffer</li>
+<li>只避免了用户态对内核态的间接预测器的影响，但不同用户态进程间（包括虚拟机之间）还是会互相影响</li>
+<li>IBRS 包括了 STIBP 的功能：如果开启了 IBRS，那么同一个物理核的两个逻辑核之间的间接分支预测器也会被隔离</li>
+<li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
+</ul>
+<h3 id="enhanced-indirect-branch-restricted-speculation-enhanced-ibrs">Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/indirect-branch-restricted-speculation.html">Indirect Branch Restricted Speculation (IBRS)</a> 每次从用户态切换到内核态都要写入一次 <code>IA32_SPEC_CTRL.IBRS</code>，降低性能</li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/white-papers/111006-architecture-guidelines-update-amd64-technology-indirect-branch-control-extension.pdf">AMD64 TECHNOLOGY INDIRECT BRANCH CONTROL EXTENSION</a></li>
+<li>Enhanced IBRS：打开一次以后，总是启用 IBRS</li>
+<li>不再需要每次从用户态切换到内核态去写入 <code>IA32_SPEC_CTRL.IBRS</code></li>
+<li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
+</ul>
+<h3 id="single-threaded-indirect-branch-predictors-stibp">Single Threaded Indirect Branch Predictors (STIBP)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/single-thread-indirect-branch-predictors.html">Single Thread Indirect Branch Predictors</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/white-papers/111006-architecture-guidelines-update-amd64-technology-indirect-branch-control-extension.pdf">AMD64 TECHNOLOGY INDIRECT BRANCH CONTROL EXTENSION</a></li>
+<li>SMT 场景下，同一个物理核的两个逻辑核共享间接分支预测器，因此可以从一个逻辑核操控另一个逻辑核的间接分支预测器</li>
+<li>STIBP 设置启用后（<code>IA32_SPEC_CTRL.STIBP = 1</code>），保证了逻辑核之间的间接分支预测器的隔离</li>
+<li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
+</ul>
+<h3 id="indirect-branch-prediction-barrier-ibpb">Indirect Branch Prediction Barrier (IBPB)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/indirect-branch-predictor-barrier.html">Indirect Branch Predictor Barrier</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/white-papers/111006-architecture-guidelines-update-amd64-technology-indirect-branch-control-extension.pdf">AMD64 TECHNOLOGY INDIRECT BRANCH CONTROL EXTENSION</a></li>
+<li>IBPB 是一个预测器的 Barrier，保证 Barrier 之前的指令不会影响 Barrier 之后的指令的间接分支预测</li>
+<li>这个 Barrier 通过写入 MSR <code>IA32_PRED_CMD.IBPB = 0</code> 实现，没有引入新的指令</li>
+<li>前面提到，IBRS 只考虑了用户态对内核态的影响，没有考虑用户态之间的影响，这可以由 IBPB 来补足</li>
+<li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
@@ -2339,7 +2610,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月1日</span>
   </span>
 
     
