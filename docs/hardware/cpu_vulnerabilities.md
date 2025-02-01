@@ -37,7 +37,7 @@
 		- Indirect Branch Prediction Barrier (IBPB)
 		- Supervisor-Mode Execution Prevention (SMEP)
 
-### Meltdown
+### Meltdown (Rouge Data Cache Load)
 
 - [论文 Meltdown: Reading Kernel Memory from User Space](https://meltdownattack.com/meltdown.pdf)
 - [Reading privileged memory with a side-channel](https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html)
@@ -90,6 +90,20 @@
 		```
 	- 继续增加读取的字节数，可以得到完整的 `linux_proc_banner` 的内容：`%s version %s (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) %s`
 - Meltdown 的变种：Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, [CVE-2018-3640](https://nvd.nist.gov/vuln/detail/cve-2018-3640), [lgeek/spec_poc_arm](https://github.com/lgeek/spec_poc_arm) 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的
+
+### Retbleed (Return Stack Buffer Underflow)
+
+- [Retbleed](https://comsec.ethz.ch/research/microarch/retbleed/)
+- [CVE-2022-29900](https://nvd.nist.gov/vuln/detail/CVE-2022-29900)
+- [CVE-2022-29901](https://nvd.nist.gov/vuln/detail/CVE-2022-29901)
+- [Return Stack Buffer Underflow](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/return-stack-buffer-underflow.html)
+- 顾名思义，针对的是 Return Stack Buffer，它是一个栈，call 的时候压栈，ret 的时候弹栈，那么如果 ret 的时候，栈已经空了，也就是所谓的 Underflow，此时会有什么样的行为？
+- 在部分处理器上，当 Return Stack Buffer 为空的时候，ret 的预测会交给间接分支预测器去预测，而间接分支预测器在之前 Spectre Variant 2 Branch Target Injection 的时候，就被攻击过了
+- Intel 处理器对 Return Stack Buffer Underflow 的处理方式有如下几种类型：
+	- RSB Alternate (RSBA)：RSB 为空时，用间接分支预测器预测 ret，会受到其他特权级的影响
+	- Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则不会受到其他特权级的影响
+	- RRSBA_DIS_S: RSB 为空时，用间接分支预测器预测 ret，无论是否打开了 eIBRS，都不会受到其他特权级的影响
+- 缓解措施：RSB stuffing/filling
 
 ## 缓解措施 Mitigations
 
@@ -209,6 +223,22 @@
 - 前面提到，IBRS 只考虑了用户态对内核态的影响，没有考虑用户态之间的影响，这可以由 IBPB 来补足
 - 修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection
 
+### RSB filling/stuffing
+
+- [Retpoline](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/retpoline-branch-target-injection-mitigation.html)
+- 由于 Return Stack Buffer 在空的时候，会使用被攻击者控制的间接分支预测器来预测目的地址
+- 为了缓解这个问题，提前向 Return Stack Buffer 填充一些地址，避免出现 Underflow 的问题，这就叫 RSB filling/stuffing：
+	```asm
+	.rept 16
+		call 1f
+		pause
+		lfence
+
+		1:
+	.endr
+	addq $(8 * 16), %rsp
+	```
+
 ## TODO
 
 - Gather data sampling
@@ -217,7 +247,6 @@
 - Mds
 - Mmio stable data
 - Reg file data sampling
-- Retbleed
 - Spec rstack overflow
 - Spec store bypass
 - Srbds
@@ -227,7 +256,6 @@
 - BHI
 - BHI_DIS_S
 - PTE Inversion
-- RSB filling
 - Zenbleed
 - Safe RET
 - untrained return thunk
