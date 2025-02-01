@@ -1062,6 +1062,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#intel-msr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel MSR
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2473,7 +2482,7 @@
 <li>Intel 处理器对 Return Stack Buffer Underflow 的处理方式有如下几种类型：<ul>
 <li>RSB Alternate (RSBA)：RSB 为空时，用间接分支预测器预测 ret，会受到其他特权级的影响，此时会有安全问题</li>
 <li>Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则不会受到其他特权级的影响</li>
-<li>RRSBA_DIS_S: 可以通过配置 <code>MSR_IA32_SPEC_CTRL.RRSBA_DIS_S = 1</code>，使得在 RSB 为空时，不去预测 ret 的目的地址</li>
+<li>RRSBA_DIS_S: 可以通过配置 <code>IA32_SPEC_CTRL.RRSBA_DIS_S = 1</code>，使得在 RSB 为空时，不去预测 ret 的目的地址</li>
 </ul>
 </li>
 <li>缓解措施：<ul>
@@ -2610,6 +2619,27 @@
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="na">.endr</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nf">addq</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="nv">%rsp</span>
 </span></code></pre></div></li>
+</ul>
+<h3 id="intel-msr">Intel MSR</h3>
+<ul>
+<li>Intel 处理器上很多缓解措施的控制都和两个 MSR 有关：IA32_SPEC_CTRL 和 IA32_PRED_CMD，这里总结一下它们的各个字段：</li>
+<li>IA32_SPEC_CTRL:<ul>
+<li>[0]: IBRS, Indirect Branch Restricted Speculation，隔离用户态和内核态的间接分支预测</li>
+<li>[1]: STIBP, Single Thread Indirect Branch Predictor，隔离同一个物理核的两个逻辑核的间接分支预测</li>
+<li>[2]: SSBD，Speculative Store Bypass Disable，等先前的所有的 store 地址已知后，再预测执行 load</li>
+<li>[3]: IPRED_DIS_U，Indirect Predictor Disable User，用户态下，等到间接分支的目的地址被实际计算出来后才进行后续的执行</li>
+<li>[4]: IPRED_DIS_S，Indirect Predictor Disable Supervisor，内核态下，等到间接分支的目的地址被实际计算出来后才进行后续的执行</li>
+<li>[5]: RRSBA_DIS_U，Restricted Return Stack Buffer Alternate User，用户态下，当 Return Stack Buffer 为空的时候，禁止预测</li>
+<li>[6]: RRSBA_DIS_S，Restricted Return Stack Buffer Alternate Supervisor，内核态下，当 Return Stack Buffer 为空的时候，禁止预测</li>
+<li>[7]: PSFD，禁止 Fast Store Forwarding Predictor</li>
+<li>[8]: DDPD_U，用户态下禁止 Data Dependent Prefetcher</li>
+<li>[10]: BHI_DIS_S，Branch History Injection Disable Supervisor，隔离用户态和内核态用于分支预测的分支历史</li>
+</ul>
+</li>
+<li>IA32_PRED_CMD:<ul>
+<li>[0]: IPBP，Indirect Branch Prediction Barrier，阻止 Barrier 前面的指令影响 Barrier 后面的指令的间接分支预测</li>
+</ul>
+</li>
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
