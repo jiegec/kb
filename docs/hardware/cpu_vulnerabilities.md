@@ -124,6 +124,43 @@
 	- Safe RET
 	- Indirect Branch Prediction Barrier (IBPB)
 
+### Gather Data Sampling (DOWNFALL)
+
+- [Downfall Attacks](https://downfall.page/)
+- [论文 Downfall: Exploiting Speculative Data Gathering](https://downfall.page/media/downfall.pdf)
+- [Gather Data Sampling](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/gather-data-sampling.html)
+- [CVE-2022-40982](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40982)
+- 原理：
+	- Intel 处理器在实现 SIMD Gather 指令的时候，为了提升性能，会把 Gather 读取的缓存行的数据放在一个临时的 Buffer 当中，而这个 Buffer 是没有隔离的，同一个物理核的两个逻辑核会用同一个
+	- 在一个物理核的第一个逻辑核上进行正常的 SIMD Gather 指令，在同一个物理核的第二个逻辑核上也进行一个 SIMD Gather 指令，由于 Buffer 的共享，可能会导致在预测执行路径上，第一个逻辑核的 SIMD Gather 读出来的数据被转发到第二个逻辑核的 SIMD Gather 结果
+	- 这个被转发的数据是错误的，之后会被回滚并纠正为正确的数据；但是回滚前，被转发的数据已经传播出去了
+	- 于是在第二个逻辑核上通过缓存的侧信道，就可以推测出第一个逻辑核使用 SIMD Gather 读取了什么数据：
+		```asm
+		// Step (i): Increase the transient window
+		lea addresses_normal, %rdi
+		clflush (%rdi)
+		mov (%rdi), %rax
+
+		// Step (ii): Gather uncacheable memory
+		lea addresses_uncacheable, %rsi
+		mov $0b1, %rdi
+		kmovq %rdi, %k1
+		vpxord %zmm1, %zmm1, %zmm1
+		vpgatherdd 0(%rsi, %zmm1, 1), %zmm5{%k1}
+
+		// Step (iii): Encode (transient) data to cache
+		movq %xmm5, %rax
+		encode_eax
+
+		// Step (iv): Scan the cache
+		scan_flush_reload
+		```
+	- 为了扩大预测执行的窗口，使得信息能够通过缓存侧信道传递出来，在上述第二个逻辑核上首先访问不在缓存中的缓存行，再使用 SIMD Gather 访问无法缓存的内存
+	- 进一步测试，发现不仅能够泄露第一个逻辑核上使用 SIMD Gather 指令读取的数据，用其他很多 SIMD Load 指令读出来的数据也可以通过在第二个逻辑核上用 SIMD Gather 泄露出来
+	- 进一步测试，发现不仅能够泄露同一个物理核的另一个逻辑核的数据，同一个逻辑核内的数据也可以从内核态泄露到用户态
+- 缓解措施：
+	- 硬件 Microcode 修复
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -283,7 +320,6 @@
 
 ## TODO
 
-- Gather data sampling
 - Itlb multihit
 - L1tf
 - Mds
