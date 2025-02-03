@@ -983,6 +983,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#branch-history-injectionintra-mode-bti-imbti" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch History Injection/Intra-mode BTI (IMBTI)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1062,9 +1071,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#enhanced-indirect-branch-restricted-speculation-enhanced-ibrs" class="md-nav__link">
+  <a href="#enhanced-indirect-branch-restricted-speculation-enhanced-ibrseibrs" class="md-nav__link">
     <span class="md-ellipsis">
-      Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)
+      Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS/eIBRS)
     </span>
   </a>
   
@@ -1101,6 +1110,15 @@
   <a href="#safe-ret" class="md-nav__link">
     <span class="md-ellipsis">
       Safe RET
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-bhb-clearing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software BHB Clearing
     </span>
   </a>
   
@@ -2649,6 +2667,26 @@
 </ul>
 </li>
 </ul>
+<h3 id="branch-history-injectionintra-mode-bti-imbti">Branch History Injection/Intra-mode BTI (IMBTI)</h3>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/branch-history-injection.html">Branch History Injection/Intra-mode BTI</a></li>
+<li><a href="https://nvd.nist.gov/vuln/detail/cve-2022-0001">CVE-2022-0001</a></li>
+<li><a href="https://nvd.nist.gov/vuln/detail/cve-2022-0002">CVE-2022-0002</a></li>
+<li>原理：<ul>
+<li>用于记录分支历史的 Branch History Buffer（BHB，实际上就是 Path History Register）没有在特权态之间隔离</li>
+<li>IBRS/eIBRS 隔离了间接分支预测器的状态，但没有隔离 BHB，用户态程序可以向 BHB 注入分支历史来操控内核态的间接分支预测</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>Retpoline</li>
+<li>Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)</li>
+<li>Supervisor-Mode Execution Prevention (SMEP)</li>
+<li>BHI_DIS_S</li>
+<li>IPRED_DIS_S</li>
+<li>Software BHB Clearing</li>
+</ul>
+</li>
+</ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
 <ul>
@@ -2738,13 +2776,14 @@
 <li>此外 IBRS 还会保证内核态和 Enclave 以及 SMM（System Management Mode）之间的隔离，在 Linux 里称这个功能为 IBRS_FW，表示对固件的保护</li>
 <li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
 </ul>
-<h3 id="enhanced-indirect-branch-restricted-speculation-enhanced-ibrs">Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)</h3>
+<h3 id="enhanced-indirect-branch-restricted-speculation-enhanced-ibrseibrs">Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS/eIBRS)</h3>
 <ul>
 <li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/indirect-branch-restricted-speculation.html">Indirect Branch Restricted Speculation (IBRS)</a> 每次从用户态切换到内核态都要写入一次 <code>IA32_SPEC_CTRL.IBRS</code>，降低性能</li>
 <li><a href="https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/white-papers/111006-architecture-guidelines-update-amd64-technology-indirect-branch-control-extension.pdf">AMD64 TECHNOLOGY INDIRECT BRANCH CONTROL EXTENSION</a></li>
 <li>Enhanced IBRS：打开一次以后，总是启用 IBRS</li>
 <li>不再需要每次从用户态切换到内核态去写入 <code>IA32_SPEC_CTRL.IBRS</code></li>
 <li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
+<li>Post-barrier Return Stack Buffer with eIBRS enabled (PBRSB-eIBRS)：即使打开了 eIBRS，由于 IBRS 主要针对的是间接分支预测，对于 ret 的保护是不足的，所以需要额外的针对 Return Stack Buffer 的防护</li>
 </ul>
 <h3 id="single-threaded-indirect-branch-predictors-stibp">Single Threaded Indirect Branch Predictors (STIBP)</h3>
 <ul>
@@ -2784,6 +2823,11 @@
 <li>但 Safe RET 要解决的是 Speculative Return Stack Overflow 漏洞中，BTB 出现 alias 的问题</li>
 <li>因此 Safe RET 的解决办法是，主动构造 BTB alias，先把攻击者从 BTB 中刷掉，再去进行实际的 ret</li>
 </ul>
+<h3 id="software-bhb-clearing">Software BHB Clearing</h3>
+<ul>
+<li>Software BHB（Branch History Buffer）Clearing 的目的是防止用用户态控制的 BHB 来进行内核态的间接分支的预测</li>
+<li>因此实现上就是在用户态切换到内核态的时候，首先调用足够次数的分支，使得 BHB 中由用户态设置的部分被刷掉，保证用于内核态间接分支预测的 BHB 是安全的</li>
+</ul>
 <h3 id="intel-msr">Intel MSR</h3>
 <ul>
 <li>Intel 处理器上很多缓解措施的控制都和两个 MSR 有关：IA32_SPEC_CTRL 和 IA32_PRED_CMD，这里总结一下它们的各个字段：</li>
@@ -2816,9 +2860,6 @@
 <li>Srbds</li>
 <li>Tsx async abort</li>
 <li>__user pointer sanitization</li>
-<li>PBRSB-EIBRS</li>
-<li>BHI</li>
-<li>BHI_DIS_S</li>
 <li>PTE Inversion</li>
 <li>Zenbleed</li>
 <li>untrained return thunk</li>
