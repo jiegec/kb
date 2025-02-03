@@ -44,7 +44,8 @@ plugins:
   - rss
   - search
   - social:
-      cards_font: Noto Sans SC
+      cards_layout_options:
+        font_family: Noto Sans SC
   - tags
   - offline
   - wavedrom:
