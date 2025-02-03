@@ -957,6 +957,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#gather-data-sampling-downfall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gather Data Sampling (DOWNFALL)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2530,6 +2539,46 @@
 </ul>
 </li>
 </ul>
+<h3 id="gather-data-sampling-downfall">Gather Data Sampling (DOWNFALL)</h3>
+<ul>
+<li><a href="https://downfall.page/">Downfall Attacks</a></li>
+<li><a href="https://downfall.page/media/downfall.pdf">论文 Downfall: Exploiting Speculative Data Gathering</a></li>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/gather-data-sampling.html">Gather Data Sampling</a></li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40982">CVE-2022-40982</a></li>
+<li>原理：<ul>
+<li>Intel 处理器在实现 SIMD Gather 指令的时候，为了提升性能，会把 Gather 读取的缓存行的数据放在一个临时的 Buffer 当中，而这个 Buffer 是没有隔离的，同一个物理核的两个逻辑核会用同一个</li>
+<li>在一个物理核的第一个逻辑核上进行正常的 SIMD Gather 指令，在同一个物理核的第二个逻辑核上也进行一个 SIMD Gather 指令，由于 Buffer 的共享，可能会导致在预测执行路径上，第一个逻辑核的 SIMD Gather 读出来的数据被转发到第二个逻辑核的 SIMD Gather 结果</li>
+<li>这个被转发的数据是错误的，之后会被回滚并纠正为正确的数据；但是回滚前，被转发的数据已经传播出去了</li>
+<li>于是在第二个逻辑核上通过缓存的侧信道，就可以推测出第一个逻辑核使用 SIMD Gather 读取了什么数据：
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Step (i): Increase the transient window</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">lea</span><span class="w"> </span><span class="no">addresses_normal</span><span class="p">,</span><span class="w"> </span><span class="nv">%rdi</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nf">clflush</span><span class="w"> </span><span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nf">mov</span><span class="w"> </span><span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span><span class="w"> </span><span class="nv">%rax</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Step (ii): Gather uncacheable memory</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nf">lea</span><span class="w"> </span><span class="no">addresses_uncacheable</span><span class="p">,</span><span class="w"> </span><span class="nv">%rsi</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nf">mov</span><span class="w"> </span><span class="no">$0b1</span><span class="p">,</span><span class="w"> </span><span class="nv">%rdi</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nf">kmovq</span><span class="w"> </span><span class="nv">%rdi</span><span class="p">,</span><span class="w"> </span><span class="nv">%k1</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nf">vpxord</span><span class="w"> </span><span class="nv">%zmm1</span><span class="p">,</span><span class="w"> </span><span class="nv">%zmm1</span><span class="p">,</span><span class="w"> </span><span class="nv">%zmm1</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nf">vpgatherdd</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="nv">%rsi</span><span class="p">,</span><span class="w"> </span><span class="nv">%zmm1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nv">%zmm5</span><span class="p">{</span><span class="nv">%k1</span><span class="p">}</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1">// Step (iii): Encode (transient) data to cache</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nf">movq</span><span class="w"> </span><span class="nv">%xmm5</span><span class="p">,</span><span class="w"> </span><span class="nv">%rax</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="nf">encode_eax</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="c1">// Step (iv): Scan the cache</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="nf">scan_flush_reload</span>
+</span></code></pre></div></li>
+<li>为了扩大预测执行的窗口，使得信息能够通过缓存侧信道传递出来，在上述第二个逻辑核上首先访问不在缓存中的缓存行，再使用 SIMD Gather 访问无法缓存的内存</li>
+<li>进一步测试，发现不仅能够泄露第一个逻辑核上使用 SIMD Gather 指令读取的数据，用其他很多 SIMD Load 指令读出来的数据也可以通过在第二个逻辑核上用 SIMD Gather 泄露出来</li>
+<li>进一步测试，发现不仅能够泄露同一个物理核的另一个逻辑核的数据，同一个逻辑核内的数据也可以从内核态泄露到用户态</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>硬件 Microcode 修复</li>
+</ul>
+</li>
+</ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
 <ul>
@@ -2548,44 +2597,44 @@
 <li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/retpoline-branch-target-injection-mitigation.html">Retpoline</a></li>
 <li>把间接分支替换为 call/ret 对，同时把栈上的地址改成实际的目的地址，强迫硬件用 Return Stack Buffer 做预测，但由于覆盖了返回地址，Return Stack Buffer 总是会预测错误，在错误路径上循环执行 pause-lfence-jmp 三条指令，不会被攻击者控制，但会损失性能</li>
 <li>针对间接跳转：
-    <div class="language-asm highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># for indirect jmp:</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># before:</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nf">jmp</span><span class="w"> </span><span class="p">*</span><span class="nv">%rax</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># after:</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nf">call</span><span class="w"> </span><span class="no">load_label</span><span class="w"> </span><span class="c1"># push the address of capture_ret_spec to the stack</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nl">capture_ret_spec:</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nf">pause</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nf">lfence</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nf">jmp</span><span class="w"> </span><span class="no">capture_ret_spec</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nl">load_label:</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nf">mov</span><span class="w"> </span><span class="nv">%rax</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w"> </span><span class="c1"># override the return address on the top of the stack</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="nf">ret</span><span class="w"> </span><span class="c1"># the return stack buffer predicts to jump to capture_ret_spec</span>
-</span></code></pre></div></li>
-<li>针对间接调用：
-    <div class="language-asm highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># for indirect call:</span>
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># for indirect jmp:</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># before:</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nf">call</span><span class="w"> </span><span class="p">*</span><span class="nv">%rax</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nf">jmp</span><span class="w"> </span><span class="p">*</span><span class="nv">%rax</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># after:</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nf">jmp</span><span class="w"> </span><span class="no">label2</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nl">label0:</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="no">label1</span><span class="w"> </span><span class="c1"># push the address of capture_ret_spec to the stack</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nl">capture_ret_spec:</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nf">pause</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nf">lfence</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nf">jmp</span><span class="w"> </span><span class="no">capture_ret_spec</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nl">label1:</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="nv">%rax</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w"> </span><span class="c1"># override the return address</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="nf">ret</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="nl">label2:</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="no">label0</span><span class="w"> </span><span class="c1"># use extra call to maintain real return address</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="c1"># continue execution</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nf">call</span><span class="w"> </span><span class="no">load_label</span><span class="w"> </span><span class="c1"># push the address of capture_ret_spec to the stack</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nl">capture_ret_spec:</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nf">pause</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nf">lfence</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nf">jmp</span><span class="w"> </span><span class="no">capture_ret_spec</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nl">load_label:</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nf">mov</span><span class="w"> </span><span class="nv">%rax</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w"> </span><span class="c1"># override the return address on the top of the stack</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nf">ret</span><span class="w"> </span><span class="c1"># the return stack buffer predicts to jump to capture_ret_spec</span>
+</span></code></pre></div></li>
+<li>针对间接调用：
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># for indirect call:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># before:</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nf">call</span><span class="w"> </span><span class="p">*</span><span class="nv">%rax</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># after:</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nf">jmp</span><span class="w"> </span><span class="no">label2</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nl">label0:</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="no">label1</span><span class="w"> </span><span class="c1"># push the address of capture_ret_spec to the stack</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="nl">capture_ret_spec:</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="nf">pause</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="nf">lfence</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="nf">jmp</span><span class="w"> </span><span class="no">capture_ret_spec</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="nl">label1:</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="nv">%rax</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w"> </span><span class="c1"># override the return address</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="nf">ret</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="nl">label2:</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="no">label0</span><span class="w"> </span><span class="c1"># use extra call to maintain real return address</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">    </span><span class="c1"># continue execution</span>
 </span></code></pre></div></li>
 <li>修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection</li>
 </ul>
@@ -2649,14 +2698,14 @@
 <li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/retpoline-branch-target-injection-mitigation.html">Retpoline</a></li>
 <li>由于 Return Stack Buffer 在空的时候，会使用被攻击者控制的间接分支预测器来预测目的地址</li>
 <li>为了缓解这个问题，提前向 Return Stack Buffer 填充一些地址，避免出现 Underflow 的问题，这就叫 RSB filling/stuffing：
-    <div class="language-asm highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="na">.rept</span><span class="w"> </span><span class="mi">16</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="mi">1</span><span class="no">f</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nf">pause</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nf">lfence</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="err">1:</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="na">.endr</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nf">addq</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="nv">%rsp</span>
+    <div class="language-asm highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="na">.rept</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nf">call</span><span class="w"> </span><span class="mi">1</span><span class="no">f</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nf">pause</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nf">lfence</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="err">1:</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="na">.endr</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nf">addq</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="nv">%rsp</span>
 </span></code></pre></div></li>
 </ul>
 <h3 id="safe-ret">Safe RET</h3>
@@ -2688,7 +2737,6 @@
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
-<li>Gather data sampling</li>
 <li>Itlb multihit</li>
 <li>L1tf</li>
 <li>Mds</li>
