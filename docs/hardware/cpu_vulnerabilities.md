@@ -161,6 +161,22 @@
 - 缓解措施：
 	- 硬件 Microcode 修复
 
+### Branch History Injection/Intra-mode BTI (IMBTI)
+
+- [Branch History Injection/Intra-mode BTI](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/branch-history-injection.html)
+- [CVE-2022-0001](https://nvd.nist.gov/vuln/detail/cve-2022-0001)
+- [CVE-2022-0002](https://nvd.nist.gov/vuln/detail/cve-2022-0002)
+- 原理：
+	- 用于记录分支历史的 Branch History Buffer（BHB，实际上就是 Path History Register）没有在特权态之间隔离
+	- IBRS/eIBRS 隔离了间接分支预测器的状态，但没有隔离 BHB，用户态程序可以向 BHB 注入分支历史来操控内核态的间接分支预测
+- 缓解措施：
+	- Retpoline
+	- Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)
+	- Supervisor-Mode Execution Prevention (SMEP)
+	- BHI_DIS_S
+	- IPRED_DIS_S
+	- Software BHB Clearing
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -254,13 +270,14 @@
 - 此外 IBRS 还会保证内核态和 Enclave 以及 SMM（System Management Mode）之间的隔离，在 Linux 里称这个功能为 IBRS_FW，表示对固件的保护
 - 修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection
 
-### Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS)
+### Enhanced Indirect Branch Restricted Speculation (Enhanced IBRS/eIBRS)
 
 - [Indirect Branch Restricted Speculation (IBRS)](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/indirect-branch-restricted-speculation.html) 每次从用户态切换到内核态都要写入一次 `IA32_SPEC_CTRL.IBRS`，降低性能
 - [AMD64 TECHNOLOGY INDIRECT BRANCH CONTROL EXTENSION](https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/white-papers/111006-architecture-guidelines-update-amd64-technology-indirect-branch-control-extension.pdf)
 - Enhanced IBRS：打开一次以后，总是启用 IBRS
 - 不再需要每次从用户态切换到内核态去写入 `IA32_SPEC_CTRL.IBRS`
 - 修复基于间接分支的漏洞：Spectre Variant 2 Branch Target Injection
+- Post-barrier Return Stack Buffer with eIBRS enabled (PBRSB-eIBRS)：即使打开了 eIBRS，由于 IBRS 主要针对的是间接分支预测，对于 ret 的保护是不足的，所以需要额外的针对 Return Stack Buffer 的防护
 
 ### Single Threaded Indirect Branch Predictors (STIBP)
 
@@ -301,6 +318,11 @@
 - 但 Safe RET 要解决的是 Speculative Return Stack Overflow 漏洞中，BTB 出现 alias 的问题
 - 因此 Safe RET 的解决办法是，主动构造 BTB alias，先把攻击者从 BTB 中刷掉，再去进行实际的 ret
 
+### Software BHB Clearing
+
+- Software BHB（Branch History Buffer）Clearing 的目的是防止用用户态控制的 BHB 来进行内核态的间接分支的预测
+- 因此实现上就是在用户态切换到内核态的时候，首先调用足够次数的分支，使得 BHB 中由用户态设置的部分被刷掉，保证用于内核态间接分支预测的 BHB 是安全的
+
 ### Intel MSR
 
 - Intel 处理器上很多缓解措施的控制都和两个 MSR 有关：IA32_SPEC_CTRL 和 IA32_PRED_CMD，这里总结一下它们的各个字段：
@@ -329,9 +351,6 @@
 - Srbds
 - Tsx async abort
 - __user pointer sanitization
-- PBRSB-EIBRS
-- BHI
-- BHI_DIS_S
 - PTE Inversion
 - Zenbleed
 - untrained return thunk
