@@ -101,11 +101,28 @@
 - 在部分处理器上，当 Return Stack Buffer 为空的时候，ret 的预测会交给间接分支预测器去预测，而间接分支预测器在之前 Spectre Variant 2 Branch Target Injection 的时候，就被攻击过了
 - Intel 处理器对 Return Stack Buffer Underflow 的处理方式有如下几种类型：
 	- RSB Alternate (RSBA)：RSB 为空时，用间接分支预测器预测 ret，会受到其他特权级的影响，此时会有安全问题
-	- Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则不会受到其他特权级的影响
+	- Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则在一个特权级下的预测不会受到其他特权级的影响（例如用户态无法影响到内核态）
 	- RRSBA_DIS_S: 可以通过配置 `IA32_SPEC_CTRL.RRSBA_DIS_S = 1`，使得在 RSB 为空时，不去预测 ret 的目的地址
 - 缓解措施：
 	- RSB stuffing/filling
 	- RRSBA_DIS_S
+
+### Speculative Return Stack Overflow (SRSO/Spec rstack overflow/INCEPTION)
+
+- [Speculative Return Stack Overflow (SRSO)](https://docs.kernel.org/admin-guide/hw-vuln/srso.html)
+- [Inception: how a simple XOR can cause a Microarchitectural Stack Overflow](https://comsec.ethz.ch/inception)
+- [TECHNICAL UPDATE REGARDING SPECULATIVE RETURN STACK OVERFLOW](https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf)
+- [CVE-2023-20569](https://www.cve.org/CVERecord?id=CVE-2023-20569)
+- 原理：
+	- ret 的目的地址由 Return Stack Buffer 来预测，预测的前提是有一个匹配的 call
+	- 正常情况下，call 和 ret 是可以配对的，那么 ret 会被预测到 call 的下一条指令的地址上
+	- 在 AMD 的一些处理器上，BTB 是可能出现 alias 的，也就是不同的地址会被映射到同一个 BTB Entry 上，并且无法区分
+	- 如果两段代码，被映射到同一个 BTB Entry 上，第一段代码有 call，第二段代码没有，假如通过执行第一段代码，让 BTB 记录下第一段代码的 call 指令信息，那么 BTB 在预测第二段代码的时候，会认为第二段代码也有 call，即使实际上并没有
+	- 在 BTB 预测第二段代码有 call 的时候，会更新 Return Stack Buffer 的状态，进而影响了后续 ret 指令的预测，即使第二段代码实际上并没有 call 指令
+- 缓解措施：
+	- 硬件上，BTB 也要用 full tag 比较，不允许 alias
+	- Safe RET
+	- Indirect Branch Prediction Barrier (IBPB)
 
 ## 缓解措施 Mitigations
 
@@ -241,6 +258,12 @@
 	addq $(8 * 16), %rsp
 	```
 
+### Safe RET
+
+- Safe RET 和 Retpoline 类似，也是要强迫 ret 被预测到指定的错误路径上，避免被攻击者控制预测的地址
+- 但 Safe RET 要解决的是 Speculative Return Stack Overflow 漏洞中，BTB 出现 alias 的问题
+- 因此 Safe RET 的解决办法是，主动构造 BTB alias，先把攻击者从 BTB 中刷掉，再去进行实际的 ret
+
 ### Intel MSR
 
 - Intel 处理器上很多缓解措施的控制都和两个 MSR 有关：IA32_SPEC_CTRL 和 IA32_PRED_CMD，这里总结一下它们的各个字段：
@@ -266,7 +289,6 @@
 - Mds
 - Mmio stable data
 - Reg file data sampling
-- Spec rstack overflow
 - Spec store bypass
 - Srbds
 - Tsx async abort
@@ -276,5 +298,4 @@
 - BHI_DIS_S
 - PTE Inversion
 - Zenbleed
-- Safe RET
 - untrained return thunk
