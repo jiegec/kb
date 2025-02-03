@@ -948,6 +948,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#speculative-return-stack-overflow-srsospec-rstack-overflowinception" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speculative Return Stack Overflow (SRSO/Spec rstack overflow/INCEPTION)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1057,6 +1066,15 @@
   <a href="#rsb-fillingstuffing" class="md-nav__link">
     <span class="md-ellipsis">
       RSB filling/stuffing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-ret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safe RET
     </span>
   </a>
   
@@ -2481,13 +2499,34 @@
 <li>在部分处理器上，当 Return Stack Buffer 为空的时候，ret 的预测会交给间接分支预测器去预测，而间接分支预测器在之前 Spectre Variant 2 Branch Target Injection 的时候，就被攻击过了</li>
 <li>Intel 处理器对 Return Stack Buffer Underflow 的处理方式有如下几种类型：<ul>
 <li>RSB Alternate (RSBA)：RSB 为空时，用间接分支预测器预测 ret，会受到其他特权级的影响，此时会有安全问题</li>
-<li>Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则不会受到其他特权级的影响</li>
+<li>Restricted RSB Alternate (RRSBA): RSB 为空时，用间接分支预测器预测 ret，如果打开了 eIBRS，则在一个特权级下的预测不会受到其他特权级的影响（例如用户态无法影响到内核态）</li>
 <li>RRSBA_DIS_S: 可以通过配置 <code>IA32_SPEC_CTRL.RRSBA_DIS_S = 1</code>，使得在 RSB 为空时，不去预测 ret 的目的地址</li>
 </ul>
 </li>
 <li>缓解措施：<ul>
 <li>RSB stuffing/filling</li>
 <li>RRSBA_DIS_S</li>
+</ul>
+</li>
+</ul>
+<h3 id="speculative-return-stack-overflow-srsospec-rstack-overflowinception">Speculative Return Stack Overflow (SRSO/Spec rstack overflow/INCEPTION)</h3>
+<ul>
+<li><a href="https://docs.kernel.org/admin-guide/hw-vuln/srso.html">Speculative Return Stack Overflow (SRSO)</a></li>
+<li><a href="https://comsec.ethz.ch/inception">Inception: how a simple XOR can cause a Microarchitectural Stack Overflow</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf">TECHNICAL UPDATE REGARDING SPECULATIVE RETURN STACK OVERFLOW</a></li>
+<li><a href="https://www.cve.org/CVERecord?id=CVE-2023-20569">CVE-2023-20569</a></li>
+<li>原理：<ul>
+<li>ret 的目的地址由 Return Stack Buffer 来预测，预测的前提是有一个匹配的 call</li>
+<li>正常情况下，call 和 ret 是可以配对的，那么 ret 会被预测到 call 的下一条指令的地址上</li>
+<li>在 AMD 的一些处理器上，BTB 是可能出现 alias 的，也就是不同的地址会被映射到同一个 BTB Entry 上，并且无法区分</li>
+<li>如果两段代码，被映射到同一个 BTB Entry 上，第一段代码有 call，第二段代码没有，假如通过执行第一段代码，让 BTB 记录下第一段代码的 call 指令信息，那么 BTB 在预测第二段代码的时候，会认为第二段代码也有 call，即使实际上并没有</li>
+<li>在 BTB 预测第二段代码有 call 的时候，会更新 Return Stack Buffer 的状态，进而影响了后续 ret 指令的预测，即使第二段代码实际上并没有 call 指令</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>硬件上，BTB 也要用 full tag 比较，不允许 alias</li>
+<li>Safe RET</li>
+<li>Indirect Branch Prediction Barrier (IBPB)</li>
 </ul>
 </li>
 </ul>
@@ -2620,6 +2659,12 @@
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nf">addq</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="nv">%rsp</span>
 </span></code></pre></div></li>
 </ul>
+<h3 id="safe-ret">Safe RET</h3>
+<ul>
+<li>Safe RET 和 Retpoline 类似，也是要强迫 ret 被预测到指定的错误路径上，避免被攻击者控制预测的地址</li>
+<li>但 Safe RET 要解决的是 Speculative Return Stack Overflow 漏洞中，BTB 出现 alias 的问题</li>
+<li>因此 Safe RET 的解决办法是，主动构造 BTB alias，先把攻击者从 BTB 中刷掉，再去进行实际的 ret</li>
+</ul>
 <h3 id="intel-msr">Intel MSR</h3>
 <ul>
 <li>Intel 处理器上很多缓解措施的控制都和两个 MSR 有关：IA32_SPEC_CTRL 和 IA32_PRED_CMD，这里总结一下它们的各个字段：</li>
@@ -2649,7 +2694,6 @@
 <li>Mds</li>
 <li>Mmio stable data</li>
 <li>Reg file data sampling</li>
-<li>Spec rstack overflow</li>
 <li>Spec store bypass</li>
 <li>Srbds</li>
 <li>Tsx async abort</li>
@@ -2659,7 +2703,6 @@
 <li>BHI_DIS_S</li>
 <li>PTE Inversion</li>
 <li>Zenbleed</li>
-<li>Safe RET</li>
 <li>untrained return thunk</li>
 </ul>
 
@@ -2684,7 +2727,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月3日</span>
   </span>
 
     
