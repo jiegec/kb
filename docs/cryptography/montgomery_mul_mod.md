@@ -51,7 +51,7 @@ $$
 
 ### REDC
 
-首先介绍 Montogomery 的 REDC 算法，为了计算 $a * b * R^{-1} \bmod N$ 的结果，它的步骤是：
+首先介绍 Montgomery 的 REDC 算法，为了计算 $a * b * R^{-1} \bmod N$ 的结果，它的步骤是：
 
 1. 预先计算 $N'$，满足 $NN' \equiv -1 \bmod R$
 2. 计算 $T=a*b$
