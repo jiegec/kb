@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/en/software/cuda.html">
+        <link rel="canonical" href="https://jia.je/kb/en/hardware/rvv.html">
       
       
-        <link rel="prev" href="cpio.html">
+        <link rel="prev" href="pcie.html">
       
       
-        <link rel="next" href="dijkstra.html">
+        <link rel="next" href="sdram.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>CUDA - Jiegec's Knowledge Base</title>
+        <title>RISC-V Vector (RVV) Extension - Jiegec's Knowledge Base</title>
       
     
     
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA - Jiegec's Knowledge Base" >
+        <meta  property="og:title"  content="RISC-V Vector (RVV) Extension - Jiegec's Knowledge Base" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/cuda.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/rvv.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,15 +85,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/en/software/cuda.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/en/hardware/rvv.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA - Jiegec's Knowledge Base" >
+        <meta  name="twitter:title"  content="RISC-V Vector (RVV) Extension - Jiegec's Knowledge Base" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/cuda.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/rvv.png" >
       
     
     
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda" class="md-skip">
+        <a href="#risc-v-vector-rvv-extension" class="md-skip">
           Skip to content
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA
+              RISC-V Vector (RVV) Extension
             
           </span>
         </div>
@@ -173,13 +173,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="cuda.html" hreflang="en" class="md-select__link">
+            <a href="rvv.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../../software/cuda.html" hreflang="zh" class="md-select__link">
+            <a href="../../hardware/rvv.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -301,11 +301,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../hardware/async_sram.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="async_sram.html" class="md-tabs__link">
           
   
     
@@ -361,13 +363,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="2fa.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../software/2fa.html" class="md-tabs__link">
           
   
     
@@ -624,8 +624,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -686,21 +688,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -712,7 +715,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Hardware
@@ -726,7 +729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/async_sram.html" class="md-nav__link">
+      <a href="async_sram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -748,7 +751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/bus_protocol.html" class="md-nav__link">
+      <a href="bus_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -770,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/cache_coherence_protocol.html" class="md-nav__link">
+      <a href="cache_coherence_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -792,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/chiplet.html" class="md-nav__link">
+      <a href="chiplet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -814,7 +817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/cmos.html" class="md-nav__link">
+      <a href="cmos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -836,7 +839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/conditional_branch_predictor.html" class="md-nav__link">
+      <a href="conditional_branch_predictor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -858,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/cpu_microarchitecture.html" class="md-nav__link">
+      <a href="cpu_microarchitecture.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -880,7 +883,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/cpu_vulnerabilities.html" class="md-nav__link">
+      <a href="cpu_vulnerabilities.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -902,7 +905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/cxl.html" class="md-nav__link">
+      <a href="cxl.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -924,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/display_interface.html" class="md-nav__link">
+      <a href="display_interface.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -946,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/error_detection_correction_code.html" class="md-nav__link">
+      <a href="error_detection_correction_code.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -968,7 +971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/gpgpu.html" class="md-nav__link">
+      <a href="gpgpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -990,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/high_speed_serial.html" class="md-nav__link">
+      <a href="high_speed_serial.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1012,7 +1015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/huawei.html" class="md-nav__link">
+      <a href="huawei.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1034,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/i2c.html" class="md-nav__link">
+      <a href="i2c.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1056,7 +1059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/logic_levels.html" class="md-nav__link">
+      <a href="logic_levels.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1078,7 +1081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/motherboard.html" class="md-nav__link">
+      <a href="motherboard.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1100,7 +1103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/nand_flash.html" class="md-nav__link">
+      <a href="nand_flash.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1122,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/on_chip_networks.html" class="md-nav__link">
+      <a href="on_chip_networks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1144,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/ooo_cpu.html" class="md-nav__link">
+      <a href="ooo_cpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1166,7 +1169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/oscillator.html" class="md-nav__link">
+      <a href="oscillator.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1188,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/pcie.html" class="md-nav__link">
+      <a href="pcie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1207,10 +1210,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../hardware/rvv.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    RISC-V Vector (RVV) Extension
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="rvv.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1220,6 +1244,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csr" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSR
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1232,7 +1294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/sdram.html" class="md-nav__link">
+      <a href="sdram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1254,7 +1316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/signal_processing.html" class="md-nav__link">
+      <a href="signal_processing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1276,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/spi.html" class="md-nav__link">
+      <a href="spi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1298,7 +1360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware/usb_hci.html" class="md-nav__link">
+      <a href="usb_hci.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1644,10 +1706,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1700,22 +1760,21 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1727,7 +1786,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Software
@@ -1741,7 +1800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="2fa.html" class="md-nav__link">
+      <a href="../software/2fa.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1763,7 +1822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="abi.html" class="md-nav__link">
+      <a href="../software/abi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1785,7 +1844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="atomic_instructions.html" class="md-nav__link">
+      <a href="../software/atomic_instructions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1807,7 +1866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="aws-pricing.html" class="md-nav__link">
+      <a href="../software/aws-pricing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1829,7 +1888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cfi.html" class="md-nav__link">
+      <a href="../software/cfi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1851,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cg.html" class="md-nav__link">
+      <a href="../software/cg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1873,7 +1932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cpio.html" class="md-nav__link">
+      <a href="../software/cpio.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1892,31 +1951,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    CUDA
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="cuda.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../software/cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1926,86 +1964,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#cuda-stream" class="md-nav__link">
-    <span class="md-ellipsis">
-      CUDA Stream
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="CUDA Stream">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      异步任务
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memcpy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memcpy 异步问题
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      异步任务间的依赖
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implicitexplicit-synchronization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implicit/Explicit Synchronization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stream-ordered-memory-allocator" class="md-nav__link">
-    <span class="md-ellipsis">
-      Stream Ordered Memory Allocator
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2018,7 +1976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dijkstra.html" class="md-nav__link">
+      <a href="../software/dijkstra.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2040,7 +1998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="doh.html" class="md-nav__link">
+      <a href="../software/doh.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2062,7 +2020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gcc.html" class="md-nav__link">
+      <a href="../software/gcc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2084,7 +2042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="linux_graphics.html" class="md-nav__link">
+      <a href="../software/linux_graphics.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2106,7 +2064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="linux_mm.html" class="md-nav__link">
+      <a href="../software/linux_mm.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2128,7 +2086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="linux_resctrl.html" class="md-nav__link">
+      <a href="../software/linux_resctrl.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2150,7 +2108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="linux_scheduler.html" class="md-nav__link">
+      <a href="../software/linux_scheduler.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2172,7 +2130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ohos.html" class="md-nav__link">
+      <a href="../software/ohos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2194,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="postgresql.html" class="md-nav__link">
+      <a href="../software/postgresql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2216,7 +2174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="redshift.html" class="md-nav__link">
+      <a href="../software/redshift.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2238,7 +2196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="sgemm_cuda.html" class="md-nav__link">
+      <a href="../software/sgemm_cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2260,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="spark.html" class="md-nav__link">
+      <a href="../software/spark.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2282,7 +2240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="svg.html" class="md-nav__link">
+      <a href="../software/svg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2304,7 +2262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tar.html" class="md-nav__link">
+      <a href="../software/tar.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2326,7 +2284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="transformer.html" class="md-nav__link">
+      <a href="../software/transformer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2365,7 +2323,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/software/cuda.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/rvv.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2373,74 +2331,36 @@
   
 
 
-<h1 id="cuda">CUDA</h1>
-<p>参考文档：</p>
+<h1 id="risc-v-vector-rvv-extension">RISC-V Vector (RVV) Extension</h1>
+<p>规范：<a href="https://github.com/riscvarchive/riscv-v-spec">riscvarchive/riscv-v-spec</a></p>
+<h2 id="_1">概念</h2>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">CUDA C Programming Guide</a></li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-runtime-api/api-sync-behavior.html#api-sync-behavior__memcpy-async">API synchronization behavior</a></li>
-<li><a href="https://leimao.github.io/blog/Page-Locked-Host-Memory-Data-Transfer/">Page-Locked Host Memory for Data Transfer</a></li>
-<li><a href="https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/">How to Optimize Data Transfers in CUDA C/C++</a></li>
+<li>VLEN: 每个向量寄存器的宽度，单位是 bit</li>
+<li>SEW(Selected Element Width): 当前的元素宽度，单位是 bit，取值 8/16/32/64</li>
+<li>ELEN: 支持的 SEW 的最大值</li>
+<li>LMUL: Vector register group multiplier，把一到多个的向量寄存器绑在一起当成一个向量寄存器来用，可以是整数，也可以是分数，取值 1/8, 1/4, 1/2, 1, 2, 4, 8</li>
+<li>VLMAX: 最大的元素个数：<code>LMUL*VLEN/SEW</code></li>
+<li>EEW: effective element width，默认是 SEW，但如果指令自带了宽度，EEW 可能和 SEW 不同</li>
+<li>EMUL: effective LMUL，默认是 LMUL，但如果 EEW 和 SEW 不同，那么可以通过 EEW/EMUL=SEW/LMUL 得到 EMUL 的值，这样保证了元素个数是不变的</li>
 </ul>
-<h2 id="cuda-stream">CUDA Stream</h2>
-<p>CUDA Stream 是用来给 CUDA 上的异步任务保序的 API。</p>
-<h3 id="_1">异步任务</h3>
-<p>CUDA 上的异步任务包括：</p>
+<h2 id="csr">CSR</h2>
 <ul>
-<li>Kernel Launch</li>
-<li>同一个 Device 内的 Memcpy（<code>Memory copies within a single device’s memory</code>）</li>
-<li>Host to Device 并且小于 64KB 的 Memcpy（<code>Memory copies from host to device of a memory block of 64 KB or less</code>）</li>
-<li>使用 Async 后缀的 CUDA Memcpy 函数（<code>Memory copies performed by functions that are suffixed with Async</code>）</li>
-<li>Memset（<code>Memory set function calls</code>）</li>
+<li>mstatus/vsstatus: 和浮点类似，用来启用/关闭 RVV，方便上下文切换</li>
+<li>vtype: 最主要的 rvv 状态，通过 <code>vset{i}vl{i}</code> 指令设置，包括如下字段：<ul>
+<li>vill: illegal，用来检测不合法的 vtype</li>
+<li>vma: 设置没有被 mask enable 的部分怎么处理：undisturbed（不变）或 agnostic（硬件决定不变或者写为全 1）</li>
+<li>vta：设置没有被 vl 覆盖的部分怎么处理，也是 undisturbed 或 agnostic</li>
+<li>vsew：设置 SEW</li>
+<li>vlmul：设置 LMUL</li>
 </ul>
-<p>这些任务和 Host 代码是异步的，也就是说，任务还没有完成的时候，函数就返回了，Host 可以继续执行后面的代码。GPU 也支持同时执行不同任务，例如可以同时执行多个 Kernel（<code>Some devices of compute capability 2.x and higher can execute multiple kernels concurrently.</code>），在执行 Kernel 的同时进行异步的 Memcpy（<code>Some devices can perform an asynchronous memory copy to or from the GPU concurrently with kernel execution.</code>）。</p>
-<h3 id="memcpy">Memcpy 异步问题</h3>
-<p>针对 Memcpy 的异步问题，这里需要涉及到一些设计细节：对于 Host to Device Memcpy，由于数据所在的页默认是可换出的（pageable），因此如果要把数据 DMA 到 device，有可能 DMA 到中途，页被操作系统换出，数据被替换成了别的页的内容，此时就会传输错误的数据。因此实际上会先复制一份 src 数组的内容到 staging memory 上，再从 staging memory DMA 到 Device（<code>the pageable buffer has been copied to the staging memory for DMA transfer to device memory</code>）。自然，staging memory 会放在 pinned/page-locked（不可换出）内存上，保证在 DMA 的时候，数据一直在内存中。这个过程可以看 <a href="https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/">How to Optimize Data Transfers in CUDA C/C++</a> 的图解。也可以直接在 CUDA 中分配 pinned 内存，这样在 memcpy 的时候就不会多一个拷贝的开销，但是 pinned 内存也不建议开太多，否则在内存吃紧的时候，会发现无页可换。</p>
-<p>而 64KB 可能是一个阈值，如果要复制的数据小于 64KB，可能就不走 DMA 的方式，而是直接由 CPU 把数据通过 PCIe 复制到 GPU 上。但是为什么小于 64KB 就是异步，大于 64KB 是“同步”，我并没有想明白。在 <a href="https://docs.nvidia.com/cuda/cuda-runtime-api/api-sync-behavior.html#api-sync-behavior__memcpy-async">API synchronization behavior</a> 对于 memcpy 的同步/异步性质有另一份表述：</p>
-<p>对于“同步”的 Memcpy 来说：</p>
-<ul>
-<li>从 Pageable Host 内存拷贝到 Device 内存，首先会同步 stream，在把数据复制到 staging memory 后，memcpy 函数就返回，不会等到 DMA 完成（<code>For transfers from pageable host memory to device memory, a stream sync is performed before the copy is initiated. The function will return once the pageable buffer has been copied to the staging memory for DMA transfer to device memory, but the DMA to final destination may not have completed.</code>）</li>
-<li>从 Pinned Host 内存拷贝到 Device 内存，等到拷贝完成才返回（<code>For transfers from pinned host memory to device memory, the function is synchronous with respect to the host.</code>）</li>
-<li>从 Device 内存拷贝到 Host 内存，无论是 Pageable 还是 Pinned，等到拷贝完成才返回（<code>For transfers from device to either pageable or pinned host memory, the function returns only once the copy has completed.</code>）</li>
-<li>从 Device 内存拷贝到 Device 内存是异步的（<code>For transfers from device memory to device memory, no host-side synchronization is performed.</code>）</li>
-<li>从 Host 内存拷贝到 Host 内存，等到拷贝完成才返回（<code>For transfers from any host memory to any host memory, the function is fully synchronous with respect to the host.</code>）</li>
+</li>
+<li>vl: 当前的向量寄存器长度，单位是元素个数，最大值是 VLMAX</li>
+<li>vlenb: 保存了 VLEN/8</li>
+<li>vstart：执行时跳过开头的一些元素，用于异常恢复</li>
+<li>vxrm: rounding mode</li>
+<li>vxsat: saturation flag</li>
+<li>vcsr: vxrm + vxsat</li>
 </ul>
-<p>对于“异步”的 Memcpy 来说：</p>
-<ul>
-<li>在 Device 内存和 Pageable Host 内存之间拷贝，即使用了异步 Memcpy，也可能会同步（<code>For transfers between device memory and pageable host memory, the function might be synchronous with respect to host.</code>）</li>
-<li>在 Host 内存和 Host 内存之间拷贝，即使用了异步 Memcpy，也一定会同步（<code>For transfers from any host memory to any host memory, the function is fully synchronous with respect to the host.</code>）</li>
-<li>如果在拷贝的时候，Pageable Memory 的内容必须首先拷贝到 staging memory，那么异步的 Memcpy 可能会同步 stream 并且把数据复制到 staging memory（<code>If pageable memory must first be staged to pinned memory, the driver may synchronize with the stream and stage the copy into pinned memory.</code>）</li>
-<li>其他情况下，异步 Memcpy 是异步的（<code>For all other transfers, the function should be fully asynchronous.</code>）</li>
-</ul>
-<p>我认为这一份表述应该反映了比较新的 CUDA 的实际设定，只不过为了兼容旧版本/旧设备，也保留了那个奇怪的 64KB 的表述。</p>
-<h3 id="_2">异步任务间的依赖</h3>
-<p>但很多时候，异步任务之间是有依赖的，例如 launch kernel 需要用到在它之前的 memcpy 所写入的数据。既希望这两个有依赖的异步任务之间按照顺序执行以保证正确性，又希望和其他没有依赖的异步任务可以同时在 GPU 上执行，这时候就可以用 CUDA stream 来保证部分异步任务的顺序。同一个 CUDA Stream 内的任务保证顺序（<code>A stream is a sequence of commands (possibly issued by different host threads) that execute in order</code>），不同 CUDA Stream 的任务不保证顺序（<code>Different streams, on the other hand, may execute their commands out of order with respect to one another or concurrently</code>）。</p>
-<p>创建 CUDA stream 使用的是 <code>cudaStreamCreate</code> 函数。使用异步任务时，通常有一个可选的 stream 参数，可以传入自己创建的 CUDA stream。销毁 CUDA stream 使用的是 <code>cudaStreamDestroy</code> 函数。</p>
-<p>CUDA stream 在创建的时候会被绑定到创建时的当前 CUDA device（<code>A host thread can set the device it operates on at any time by calling cudaSetDevice(). Device memory allocations and kernel launches are made on the currently set device; streams and events are created in association with the currently set device.</code>）。如果 Launch kernel 时指定的 stream 不属于当前 CUDA device，就会失败（<code>A kernel launch will fail if it is issued to a stream that is not associated to the current device</code>），而 memcpy 没有这个限制（<code>A memory copy will succeed even if it is issued to a stream that is not associated to the current device.</code>）。</p>
-<p>如果异步任务在启动时，没有指定 stream（<code>Kernel launches and host &lt;-&gt; device memory copies that do not specify any stream parameter</code>），或者指定了 stream 等于 0（<code>or equivalently that set the stream parameter to zero</code>），实际上会加入到 default stream 中。默认情况下，default stream 是一个特殊的 NULL stream，每个设备有一个唯一的 NULL stream，它的规则是特殊的（<code>the default stream is a special stream called the NULL stream and each device has a single NULL stream used for all host threads.</code>），也就是所谓的 Implicit Synchronization（<code>The NULL stream is special as it causes implicit synchronization as described in Implicit Synchronization.</code>）。后面会讨 Explicit Synchronization 和 Implicit Synchronization。</p>
-<p>如果编译时传递了 <code>--default-stream per-thread</code> 参数，那么 default stream 就是一个普通的 stream，并且每个 Host thread 都有自己的 default stream（<code>For code that is compiled using the --default-stream per-thread compilation flag (or that defines the CUDA_API_PER_THREAD_DEFAULT_STREAM macro before including CUDA headers (cuda.h and cuda_runtime.h)), the default stream is a regular stream and each host thread has its own default stream.</code>）。</p>
-<p>虽然 stream 之间不保证顺序，但有时候，又希望在 stream 之间建立一个临时的依赖关系。此时可以用 event 来实现：首先用 <code>cudaEventRecord</code> 函数，把一个 stream 上的任务记录下来（<code>Captures in event the contents of stream at the time of this call. event and stream must be on the same CUDA context. Calls such as cudaEventQuery() or cudaStreamWaitEvent() will then examine or wait for completion of the work that was captured</code>），之后就可以用 <code>cudaStreamWaitEvent</code> 函数在另一个 stream 上等待 event 记录下来的任务完成（<code>cudaStreamWaitEvent() takes a stream and an event as parameters (see Events for a description of events) and makes all the commands added to the given stream after the call to cudaStreamWaitEvent() delay their execution until the given event has completed.</code>）。</p>
-<h3 id="implicitexplicit-synchronization">Implicit/Explicit Synchronization</h3>
-<p>Stream 保证了任务在 GPU 上执行的顺序，但是它们和 Host 代码依然是异步的。为了让 Host 代码可以等待 GPU 上的任务完成，可以用 <code>cudaDeviceSynchronize</code> 等待所有 stream 上的任务完成（<code>cudaDeviceSynchronize() waits until all preceding commands in all streams of all host threads have completed.</code>），或者用 <code>cudaStreamSynchronize</code> 来等待具体某个 stream 上的任务完成（<code>cudaStreamSynchronize()takes a stream as a parameter and waits until all preceding commands in the given stream have completed. It can be used to synchronize the host with a specific stream, allowing other streams to continue executing on the device.</code>）。</p>
-<p>此外，还有上面提到过的 <code>cudaStreamWaitEvent</code> 函数，它可以用来在多个 stream 之间做同步（<code>cudaStreamWaitEvent() takes a stream and an event as parameters (see Events for a description of events) and makes all the commands added to the given stream after the call to cudaStreamWaitEvent() delay their execution until the given event has completed.</code>）。上述同步方法，都需要在 Host 上执行对应的函数，因此是 Explicit Synchronization。</p>
-<p>另一种同步方法是 Implicit Synchronization：一些操作会被认为是同步点，在同步点之前的任务不会和同步点之后的任务同时进行（<code>Two commands from different streams cannot run concurrently if any one of the following operations is issued in-between them by the host thread:</code>）：</p>
-<ul>
-<li>Host page-locked 内存分配（<code>a page-locked host memory allocation</code>）</li>
-<li>Device 内存分配（<code>a device memory allocation</code>）</li>
-<li>Device 内存 memset（<code>a device memory set</code>）</li>
-<li>同一个 Device 内存上的 memcpy（<code>a memory copy between two addresses to the same device memory</code>）</li>
-<li>发送到 NULL stream 的 CUDA 命令（<code>any CUDA command to the NULL stream</code>）</li>
-<li>修改 L1 和 Shared memory 大小的配置（<code>a switch between the L1/shared memory configurations described in Compute Capability 7.x</code>）</li>
-</ul>
-<p>Implicit Synchronization 用在 NULL stream 上，也就是不设置 per-thread 参数时的 default stream，也就是 cudaStreamLegacy。我理解这个是为了照顾旧 CUDA 代码而保留的设定，因为它做了很多同步的保证，导致异步的程度比较低，所以旧的 CUDA 代码可能假设了这些保证，而没有插入显式的同步调用。</p>
-<p>根据 <a href="https://docs.nvidia.com/cuda/cuda-runtime-api/stream-sync-behavior.html#stream-sync-behavior">Stream synchronization behavior</a>，它会生成一个隐式的全局 Barrier：在 NULL(legacy) stream 上提交任务的时候，会首先等待所有的 blocking stream，然后提交自己这个任务，然后所有的 blocking stream 再等待 legacy stream 上的任务（<code>The legacy default stream is an implicit stream which synchronizes with all other streams in the same CUcontext except for non-blocking streams, described below. (For applications using the runtime APIs only, there will be one context per device.) When an action is taken in the legacy stream such as a kernel launch or cudaStreamWaitEvent(), the legacy stream first waits on all blocking streams, the action is queued in the legacy stream, and then all blocking streams wait on the legacy stream.</code>）。blocking stream 指的是在 stream 创建时，没有指定 cudaStreamNonBlocking 参数的 stream（<code>Non-blocking streams which do not synchronize with the legacy stream can be created using the cudaStreamNonBlocking flag with the stream creation APIs.</code>）。页面上给了一个例子：</p>
-<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">k_1</span><span class="o">&lt;&lt;&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="o">&gt;&gt;&gt;</span><span class="p">();</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">k_2</span><span class="o">&lt;&lt;&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;&gt;&gt;</span><span class="p">();</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">k_3</span><span class="o">&lt;&lt;&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="o">&gt;&gt;&gt;</span><span class="p">();</span>
-</span></code></pre></div>
-<p><code>k_2</code> 在 NULL(legacy) stream 上提交，因此会等待 <code>k_1</code> 完成，而其后的 <code>k_3</code> 又会等 <code>k_2</code> 完成。</p>
-<p>可以看到，这其实都是在打补丁：现成代码不能破坏，怎么办？默认用 legacy stream 机制，不得不四处同步，如果程序要想要逃离这个困境，就得创建一个 nonblocking 的 stream。对于新代码，要么打开 per thread 参数，把默认 thread 都换成正常的 stream；要么每次 launch 的时候，都显式指定一个 stream。</p>
-<h3 id="stream-ordered-memory-allocator">Stream Ordered Memory Allocator</h3>
-<p>解决 NULL(legacy) stream 的历史遗留问题以后，还有一个操作会成为同步点：内存分配，内存分配的时候会同步所有的 CUDA stream（<code>Managing memory allocations using cudaMalloc and cudaFree causes GPU to synchronize across all executing CUDA streams.</code>）。于是新的 CUDA 也给内存分配添加了异步版本，和 Stream 绑定在一起：<code>cudaMallocAsync</code> 和 <code>cudaFreeAsync</code> 函数。具体使用方法，可以见 <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#api-fundamentals-cudamallocasync-and-cudafreeasync">API Fundamentals (cudaMallocAsync and cudaFreeAsync)</a>。</p>
 
 
 
@@ -2463,7 +2383,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年11月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月27日</span>
   </span>
 
     
@@ -2473,7 +2393,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年11月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月27日</span>
   </span>
 
     
@@ -2552,7 +2472,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="cpio.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: cpio 文件格式">
+          <a href="pcie.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: PCIe (Peripheral Component Interconnect Express)">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2562,20 +2482,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                cpio 文件格式
+                PCIe (Peripheral Component Interconnect Express)
               </div>
             </div>
           </a>
         
         
           
-          <a href="dijkstra.html" class="md-footer__link md-footer__link--next" aria-label="Next: Dijkstra 算法">
+          <a href="sdram.html" class="md-footer__link md-footer__link--next" aria-label="Next: SDRAM (Synchronous Dynamic Random Access Memory)">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Dijkstra 算法
+                SDRAM (Synchronous Dynamic Random Access Memory)
               </div>
             </div>
             <div class="md-footer__button md-icon">
