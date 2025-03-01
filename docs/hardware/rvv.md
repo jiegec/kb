@@ -2,6 +2,12 @@
 
 规范：[riscvarchive/riscv-v-spec](https://github.com/riscvarchive/riscv-v-spec)
 
+PPT：
+
+- [RISC-V Vector Extension Webinar I](https://www.andestech.com/wp-content/uploads/Andes-RVV-Webinar-I.pdf)
+- [RISC-V Vector Extension Webinar II](https://www.andestech.com/wp-content/uploads/Andes-RVV-Webinar-II_final.pdf)
+- [RISC-V Vector Extension Webinar III](https://www.andestech.com/wp-content/uploads/Andes-RVV-Webinar-III.pdf)
+
 ## 概念
 
 - VLEN: 每个向量寄存器的宽度，单位是 bit
@@ -11,6 +17,7 @@
 - VLMAX: 最大的元素个数：`LMUL*VLEN/SEW`
 - EEW: effective element width，默认是 SEW，但如果指令自带了宽度，EEW 可能和 SEW 不同
 - EMUL: effective LMUL，默认是 LMUL，但如果 EEW 和 SEW 不同，那么可以通过 EEW/EMUL=SEW/LMUL 得到 EMUL 的值，这样保证了元素个数是不变的
+- Mask: v0 作为可选的 mask 寄存器，每个 bit 对应一个 element
 
 ## CSR
 
@@ -21,9 +28,9 @@
 	- vta：设置没有被 vl 覆盖的部分怎么处理，也是 undisturbed 或 agnostic
 	- vsew：设置 SEW
 	- vlmul：设置 LMUL
-- vl: 当前的向量寄存器长度，单位是元素个数，最大值是 VLMAX
+- vl: 当前的向量寄存器长度，通过 `vset{i}vl{i}` 指令设置，单位是元素个数，最大值是 VLMAX
 - vlenb: 保存了 VLEN/8
-- vstart：执行时跳过开头的一些元素，用于异常恢复
+- vstart：执行时跳过开头的一些元素，用于 load/store 的异常恢复
 - vxrm: rounding mode
 - vxsat: saturation flag
 - vcsr: vxrm + vxsat
