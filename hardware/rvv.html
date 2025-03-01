@@ -2333,6 +2333,12 @@
 
 <h1 id="risc-v-vector-rvv-extension">RISC-V Vector (RVV) Extension</h1>
 <p>规范：<a href="https://github.com/riscvarchive/riscv-v-spec">riscvarchive/riscv-v-spec</a></p>
+<p>PPT：</p>
+<ul>
+<li><a href="https://www.andestech.com/wp-content/uploads/Andes-RVV-Webinar-I.pdf">RISC-V Vector Extension Webinar I</a></li>
+<li><a href="https://www.andestech.com/wp-content/uploads/Andes-RVV-Webinar-II_final.pdf">RISC-V Vector Extension Webinar II</a></li>
+<li><a href="https://www.andestech.com/wp-content/uploads/Andes-RVV-Webinar-III.pdf">RISC-V Vector Extension Webinar III</a></li>
+</ul>
 <h2 id="_1">概念</h2>
 <ul>
 <li>VLEN: 每个向量寄存器的宽度，单位是 bit</li>
@@ -2342,6 +2348,7 @@
 <li>VLMAX: 最大的元素个数：<code>LMUL*VLEN/SEW</code></li>
 <li>EEW: effective element width，默认是 SEW，但如果指令自带了宽度，EEW 可能和 SEW 不同</li>
 <li>EMUL: effective LMUL，默认是 LMUL，但如果 EEW 和 SEW 不同，那么可以通过 EEW/EMUL=SEW/LMUL 得到 EMUL 的值，这样保证了元素个数是不变的</li>
+<li>Mask: v0 作为可选的 mask 寄存器，每个 bit 对应一个 element</li>
 </ul>
 <h2 id="csr">CSR</h2>
 <ul>
@@ -2354,9 +2361,9 @@
 <li>vlmul：设置 LMUL</li>
 </ul>
 </li>
-<li>vl: 当前的向量寄存器长度，单位是元素个数，最大值是 VLMAX</li>
+<li>vl: 当前的向量寄存器长度，通过 <code>vset{i}vl{i}</code> 指令设置，单位是元素个数，最大值是 VLMAX</li>
 <li>vlenb: 保存了 VLEN/8</li>
-<li>vstart：执行时跳过开头的一些元素，用于异常恢复</li>
+<li>vstart：执行时跳过开头的一些元素，用于 load/store 的异常恢复</li>
 <li>vxrm: rounding mode</li>
 <li>vxsat: saturation flag</li>
 <li>vcsr: vxrm + vxsat</li>
@@ -2383,7 +2390,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月27日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年3月1日</span>
   </span>
 
     
