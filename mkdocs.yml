@@ -38,6 +38,7 @@ plugins:
             Software: 软件
             Cryptography: 密码学
             Mathematics: 数学
+            Cooking: 厨艺
   - git-revision-date-localized:
       enable_creation_date: true
   - glightbox
