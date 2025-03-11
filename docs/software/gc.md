@@ -128,6 +128,10 @@ Copying Collection 的方法是，把堆分成两个区域，分别叫做 fromsp
 
 Reference Counting 就是引用计数，记录每个对象的引用次数，当次数降为 0 的时候释放。典型的实现有 C++ 的 shared_ptr，Rust 的 Rc 和 Arc。
 
+## Generational Garbage Collection
+
+针对不同对象的生命周期长短不同的情况，设置多个 generation 的 heap：对存活时间比较短的对象进行更频繁的垃圾回收，把存活时间较长的对象迁移到更旧的 generation 的 heap 上，对应更低频率的垃圾回收，从而减少垃圾回收的开销，这就是 Generational Garbage Collection。它的优点是可以提供更短的 pause time，因为垃圾回收的粒度变小了。
+
 ## 参考
 
 - [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/)
