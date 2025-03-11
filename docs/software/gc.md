@@ -132,6 +132,14 @@ Reference Counting 就是引用计数，记录每个对象的引用次数，当�
 
 针对不同对象的生命周期长短不同的情况，设置多个 generation 的 heap：对存活时间比较短的对象进行更频繁的垃圾回收，把存活时间较长的对象迁移到更旧的 generation 的 heap 上，对应更低频率的垃圾回收，从而减少垃圾回收的开销，这就是 Generational Garbage Collection。它的优点是可以提供更短的 pause time，因为垃圾回收的粒度变小了。
 
+## Parallel, Incremental 和 Concurrent
+
+为了改进垃圾回收的性能以及对 pause time 的影响，有这么几个概念：
+
+1. Parallel：把单线程的垃圾回收操作分配到多个线程上，主要目的是加速垃圾回收，但可能还是 stop the world，只是减少 pause time
+2. Incremental：把一次完整的垃圾回收操作拆成多次，一次长的 pause 被拆分成多个短的 pause，主要目的是减少最大的 pause time，改进响应性
+3. Concurrent：不 stop the world，mutator 和 collector 可以在不同的处理器核心上同时进行
+
 ## 参考
 
 - [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/)
