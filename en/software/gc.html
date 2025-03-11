@@ -2311,6 +2311,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#copying-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copying Collection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Copying Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cheney-scanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cheney Scanning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference Counting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       参考
@@ -2659,6 +2692,7 @@
 <li>stop the world：把 mutator 都停下来以后，启动垃圾回收，回收完成再继续 mutator 的执行</li>
 <li>GC root: 用于寻找活跃对象的根结点，通常包括寄存器，调用栈和全局变量，通过这些结点可以找到所有的活跃对象；无法通过根结点访问的对象，则是不活跃的对象</li>
 <li>interior pointer: 指针指向某个对象的中间位置，而不是对象开头</li>
+<li>read/write barrier：在 read/write 操作的附近，插入一些额外的操作用于垃圾回收</li>
 </ul>
 <h2 id="mark-sweep">Mark-Sweep</h2>
 <p>Mark-Sweep 垃圾回收分为两个阶段：</p>
@@ -2721,7 +2755,7 @@
 <li>第一轮，地址从低往高遍历，计算每个对象被 compact 后的地址，首先根据当前对象的链表去恢复引用当前对象的字段，由于遍历的顺序，只有地址低引用地址高的字段会被修正（称为“前向”引用）；然后，也以当前对象的字段去构造链表，最终地址高引用地址低的字段（称为“后向”引用）会留下来，用于第二轮</li>
 <li>第二轮，地址从低往高遍历，此时前向的引用都被修正了，可以移动对象到被 compact 后的地址，不用担心出错；而此时第一轮也把后向的引用都加入了链表当中，此时再修正后向的引用，由于地址比当前地址大的对象都没有被移动，所以修改不会出现问题</li>
 </ol>
-<p>这里利用遍历的顺序，把引用分为了前向和后向，巧妙地把三轮改成了两轮，并且保证了正确性。由于遍历的顺序相同，两轮计算出来的对象被 compact 后的地址也是相同的，也就不需要保存下来，节省了内存。这里还有一个巧妙的节省空间的设计，就是把原来对象头部的空间拿来存指针，然后把头部空间原来的内容放到链表的末尾。</p>
+<p>这里利用遍历的顺序，把引用分为了前向和后向，巧妙地把三轮改成了两轮，并且保证了正确性。由于遍历的顺序相同，两轮计算出来的对象被 compact 后的地址也是相同的，也就不需要保存下来，节省了内存。这里还有一个巧妙的节省空间的设计，就是把原来对象头部的空间拿来存指针，然后把头部空间原来的内容放到链表的末尾，最后再恢复回来，当然了，需要能够区分指针和对象头部的数据。</p>
 <p>这个算法在 <a href="https://csaws.cs.technion.ac.il/~erez/courses/gc/lectures/02-compaction.pdf">Algorithms for Dynamic Memory Management (236780) Lecture 2 by Erez Petrank</a> 中有详细的 step by step 图示，建议读者阅读。</p>
 <h3 id="one-pass-compaction">One Pass Compaction</h3>
 <p>还有一种 Compaction 的优化，叫做 One Pass Compaction。在前面的几种 Compact 算法中，都需要扫描堆中的活跃对象，从而计算出它们被 compact 后的新地址。而 One Pass Compaction 不是扫描堆中的活跃对象，而是扫描 bitmap，bitmap 记录了堆中哪些部分保存了活跃对象，哪些部分没有。根据这个信息，它进行如下的预处理操作：</p>
@@ -2735,7 +2769,20 @@
 <li>首先根据对象的地址，找到它属于哪个块，并处于块内的第几个对象，它前面要保存多少字节的数据</li>
 <li>找到对应块 compact 后的地址，加上块内的偏移，就得到了这个对象 compact 后的地址</li>
 </ol>
-<p>有了这个对应关系了以后，就可以把对象和各个字段中的指针按照同样的方法映射到 compact 后的地址，在移动对象的同时，也把指针更新好了。这个思路事实上就是通过分块，加速了地址计算，减少了地址计算的开销，从而避免了两轮遍历。</p>
+<p>有了这个对应关系了以后，就可以把对象和各个字段中的指针按照同样的方法映射到 compact 后的地址，在移动对象的同时，也把指针更新好了。这个思路事实上就是通过分块，加速了地址计算，减少了地址计算的开销，从而避免了两轮遍历。严格来说，遍历 bitmap 也要一轮，但是因为它比较小（若干个字节对应 bitmap 的一个 bit），所以就不算成一轮了。</p>
+<h2 id="copying-collection">Copying Collection</h2>
+<p>Copying Collection 的方法是，把堆分成两个区域，分别叫做 fromspace 和 tospace。一开始，所有的对象保存在 fromspace 中，要进行垃圾回收的时候，把活跃的对象从 fromspace 拷贝到 tospace 的连续空间中。当所有对象拷贝完成的时候，fromspace 可以直接清空。之后 tospace 和 fromspace 的角色互换，就像 double buffer 那样。</p>
+<p>在拷贝的时候，和之前的 Compact 算法类似，也需要记录对象的 forwardingAddress：当对象从 fromspace 迁移到 tospace 的时候，在 fromspace 的那一份对象的 forwardingAddress 记录的是它在 tospace 里的新地址。当然了，可以直接利用 fromspace 里的空间，原地保存 forwardingAddress。</p>
+<h3 id="cheney-scanning">Cheney Scanning</h3>
+<p>在遍历 fromspace 的对象用于复制的算法中，Cheney Scanning 算法是一种经典的实现，相当于用 tospace 来维护 BFS 的队列：</p>
+<ol>
+<li>首先把 GC root 引用的对象复制到 tospace 空间</li>
+<li>维护两个指针：<code>scan</code> 一开始指向 tospce 空间的最开头，<code>free</code> 指向 tospace 中空闲的空间的开头</li>
+<li>从 <code>scan</code> 指针开始，扫描 tospace 已有的对象，找到它所引用的在 fromspace 中还没复制到 tospace 的对象，把 fromspace 中的对象复制到 tospace 中 <code>free</code> 指向的空闲空间，更新 forwardingAddress，然后更新 <code>free</code> 指向剩余的空闲空间</li>
+<li>当 <code>scan</code> 等于 <code>free</code> 的时候，所有的 fromspace 活跃对象都已经复制完毕</li>
+</ol>
+<h2 id="reference-counting">Reference Counting</h2>
+<p>Reference Counting 就是引用计数，记录每个对象的引用次数，当次数降为 0 的时候释放。典型的实现有 C++ 的 shared_ptr，Rust 的 Rc 和 Arc。</p>
 <h2 id="_2">参考</h2>
 <ul>
 <li><a href="http://gchandbook.org/">The Garbage Collection Handbook - The art of automatic memory management</a></li>
@@ -2763,7 +2810,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 13:35:10">2025年3月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 15:43:33">2025年3月11日</span>
   </span>
 
     
