@@ -13,6 +13,7 @@
 - stop the world：把 mutator 都停下来以后，启动垃圾回收，回收完成再继续 mutator 的执行
 - GC root: 用于寻找活跃对象的根结点，通常包括寄存器，调用栈和全局变量，通过这些结点可以找到所有的活跃对象；无法通过根结点访问的对象，则是不活跃的对象
 - interior pointer: 指针指向某个对象的中间位置，而不是对象开头
+- read/write barrier：在 read/write 操作的附近，插入一些额外的操作用于垃圾回收
 
 ## Mark-Sweep
 
@@ -122,6 +123,10 @@ Copying Collection 的方法是，把堆分成两个区域，分别叫做 fromsp
 2. 维护两个指针：`scan` 一开始指向 tospce 空间的最开头，`free` 指向 tospace 中空闲的空间的开头
 3. 从 `scan` 指针开始，扫描 tospace 已有的对象，找到它所引用的在 fromspace 中还没复制到 tospace 的对象，把 fromspace 中的对象复制到 tospace 中 `free` 指向的空闲空间，更新 forwardingAddress，然后更新 `free` 指向剩余的空闲空间
 4. 当 `scan` 等于 `free` 的时候，所有的 fromspace 活跃对象都已经复制完毕
+
+## Reference Counting
+
+Reference Counting 就是引用计数，记录每个对象的引用次数，当次数降为 0 的时候释放。典型的实现有 C++ 的 shared_ptr，Rust 的 Rc 和 Arc。
 
 ## 参考
 
