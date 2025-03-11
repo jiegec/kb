@@ -2344,6 +2344,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#generational-garbage-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generational Garbage Collection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-incremental-concurrent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel, Incremental 和 Concurrent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       参考
@@ -2783,6 +2801,15 @@
 </ol>
 <h2 id="reference-counting">Reference Counting</h2>
 <p>Reference Counting 就是引用计数，记录每个对象的引用次数，当次数降为 0 的时候释放。典型的实现有 C++ 的 shared_ptr，Rust 的 Rc 和 Arc。</p>
+<h2 id="generational-garbage-collection">Generational Garbage Collection</h2>
+<p>针对不同对象的生命周期长短不同的情况，设置多个 generation 的 heap：对存活时间比较短的对象进行更频繁的垃圾回收，把存活时间较长的对象迁移到更旧的 generation 的 heap 上，对应更低频率的垃圾回收，从而减少垃圾回收的开销，这就是 Generational Garbage Collection。它的优点是可以提供更短的 pause time，因为垃圾回收的粒度变小了。</p>
+<h2 id="parallel-incremental-concurrent">Parallel, Incremental 和 Concurrent</h2>
+<p>为了改进垃圾回收的性能以及对 pause time 的影响，有这么几个概念：</p>
+<ol>
+<li>Parallel：把单线程的垃圾回收操作分配到多个线程上，主要目的是加速垃圾回收，但可能还是 stop the world，只是减少 pause time</li>
+<li>Incremental：把一次完整的垃圾回收操作拆成多次，一次长的 pause 被拆分成多个短的 pause，主要目的是减少最大的 pause time，改进响应性</li>
+<li>Concurrent：不 stop the world，mutator 和 collector 可以在不同的处理器核心上同时进行</li>
+</ol>
 <h2 id="_2">参考</h2>
 <ul>
 <li><a href="http://gchandbook.org/">The Garbage Collection Handbook - The art of automatic memory management</a></li>
@@ -2810,7 +2837,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 15:43:33">2025年3月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 16:22:39">2025年3月11日</span>
   </span>
 
     
