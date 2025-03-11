@@ -89,7 +89,7 @@ Threaded compactor 的思路是，复用已有的对象的字段的空间，去�
 1. 第一轮，地址从低往高遍历，计算每个对象被 compact 后的地址，首先根据当前对象的链表去恢复引用当前对象的字段，由于遍历的顺序，只有地址低引用地址高的字段会被修正（称为“前向”引用）；然后，也以当前对象的字段去构造链表，最终地址高引用地址低的字段（称为“后向”引用）会留下来，用于第二轮
 2. 第二轮，地址从低往高遍历，此时前向的引用都被修正了，可以移动对象到被 compact 后的地址，不用担心出错；而此时第一轮也把后向的引用都加入了链表当中，此时再修正后向的引用，由于地址比当前地址大的对象都没有被移动，所以修改不会出现问题
 
-这里利用遍历的顺序，把引用分为了前向和后向，巧妙地把三轮改成了两轮，并且保证了正确性。由于遍历的顺序相同，两轮计算出来的对象被 compact 后的地址也是相同的，也就不需要保存下来，节省了内存。这里还有一个巧妙的节省空间的设计，就是把原来对象头部的空间拿来存指针，然后把头部空间原来的内容放到链表的末尾。
+这里利用遍历的顺序，把引用分为了前向和后向，巧妙地把三轮改成了两轮，并且保证了正确性。由于遍历的顺序相同，两轮计算出来的对象被 compact 后的地址也是相同的，也就不需要保存下来，节省了内存。这里还有一个巧妙的节省空间的设计，就是把原来对象头部的空间拿来存指针，然后把头部空间原来的内容放到链表的末尾，最后再恢复回来，当然了，需要能够区分指针和对象头部的数据。
 
 这个算法在 [Algorithms for Dynamic Memory Management (236780) Lecture 2 by Erez Petrank](https://csaws.cs.technion.ac.il/~erez/courses/gc/lectures/02-compaction.pdf) 中有详细的 step by step 图示，建议读者阅读。
 
@@ -106,7 +106,22 @@ Threaded compactor 的思路是，复用已有的对象的字段的空间，去�
 1. 首先根据对象的地址，找到它属于哪个块，并处于块内的第几个对象，它前面要保存多少字节的数据
 2. 找到对应块 compact 后的地址，加上块内的偏移，就得到了这个对象 compact 后的地址
 
-有了这个对应关系了以后，就可以把对象和各个字段中的指针按照同样的方法映射到 compact 后的地址，在移动对象的同时，也把指针更新好了。这个思路事实上就是通过分块，加速了地址计算，减少了地址计算的开销，从而避免了两轮遍历。
+有了这个对应关系了以后，就可以把对象和各个字段中的指针按照同样的方法映射到 compact 后的地址，在移动对象的同时，也把指针更新好了。这个思路事实上就是通过分块，加速了地址计算，减少了地址计算的开销，从而避免了两轮遍历。严格来说，遍历 bitmap 也要一轮，但是因为它比较小（若干个字节对应 bitmap 的一个 bit），所以就不算成一轮了。
+
+## Copying Collection
+
+Copying Collection 的方法是，把堆分成两个区域，分别叫做 fromspace 和 tospace。一开始，所有的对象保存在 fromspace 中，要进行垃圾回收的时候，把活跃的对象从 fromspace 拷贝到 tospace 的连续空间中。当所有对象拷贝完成的时候，fromspace 可以直接清空。之后 tospace 和 fromspace 的角色互换，就像 double buffer 那样。
+
+在拷贝的时候，和之前的 Compact 算法类似，也需要记录对象的 forwardingAddress：当对象从 fromspace 迁移到 tospace 的时候，在 fromspace 的那一份对象的 forwardingAddress 记录的是它在 tospace 里的新地址。当然了，可以直接利用 fromspace 里的空间，原地保存 forwardingAddress。
+
+### Cheney Scanning
+
+在遍历 fromspace 的对象用于复制的算法中，Cheney Scanning 算法是一种经典的实现，相当于用 tospace 来维护 BFS 的队列：
+
+1. 首先把 GC root 引用的对象复制到 tospace 空间
+2. 维护两个指针：`scan` 一开始指向 tospce 空间的最开头，`free` 指向 tospace 中空闲的空间的开头
+3. 从 `scan` 指针开始，扫描 tospace 已有的对象，找到它所引用的在 fromspace 中还没复制到 tospace 的对象，把 fromspace 中的对象复制到 tospace 中 `free` 指向的空闲空间，更新 forwardingAddress，然后更新 `free` 指向剩余的空闲空间
+4. 当 `scan` 等于 `free` 的时候，所有的 fromspace 活跃对象都已经复制完毕
 
 ## 参考
 
