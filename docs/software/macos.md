@@ -3,13 +3,13 @@
 Apps:
 
 - Alfred, launch on Login
-- Rectangle
-- Squirrel Rime
-- iStat Menus
-- Firefox
-- Thunderbird
-- Visual Studio Code
-- iTerm
+- Rectangle, launch on Login
+- Squirrel Rime, launch on Login
+- iStat Menus, launch on Login
+- Firefox, pin to Dock
+- Thunderbird, pin to Dock
+- Visual Studio Code, pin to Dock
+- iTerm, pin to Dock
 - 1Password
 - Homebrew
 - Nix home-manager
