@@ -12,7 +12,7 @@ Apps:
 - Squirrel Rime
 - 1Password
 - Homebrew
-- Nix home-manager, `echo "trusted-users = $USER" >> /etc/nix/nix.conf`
+- Nix home-manager, `echo "trusted-users = $USER" >> /etc/nix/nix.conf && sudo launchctl unload /Library/LaunchDaemons/org.nixos.nix-daemon.plist && sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist`
 - Rustup
 
 Configs:
