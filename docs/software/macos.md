@@ -12,7 +12,7 @@ Apps:
 - Squirrel Rime
 - 1Password
 - Homebrew
-- Nix home-manager
+- Nix home-manager, `echo "trusted-users = $USER" >> /etc/nix/nix.conf`
 - Rustup
 
 Configs:
