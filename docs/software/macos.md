@@ -6,7 +6,7 @@ Apps:
 - Rectangle, launch on login
 - iStat Menus, launch on login
 - Firefox, pin to Dock
-- Thunderbird, pin to Dock
+- Thunderbird, pin to Dock, click top-right button and change ui density and font size in the menu
 - Visual Studio Code, pin to Dock
 - WeChat, pin to Dock
 - iTerm, pin to Dock
@@ -17,6 +17,7 @@ Apps:
 - Rustup & Crates.io with TUNA Mirrors
 - Windows App
 - Tencent Meeting
+- MikTeX
 
 Configs:
 
