@@ -24,3 +24,4 @@ Configs:
 - Settings -> Accessibility -> Pointer Control -> Trackpad Options -> Use trackpad for dragging -> Enabled -> Dragging style -> Three Finger Drag
 - Settings -> Keyboard -> Keyboard Shortcuts... -> Modifier Keys -> Caps Lock key -> Escape
 - Settings -> Desktop & Dock -> Hot Corners... -> Bottom Right -> Lock Screen
+- `sudo scutil --set HostName newhostname`
