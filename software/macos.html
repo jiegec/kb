@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/en/software/cfi.html">
+        <link rel="canonical" href="https://jia.je/kb/software/macos.html">
       
       
-        <link rel="prev" href="aws-pricing.html">
+        <link rel="prev" href="linux_scheduler.html">
       
       
-        <link rel="next" href="cg.html">
+        <link rel="next" href="ohos.html">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>控制流完整性 Control Flow Integrity - Jiegec's Knowledge Base</title>
+        <title>macOS Goodies - 杰哥的知识库</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
@@ -52,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="控制流完整性 Control Flow Integrity - Jiegec's Knowledge Base" >
+        <meta  property="og:title"  content="macOS Goodies - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/cfi.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/macos.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,19 +85,19 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/en/software/cfi.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/software/macos.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="控制流完整性 Control Flow Integrity - Jiegec's Knowledge Base" >
+        <meta  name="twitter:title"  content="macOS Goodies - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/cfi.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/macos.png" >
       
     
     
-   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -106,7 +106,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -118,8 +118,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#control-flow-integrity" class="md-skip">
-          Skip to content
+        <a href="#macos-goodies" class="md-skip">
+          跳转至
         </a>
       
     </div>
@@ -131,8 +131,8 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="杰哥的知识库" class="md-header__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -146,13 +146,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Jiegec's Knowledge Base
+            杰哥的知识库
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              控制流完整性 Control Flow Integrity
+              macOS Goodies
             
           </span>
         </div>
@@ -166,20 +166,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="Select language">
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="cfi.html" hreflang="en" class="md-select__link">
+            <a href="../en/software/macos.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../../software/cfi.html" hreflang="zh" class="md-select__link">
+            <a href="macos.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -198,21 +198,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -225,7 +225,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -236,7 +236,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -257,7 +257,7 @@
         
           
             
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -271,7 +271,7 @@
   
     
   
-  Home
+  主页
 
       </a>
     </li>
@@ -290,7 +290,7 @@
   
     
   
-  Cooking
+  厨艺
 
         </a>
       </li>
@@ -310,7 +310,7 @@
   
     
   
-  Cryptography
+  密码学
 
         </a>
       </li>
@@ -330,7 +330,7 @@
   
     
   
-  Hardware
+  硬件
 
         </a>
       </li>
@@ -350,7 +350,7 @@
   
     
   
-  Mathematics
+  数学
 
         </a>
       </li>
@@ -370,7 +370,7 @@
   
     
   
-  Networking
+  网络
 
         </a>
       </li>
@@ -392,7 +392,7 @@
   
     
   
-  Software
+  软件
 
         </a>
       </li>
@@ -422,19 +422,19 @@
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+    <a href="../index.html" title="杰哥的知识库" class="md-nav__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Jiegec's Knowledge Base
+    杰哥的知识库
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -458,7 +458,7 @@
         
   
   <span class="md-ellipsis">
-    Home
+    主页
     
   </span>
   
@@ -510,7 +510,7 @@
             
   
   <span class="md-ellipsis">
-    Cooking
+    厨艺
     
   </span>
   
@@ -521,7 +521,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Cooking
+            厨艺
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -704,7 +704,7 @@
             
   
   <span class="md-ellipsis">
-    Cryptography
+    密码学
     
   </span>
   
@@ -715,7 +715,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Cryptography
+            密码学
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -920,7 +920,7 @@
             
   
   <span class="md-ellipsis">
-    Hardware
+    硬件
     
   </span>
   
@@ -931,7 +931,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Hardware
+            硬件
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -946,7 +946,7 @@
         
   
   <span class="md-ellipsis">
-    Asynchronous SRAM
+    异步 SRAM
     
   </span>
   
@@ -1276,7 +1276,7 @@
         
   
   <span class="md-ellipsis">
-    Logic level standards
+    逻辑电平标准
     
   </span>
   
@@ -1574,7 +1574,7 @@
             
   
   <span class="md-ellipsis">
-    Mathematics
+    数学
     
   </span>
   
@@ -1585,7 +1585,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Mathematics
+            数学
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1724,7 +1724,7 @@
             
   
   <span class="md-ellipsis">
-    Networking
+    网络
     
   </span>
   
@@ -1735,7 +1735,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Networking
+            网络
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1939,7 +1939,7 @@
             
   
   <span class="md-ellipsis">
-    Software
+    软件
     
   </span>
   
@@ -1950,7 +1950,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            Software
+            软件
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2046,31 +2046,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    控制流完整性 Control Flow Integrity
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="cfi.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="cfi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2080,53 +2059,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      目的地址检查
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      影子栈
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      地址签名和验证
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2378,10 +2310,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="macos.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="macos.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2391,6 +2332,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -2596,7 +2538,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/software/cfi.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/macos.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2604,32 +2546,31 @@
   
 
 
-<h1 id="control-flow-integrity">控制流完整性 Control Flow Integrity</h1>
-<h2 id="_1">目的地址检查</h2>
-<p>一类常见的 CFI 机制是检查间接分支（call/jmp reg）的目的地址，是否落到预期的位置上，比如函数的开头。这个机制主要防止的是 ROP gadget，即从现有指令的中间某个位置开始执行一段代码，从而实现攻击者想要的效果。引入目的地址检查后，不再能从间接分支跳转到任意位置开始执行一段代码。这个预期的位置，一般是用指令来标识的。</p>
-<p><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html">Intel CET(Control-flow Enforcement Technology)</a> 包括 IBT(Indirect Branch Tracking) 机制，要求 call/jmp 指令跳转到 endbr32/endbr64 指令。编译时，可以用 <code>-fcf-protection</code> 来启用 IBT。可以用 <code>readelf -n $BINARY</code> 来查看它是否启用了 IBT：<code>Properties: x86 feature: IBT, SHSTK</code>。</p>
-<p><a href="https://developer.arm.com/documentation/109576/0100/Branch-Target-Identification">ARM BTI(Branch Target Identification)</a> 实现了这种机制。它的做法是，通过页表给页打上 Guarded Page 标记，被保护的页内 BTI 机制生效，此时间接分支的目的地址必须是一条 BTI 类的指令，否则就会触发异常。在不支持 BTI 的处理器上，BTI 会被当成 NOP 指令，因为 BTI 定义在了原来的 NOP 指令空间中。编译时，可以用 <code>-mbranch-protection=bti</code> 来启用 BTI，或者进一步用 <code>-mbranch-protection=standard</code> 来同时使用 BTI 和 PAC 两个保护机制。可以用 <code>readelf -n $BINARY</code> 来查看它是否启用了这些保护机制：<code>Properties: AArch64 feature: BTI, PAC</code>。</p>
-<p><a href="https://github.com/riscv/riscv-isa-manual/blob/main/src/unpriv-cfi.adoc">RISC-V Zicfilp</a> 扩展的实现方法很类似，也是在间接分支的预期目的地址上放一条 LPAD 指令，如果间接分支没跳到 LPAD 上，触发异常。LPAD 也是复用了已有的 NOP 指令空间（AUIPC 的 rd=x0），所以在没有实现这个扩展的处理器上会被当成 NOP 指令。</p>
-<h2 id="_2">影子栈</h2>
-<p>另一类常见的 CFI 检查针对的是 call/ret 指令，通常情况下，ret 会返回到对应的 call 的下一条指令的地址，但攻击者会希望通过控制返回地址来挟持控制流。为了避免控制流挟持，于是就有了影子栈（Shadow Stack），它以栈的形式存储 call stack 信息，除了 call 会 push，ret 会 pop 以外，它的内容要用特定的指令去修改，从而避免了攻击者篡改返回地址，进而在 ret 时，通过 Shadow Stack 检查 ret 指令是否跳转到了正确的位置。</p>
-<p><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html">Intel CET(Control-flow Enforcement Technology)</a> 除了 IBT 以外，还有 SHSTK(shadow stack) 机制。它对现有指令的修改以及引入的新指令包括：</p>
-<ol>
-<li>call 指令除了现有的把返回地址 push 到内存里 rsp 指向的栈上，还会把返回地址 push 到 shadow stack 上</li>
-<li>ret 指令除了从内存里 rsp 指向的栈上 pop 返回地址，还会从 shadow stack 上 pop 返回地址，如果两个返回地址不同，则抛出异常</li>
-<li>shadow stack 实际上也保存在内存里，但是和 rsp 指向的栈放在不同的地方：shadow stack 所在的页会通过页表打上 shadow stack 的标记，使得这个页不允许通过 mov 指令写入，只能用 call 指令或特定的指令来修改页内的返回地址</li>
-<li>增加一个寄存器：shadow stack pointer(SSP)，它不是通用寄存器，功能类似于 rsp，指向 shadow stack 的栈顶</li>
-<li>为了支持上下文切换，新增 saveprevssp 和 rstorssp 指令，供内核使用</li>
-<li>针对一些特殊的程序，它的 call/ret 可能不配对，此时可以用 incssp 来手动增加 ssp，等价于 pop 了若干个元素</li>
-</ol>
-<p>编译时，可以用 <code>-fcf-protection</code> 来启用 SHSTK。可以用 <code>readelf -n $BINARY</code> 来查看它是否启用了 IBT：<code>Properties: x86 feature: IBT, SHSTK</code>。</p>
-<p>ARM GCS(Guarded Control Stack) 也是类似的技术，用一个单独的栈来保存调用栈。编译时，可以用 <code>-mbranch-protection=gcs</code> 来启用 GCS。</p>
-<p><a href="https://github.com/riscv/riscv-isa-manual/blob/main/src/unpriv-cfi.adoc">RISC-V Zicfiss</a> 扩展也是类似的技术。</p>
-<h2 id="_3">地址签名和验证</h2>
-<p>此外还有一种防止攻击的技术，就是对地址进行签名和验证。它的思想是，攻击者想要挟持控制流，那就需要把正常的地址覆盖掉，变成攻击者控制的地址。如果处理器能够区分正常的地址和攻击者构造的地址，那就实现了防护。地址签名和验证就是这样的技术，它使用签名和验证算法，使用处理器内部的密钥，对正常地址进行签名，签名会放在地址高位上：由于目前虚拟地址空间没有用完，所以高位地址可以用来存储签名的信息。那么使用地址的时候，会去验证这个地址是否是合法的，由硬件生成的。攻击者不知道处理器内部的密钥，想要篡改地址时，无法给出正确的签名，于是无法通过检验。</p>
-<p>ARM PAC(Pointer Authentication Code) 就是这样的技术。编译时，可以用 <code>-mbranch-protection=pac-ret</code> 来启用 PAC，或者进一步用 <code>-mbranch-protection=standard</code> 来同时使用 BTI 和 PAC 两个保护机制。可以用 <code>readelf -n $BINARY</code> 来查看它是否启用了这些保护机制：<code>Properties: AArch64 feature: BTI, PAC</code>。</p>
-<p>除了签名和认证以外，还有一个很类似的技术，但它主要不是用于安全，而是用于检测内存访问溢出：Memory Tagging。它也是在地址高位添加一些信息，去标识这个指针应该范围的内存范围，但是这个信息没有密码学的保护，允许篡改。这个技术主要是用来加速 Address Sanitizer 一类的技术，给地址和内存上色，只有颜色相同的情况下才允许访问。不过由于颜色数量有限，它是可能漏掉一些错误的访问的。在没有 Memory Tagging 之前，Address Sanitizer 为了检查每次访存是否越界，开销会比较大。</p>
-<p>无论是 PAC 还是 Memory Tagging，都需要硬件在访存时，忽略地址的高位，这个特性一般叫 Top Byte Ignore 或者 Linear Address Masking。这些多出来的位数，可以归软件来自由发挥，也可以启用 PAC 或 Memory Tagging 来让硬件参与使用。</p>
-<p>编译时，用 <code>-fsanitize=address</code> 启用 Address Sanitizer，用 <code>-fsanitize=hwaddress</code> 启用基于地址高位被忽略的 Hardware Address Sanitizer。基于 Memory Tagging 的 Memory Tagging Sanitizer 可以用 <code>-fsanitize=memtag</code> 开启，但目前支持的平台还很少。</p>
+<h1 id="macos-goodies">macOS Goodies</h1>
+<p>Apps:</p>
+<ul>
+<li>Alfred, launch on Login</li>
+<li>Rectangle</li>
+<li>Squirrel Rime</li>
+<li>iStat Menus</li>
+<li>Firefox</li>
+<li>Thunderbird</li>
+<li>Visual Studio Code</li>
+<li>iTerm</li>
+<li>1Password</li>
+<li>Homebrew</li>
+<li>Nix home-manager</li>
+<li>Rustup</li>
+</ul>
+<p>Configs:</p>
+<ul>
+<li><code>defaults write -g ApplePressAndHoldEnabled -bool false</code> for press and hold</li>
+<li>Settings -&gt; Control Center -&gt; Battery -&gt; Show in Control Center -&gt; Disabled</li>
+<li>Settings -&gt; Trackpad -&gt; Look up &amp; data detectors -&gt; Tap with Three Fingers</li>
+<li>Settings -&gt; Trackpad -&gt; Tap to click -&gt; Enabled</li>
+<li>Settings -&gt; Accessibility -&gt; Pointer Control -&gt; Trackpad Options -&gt; Use trackpad for dragging -&gt; Enabled -&gt; Dragging style -&gt; Three Finger Drag</li>
+<li>Settings -&gt; Keyboard -&gt; Keyboard Shortcuts... -&gt; Modifier Keys -&gt; Caps Lock key -&gt; Escape</li>
+</ul>
 
 
 
@@ -2649,20 +2590,20 @@
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
+    <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年12月13日 02:25:22">2024年12月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月12日 02:42:40">2025年3月12日</span>
   </span>
 
     
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
+    <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年12月13日 01:56:23">2024年12月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月12日 02:42:40">2025年3月12日</span>
   </span>
 
     
@@ -2676,7 +2617,7 @@
 
 
 <!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
-<h2 id="__comments">Comments</h2>
+<h2 id="__comments">评论</h2>
 <!-- Insert generated snippet here -->
 
 <script src="https://giscus.app/client.js"
@@ -2729,7 +2670,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Back to top
+  回到页面顶部
 </button>
         
       </main>
@@ -2738,33 +2679,33 @@
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="aws-pricing.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: AWS Pricing">
+          <a href="linux_scheduler.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux Scheduler">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                Previous
+                上一页
               </span>
               <div class="md-ellipsis">
-                AWS Pricing
+                Linux Scheduler
               </div>
             </div>
           </a>
         
         
           
-          <a href="cg.html" class="md-footer__link md-footer__link--next" aria-label="Next: 计算机图形学">
+          <a href="ohos.html" class="md-footer__link md-footer__link--next" aria-label="下一页: OpenHarmonyOS">
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                Next
+                下一页
               </span>
               <div class="md-ellipsis">
-                计算机图形学
+                OpenHarmonyOS
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2802,12 +2743,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
@@ -2817,7 +2758,7 @@
       
         <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
       
-        <script src="../../javascripts/tablesort.js"></script>
+        <script src="../javascripts/tablesort.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
