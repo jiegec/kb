@@ -25,3 +25,4 @@ Configs:
 - Settings -> Keyboard -> Keyboard Shortcuts... -> Modifier Keys -> Caps Lock key -> Escape
 - Settings -> Desktop & Dock -> Hot Corners... -> Bottom Right -> Lock Screen
 - `sudo scutil --set HostName newhostname`
+- Disk Utility -> Volume + -> Name: Data -> Add
