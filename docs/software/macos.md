@@ -8,12 +8,15 @@ Apps:
 - Firefox, pin to Dock
 - Thunderbird, pin to Dock
 - Visual Studio Code, pin to Dock
+- WeChat, pin to Dock
 - iTerm, pin to Dock
 - Squirrel Rime
 - 1Password
-- Homebrew
-- Nix home-manager, `echo "trusted-users = $USER" >> /etc/nix/nix.conf && sudo launchctl unload /Library/LaunchDaemons/org.nixos.nix-daemon.plist && sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist`
-- Rustup
+- Homebrew with TUNA Mirrors
+- Nix home-manager, Setup trusted users: `echo "trusted-users = $USER" >> /etc/nix/nix.conf && sudo launchctl unload /Library/LaunchDaemons/org.nixos.nix-daemon.plist && sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist`
+- Rustup & Crates.io with TUNA Mirrors
+- Windows App
+- Tencent Meeting
 
 Configs:
 
