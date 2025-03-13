@@ -18,6 +18,9 @@ Apps:
 - Windows App
 - Tencent Meeting
 - MikTeX
+- Skim
+- 芒果 TV
+- NetNewsWire
 
 Configs:
 
