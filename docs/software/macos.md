@@ -3,7 +3,7 @@
 Apps:
 
 - Alfred, launch on login
-- Rectangle, launch on login
+- Rectangle, launch on login, use Spectacle key bindings, change Repeated commands -> cycle sizes on half actions
 - iStat Menus, launch on login
 - Firefox, pin to Dock
 - Thunderbird, pin to Dock, click top-right button and change ui density and font size in the menu
@@ -27,6 +27,6 @@ Configs:
 - Settings -> Trackpad -> Tap to click -> Enabled
 - Settings -> Accessibility -> Pointer Control -> Trackpad Options -> Use trackpad for dragging -> Enabled -> Dragging style -> Three Finger Drag
 - Settings -> Keyboard -> Keyboard Shortcuts... -> Modifier Keys -> Caps Lock key -> Escape
-- Settings -> Desktop & Dock -> Hot Corners... -> Bottom Right -> Lock Screen
+- Settings -> Desktop & Dock -> Hot Corners... -> Bottom Right -> Lock Screen -> Bottom Left -> Mission Control
 - `sudo scutil --set HostName newhostname`
 - Disk Utility -> Volume + -> Name: Data -> Add
