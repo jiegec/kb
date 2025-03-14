@@ -33,3 +33,4 @@ Configs:
 - Settings -> Desktop & Dock -> Hot Corners... -> Bottom Right -> Lock Screen -> Bottom Left -> Mission Control
 - `sudo scutil --set HostName newhostname`
 - Disk Utility -> Volume + -> Name: Data -> Add
+- Time Machine: backup daily, create APFS Container on external disk, create Time Machine volumes for each machine separately
