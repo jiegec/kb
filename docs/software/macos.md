@@ -26,6 +26,7 @@ Configs:
 
 - `defaults write -g ApplePressAndHoldEnabled -bool false` for press and hold
 - Settings -> Control Center -> Battery -> Show in Control Center -> Disabled
+- Settings -> Control Center -> Menu Bar Only -> Spotlight -> Don't Show in Menu Bar -> Siri -> Don't Show in Menu Bar
 - Settings -> Trackpad -> Look up & data detectors -> Tap with Three Fingers
 - Settings -> Trackpad -> Tap to click -> Enabled
 - Settings -> Accessibility -> Pointer Control -> Trackpad Options -> Use trackpad for dragging -> Enabled -> Dragging style -> Three Finger Drag
