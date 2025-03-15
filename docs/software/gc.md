@@ -166,6 +166,10 @@ Reference Counting 就是引用计数，记录每个对象的引用次数，当�
 
 实现 Concurrent Copying 时，为了让 mutator 和 collector 同时运行，使用了 [read barrier](https://android.googlesource.com/platform/art/+/refs/tags/android-platform-15.0.0_r6/runtime/read_barrier-inl.h)。
 
+### Boehm GC
+
+[Boehm GC](https://www.hboehm.info/gc/gcdescr.html) 是一个 C/C++ 上的垃圾回收器实现，因为语言本身没有提供机制，所以 Boehm GC 是保守的：它会扫描栈、堆和数据段，把所有可能是指针的数据都当作指针去看待。由于没法修改程序本身，所以为了监测程序修改了哪些对象，它会去利用内核的页的机制去捕捉这些修改，例如 mmap 成不可写，在实际写入的时候，在用户态处理异常的情况。
+
 ## 参考
 
 - [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/)
