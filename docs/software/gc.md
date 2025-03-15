@@ -140,6 +140,19 @@ Reference Counting 就是引用计数，记录每个对象的引用次数，当�
 2. Incremental：把一次完整的垃圾回收操作拆成多次，一次长的 pause 被拆分成多个短的 pause，主要目的是减少最大的 pause time，改进响应性
 3. Concurrent：不 stop the world，mutator 和 collector 可以在不同的处理器核心上同时进行
 
+## Concurrent Garbage Collection
+
+前面提到，Concurrent Garbage Collection 是说 mutator 和 collector 同时进行，那么就可能出现 collector 在标记活跃对象的时候，mutator 修改了对象的引用关系，导致本来应该是活跃的对象，没有被标记上。例如 collector 从灰色对象拓展标记的时候，mutator 给黑色对象的字段引用到了新的对象上，因为 collector 认为黑色对象已经处理完毕，就不知道它后来又引出了新的边。具体来说，当出现如下情况时，会导致 lost object 问题：
+
+1. mutator 建立了一条从黑色对象到白色对象的边
+2. 并且从已有的灰色对象到白色对象没有路径
+
+为了解决这个问题，在 mutator 操作对象的时候，插入额外的 read/write barrier，从而保证正确性，例如：
+
+1. Steele write barrier：如果建立了一条从黑色对象到白色对象的边，把黑色对象变成灰色对象
+2. Dijkstra et al. write barrier：如果建立了一条从黑色对象到白色对象的边，把白色对象变成灰色对象
+3. Baker read barrier: 如果读取了灰色对象的字段里的白色对象，把白色对象变成灰色对象
+
 ## 参考
 
 - [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/)
