@@ -153,6 +153,19 @@ Reference Counting 就是引用计数，记录每个对象的引用次数，当�
 2. Dijkstra et al. write barrier：如果建立了一条从黑色对象到白色对象的边，把白色对象变成灰色对象
 3. Baker read barrier: 如果读取了灰色对象的字段里的白色对象，把白色对象变成灰色对象
 
+## 案例分析
+
+### Android 的 GC 实现
+
+参考 [Collecting the Garbage: A brief history of GC over Android versions](https://proandroiddev.com/collecting-the-garbage-a-brief-history-of-gc-over-android-versions-f7f5583e433c) 和 [Debug ART garbage collection](https://source.android.com/docs/core/runtime/gc-debug)，Android 的 GC 实现经历过以下几个过程：
+
+1. Dalvik GC（直到 Android KitKat 版本即 Android 4.4)：stop the world, Concurrent Mark-And-Sweep
+2. Android Runtime GC，从 Lollipop (Android 5) 开始到 Marshamallow (Android 6): Concurrent Mark-And-Sweep + Generational
+3. Android Runtime GC，从 Oreo（Android 8）开始：Concurrent Copying（`Starting with Android 8 (Oreo), the default plan is Concurrent Copying (CC).`）
+4. Android Runtime GC，从 Q（Android 10）开始：Concurrent Copying + Generational（`CC extends to be a generational GC in Android 10 and higher.`）
+
+实现 Concurrent Copying 时，为了让 mutator 和 collector 同时运行，使用了 [read barrier](https://android.googlesource.com/platform/art/+/refs/tags/android-platform-15.0.0_r6/runtime/read_barrier-inl.h)。
+
 ## 参考
 
 - [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/)
