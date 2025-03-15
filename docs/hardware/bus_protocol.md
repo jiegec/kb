@@ -80,6 +80,24 @@
 
 Wishbone 是一个在开源社区广泛使用的总线协议，其分为多个版本，下面介绍其中的 Wishbone Classic Standard 和 Wishbone Classic Pipelined。
 
+Wishbone 的名字来源在官方的文档里有讲：
+
+```
+Webster’s dictionary defines a WISHBONE as “the forked clavicle in front of the
+breastbone of most birds.” The term ‘WISHBONE interconnect’ was coined by Wade
+Peterson of Silicore Corporation. During the initial definition of the scheme he
+was attempting to find a name that was descriptive of a bi-directional data bus
+that used either multiplexers or three-state logic. This was solved by forming
+an interface with separate input and output paths. When these paths are
+connected to three-state logic it forms a ‘Y’ shaped configuration that
+resembles a wishbone. The actual name was conceived during a Thanksgiving Day
+dinner that included roast turkey. Thanksgiving Day is a national holiday in the
+United States, and is observed on the third Thursday in November. It is
+generally celebrated with a traditional turkey dinner.
+```
+
+简单来说，在起名的时候，想到总线的样子像是一个 Y 字型，和许愿骨 Wishbone 的形状类似，所以就这样起了名字。
+
 ### Wishbone Classic Standard
 
 最简单的 Wishbone 版本叫做 Wishbone Classic Standard，其设计思路和上面的简易总线协议非常相似，下面将两者进行一个对比。Wishbone Classic Standard 协议的 master 端（CPU 端）的信号：
