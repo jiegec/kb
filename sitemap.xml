@@ -15,6 +15,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/bocaichaojidan.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/cooking/chaoqincai.html</loc>
+        <lastmod>2025-03-15</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cooking/chaoqincai.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/chaoqincai.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/cooking/ganchaoniuhe.html</loc>
         <lastmod>2025-03-15</lastmod>
         <changefreq>daily</changefreq>
@@ -524,6 +531,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/bocaichaojidan.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cooking/bocaichaojidan.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/cooking/chaoqincai.html</loc>
+        <lastmod>2025-03-15</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/chaoqincai.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cooking/chaoqincai.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cooking/ganchaoniuhe.html</loc>
