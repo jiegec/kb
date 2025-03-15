@@ -20,4 +20,3 @@
 
 - [厨师长教你：“香椿煎蛋”的家常做法，椿芽鲜嫩，蛋香浓郁](https://www.bilibili.com/video/BV1cu411B7M2/)
 - [香椿炒鸡蛋这么做才正确，酒店大厨教你一招搞定，鸡蛋鲜嫩不发黑](https://www.bilibili.com/video/BV1fV4y1D7DN/)
-
