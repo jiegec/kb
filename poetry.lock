@@ -377,14 +377,14 @@ files = [
 
 [[package]]
 name = "filelock"
-version = "3.17.0"
+version = "3.18.0"
 description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "filelock-3.17.0-py3-none-any.whl", hash = "sha256:533dc2f7ba78dc2f0f531fc6c4940addf7b70a481e269a5a3b93be94ffbe8338"},
-    {file = "filelock-3.17.0.tar.gz", hash = "sha256:ee4e77401ef576ebb38cd7f13b9b28893194acc20a8e68e18730ba9c0e54660e"},
+    {file = "filelock-3.18.0-py3-none-any.whl", hash = "sha256:c401f4f8377c4464e6db25fff06205fd89bdd83b65eb0488ed1b160f780e21de"},
+    {file = "filelock-3.18.0.tar.gz", hash = "sha256:adbc88eabb99d2fec8c9c1b229b171f18afa655400173ddc653d5d01501fb9f2"},
 ]
 
 [package.extras]
@@ -667,14 +667,14 @@ pyyaml = ">=5.1"
 
 [[package]]
 name = "mkdocs-git-revision-date-localized-plugin"
-version = "1.4.1"
+version = "1.4.5"
 description = "Mkdocs plugin that enables displaying the localized date of the last git modification of a markdown file."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "mkdocs_git_revision_date_localized_plugin-1.4.1-py3-none-any.whl", hash = "sha256:bb1eca7f156e0c8a587167662923d76efed7f7e0c06b84471aa5ae72a744a434"},
-    {file = "mkdocs_git_revision_date_localized_plugin-1.4.1.tar.gz", hash = "sha256:364d7c4c45c4f333c750e34bc298ac685a7a8bf9b7b52890d52b2f90f1812c4b"},
+    {file = "mkdocs_git_revision_date_localized_plugin-1.4.5-py3-none-any.whl", hash = "sha256:395ae0b9eec565c78a76fffc938b70f52774bf2971245482d31aba47018c5fa9"},
+    {file = "mkdocs_git_revision_date_localized_plugin-1.4.5.tar.gz", hash = "sha256:9e37f1343d314c9cd8f9cbbf117c4bdc1d2d24a0653c5bbd7059d072f2cd0972"},
 ]
 
 [package.dependencies]
@@ -697,14 +697,14 @@ files = [
 
 [[package]]
 name = "mkdocs-material"
-version = "9.6.7"
+version = "9.6.8"
 description = "Documentation that simply works"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "mkdocs_material-9.6.7-py3-none-any.whl", hash = "sha256:8a159e45e80fcaadd9fbeef62cbf928569b93df954d4dc5ba76d46820caf7b47"},
-    {file = "mkdocs_material-9.6.7.tar.gz", hash = "sha256:3e2c1fceb9410056c2d91f334a00cdea3215c28750e00c691c1e46b2a33309b4"},
+    {file = "mkdocs_material-9.6.8-py3-none-any.whl", hash = "sha256:0a51532dd8aa80b232546c073fe3ef60dfaef1b1b12196ac7191ee01702d1cf8"},
+    {file = "mkdocs_material-9.6.8.tar.gz", hash = "sha256:8de31bb7566379802532b248bd56d9c4bc834afc4625884bf5769f9412c6a354"},
 ]
 
 [package.dependencies]
@@ -1196,14 +1196,14 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "setuptools"
-version = "75.8.2"
+version = "76.0.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "setuptools-75.8.2-py3-none-any.whl", hash = "sha256:558e47c15f1811c1fa7adbd0096669bf76c1d3f433f58324df69f3f5ecac4e8f"},
-    {file = "setuptools-75.8.2.tar.gz", hash = "sha256:4880473a969e5f23f2a2be3646b2dfd84af9028716d398e46192f84bc36900d2"},
+    {file = "setuptools-76.0.0-py3-none-any.whl", hash = "sha256:199466a166ff664970d0ee145839f5582cb9bca7a0a3a2e795b6a9cb2308e9c6"},
+    {file = "setuptools-76.0.0.tar.gz", hash = "sha256:43b4ee60e10b0d0ee98ad11918e114c70701bc6051662a9a675a0496c1a158f4"},
 ]
 
 [package.extras]
