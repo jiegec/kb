@@ -2364,6 +2364,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#concurrent-garbage-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrent Garbage Collection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       参考
@@ -2834,6 +2843,18 @@
 <li>Incremental：把一次完整的垃圾回收操作拆成多次，一次长的 pause 被拆分成多个短的 pause，主要目的是减少最大的 pause time，改进响应性</li>
 <li>Concurrent：不 stop the world，mutator 和 collector 可以在不同的处理器核心上同时进行</li>
 </ol>
+<h2 id="concurrent-garbage-collection">Concurrent Garbage Collection</h2>
+<p>前面提到，Concurrent Garbage Collection 是说 mutator 和 collector 同时进行，那么就可能出现 collector 在标记活跃对象的时候，mutator 修改了对象的引用关系，导致本来应该是活跃的对象，没有被标记上。例如 collector 从灰色对象拓展标记的时候，mutator 给黑色对象的字段引用到了新的对象上，因为 collector 认为黑色对象已经处理完毕，就不知道它后来又引出了新的边。具体来说，当出现如下情况时，会导致 lost object 问题：</p>
+<ol>
+<li>mutator 建立了一条从黑色对象到白色对象的边</li>
+<li>并且从已有的灰色对象到白色对象没有路径</li>
+</ol>
+<p>为了解决这个问题，在 mutator 操作对象的时候，插入额外的 read/write barrier，从而保证正确性，例如：</p>
+<ol>
+<li>Steele write barrier：如果建立了一条从黑色对象到白色对象的边，把黑色对象变成灰色对象</li>
+<li>Dijkstra et al. write barrier：如果建立了一条从黑色对象到白色对象的边，把白色对象变成灰色对象</li>
+<li>Baker read barrier: 如果读取了灰色对象的字段里的白色对象，把白色对象变成灰色对象</li>
+</ol>
 <h2 id="_2">参考</h2>
 <ul>
 <li><a href="http://gchandbook.org/">The Garbage Collection Handbook - The art of automatic memory management</a></li>
@@ -2861,7 +2882,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 16:22:39">2025年3月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月15日 02:05:37">2025年3月15日</span>
   </span>
 
     
