@@ -170,7 +170,15 @@ Reference Counting 就是引用计数，记录每个对象的引用次数，当�
 
 [Boehm GC](https://www.hboehm.info/gc/gcdescr.html) 是一个 C/C++ 上的垃圾回收器实现，因为语言本身没有提供机制，所以 Boehm GC 是保守的：它会扫描栈、堆和数据段，把所有可能是指针的数据都当作指针去看待。由于没法修改程序本身，所以为了监测程序修改了哪些对象，它会去利用内核的页的机制去捕捉这些修改，例如 mmap 成不可写，在实际写入的时候，在用户态处理异常的情况。
 
+### Lua
+
+Lua 4.0 的 GC 实现是简单的 Mark Sweep 算法：[lgc.c](https://github.com/lua/lua/blob/v4.0/lgc.c)，从 root set 遍历各个对象进行标记，然后遍历所有分配了的对象，回收那些没有被标记的对象。
+
+Lua 5.1 实现了 Incremental Mark Sweep，之后的 Lua 5.2-5.4 版本迭代了 Generational GC。
+
 ## 参考
 
 - [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/)
 - [Algorithms for Dynamic Memory Management (236780) Lecture 2 by Erez Petrank](https://csaws.cs.technion.ac.il/~erez/courses/gc/lectures/02-compaction.pdf)
+- [Garbage Collection in Lua by Roberto Ierusalimschy](https://www.lua.org/wshop18/Ierusalimschy.pdf)
+- [Notes on the Implementation of Lua 5.3 - Garbage Collection](https://poga.github.io/lua53-notes/gc.html)
