@@ -417,6 +417,12 @@ PCIe 6.0 引入了 PAM4 来替代原来的 NRZ，实现了波特率不变的情�
 
 为什么是 3 这个奇数呢？因为 Lane 的个数是 2 的幂次，如果用 3 组的话，正好每个 Lane 上连续的字节对应到不同的 ECC 分组。再往上，5 组 ECC 也是可以的。
 
+## PCIe 7.0
+
+PCIe 7.0 尚未正式发布，相关的新闻如下：
+
+- [PCIe 7.0 Specification, Version 0.9: Final Draft Now Available for Member Review](https://pcisig.com/blog/pcie-70-specification-version-09-final-draft-now-available-member-review)
+
 ## ATS
 
 ATS（Address Translation Service）是在 PCIe 上给外设提供查询页表的方式，从而可以使用虚拟地址。标准可以在 https://composter.com.ua/documents/ats_r1.1_26Jan09.pdf 处下载，以及关于 ATS 的 PPT：https://composter.com.ua/documents/Address_Translation_Services.pdf。
