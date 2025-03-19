@@ -1611,6 +1611,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pcie-70" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCIe 7.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ats" class="md-nav__link">
     <span class="md-ellipsis">
       ATS
@@ -3185,6 +3194,11 @@
 <figcaption>PCIe FLIT 3-Way Interleave ECC 图示（图源 <a href="https://www.synopsys.com/blogs/chip-design/pcie-6-verifaction-fec-crc.html">PCIe 6.0 Verification of FEC and CRC</a>）</figcaption>
 </figure>
 <p>为什么是 3 这个奇数呢？因为 Lane 的个数是 2 的幂次，如果用 3 组的话，正好每个 Lane 上连续的字节对应到不同的 ECC 分组。再往上，5 组 ECC 也是可以的。</p>
+<h2 id="pcie-70">PCIe 7.0</h2>
+<p>PCIe 7.0 尚未正式发布，相关的新闻如下：</p>
+<ul>
+<li><a href="https://pcisig.com/blog/pcie-70-specification-version-09-final-draft-now-available-member-review">PCIe 7.0 Specification, Version 0.9: Final Draft Now Available for Member Review</a></li>
+</ul>
 <h2 id="ats">ATS</h2>
 <p>ATS（Address Translation Service）是在 PCIe 上给外设提供查询页表的方式，从而可以使用虚拟地址。标准可以在 https://composter.com.ua/documents/ats_r1.1_26Jan09.pdf 处下载，以及关于 ATS 的 PPT：https://composter.com.ua/documents/Address_Translation_Services.pdf。</p>
 <p>它的整体工作方式如图：</p>
@@ -3322,7 +3336,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2023年11月17日 07:03:00">2023年11月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月19日 03:31:37">2025年3月19日</span>
   </span>
 
     
