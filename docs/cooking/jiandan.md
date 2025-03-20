@@ -21,6 +21,6 @@
 
 - [如何完美地做出各种熟度的煎蛋？溏心、全熟、漫画，都给你答案](https://www.bilibili.com/video/BV1p94y1n7My/)
 - [【一颗不粘锅的煎蛋】煎蛋教学视频来了，快来看看吧](https://www.bilibili.com/video/BV1R34y1J7CD/)
-- [简单快手！3分钟就可搞定的煎滑蛋，好香，好好吃](https://www.bilibili.com/video/BV1KL411g7hu/)
+- [简单快手！3 分钟就可搞定的煎滑蛋，好香，好好吃](https://www.bilibili.com/video/BV1KL411g7hu/)
 - [家庭版煎荷包蛋，冷油下锅，小火慢煎，不散花不粘锅，好看又好吃](https://www.bilibili.com/video/BV1Z94y1977M/)
 - [很多人都不会做荷包蛋，教你小技巧，个个圆嫩不散花，好看又好吃](https://www.bilibili.com/video/BV1uE411w7Yc/)
