@@ -21,6 +21,7 @@ Apps:
 - Skim
 - 芒果 TV
 - NetNewsWire
+- TimeMachine logging: `log stream --style syslog  --predicate 'senderImagePath contains[cd] "TimeMachine"' --info`
 
 Configs:
 
