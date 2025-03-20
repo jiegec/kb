@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/en/hardware/async_sram.html">
+        <link rel="canonical" href="https://jia.je/kb/cooking/qiezichaorou.html">
       
       
-        <link rel="prev" href="../cryptography/zk_snark.html">
+        <link rel="prev" href="luoboniunanbao.html">
       
       
-        <link rel="next" href="bus_protocol.html">
+        <link rel="next" href="suanrongchaokongxincai.html">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
     
       
-        <title>Asynchronous SRAM - Jiegec's Knowledge Base</title>
+        <title>茄子炒肉 - 杰哥的知识库</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
@@ -52,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Asynchronous SRAM - Jiegec's Knowledge Base" >
+        <meta  property="og:title"  content="茄子炒肉 - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/hardware/async_sram.en.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/cooking/qiezichaorou.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,19 +85,19 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/en/hardware/async_sram.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/cooking/qiezichaorou.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Asynchronous SRAM - Jiegec's Knowledge Base" >
+        <meta  name="twitter:title"  content="茄子炒肉 - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/hardware/async_sram.en.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/cooking/qiezichaorou.png" >
       
     
     
-   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -106,7 +106,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -118,8 +118,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#asynchronous-sram" class="md-skip">
-          Skip to content
+        <a href="#_1" class="md-skip">
+          跳转至
         </a>
       
     </div>
@@ -131,8 +131,8 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="杰哥的知识库" class="md-header__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -146,13 +146,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Jiegec's Knowledge Base
+            杰哥的知识库
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Asynchronous SRAM
+              茄子炒肉
             
           </span>
         </div>
@@ -166,20 +166,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="Select language">
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="async_sram.html" hreflang="en" class="md-select__link">
+            <a href="../en/cooking/qiezichaorou.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../../hardware/async_sram.html" hreflang="zh" class="md-select__link">
+            <a href="qiezichaorou.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -198,21 +198,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -225,7 +225,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -236,7 +236,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -257,7 +257,7 @@
         
           
             
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -271,7 +271,7 @@
   
     
   
-  Home
+  主页
 
       </a>
     </li>
@@ -281,16 +281,18 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../cooking/bocaichaojidan.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="bocaichaojidan.html" class="md-tabs__link">
           
   
     
   
-  Cooking
+  厨艺
 
         </a>
       </li>
@@ -310,7 +312,7 @@
   
     
   
-  Cryptography
+  密码学
 
         </a>
       </li>
@@ -321,18 +323,16 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="async_sram.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../hardware/async_sram.html" class="md-tabs__link">
           
   
     
   
-  Hardware
+  硬件
 
         </a>
       </li>
@@ -352,7 +352,7 @@
   
     
   
-  Mathematics
+  数学
 
         </a>
       </li>
@@ -372,7 +372,7 @@
   
     
   
-  Networking
+  网络
 
         </a>
       </li>
@@ -392,7 +392,7 @@
   
     
   
-  Software
+  软件
 
         </a>
       </li>
@@ -422,19 +422,19 @@
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+    <a href="../index.html" title="杰哥的知识库" class="md-nav__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Jiegec's Knowledge Base
+    杰哥的知识库
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -458,7 +458,7 @@
         
   
   <span class="md-ellipsis">
-    Home
+    主页
     
   </span>
   
@@ -472,8 +472,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -500,25 +502,26 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Cooking
+    厨艺
     
   </span>
   
@@ -526,10 +529,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Cooking
+            厨艺
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -540,7 +543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/bocaichaojidan.html" class="md-nav__link">
+      <a href="bocaichaojidan.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -562,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/chaoqincai.html" class="md-nav__link">
+      <a href="chaoqincai.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -584,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/ganchaoniuhe.html" class="md-nav__link">
+      <a href="ganchaoniuhe.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -606,7 +609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/jiandan.html" class="md-nav__link">
+      <a href="jiandan.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -628,7 +631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/luoboniunanbao.html" class="md-nav__link">
+      <a href="luoboniunanbao.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -647,10 +650,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../cooking/qiezichaorou.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    茄子炒肉
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="qiezichaorou.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -660,6 +684,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      食材
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      记录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -672,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/suanrongchaokongxincai.html" class="md-nav__link">
+      <a href="suanrongchaokongxincai.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -694,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/suanrongfensizhengdaxia.html" class="md-nav__link">
+      <a href="suanrongfensizhengdaxia.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -716,7 +796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/xiangchunjiandan.html" class="md-nav__link">
+      <a href="xiangchunjiandan.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -738,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cooking/xiangguchaoqingcai.html" class="md-nav__link">
+      <a href="xiangguchaoqingcai.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -800,7 +880,7 @@
             
   
   <span class="md-ellipsis">
-    Cryptography
+    密码学
     
   </span>
   
@@ -811,7 +891,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Cryptography
+            密码学
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -936,10 +1016,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1000,26 +1078,25 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
-    Hardware
+    硬件
     
   </span>
   
@@ -1027,10 +1104,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Hardware
+            硬件
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1038,147 +1115,19 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Asynchronous SRAM
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="async_sram.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../hardware/async_sram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Asynchronous SRAM
+    异步 SRAM
     
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    <span class="md-ellipsis">
-      Features
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#interface" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interface
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#concatenation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Concatenation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Timing
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Timing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#read-timing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Read Timing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write-timing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Write timing
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sram-cell" class="md-nav__link">
-    <span class="md-ellipsis">
-      SRAM Cell
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#acknowledgement" class="md-nav__link">
-    <span class="md-ellipsis">
-      Acknowledgement
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1191,7 +1140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bus_protocol.html" class="md-nav__link">
+      <a href="../hardware/bus_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1213,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cache_coherence_protocol.html" class="md-nav__link">
+      <a href="../hardware/cache_coherence_protocol.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1235,7 +1184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="chiplet.html" class="md-nav__link">
+      <a href="../hardware/chiplet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1257,7 +1206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmos.html" class="md-nav__link">
+      <a href="../hardware/cmos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1279,7 +1228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="conditional_branch_predictor.html" class="md-nav__link">
+      <a href="../hardware/conditional_branch_predictor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1301,7 +1250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cpu_microarchitecture.html" class="md-nav__link">
+      <a href="../hardware/cpu_microarchitecture.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1323,7 +1272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cpu_vulnerabilities.html" class="md-nav__link">
+      <a href="../hardware/cpu_vulnerabilities.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1345,7 +1294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cxl.html" class="md-nav__link">
+      <a href="../hardware/cxl.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1367,7 +1316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="display_interface.html" class="md-nav__link">
+      <a href="../hardware/display_interface.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1389,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="error_detection_correction_code.html" class="md-nav__link">
+      <a href="../hardware/error_detection_correction_code.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1411,7 +1360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gpgpu.html" class="md-nav__link">
+      <a href="../hardware/gpgpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1433,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="high_speed_serial.html" class="md-nav__link">
+      <a href="../hardware/high_speed_serial.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1455,7 +1404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="huawei.html" class="md-nav__link">
+      <a href="../hardware/huawei.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1477,7 +1426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="i2c.html" class="md-nav__link">
+      <a href="../hardware/i2c.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1499,11 +1448,11 @@
   
   
     <li class="md-nav__item">
-      <a href="logic_levels.html" class="md-nav__link">
+      <a href="../hardware/logic_levels.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Logic level standards
+    逻辑电平标准
     
   </span>
   
@@ -1521,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="motherboard.html" class="md-nav__link">
+      <a href="../hardware/motherboard.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1543,7 +1492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="nand_flash.html" class="md-nav__link">
+      <a href="../hardware/nand_flash.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1565,7 +1514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="on_chip_networks.html" class="md-nav__link">
+      <a href="../hardware/on_chip_networks.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1587,7 +1536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ooo_cpu.html" class="md-nav__link">
+      <a href="../hardware/ooo_cpu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1609,7 +1558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oscillator.html" class="md-nav__link">
+      <a href="../hardware/oscillator.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1631,7 +1580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="pcie.html" class="md-nav__link">
+      <a href="../hardware/pcie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1653,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="rvv.html" class="md-nav__link">
+      <a href="../hardware/rvv.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1675,7 +1624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="sdram.html" class="md-nav__link">
+      <a href="../hardware/sdram.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1697,7 +1646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="signal_processing.html" class="md-nav__link">
+      <a href="../hardware/signal_processing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1719,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="spi.html" class="md-nav__link">
+      <a href="../hardware/spi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1741,7 +1690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="usb_hci.html" class="md-nav__link">
+      <a href="../hardware/usb_hci.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1801,7 +1750,7 @@
             
   
   <span class="md-ellipsis">
-    Mathematics
+    数学
     
   </span>
   
@@ -1812,7 +1761,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Mathematics
+            数学
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1951,7 +1900,7 @@
             
   
   <span class="md-ellipsis">
-    Networking
+    网络
     
   </span>
   
@@ -1962,7 +1911,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Networking
+            网络
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2163,7 +2112,7 @@
             
   
   <span class="md-ellipsis">
-    Software
+    软件
     
   </span>
   
@@ -2174,7 +2123,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            Software
+            软件
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2752,7 +2701,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/hardware/async_sram.en.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/cooking/qiezichaorou.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2760,135 +2709,23 @@
   
 
 
-<h1 id="asynchronous-sram">Asynchronous SRAM</h1>
-<h2 id="features">Features</h2>
-<p>Features of asynchronous SRAM:</p>
+<h1 id="_1">茄子炒肉</h1>
+<h2 id="_2">食材</h2>
+<p>茄子 猪肉或鸡肉</p>
+<h2 id="_3">步骤</h2>
 <ol>
-<li>Simple interface: the controller gives the address and control signals, and the data is available after a fixed delay, no calibration is required</li>
-<li>MB level RAM available: single chip can provide KB to MB level RAM, larger capacity can be obtained by connecting multiple SRAMs in parallel</li>
-<li>High-speed asynchronous SRAM with latency in the 10ns range</li>
+<li>肉切片或切丁，茄子切成几厘米长的条</li>
+<li>给茄子下盐，腌制十分钟，再用水清洗干净，再用力把水攥干，这样茄子才不会吸油</li>
+<li>先炒肉，再炒茄子，视情况加调味料</li>
 </ol>
-<h2 id="structure">Structure</h2>
-<p>The asynchronous SRAM holds data internally as an array. For example, a 2048K x 16 asynchronous SRAM has 2048K rows, each row holds 16 bits of data, for a total of <span class="arithmatex">\(2048\mathrm{K} * 16\mathrm{b} = 32 \mathrm{Mb}\)</span> of data.</p>
-<p>The structure of the asynchronous SRAM is shown in Figure 1. When the controller accesses the asynchronous SRAM, it gives a row address and the asynchronous SRAM reads a row of data. Since there are 2048K rows, the number of bits needed for the address is <span class="arithmatex">\(\log_2(2048\mathrm{K})=21\)</span>, which corresponds to <code>A0-A20</code> in the figure below. The address is passed to <code>DECODER</code>, which takes the data to be accessed from the array and puts it in <code>COLUMN IO</code>.</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_diagram.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Async SRAM Diagram" src="../../hardware/async_sram_diagram.png" width="400" /></a>
-  </p>
-<figcaption>Asynchronous SRAM Diagram (Source <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>)</figcaption>
-</figure>
-<p>For read operations, the memory controller provides the address on <code>A0-A20</code>, reads the data through <code>DECODER</code> from <code>2048K x 16 MEMORY ARRAY</code> to <code>COLUMN IO</code>, and the control logic <code>CONTROL CIRCUIT</code> outputs the data to <code>I/O DATA CIRCUIT</code> according to the read operation (<code>WE#=1, OE#=0</code>).</p>
-<p>For write operations, the memory controller provides the address on <code>A0-A20</code>, the data to be written on <code>I/O</code>, and the byte enable on <code>UB#/LB#</code>. The asynchronous SRAM reads the existing data in the array from <code>MEMORY ARRAY</code>, combines <code>UB#/LB#</code> with <code>I/O</code>, calculates the new value, and writes it to memory. The <code>UB#</code> and <code>LB#</code> are byte enables (active-low) for high 8 bits and low 8 bits respectively. If the old data is <code>1234</code> and the value to be written by the memory controller is <code>5678</code>, then the value in memory is updated to</p>
-<table>
-<thead>
-<tr>
-<th>UB#</th>
-<th>LB#</th>
-<th>Result</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>5678</td>
-<td>New Value</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1278</td>
-<td>Only low byte written</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>5634</td>
-<td>Only high byte written</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1234</td>
-<td>Unchanged</td>
-</tr>
-</tbody>
-</table>
-<h2 id="interface">Interface</h2>
-<p>Asynchronous SRAM exposes a single-port RAM interface that can only read or write at a time. A typical asynchronous SRAM includes the following signals:</p>
-<ol>
-<li>Address signal A: the bit width is determined by the depth, for example, 2048K depth corresponds to 21-bit address</li>
-<li>Data signal I/O: the bit width is equal to the width of SRAM, e.g. 8 or 16 bits</li>
-<li>Chip select CS# (or CE#): active-low, works when CS# is equal to 0</li>
-<li>Output enable OE#: active-low, SRAM output when OE# equals 0, SRAM input when OE# equals 1</li>
-<li>Write enable WE#: active-low, WE# equals 0 for write, WE# equals 1 for read</li>
-<li>Byte enable UB#/LB#: active-low, corresponding to two bytes, update when equal to 0, unchanged when equal to 1</li>
-</ol>
-<p>Some asynchronous SRAMs are 8 bits wide, where there is no byte enable signal.</p>
-<h2 id="concatenation">Concatenation</h2>
-<p>If you want a larger asynchronous SRAM, you can concatenate multiple asynchronous SRAMs. Concatenation can be done in two ways:</p>
-<p>One is to concatenate in width, e.g. concatenate two asynchronous SRAMs of the same depth and width of 16 to get an asynchronous SRAM of width 32:</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_width_concat.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/async_sram_width_concat.png" width="400" /></a>
-  </p>
-<figcaption>Concatenate asynchronous SRAM in width</figcaption>
-</figure>
-<p>The address signal (A) and control signals (OE#, WE#, CE#) are connected to all asynchronous SRAMs, while the data signal (DQ) and byte enable signals (WE0-3#) are connected to different asynchronous SRAMs to form twice the data width.</p>
-<p>The other is to concatenate in the depth, keeping the width the same, to increase the storage capacity. For example, concatenate two asynchronous SRAMs to get an asynchronous SRAM with doubled depth. For each access, only one of the asynchronous SRAMs will be accessed, distinguished by the address.</p>
-<p>For example, to concatenate two asynchronous SRAMs with 21-bit addresses to get a asynchronous SRAM with 22-bit addresses, if the highest bit of the address is used to select which asynchronous SRAM to access, then you can set: <code>CS0#=CS# | A[21], CS1#=CS# | ~A[21]</code>, and the rest of the signals are connected to all the asynchronous SRAMs. When <code>CS#=1</code>, the output pins are in the high resistance state, so multiple chips can share a single data bus and only need to ensure that only one chip on the bus is outputting at the same time:</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_depth_concat.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/async_sram_depth_concat.png" width="600" /></a>
-  </p>
-<figcaption>Concatenate asynchronous SRAM in depth</figcaption>
-</figure>
-<p>In practice, it is possible to mix the two methods.</p>
-<h2 id="timing">Timing</h2>
-<h3 id="read-timing">Read Timing</h3>
-<p>The asynchronous SRAM is called asynchronous because it has no clock signal. In this case, the read timing is reflected as the delay between the controller giving the address and the asynchronous SRAM giving the data. Take <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">IS61/64WV204816ALL Asynchronous SRAM chip</a> as an example, the read timing is shown in the following figure:</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_read_timing.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/async_sram_read_timing.png" width="600" /></a>
-  </p>
-<figcaption>Read Timing of Asynchronous SRAM (Source <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>)</figcaption>
-</figure>
+<h2 id="_4">记录</h2>
 <ul>
-<li><span class="arithmatex">\(t_{RC}\)</span>: read cycle time, the address remains unchanged during this time, Min 10ns</li>
-<li><span class="arithmatex">\(t_{AA}\)</span>: address access time, the data is given after the address change in <span class="arithmatex">\(t_{AA}\)</span> time, Max 10ns</li>
-<li><span class="arithmatex">\(t_{OHA}\)</span>: output hold time, the data remains unchanged during this time, Min 2.5ns</li>
+<li>2025-03-20: 做了一次，300g 茄子加 150g 鸡腿肉，茄子看起来很多，实际炒完以后缩水了很多；前期用盐处理茄子的时间不够，导致炒的时候还是吸了油，之后需要注意</li>
 </ul>
-<p>The output data is uncertain during the period between the end of <span class="arithmatex">\(t_{OHA}\)</span> and the end of <span class="arithmatex">\(t_{AA}\)</span>.</p>
-<h3 id="write-timing">Write timing</h3>
-<p>The write timing is more complicated, and there can be multiple write conditions, one of which is listed below:</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_write_timing.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hardware/async_sram_write_timing.png" width="600" /></a>
-  </p>
-<figcaption>Write timing of asynchronous SRAM (Source <a href="https://www.issi.com/WW/pdf/61-64WV204816ALL_BLL.pdf">ISSI Datasheet</a>)</figcaption>
-</figure>
-<p>The core of the write timing is the rising edge of <code>WE#</code>. Compared with this time point, there are the following important timing requirements:</p>
+<h2 id="_5">参考</h2>
 <ul>
-<li><span class="arithmatex">\(t_{WC}\)</span>: The address needs to remain unchanged for <span class="arithmatex">\(t_{WC}\)</span>, Min 10ns</li>
-<li><span class="arithmatex">\(t_{AW}\)</span>: The setup time of the address relative to the rising edge of <code>WE#</code>, Min 8ns</li>
-<li><span class="arithmatex">\(t_{HA}\)</span>: Hold time of the address relative to the rising edge of <code>WE#</code>, Min 0ns</li>
-<li><span class="arithmatex">\(t_{PWE}\)</span>: The time when <code>WE#</code> maintains 0, Min 8ns</li>
-<li><span class="arithmatex">\(t_{SD}\)</span>: Setup time of data relative to the rising edge of <code>WE#</code>, Min 6ns</li>
-<li><span class="arithmatex">\(t_{HD}\)</span>: Hold time of data relative to the rising edge of <code>WE#</code>, Min 0ns</li>
-<li><span class="arithmatex">\(t_{SA}\)</span>: Setup time of the address relative to the falling edge of <code>WE#</code>, Min 0ns</li>
+<li><a href="https://www.bilibili.com/video/BV1yF41197kJ/">不一样的茄子炒肉，香的要命</a></li>
 </ul>
-<h2 id="sram-cell">SRAM Cell</h2>
-<p>A typical SRAM Cell consists of 6 transistors, and the internal structure is as follows:</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_cell_6t.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="6T SRAM Cell" src="../../hardware/async_sram_cell_6t.png" width="400" /></a>
-  </p>
-<figcaption>Internal Structure of 6T SRAM Cell (Source <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>)</figcaption>
-</figure>
-<p>Among them, M1 and M2 form an inverter, M3 and M4 form another inverter, and two inverters form the following equivalent circuit:</p>
-<figure>
-<p><a class="glightbox" href="../../hardware/async_sram_cell.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SRAM Cell" src="../../hardware/async_sram_cell.png" width="400" /></a>
-  </p>
-<figcaption>Circuit in SRAM Cell (Source <a href="https://inst.eecs.berkeley.edu/~eecs151/sp19/files/lec16-ram.pdf">Berkeley EECS 151/251A Spring 2019</a>)</figcaption>
-</figure>
-<p>This is a latch that can stably store 1 bit of data. The two transistors M5 and M6 are used for reading and writing. When WL is enabled, M5 and M6 are turned on, BL and Q are connected, and BLbar and Qbar are connected. At this point, you can read and write through BL and BLbar.</p>
-<h2 id="acknowledgement">Acknowledgement</h2>
-<p>The English version is kindly translated with the help of DeepL Translator and Google Translate.</p>
 
 
 
@@ -2908,20 +2745,20 @@
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="Last update">
+    <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 30, 2023 04:32:04">May 30, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月20日 10:56:36">2025年3月20日</span>
   </span>
 
     
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="Created">
+    <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 24, 2023 12:21:56">April 24, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月20日 10:56:36">2025年3月20日</span>
   </span>
 
     
@@ -2935,7 +2772,7 @@
 
 
 <!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
-<h2 id="__comments">Comments</h2>
+<h2 id="__comments">评论</h2>
 <!-- Insert generated snippet here -->
 
 <script src="https://giscus.app/client.js"
@@ -2988,7 +2825,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Back to top
+  回到页面顶部
 </button>
         
       </main>
@@ -2997,33 +2834,33 @@
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../cryptography/zk_snark.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: zk-SNARK">
+          <a href="luoboniunanbao.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 萝卜牛腩煲">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                Previous
+                上一页
               </span>
               <div class="md-ellipsis">
-                zk-SNARK
+                萝卜牛腩煲
               </div>
             </div>
           </a>
         
         
           
-          <a href="bus_protocol.html" class="md-footer__link md-footer__link--next" aria-label="Next: 总线协议">
+          <a href="suanrongchaokongxincai.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 蒜蓉炒空心菜">
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                Next
+                下一页
               </span>
               <div class="md-ellipsis">
-                总线协议
+                蒜蓉炒空心菜
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3061,12 +2898,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
@@ -3076,7 +2913,7 @@
       
         <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
       
-        <script src="../../javascripts/tablesort.js"></script>
+        <script src="../javascripts/tablesort.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
