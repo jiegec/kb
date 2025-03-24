@@ -177,6 +177,18 @@
 	- IPRED_DIS_S
 	- Software BHB Clearing
 
+### ITLB Multihit
+
+- [iTLB multihit](https://www.tacitosecurity.com/multihit.html)
+- [CVE-2018-12207](https://nvd.nist.gov/vuln/detail/cve-2018-12207)
+- [INTEL-SA-00210 Intel® Processor Machine Check Error Advisory](https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html)
+- [iTLB multihit from linux docs](https://docs.kernel.org/admin-guide/hw-vuln/multihit.html)
+- 原理：
+	- ITLB Multihit 是一个 DoS 漏洞，在虚拟机内可以让宿主机死机
+	- 在虚拟机内的内核，通过修改页表的大小，使得同一个地址出现在不同大小页表对应的 ITLB 表项时，会导致宿主机出现 Machine Check Error，无法继续工作
+- 缓解措施：
+	- 宿主机观测虚拟机的页表，如果虚拟机分配了可执行的大页，则宿主机把它拆分成多个 4K 大小的页，避免了问题
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -342,7 +354,6 @@
 
 ## TODO
 
-- Itlb multihit
 - L1tf
 - Mds
 - Mmio stable data
