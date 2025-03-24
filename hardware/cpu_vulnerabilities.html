@@ -1339,6 +1339,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#l1-terminal-fault-l1tf" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 Terminal Fault (L1TF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microarchitectural-data-sampling-mds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microarchitectural Data Sampling (MDS)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3144,6 +3162,32 @@
 </ul>
 </li>
 </ul>
+<h3 id="l1-terminal-fault-l1tf">L1 Terminal Fault (L1TF)</h3>
+<ul>
+<li><a href="https://www.kernel.org/doc/html/next/admin-guide/hw-vuln/l1tf.html">L1TF - L1 Terminal Fault from linux docs</a></li>
+<li>原理：<ul>
+<li>处理器在推测执行的时候，有时候会无视掉页表项的 Present bit，即使它最终会导致 page fault，但还是会执行/读取它指向的物理地址的指令/数据</li>
+</ul>
+</li>
+<li>环节措施：<ul>
+<li>PTE inversion：避免 Present bit 设为 0 的页表项的物理地址指向一个合法的可以被缓存的物理地址，从而避免内存中数据的泄漏</li>
+</ul>
+</li>
+</ul>
+<h3 id="microarchitectural-data-sampling-mds">Microarchitectural Data Sampling (MDS)</h3>
+<ul>
+<li><a href="https://www.kernel.org/doc/html/next/admin-guide/hw-vuln/mds.html">MDS - Microarchitectural Data Sampling</a></li>
+<li><a href="https://www.kernel.org/doc/html/next/arch/x86/mds.html">Microarchitectural Data Sampling (MDS) mitigation</a></li>
+<li>原理：<ul>
+<li>处理器为了提升性能，load 指令可以从一些先前指令或者缓存 refill 获取结果</li>
+<li>获取到的结果可能来自错误的指令，从而泄露了信息，即使这条 load 指令最终会被回滚，但可能把数据通过侧信道泄露出去</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>切换特权级或在宿主机和虚拟机之间切换时，清空微架构上的状态以避免数据泄露</li>
+</ul>
+</li>
+</ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
 <ul>
@@ -3308,15 +3352,12 @@
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
-<li>L1tf</li>
-<li>Mds</li>
 <li>Mmio stable data</li>
 <li>Reg file data sampling</li>
 <li>Spec store bypass</li>
 <li>Srbds</li>
 <li>Tsx async abort</li>
 <li>__user pointer sanitization</li>
-<li>PTE Inversion</li>
 <li>Zenbleed</li>
 <li>untrained return thunk</li>
 </ul>
@@ -3342,7 +3383,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月24日 13:03:18">2025年3月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月24日 13:28:45">2025年3月24日</span>
   </span>
 
     
