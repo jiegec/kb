@@ -1330,6 +1330,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#itlb-multihit" class="md-nav__link">
+    <span class="md-ellipsis">
+      ITLB Multihit
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3119,6 +3128,22 @@
 </ul>
 </li>
 </ul>
+<h3 id="itlb-multihit">ITLB Multihit</h3>
+<ul>
+<li><a href="https://www.tacitosecurity.com/multihit.html">iTLB multihit</a></li>
+<li><a href="https://nvd.nist.gov/vuln/detail/cve-2018-12207">CVE-2018-12207</a></li>
+<li><a href="https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html">INTEL-SA-00210 Intel® Processor Machine Check Error Advisory</a></li>
+<li><a href="https://docs.kernel.org/admin-guide/hw-vuln/multihit.html">iTLB multihit from linux docs</a></li>
+<li>原理：<ul>
+<li>ITLB Multihit 是一个 DoS 漏洞，在虚拟机内可以让宿主机死机</li>
+<li>在虚拟机内的内核，通过修改页表的大小，使得同一个地址出现在不同大小页表对应的 ITLB 表项时，会导致宿主机出现 Machine Check Error，无法继续工作</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>宿主机观测虚拟机的页表，如果虚拟机分配了可执行的大页，则宿主机把它拆分成多个 4K 大小的页，避免了问题</li>
+</ul>
+</li>
+</ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
 <ul>
@@ -3283,7 +3308,6 @@
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
-<li>Itlb multihit</li>
 <li>L1tf</li>
 <li>Mds</li>
 <li>Mmio stable data</li>
@@ -3318,7 +3342,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年2月3日 16:38:58">2025年2月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月24日 13:03:18">2025年3月24日</span>
   </span>
 
     
