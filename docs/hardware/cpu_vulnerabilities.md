@@ -189,7 +189,7 @@
 - 缓解措施：
 	- 宿主机观测虚拟机的页表，如果虚拟机分配了可执行的大页，则宿主机把它拆分成多个 4K 大小的页，避免了问题
 
-### L1 Terminal Fault (L1TF)
+### L1 Terminal Fault (L1TF, Foreshadow)
 
 - [L1TF - L1 Terminal Fault from linux docs](https://www.kernel.org/doc/html/next/admin-guide/hw-vuln/l1tf.html)
 - 原理：
@@ -234,6 +234,14 @@
 - 缓解措施：
 	- 添加 LFENCE 以阻止推测执行
 	- 设置 Speculative Store Bypass Disable (SSBD)
+
+### Zenbleed
+
+- [Zenbleed](https://lock.cmpxchg8b.com/zenbleed.html)
+- 原理：
+	- 部分 AMD 处理器在处理向量处理器和分支预测错误恢复时有 BUG，导致可能会泄露向量寄存器的旧值
+- 缓解措施：
+	- 升级 Microcode
 
 ## 缓解措施 Mitigations
 
@@ -404,5 +412,4 @@
 - Srbds
 - Tsx async abort
 - __user pointer sanitization
-- Zenbleed
 - untrained return thunk
