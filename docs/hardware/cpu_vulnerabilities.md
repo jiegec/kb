@@ -207,6 +207,15 @@
 - 缓解措施：
 	- 切换特权级或在宿主机和虚拟机之间切换时，清空微架构上的状态以避免数据泄露
 
+### Register File Data Sampling
+
+- [Register File Data Sampling / CVE-2023-28746 / INTEL-SA-00898](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/register-file-data-sampling.html)
+- 原理：
+	- 在部分 Atom 处理器上，`VERW` 指令可能会泄漏浮点寄存器的旧值，这个旧值可能来自其他进程或者其他特权态
+- 缓解措施：
+	- 升级 Microcode
+	- 主动执行 `VERW` 指令来避免旧值被后续代码泄漏
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -373,7 +382,6 @@
 ## TODO
 
 - Mmio stable data
-- Reg file data sampling
 - Spec store bypass
 - Srbds
 - Tsx async abort
