@@ -189,6 +189,24 @@
 - 缓解措施：
 	- 宿主机观测虚拟机的页表，如果虚拟机分配了可执行的大页，则宿主机把它拆分成多个 4K 大小的页，避免了问题
 
+### L1 Terminal Fault (L1TF)
+
+- [L1TF - L1 Terminal Fault from linux docs](https://www.kernel.org/doc/html/next/admin-guide/hw-vuln/l1tf.html)
+- 原理：
+	- 处理器在推测执行的时候，有时候会无视掉页表项的 Present bit，即使它最终会导致 page fault，但还是会执行/读取它指向的物理地址的指令/数据
+- 环节措施：
+	- PTE inversion：避免 Present bit 设为 0 的页表项的物理地址指向一个合法的可以被缓存的物理地址，从而避免内存中数据的泄漏
+
+### Microarchitectural Data Sampling (MDS)
+
+- [MDS - Microarchitectural Data Sampling](https://www.kernel.org/doc/html/next/admin-guide/hw-vuln/mds.html)
+- [Microarchitectural Data Sampling (MDS) mitigation](https://www.kernel.org/doc/html/next/arch/x86/mds.html)
+- 原理：
+	- 处理器为了提升性能，load 指令可以从一些先前指令或者缓存 refill 获取结果
+	- 获取到的结果可能来自错误的指令，从而泄露了信息，即使这条 load 指令最终会被回滚，但可能把数据通过侧信道泄露出去
+- 缓解措施：
+	- 切换特权级或在宿主机和虚拟机之间切换时，清空微架构上的状态以避免数据泄露
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -354,14 +372,11 @@
 
 ## TODO
 
-- L1tf
-- Mds
 - Mmio stable data
 - Reg file data sampling
 - Spec store bypass
 - Srbds
 - Tsx async abort
 - __user pointer sanitization
-- PTE Inversion
 - Zenbleed
 - untrained return thunk
