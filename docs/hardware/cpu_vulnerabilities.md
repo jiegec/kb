@@ -216,7 +216,7 @@
 	- 升级 Microcode
 	- 主动执行 `VERW` 指令来避免旧值被后续代码泄漏
 
-## Speculative Store Bypass
+### Speculative Store Bypass (SSB)
 
 - [Speculative Store Bypass / CVE-2018-3639 / INTEL-SA-00115](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/speculative-store-bypass.html)
 - 又称 Spectre Variant 4
