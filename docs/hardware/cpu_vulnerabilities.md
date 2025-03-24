@@ -216,6 +216,25 @@
 	- 升级 Microcode
 	- 主动执行 `VERW` 指令来避免旧值被后续代码泄漏
 
+## Speculative Store Bypass
+
+- [Speculative Store Bypass / CVE-2018-3639 / INTEL-SA-00115](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/speculative-store-bypass.html)
+- 又称 Spectre Variant 4
+- 原理：
+	- 处理器为了提升 load 指令性能，会预测 load 指令的数据可以从哪条 store 指令获取
+	- 如果欺骗这个预测器，让它预测 load（下面的 `Y = ...`）从错误的 store 指令处（下面的 `X = &K`）获取数据，可以在一个推测执行窗口中操控 load 读取的数据，进而泄露数据：
+
+	```c
+	X = &K;    // Attacker manages to get variable with address of K stored into pointer X
+	<at some later point>
+	X = &M;      // Does a store of address of M to pointer X
+	Y = Array[*X & 0xFFFF]; // Dereferences address of M which is in pointer X in order to
+          // load from array at index specified by M[15:0]
+	```
+- 缓解措施：
+	- 添加 LFENCE 以阻止推测执行
+	- 设置 Speculative Store Bypass Disable (SSBD)
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -382,7 +401,6 @@
 ## TODO
 
 - Mmio stable data
-- Spec store bypass
 - Srbds
 - Tsx async abort
 - __user pointer sanitization
