@@ -25,6 +25,7 @@
 		- Bounds Clipping
 		- 特定场景下（例如 usercopy 和 swapgs）加入 lfence 指令阻止错误路径上的 load 指令被执行
 		- Supervisor-Mode Access Prevention (SMAP)
+		- __user pointer sanitization
 - Variant 2: Branch Target Injection (BTI)
 	- [CVE-2017-5715](https://nvd.nist.gov/vuln/detail/cve-2017-5715)
 	- 原理：CPU 的分支预测器的状态是全局共享的，因此可以在虚拟机内控制分支预测器的状态，当 CPU 控制权回到宿主机时（比如进行一次 hypercall），CPU 会使用虚拟机准备好的分支预测器的状态来进行分支预测，从而推测执行了原本宿主机不会执行的代码，具体方法是欺骗 BTB 或间接分支预测器，注入攻击者指定的分支目的地址，使得 CPU 在预测错误路径上预测执行攻击者指定的代码；类似的方法也可以用于从用户态攻击内核态
@@ -317,6 +318,15 @@
 - [Supervisor-Mode Access Prevention (SMAP)](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/best-practices/related-intel-security-features-technologies.html) 在内核态下，禁止访问（包括推测访问）用户态空间的内存，缩小攻击者可以利用的内存范围；代价是在需要访问用户态空间的内存时，内核需要临时关闭 SMAP
 - SMAP 相当于是把 SMEP 的限制从执行权限扩展到了读写权限
 - SMAP 本身不能修复漏洞，但可以给攻击者创造更多限制
+- x86 上，首先在 CR4 寄存器中启用 SMAP，此时默认情况下内核不能访问用户态的数据，只有在 `stac` 指令之后且在 `clac` 指令之前的区间内可以访问用户态数据：
+
+	```asm
+	# cannot access user pointers
+	stac
+	# can access user pointers
+	clac
+	# cannot access user pointers
+	```
 
 ### Bounds Clipping
 
@@ -406,10 +416,14 @@
 - IA32_PRED_CMD:
 	- [0]: IPBP，Indirect Branch Prediction Barrier，阻止 Barrier 前面的指令影响 Barrier 后面的指令的间接分支预测
 
+### __user pointer sanitization
+
+- [[PATCH v6 13/13] x86/spectre: report get_user mitigation for spectre_v1](https://lore.kernel.org/all/151727420158.33451.11658324346540434635.stgit@dwillia2-desk3.amr.corp.intel.com/T/#u)
+- 内核在访问用户态的地址的时候，添加 barrier 以避免推测执行
+
 ## TODO
 
 - Mmio stable data
 - Srbds
 - Tsx async abort
-- __user pointer sanitization
 - untrained return thunk
