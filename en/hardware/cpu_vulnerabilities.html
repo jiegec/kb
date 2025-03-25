@@ -1393,6 +1393,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#special-register-buffer-data-sampling-srbds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special Register Buffer Data Sampling (SRBDS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmio-stale-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      MMIO Stale Data
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1554,15 +1572,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#todo" class="md-nav__link">
-    <span class="md-ellipsis">
-      TODO
-    </span>
-  </a>
   
 </li>
       
@@ -3300,6 +3309,23 @@
 </ul>
 </li>
 </ul>
+<h3 id="special-register-buffer-data-sampling-srbds">Special Register Buffer Data Sampling (SRBDS)</h3>
+<ul>
+<li><a href="https://docs.kernel.org/admin-guide/hw-vuln/special-register-buffer-data-sampling.html">SRBDS - Special Register Buffer Data Sampling</a></li>
+<li>原理：<ul>
+<li>RDRAND 和 RDSEED 指令的结果会保存在 Special Register Buffer 当中</li>
+<li>通过 Microarchitectural Data Sampling (MDS) 的方法，可以泄露出 Special Register Buffer 的内容，从而嗅探到随机数生成指令的结果</li>
+</ul>
+</li>
+</ul>
+<h3 id="mmio-stale-data">MMIO Stale Data</h3>
+<ul>
+<li><a href="https://docs.kernel.org/admin-guide/hw-vuln/processor_mmio_stale_data.html">Processor MMIO Stale Data Vulnerabilities</a></li>
+<li>原理：<ul>
+<li>在虚拟机中的攻击者，可以对外设进行 MMIO，MMIO 的不当实现可能会泄露核上宿主机或其他虚拟机的数据</li>
+</ul>
+</li>
+</ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
 <ul>
@@ -3495,11 +3521,6 @@
 </li>
 <li>在执行 <code>test $0xcc, %bl</code> 的时候，就会把 <code>ret</code> 指令标记为非分支指令，之后再去执行它的时候，预测器就不会工作，从而避免了漏洞的利用</li>
 </ul>
-<h2 id="todo">TODO</h2>
-<ul>
-<li>Mmio stable data</li>
-<li>Srbds</li>
-</ul>
 
 
 
@@ -3522,7 +3543,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月25日 09:24:13">2025年3月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月25日 09:30:31">2025年3月25日</span>
   </span>
 
     
