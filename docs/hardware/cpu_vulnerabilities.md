@@ -245,6 +245,14 @@
 - 缓解措施：
 	- 升级 Microcode
 
+### TSX Asynchronous Abort
+
+- [TAA - TSX Asynchronous Abort](https://docs.kernel.org/admin-guide/hw-vuln/tsx_async_abort.html)
+- [Intel® Transactional Synchronization Extensions (Intel® TSX) Asynchronous Abort / CVE-2019-11135 / INTEL-SA-00270](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/intel-tsx-asynchronous-abort.html)
+- Intel Transactional Synchronization Extensions (TSX) 是 Intel 的 Transactional Memory 的实现，可以把一系列的指令当成一个事务原子地完成
+- 原理：
+	- 攻击者启动一个 TSX Transaction，当它被异步地打断时，一些指令会在推测执行路径上读取到处理器内部结构的值，进而泄露信息
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -444,5 +452,3 @@
 
 - Mmio stable data
 - Srbds
-- Tsx async abort
-- untrained return thunk
