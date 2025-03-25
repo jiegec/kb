@@ -253,6 +253,19 @@
 - 原理：
 	- 攻击者启动一个 TSX Transaction，当它被异步地打断时，一些指令会在推测执行路径上读取到处理器内部结构的值，进而泄露信息
 
+### Special Register Buffer Data Sampling (SRBDS)
+
+- [SRBDS - Special Register Buffer Data Sampling](https://docs.kernel.org/admin-guide/hw-vuln/special-register-buffer-data-sampling.html)
+- 原理：
+	- RDRAND 和 RDSEED 指令的结果会保存在 Special Register Buffer 当中
+	- 通过 Microarchitectural Data Sampling (MDS) 的方法，可以泄露出 Special Register Buffer 的内容，从而嗅探到随机数生成指令的结果
+
+### MMIO Stale Data
+
+- [Processor MMIO Stale Data Vulnerabilities](https://docs.kernel.org/admin-guide/hw-vuln/processor_mmio_stale_data.html)
+- 原理：
+	- 在虚拟机中的攻击者，可以对外设进行 MMIO，MMIO 的不当实现可能会泄露核上宿主机或其他虚拟机的数据
+
 ## 缓解措施 Mitigations
 
 ### KASLR
@@ -447,8 +460,3 @@
 
 - 这段代码从 `1:` 处开始执行，由于 `test $0xcc, %bl` 的编码和 `.byte 0xf6; ret; int3` 指令相同，所以它的语义相当于是 `test $0xcc, %bl; lfence; jmp 2b`；然后跳转到 `2:` 处的 ret 指令
 - 在执行 `test $0xcc, %bl` 的时候，就会把 `ret` 指令标记为非分支指令，之后再去执行它的时候，预测器就不会工作，从而避免了漏洞的利用
-
-## TODO
-
-- Mmio stable data
-- Srbds
