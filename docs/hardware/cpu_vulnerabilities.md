@@ -1,6 +1,6 @@
 # CPU 漏洞和缓解措施
 
-## 漏洞
+## 漏洞 Vulnerabilities
 
 ### Spectre
 
@@ -107,6 +107,7 @@
 - 缓解措施：
 	- RSB stuffing/filling
 	- RRSBA_DIS_S
+	- untrained return thunk
 
 ### Speculative Return Stack Overflow (SRSO/Spec rstack overflow/INCEPTION)
 
@@ -420,6 +421,24 @@
 
 - [[PATCH v6 13/13] x86/spectre: report get_user mitigation for spectre_v1](https://lore.kernel.org/all/151727420158.33451.11658324346540434635.stgit@dwillia2-desk3.amr.corp.intel.com/T/#u)
 - 内核在访问用户态的地址的时候，添加 barrier 以避免推测执行
+
+### untrained return thunk
+
+- 为了避免 ret 被预测，利用 x86 指令集编码的特性，使得 ret 指令被解释为非 ret 指令的一部分，再去执行这条 ret 指令，此时它就不会被预测，这个特别的指令序列如下（对应 Linux 的 [`retbleed_untrain_ret` 函数](https://github.com/torvalds/linux/blob/2df0c02dab829dd89360d98a8a1abaa026ef5798/arch/x86/lib/retpoline.S#L272)）：
+
+	```asm
+	1:
+	.byte 0xf6
+	2:
+	ret
+	int 3
+	lfence
+	jmp 2b
+	int 3
+	```
+
+- 这段代码从 `1:` 处开始执行，由于 `test $0xcc, %bl` 的编码和 `.byte 0xf6; ret; int3` 指令相同，所以它的语义相当于是 `test $0xcc, %bl; lfence; jmp 2b`；然后跳转到 `2:` 处的 ret 指令
+- 在执行 `test $0xcc, %bl` 的时候，就会把 `ret` 指令标记为非分支指令，之后再去执行它的时候，预测器就不会工作，从而避免了漏洞的利用
 
 ## TODO
 
