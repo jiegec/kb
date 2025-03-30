@@ -198,7 +198,7 @@ if (tcache != NULL && tc_idx < mp_.tcache_bins)
 
 1. 计算 tcache index，找到对应的 bin
 2. 检查它是不是已经被 free 过了，即 double free：free 过的指针，它的 key 字段应当指向 tcache，如果实际检测到是这样，那就去 tcache 里遍历链表，检查是不是真的在里面，如果是，说明 double free 了，报错
-3. 如果对应的 bin 的链表长度不是很长（阈值是 `mp_.tcache_count`），则添加到链表头部，完成 free 的过程
+3. 如果对应的 bin 的链表长度不是很长（阈值是 `mp_.tcache_count`，取值见后），则添加到链表头部，完成 free 的过程
 
 那么 tcache 默认情况下有多大呢：
 
@@ -212,7 +212,7 @@ if (tcache != NULL && tc_idx < mp_.tcache_bins)
 
 也就是说，它有 64 个 bin，每个 bin 的链表最多 7 个空闲块。
 
-下面来写一段程序来观察 tcache 的行为，考虑到从链表头部插入和删除是先进后出（FILO），相当于是一个栈，所以分配两个大小相同的块，释放后再分配相同大小的块，得到的指针应该是顺序是反过来的：
+下面来写一段程序来观察 tcache 的行为，考虑到从链表头部插入和删除是先进后出（LIFO），相当于是一个栈，所以分配两个大小相同的块，释放后再分配相同大小的块，得到的指针应该是顺序是反过来的：
 
 ```c
 #include <stdio.h>
