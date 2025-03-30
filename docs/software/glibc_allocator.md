@@ -30,7 +30,7 @@ DIAG_POP_NEEDS_COMMENT;
 
 ### tcache
 
-接下来仔细得研究 tcache 的结构。首先，它是一个 perthread 的数据结构，意味着每个线程都有自己的一份 tcache：
+接下来仔细地研究 tcache 的结构。首先，它是一个 per-thread 的数据结构，意味着每个线程都有自己的一份 tcache，不需要上锁就可以访问：
 
 ```c
 static __thread tcache_perthread_struct *tcache = NULL;
