@@ -28,7 +28,7 @@ if (tc_idx < mp_.tcache_bins
 DIAG_POP_NEEDS_COMMENT;
 ```
 
-### tcache
+### tcache (Thread Local Cache)
 
 接下来仔细地研究 tcache 的结构。首先，它是一个 per-thread 的数据结构，意味着每个线程都有自己的一份 tcache，不需要上锁就可以访问：
 
@@ -96,7 +96,7 @@ tcache_get (size_t tc_idx)
 bin 是内存分配器的一个常见做法，把要分配的块的大小分 bin，从而保证拿到的空闲块足够大。接下来看 `tcache_put` 是如何把空闲块放到 tcache 中的：
 
 1. 把空闲块强制转换为 `tcache_entry` 结构体类型
-2. 把它的 `key` 字段指向 tcache，用来表示这个空闲块当前在 `tcache` 当中
+2. 把它的 `key` 字段指向 tcache，用来表示这个空闲块当前在 `tcache` 当中，后续用它来检测 double free
 3. 以新的 `tcache_entry` 作为链表头，插入到 tcache 的对应的 bin 当中：`entries[tc_idx]`
 4. 更新这个 bin 的空闲块个数到 `count[tc_idx]` 当中
 
@@ -142,7 +142,9 @@ checked_request2size (size_t req, size_t *sz) __nonnull (1)
 }
 ```
 
-它实现的实际上是把用户请求的内存大小，加上 `SIZE_SZ`（即 `sizeof(size_t)`），向上取整到 `MALLOC_ALIGN_MASK` 对应的 alignment（`MALLOC_ALIGNMENT`，通常是 `2 * SIZE_SZ`）的整数倍数，再和 `MINSIZE` 取 max。接着，看它是如何计算出 tcache index 的：
+它实现的实际上是把用户请求的内存大小，加上 `SIZE_SZ`（即 `sizeof(size_t)`），向上取整到 `MALLOC_ALIGN_MASK` 对应的 alignment（`MALLOC_ALIGNMENT`，通常是 `2 * SIZE_SZ`）的整数倍数，再和 `MINSIZE` 取 max。这里要加 `SIZE_SZ`，是因为 malloc 会维护被分配的块的一些信息，包括块的大小和一些 flag，后续会详细讨论，简单来说就是分配的实际空间会比用户请求的空间要更大。
+
+接着，看它是如何计算出 tcache index 的：
 
 ```c
 /* When "x" is from chunksize().  */
@@ -204,7 +206,7 @@ if (tcache != NULL && tc_idx < mp_.tcache_bins)
 
 ```c
 /* We want 64 entries.  This is an arbitrary limit, which tunables can reduce.  */
-# define TCACHE_MAX_BINS		64
+# define TCACHE_MAX_BINS  64
 /* This is another arbitrary limit, which tunables can change.  Each
    tcache bin will hold at most this number of chunks.  */
 # define TCACHE_FILL_COUNT 7
@@ -345,3 +347,223 @@ p1=0x558f39310740 p2=0x558f39310770 p3=0x558f39310770 p4=0x558f39310740
 
 打印出来的结果和预期一致。
 
+接下来继续分析 malloc 的后续代码。
+
+### 回到 `_int_malloc`
+
+如果 malloc 没有命中 tcache，或者 free 没有把空闲块放到 tcache 当中，会发生什么事情呢？接下来往后看，首先是 `__libc_malloc` 的后续实现：
+
+```c
+if (SINGLE_THREAD_P)
+  {
+    victim = _int_malloc (&main_arena, bytes);
+    // omitted
+    return victim;
+  }
+
+arena_get (ar_ptr, bytes);
+
+victim = _int_malloc (ar_ptr, bytes);
+```
+
+这里出现了 arena 的概念：多线程情况下，为了提升性能，同时用多个 arena，每个 arena 用一把锁来保证多线程安全，从而使得多个线程可以同时从不同的 arena 中分配内存。这里先不讨论多线程的情况，先假设在单线程程序下，全局只用一个 arena：`main_arena`，然后从里面分配内存。接下来看 `_int_malloc` 的内部实现，可以看到它根据要分配的块的大小进入了不同的处理：
+
+```c
+// in _int_malloc
+if ((unsigned long) (nb) <= (unsigned long) (get_max_fast ()))
+  {
+    // fast bin handling
+  }
+
+if (in_smallbin_range (nb))
+  {
+    // small bin handling
+  }
+else
+  {
+    // consolidate fast bins to unsorted bins
+  }
+
+for (;; )
+  {
+    // process unsorted bins
+  }
+```
+
+malloc 把空闲的块分成四种类型来保存：
+
+1. fast bin: 类似前面的 tcache bin，把大小相同的空闲块放到链表中，再维护多个对应不同大小的空闲块的链表头指针，采用单向链表维护
+2. small bin：small bin 也会把相同的空闲块放在链表中，但相邻的空闲块会被合并为更大的空闲块，采用双向链表维护
+3. large bin：large bin 可能保存不同大小的空闲块，采用双向链表维护
+4. unsorted bin：近期被 free 的空闲块，如果没有保存到 tcache，会被放到 unsorted bin 当中，留待后续的处理
+
+在讨论这些 bin 的维护方式之前，首先要知道 glibc 是怎么维护块的：空闲的时候是什么布局，被分配的时候又是什么布局？
+
+### 块布局
+
+glibc 每个空闲块（chunk）对应了下面的结构体 `malloc_chunk`：
+
+```c
+struct malloc_chunk {
+  INTERNAL_SIZE_T      mchunk_prev_size;  /* Size of previous chunk (if free).  */
+  INTERNAL_SIZE_T      mchunk_size;       /* Size in bytes, including overhead. */
+
+  struct malloc_chunk* fd;         /* double links -- used only if free. */
+  struct malloc_chunk* bk;
+
+  /* Only used for large blocks: pointer to next larger size.  */
+  struct malloc_chunk* fd_nextsize; /* double links -- used only if free. */
+  struct malloc_chunk* bk_nextsize;
+};
+```
+
+它的字段如下：
+
+1. 相邻的前一个空闲块的大小 `mchunk_prev_size`，记录它是为了方便找到前一个空闲块的开头，这样合并相邻的空闲块就很简单
+2. 当前空闲块的大小 `mchunk_size`，由于块的大小是对齐的，所以它的低位被用来记录 flag
+3. `fd` 和 `bk`：small bin 和 large bin 需要用双向链表维护空闲块，指针就保存在这里
+4. `fd_nextsize` 和 `bk_next_size`：large bin 需要用双向链表维护不同大小的空闲块，方便找到合适大小的空闲块
+
+这是空闲块的内存布局，那么被分配的内存呢？被分配的内存，相当于是如下的结构：
+
+```c
+struct {
+  INTERNAL_SIZE_T      mchunk_size;       /* Size in bytes, including overhead. */
+  char payload[];                         /* malloc() returns pointer to payload */
+};
+```
+
+也就是说，`malloc()` 返回的地址，等于空闲块里 `fd` 所在的位置。被分配的块，除了用户请求的空间以外，只有前面的 `sizeof(size_t)` 大小的空间是内存分配器带来的空间开销。块被释放以后，它被重新解释成 `malloc_chunk` 结构体（注意它们的起始地址不同，`malloc_chunk` 的地址是 malloc 返回的 `payload` 地址减去 `2 * sizeof(size_t)`，对应 `mchunk_prev_size` 和 `mchunk_size` 两个字段）。事实上，`mchunk_prev_size` 保存在用户请求的空间的最后几个字节。内存布局如下：
+
+```
+ in-use chunk         free chunk
++-------------+      +------------------+
+| mchunk_size |      | mchunk_size      |
++-------------+      +------------------+
+| payload     |      | fd               |
+|             |      +------------------+
+|             |      | bk               |
+|             |      +------------------+
+|             |      | fd_nextsize      |
+|             | ---> +------------------+
+|             |      | bk_nextsize      |
+|             |      +------------------+
+|             |      | unused           |
+|             |      |                  |
+|             |      |                  |
+|             |      |                  |
+|             |      +------------------+
+|             |      | mchunk_prev_size |
++-------------+      +------------------+
+```
+
+因此为了在 payload 和 `malloc_chunk` 指针之间转换，代码中设计了两个宏来简化指针运算：
+
+```c
+/* conversion from malloc headers to user pointers, and back */
+
+#define chunk2mem(p)   ((void*)((char*)(p) + 2*SIZE_SZ))
+#define mem2chunk(mem) ((mchunkptr)((char*)(mem) - 2*SIZE_SZ))
+```
+
+知道了空闲块的维护方式，由于各个 bin 维护的就是这些空闲块，所以接下来分别看这几种 bin 的维护方式。
+
+### fast bin
+
+fast bin 的维护方式和 tcache 类似，它把不同大小的空闲块按照大小分成多个 bin，每个 bin 记录在一个单向链表当中，然后用一个数组记录各种 bin 大小的链表头，这里直接用的就是 `malloc_chunk` 指针数组：
+
+```c
+typedef struct malloc_chunk *mfastbinptr;
+struct malloc_state
+{
+  /* other fields are omitted */
+  /* Fastbins */
+  mfastbinptr fastbinsY[NFASTBINS];
+}
+```
+
+分配的时候，和 tcache 类似，也是计算出 fastbin 的 index，然后去找对应的链表，如果链表非空，则从链表头取出空闲块用于分配：
+
+```c
+#define fastbin(ar_ptr, idx) ((ar_ptr)->fastbinsY[idx])
+
+/* offset 2 to use otherwise unindexable first 2 bins */
+#define fastbin_index(sz) \
+  ((((unsigned int) (sz)) >> (SIZE_SZ == 8 ? 4 : 3)) - 2)
+
+// in _int_malloc, allocate using fastbin
+idx = fastbin_index (nb);
+mfastbinptr *fb = &fastbin (av, idx);
+mchunkptr pp;
+victim = *fb;
+
+if (victim != NULL)
+  {
+    if (SINGLE_THREAD_P)
+      *fb = victim->fd;
+    else
+      REMOVE_FB (fb, pp, victim);
+    if (__glibc_likely (victim != NULL))
+      {
+        size_t victim_idx = fastbin_index (chunksize (victim));
+        if (__builtin_expect (victim_idx != idx, 0))
+          malloc_printerr ("malloc(): memory corruption (fast)");
+        check_remalloced_chunk (av, victim, nb);
+#if USE_TCACHE
+        /* While we're here, if we see other chunks of the same size,
+          stash them in the tcache.  */
+        size_t tc_idx = csize2tidx (nb);
+        if (tcache && tc_idx < mp_.tcache_bins)
+          {
+            mchunkptr tc_victim;
+
+            /* While bin not empty and tcache not full, copy chunks.  */
+            while (tcache->counts[tc_idx] < mp_.tcache_count
+                  && (tc_victim = *fb) != NULL)
+              {
+                if (SINGLE_THREAD_P)
+                  *fb = tc_victim->fd;
+                else
+                  {
+                    REMOVE_FB (fb, pp, tc_victim);
+                    if (__glibc_unlikely (tc_victim == NULL))
+                      break;
+                  }
+                tcache_put (tc_victim, tc_idx);
+              }
+          }
+#endif
+        void *p = chunk2mem (victim);
+        alloc_perturb (p, bytes);
+        return p;
+      }
+  }
+```
+
+它的过程如下：
+
+1. 使用 `fastbin_index (nb)` 根据块的大小计算出 fast bin 的 index，然后 `fastbin (av, idx)` 对应 fast bin 的链表头指针
+2. 如果链表非空，说明可以从 fast bin 分配空闲块，此时就把链表头的结点弹出：`*fb = victim->fd`（单线程）或 `REMOVE_FB (fb, pp, victim)`（多线程）；只用到了单向链表的 `fd` 指针，其余的字段没有用到
+3. 进行一系列的安全检查：`__builtin_expect` 和 `check_remalloced_chunk`
+4. 检查 tcache 对应的 bin，如果它还没有满，就把 fast bin 链表中的元素挪到 tcache 当中
+5. 把 payload 地址通过 `chunk2mem` 计算出来，返回给 malloc 调用者
+6. 调用 `alloc_perturb` 往新分配的空间内写入垃圾数据，避免泄露之前的数据
+
+可以看到，这个过程比较简单，和 tcache 类似，只不过它从 thread local 的 tcache 改成了支持多线程的版本，同时为了支持多线程访问，使用 CAS 原子指令来更新链表头部：
+
+```c
+#define REMOVE_FB(fb, victim, pp) \
+  do                              \
+    {                             \
+      victim = pp;                \
+      if (victim == NULL)         \
+        break;                    \
+    }                             \
+  while ((pp = catomic_compare_and_exchange_val_acq (fb, victim->fd, victim)) != victim);
+```
+
+正因如此，这个分配过程才能做到比较快，所以这样的分配方法叫做 fast bin。
+
+## 参考
+
+- [Malloc Internals](https://sourceware.org/glibc/wiki/MallocInternals)
