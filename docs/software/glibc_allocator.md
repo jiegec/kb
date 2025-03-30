@@ -211,3 +211,137 @@ if (tcache != NULL && tc_idx < mp_.tcache_bins)
 ```
 
 也就是说，它有 64 个 bin，每个 bin 的链表最多 7 个空闲块。
+
+下面来写一段程序来观察 tcache 的行为，考虑到从链表头部插入和删除是先进后出（FILO），相当于是一个栈，所以分配两个大小相同的块，释放后再分配相同大小的块，得到的指针应该是顺序是反过来的：
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  void *p1 = malloc(32);
+  void *p2 = malloc(32);
+  free(p1);
+  free(p2);
+  void *p3 = malloc(32);
+  void *p4 = malloc(32);
+  printf("p1=%p p2=%p p3=%p p4=%p\n", p1, p2, p3, p4);
+}
+```
+
+输出如下：
+
+```c
+p1=0x55fb2f9732a0 p2=0x55fb2f9732d0 p3=0x55fb2f9732d0 p4=0x55fb2f9732a0
+```
+
+结果符合预期，tcache 的内部状态变化过程如下：
+
+1. `free(p1)`：p1 变成链表的头部
+2. `free(p2)`：p2 变成链表的头部，next 指针指向 p1
+3. `p3 = malloc(32)`: p2 是链表的头部，所以被分配给 p3，之后 p1 成为链表的头部
+3. `p4 = malloc(32)`: p1 是链表的头部，所以被分配给 p4
+
+如果修改分配的大小，让它们被放到不同的 bin，就不会出现顺序颠倒的情况：
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  void *p1 = malloc(32);
+  void *p2 = malloc(48);
+  free(p1);
+  free(p2);
+  void *p3 = malloc(32);
+  void *p4 = malloc(48);
+  printf("p1=%p p2=%p p3=%p p4=%p\n", p1, p2, p3, p4);
+}
+```
+
+输出如下：
+
+```c
+p1=0x5638e68db2a0 p2=0x5638e68db2d0 p3=0x5638e68db2a0 p4=0x5638e68db2d0
+```
+
+可以看到 p3 等于 p1，p4 等于 p2。此时 p1 和 p3 属于同一个 bin，而 p2 和 p4 属于另一个 bin。
+
+既然我们知道了 tcache 的内部构造，我们可以写一个程序，首先得到 tcache 的地址，再打印出每次 malloc/free 之后的状态：
+
+```c
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TCACHE_MAX_BINS 64
+
+typedef struct tcache_entry {
+  struct tcache_entry *next;
+  struct tcache_perthread_struct *key;
+} tcache_entry;
+
+typedef struct tcache_perthread_struct {
+  uint16_t counts[TCACHE_MAX_BINS];
+  tcache_entry *entries[TCACHE_MAX_BINS];
+} tcache_perthread_struct;
+
+void dump_tcache(tcache_perthread_struct *tcache) {
+  for (int i = 0; i < TCACHE_MAX_BINS; i++) {
+    if (tcache->counts[i]) {
+      tcache_entry *p = tcache->entries[i];
+      printf("tcache bin #%d: %p", i, p);
+      p = p->next;
+      while (p) {
+        printf(" -> %p", p);
+        p = p->next;
+      }
+      printf("\n");
+    }
+  }
+}
+
+int main() {
+  // leak tcache address
+  void *p0 = malloc(128);
+  free(p0);
+  tcache_entry *entry = p0;
+  tcache_perthread_struct *tcache = entry->key;
+  printf("tcache is at %p\n", tcache);
+  // clear tcache
+  p0 = malloc(128);
+
+  void *p1 = malloc(32);
+  void *p2 = malloc(32);
+  free(p1);
+  printf("after free(p1):\n");
+  dump_tcache(tcache);
+  free(p2);
+  printf("after free(p2):\n");
+  dump_tcache(tcache);
+  void *p3 = malloc(32);
+  printf("after malloc(p3):\n");
+  dump_tcache(tcache);
+  void *p4 = malloc(32);
+  printf("after malloc(p4):\n");
+  dump_tcache(tcache);
+  printf("p1=%p p2=%p p3=%p p4=%p\n", p1, p2, p3, p4);
+}
+```
+
+运行结果如下：
+
+```c
+tcache is at 0x558f39310010
+after free(p1):
+tcache bin #1: 0x558f39310740
+after free(p2):
+tcache bin #1: 0x558f39310770 -> 0x558f39310740
+after malloc(p3):
+tcache bin #1: 0x558f39310740
+after malloc(p4):
+p1=0x558f39310740 p2=0x558f39310770 p3=0x558f39310770 p4=0x558f39310740
+```
+
+打印出来的结果和预期一致。
+
