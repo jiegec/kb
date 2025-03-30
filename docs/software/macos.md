@@ -22,6 +22,8 @@ Apps:
 - 芒果 TV
 - NetNewsWire
 - TimeMachine logging: `log stream --style syslog  --predicate 'senderImagePath contains[cd] "TimeMachine"' --info`
+- Rosetta 2: `softwareupdate --install-rosetta --agree-to-license`
+- Ghidra: `xattr -dr com.apple.quarantine /opt/homebrew/Caskroom/ghidra`
 
 Configs:
 
