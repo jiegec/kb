@@ -564,6 +564,49 @@ if (victim != NULL)
 
 正因如此，这个分配过程才能做到比较快，所以这样的分配方法叫做 fast bin。
 
+接下来分析一下 free 的时候，空闲块是如何进入 fast bin 的：
+
+```c
+// in _int_free, after tcache handling
+if ((unsigned long)(size) <= (unsigned long)(get_max_fast ()))
+  {
+    /* check omitted */
+    free_perturb (chunk2mem(p), size - 2 * SIZE_SZ);
+
+    atomic_store_relaxed (&av->have_fastchunks, true);
+    unsigned int idx = fastbin_index(size);
+    fb = &fastbin (av, idx);
+
+    /* Atomically link P to its fastbin: P->FD = *FB; *FB = P;  */
+    mchunkptr old = *fb, old2;
+
+    if (SINGLE_THREAD_P)
+      {
+        /* Check that the top of the bin is not the record we are going to
+          add (i.e., double free).  */
+        if (__builtin_expect (old == p, 0))
+          malloc_printerr ("double free or corruption (fasttop)");
+        p->fd = old;
+        *fb = p;
+      }
+    else
+      do
+        {
+          /* Check that the top of the bin is not the record we are going to
+            add (i.e., double free).  */
+          if (__builtin_expect (old == p, 0))
+            malloc_printerr ("double free or corruption (fasttop)");
+          p->fd = old2 = old;
+        }
+      while ((old = catomic_compare_and_exchange_val_rel (fb, p, old2))
+              != old2);
+
+    /* check omitted */
+  }
+```
+
+可以看到，它的逻辑很简单：如果大小合适，就直接添加到 fast bin 的链表头里，没有 tcache 那样的长度限制，多线程场景下依然是用 CAS 来实现原子的链表插入。
+
 接下来写一段代码来观察 fast bin 的更新过程：
 
 1. 由于 fastbin 保存在 `main_arena` 中，所以我们需要找到 `main_arena` 的运行时地址
