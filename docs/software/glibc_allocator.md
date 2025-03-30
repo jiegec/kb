@@ -564,6 +564,145 @@ if (victim != NULL)
 
 正因如此，这个分配过程才能做到比较快，所以这样的分配方法叫做 fast bin。
 
+接下来写一段代码来观察 fast bin 的更新过程：
+
+1. 由于 fastbin 保存在 `main_arena` 中，所以我们需要找到 `main_arena` 的运行时地址
+2. `main_arena` 不在符号表中，不能直接找到它的地址，此时可以请出 Ghidra 逆向 `__libc_malloc` 或者 `malloc_trim` 函数，结合代码找到它的地址是 `DAT_002ecb80`，它相对 image base 的 offset 是 `0x1ecb80`
+3. 再找一个在符号表中的符号 `_IO_2_1_stdout_`，在 Ghidra 中找到它的地址是 `0x2ed6a0`，相对 image base 的 offset 是 `0x1ed6a0`
+4. 根据以上信息，就可以在运行时找到 libc 的 image base 地址，从而推断 `main_arena` 的地址，进而找到所有的 fast bin
+5. 下面写一段代码，观察空闲块进入 fast bin 的过程
+
+```c
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+struct malloc_chunk {
+  size_t mchunk_prev_size; /* Size of previous chunk (if free).  */
+  size_t mchunk_size;      /* Size in bytes, including overhead. */
+
+  struct malloc_chunk *fd; /* double links -- used only if free. */
+  struct malloc_chunk *bk;
+
+  /* Only used for large blocks: pointer to next larger size.  */
+  struct malloc_chunk *fd_nextsize; /* double links -- used only if free. */
+  struct malloc_chunk *bk_nextsize;
+};
+
+/* offset 2 to use otherwise unindexable first 2 bins */
+#define fastbin_index(sz) ((((unsigned int)(sz)) >> (SIZE_SZ == 8 ? 4 : 3)) - 2)
+
+#define INTERNAL_SIZE_T size_t
+
+#define MALLOC_ALIGNMENT                                                       \
+  (2 * SIZE_SZ < __alignof__(long double) ? __alignof__(long double)           \
+                                          : 2 * SIZE_SZ)
+
+/* The corresponding word size.  */
+#define SIZE_SZ (sizeof(INTERNAL_SIZE_T))
+
+/* The corresponding bit mask value.  */
+#define MALLOC_ALIGN_MASK (MALLOC_ALIGNMENT - 1)
+
+/* The smallest possible chunk */
+#define MIN_CHUNK_SIZE (offsetof(struct malloc_chunk, fd_nextsize))
+
+/* The smallest size we can malloc is an aligned minimal chunk */
+#define MINSIZE                                                                \
+  (unsigned long)(((MIN_CHUNK_SIZE + MALLOC_ALIGN_MASK) & ~MALLOC_ALIGN_MASK))
+
+#define request2size(req)                                                      \
+  (((req) + SIZE_SZ + MALLOC_ALIGN_MASK < MINSIZE)                             \
+       ? MINSIZE                                                               \
+       : ((req) + SIZE_SZ + MALLOC_ALIGN_MASK) & ~MALLOC_ALIGN_MASK)
+
+#define MAX_FAST_SIZE (80 * SIZE_SZ / 4)
+
+#define NFASTBINS (fastbin_index(request2size(MAX_FAST_SIZE)) + 1)
+
+struct malloc_state {
+  /* Serialize access.  */
+  int mutex;
+  /* Flags (formerly in max_fast).  */
+  int flags;
+  /* Set if the fastbin chunks contain recently inserted free blocks.  */
+  /* Note this is a bool but not all targets support atomics on booleans.  */
+  int have_fastchunks;
+  /* Fastbins */
+  struct malloc_chunk *fastbinsY[NFASTBINS];
+};
+
+void dump_fastbin() {
+  void *libc_base = (char *)stdout - 0x1ed6a0; // offset of _IO_2_1_stdout_
+  struct malloc_state *main_arena =
+      libc_base +
+      0x1ecb80; // offset of main_arena, found by decompiling malloc_trim
+  for (int i = 0; i < NFASTBINS; i++) {
+    if (main_arena->fastbinsY[i]) {
+      struct malloc_chunk *p = main_arena->fastbinsY[i];
+      printf("fastbin #%d: %p", i, p);
+      p = p->fd;
+      while (p) {
+        printf(" -> %p", p);
+        p = p->fd;
+      }
+      printf("\n");
+    }
+  }
+}
+
+int main() {
+  // use 10 malloc + free, the first 7 blocks will be saved in tcache, the rest
+  // ones will go to fastbin
+  void *ptrs[10];
+  printf("allocate 10 pointers:");
+  for (int i = 0; i < 10; i++) {
+    ptrs[i] = malloc(32);
+    printf(" %p", ptrs[i]);
+  }
+  printf("\n");
+
+  // now one ptr goes to fastbin
+  for (int i = 0; i < 8; i++) {
+    free(ptrs[i]);
+  }
+
+  printf("fastbins after 8 pointers freed:\n");
+  dump_fastbin();
+
+  // free the 9th one
+  free(ptrs[8]);
+
+  // two pointers in the fastbin
+  printf("fastbins after 9 pointers freed:\n");
+  dump_fastbin();
+
+  // free the 10th one
+  free(ptrs[9]);
+
+  // three pointers in the fastbin
+  printf("fastbins after 10 pointers freed:\n");
+  dump_fastbin();
+  return 0;
+}
+```
+
+输出如下：
+
+```c
+allocate 10 pointers: 0x563bd918d6b0 0x563bd918d6e0 0x563bd918d710 0x563bd918d740 0x563bd918d770 0x563bd918d7a0 0x563bd918d7d0 0x563bd918d800 0x563bd918d830 0x563bd918d860
+fastbins after 8 pointers freed:
+fastbin #1: 0x563bd918d7f0
+fastbins after 9 pointers freed:
+fastbin #1: 0x563bd918d820 -> 0x563bd918d7f0
+fastbins after 10 pointers freed:
+fastbin #1: 0x563bd918d850 -> 0x563bd918d820 -> 0x563bd918d7f0
+```
+
+可以看到，代码先分配了十个块，再按顺序释放，那么前七个块会进入 tcache，剩下的三个块则进入了同一个 fast bin，并且后释放的会在链表的开头。注意 fast bin 链表里的地址打印的是 chunk 地址，而用 `malloc` 分配的地址指向的是 payload 部分，二者差了 16 字节，最终 fast bin 就是把十个块里最后三个块用链表串起来。
+
+
 ## 参考
 
 - [Malloc Internals](https://sourceware.org/glibc/wiki/MallocInternals)
