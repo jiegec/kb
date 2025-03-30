@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/mathematics/abstract-algebra.html">
+        <link rel="canonical" href="https://jia.je/kb/software/glibc_allocator.html">
       
       
-        <link rel="prev" href="../hardware/usb_hci.html">
+        <link rel="prev" href="gcc.html">
       
       
-        <link rel="next" href="fourier-transform.html">
+        <link rel="next" href="linux_graphics.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>抽象代数 - 杰哥的知识库</title>
+        <title>glibc 内存分配器 - 杰哥的知识库</title>
       
     
     
@@ -73,11 +73,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="抽象代数 - 杰哥的知识库" >
+        <meta  property="og:title"  content="glibc 内存分配器 - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/mathematics/abstract-algebra.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/glibc_allocator.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,15 +85,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/mathematics/abstract-algebra.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/software/glibc_allocator.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="抽象代数 - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="glibc 内存分配器 - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/mathematics/abstract-algebra.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/glibc_allocator.png" >
       
     
     
@@ -118,7 +118,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#glibc" class="md-skip">
           跳转至
         </a>
       
@@ -152,7 +152,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              抽象代数
+              glibc 内存分配器
             
           </span>
         </div>
@@ -173,13 +173,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../en/mathematics/abstract-algebra.html" hreflang="en" class="md-select__link">
+            <a href="../en/software/glibc_allocator.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="abstract-algebra.html" hreflang="zh" class="md-select__link">
+            <a href="glibc_allocator.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -341,13 +341,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="abstract-algebra.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
           
   
     
@@ -383,11 +381,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../software/2fa.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2fa.html" class="md-tabs__link">
           
   
     
@@ -1732,10 +1732,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1750,22 +1748,21 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1777,7 +1774,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             数学
@@ -1788,31 +1785,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    抽象代数
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="abstract-algebra.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1822,53 +1798,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      群
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      环
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      域
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1881,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="fourier-transform.html" class="md-nav__link">
+      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1903,7 +1832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="probability.html" class="md-nav__link">
+      <a href="../mathematics/probability.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1925,7 +1854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="score.html" class="md-nav__link">
+      <a href="../mathematics/score.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2123,8 +2052,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -2183,21 +2114,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -2209,7 +2141,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             软件
@@ -2223,7 +2155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/2fa.html" class="md-nav__link">
+      <a href="2fa.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2245,7 +2177,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/abi.html" class="md-nav__link">
+      <a href="abi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2267,7 +2199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/atomic_instructions.html" class="md-nav__link">
+      <a href="atomic_instructions.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2289,7 +2221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/aws-pricing.html" class="md-nav__link">
+      <a href="aws-pricing.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2311,7 +2243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cfi.html" class="md-nav__link">
+      <a href="cfi.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2333,7 +2265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cg.html" class="md-nav__link">
+      <a href="cg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2355,7 +2287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cpio.html" class="md-nav__link">
+      <a href="cpio.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2377,7 +2309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cuda.html" class="md-nav__link">
+      <a href="cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2399,7 +2331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/dijkstra.html" class="md-nav__link">
+      <a href="dijkstra.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2421,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/doh.html" class="md-nav__link">
+      <a href="doh.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2443,7 +2375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/gc.html" class="md-nav__link">
+      <a href="gc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2465,7 +2397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/gcc.html" class="md-nav__link">
+      <a href="gcc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2484,10 +2416,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../software/glibc_allocator.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    glibc 内存分配器
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="glibc_allocator.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2497,6 +2450,50 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#glibc-231" class="md-nav__link">
+    <span class="md-ellipsis">
+      glibc 2.31
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="glibc 2.31">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcache" class="md-nav__link">
+    <span class="md-ellipsis">
+      tcache
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2509,7 +2506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_graphics.html" class="md-nav__link">
+      <a href="linux_graphics.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2531,7 +2528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_mm.html" class="md-nav__link">
+      <a href="linux_mm.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2553,7 +2550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_resctrl.html" class="md-nav__link">
+      <a href="linux_resctrl.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2575,7 +2572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_scheduler.html" class="md-nav__link">
+      <a href="linux_scheduler.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2597,7 +2594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/macos.html" class="md-nav__link">
+      <a href="macos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2619,7 +2616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/ohos.html" class="md-nav__link">
+      <a href="ohos.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2641,7 +2638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/postgresql.html" class="md-nav__link">
+      <a href="postgresql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2663,7 +2660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/redshift.html" class="md-nav__link">
+      <a href="redshift.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2685,7 +2682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+      <a href="sgemm_cuda.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2707,7 +2704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/spark.html" class="md-nav__link">
+      <a href="spark.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2729,7 +2726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/svg.html" class="md-nav__link">
+      <a href="svg.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2751,7 +2748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/tar.html" class="md-nav__link">
+      <a href="tar.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2773,7 +2770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/transformer.html" class="md-nav__link">
+      <a href="transformer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2812,7 +2809,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/mathematics/abstract-algebra.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/glibc_allocator.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2820,36 +2817,188 @@
   
 
 
-<h1 id="_1">抽象代数</h1>
-<h2 id="_2">群</h2>
-<p>设 <span class="arithmatex">\(G\)</span> 是一个非空集合，在 G 上定义一个二元运算 <span class="arithmatex">\(*\)</span>。如果满足封闭性和结合律，那么 <span class="arithmatex">\(G\)</span> 是半群；如果满足封闭性、结合律和幺元，那么 <span class="arithmatex">\(G\)</span> 是含幺半群；如果满足封闭性、结合律、幺元和逆元，那么 <span class="arithmatex">\(G\)</span> 是群。</p>
-<p>设 <span class="arithmatex">\(S\)</span> 是群 <span class="arithmatex">\(G\)</span> 的一个非空子集，若 <span class="arithmatex">\(S\)</span> 对 <span class="arithmatex">\(G\)</span> 的运算也构成群，则称 <span class="arithmatex">\(S\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个子群（subgroup），记作 <span class="arithmatex">\(S \le G\)</span>。</p>
-<p>设 <span class="arithmatex">\((G, *)\)</span> 是一个群，<span class="arithmatex">\(H \le G, a \in G\)</span>，则 <span class="arithmatex">\(aH\)</span> 称为 <span class="arithmatex">\(H\)</span> 的一个左陪集（left coset），<span class="arithmatex">\(Ha\)</span> 称为 <span class="arithmatex">\(H\)</span> 的一个右陪集。</p>
-<p>设 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(H \le G\)</span>，若 <span class="arithmatex">\(\forall g \in G, gH=Hg\)</span>，则称 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的正规子群（normal subgroup），并记作 <span class="arithmatex">\(H \unlhd G\)</span>。</p>
-<p>设 <span class="arithmatex">\(H \unlhd G\)</span>，那么左陪集和右陪集相等，<span class="arithmatex">\(G\)</span> 关于 <span class="arithmatex">\(H\)</span> 的陪集集合，记作 <span class="arithmatex">\(G/H\)</span>，这个集合关于子集乘法构成群，这就是 <span class="arithmatex">\(G\)</span> 关于 <span class="arithmatex">\(H\)</span> 生成的商群（quotient group）。</p>
-<p>若群 <span class="arithmatex">\(G \ne \{e\}\)</span>，<span class="arithmatex">\(G\)</span> 中除了平凡子群以外，没有其他的正规子群，则称 <span class="arithmatex">\(G\)</span> 是单群（simple group）。所有的有限单群都已经找到。</p>
-<p>设 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(a, b \in G\)</span>，若存在 <span class="arithmatex">\(g \in G, gag^{-1}=b\)</span>，则称 <span class="arithmatex">\(a\)</span> 与 <span class="arithmatex">\(b\)</span> 共轭。共轭是一个等价关系，类似于线性代数中的相似。从等价关系可以得到等价类，即共轭类，记作 <span class="arithmatex">\(K_a=\{gag^{-1}|g \in G\}\)</span></p>
-<h2 id="_3">环</h2>
-<p>设 <span class="arithmatex">\(A\)</span> 是一个非空集合，在 <span class="arithmatex">\(A\)</span> 中定义两种二元运算，一种叫做加法，另一种叫做乘法，且满足</p>
-<ul>
-<li><span class="arithmatex">\((A,+)\)</span> 是可换群：封闭性，结合律，幺元，逆元，交换律</li>
-<li><span class="arithmatex">\((A,*)\)</span> 是半群：封闭性，结合律</li>
-<li>左右分配律成立：<span class="arithmatex">\(a(b+c)=ab+ac, (a+b)c=ac+bc\)</span></li>
-</ul>
-<p>则称 <span class="arithmatex">\((A,+,*)\)</span> 是一个环（ring）。如果 <span class="arithmatex">\((A,+,*)\)</span> 对乘法也是可交换的，则称 <span class="arithmatex">\(A\)</span> 为可换环。</p>
-<p>设 <span class="arithmatex">\((A, +, *)\)</span> 是环，若 <span class="arithmatex">\(A \ne \{0\}\)</span>，可交换，且无零因子，则称 <span class="arithmatex">\(A\)</span> 是整环（domain）。</p>
-<p>若 <span class="arithmatex">\(A\)</span> 满足：</p>
-<ul>
-<li><span class="arithmatex">\(A\)</span> 中至少有两个元 <span class="arithmatex">\(0\)</span> 和 <span class="arithmatex">\(1\)</span></li>
-<li><span class="arithmatex">\(A^*=A \backslash \{0\}\)</span> 构成乘法群，即在半群的基础上，要求幺元和逆元存在</li>
-</ul>
-<p>则称 <span class="arithmatex">\(A\)</span> 是一个除环（division ring）。</p>
-<p>若 <span class="arithmatex">\(A\)</span> 是一个可换的除环，则称 <span class="arithmatex">\(A\)</span> 是域（field）。</p>
-<p>设 <span class="arithmatex">\((A, +, *)\)</span> 是一个环，<span class="arithmatex">\(S\)</span> 是 <span class="arithmatex">\(A\)</span> 的一个非空子集，若 <span class="arithmatex">\(S\)</span> 对 <span class="arithmatex">\(+\)</span> 和 <span class="arithmatex">\(*\)</span> 也构成一个环，则称 <span class="arithmatex">\(S\)</span> 是 <span class="arithmatex">\(A\)</span> 的一个子环（ring），<span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(S\)</span> 的一个扩环（extension ring）。</p>
-<p>设 <span class="arithmatex">\(A\)</span> 是一个环，<span class="arithmatex">\(I\)</span> 是它的一个子环，对任意的 <span class="arithmatex">\(a \in I\)</span> 和任意 <span class="arithmatex">\(x \in A\)</span>，若满足 <span class="arithmatex">\(xa \in I\)</span>，则称 <span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(A\)</span> 的一个左理想（left ideal）；若满足 <span class="arithmatex">\(ax \in I\)</span>，则称 <span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(A\)</span> 的一个右理想（right ideal）。若同时满足 <span class="arithmatex">\(xa \in I, ax \in I\)</span>，则称 <span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(A\)</span> 的一个理想（ideal），称为 <span class="arithmatex">\(I\)</span> 对 <span class="arithmatex">\(A\)</span> 是吸收的。</p>
-<h2 id="_4">域</h2>
-<p>设 <span class="arithmatex">\((K, +, *)\)</span> 是域，<span class="arithmatex">\(F\)</span> 是 <span class="arithmatex">\(K\)</span> 的非空子集，且 <span class="arithmatex">\((F, +, *)\)</span> 也是域，则称 <span class="arithmatex">\(F\)</span> 是 <span class="arithmatex">\(K\)</span> 的子域（subfield），<span class="arithmatex">\(K\)</span> 是 <span class="arithmatex">\(F\)</span> 的扩域（extension field），记作 <span class="arithmatex">\(F \le K\)</span>。</p>
-<p>设 <span class="arithmatex">\(F\)</span> 是域，若元素 <span class="arithmatex">\(1\)</span> 在 <span class="arithmatex">\((F, +)\)</span> 中的阶数为素数 <span class="arithmatex">\(p\)</span>，则称 <span class="arithmatex">\(P\)</span> 为 <span class="arithmatex">\(F\)</span> 的特征（characteristic）；若元素 <span class="arithmatex">\(1\)</span> 在 <span class="arithmatex">\((F, +)\)</span> 中的阶数为无穷大，则称 <span class="arithmatex">\(F\)</span> 的特征为 <span class="arithmatex">\(0\)</span>，<span class="arithmatex">\(F\)</span> 的特征记为 <span class="arithmatex">\(\textrm{ch}F\)</span>。</p>
+<h1 id="glibc">glibc 内存分配器</h1>
+<h2 id="glibc-231">glibc 2.31</h2>
+<p>glibc 2.31 是 ubuntu 20.04 所使用的 libc 版本，首先来分析它的实现，源码可以从 <a href="https://github.com/bminor/glibc/tree/glibc-2.31">glibc-2.31 tag</a> 中找到。</p>
+<p>首先来看 malloc 函数，它实现在 <code>malloc/malloc.c</code> 的 <a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3022"><code>__libc_malloc</code></a> 函数当中，忽略 <code>__malloc_hook</code> 和一些检查，首先可以看到它有一段代码，使用了一个叫做 tcache 的数据结构：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">/* int_free also calls request2size, be careful to not pad twice.  */</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">tbytes</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">checked_request2size</span><span class="w"> </span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tbytes</span><span class="p">))</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">__set_errno</span><span class="w"> </span><span class="p">(</span><span class="n">ENOMEM</span><span class="p">);</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">tc_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csize2tidx</span><span class="w"> </span><span class="p">(</span><span class="n">tbytes</span><span class="p">);</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">MAYBE_INIT_TCACHE</span><span class="w"> </span><span class="p">();</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">DIAG_PUSH_NEEDS_COMMENT</span><span class="p">;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tc_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mp_</span><span class="p">.</span><span class="n">tcache_bins</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tcache</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tcache_get</span><span class="w"> </span><span class="p">(</span><span class="n">tc_idx</span><span class="p">);</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">DIAG_POP_NEEDS_COMMENT</span><span class="p">;</span>
+</span></code></pre></div>
+<h3 id="tcache">tcache</h3>
+<p>接下来仔细得研究 tcache 的结构。首先，它是一个 perthread 的数据结构，意味着每个线程都有自己的一份 tcache：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">static</span><span class="w"> </span><span class="n">__thread</span><span class="w"> </span><span class="n">tcache_perthread_struct</span><span class="w"> </span><span class="o">*</span><span class="n">tcache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span></code></pre></div>
+<p>接下来看它具体保存了什么：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">/* We overlay this structure on the user-data portion of a chunk when</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cm">   the chunk is stored in the per-thread cache.  */</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tcache_entry</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="cm">/* This field exists to detect double frees.  */</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">tcache_perthread_struct</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span><span class="w"> </span><span class="n">tcache_entry</span><span class="p">;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="cm">/* There is one of these for each thread, which contains the</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="cm">   per-thread cache (hence &quot;tcache_perthread_struct&quot;).  Keeping</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="cm">   overall size low is mildly important.  Note that COUNTS and ENTRIES</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="cm">   are redundant (we could have just counted the linked list each</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="cm">   time), this is for performance reasons.  */</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tcache_perthread_struct</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">{</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">counts</span><span class="p">[</span><span class="n">TCACHE_MAX_BINS</span><span class="p">];</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">  </span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">entries</span><span class="p">[</span><span class="n">TCACHE_MAX_BINS</span><span class="p">];</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">}</span><span class="w"> </span><span class="n">tcache_perthread_struct</span><span class="p">;</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="cm">/* Caller must ensure that we know tc_idx is valid and there&#39;s room</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="cm">   for more chunks.  */</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="n">tcache_put</span><span class="w"> </span><span class="p">(</span><span class="n">mchunkptr</span><span class="w"> </span><span class="n">chunk</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">tc_idx</span><span class="p">)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="p">{</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">  </span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">chunk2mem</span><span class="w"> </span><span class="p">(</span><span class="n">chunk</span><span class="p">);</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">  </span><span class="cm">/* Mark this chunk as &quot;in the tcache&quot; so the test in _int_free will</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="cm">     detect a double free.  */</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">  </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcache</span><span class="p">;</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">  </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">entries</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">];</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">  </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">entries</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">  </span><span class="o">++</span><span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]);</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="p">}</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="cm">/* Caller must ensure that we know tc_idx is valid and there&#39;s</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="cm">   available chunks to remove.  */</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="n">tcache_get</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">tc_idx</span><span class="p">)</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="p">{</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="w">  </span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">entries</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">];</span>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="w">  </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">entries</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="w">  </span><span class="o">--</span><span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]);</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="w">  </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>可以看到它有两个成员，把 tcache 分为 <code>TCACHE_MAX_BINS</code> 这么多个 bin，每个 bin 分别有一个：</p>
+<ol>
+<li><code>counts[bin]</code>：记录了这个 bin 中空闲块的数量，<code>tcache_put</code> 的时候加一，<code>tcache_get</code> 的时候减一</li>
+<li><code>entries[bin]</code>: 每个 bin 用一个链表保存了空闲块，链表的节点类型是 <code>tcache_entry</code>，那么 <code>entries[bin]</code> 保存了链表头的指针</li>
+</ol>
+<p>bin 是内存分配器的一个常见做法，把要分配的块的大小分 bin，从而保证拿到的空闲块足够大。接下来看 <code>tcache_put</code> 是如何把空闲块放到 tcache 中的：</p>
+<ol>
+<li>把空闲块强制转换为 <code>tcache_entry</code> 结构体类型</li>
+<li>把它的 <code>key</code> 字段指向 tcache，用来表示这个空闲块当前在 <code>tcache</code> 当中</li>
+<li>以新的 <code>tcache_entry</code> 作为链表头，插入到 tcache 的对应的 bin 当中：<code>entries[tc_idx]</code></li>
+<li>更新这个 bin 的空闲块个数到 <code>count[tc_idx]</code> 当中</li>
+</ol>
+<p>反过来，<code>tcache_get</code> 则是从 tcache 中拿出一个空闲块：</p>
+<ol>
+<li>从链表头 <code>entries[tc_idx]</code> 取出一个空闲块，把它从链表中删除：<code>entries[tc_idx] = e-&gt;next</code></li>
+<li>更新这个 bin 的空闲块个数到 <code>count[tc_idx]</code> 当中</li>
+<li>把它的 <code>key</code> 字段指向 NULL，用来表示这个空闲块当前不在 <code>tcache</code> 当中</li>
+<li>返回这个空闲块的地址</li>
+</ol>
+<p>接下来回到 <code>malloc</code> 的实现，它首先根据用户要分配的空间大小（<code>bytes</code>），计算出实际需要分配的大小（<code>tbytes</code>），和对应的 bin（<code>tc_idx</code>）：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cm">/* int_free also calls request2size, be careful to not pad twice.  */</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">tbytes</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">checked_request2size</span><span class="w"> </span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tbytes</span><span class="p">))</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">__set_errno</span><span class="w"> </span><span class="p">(</span><span class="n">ENOMEM</span><span class="p">);</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">tc_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csize2tidx</span><span class="w"> </span><span class="p">(</span><span class="n">tbytes</span><span class="p">);</span>
+</span></code></pre></div>
+<p>其中 <code>checked_request2size</code> 实现如下：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#define request2size(req)                                         \</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">  (((req) + SIZE_SZ + MALLOC_ALIGN_MASK &lt; MINSIZE)  ?             \</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">   MINSIZE :                                                      \</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="cp">   ((req) + SIZE_SZ + MALLOC_ALIGN_MASK) &amp; ~MALLOC_ALIGN_MASK)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="cm">/* Check if REQ overflows when padded and aligned and if the resulting value</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="cm">   is less than PTRDIFF_T.  Returns TRUE and the requested size or MINSIZE in</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="cm">   case the value is less than MINSIZE on SZ or false if any of the previous</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="cm">   check fail.  */</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nf">checked_request2size</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">sz</span><span class="p">)</span><span class="w"> </span><span class="n">__nonnull</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">{</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__glibc_unlikely</span><span class="w"> </span><span class="p">(</span><span class="n">req</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">PTRDIFF_MAX</span><span class="p">))</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="o">*</span><span class="n">sz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request2size</span><span class="w"> </span><span class="p">(</span><span class="n">req</span><span class="p">);</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>它实现的实际上是把用户请求的内存大小，加上 <code>SIZE_SZ</code>（即 <code>sizeof(size_t)</code>），向上取整到 <code>MALLOC_ALIGN_MASK</code> 对应的 alignment（<code>MALLOC_ALIGNMENT</code>，通常是 <code>2 * SIZE_SZ</code>）的整数倍数，再和 <code>MINSIZE</code> 取 max。接着，看它是如何计算出 tcache index 的：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cm">/* When &quot;x&quot; is from chunksize().  */</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp"># define csize2tidx(x) (((x) - MINSIZE + MALLOC_ALIGNMENT - 1) / MALLOC_ALIGNMENT)</span>
+</span></code></pre></div>
+<p>可以看到，从 MINSIZE 开始，以 MALLOC_ALIGNMENT 为单位，每个 bin 对应一个经过 align 以后的可能的内存块大小。得到 tcache index 后，检查对应的 bin 是否有空闲块，如果有，则直接分配：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tc_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mp_</span><span class="p">.</span><span class="n">tcache_bins</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tcache</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tcache_get</span><span class="w"> </span><span class="p">(</span><span class="n">tc_idx</span><span class="p">);</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">}</span>
+</span></code></pre></div>
+<p>可以看到，tcache 相当于是一个 per thread 的小缓存，记录了最近释放的内存块，可供 malloc 使用。由于 bin 的数量有限，所以比较大的内存分配不会经过 tcache。既然 malloc 用到了 tcache，自然 free 就要往里面放空闲块了，相关的代码在 <code>_int_free</code> 函数当中：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">tc_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csize2tidx</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tcache</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tc_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mp_</span><span class="p">.</span><span class="n">tcache_bins</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="cm">/* Check to see if it&#39;s already in the tcache.  */</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">chunk2mem</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="cm">/* This test succeeds on double free.  However, we don&#39;t 100%</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="cm">       trust it (it also matches random payload data at a 1 in</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="cm">       2^&lt;size_t&gt; chance), so verify it&#39;s not an unlikely</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="cm">       coincidence before aborting.  */</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__glibc_unlikely</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">tcache</span><span class="p">))</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">        </span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">tmp</span><span class="p">;</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="n">LIBC_PROBE</span><span class="w"> </span><span class="p">(</span><span class="n">memory_tcache_double_free</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">tc_idx</span><span class="p">);</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">entries</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">];</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">             </span><span class="n">tmp</span><span class="p">;</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">             </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tmp</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">            </span><span class="n">malloc_printerr</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;free(): double free detected in tcache 2&quot;</span><span class="p">);</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">            </span><span class="cm">/* If we get here, it was a coincidence.  We&#39;ve wasted a</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="cm">               few cycles, but don&#39;t abort.  */</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mp_</span><span class="p">.</span><span class="n">tcache_count</span><span class="p">)</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">        </span><span class="n">tcache_put</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">tc_idx</span><span class="p">);</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="w">  </span><span class="p">}</span>
+</span></code></pre></div>
+<p>它的逻辑也不复杂：</p>
+<ol>
+<li>计算 tcache index，找到对应的 bin</li>
+<li>检查它是不是已经被 free 过了，即 double free：free 过的指针，它的 key 字段应当指向 tcache，如果实际检测到是这样，那就去 tcache 里遍历链表，检查是不是真的在里面，如果是，说明 double free 了，报错</li>
+<li>如果对应的 bin 的链表长度不是很长（阈值是 <code>mp_.tcache_count</code>），则添加到链表头部，完成 free 的过程</li>
+</ol>
+<p>那么 tcache 默认情况下有多大呢：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cm">/* We want 64 entries.  This is an arbitrary limit, which tunables can reduce.  */</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="cp"># define TCACHE_MAX_BINS        64</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="cm">/* This is another arbitrary limit, which tunables can change.  Each</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="cm">   tcache bin will hold at most this number of chunks.  */</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="cp"># define TCACHE_FILL_COUNT 7</span>
+</span></code></pre></div>
+<p>也就是说，它有 64 个 bin，每个 bin 的链表最多 7 个空闲块。</p>
 
 
 
@@ -2872,7 +3021,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2023年11月11日 04:08:50">2023年11月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月30日 11:48:51">2025年3月30日</span>
   </span>
 
     
@@ -2882,7 +3031,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2023年11月11日 04:08:50">2023年11月11日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月30日 11:48:51">2025年3月30日</span>
   </span>
 
     
@@ -2961,7 +3110,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../hardware/usb_hci.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: USB Host Controller Interface">
+          <a href="gcc.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: GCC Internals">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2971,20 +3120,20 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                USB Host Controller Interface
+                GCC Internals
               </div>
             </div>
           </a>
         
         
           
-          <a href="fourier-transform.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 傅立叶变换">
+          <a href="linux_graphics.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux 图形软件栈">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                傅立叶变换
+                Linux 图形软件栈
               </div>
             </div>
             <div class="md-footer__button md-icon">
