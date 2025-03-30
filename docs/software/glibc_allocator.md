@@ -107,6 +107,8 @@ bin 是内存分配器的一个常见做法，把要分配的块的大小分 bin
 3. 把它的 `key` 字段指向 NULL，用来表示这个空闲块当前不在 `tcache` 当中
 4. 返回这个空闲块的地址
 
+#### malloc
+
 接下来回到 `malloc` 的实现，它首先根据用户要分配的空间大小（`bytes`），计算出实际需要分配的大小（`tbytes`），和对应的 bin（`tc_idx`）：
 
 ```c
@@ -162,7 +164,11 @@ if (tc_idx < mp_.tcache_bins
   }
 ```
 
-可以看到，tcache 相当于是一个 per thread 的小缓存，记录了最近释放的内存块，可供 malloc 使用。由于 bin 的数量有限，所以比较大的内存分配不会经过 tcache。既然 malloc 用到了 tcache，自然 free 就要往里面放空闲块了，相关的代码在 `_int_free` 函数当中：
+可以看到，tcache 相当于是一个 per thread 的小缓存，记录了最近释放的内存块，可供 malloc 使用。由于 bin 的数量有限，所以比较大的内存分配不会经过 tcache。
+
+#### free
+
+既然 malloc 用到了 tcache，自然 free 就要往里面放空闲块了，相关的代码在 `_int_free` 函数当中：
 
 ```c
 size_t tc_idx = csize2tidx (size);
@@ -213,6 +219,8 @@ if (tcache != NULL && tc_idx < mp_.tcache_bins)
 ```
 
 也就是说，它有 64 个 bin，每个 bin 的链表最多 7 个空闲块。
+
+#### 实验
 
 下面来写一段程序来观察 tcache 的行为，考虑到从链表头部插入和删除是后进先出（LIFO），相当于是一个栈，所以分配两个大小相同的块，释放后再分配相同大小的块，得到的指针的顺序应该是反过来的：
 
@@ -482,6 +490,8 @@ struct malloc_state
 }
 ```
 
+#### malloc
+
 分配的时候，和 tcache 类似，也是计算出 fastbin 的 index，然后去找对应的链表，如果链表非空，则从链表头取出空闲块用于分配：
 
 ```c
@@ -564,6 +574,8 @@ if (victim != NULL)
 
 正因如此，这个分配过程才能做到比较快，所以这样的分配方法叫做 fast bin。
 
+#### free
+
 接下来分析一下 free 的时候，空闲块是如何进入 fast bin 的：
 
 ```c
@@ -606,6 +618,8 @@ if ((unsigned long)(size) <= (unsigned long)(get_max_fast ()))
 ```
 
 可以看到，它的逻辑很简单：如果大小合适，就直接添加到 fast bin 的链表头里，没有 tcache 那样的长度限制，多线程场景下依然是用 CAS 来实现原子的链表插入。
+
+#### 实验
 
 接下来写一段代码来观察 fast bin 的更新过程：
 
