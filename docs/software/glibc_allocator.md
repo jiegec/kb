@@ -280,6 +280,7 @@ p1=0x5638e68db2a0 p2=0x5638e68db2d0 p3=0x5638e68db2a0 p4=0x5638e68db2d0
 既然我们知道了 tcache 的内部构造，我们可以写一个程序，首先得到 tcache 的地址，再打印出每次 malloc/free 之后的状态：
 
 ```c
+// see also: https://github.com/shellphish/how2heap/blob/master/glibc_2.31/tcache_poisoning.c
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -619,6 +620,8 @@ if ((unsigned long)(size) <= (unsigned long)(get_max_fast ()))
 
 可以看到，它的逻辑很简单：如果大小合适，就直接添加到 fast bin 的链表头里，没有 tcache 那样的长度限制，多线程场景下依然是用 CAS 来实现原子的链表插入。
 
+相比 tcache，fast bin 的 double free 检查更加简陋：它只能防护连续两次 free 同一个块，只判断了要插入链表的块是否在链表头，而不会检查是否在链表中间。
+
 #### 实验
 
 接下来写一段代码来观察 fast bin 的更新过程：
@@ -758,6 +761,164 @@ fastbin #1: 0x563bd918d850 -> 0x563bd918d820 -> 0x563bd918d7f0
 ```
 
 可以看到，代码先分配了十个块，再按顺序释放，那么前七个块会进入 tcache，剩下的三个块则进入了同一个 fast bin，并且后释放的会在链表的开头。注意 fast bin 链表里的地址打印的是 chunk 地址，而用 `malloc` 分配的地址指向的是 payload 部分，二者差了 16 字节，最终 fast bin 就是把十个块里最后三个块用链表串起来。
+
+前面分析过，fast bin 对 double free 的检测比较弱，如果构造一种情况，让它无法被检测到，就会导致一个空闲块被插入 fast bin 两次，此后就会被分配两次：
+
+```c
+// see also: https://github.com/shellphish/how2heap/blob/master/glibc_2.31/fastbin_dup.c
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+struct malloc_chunk {
+  size_t mchunk_prev_size; /* Size of previous chunk (if free).  */
+  size_t mchunk_size;      /* Size in bytes, including overhead. */
+
+  struct malloc_chunk *fd; /* double links -- used only if free. */
+  struct malloc_chunk *bk;
+
+  /* Only used for large blocks: pointer to next larger size.  */
+  struct malloc_chunk *fd_nextsize; /* double links -- used only if free. */
+  struct malloc_chunk *bk_nextsize;
+};
+
+/* offset 2 to use otherwise unindexable first 2 bins */
+#define fastbin_index(sz) ((((unsigned int)(sz)) >> (SIZE_SZ == 8 ? 4 : 3)) - 2)
+
+#define INTERNAL_SIZE_T size_t
+
+#define MALLOC_ALIGNMENT                                                       \
+  (2 * SIZE_SZ < __alignof__(long double) ? __alignof__(long double)           \
+                                          : 2 * SIZE_SZ)
+
+/* The corresponding word size.  */
+#define SIZE_SZ (sizeof(INTERNAL_SIZE_T))
+
+/* The corresponding bit mask value.  */
+#define MALLOC_ALIGN_MASK (MALLOC_ALIGNMENT - 1)
+
+/* The smallest possible chunk */
+#define MIN_CHUNK_SIZE (offsetof(struct malloc_chunk, fd_nextsize))
+
+/* The smallest size we can malloc is an aligned minimal chunk */
+#define MINSIZE                                                                \
+  (unsigned long)(((MIN_CHUNK_SIZE + MALLOC_ALIGN_MASK) & ~MALLOC_ALIGN_MASK))
+
+#define request2size(req)                                                      \
+  (((req) + SIZE_SZ + MALLOC_ALIGN_MASK < MINSIZE)                             \
+       ? MINSIZE                                                               \
+       : ((req) + SIZE_SZ + MALLOC_ALIGN_MASK) & ~MALLOC_ALIGN_MASK)
+
+#define MAX_FAST_SIZE (80 * SIZE_SZ / 4)
+
+#define NFASTBINS (fastbin_index(request2size(MAX_FAST_SIZE)) + 1)
+
+struct malloc_state {
+  /* Serialize access.  */
+  int mutex;
+  /* Flags (formerly in max_fast).  */
+  int flags;
+  /* Set if the fastbin chunks contain recently inserted free blocks.  */
+  /* Note this is a bool but not all targets support atomics on booleans.  */
+  int have_fastchunks;
+  /* Fastbins */
+  struct malloc_chunk *fastbinsY[NFASTBINS];
+};
+
+void dump_fastbin() {
+  void *libc_base = (char *)stdout - 0x1ed6a0; // offset of _IO_2_1_stdout_
+  struct malloc_state *main_arena =
+      libc_base +
+      0x1ecb80; // offset of main_arena, found by decompiling malloc_trim
+  for (int i = 0; i < NFASTBINS; i++) {
+    if (main_arena->fastbinsY[i]) {
+      struct malloc_chunk *p = main_arena->fastbinsY[i];
+      struct malloc_chunk *init_p = p;
+      printf("fastbin #%d: %p", i, p);
+      p = p->fd;
+      while (p) {
+        printf(" -> %p", p);
+        if (p == init_p) {
+          printf(" (cycle detected)");
+          break;
+        }
+        p = p->fd;
+      }
+      printf("\n");
+    }
+  }
+}
+
+int main() {
+  // use 7 malloc + free to fill the tcache
+  void *ptrs[7];
+  printf("allocate 7 pointers:");
+  for (int i = 0; i < 7; i++) {
+    ptrs[i] = malloc(32);
+    printf(" %p", ptrs[i]);
+  }
+  printf("\n");
+
+  void *p1 = malloc(32);
+  void *p2 = malloc(32);
+  printf("allocate p1=%p p2=%p\n", p1, p2);
+
+  for (int i = 0; i < 7; i++) {
+    free(ptrs[i]);
+  }
+
+  // now p1 goes to fastbin
+  free(p1);
+
+  printf("fastbins after p1 freed:\n");
+  dump_fastbin();
+
+  // now p2 goes to fastbin
+  free(p2);
+
+  // two pointers in the fastbin
+  printf("fastbins after p1 & p2 freed:\n");
+
+  dump_fastbin();
+
+  // free p1 again
+  free(p1);
+
+  // three pointers in the fastbin
+  printf("fastbins after p1, p2 & p1 freed:\n");
+  dump_fastbin();
+
+  // allocate 7 pointers to clear tcache
+  printf("allocate 7 pointers\n");
+  for (int i = 0; i < 7; i++) {
+    ptrs[i] = malloc(32);
+  }
+
+  p1 = malloc(32);
+  p2 = malloc(32);
+  void *p3 = malloc(32);
+  printf("allocate p1=%p p2=%p p3=%p\n", p1, p2, p3);
+  return 0;
+}
+```
+
+由于 fast bin 的 double free 检查只检查链表头，所以按照 `p1, p2, p1` 的顺序释放，就不会被检查到，并且此时链表中出现了两次 `p1`，那么后续再分配内存时，就会把同一个地址分配了两次。上述代码的输出如下，符合预期：
+
+```c
+allocate 7 pointers: 0x5633121676b0 0x5633121676e0 0x563312167710 0x563312167740 0x563312167770 0x5633121677a0 0x5633121677d0
+allocate p1=0x563312167800 p2=0x563312167830
+fastbins after p1 freed:
+fastbin #1: 0x5633121677f0
+fastbins after p1 & p2 freed:
+fastbin #1: 0x563312167820 -> 0x5633121677f0
+fastbins after p1, p2 & p1 freed:
+fastbin #1: 0x5633121677f0 -> 0x563312167820 -> 0x5633121677f0 (cycle detected)
+allocate 7 pointers
+allocate p1=0x563312167800 p2=0x563312167830 p3=0x563312167800
+```
+
+可见 double free 不一定能被检测到，并且可能带来危险的后果。
 
 
 ## 参考
