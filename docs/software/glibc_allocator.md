@@ -1076,6 +1076,25 @@ struct malloc_state
 
 在讲述 small bin 在 free 中的实现之前，先讨论 `_int_malloc` 的后续逻辑，最后再回过头来看 free 的部分。
 
+### consolidate
+
+当要分配的块经过 fast bin 和 small bin 两段逻辑都没能分配成功之后，会进行一次 `malloc_consolidate` 调用，这个函数会尝试对 fast bin 中的空闲块进行合并，然后把新的块插入到 unsorted bin 当中。它的实现如下：
+
+1. 第一层循环，遍历每个非空的 fast bin，进行下列操作
+2. 第二层循环，每个非空的 fast bin 有一个单向链表，沿着链表进行迭代，遍历链表上的每个空闲块，进行下列操作
+3. 循环内部，检查当前空闲块能否和前后的空闲块合并
+4. 首先检查在它前面（地址更低的）相邻的块是否空闲：如果 `PREV_INUSE` 没有被设置，可以通过 `mchunk_prev_size` 找到前面相邻的块的开头，然后把两个块合并起来；如果前面相邻的块已经在某个双向链表当中（例如 small bin），把它从双向链表中删除：`unlink_chunk (av, p);`；为什么前面要用双向链表，也是为了在这里可以直接从链表中间删除一个结点
+5. 接着检查在它后面（地址更高的）相邻的块是否空闲：根据自己的 size，计算出下一个块的地址，得到下一个块的大小，再读取下一个块的下一个块，根据它的 `PREV_INUSE`，判断下一个块是否空闲；如果空闲，那就把下一个块也合并进来，同理也要把它从双向链表中删除：`unlink_chunk (av, nextchunk);`；代码中还有对 top chunk 的特殊处理，这里先略过
+6. 合并完成以后，把当前的空闲块放到 unsorted bin 当中，也是一个简单的双向链表向链表头的插入算法：`first_unsorted = unsorted_bin->fd; unsorted_bin->fd = p; first_unsorted->bk = p; p->bk = unsorted_bin; p->fd = first_unsorted;`
+
+因此 unsorted bin 保存了一些从 fast bin 合并而来的一些块，由于 unsorted bin 只有一个，所以它里面会保存各种大小的空闲块。实际上，unsorted bin 占用的就是 `malloc_state` 结构中的 bin 1，因为我们已经知道，块的大小至少是 32，而大小为 32 的块，对应的 small bin index 是 2，说明 1 没有被用到，其实就是留给 unsorted bin 用的。在 64 位系统下，`malloc_state` 的 127 个 bin 分配如下：
+
+1. bin 1 是 unsorted bin
+2. bin 2 到 bin 64 是 small bin
+3. bin 65 到 bin 127 是 large bin
+
+经过这次合并之后，接下来 `_int_malloc` 尝试从 unsorted bin 和 large bin 中分配空闲块。
+
 ## 参考
 
 - [Malloc Internals](https://sourceware.org/glibc/wiki/MallocInternals)
