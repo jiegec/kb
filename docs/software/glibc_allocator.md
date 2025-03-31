@@ -1080,7 +1080,69 @@ struct malloc_state
 
 ### consolidate
 
-当要分配的块经过 fast bin 和 small bin 两段逻辑都没能分配成功之后，会进行一次 `malloc_consolidate` 调用，这个函数会尝试对 fast bin 中的空闲块进行合并，然后把新的块插入到 unsorted bin 当中。它的实现如下：
+当要分配的块经过 fast bin 和 small bin 两段逻辑都没能分配成功，并且要分配的块比较大的时候（`!in_small_range (nb)`），会进行一次 `malloc_consolidate` 调用，这个函数会尝试对 fast bin 中的空闲块进行合并，然后把新的块插入到 unsorted bin 当中。它的实现如下：
+
+```c
+unsorted_bin = unsorted_chunks(av);
+maxfb = &fastbin (av, NFASTBINS - 1);
+fb = &fastbin (av, 0);
+do {
+  p = atomic_exchange_acq (fb, NULL);
+  if (p != 0) {
+    do {
+      /* malloc check omitted */
+
+      check_inuse_chunk(av, p);
+      nextp = p->fd;
+
+      /* Slightly streamlined version of consolidation code in free() */
+      size = chunksize (p);
+      nextchunk = chunk_at_offset(p, size);
+      nextsize = chunksize(nextchunk);
+
+      if (!prev_inuse(p)) {
+        prevsize = prev_size (p);
+        size += prevsize;
+        p = chunk_at_offset(p, -((long) prevsize));
+        /* malloc check omitted */
+        unlink_chunk (av, p);
+      }
+
+      if (nextchunk != av->top) {
+        nextinuse = inuse_bit_at_offset(nextchunk, nextsize);
+
+        if (!nextinuse) {
+          size += nextsize;
+          unlink_chunk (av, nextchunk);
+        } else
+          clear_inuse_bit_at_offset(nextchunk, 0);
+
+        first_unsorted = unsorted_bin->fd;
+        unsorted_bin->fd = p;
+        first_unsorted->bk = p;
+
+        if (!in_smallbin_range (size)) {
+          p->fd_nextsize = NULL;
+          p->bk_nextsize = NULL;
+        }
+
+        set_head(p, size | PREV_INUSE);
+        p->bk = unsorted_bin;
+        p->fd = first_unsorted;
+        set_foot(p, size);
+      }
+
+      else {
+        size += nextsize;
+        set_head(p, size | PREV_INUSE);
+        av->top = p;
+      }
+
+    } while ( (p = nextp) != 0);
+
+  }
+} while (fb++ != maxfb);
+```
 
 1. 第一层循环，遍历每个非空的 fast bin，进行下列操作
 2. 第二层循环，每个非空的 fast bin 有一个单向链表，沿着链表进行迭代，遍历链表上的每个空闲块，进行下列操作
@@ -1089,6 +1151,53 @@ struct malloc_state
 5. 接着检查在它后面（地址更高的）相邻的块是否空闲：根据自己的 size，计算出下一个块的地址，得到下一个块的大小，再读取下一个块的下一个块，根据它的 `PREV_INUSE`，判断下一个块是否空闲；如果空闲，那就把下一个块也合并进来，同理也要把它从双向链表中删除：`unlink_chunk (av, nextchunk);`；代码中还有对 top chunk 的特殊处理，这里先略过
 6. 合并完成以后，把当前的空闲块放到 unsorted bin 当中，也是一个简单的双向链表向链表头的插入算法：`first_unsorted = unsorted_bin->fd; unsorted_bin->fd = p; first_unsorted->bk = p; p->bk = unsorted_bin; p->fd = first_unsorted;`
 
+`unlink_chunk` 的实现就是经典的双向链表删除结点的算法：
+
+```c
+/* Take a chunk off a bin list.  */
+static void
+unlink_chunk (mstate av, mchunkptr p)
+{
+  if (chunksize (p) != prev_size (next_chunk (p)))
+    malloc_printerr ("corrupted size vs. prev_size");
+
+  mchunkptr fd = p->fd;
+  mchunkptr bk = p->bk;
+
+  if (__builtin_expect (fd->bk != p || bk->fd != p, 0))
+    malloc_printerr ("corrupted double-linked list");
+
+  fd->bk = bk;
+  bk->fd = fd;
+  if (!in_smallbin_range (chunksize_nomask (p)) && p->fd_nextsize != NULL)
+    {
+      if (p->fd_nextsize->bk_nextsize != p
+          || p->bk_nextsize->fd_nextsize != p)
+        malloc_printerr ("corrupted double-linked list (not small)");
+
+      if (fd->fd_nextsize == NULL)
+        {
+          if (p->fd_nextsize == p)
+            fd->fd_nextsize = fd->bk_nextsize = fd;
+          else
+            {
+              fd->fd_nextsize = p->fd_nextsize;
+              fd->bk_nextsize = p->bk_nextsize;
+              p->fd_nextsize->bk_nextsize = fd;
+              p->bk_nextsize->fd_nextsize = fd;
+            }
+        }
+      else
+        {
+          p->fd_nextsize->bk_nextsize = p->bk_nextsize;
+          p->bk_nextsize->fd_nextsize = p->fd_nextsize;
+        }
+    }
+}
+```
+
+这里的 `fd_nextsize` 和 `bk_nextsize` 字段适用于 large bin，后面会讨论这个双向链表的细节。
+
 因此 unsorted bin 保存了一些从 fast bin 合并而来的一些块，由于 unsorted bin 只有一个，所以它里面会保存各种大小的空闲块。实际上，unsorted bin 占用的就是 `malloc_state` 结构中的 bin 1，因为我们已经知道，块的大小至少是 32，而大小为 32 的块，对应的 small bin index 是 2，说明 1 没有被用到，其实就是留给 unsorted bin 用的。在 64 位系统下，`malloc_state` 的 127 个 bin 分配如下：
 
 1. bin 1 是 unsorted bin
@@ -1096,6 +1205,238 @@ struct malloc_state
 3. bin 64 到 bin 127 是 large bin
 
 经过这次合并之后，接下来 `_int_malloc` 尝试从 unsorted bin 和 large bin 中分配空闲块。
+
+### 再次回到 `__libc_malloc`
+
+接下来，`_int_malloc` 有一大段代码来进行后续的内存分配，大概步骤包括：
+
+1. 把 unsorted bin 中的空闲块的处理，放到 small bin 或者 large bin 中，同时如果有合适的块，就分配给 malloc 的调用者
+2. 如果还是没有找到合适大小的块，就在 large bin 里寻找空闲块来分配；如果找不到合适大小的块，进行 consolidate，尝试更多的合并，得到更大的块；重复这个过程多次
+3. 如果还是找不到合适的块，就从堆顶分配新的块，如果堆已经满了，还需要去扩大堆，或者直接用 mmap 分配一片内存
+
+现在分步骤观察这个过程，首先观察 unsorted bin 的处理。
+
+### unsorted bin
+
+首先是 unsorted bin 的空闲块的处理：
+
+```c
+int iters = 0;
+while ((victim = unsorted_chunks (av)->bk) != unsorted_chunks (av))
+  {
+    bck = victim->bk;
+    size = chunksize (victim);
+    mchunkptr next = chunk_at_offset (victim, size);
+
+    /* malloc checks omitted */
+
+    /*
+       If a small request, try to use last remainder if it is the
+       only chunk in unsorted bin.  This helps promote locality for
+       runs of consecutive small requests. This is the only
+       exception to best-fit, and applies only when there is
+       no exact fit for a small chunk.
+     */
+
+    if (in_smallbin_range (nb) &&
+        bck == unsorted_chunks (av) &&
+        victim == av->last_remainder &&
+        (unsigned long) (size) > (unsigned long) (nb + MINSIZE))
+      {
+        /* split and reattach remainder */
+        remainder_size = size - nb;
+        remainder = chunk_at_offset (victim, nb);
+        unsorted_chunks (av)->bk = unsorted_chunks (av)->fd = remainder;
+        av->last_remainder = remainder;
+        remainder->bk = remainder->fd = unsorted_chunks (av);
+        if (!in_smallbin_range (remainder_size))
+          {
+            remainder->fd_nextsize = NULL;
+            remainder->bk_nextsize = NULL;
+          }
+
+        set_head (victim, nb | PREV_INUSE |
+                  (av != &main_arena ? NON_MAIN_ARENA : 0));
+        set_head (remainder, remainder_size | PREV_INUSE);
+        set_foot (remainder, remainder_size);
+
+        check_malloced_chunk (av, victim, nb);
+        void *p = chunk2mem (victim);
+        alloc_perturb (p, bytes);
+        return p;
+      }
+
+    /* remove from unsorted list */
+    /* malloc checks omitted */
+    unsorted_chunks (av)->bk = bck;
+    bck->fd = unsorted_chunks (av);
+
+    /* Take now instead of binning if exact fit */
+
+    if (size == nb)
+      {
+        set_inuse_bit_at_offset (victim, size);
+        if (av != &main_arena)
+          set_non_main_arena (victim);
+#if USE_TCACHE
+        /* Fill cache first, return to user only if cache fills.
+           We may return one of these chunks later.  */
+        if (tcache_nb
+            && tcache->counts[tc_idx] < mp_.tcache_count)
+          {
+            tcache_put (victim, tc_idx);
+            return_cached = 1;
+            continue;
+          }
+        else
+          {
+#endif
+        check_malloced_chunk (av, victim, nb);
+        void *p = chunk2mem (victim);
+        alloc_perturb (p, bytes);
+        return p;
+#if USE_TCACHE
+          }
+#endif
+      }
+
+    /* place chunk in bin */
+
+    if (in_smallbin_range (size))
+      {
+        victim_index = smallbin_index (size);
+        bck = bin_at (av, victim_index);
+        fwd = bck->fd;
+      }
+    else
+      {
+        victim_index = largebin_index (size);
+        bck = bin_at (av, victim_index);
+        fwd = bck->fd;
+
+        /* maintain large bins in sorted order */
+        if (fwd != bck)
+          {
+            /* Or with inuse bit to speed comparisons */
+            size |= PREV_INUSE;
+            /* if smaller than smallest, bypass loop below */
+            assert (chunk_main_arena (bck->bk));
+            if ((unsigned long) (size)
+                < (unsigned long) chunksize_nomask (bck->bk))
+              {
+                fwd = bck;
+                bck = bck->bk;
+
+                victim->fd_nextsize = fwd->fd;
+                victim->bk_nextsize = fwd->fd->bk_nextsize;
+                fwd->fd->bk_nextsize = victim->bk_nextsize->fd_nextsize = victim;
+              }
+            else
+              {
+                assert (chunk_main_arena (fwd));
+                while ((unsigned long) size < chunksize_nomask (fwd))
+                  {
+                    fwd = fwd->fd_nextsize;
+                    assert (chunk_main_arena (fwd));
+                  }
+
+                if ((unsigned long) size
+                    == (unsigned long) chunksize_nomask (fwd))
+                  /* Always insert in the second position.  */
+                  fwd = fwd->fd;
+                else
+                  {
+                    victim->fd_nextsize = fwd;
+                    victim->bk_nextsize = fwd->bk_nextsize;
+                    /* malloc checks omitted */
+                    fwd->bk_nextsize = victim;
+                    victim->bk_nextsize->fd_nextsize = victim;
+                  }
+                bck = fwd->bk;
+                /* malloc checks omitted */
+              }
+          }
+        else
+          victim->fd_nextsize = victim->bk_nextsize = victim;
+      }
+
+    mark_bin (av, victim_index);
+    victim->bk = bck;
+    victim->fd = fwd;
+    fwd->bk = victim;
+    bck->fd = victim;
+
+#if USE_TCACHE
+    /* If we've processed as many chunks as we're allowed while
+       filling the cache, return one of the cached ones.  */
+    ++tcache_unsorted_count;
+    if (return_cached
+        && mp_.tcache_unsorted_limit > 0
+        && tcache_unsorted_count > mp_.tcache_unsorted_limit)
+      {
+        return tcache_get (tc_idx);
+      }
+#endif
+
+#define MAX_ITERS       10000
+    if (++iters >= MAX_ITERS)
+      break;
+  }
+```
+
+它的流程如下：
+
+1. 遍历 unsorted bin 双向链表，从哨兵结点开始，从后往前遍历空闲块
+2. fast path 逻辑：如果要申请的块比当前空闲块小，并且当前空闲块可以拆分，那就拆分当前的空闲块，然后直接分配拆分后的空闲块
+3. 如果要申请的块的大小和当前空闲块的大小相同，把空闲块放到 tcache，或者直接分配这个空闲块
+4. 把当前空闲块根据大小，分发到 small bin 或者 large bin
+5. 如果 tcache 中有合适的空闲块，就分配它
+
+由此可见，unsorted bin 中的空闲块在 malloc 的时候会被分派到对应的 small bin 或者 large bin 当中。small bin 的处理比较简单，因为每个 bin 的块大小都相同，直接加入到双向链表即可。large bin 的处理则比较复杂，下面主要来分析 large bin 的结构。
+
+### large bin
+
+large bin 和其他 bin 的不同的地方在于，它每个 bin 的大小不是一个固定的值，而是一个范围。在 64 位下，bin 64 到 bin 127 对应的块大小范围：
+
+1. bin 64 到 bin 96: 从 1024 字节开始，每个 bin 覆盖 64 字节的长度范围，例如 bin 64 对应 1024-1087 字节范围，bin 96 对应 3072-3135 字节范围
+2. bin 97 到 bin 111: 从 3136 字节开始，每个 bin 覆盖 512 字节的长度范围，例如 bin 97 对应 3136-3583 字节范围（没有涵盖 512 字节是因为对齐问题，其他的都是涵盖 512 字节），bin 111 对应 10240-10751 字节范围
+3. bin 112 到 bin 119: 从 10752 字节开始，每个 bin 覆盖 4096 字节的长度范围，例如 bin 112 对应 10752-12287 字节范围（没有涵盖 4096 字节是因为对齐问题，其他的都是涵盖 4096 字节），bin 119 对应 36864-40959 字节范围
+4. bin 120 到 bin 123: 从 40960 字节开始，每个 bin 覆盖 32768 字节的长度范围，例如 bin 120 对应 40960-65535 字节范围（没有涵盖 32768 字节是因为对齐问题，其他的都是涵盖 32768 字节），bin 123 对应 131072-163839 字节范围
+5. bin 124: 163840-262143 共 98304 个字节的范围
+6. bin 125: 262144-524287 共 262144 个字节的范围
+7. bin 126: 524288 或更长
+
+可以看到，比较短的长度范围给的 bin 也比较多，后面则更加稀疏。各个 bin 的大小范围可以通过以下代码打印：
+
+```c
+#include <stdio.h>
+#define largebin_index_64(sz)                                                  \
+  (((((unsigned long)(sz)) >> 6) <= 48)                                        \
+       ? 48 + (((unsigned long)(sz)) >> 6)                                     \
+       : ((((unsigned long)(sz)) >> 9) <= 20)                                  \
+             ? 91 + (((unsigned long)(sz)) >> 9)                               \
+             : ((((unsigned long)(sz)) >> 12) <= 10)                           \
+                   ? 110 + (((unsigned long)(sz)) >> 12)                       \
+                   : ((((unsigned long)(sz)) >> 15) <= 4)                      \
+                         ? 119 + (((unsigned long)(sz)) >> 15)                 \
+                         : ((((unsigned long)(sz)) >> 18) <= 2)                \
+                               ? 124 + (((unsigned long)(sz)) >> 18)           \
+                               : 126)
+
+int main() {
+  int last_bin = largebin_index_64(1024);
+  int last_i = 1024;
+  for (int i = 1024; i < 1000000; i++) {
+    if (largebin_index_64(i) != last_bin) {
+      printf("%d-%d: %d, length %d\n", last_i, i - 1, last_bin, i - last_i);
+      last_i = i;
+      last_bin = largebin_index_64(i);
+    }
+  }
+  printf("%d-inf: %d\n", last_i, last_bin);
+  return 0;
+}
+```
 
 ## 参考
 
