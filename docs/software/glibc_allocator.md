@@ -166,6 +166,8 @@ if (tc_idx < mp_.tcache_bins
 
 可以看到，tcache 相当于是一个 per thread 的小缓存，记录了最近释放的内存块，可供 malloc 使用。由于 bin 的数量有限，所以比较大的内存分配不会经过 tcache。
 
+P.S. `calloc` 不会使用 tcache，而是用后面提到的 `_int_malloc` 进行各种分配。
+
 #### free
 
 既然 malloc 用到了 tcache，自然 free 就要往里面放空闲块了，相关的代码在 `_int_free` 函数当中：
@@ -358,7 +360,7 @@ p1=0x558f39310740 p2=0x558f39310770 p3=0x558f39310770 p4=0x558f39310740
 
 接下来继续分析 malloc 的后续代码。
 
-### 回到 `_int_malloc`
+### 回到 `__libc_malloc`
 
 如果 malloc 没有命中 tcache，或者 free 没有把空闲块放到 tcache 当中，会发生什么事情呢？接下来往后看，首先是 `__libc_malloc` 的后续实现：
 
