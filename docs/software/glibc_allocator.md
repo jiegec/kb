@@ -1072,6 +1072,8 @@ struct malloc_state
 
 在这里，就是设置了 `PREV_INUSE` flag，方便后续的相邻块的合并。
 
+可以注意到，small bin 的分配范围是 `nb < MIN_LARGE_SIZE`，因此在 64 位上，`malloc(1000)` 或更小的分配会被 small bin 分配，而 `malloc(1001)` 或更大的分配则不可以。
+
 #### free
 
 在讲述 small bin 在 free 中的实现之前，先讨论 `_int_malloc` 的后续逻辑，最后再回过头来看 free 的部分。
@@ -1090,8 +1092,8 @@ struct malloc_state
 因此 unsorted bin 保存了一些从 fast bin 合并而来的一些块，由于 unsorted bin 只有一个，所以它里面会保存各种大小的空闲块。实际上，unsorted bin 占用的就是 `malloc_state` 结构中的 bin 1，因为我们已经知道，块的大小至少是 32，而大小为 32 的块，对应的 small bin index 是 2，说明 1 没有被用到，其实就是留给 unsorted bin 用的。在 64 位系统下，`malloc_state` 的 127 个 bin 分配如下：
 
 1. bin 1 是 unsorted bin
-2. bin 2 到 bin 64 是 small bin
-3. bin 65 到 bin 127 是 large bin
+2. bin 2 到 bin 63 是 small bin
+3. bin 64 到 bin 127 是 large bin
 
 经过这次合并之后，接下来 `_int_malloc` 尝试从 unsorted bin 和 large bin 中分配空闲块。
 
