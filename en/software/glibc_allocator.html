@@ -2680,13 +2680,31 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#free_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      free
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      小结
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       参考
     </span>
@@ -4587,7 +4605,32 @@
 </span><span id="__span-42-44"><a id="__codelineno-42-44" name="__codelineno-42-44" href="#__codelineno-42-44"></a><span class="w">  </span><span class="p">}</span>
 </span></code></pre></div>
 <p>如果 top chunk 的空间够大，那就对 top chunk 进行拆分，低地址的部分分配出去，剩下的部分成为新的 top chunk。如果 top chunk 不够大，并且 fast bin 还有空间，那就再挣扎一下，consolidate 一下，重新分配一次。如果这些方法都失败了，那就调用 sysmalloc，通过 mmap 或者 sbrk 等方式来分配新的空间。</p>
-<h2 id="_4">参考</h2>
+<p>前面在讨论 consolidate 的时候，跳过了对 top chunk 的特殊处理。其实，top chunk 的特殊处理也很简单，如果当前空闲块的下一个块就是 top chunk，那就把当前空闲块合并到 top chunk 即可。</p>
+<h3 id="free_3">free</h3>
+<p>前面把 malloc 的流程基本分析完了，接下来分析一下 free 的逻辑，它做的事情包括：</p>
+<ol>
+<li>前面已经分析过，如果 tcache 对应的 bin 存在且非满，则把空闲块插入到 tcache 的链表头</li>
+<li>如果存在对应的 fast bin，则插入空闲块到 fast bin 对应链表的头部</li>
+<li>尝试和它前后的空闲块进行合并，实现和前面 consolidate 类似，合并后进入 unsorted bin</li>
+<li>如果释放的内存比较多，检查 top chunk 大小，如果剩余的空间比较多，则归还一部分内存给操作系统</li>
+<li>对于 mmap 分配的内存，用 munmap 释放掉</li>
+</ol>
+<h3 id="_4">小结</h3>
+<p>到这里就基本把 glibc 的内存分配器分析得差不多了。glibc 把空闲块放在如下四种 bin 内：</p>
+<ol>
+<li>fast bin: 每个 bin 对应固定大小的空闲块，用单向链表维护，链表头指针保存在 <code>malloc_state</code> 的 <code>fastbinsY</code> 成员</li>
+<li>unsorted bin: 一个双向链表，维护一些刚被 free 的空闲块，无大小要求，链表的哨兵结点保存在 <code>malloc_state</code> 的 <code>bins</code> 成员刚开头</li>
+<li>small bin: 每个 bin 对应固定大小的空闲块，用双向链表维护，链表的哨兵结点保存在 <code>malloc_state</code> 的 <code>bins</code> 成员，紧接在 unsorted bin 后面</li>
+<li>large bin: 每个 bin 对应一段大小范围的空闲块，用双向链表维护，按照块大小从大到小排序，每个大小的第一个空闲块在 nextsize 双向链表当中，链表的哨兵结点保存在 <code>malloc_state</code> 的 <code>bins</code> 成员中，紧接在 small bin 后面</li>
+</ol>
+<p>除了这四种 bin 以外，还有一个 per thread 的 tcache 机制，结构和 fast bin 类似，每个 bin 对应固定大小的空闲块，用单向链表维护，链表头指针保存在 <code>tcache</code> 的 <code>entries</code> 成员。</p>
+<p>内存在分配器中流转的过程大致如下：</p>
+<ol>
+<li>一开始从 top chunk 当中被分配出来</li>
+<li>被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin</li>
+<li>在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并</li>
+</ol>
+<h2 id="_5">参考</h2>
 <ul>
 <li><a href="https://sourceware.org/glibc/wiki/MallocInternals">Malloc Internals</a></li>
 </ul>
@@ -4613,7 +4656,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 07:48:00">2025年3月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 08:03:33">2025年3月31日</span>
   </span>
 
     
