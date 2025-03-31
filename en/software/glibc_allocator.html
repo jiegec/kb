@@ -5043,94 +5043,125 @@ flowchart TD
 <li>给 tcache 和 fast bin 这两个基于单向链表的结构实现了 Safe Linking 机制：原来 <code>fd</code> 直接保存的是后继结点的地址，现在 <code>fd</code> 保存的是后继结点的地址经过 <code>(&amp;fd &gt;&gt; 12) ^ fd</code> 运算后的结果，也就是把当前结点的地址右移 12 位再异或到后继结点的地址；由于遍历的时候，总是从链表头开始遍历，所以总是可以知道 <code>&amp;fd</code> 的地址，再异或回去，就可以得到正确的地址</li>
 <li>给 tcache 和 fast bin 添加了更多对齐检查，例如在 64 位下，块总是会对齐到 16 字节</li>
 </ol>
+<p>之前编写的 <code>dump_tcache</code> 需要改写成如下的代码：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">dump_tcache</span><span class="p">(</span><span class="n">tcache_perthread_struct</span><span class="w"> </span><span class="o">*</span><span class="n">tcache</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TCACHE_MAX_BINS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="w">      </span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">entries</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;tcache bin #%d: %p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="w">      </span><span class="c1">// handle safe linking</span>
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="w">      </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="p">)(((</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="w">      </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; -&gt; %p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a><span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tcache_entry</span><span class="w"> </span><span class="o">*</span><span class="p">)(((</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a><span class="p">}</span>
+</span></code></pre></div>
 <h3 id="glibc-233">glibc 2.33</h3>
 <p>glibc 2.33 的主要修改是添加了 memory tagging 的支持，通过 memory tagging 把用户指针和分配器内部的指针区分开，从而避免指针的误用。在不支持 memory tagging 的平台上，则没有变化。</p>
 <h3 id="glibc-234">glibc 2.34</h3>
 <p>glibc 2.34 除了改进 memory tagging 支持以外，针对分配器的变化主要是 tcache 的 key 的使用。在 glibc 2.31 版本，tcache 的 key 指向的是 tcache 本身，用于检测是否出现了 double free。但是这也可能导致 tcache 地址的泄露，所以在 glibc 2.34 版本中，改成了用一个随机数来判断 tcache entry 是否已经被 free 了：</p>
-<div class="language-diff highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="gh">diff --git a/malloc/malloc.c b/malloc/malloc.c</span>
-</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="gh">index 1f4bbd8edf..e065785af7 100644</span>
-</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="gd">--- a/malloc/malloc.c</span>
-</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="gi">+++ b/malloc/malloc.c</span>
-</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="gu">@@ -252,6 +252,10 @@</span>
-</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>
-</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="w"> </span>#include &lt;libc-internal.h&gt;
-</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>
-</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="gi">+/* For tcache double-free check.  */</span>
-</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a><span class="gi">+#include &lt;random-bits.h&gt;</span>
-</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="gi">+#include &lt;sys/random.h&gt;</span>
-</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="gi">+</span>
-</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="w"> </span>/*
-</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a><span class="w"> </span>  Debugging:
-</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>
-</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a><span class="gu">@@ -3060,7 +3014,7 @@ typedef struct tcache_entry</span>
-</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a><span class="w"> </span>{
-</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a><span class="w"> </span>  struct tcache_entry *next;
-</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a><span class="w"> </span>  /* This field exists to detect double frees.  */
-</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a><span class="gd">-  struct tcache_perthread_struct *key;</span>
-</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a><span class="gi">+  uintptr_t key;</span>
-</span><span id="__span-45-22"><a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a><span class="w"> </span>} tcache_entry;
-</span><span id="__span-45-23"><a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a>
-</span><span id="__span-45-24"><a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a><span class="w"> </span>/* There is one of these for each thread, which contains the
-</span><span id="__span-45-25"><a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a><span class="gu">@@ -3077,6 +3031,31 @@ typedef struct tcache_perthread_struct</span>
-</span><span id="__span-45-26"><a id="__codelineno-45-26" name="__codelineno-45-26" href="#__codelineno-45-26"></a><span class="w"> </span>static __thread bool tcache_shutting_down = false;
-</span><span id="__span-45-27"><a id="__codelineno-45-27" name="__codelineno-45-27" href="#__codelineno-45-27"></a><span class="w"> </span>static __thread tcache_perthread_struct *tcache = NULL;
-</span><span id="__span-45-28"><a id="__codelineno-45-28" name="__codelineno-45-28" href="#__codelineno-45-28"></a>
-</span><span id="__span-45-29"><a id="__codelineno-45-29" name="__codelineno-45-29" href="#__codelineno-45-29"></a><span class="gi">+/* Process-wide key to try and catch a double-free in the same thread.  */</span>
-</span><span id="__span-45-30"><a id="__codelineno-45-30" name="__codelineno-45-30" href="#__codelineno-45-30"></a><span class="gi">+static uintptr_t tcache_key;</span>
-</span><span id="__span-45-31"><a id="__codelineno-45-31" name="__codelineno-45-31" href="#__codelineno-45-31"></a><span class="gi">+</span>
-</span><span id="__span-45-32"><a id="__codelineno-45-32" name="__codelineno-45-32" href="#__codelineno-45-32"></a><span class="gi">+/* The value of tcache_key does not really have to be a cryptographically</span>
-</span><span id="__span-45-33"><a id="__codelineno-45-33" name="__codelineno-45-33" href="#__codelineno-45-33"></a><span class="gi">+   secure random number.  It only needs to be arbitrary enough so that it does</span>
-</span><span id="__span-45-34"><a id="__codelineno-45-34" name="__codelineno-45-34" href="#__codelineno-45-34"></a><span class="gi">+   not collide with values present in applications.  If a collision does happen</span>
-</span><span id="__span-45-35"><a id="__codelineno-45-35" name="__codelineno-45-35" href="#__codelineno-45-35"></a><span class="gi">+   consistently enough, it could cause a degradation in performance since the</span>
-</span><span id="__span-45-36"><a id="__codelineno-45-36" name="__codelineno-45-36" href="#__codelineno-45-36"></a><span class="gi">+   entire list is checked to check if the block indeed has been freed the</span>
-</span><span id="__span-45-37"><a id="__codelineno-45-37" name="__codelineno-45-37" href="#__codelineno-45-37"></a><span class="gi">+   second time.  The odds of this happening are exceedingly low though, about 1</span>
-</span><span id="__span-45-38"><a id="__codelineno-45-38" name="__codelineno-45-38" href="#__codelineno-45-38"></a><span class="gi">+   in 2^wordsize.  There is probably a higher chance of the performance</span>
-</span><span id="__span-45-39"><a id="__codelineno-45-39" name="__codelineno-45-39" href="#__codelineno-45-39"></a><span class="gi">+   degradation being due to a double free where the first free happened in a</span>
-</span><span id="__span-45-40"><a id="__codelineno-45-40" name="__codelineno-45-40" href="#__codelineno-45-40"></a><span class="gi">+   different thread; that&#39;s a case this check does not cover.  */</span>
-</span><span id="__span-45-41"><a id="__codelineno-45-41" name="__codelineno-45-41" href="#__codelineno-45-41"></a><span class="gi">+static void</span>
-</span><span id="__span-45-42"><a id="__codelineno-45-42" name="__codelineno-45-42" href="#__codelineno-45-42"></a><span class="gi">+tcache_key_initialize (void)</span>
-</span><span id="__span-45-43"><a id="__codelineno-45-43" name="__codelineno-45-43" href="#__codelineno-45-43"></a><span class="gi">+{</span>
-</span><span id="__span-45-44"><a id="__codelineno-45-44" name="__codelineno-45-44" href="#__codelineno-45-44"></a><span class="gi">+  if (__getrandom (&amp;tcache_key, sizeof(tcache_key), GRND_NONBLOCK)</span>
-</span><span id="__span-45-45"><a id="__codelineno-45-45" name="__codelineno-45-45" href="#__codelineno-45-45"></a><span class="gi">+      != sizeof (tcache_key))</span>
-</span><span id="__span-45-46"><a id="__codelineno-45-46" name="__codelineno-45-46" href="#__codelineno-45-46"></a><span class="gi">+    {</span>
-</span><span id="__span-45-47"><a id="__codelineno-45-47" name="__codelineno-45-47" href="#__codelineno-45-47"></a><span class="gi">+      tcache_key = random_bits ();</span>
-</span><span id="__span-45-48"><a id="__codelineno-45-48" name="__codelineno-45-48" href="#__codelineno-45-48"></a><span class="gi">+#if __WORDSIZE == 64</span>
-</span><span id="__span-45-49"><a id="__codelineno-45-49" name="__codelineno-45-49" href="#__codelineno-45-49"></a><span class="gi">+      tcache_key = (tcache_key &lt;&lt; 32) | random_bits ();</span>
-</span><span id="__span-45-50"><a id="__codelineno-45-50" name="__codelineno-45-50" href="#__codelineno-45-50"></a><span class="gi">+#endif</span>
-</span><span id="__span-45-51"><a id="__codelineno-45-51" name="__codelineno-45-51" href="#__codelineno-45-51"></a><span class="gi">+    }</span>
-</span><span id="__span-45-52"><a id="__codelineno-45-52" name="__codelineno-45-52" href="#__codelineno-45-52"></a><span class="gi">+}</span>
-</span><span id="__span-45-53"><a id="__codelineno-45-53" name="__codelineno-45-53" href="#__codelineno-45-53"></a><span class="gi">+</span>
-</span><span id="__span-45-54"><a id="__codelineno-45-54" name="__codelineno-45-54" href="#__codelineno-45-54"></a><span class="w"> </span>/* Caller must ensure that we know tc_idx is valid and there&#39;s room
-</span><span id="__span-45-55"><a id="__codelineno-45-55" name="__codelineno-45-55" href="#__codelineno-45-55"></a><span class="w"> </span>   for more chunks.  */
-</span><span id="__span-45-56"><a id="__codelineno-45-56" name="__codelineno-45-56" href="#__codelineno-45-56"></a><span class="w"> </span>static __always_inline void
-</span><span id="__span-45-57"><a id="__codelineno-45-57" name="__codelineno-45-57" href="#__codelineno-45-57"></a><span class="gu">@@ -3086,7 +3065,7 @@ tcache_put (mchunkptr chunk, size_t tc_idx)</span>
-</span><span id="__span-45-58"><a id="__codelineno-45-58" name="__codelineno-45-58" href="#__codelineno-45-58"></a>
-</span><span id="__span-45-59"><a id="__codelineno-45-59" name="__codelineno-45-59" href="#__codelineno-45-59"></a><span class="w"> </span>  /* Mark this chunk as &quot;in the tcache&quot; so the test in _int_free will
-</span><span id="__span-45-60"><a id="__codelineno-45-60" name="__codelineno-45-60" href="#__codelineno-45-60"></a><span class="w"> </span>     detect a double free.  */
-</span><span id="__span-45-61"><a id="__codelineno-45-61" name="__codelineno-45-61" href="#__codelineno-45-61"></a><span class="gd">-  e-&gt;key = tcache;</span>
-</span><span id="__span-45-62"><a id="__codelineno-45-62" name="__codelineno-45-62" href="#__codelineno-45-62"></a><span class="gi">+  e-&gt;key = tcache_key;</span>
-</span><span id="__span-45-63"><a id="__codelineno-45-63" name="__codelineno-45-63" href="#__codelineno-45-63"></a>
-</span><span id="__span-45-64"><a id="__codelineno-45-64" name="__codelineno-45-64" href="#__codelineno-45-64"></a><span class="w"> </span>  e-&gt;next = PROTECT_PTR (&amp;e-&gt;next, tcache-&gt;entries[tc_idx]);
-</span><span id="__span-45-65"><a id="__codelineno-45-65" name="__codelineno-45-65" href="#__codelineno-45-65"></a><span class="w"> </span>  tcache-&gt;entries[tc_idx] = e;
-</span><span id="__span-45-66"><a id="__codelineno-45-66" name="__codelineno-45-66" href="#__codelineno-45-66"></a><span class="gu">@@ -3103,7 +3082,7 @@ tcache_get (size_t tc_idx)</span>
-</span><span id="__span-45-67"><a id="__codelineno-45-67" name="__codelineno-45-67" href="#__codelineno-45-67"></a><span class="w"> </span>    malloc_printerr (&quot;malloc(): unaligned tcache chunk detected&quot;);
-</span><span id="__span-45-68"><a id="__codelineno-45-68" name="__codelineno-45-68" href="#__codelineno-45-68"></a><span class="w"> </span>  tcache-&gt;entries[tc_idx] = REVEAL_PTR (e-&gt;next);
-</span><span id="__span-45-69"><a id="__codelineno-45-69" name="__codelineno-45-69" href="#__codelineno-45-69"></a><span class="w"> </span>  --(tcache-&gt;counts[tc_idx]);
-</span><span id="__span-45-70"><a id="__codelineno-45-70" name="__codelineno-45-70" href="#__codelineno-45-70"></a><span class="gd">-  e-&gt;key = NULL;</span>
-</span><span id="__span-45-71"><a id="__codelineno-45-71" name="__codelineno-45-71" href="#__codelineno-45-71"></a><span class="gi">+  e-&gt;key = 0;</span>
-</span><span id="__span-45-72"><a id="__codelineno-45-72" name="__codelineno-45-72" href="#__codelineno-45-72"></a><span class="w"> </span>  return (void *) e;
-</span><span id="__span-45-73"><a id="__codelineno-45-73" name="__codelineno-45-73" href="#__codelineno-45-73"></a><span class="w"> </span>}
-</span><span id="__span-45-74"><a id="__codelineno-45-74" name="__codelineno-45-74" href="#__codelineno-45-74"></a>
-</span><span id="__span-45-75"><a id="__codelineno-45-75" name="__codelineno-45-75" href="#__codelineno-45-75"></a><span class="gu">@@ -4413,7 +4343,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)</span>
-</span><span id="__span-45-76"><a id="__codelineno-45-76" name="__codelineno-45-76" href="#__codelineno-45-76"></a><span class="w"> </span>      trust it (it also matches random payload data at a 1 in
-</span><span id="__span-45-77"><a id="__codelineno-45-77" name="__codelineno-45-77" href="#__codelineno-45-77"></a><span class="w"> </span>      2^&lt;size_t&gt; chance), so verify it&#39;s not an unlikely
-</span><span id="__span-45-78"><a id="__codelineno-45-78" name="__codelineno-45-78" href="#__codelineno-45-78"></a><span class="w"> </span>      coincidence before aborting.  */
-</span><span id="__span-45-79"><a id="__codelineno-45-79" name="__codelineno-45-79" href="#__codelineno-45-79"></a><span class="gd">-   if (__glibc_unlikely (e-&gt;key == tcache))</span>
-</span><span id="__span-45-80"><a id="__codelineno-45-80" name="__codelineno-45-80" href="#__codelineno-45-80"></a><span class="gi">+   if (__glibc_unlikely (e-&gt;key == tcache_key))</span>
-</span><span id="__span-45-81"><a id="__codelineno-45-81" name="__codelineno-45-81" href="#__codelineno-45-81"></a><span class="w"> </span>     {
-</span><span id="__span-45-82"><a id="__codelineno-45-82" name="__codelineno-45-82" href="#__codelineno-45-82"></a><span class="w"> </span>       tcache_entry *tmp;
-</span><span id="__span-45-83"><a id="__codelineno-45-83" name="__codelineno-45-83" href="#__codelineno-45-83"></a><span class="w"> </span>       size_t cnt = 0;
+<div class="language-diff highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="gh">diff --git a/malloc/malloc.c b/malloc/malloc.c</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="gh">index 1f4bbd8edf..e065785af7 100644</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="gd">--- a/malloc/malloc.c</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="gi">+++ b/malloc/malloc.c</span>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="gu">@@ -252,6 +252,10 @@</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="w"> </span>#include &lt;libc-internal.h&gt;
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a>
+</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="gi">+/* For tcache double-free check.  */</span>
+</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="gi">+#include &lt;random-bits.h&gt;</span>
+</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="gi">+#include &lt;sys/random.h&gt;</span>
+</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="gi">+</span>
+</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a><span class="w"> </span>/*
+</span><span id="__span-46-14"><a id="__codelineno-46-14" name="__codelineno-46-14" href="#__codelineno-46-14"></a><span class="w"> </span>  Debugging:
+</span><span id="__span-46-15"><a id="__codelineno-46-15" name="__codelineno-46-15" href="#__codelineno-46-15"></a>
+</span><span id="__span-46-16"><a id="__codelineno-46-16" name="__codelineno-46-16" href="#__codelineno-46-16"></a><span class="gu">@@ -3060,7 +3014,7 @@ typedef struct tcache_entry</span>
+</span><span id="__span-46-17"><a id="__codelineno-46-17" name="__codelineno-46-17" href="#__codelineno-46-17"></a><span class="w"> </span>{
+</span><span id="__span-46-18"><a id="__codelineno-46-18" name="__codelineno-46-18" href="#__codelineno-46-18"></a><span class="w"> </span>  struct tcache_entry *next;
+</span><span id="__span-46-19"><a id="__codelineno-46-19" name="__codelineno-46-19" href="#__codelineno-46-19"></a><span class="w"> </span>  /* This field exists to detect double frees.  */
+</span><span id="__span-46-20"><a id="__codelineno-46-20" name="__codelineno-46-20" href="#__codelineno-46-20"></a><span class="gd">-  struct tcache_perthread_struct *key;</span>
+</span><span id="__span-46-21"><a id="__codelineno-46-21" name="__codelineno-46-21" href="#__codelineno-46-21"></a><span class="gi">+  uintptr_t key;</span>
+</span><span id="__span-46-22"><a id="__codelineno-46-22" name="__codelineno-46-22" href="#__codelineno-46-22"></a><span class="w"> </span>} tcache_entry;
+</span><span id="__span-46-23"><a id="__codelineno-46-23" name="__codelineno-46-23" href="#__codelineno-46-23"></a>
+</span><span id="__span-46-24"><a id="__codelineno-46-24" name="__codelineno-46-24" href="#__codelineno-46-24"></a><span class="w"> </span>/* There is one of these for each thread, which contains the
+</span><span id="__span-46-25"><a id="__codelineno-46-25" name="__codelineno-46-25" href="#__codelineno-46-25"></a><span class="gu">@@ -3077,6 +3031,31 @@ typedef struct tcache_perthread_struct</span>
+</span><span id="__span-46-26"><a id="__codelineno-46-26" name="__codelineno-46-26" href="#__codelineno-46-26"></a><span class="w"> </span>static __thread bool tcache_shutting_down = false;
+</span><span id="__span-46-27"><a id="__codelineno-46-27" name="__codelineno-46-27" href="#__codelineno-46-27"></a><span class="w"> </span>static __thread tcache_perthread_struct *tcache = NULL;
+</span><span id="__span-46-28"><a id="__codelineno-46-28" name="__codelineno-46-28" href="#__codelineno-46-28"></a>
+</span><span id="__span-46-29"><a id="__codelineno-46-29" name="__codelineno-46-29" href="#__codelineno-46-29"></a><span class="gi">+/* Process-wide key to try and catch a double-free in the same thread.  */</span>
+</span><span id="__span-46-30"><a id="__codelineno-46-30" name="__codelineno-46-30" href="#__codelineno-46-30"></a><span class="gi">+static uintptr_t tcache_key;</span>
+</span><span id="__span-46-31"><a id="__codelineno-46-31" name="__codelineno-46-31" href="#__codelineno-46-31"></a><span class="gi">+</span>
+</span><span id="__span-46-32"><a id="__codelineno-46-32" name="__codelineno-46-32" href="#__codelineno-46-32"></a><span class="gi">+/* The value of tcache_key does not really have to be a cryptographically</span>
+</span><span id="__span-46-33"><a id="__codelineno-46-33" name="__codelineno-46-33" href="#__codelineno-46-33"></a><span class="gi">+   secure random number.  It only needs to be arbitrary enough so that it does</span>
+</span><span id="__span-46-34"><a id="__codelineno-46-34" name="__codelineno-46-34" href="#__codelineno-46-34"></a><span class="gi">+   not collide with values present in applications.  If a collision does happen</span>
+</span><span id="__span-46-35"><a id="__codelineno-46-35" name="__codelineno-46-35" href="#__codelineno-46-35"></a><span class="gi">+   consistently enough, it could cause a degradation in performance since the</span>
+</span><span id="__span-46-36"><a id="__codelineno-46-36" name="__codelineno-46-36" href="#__codelineno-46-36"></a><span class="gi">+   entire list is checked to check if the block indeed has been freed the</span>
+</span><span id="__span-46-37"><a id="__codelineno-46-37" name="__codelineno-46-37" href="#__codelineno-46-37"></a><span class="gi">+   second time.  The odds of this happening are exceedingly low though, about 1</span>
+</span><span id="__span-46-38"><a id="__codelineno-46-38" name="__codelineno-46-38" href="#__codelineno-46-38"></a><span class="gi">+   in 2^wordsize.  There is probably a higher chance of the performance</span>
+</span><span id="__span-46-39"><a id="__codelineno-46-39" name="__codelineno-46-39" href="#__codelineno-46-39"></a><span class="gi">+   degradation being due to a double free where the first free happened in a</span>
+</span><span id="__span-46-40"><a id="__codelineno-46-40" name="__codelineno-46-40" href="#__codelineno-46-40"></a><span class="gi">+   different thread; that&#39;s a case this check does not cover.  */</span>
+</span><span id="__span-46-41"><a id="__codelineno-46-41" name="__codelineno-46-41" href="#__codelineno-46-41"></a><span class="gi">+static void</span>
+</span><span id="__span-46-42"><a id="__codelineno-46-42" name="__codelineno-46-42" href="#__codelineno-46-42"></a><span class="gi">+tcache_key_initialize (void)</span>
+</span><span id="__span-46-43"><a id="__codelineno-46-43" name="__codelineno-46-43" href="#__codelineno-46-43"></a><span class="gi">+{</span>
+</span><span id="__span-46-44"><a id="__codelineno-46-44" name="__codelineno-46-44" href="#__codelineno-46-44"></a><span class="gi">+  if (__getrandom (&amp;tcache_key, sizeof(tcache_key), GRND_NONBLOCK)</span>
+</span><span id="__span-46-45"><a id="__codelineno-46-45" name="__codelineno-46-45" href="#__codelineno-46-45"></a><span class="gi">+      != sizeof (tcache_key))</span>
+</span><span id="__span-46-46"><a id="__codelineno-46-46" name="__codelineno-46-46" href="#__codelineno-46-46"></a><span class="gi">+    {</span>
+</span><span id="__span-46-47"><a id="__codelineno-46-47" name="__codelineno-46-47" href="#__codelineno-46-47"></a><span class="gi">+      tcache_key = random_bits ();</span>
+</span><span id="__span-46-48"><a id="__codelineno-46-48" name="__codelineno-46-48" href="#__codelineno-46-48"></a><span class="gi">+#if __WORDSIZE == 64</span>
+</span><span id="__span-46-49"><a id="__codelineno-46-49" name="__codelineno-46-49" href="#__codelineno-46-49"></a><span class="gi">+      tcache_key = (tcache_key &lt;&lt; 32) | random_bits ();</span>
+</span><span id="__span-46-50"><a id="__codelineno-46-50" name="__codelineno-46-50" href="#__codelineno-46-50"></a><span class="gi">+#endif</span>
+</span><span id="__span-46-51"><a id="__codelineno-46-51" name="__codelineno-46-51" href="#__codelineno-46-51"></a><span class="gi">+    }</span>
+</span><span id="__span-46-52"><a id="__codelineno-46-52" name="__codelineno-46-52" href="#__codelineno-46-52"></a><span class="gi">+}</span>
+</span><span id="__span-46-53"><a id="__codelineno-46-53" name="__codelineno-46-53" href="#__codelineno-46-53"></a><span class="gi">+</span>
+</span><span id="__span-46-54"><a id="__codelineno-46-54" name="__codelineno-46-54" href="#__codelineno-46-54"></a><span class="w"> </span>/* Caller must ensure that we know tc_idx is valid and there&#39;s room
+</span><span id="__span-46-55"><a id="__codelineno-46-55" name="__codelineno-46-55" href="#__codelineno-46-55"></a><span class="w"> </span>   for more chunks.  */
+</span><span id="__span-46-56"><a id="__codelineno-46-56" name="__codelineno-46-56" href="#__codelineno-46-56"></a><span class="w"> </span>static __always_inline void
+</span><span id="__span-46-57"><a id="__codelineno-46-57" name="__codelineno-46-57" href="#__codelineno-46-57"></a><span class="gu">@@ -3086,7 +3065,7 @@ tcache_put (mchunkptr chunk, size_t tc_idx)</span>
+</span><span id="__span-46-58"><a id="__codelineno-46-58" name="__codelineno-46-58" href="#__codelineno-46-58"></a>
+</span><span id="__span-46-59"><a id="__codelineno-46-59" name="__codelineno-46-59" href="#__codelineno-46-59"></a><span class="w"> </span>  /* Mark this chunk as &quot;in the tcache&quot; so the test in _int_free will
+</span><span id="__span-46-60"><a id="__codelineno-46-60" name="__codelineno-46-60" href="#__codelineno-46-60"></a><span class="w"> </span>     detect a double free.  */
+</span><span id="__span-46-61"><a id="__codelineno-46-61" name="__codelineno-46-61" href="#__codelineno-46-61"></a><span class="gd">-  e-&gt;key = tcache;</span>
+</span><span id="__span-46-62"><a id="__codelineno-46-62" name="__codelineno-46-62" href="#__codelineno-46-62"></a><span class="gi">+  e-&gt;key = tcache_key;</span>
+</span><span id="__span-46-63"><a id="__codelineno-46-63" name="__codelineno-46-63" href="#__codelineno-46-63"></a>
+</span><span id="__span-46-64"><a id="__codelineno-46-64" name="__codelineno-46-64" href="#__codelineno-46-64"></a><span class="w"> </span>  e-&gt;next = PROTECT_PTR (&amp;e-&gt;next, tcache-&gt;entries[tc_idx]);
+</span><span id="__span-46-65"><a id="__codelineno-46-65" name="__codelineno-46-65" href="#__codelineno-46-65"></a><span class="w"> </span>  tcache-&gt;entries[tc_idx] = e;
+</span><span id="__span-46-66"><a id="__codelineno-46-66" name="__codelineno-46-66" href="#__codelineno-46-66"></a><span class="gu">@@ -3103,7 +3082,7 @@ tcache_get (size_t tc_idx)</span>
+</span><span id="__span-46-67"><a id="__codelineno-46-67" name="__codelineno-46-67" href="#__codelineno-46-67"></a><span class="w"> </span>    malloc_printerr (&quot;malloc(): unaligned tcache chunk detected&quot;);
+</span><span id="__span-46-68"><a id="__codelineno-46-68" name="__codelineno-46-68" href="#__codelineno-46-68"></a><span class="w"> </span>  tcache-&gt;entries[tc_idx] = REVEAL_PTR (e-&gt;next);
+</span><span id="__span-46-69"><a id="__codelineno-46-69" name="__codelineno-46-69" href="#__codelineno-46-69"></a><span class="w"> </span>  --(tcache-&gt;counts[tc_idx]);
+</span><span id="__span-46-70"><a id="__codelineno-46-70" name="__codelineno-46-70" href="#__codelineno-46-70"></a><span class="gd">-  e-&gt;key = NULL;</span>
+</span><span id="__span-46-71"><a id="__codelineno-46-71" name="__codelineno-46-71" href="#__codelineno-46-71"></a><span class="gi">+  e-&gt;key = 0;</span>
+</span><span id="__span-46-72"><a id="__codelineno-46-72" name="__codelineno-46-72" href="#__codelineno-46-72"></a><span class="w"> </span>  return (void *) e;
+</span><span id="__span-46-73"><a id="__codelineno-46-73" name="__codelineno-46-73" href="#__codelineno-46-73"></a><span class="w"> </span>}
+</span><span id="__span-46-74"><a id="__codelineno-46-74" name="__codelineno-46-74" href="#__codelineno-46-74"></a>
+</span><span id="__span-46-75"><a id="__codelineno-46-75" name="__codelineno-46-75" href="#__codelineno-46-75"></a><span class="gu">@@ -4413,7 +4343,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)</span>
+</span><span id="__span-46-76"><a id="__codelineno-46-76" name="__codelineno-46-76" href="#__codelineno-46-76"></a><span class="w"> </span>      trust it (it also matches random payload data at a 1 in
+</span><span id="__span-46-77"><a id="__codelineno-46-77" name="__codelineno-46-77" href="#__codelineno-46-77"></a><span class="w"> </span>      2^&lt;size_t&gt; chance), so verify it&#39;s not an unlikely
+</span><span id="__span-46-78"><a id="__codelineno-46-78" name="__codelineno-46-78" href="#__codelineno-46-78"></a><span class="w"> </span>      coincidence before aborting.  */
+</span><span id="__span-46-79"><a id="__codelineno-46-79" name="__codelineno-46-79" href="#__codelineno-46-79"></a><span class="gd">-   if (__glibc_unlikely (e-&gt;key == tcache))</span>
+</span><span id="__span-46-80"><a id="__codelineno-46-80" name="__codelineno-46-80" href="#__codelineno-46-80"></a><span class="gi">+   if (__glibc_unlikely (e-&gt;key == tcache_key))</span>
+</span><span id="__span-46-81"><a id="__codelineno-46-81" name="__codelineno-46-81" href="#__codelineno-46-81"></a><span class="w"> </span>     {
+</span><span id="__span-46-82"><a id="__codelineno-46-82" name="__codelineno-46-82" href="#__codelineno-46-82"></a><span class="w"> </span>       tcache_entry *tmp;
+</span><span id="__span-46-83"><a id="__codelineno-46-83" name="__codelineno-46-83" href="#__codelineno-46-83"></a><span class="w"> </span>       size_t cnt = 0;
 </span></code></pre></div>
+<p>有了这个更新以后，就不能像之前那样，先 free 一个块进入到 tcache 中，再从它的 key 字段找到 tcache 的地址了。但我们知道，tcache 保存在 thread local storage (TLS) 当中，x86 的 TLS 是基于 fs 段寄存器访问的，所以只需要从 libc 读取 tcache 的 TLS offset，再手动读取即可：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1">// get tcache address from tls, offset is read from libc</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">libc_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">stdout</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x1d3760</span><span class="p">;</span><span class="w"> </span><span class="c1">// offset of _IO_2_1_stdout_</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="o">*</span><span class="n">tcache_tls_offset_ptr</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">    </span><span class="n">libc_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">0x1d1d78</span><span class="p">;</span><span class="w"> </span><span class="c1">// offset of tcache tls offset, found by decompiling</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="w">                          </span><span class="c1">// __libc_malloc</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">tcache_tls_offset_ptr</span><span class="p">;</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="c1">// locate tcache from fs</span>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="n">tcache_perthread_struct</span><span class="w"> </span><span class="o">*</span><span class="n">tcache</span><span class="p">;</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;movq %%fs:(%1), %0&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">tcache</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">offset</span><span class="p">));</span>
+</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a><span class="n">printf</span><span class="p">(</span><span class="s">&quot;tcache is at %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">tcache</span><span class="p">);</span>
+</span></code></pre></div>
+<p>这个方法在旧版本中也是工作的，注意 tcache 在没有初始化的时候是 NULL。</p>
 <h3 id="glibc-235">glibc 2.35</h3>
 <p>glibc 2.35 主要是改进了分配器对 Transparent Huge Page 的支持，其余没有什么变化。</p>
 <h3 id="glibc-236">glibc 2.36</h3>
@@ -5179,7 +5210,7 @@ flowchart TD
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 11:48:33">2025年3月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 12:38:48">2025年3月31日</span>
   </span>
 
     
