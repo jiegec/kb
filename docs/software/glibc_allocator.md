@@ -1860,7 +1860,11 @@ flowchart TD
     alloc_system --> malloc_ret
 ```
 
-## glibc 2.32
+## 后续版本更新
+
+接下来记录 glibc 2.31 后续版本对分配器的更新。
+
+### glibc 2.32
 
 glibc 2.32 在 2.31 的基础上有如下的修改：
 
@@ -2082,11 +2086,11 @@ glibc 2.32 的主要修改：
 1. 给 tcache 和 fast bin 这两个基于单向链表的结构实现了 Safe Linking 机制：原来 `fd` 直接保存的是后继结点的地址，现在 `fd` 保存的是后继结点的地址经过 `(&fd >> 12) ^ fd` 运算后的结果，也就是把当前结点的地址右移 12 位再异或到后继结点的地址；由于遍历的时候，总是从链表头开始遍历，所以总是可以知道 `&fd` 的地址，再异或回去，就可以得到正确的地址
 2. 给 tcache 和 fast bin 添加了更多对齐检查，例如在 64 位下，块总是会对齐到 16 字节
 
-## glibc 2.33
+### glibc 2.33
 
 glibc 2.33 的主要修改是添加了 memory tagging 的支持，通过 memory tagging 把用户指针和分配器内部的指针区分开，从而避免指针的误用。在不支持 memory tagging 的平台上，则没有变化。
 
-## glibc 2.34
+### glibc 2.34
 
 glibc 2.34 除了改进 memory tagging 支持以外，针对分配器的变化主要是 tcache 的 key 的使用。在 glibc 2.31 版本，tcache 的 key 指向的是 tcache 本身，用于检测是否出现了 double free。但是这也可能导致 tcache 地址的泄露，所以在 glibc 2.34 版本中，改成了用一个随机数来判断 tcache entry 是否已经被 free 了：
 
@@ -2176,33 +2180,42 @@ index 1f4bbd8edf..e065785af7 100644
  	    size_t cnt = 0;
 ```
 
-## glibc 2.35
+### glibc 2.35
 
 glibc 2.35 主要是改进了分配器对 Transparent Huge Page 的支持，其余没有什么变化。
 
-## glibc 2.36
+### glibc 2.36
 
 glibc 2.36 的分配器有少量的代码重构，没有什么实质的变化。
 
-## glibc 2.37
+### glibc 2.37
 
 glibc 2.37 的分配器对 realloc 的实现有少量的修改，但目前本文还没有分析 realloc，其余的部分没有什么变化。
 
-## glibc 2.38
+### glibc 2.38
 
 glibc 2.38 的分配器添加了 memalign 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。
 
-## glibc 2.39
+### glibc 2.39
 
 glibc 2.39 的分配器针对 free 和 memalign 进行了一些代码重构，没有什么实质的变化。
 
-## glibc 2.40
+### glibc 2.40
 
 glibc 2.40 的分配器没有修改。
 
-## glibc 2.41
+### glibc 2.41
 
 glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了，之前的版本是不会的。此外对 free 的逻辑有一定的修改：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。
+
+### 小结
+
+总结一下从 glibc 2.31 之后内存分配器行为的几个大的变化：
+
+1. glibc 2.32 开始，tcache 和 fast bin 的单向链表的地址进行了保护：`(&fd >> 12) ^ fd`
+2. glibc 2.34 开始，tcache 的 key 不再指向 tcache 自己，而是设置为一个随机数
+3. glibc 2.41 开始，calloc 也会使用 tcache
+4. glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin
 
 ## 参考
 
