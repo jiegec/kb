@@ -2086,6 +2086,26 @@ glibc 2.32 的主要修改：
 1. 给 tcache 和 fast bin 这两个基于单向链表的结构实现了 Safe Linking 机制：原来 `fd` 直接保存的是后继结点的地址，现在 `fd` 保存的是后继结点的地址经过 `(&fd >> 12) ^ fd` 运算后的结果，也就是把当前结点的地址右移 12 位再异或到后继结点的地址；由于遍历的时候，总是从链表头开始遍历，所以总是可以知道 `&fd` 的地址，再异或回去，就可以得到正确的地址
 2. 给 tcache 和 fast bin 添加了更多对齐检查，例如在 64 位下，块总是会对齐到 16 字节
 
+之前编写的 `dump_tcache` 需要改写成如下的代码：
+
+```c
+void dump_tcache(tcache_perthread_struct *tcache) {
+  for (int i = 0; i < TCACHE_MAX_BINS; i++) {
+    if (tcache->counts[i]) {
+      tcache_entry *p = tcache->entries[i];
+      printf("tcache bin #%d: %p", i, p);
+      // handle safe linking
+      p = (tcache_entry *)(((uintptr_t)&p->next >> 12) ^ (uintptr_t)p->next);
+      while (p) {
+        printf(" -> %p", p);
+        p = (tcache_entry *)(((uintptr_t)&p->next >> 12) ^ (uintptr_t)p->next);
+      }
+      printf("\n");
+    }
+  }
+}
+```
+
 ### glibc 2.33
 
 glibc 2.33 的主要修改是添加了 memory tagging 的支持，通过 memory tagging 把用户指针和分配器内部的指针区分开，从而避免指针的误用。在不支持 memory tagging 的平台上，则没有变化。
@@ -2179,6 +2199,24 @@ index 1f4bbd8edf..e065785af7 100644
  	    tcache_entry *tmp;
  	    size_t cnt = 0;
 ```
+
+有了这个更新以后，就不能像之前那样，先 free 一个块进入到 tcache 中，再从它的 key 字段找到 tcache 的地址了。但我们知道，tcache 保存在 thread local storage (TLS) 当中，x86 的 TLS 是基于 fs 段寄存器访问的，所以只需要从 libc 读取 tcache 的 TLS offset，再手动读取即可：
+
+```c
+// get tcache address from tls, offset is read from libc
+void *libc_base = (char *)stdout - 0x1d3760; // offset of _IO_2_1_stdout_
+uint64_t *tcache_tls_offset_ptr =
+    libc_base + 0x1d1d78; // offset of tcache tls offset, found by decompiling
+                          // __libc_malloc
+uint64_t offset = *tcache_tls_offset_ptr;
+
+// locate tcache from fs
+tcache_perthread_struct *tcache;
+asm volatile("movq %%fs:(%1), %0" : "=r"(tcache) : "r"(offset));
+printf("tcache is at %p\n", tcache);
+```
+
+这个方法在旧版本中也是工作的，注意 tcache 在没有初始化的时候是 NULL。
 
 ### glibc 2.35
 
