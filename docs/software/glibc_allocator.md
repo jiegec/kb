@@ -1158,22 +1158,18 @@ do {
 static void
 unlink_chunk (mstate av, mchunkptr p)
 {
-  if (chunksize (p) != prev_size (next_chunk (p)))
-    malloc_printerr ("corrupted size vs. prev_size");
+  /* malloc check omitted */
 
   mchunkptr fd = p->fd;
   mchunkptr bk = p->bk;
 
-  if (__builtin_expect (fd->bk != p || bk->fd != p, 0))
-    malloc_printerr ("corrupted double-linked list");
+  /* malloc check omitted */
 
   fd->bk = bk;
   bk->fd = fd;
   if (!in_smallbin_range (chunksize_nomask (p)) && p->fd_nextsize != NULL)
     {
-      if (p->fd_nextsize->bk_nextsize != p
-          || p->bk_nextsize->fd_nextsize != p)
-        malloc_printerr ("corrupted double-linked list (not small)");
+      /* malloc check omitted */
 
       if (fd->fd_nextsize == NULL)
         {
