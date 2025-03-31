@@ -569,7 +569,7 @@ if (victim != NULL)
 3. 进行一系列的安全检查：`__builtin_expect` 和 `check_remalloced_chunk`
 4. 检查 tcache 对应的 bin，如果它还没有满，就把 fast bin 链表中的元素挪到 tcache 当中
 5. 把 payload 地址通过 `chunk2mem` 计算出来，返回给 malloc 调用者
-6. 调用 `alloc_perturb` 往新分配的空间内写入垃圾数据，避免泄露之前的数据
+6. 调用 `alloc_perturb` 往新分配的空间内写入垃圾数据（可选），避免泄露之前的数据
 
 可以看到，这个过程比较简单，和 tcache 类似，只不过它从 thread local 的 tcache 改成了支持多线程的版本，同时为了支持多线程访问，使用 CAS 原子指令来更新链表头部：
 
@@ -666,30 +666,38 @@ struct malloc_chunk {
 
 #define INTERNAL_SIZE_T size_t
 
+/* MALLOC_ALIGNMENT equals to 16 on 64-bit */
 #define MALLOC_ALIGNMENT                                                       \
   (2 * SIZE_SZ < __alignof__(long double) ? __alignof__(long double)           \
                                           : 2 * SIZE_SZ)
 
 /* The corresponding word size.  */
+/* SIZE_SZ equals to 8 on 64-bit */
 #define SIZE_SZ (sizeof(INTERNAL_SIZE_T))
 
 /* The corresponding bit mask value.  */
+/* MALLOC_ALIGN_MASK equals to 15 on 64-bit */
 #define MALLOC_ALIGN_MASK (MALLOC_ALIGNMENT - 1)
 
 /* The smallest possible chunk */
+/* MIN_CHUNK_SIZE equals to 32 on 64-bit */
 #define MIN_CHUNK_SIZE (offsetof(struct malloc_chunk, fd_nextsize))
 
 /* The smallest size we can malloc is an aligned minimal chunk */
+/* MINSIZE equals to 32 on 64-bit */
 #define MINSIZE                                                                \
   (unsigned long)(((MIN_CHUNK_SIZE + MALLOC_ALIGN_MASK) & ~MALLOC_ALIGN_MASK))
 
+/* equivalent to max(alignUp(req + SIZE_SZ, MALLOC_ALIGNMENT), MINSIZE) */
 #define request2size(req)                                                      \
   (((req) + SIZE_SZ + MALLOC_ALIGN_MASK < MINSIZE)                             \
        ? MINSIZE                                                               \
        : ((req) + SIZE_SZ + MALLOC_ALIGN_MASK) & ~MALLOC_ALIGN_MASK)
 
+/* MAX_FAST_SIZE equals to 160 on 64-bit */
 #define MAX_FAST_SIZE (80 * SIZE_SZ / 4)
 
+/* NFASTBINS equals to 10 on 64-bit */
 #define NFASTBINS (fastbin_index(request2size(MAX_FAST_SIZE)) + 1)
 
 struct malloc_state {
