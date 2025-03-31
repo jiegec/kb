@@ -4630,7 +4630,7 @@
 <li>被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin</li>
 <li>在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并</li>
 </ol>
-<p>完整流程图如下：</p>
+<p>malloc 的完整流程图如下：</p>
 <pre class="mermaid"><code>---
 config:
   theme: base
@@ -4638,35 +4638,35 @@ config:
     fontSize: "30px"
 ---
 flowchart TD
-    malloc[malloc 入口（malloc.c:3022）]
-    tcache[尝试从 tcache 中分配空闲块（malloc.c:3047）]
-    fastbin[尝试从 fast bin 中分配空闲块（malloc.c:3577）]
-    fastbin_migrate[如果 fast bin 还有空闲块且 tcache 没有满，则把空闲块从 fast bin 挪到 tcache（malloc.c:3596）]
-    smallbin[尝试从 small bin 中分配空闲块（malloc.c:3635）]
-    smallbin_migrate[如果 small bin 还有空闲块且 tcache 没有满，则把空闲块从 small bin 挪到 tcache（malloc.c:3652）]
+    malloc[malloc 入口（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3022"&gt;malloc.c:3022&lt;/a&gt;）]
+    tcache[尝试从 tcache 中分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3047"&gt;malloc.c:3047&lt;/a&gt;）]
+    fastbin[尝试从 fast bin 中分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3577"&gt;malloc.c:3577&lt;/a&gt;）]
+    fastbin_migrate[如果 fast bin 还有空闲块且 tcache 没有满，则把空闲块从 fast bin 挪到 tcache（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3596"&gt;malloc.c:3596&lt;/a&gt;）]
+    smallbin[尝试从 small bin 中分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3635"&gt;malloc.c:3635&lt;/a&gt;）]
+    smallbin_migrate[如果 small bin 还有空闲块且 tcache 没有满，则把空闲块从 small bin 挪到 tcache（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3652"&gt;malloc.c:3652&lt;/a&gt;）]
     malloc_ret[malloc 结束]
-    consolidate[consolidate：遍历 fast bin，把空闲块和相邻的空闲块合并，插入到 unsorted bin（malloc.c:4440）]
-    consolidate_2[consolidate：遍历 fast bin，把空闲块和相邻的空闲块合并，插入到 unsorted bin（malloc.c:4440）]
-    check_large[块大小是否对应 large bin（malloc.c:3695）]
-    loop[开始循环（malloc.c:3725）]
-    unsorted_bin[遍历 unsorted bin（malloc.c:3728）]
-    remainder[内存局部性优化：最近一次 split 出来的 chunk 是否有足够的空间分配（malloc.c:3756）]
-    remainder_success[拆分这个 chunk 以完成分配（malloc.c:3761）]
-    remove_unsorted_bin[把当前 chunk 从 unsorted bin 中删除（malloc.c:3784）]
-    check_same_size[当前空闲块大小和要分配的大小是否相同（malloc.c:3792）]
-    check_tcache_full[tcache bin 是否已满（malloc.c:3800）]
-    alloc_now[分配当前空闲块（malloc.c:3807）]
-    move_to_tcache[把当前空闲块挪到 tcache（malloc.c:3803）]
-    move_to_bin[根据当前空闲块的大小，挪到 small bin 或 large bin（malloc.c:3821）]
-    check_tcache[检查 tcache 是否有空闲块（malloc.c:3891）]
+    consolidate[consolidate：遍历 fast bin，把空闲块和相邻的空闲块合并，插入到 unsorted bin（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L4440"&gt;malloc.c:4440&lt;/a&gt;）]
+    consolidate_2[consolidate：遍历 fast bin，把空闲块和相邻的空闲块合并，插入到 unsorted bin（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L4440"&gt;malloc.c:4440&lt;/a&gt;）]
+    check_large[块大小是否对应 large bin（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3695"&gt;malloc.c:3695&lt;/a&gt;）]
+    loop[开始循环（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3725"&gt;malloc.c:3725&lt;/a&gt;）]
+    unsorted_bin[遍历 unsorted bin（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3728"&gt;malloc.c:3728&lt;/a&gt;）]
+    remainder[内存局部性优化：最近一次 split 出来的 chunk 是否有足够的空间分配（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3756"&gt;malloc.c:3756&lt;/a&gt;）]
+    remainder_success[拆分这个 chunk 以完成分配（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3761"&gt;malloc.c:3761&lt;/a&gt;）]
+    remove_unsorted_bin[把当前 chunk 从 unsorted bin 中删除（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3784"&gt;malloc.c:3784&lt;/a&gt;）]
+    check_same_size[当前空闲块大小和要分配的大小是否相同（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3792"&gt;malloc.c:3792&lt;/a&gt;）]
+    check_tcache_full[tcache bin 是否已满（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3800"&gt;malloc.c:3800&lt;/a&gt;）]
+    alloc_now[分配当前空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3807"&gt;malloc.c:3807&lt;/a&gt;）]
+    move_to_tcache[把当前空闲块挪到 tcache（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3803"&gt;malloc.c:3803&lt;/a&gt;）]
+    move_to_bin[根据当前空闲块的大小，挪到 small bin 或 large bin（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3821"&gt;malloc.c:3821&lt;/a&gt;）]
+    check_tcache[检查 tcache 是否有空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3891"&gt;malloc.c:3891&lt;/a&gt;）]
     alloc_tcache[从 tcache 分配空闲块]
-    unsorted_bin_exit[检查 tcache 是否有空闲块（malloc.c:3906）]
-    check_large_alloc[块大小是否对应 large bin（malloc.c:3917）]
-    alloc_large[尝试从 large bin 中分配空闲块（malloc.c:3922）]
-    alloc_larger[遍历更大的 bin，尝试分配空闲块（malloc.c:3990）]
-    alloc_top[尝试从 top chunk 分配空闲块（malloc.c:4087）]
-    alloc_system[从系统请求更多内存来分配空闲块（malloc.c:4139）]
-    check_fast[fast bin 是否有空闲块（malloc.c:4126）]
+    unsorted_bin_exit[检查 tcache 是否有空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3906"&gt;malloc.c:3906&lt;/a&gt;）]
+    check_large_alloc[块大小是否对应 large bin（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3917"&gt;malloc.c:3917&lt;/a&gt;）]
+    alloc_large[尝试从 large bin 中分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3922"&gt;malloc.c:3922&lt;/a&gt;）]
+    alloc_larger[遍历更大的 bin，尝试分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L3990"&gt;malloc.c:3990&lt;/a&gt;）]
+    alloc_top[尝试从 top chunk 分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L4087"&gt;malloc.c:4087&lt;/a&gt;）]
+    alloc_system[从系统请求更多内存来分配空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L4139"&gt;malloc.c:4139&lt;/a&gt;）]
+    check_fast[fast bin 是否有空闲块（&lt;a href="https://github.com/bminor/glibc/blob/glibc-2.31/malloc/malloc.c#L4126"&gt;malloc.c:4126&lt;/a&gt;）]
 
     malloc --&gt; tcache
     tcache --&gt;|分配成功| malloc_ret
@@ -4737,7 +4737,7 @@ flowchart TD
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 09:10:00">2025年3月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 09:22:40">2025年3月31日</span>
   </span>
 
     
