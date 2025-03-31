@@ -1510,6 +1510,243 @@ int main() {
 
 这样就保证了插入以后的 large bin，依然满足从大到小排序，并且每种大小的第一个块组成 nextsize 链表的性质。
 
+#### malloc
+
+接着回到 `_libc_malloc`。前面提到，unsorted bin 中空闲块已经被挪到了 small bin 或者 large bin，并在这个过程中把合适大小的空闲块直接分配。如果还是没有分配成功，接下来就要在 large bin 里寻找一个块来分配：
+
+```c
+if (!in_smallbin_range (nb))
+  {
+    bin = bin_at (av, idx);
+
+    /* skip scan if empty or largest chunk is too small */
+    if ((victim = first (bin)) != bin
+        && (unsigned long) chunksize_nomask (victim)
+          >= (unsigned long) (nb))
+      {
+        victim = victim->bk_nextsize;
+        while (((unsigned long) (size = chunksize (victim)) <
+                (unsigned long) (nb)))
+          victim = victim->bk_nextsize;
+
+        /* Avoid removing the first entry for a size so that the skip
+           list does not have to be rerouted.  */
+        if (victim != last (bin)
+            && chunksize_nomask (victim)
+              == chunksize_nomask (victim->fd))
+          victim = victim->fd;
+
+        remainder_size = size - nb;
+        unlink_chunk (av, victim);
+
+        /* Exhaust */
+        if (remainder_size < MINSIZE)
+          {
+            set_inuse_bit_at_offset (victim, size);
+            if (av != &main_arena)
+              set_non_main_arena (victim);
+          }
+        /* Split */
+        else
+          {
+            remainder = chunk_at_offset (victim, nb);
+            /* We cannot assume the unsorted list is empty and therefore
+               have to perform a complete insert here.  */
+            bck = unsorted_chunks (av);
+            fwd = bck->fd;
+            if (__glibc_unlikely (fwd->bk != bck))
+              malloc_printerr ("malloc(): corrupted unsorted chunks");
+            remainder->bk = bck;
+            remainder->fd = fwd;
+            bck->fd = remainder;
+            fwd->bk = remainder;
+            if (!in_smallbin_range (remainder_size))
+              {
+                remainder->fd_nextsize = NULL;
+                remainder->bk_nextsize = NULL;
+              }
+            set_head (victim, nb | PREV_INUSE |
+                      (av != &main_arena ? NON_MAIN_ARENA : 0));
+            set_head (remainder, remainder_size | PREV_INUSE);
+            set_foot (remainder, remainder_size);
+          }
+        check_malloced_chunk (av, victim, nb);
+        void *p = chunk2mem (victim);
+        alloc_perturb (p, bytes);
+        return p;
+      }
+  }
+```
+
+从 large bin 分配空闲块的过程如下：
+
+1. 根据大小找到对应的 large bin
+2. 如果 large bin 中最大的空闲块足够大，遍历 nextsize 链表，找到一个比要分配的大小更大的最小的空闲块
+3. 为了避免更新 nextsize 链表，如果当前块大小对应了不止一个空闲块，那就取第二个空闲块，这样就不用更新 nextsize 链表
+4. 计算空闲块大小和要分配的大小的差值，如果差值太小，多余的部分就直接浪费；如果差的空间还能放下一个 chunk，就进行拆分，把拆出来的剩下的部分放到 unsorted bin 中
+5. 计算 payload 地址，进行可选的 perturb，完成分配
+
+### 寻找更大的 bin
+
+如果在当前 bin 内还是找不到空闲块，那就只能从更大的 bin 里寻找空闲块了：
+
+```c
+++idx;
+bin = bin_at (av, idx);
+block = idx2block (idx);
+map = av->binmap[block];
+bit = idx2bit (idx);
+
+for (;; )
+  {
+    /* Skip rest of block if there are no more set bits in this block.  */
+    if (bit > map || bit == 0)
+      {
+        do
+          {
+            if (++block >= BINMAPSIZE) /* out of bins */
+              goto use_top;
+          }
+        while ((map = av->binmap[block]) == 0);
+
+        bin = bin_at (av, (block << BINMAPSHIFT));
+        bit = 1;
+      }
+
+    /* Advance to bin with set bit. There must be one. */
+    while ((bit & map) == 0)
+      {
+        bin = next_bin (bin);
+        bit <<= 1;
+        assert (bit != 0);
+      }
+
+    /* Inspect the bin. It is likely to be non-empty */
+    victim = last (bin);
+
+    /*  If a false alarm (empty bin), clear the bit. */
+    if (victim == bin)
+      {
+        av->binmap[block] = map &= ~bit; /* Write through */
+        bin = next_bin (bin);
+        bit <<= 1;
+      }
+
+    else
+      {
+        size = chunksize (victim);
+
+        /*  We know the first chunk in this bin is big enough to use. */
+        assert ((unsigned long) (size) >= (unsigned long) (nb));
+
+        remainder_size = size - nb;
+
+        /* unlink */
+        unlink_chunk (av, victim);
+
+        /* Exhaust */
+        if (remainder_size < MINSIZE)
+          {
+            set_inuse_bit_at_offset (victim, size);
+            if (av != &main_arena)
+              set_non_main_arena (victim);
+          }
+
+        /* Split */
+        else
+          {
+            remainder = chunk_at_offset (victim, nb);
+
+            /* We cannot assume the unsorted list is empty and therefore
+               have to perform a complete insert here.  */
+            bck = unsorted_chunks (av);
+            fwd = bck->fd;
+            if (__glibc_unlikely (fwd->bk != bck))
+              malloc_printerr ("malloc(): corrupted unsorted chunks 2");
+            remainder->bk = bck;
+            remainder->fd = fwd;
+            bck->fd = remainder;
+            fwd->bk = remainder;
+
+            /* advertise as last remainder */
+            if (in_smallbin_range (nb))
+              av->last_remainder = remainder;
+            if (!in_smallbin_range (remainder_size))
+              {
+                remainder->fd_nextsize = NULL;
+                remainder->bk_nextsize = NULL;
+              }
+            set_head (victim, nb | PREV_INUSE |
+                      (av != &main_arena ? NON_MAIN_ARENA : 0));
+            set_head (remainder, remainder_size | PREV_INUSE);
+            set_foot (remainder, remainder_size);
+          }
+        check_malloced_chunk (av, victim, nb);
+        void *p = chunk2mem (victim);
+        alloc_perturb (p, bytes);
+        return p;
+      }
+  }
+```
+
+为了跳过空的 bin，维护了一个 bitmap，记录哪些 bin 会有内容。找到一个非空的 bin 以后，它的大小肯定是足够分配的，接下来就和之前一样，要么舍弃多余的空间，要么把多余的空间做成一个 chunk，插入到 unsorted bin 当中。
+
+如果所有 bin 都空了，说明没有可以分配的可能了，就跳转到 `use_top` 逻辑。
+
+### top chunk 分配
+
+如果已有的 bin 都无法分配了，就尝试拆分 top chunk 来进行分配。top chunk 指的是当前堆里地址最高的那个 chunk，也可以理解为未分配的部分。分配的逻辑如下：
+
+```c
+use_top:
+victim = av->top;
+size = chunksize (victim);
+
+if (__glibc_unlikely (size > av->system_mem))
+  malloc_printerr ("malloc(): corrupted top size");
+
+if ((unsigned long) (size) >= (unsigned long) (nb + MINSIZE))
+  {
+    remainder_size = size - nb;
+    remainder = chunk_at_offset (victim, nb);
+    av->top = remainder;
+    set_head (victim, nb | PREV_INUSE |
+              (av != &main_arena ? NON_MAIN_ARENA : 0));
+    set_head (remainder, remainder_size | PREV_INUSE);
+
+    check_malloced_chunk (av, victim, nb);
+    void *p = chunk2mem (victim);
+    alloc_perturb (p, bytes);
+    return p;
+  }
+
+/* When we are using atomic ops to free fast chunks we can get
+   here for all block sizes.  */
+else if (atomic_load_relaxed (&av->have_fastchunks))
+  {
+    malloc_consolidate (av);
+    /* restore original bin index */
+    if (in_smallbin_range (nb))
+      idx = smallbin_index (nb);
+    else
+      idx = largebin_index (nb);
+  }
+
+/*
+   Otherwise, relay to handle system-dependent cases
+ */
+else
+  {
+    void *p = sysmalloc (nb, av);
+    if (p != NULL)
+      alloc_perturb (p, bytes);
+    return p;
+  }
+```
+
+如果 top chunk 的空间够大，那就对 top chunk 进行拆分，低地址的部分分配出去，剩下的部分成为新的 top chunk。如果 top chunk 不够大，并且 fast bin 还有空间，那就再挣扎一下，consolidate 一下，重新分配一次。如果这些方法都失败了，那就调用 sysmalloc，通过 mmap 或者 sbrk 等方式来分配新的空间。
+
+
 ## 参考
 
 - [Malloc Internals](https://sourceware.org/glibc/wiki/MallocInternals)
