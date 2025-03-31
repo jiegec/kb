@@ -1746,6 +1746,34 @@ else
 
 如果 top chunk 的空间够大，那就对 top chunk 进行拆分，低地址的部分分配出去，剩下的部分成为新的 top chunk。如果 top chunk 不够大，并且 fast bin 还有空间，那就再挣扎一下，consolidate 一下，重新分配一次。如果这些方法都失败了，那就调用 sysmalloc，通过 mmap 或者 sbrk 等方式来分配新的空间。
 
+前面在讨论 consolidate 的时候，跳过了对 top chunk 的特殊处理。其实，top chunk 的特殊处理也很简单，如果当前空闲块的下一个块就是 top chunk，那就把当前空闲块合并到 top chunk 即可。
+
+### free
+
+前面把 malloc 的流程基本分析完了，接下来分析一下 free 的逻辑，它做的事情包括：
+
+1. 前面已经分析过，如果 tcache 对应的 bin 存在且非满，则把空闲块插入到 tcache 的链表头
+2. 如果存在对应的 fast bin，则插入空闲块到 fast bin 对应链表的头部
+3. 尝试和它前后的空闲块进行合并，实现和前面 consolidate 类似，合并后进入 unsorted bin
+4. 如果释放的内存比较多，检查 top chunk 大小，如果剩余的空间比较多，则归还一部分内存给操作系统
+5. 对于 mmap 分配的内存，用 munmap 释放掉
+
+### 小结
+
+到这里就基本把 glibc 的内存分配器分析得差不多了。glibc 把空闲块放在如下四种 bin 内：
+
+1. fast bin: 每个 bin 对应固定大小的空闲块，用单向链表维护，链表头指针保存在 `malloc_state` 的 `fastbinsY` 成员
+2. unsorted bin: 一个双向链表，维护一些刚被 free 的空闲块，无大小要求，链表的哨兵结点保存在 `malloc_state` 的 `bins` 成员刚开头
+3. small bin: 每个 bin 对应固定大小的空闲块，用双向链表维护，链表的哨兵结点保存在 `malloc_state` 的 `bins` 成员，紧接在 unsorted bin 后面
+4. large bin: 每个 bin 对应一段大小范围的空闲块，用双向链表维护，按照块大小从大到小排序，每个大小的第一个空闲块在 nextsize 双向链表当中，链表的哨兵结点保存在 `malloc_state` 的 `bins` 成员中，紧接在 small bin 后面
+
+除了这四种 bin 以外，还有一个 per thread 的 tcache 机制，结构和 fast bin 类似，每个 bin 对应固定大小的空闲块，用单向链表维护，链表头指针保存在 `tcache` 的 `entries` 成员。
+
+内存在分配器中流转的过程大致如下：
+
+1. 一开始从 top chunk 当中被分配出来
+2. 被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin
+3. 在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并
 
 ## 参考
 
