@@ -1801,6 +1801,8 @@ flowchart TD
     remainder_success[拆分这个 chunk 以完成分配]
     remove_unsorted_bin[把当前 chunk 从 unsorted bin 中删除]
     check_same_size[当前空闲块大小和要分配的大小是否相同]
+    check_tcache_full[tcache bin 是否已满]
+    alloc_now[分配当前空闲块]
     move_to_tcache[把当前空闲块挪到 tcache]
     move_to_bin[根据当前空闲块的大小，挪到 small bin 或 large bin]
     check_tcache[检查 tcache 是否有空闲块]
@@ -1831,7 +1833,10 @@ flowchart TD
     remainder_success --> malloc_ret
     remainder -->|否| remove_unsorted_bin
     remove_unsorted_bin --> check_same_size
-    check_same_size -->|是| move_to_tcache
+    check_same_size -->|是| check_tcache_full
+    check_tcache_full -->|否| move_to_tcache
+    check_tcache_full --> |是| alloc_now
+    alloc_now --> malloc_ret
     move_to_tcache --> unsorted_bin
     check_same_size -->|否| move_to_bin
     move_to_bin --> check_tcache
