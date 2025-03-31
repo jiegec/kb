@@ -2218,6 +2218,8 @@ printf("tcache is at %p\n", tcache);
 
 这个方法在旧版本中也是工作的，注意 tcache 在没有初始化的时候是 NULL。
 
+关于 TLS 的工作原理，特别是 glibc 所使用的 initial-exec TLS model，详见 [ELF Handling For Thread-Local Storage](https://www.akkadia.org/drepper/tls.pdf)。
+
 ### glibc 2.35
 
 glibc 2.35 主要是改进了分配器对 Transparent Huge Page 的支持，其余没有什么变化。
