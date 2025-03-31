@@ -2578,6 +2578,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#small-bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      small bin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="small bin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#malloc_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      malloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      free
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consolidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      consolidate
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3745,6 +3787,144 @@
 </span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="n">allocate</span><span class="w"> </span><span class="n">p1</span><span class="o">=</span><span class="mh">0x563312167800</span><span class="w"> </span><span class="n">p2</span><span class="o">=</span><span class="mh">0x563312167830</span><span class="w"> </span><span class="n">p3</span><span class="o">=</span><span class="mh">0x563312167800</span>
 </span></code></pre></div>
 <p>可见 double free 不一定能被检测到，并且可能带来危险的后果。</p>
+<h3 id="small-bin">small bin</h3>
+<p>分析完 fast bin，接下来来看 small bin。small bin 每个 bin 内空闲块的大小是相同的，并且也是以链表的方式组织，只不过用的是双向链表。</p>
+<h4 id="malloc_2">malloc</h4>
+<p>接下来观察 <code>_int_malloc</code> 是怎么使用 small bin 的。前面提到，<code>_int_malloc</code> 首先会尝试在 fast bin 中分配，如果分配失败，或者大小超出了 fast bin 的范围，接下来会尝试在 small bin 中分配：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1">// in _int_malloc</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_smallbin_range</span><span class="w"> </span><span class="p">(</span><span class="n">nb</span><span class="p">))</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">smallbin_index</span><span class="w"> </span><span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bin_at</span><span class="w"> </span><span class="p">(</span><span class="n">av</span><span class="p">,</span><span class="w"> </span><span class="n">idx</span><span class="p">);</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">victim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="p">(</span><span class="n">bin</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">bin</span><span class="p">)</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">        </span><span class="n">bck</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">victim</span><span class="o">-&gt;</span><span class="n">bk</span><span class="p">;</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__glibc_unlikely</span><span class="w"> </span><span class="p">(</span><span class="n">bck</span><span class="o">-&gt;</span><span class="n">fd</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">victim</span><span class="p">))</span>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="w">          </span><span class="n">malloc_printerr</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;malloc(): smallbin double linked list corrupted&quot;</span><span class="p">);</span>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="w">        </span><span class="n">set_inuse_bit_at_offset</span><span class="w"> </span><span class="p">(</span><span class="n">victim</span><span class="p">,</span><span class="w"> </span><span class="n">nb</span><span class="p">);</span>
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="w">        </span><span class="n">bin</span><span class="o">-&gt;</span><span class="n">bk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bck</span><span class="p">;</span>
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a><span class="w">        </span><span class="n">bck</span><span class="o">-&gt;</span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bin</span><span class="p">;</span>
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">av</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">main_arena</span><span class="p">)</span>
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a><span class="w">          </span><span class="n">set_non_main_arena</span><span class="w"> </span><span class="p">(</span><span class="n">victim</span><span class="p">);</span>
+</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a><span class="w">        </span><span class="n">check_malloced_chunk</span><span class="w"> </span><span class="p">(</span><span class="n">av</span><span class="p">,</span><span class="w"> </span><span class="n">victim</span><span class="p">,</span><span class="w"> </span><span class="n">nb</span><span class="p">);</span>
+</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a><span class="cp">#if USE_TCACHE</span>
+</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a><span class="w">        </span><span class="cm">/* While we&#39;re here, if we see other chunks of the same size,</span>
+</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a><span class="cm">           stash them in the tcache.  */</span>
+</span><span id="__span-29-22"><a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">tc_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csize2tidx</span><span class="w"> </span><span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tcache</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tc_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mp_</span><span class="p">.</span><span class="n">tcache_bins</span><span class="p">)</span>
+</span><span id="__span-29-24"><a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a><span class="w">          </span><span class="p">{</span>
+</span><span id="__span-29-25"><a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a><span class="w">            </span><span class="n">mchunkptr</span><span class="w"> </span><span class="n">tc_victim</span><span class="p">;</span>
+</span><span id="__span-29-26"><a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a>
+</span><span id="__span-29-27"><a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a><span class="w">            </span><span class="cm">/* While bin not empty and tcache not full, copy chunks over.  */</span>
+</span><span id="__span-29-28"><a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mp_</span><span class="p">.</span><span class="n">tcache_count</span>
+</span><span id="__span-29-29"><a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a><span class="w">                   </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">tc_victim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="p">(</span><span class="n">bin</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">bin</span><span class="p">)</span>
+</span><span id="__span-29-30"><a id="__codelineno-29-30" name="__codelineno-29-30" href="#__codelineno-29-30"></a><span class="w">              </span><span class="p">{</span>
+</span><span id="__span-29-31"><a id="__codelineno-29-31" name="__codelineno-29-31" href="#__codelineno-29-31"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tc_victim</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-29-32"><a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a><span class="w">                  </span><span class="p">{</span>
+</span><span id="__span-29-33"><a id="__codelineno-29-33" name="__codelineno-29-33" href="#__codelineno-29-33"></a><span class="w">                    </span><span class="n">bck</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tc_victim</span><span class="o">-&gt;</span><span class="n">bk</span><span class="p">;</span>
+</span><span id="__span-29-34"><a id="__codelineno-29-34" name="__codelineno-29-34" href="#__codelineno-29-34"></a><span class="w">                    </span><span class="n">set_inuse_bit_at_offset</span><span class="w"> </span><span class="p">(</span><span class="n">tc_victim</span><span class="p">,</span><span class="w"> </span><span class="n">nb</span><span class="p">);</span>
+</span><span id="__span-29-35"><a id="__codelineno-29-35" name="__codelineno-29-35" href="#__codelineno-29-35"></a><span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">av</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">main_arena</span><span class="p">)</span>
+</span><span id="__span-29-36"><a id="__codelineno-29-36" name="__codelineno-29-36" href="#__codelineno-29-36"></a><span class="w">                      </span><span class="n">set_non_main_arena</span><span class="w"> </span><span class="p">(</span><span class="n">tc_victim</span><span class="p">);</span>
+</span><span id="__span-29-37"><a id="__codelineno-29-37" name="__codelineno-29-37" href="#__codelineno-29-37"></a><span class="w">                    </span><span class="n">bin</span><span class="o">-&gt;</span><span class="n">bk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bck</span><span class="p">;</span>
+</span><span id="__span-29-38"><a id="__codelineno-29-38" name="__codelineno-29-38" href="#__codelineno-29-38"></a><span class="w">                    </span><span class="n">bck</span><span class="o">-&gt;</span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bin</span><span class="p">;</span>
+</span><span id="__span-29-39"><a id="__codelineno-29-39" name="__codelineno-29-39" href="#__codelineno-29-39"></a>
+</span><span id="__span-29-40"><a id="__codelineno-29-40" name="__codelineno-29-40" href="#__codelineno-29-40"></a><span class="w">                    </span><span class="n">tcache_put</span><span class="w"> </span><span class="p">(</span><span class="n">tc_victim</span><span class="p">,</span><span class="w"> </span><span class="n">tc_idx</span><span class="p">);</span>
+</span><span id="__span-29-41"><a id="__codelineno-29-41" name="__codelineno-29-41" href="#__codelineno-29-41"></a><span class="w">                  </span><span class="p">}</span>
+</span><span id="__span-29-42"><a id="__codelineno-29-42" name="__codelineno-29-42" href="#__codelineno-29-42"></a><span class="w">              </span><span class="p">}</span>
+</span><span id="__span-29-43"><a id="__codelineno-29-43" name="__codelineno-29-43" href="#__codelineno-29-43"></a><span class="w">          </span><span class="p">}</span>
+</span><span id="__span-29-44"><a id="__codelineno-29-44" name="__codelineno-29-44" href="#__codelineno-29-44"></a><span class="cp">#endif</span>
+</span><span id="__span-29-45"><a id="__codelineno-29-45" name="__codelineno-29-45" href="#__codelineno-29-45"></a><span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chunk2mem</span><span class="w"> </span><span class="p">(</span><span class="n">victim</span><span class="p">);</span>
+</span><span id="__span-29-46"><a id="__codelineno-29-46" name="__codelineno-29-46" href="#__codelineno-29-46"></a><span class="w">        </span><span class="n">alloc_perturb</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="p">);</span>
+</span><span id="__span-29-47"><a id="__codelineno-29-47" name="__codelineno-29-47" href="#__codelineno-29-47"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+</span><span id="__span-29-48"><a id="__codelineno-29-48" name="__codelineno-29-48" href="#__codelineno-29-48"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-29-49"><a id="__codelineno-29-49" name="__codelineno-29-49" href="#__codelineno-29-49"></a><span class="w">  </span><span class="p">}</span>
+</span></code></pre></div>
+<p>它的过程如下：</p>
+<ol>
+<li>使用 <code>in_smallbin_range (nb)</code> 检查块的大小是否应该放到 small bin 当中</li>
+<li>使用 <code>smallbin_index (nb)</code> 根据块的大小计算出 small bin 的 index，然后 <code>bin_at (av, idx)</code> 对应 small bin 的链表尾部的哨兵，这个双向链表有且只有一个哨兵，这个哨兵就放在 small bin 数组当中</li>
+<li>找到哨兵结点的前驱结点 <code>last (bin)</code>，如果链表为空，那么哨兵的前驱结点就是它自己；如果链表非空，那么哨兵的前驱结点就是链表里的最后一个结点，把它赋值给 <code>victim</code></li>
+<li>把这个空闲块标记为正在使用：<code>set_inuse_bit_at_offset (victim, nb)</code></li>
+<li>把 <code>victim</code> 从链表里删除：<code>bck = victim-&gt;bk; bin-&gt;bk = bck; bck-&gt;fd = bin;</code>，典型的双向链表的结点删除过程，维护 <code>victim</code> 前驱结点的后继指针，维护哨兵 <code>bin</code> 的前驱指针</li>
+<li>进行一系列的安全检查：<code>check_malloced_chunk</code></li>
+<li>检查 tcache 对应的 bin，如果它还没有满，就把 small bin 链表中的元素挪到 tcache 当中</li>
+<li>把 payload 地址通过 <code>chunk2mem</code> 计算出来，返回给 malloc 调用者</li>
+<li>调用 <code>alloc_perturb</code> 往新分配的空间内写入垃圾数据（可选），避免泄露之前的数据</li>
+</ol>
+<p>其实现过程和 fast bin 很类似，只不过把单向链表改成了双向，并且引入了哨兵结点，这个哨兵结点保存在 <code>malloc_state</code> 结构的 bins 数组当中：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="cp">#define NSMALLBINS         64</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="cm">/* SMALLBIN_WIDTH equals to 16 on 64-bit */</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="cp">#define SMALLBIN_WIDTH    MALLOC_ALIGNMENT</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="cm">/* SMALLBIN_CORRECTION equals to 0 on 64-bit */</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="cp">#define SMALLBIN_CORRECTION (MALLOC_ALIGNMENT &gt; 2 * SIZE_SZ)</span>
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="cm">/* MIN_LARGE_SIZE equals to 1024 on 64-bit */</span>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="cp">#define MIN_LARGE_SIZE    ((NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH)</span>
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="cm">/* equivalent to (sz &lt; 1024) on 64-bit */</span>
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="cp">#define in_smallbin_range(sz)  \</span>
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="cp">  ((unsigned long) (sz) &lt; (unsigned long) MIN_LARGE_SIZE)</span>
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="cm">/* equivalent to (sz &gt;&gt; 4) on 64-bit */</span>
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a><span class="cp">#define smallbin_index(sz) \</span>
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="cp">  ((SMALLBIN_WIDTH == 16 ? (((unsigned) (sz)) &gt;&gt; 4) : (((unsigned) (sz)) &gt;&gt; 3))\</span>
+</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a><span class="cp">   + SMALLBIN_CORRECTION)</span>
+</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>
+</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">malloc_chunk</span><span class="o">*</span><span class="w"> </span><span class="n">mchunkptr</span><span class="p">;</span>
+</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>
+</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a><span class="cm">/* addressing -- note that bin_at(0) does not exist */</span>
+</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a><span class="cp">#define bin_at(m, i) \</span>
+</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a><span class="cp">  (mbinptr) (((char *) &amp;((m)-&gt;bins[((i) - 1) * 2]))               \</span>
+</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a><span class="cp">             - offsetof (struct malloc_chunk, fd))</span>
+</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>
+</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a><span class="cp">#define NBINS             128</span>
+</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a><span class="k">struct</span><span class="w"> </span><span class="nc">malloc_state</span>
+</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a><span class="p">{</span>
+</span><span id="__span-30-29"><a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a><span class="w">  </span><span class="cm">/* omitted */</span>
+</span><span id="__span-30-30"><a id="__codelineno-30-30" name="__codelineno-30-30" href="#__codelineno-30-30"></a><span class="w">  </span><span class="cm">/* Normal bins packed as described above */</span>
+</span><span id="__span-30-31"><a id="__codelineno-30-31" name="__codelineno-30-31" href="#__codelineno-30-31"></a><span class="w">  </span><span class="n">mchunkptr</span><span class="w"> </span><span class="n">bins</span><span class="p">[</span><span class="n">NBINS</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
+</span><span id="__span-30-32"><a id="__codelineno-30-32" name="__codelineno-30-32" href="#__codelineno-30-32"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>乍一看会觉得很奇怪，这里 <code>NBINS * 2 - 2</code> 是什么意思？<code>mchunkptr</code> 是个指针类型，那它指向的数据存在哪？其实这里用了一个小的 trick：</p>
+<ol>
+<li>不去看 bins 元素的类型，只考虑它的元素的大小，每个元素大小是 <code>sizeof(size_t)</code>，一共有 <code>NBINS * 2 - 2</code> 个元素</li>
+<li>而每个 bin 对应一个链表的哨兵结点，由于是双向链表，哨兵结点也没有数据，只需要保存前驱和后继两个指针，即每个 bin 只需要存两个指针的空间，也就是 <code>2 * sizeof(size_t)</code></li>
+<li>正好 <code>bins</code> 数组给每个 bin 留出了 <code>2 * sizeof(size_t)</code> 的空间（bin 0 除外，这个 bin 不存在），所以实际上这些哨兵结点的前驱和后继指针就保存在 <code>bins</code> 数组里，按顺序保存，首先是 bin 1 的前驱，然后是 bin 1 的后继，接着是 bin 2 的前驱，依此类推</li>
+<li>虽然空间对上了，但是为了方便使用，代码里用 <code>bin_at</code> 宏来计算出一个 <code>malloc_chunk</code> 结构体的指针，而已知 bins 数组只保存了 <code>fd</code> 和 <code>bk</code> 两个指针，并且 bin 的下标从 1 开始，所以 bin i 的 <code>fd</code> 指针地址就是 <code>(char *) &amp;((m)-&gt;bins[((i) - 1) * 2])</code>，再减去 <code>malloc_chunk</code> 结构体中 <code>fd</code> 成员的偏移，就得到了一个 <code>malloc_chunk</code> 结构体的指针，当然了，这个结构体只有 <code>fd</code> 和 <code>bk</code> 两个字段是合法的，其他字段如果访问了，就会访问到其他 bin 那里去</li>
+</ol>
+<p>抛开这些 trick，其实就等价于用一个数组保存了每个 bin 的 <code>fd</code> 和 <code>bk</code> 指针，至于为什么要强行转换成 <code>malloc_chunk</code> 类型的指针，可能是为了方便代码的编写，不需要区分空闲块的结点和哨兵结点。</p>
+<p>此外，small bin 的处理里还多了一次 <code>set_inuse_bit_at_offset (victim, nb)</code>，它的定义如下：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="cp">#define set_inuse_bit_at_offset(p, s)                         \</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="cp">  (((mchunkptr) (((char *) (p)) + (s)))-&gt;mchunk_size |= PREV_INUSE)</span>
+</span></code></pre></div>
+<p>乍一看会觉得很奇怪，这个访问不是越界了吗？其实这个就是跨过当前的 chunk，访问相邻的下一个 chunk，在它的 <code>mchunk_size</code> 字段上打标记，表示它的前一个 chunk 已经被占用。前面提到过，<code>mchunk_size</code> 同时保存了 chunk 的大小和一些 flag，由于 chunk 的大小至少是 8 字节对齐的（32 位系统上），所以最低的 3 位就被拿来保存如下的 flag：</p>
+<ol>
+<li><code>PREV_INUSE(0x1)</code>: 前一个 chunk 已经被分配</li>
+<li><code>IS_MAPPED(0x2)</code>：当前 chunk 的内存来自于 mmap</li>
+<li><code>NON_MAIN_ARENA(0x4)</code>：当前 chunk 来自于 main arena 以外的其他 arena</li>
+</ol>
+<p>在这里，就是设置了 <code>PREV_INUSE</code> flag，方便后续的相邻块的合并。</p>
+<h4 id="free_2">free</h4>
+<p>在讲述 small bin 在 free 中的实现之前，先讨论 <code>_int_malloc</code> 的后续逻辑，最后再回过头来看 free 的部分。</p>
+<h3 id="consolidate">consolidate</h3>
+<p>当要分配的块经过 fast bin 和 small bin 两段逻辑都没能分配成功之后，会进行一次 <code>malloc_consolidate</code> 调用，这个函数会尝试对 fast bin 中的空闲块进行合并，然后把新的块插入到 unsorted bin 当中。它的实现如下：</p>
+<ol>
+<li>第一层循环，遍历每个非空的 fast bin，进行下列操作</li>
+<li>第二层循环，每个非空的 fast bin 有一个单向链表，沿着链表进行迭代，遍历链表上的每个空闲块，进行下列操作</li>
+<li>循环内部，检查当前空闲块能否和前后的空闲块合并</li>
+<li>首先检查在它前面（地址更低的）相邻的块是否空闲：如果 <code>PREV_INUSE</code> 没有被设置，可以通过 <code>mchunk_prev_size</code> 找到前面相邻的块的开头，然后把两个块合并起来；如果前面相邻的块已经在某个双向链表当中（例如 small bin），把它从双向链表中删除：<code>unlink_chunk (av, p);</code>；为什么前面要用双向链表，也是为了在这里可以直接从链表中间删除一个结点</li>
+<li>接着检查在它后面（地址更高的）相邻的块是否空闲：根据自己的 size，计算出下一个块的地址，得到下一个块的大小，再读取下一个块的下一个块，根据它的 <code>PREV_INUSE</code>，判断下一个块是否空闲；如果空闲，那就把下一个块也合并进来，同理也要把它从双向链表中删除：<code>unlink_chunk (av, nextchunk);</code>；代码中还有对 top chunk 的特殊处理，这里先略过</li>
+<li>合并完成以后，把当前的空闲块放到 unsorted bin 当中，也是一个简单的双向链表向链表头的插入算法：<code>first_unsorted = unsorted_bin-&gt;fd; unsorted_bin-&gt;fd = p; first_unsorted-&gt;bk = p; p-&gt;bk = unsorted_bin; p-&gt;fd = first_unsorted;</code></li>
+</ol>
+<p>因此 unsorted bin 保存了一些从 fast bin 合并而来的一些块，由于 unsorted bin 只有一个，所以它里面会保存各种大小的空闲块。实际上，unsorted bin 占用的就是 <code>malloc_state</code> 结构中的 bin 1，因为我们已经知道，块的大小至少是 32，而大小为 32 的块，对应的 small bin index 是 2，说明 1 没有被用到，其实就是留给 unsorted bin 用的。在 64 位系统下，<code>malloc_state</code> 的 127 个 bin 分配如下：</p>
+<ol>
+<li>bin 1 是 unsorted bin</li>
+<li>bin 2 到 bin 64 是 small bin</li>
+<li>bin 65 到 bin 127 是 large bin</li>
+</ol>
+<p>经过这次合并之后，接下来 <code>_int_malloc</code> 尝试从 unsorted bin 和 large bin 中分配空闲块。</p>
 <h2 id="_4">参考</h2>
 <ul>
 <li><a href="https://sourceware.org/glibc/wiki/MallocInternals">Malloc Internals</a></li>
@@ -3771,7 +3951,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 02:17:25">2025年3月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 03:21:46">2025年3月31日</span>
   </span>
 
     
