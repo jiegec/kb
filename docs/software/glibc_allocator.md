@@ -1775,6 +1775,86 @@ else
 2. 被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin
 3. 在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并
 
+完整流程图如下：
+
+```mermaid
+---
+config:
+  theme: base
+  themeVariables:
+    fontSize: "30px"
+---
+flowchart TD
+    malloc[malloc 入口]
+    tcache[尝试从 tcache 中分配空闲块]
+    fastbin[尝试从 fast bin 中分配空闲块]
+    fastbin_migrate[如果 fast bin 还有空闲块且 tcache 没有满，则把空闲块从 fast bin 挪到 tcache]
+    smallbin[尝试从 small bin 中分配空闲块]
+    smallbin_migrate[如果 small bin 还有空闲块且 tcache 没有满，则把空闲块从 small bin 挪到 tcache]
+    malloc_ret[malloc 结束]
+    consolidate[consolidate：遍历 fast bin，把空闲块和相邻的空闲块合并，插入到 unsorted bin]
+    consolidate_2[consolidate：遍历 fast bin，把空闲块和相邻的空闲块合并，插入到 unsorted bin]
+    check_large[块大小是否对应 large bin]
+    loop[开始循环]
+    unsorted_bin[遍历 unsorted bin]
+    remainder[内存局部性优化：最近一次 split 出来的 chunk 是否有足够的空间分配]
+    remainder_success[拆分这个 chunk 以完成分配]
+    remove_unsorted_bin[把当前 chunk 从 unsorted bin 中删除]
+    check_same_size[当前空闲块大小和要分配的大小是否相同]
+    move_to_tcache[把当前空闲块挪到 tcache]
+    move_to_bin[根据当前空闲块的大小，挪到 small bin 或 large bin]
+    check_tcache[检查 tcache 是否有空闲块]
+    alloc_tcache[从 tcache 分配空闲块]
+    unsorted_bin_exit[检查 tcache 是否有空闲块]
+    check_large_alloc[块大小是否对应 large bin]
+    alloc_large[尝试从 large bin 中分配空闲块]
+    alloc_larger[遍历更大的 bin，尝试分配空闲块]
+    alloc_top[尝试从 top chunk 分配空闲块]
+    alloc_system[从系统请求更多内存来分配空闲块]
+    check_fast[fast bin 是否有空闲块]
+
+    malloc --> tcache
+    tcache -->|分配成功| malloc_ret
+    tcache -->|分配失败| fastbin
+    fastbin -->|分配失败| smallbin
+    fastbin -->|分配成功| fastbin_migrate 
+    fastbin_migrate --> malloc_ret
+    smallbin -->|分配成功| smallbin_migrate
+    smallbin_migrate --> malloc_ret
+    smallbin -->|分配失败| check_large
+    check_large -->|是| consolidate
+    check_large -->|否| loop
+    consolidate --> loop
+    loop --> unsorted_bin
+    unsorted_bin -->|unsorted bin 非空，或者循环次数不足 10000 次| remainder
+    remainder -->|是| remainder_success
+    remainder_success --> malloc_ret
+    remainder -->|否| remove_unsorted_bin
+    remove_unsorted_bin --> check_same_size
+    check_same_size -->|是| move_to_tcache
+    move_to_tcache --> unsorted_bin
+    check_same_size -->|否| move_to_bin
+    move_to_bin --> check_tcache
+    check_tcache -->|是| alloc_tcache
+    alloc_tcache --> malloc_ret
+    check_tcache -->|否| unsorted_bin
+    unsorted_bin -->|unsorted bin 已空，或者循环次数超过 10000 次| unsorted_bin_exit
+    unsorted_bin_exit -->|是| alloc_tcache
+    unsorted_bin_exit -->|否| check_large_alloc
+    check_large_alloc -->|是| alloc_large
+    alloc_large -->|分配成功| malloc_ret
+    alloc_large -->|分配失败| alloc_larger
+    check_large_alloc -->|否| alloc_larger
+    alloc_larger -->|分配成功| malloc_ret
+    alloc_larger -->|分配失败| alloc_top
+    alloc_top -->|分配成功| malloc_ret
+    alloc_top -->|分配失败| check_fast
+    check_fast -->|是| consolidate_2
+    consolidate_2 --> loop
+    check_fast -->|否| alloc_system
+    alloc_system --> malloc_ret
+```
+
 ## 参考
 
 - [Malloc Internals](https://sourceware.org/glibc/wiki/MallocInternals)
