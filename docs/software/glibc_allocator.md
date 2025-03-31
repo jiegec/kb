@@ -1036,7 +1036,7 @@ typedef struct malloc_chunk* mchunkptr;
 
 /* addressing -- note that bin_at(0) does not exist */
 #define bin_at(m, i) \
-  (mbinptr) (((char *) &((m)->bins[((i) - 1) * 2]))			      \
+  (mbinptr) (((char *) &((m)->bins[((i) - 1) * 2]))                              \
              - offsetof (struct malloc_chunk, fd))
       
 #define NBINS             128
@@ -1060,7 +1060,7 @@ struct malloc_state
 此外，small bin 的处理里还多了一次 `set_inuse_bit_at_offset (victim, nb)`，它的定义如下：
 
 ```c
-#define set_inuse_bit_at_offset(p, s)					      \
+#define set_inuse_bit_at_offset(p, s)                                              \
   (((mchunkptr) (((char *) (p)) + (s)))->mchunk_size |= PREV_INUSE)
 ```
 
@@ -1859,6 +1859,350 @@ flowchart TD
     check_fast -->|否| alloc_system
     alloc_system --> malloc_ret
 ```
+
+## glibc 2.32
+
+glibc 2.32 在 2.31 的基础上有如下的修改：
+
+```shell
+$ git diff glibc-2.31 glibc-2.32 -- malloc/malloc.c
+```
+
+```diff
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index f7cd29bc2f..ee87ddbbf9 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -327,6 +327,18 @@ __malloc_assert (const char *assertion, const char *file, unsigned int line,
+ # define MAX_TCACHE_COUNT UINT16_MAX
+ #endif
+ 
++/* Safe-Linking:
++   Use randomness from ASLR (mmap_base) to protect single-linked lists
++   of Fast-Bins and TCache.  That is, mask the "next" pointers of the
++   lists' chunks, and also perform allocation alignment checks on them.
++   This mechanism reduces the risk of pointer hijacking, as was done with
++   Safe-Unlinking in the double-linked lists of Small-Bins.
++   It assumes a minimum page size of 4096 bytes (12 bits).  Systems with
++   larger pages provide less entropy, although the pointer mangling
++   still works.  */
++#define PROTECT_PTR(pos, ptr) \
++  ((__typeof (ptr)) ((((size_t) pos) >> 12) ^ ((size_t) ptr)))
++#define REVEAL_PTR(ptr)  PROTECT_PTR (&ptr, ptr)
+ 
+ /*
+   REALLOC_ZERO_BYTES_FREES should be set if a call to
+@@ -1620,7 +1632,7 @@ static INTERNAL_SIZE_T global_max_fast;
+  */
+ 
+ #define set_max_fast(s) \
+-  global_max_fast = (((s) == 0)                                                      \
++  global_max_fast = (((size_t) (s) <= MALLOC_ALIGN_MASK - SIZE_SZ)        \
+                      ? MIN_CHUNK_SIZE / 2 : ((s + SIZE_SZ) & ~MALLOC_ALIGN_MASK))
+ 
+ static inline INTERNAL_SIZE_T
+@@ -2157,12 +2169,15 @@ do_check_malloc_state (mstate av)
+ 
+       while (p != 0)
+         {
++          if (__glibc_unlikely (misaligned_chunk (p)))
++            malloc_printerr ("do_check_malloc_state(): "
++                             "unaligned fastbin chunk detected");
+           /* each chunk claims to be inuse */
+           do_check_inuse_chunk (av, p);
+           total += chunksize (p);
+           /* chunk belongs in this bin */
+           assert (fastbin_index (chunksize (p)) == i);
+-          p = p->fd;
++          p = REVEAL_PTR (p->fd);
+         }
+     }
+ 
+@@ -2923,7 +2938,7 @@ tcache_put (mchunkptr chunk, size_t tc_idx)
+      detect a double free.  */
+   e->key = tcache;
+ 
+-  e->next = tcache->entries[tc_idx];
++  e->next = PROTECT_PTR (&e->next, tcache->entries[tc_idx]);
+   tcache->entries[tc_idx] = e;
+   ++(tcache->counts[tc_idx]);
+ }
+@@ -2934,7 +2949,9 @@ static __always_inline void *
+ tcache_get (size_t tc_idx)
+ {
+   tcache_entry *e = tcache->entries[tc_idx];
+-  tcache->entries[tc_idx] = e->next;
++  if (__glibc_unlikely (!aligned_OK (e)))
++    malloc_printerr ("malloc(): unaligned tcache chunk detected");
++  tcache->entries[tc_idx] = REVEAL_PTR (e->next);
+   --(tcache->counts[tc_idx]);
+   e->key = NULL;
+   return (void *) e;
+@@ -2960,7 +2977,10 @@ tcache_thread_shutdown (void)
+       while (tcache_tmp->entries[i])
+         {
+           tcache_entry *e = tcache_tmp->entries[i];
+-          tcache_tmp->entries[i] = e->next;
++          if (__glibc_unlikely (!aligned_OK (e)))
++            malloc_printerr ("tcache_thread_shutdown(): "
++                             "unaligned tcache chunk detected");
++          tcache_tmp->entries[i] = REVEAL_PTR (e->next);
+           __libc_free (e);
+         }
+     }
+@@ -3570,8 +3590,11 @@ _int_malloc (mstate av, size_t bytes)
+       victim = pp;                                        \
+       if (victim == NULL)                                \
+         break;                                                \
++      pp = REVEAL_PTR (victim->fd);                                     \
++      if (__glibc_unlikely (pp != NULL && misaligned_chunk (pp)))       \
++        malloc_printerr ("malloc(): unaligned fastbin chunk detected"); \
+     }                                                        \
+-  while ((pp = catomic_compare_and_exchange_val_acq (fb, victim->fd, victim)) \
++  while ((pp = catomic_compare_and_exchange_val_acq (fb, pp, victim)) \
+          != victim);                                        \
+ 
+   if ((unsigned long) (nb) <= (unsigned long) (get_max_fast ()))
+@@ -3583,8 +3606,11 @@ _int_malloc (mstate av, size_t bytes)
+ 
+       if (victim != NULL)
+         {
++          if (__glibc_unlikely (misaligned_chunk (victim)))
++            malloc_printerr ("malloc(): unaligned fastbin chunk detected 2");
++
+           if (SINGLE_THREAD_P)
+-            *fb = victim->fd;
++            *fb = REVEAL_PTR (victim->fd);
+           else
+             REMOVE_FB (fb, pp, victim);
+           if (__glibc_likely (victim != NULL))
+@@ -3605,8 +3631,10 @@ _int_malloc (mstate av, size_t bytes)
+                   while (tcache->counts[tc_idx] < mp_.tcache_count
+                          && (tc_victim = *fb) != NULL)
+                     {
++                      if (__glibc_unlikely (misaligned_chunk (tc_victim)))
++                        malloc_printerr ("malloc(): unaligned fastbin chunk detected 3");
+                       if (SINGLE_THREAD_P)
+-                        *fb = tc_victim->fd;
++                        *fb = REVEAL_PTR (tc_victim->fd);
+                       else
+                         {
+                           REMOVE_FB (fb, pp, tc_victim);
+@@ -4196,11 +4224,15 @@ _int_free (mstate av, mchunkptr p, int have_lock)
+             LIBC_PROBE (memory_tcache_double_free, 2, e, tc_idx);
+             for (tmp = tcache->entries[tc_idx];
+                  tmp;
+-                 tmp = tmp->next)
+-              if (tmp == e)
+-                malloc_printerr ("free(): double free detected in tcache 2");
+-            /* If we get here, it was a coincidence.  We've wasted a
+-               few cycles, but don't abort.  */
++                 tmp = REVEAL_PTR (tmp->next))
++              {
++                if (__glibc_unlikely (!aligned_OK (tmp)))
++                  malloc_printerr ("free(): unaligned chunk detected in tcache 2");
++                if (tmp == e)
++                  malloc_printerr ("free(): double free detected in tcache 2");
++                /* If we get here, it was a coincidence.  We've wasted a
++                   few cycles, but don't abort.  */
++              }
+           }
+ 
+         if (tcache->counts[tc_idx] < mp_.tcache_count)
+@@ -4264,7 +4296,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)
+            add (i.e., double free).  */
+         if (__builtin_expect (old == p, 0))
+           malloc_printerr ("double free or corruption (fasttop)");
+-        p->fd = old;
++        p->fd = PROTECT_PTR (&p->fd, old);
+         *fb = p;
+       }
+     else
+@@ -4274,7 +4306,8 @@ _int_free (mstate av, mchunkptr p, int have_lock)
+              add (i.e., double free).  */
+           if (__builtin_expect (old == p, 0))
+             malloc_printerr ("double free or corruption (fasttop)");
+-          p->fd = old2 = old;
++          old2 = old;
++          p->fd = PROTECT_PTR (&p->fd, old);
+         }
+       while ((old = catomic_compare_and_exchange_val_rel (fb, p, old2))
+              != old2);
+@@ -4472,13 +4505,17 @@ static void malloc_consolidate(mstate av)
+     if (p != 0) {
+       do {
+         {
++          if (__glibc_unlikely (misaligned_chunk (p)))
++            malloc_printerr ("malloc_consolidate(): "
++                             "unaligned fastbin chunk detected");
++
+           unsigned int idx = fastbin_index (chunksize (p));
+           if ((&fastbin (av, idx)) != fb)
+             malloc_printerr ("malloc_consolidate(): invalid chunk size");
+         }
+ 
+         check_inuse_chunk(av, p);
+-        nextp = p->fd;
++        nextp = REVEAL_PTR (p->fd);
+ 
+         /* Slightly streamlined version of consolidation code in free() */
+         size = chunksize (p);
+@@ -4896,8 +4933,13 @@ int_mallinfo (mstate av, struct mallinfo *m)
+ 
+   for (i = 0; i < NFASTBINS; ++i)
+     {
+-      for (p = fastbin (av, i); p != 0; p = p->fd)
++      for (p = fastbin (av, i);
++           p != 0;
++           p = REVEAL_PTR (p->fd))
+         {
++          if (__glibc_unlikely (misaligned_chunk (p)))
++            malloc_printerr ("int_mallinfo(): "
++                             "unaligned fastbin chunk detected");
+           ++nfastblocks;
+           fastavail += chunksize (p);
+         }
+@@ -5437,8 +5479,11 @@ __malloc_info (int options, FILE *fp)
+ 
+               while (p != NULL)
+                 {
++                  if (__glibc_unlikely (misaligned_chunk (p)))
++                    malloc_printerr ("__malloc_info(): "
++                                     "unaligned fastbin chunk detected");
+                   ++nthissize;
+-                  p = p->fd;
++                  p = REVEAL_PTR (p->fd);
+                 }
+ 
+               fastavail += nthissize * thissize;
+```
+
+glibc 2.32 的主要修改：
+
+1. 给 tcache 和 fast bin 这两个基于单向链表的结构实现了 Safe Linking 机制：原来 `fd` 直接保存的是后继结点的地址，现在 `fd` 保存的是后继结点的地址经过 `(&fd >> 12) ^ fd` 运算后的结果，也就是把当前结点的地址右移 12 位再异或到后继结点的地址；由于遍历的时候，总是从链表头开始遍历，所以总是可以知道 `&fd` 的地址，再异或回去，就可以得到正确的地址
+2. 给 tcache 和 fast bin 添加了更多对齐检查，例如在 64 位下，块总是会对齐到 16 字节
+
+## glibc 2.33
+
+glibc 2.33 的主要修改是添加了 memory tagging 的支持，通过 memory tagging 把用户指针和分配器内部的指针区分开，从而避免指针的误用。在不支持 memory tagging 的平台上，则没有变化。
+
+## glibc 2.34
+
+glibc 2.34 除了改进 memory tagging 支持以外，针对分配器的变化主要是 tcache 的 key 的使用。在 glibc 2.31 版本，tcache 的 key 指向的是 tcache 本身，用于检测是否出现了 double free。但是这也可能导致 tcache 地址的泄露，所以在 glibc 2.34 版本中，改成了用一个随机数来判断 tcache entry 是否已经被 free 了：
+
+```diff
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index 1f4bbd8edf..e065785af7 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -252,6 +252,10 @@
+ 
+ #include <libc-internal.h>
+ 
++/* For tcache double-free check.  */
++#include <random-bits.h>
++#include <sys/random.h>
++
+ /*
+   Debugging:
+ 
+@@ -3060,7 +3014,7 @@ typedef struct tcache_entry
+ {
+   struct tcache_entry *next;
+   /* This field exists to detect double frees.  */
+-  struct tcache_perthread_struct *key;
++  uintptr_t key;
+ } tcache_entry;
+ 
+ /* There is one of these for each thread, which contains the
+@@ -3077,6 +3031,31 @@ typedef struct tcache_perthread_struct
+ static __thread bool tcache_shutting_down = false;
+ static __thread tcache_perthread_struct *tcache = NULL;
+ 
++/* Process-wide key to try and catch a double-free in the same thread.  */
++static uintptr_t tcache_key;
++
++/* The value of tcache_key does not really have to be a cryptographically
++   secure random number.  It only needs to be arbitrary enough so that it does
++   not collide with values present in applications.  If a collision does happen
++   consistently enough, it could cause a degradation in performance since the
++   entire list is checked to check if the block indeed has been freed the
++   second time.  The odds of this happening are exceedingly low though, about 1
++   in 2^wordsize.  There is probably a higher chance of the performance
++   degradation being due to a double free where the first free happened in a
++   different thread; that's a case this check does not cover.  */
++static void
++tcache_key_initialize (void)
++{
++  if (__getrandom (&tcache_key, sizeof(tcache_key), GRND_NONBLOCK)
++      != sizeof (tcache_key))
++    {
++      tcache_key = random_bits ();
++#if __WORDSIZE == 64
++      tcache_key = (tcache_key << 32) | random_bits ();
++#endif
++    }
++}
++
+ /* Caller must ensure that we know tc_idx is valid and there's room
+    for more chunks.  */
+ static __always_inline void
+@@ -3086,7 +3065,7 @@ tcache_put (mchunkptr chunk, size_t tc_idx)
+ 
+   /* Mark this chunk as "in the tcache" so the test in _int_free will
+      detect a double free.  */
+-  e->key = tcache;
++  e->key = tcache_key;
+ 
+   e->next = PROTECT_PTR (&e->next, tcache->entries[tc_idx]);
+   tcache->entries[tc_idx] = e;
+@@ -3103,7 +3082,7 @@ tcache_get (size_t tc_idx)
+     malloc_printerr ("malloc(): unaligned tcache chunk detected");
+   tcache->entries[tc_idx] = REVEAL_PTR (e->next);
+   --(tcache->counts[tc_idx]);
+-  e->key = NULL;
++  e->key = 0;
+   return (void *) e;
+ }
+ 
+@@ -4413,7 +4343,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)
+ 	   trust it (it also matches random payload data at a 1 in
+ 	   2^<size_t> chance), so verify it's not an unlikely
+ 	   coincidence before aborting.  */
+-	if (__glibc_unlikely (e->key == tcache))
++	if (__glibc_unlikely (e->key == tcache_key))
+ 	  {
+ 	    tcache_entry *tmp;
+ 	    size_t cnt = 0;
+```
+
+## glibc 2.35
+
+glibc 2.35 主要是改进了分配器对 Transparent Huge Page 的支持，其余没有什么变化。
+
+## glibc 2.36
+
+glibc 2.36 的分配器有少量的代码重构，没有什么实质的变化。
+
+## glibc 2.37
+
+glibc 2.37 的分配器对 realloc 的实现有少量的修改，但目前本文还没有分析 realloc，其余的部分没有什么变化。
+
+## glibc 2.38
+
+glibc 2.38 的分配器添加了 memalign 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。
+
+## glibc 2.39
+
+glibc 2.39 的分配器针对 free 和 memalign 进行了一些代码重构，没有什么实质的变化。
+
+## glibc 2.40
+
+glibc 2.40 的分配器没有修改。
+
+## glibc 2.41
+
+glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了，之前的版本是不会的。此外对 free 的逻辑有一定的修改：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。
 
 ## 参考
 
