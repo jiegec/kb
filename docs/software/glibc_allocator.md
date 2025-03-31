@@ -939,6 +939,142 @@ allocate p1=0x563312167800 p2=0x563312167830 p3=0x563312167800
 
 可见 double free 不一定能被检测到，并且可能带来危险的后果。
 
+### small bin
+
+分析完 fast bin，接下来来看 small bin。small bin 每个 bin 内空闲块的大小是相同的，并且也是以链表的方式组织，只不过用的是双向链表。
+
+#### malloc
+
+接下来观察 `_int_malloc` 是怎么使用 small bin 的。前面提到，`_int_malloc` 首先会尝试在 fast bin 中分配，如果分配失败，或者大小超出了 fast bin 的范围，接下来会尝试在 small bin 中分配：
+
+```c
+// in _int_malloc
+if (in_smallbin_range (nb))
+  {
+    idx = smallbin_index (nb);
+    bin = bin_at (av, idx);
+
+    if ((victim = last (bin)) != bin)
+      {
+        bck = victim->bk;
+        if (__glibc_unlikely (bck->fd != victim))
+          malloc_printerr ("malloc(): smallbin double linked list corrupted");
+        set_inuse_bit_at_offset (victim, nb);
+        bin->bk = bck;
+        bck->fd = bin;
+
+        if (av != &main_arena)
+          set_non_main_arena (victim);
+        check_malloced_chunk (av, victim, nb);
+#if USE_TCACHE
+        /* While we're here, if we see other chunks of the same size,
+           stash them in the tcache.  */
+        size_t tc_idx = csize2tidx (nb);
+        if (tcache && tc_idx < mp_.tcache_bins)
+          {
+            mchunkptr tc_victim;
+
+            /* While bin not empty and tcache not full, copy chunks over.  */
+            while (tcache->counts[tc_idx] < mp_.tcache_count
+                   && (tc_victim = last (bin)) != bin)
+              {
+                if (tc_victim != 0)
+                  {
+                    bck = tc_victim->bk;
+                    set_inuse_bit_at_offset (tc_victim, nb);
+                    if (av != &main_arena)
+                      set_non_main_arena (tc_victim);
+                    bin->bk = bck;
+                    bck->fd = bin;
+
+                    tcache_put (tc_victim, tc_idx);
+                  }
+              }
+          }
+#endif
+        void *p = chunk2mem (victim);
+        alloc_perturb (p, bytes);
+        return p;
+      }
+  }
+```
+
+它的过程如下：
+
+1. 使用 `in_smallbin_range (nb)` 检查块的大小是否应该放到 small bin 当中
+2. 使用 `smallbin_index (nb)` 根据块的大小计算出 small bin 的 index，然后 `bin_at (av, idx)` 对应 small bin 的链表尾部的哨兵，这个双向链表有且只有一个哨兵，这个哨兵就放在 small bin 数组当中
+3. 找到哨兵结点的前驱结点 `last (bin)`，如果链表为空，那么哨兵的前驱结点就是它自己；如果链表非空，那么哨兵的前驱结点就是链表里的最后一个结点，把它赋值给 `victim`
+4. 把这个空闲块标记为正在使用：`set_inuse_bit_at_offset (victim, nb)`
+5. 把 `victim` 从链表里删除：`bck = victim->bk; bin->bk = bck; bck->fd = bin;`，典型的双向链表的结点删除过程，维护 `victim` 前驱结点的后继指针，维护哨兵 `bin` 的前驱指针
+6. 进行一系列的安全检查：`check_malloced_chunk`
+7. 检查 tcache 对应的 bin，如果它还没有满，就把 small bin 链表中的元素挪到 tcache 当中
+8. 把 payload 地址通过 `chunk2mem` 计算出来，返回给 malloc 调用者
+9. 调用 `alloc_perturb` 往新分配的空间内写入垃圾数据（可选），避免泄露之前的数据
+
+其实现过程和 fast bin 很类似，只不过把单向链表改成了双向，并且引入了哨兵结点，这个哨兵结点保存在 `malloc_state` 结构的 bins 数组当中：
+
+```c
+#define NSMALLBINS         64
+/* SMALLBIN_WIDTH equals to 16 on 64-bit */
+#define SMALLBIN_WIDTH    MALLOC_ALIGNMENT
+/* SMALLBIN_CORRECTION equals to 0 on 64-bit */
+#define SMALLBIN_CORRECTION (MALLOC_ALIGNMENT > 2 * SIZE_SZ)
+
+/* MIN_LARGE_SIZE equals to 1024 on 64-bit */
+#define MIN_LARGE_SIZE    ((NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH)
+
+/* equivalent to (sz < 1024) on 64-bit */
+#define in_smallbin_range(sz)  \
+  ((unsigned long) (sz) < (unsigned long) MIN_LARGE_SIZE)
+
+/* equivalent to (sz >> 4) on 64-bit */
+#define smallbin_index(sz) \
+  ((SMALLBIN_WIDTH == 16 ? (((unsigned) (sz)) >> 4) : (((unsigned) (sz)) >> 3))\
+   + SMALLBIN_CORRECTION)
+
+typedef struct malloc_chunk* mchunkptr;
+
+/* addressing -- note that bin_at(0) does not exist */
+#define bin_at(m, i) \
+  (mbinptr) (((char *) &((m)->bins[((i) - 1) * 2]))			      \
+             - offsetof (struct malloc_chunk, fd))
+      
+#define NBINS             128
+struct malloc_state
+{
+  /* omitted */
+  /* Normal bins packed as described above */
+  mchunkptr bins[NBINS * 2 - 2];
+}
+```
+
+乍一看会觉得很奇怪，这里 `NBINS * 2 - 2` 是什么意思？`mchunkptr` 是个指针类型，那它指向的数据存在哪？其实这里用了一个小的 trick：
+
+1. 不去看 bins 元素的类型，只考虑它的元素的大小，每个元素大小是 `sizeof(size_t)`，一共有 `NBINS * 2 - 2` 个元素
+2. 而每个 bin 对应一个链表的哨兵结点，由于是双向链表，哨兵结点也没有数据，只需要保存前驱和后继两个指针，即每个 bin 只需要存两个指针的空间，也就是 `2 * sizeof(size_t)`
+3. 正好 `bins` 数组给每个 bin 留出了 `2 * sizeof(size_t)` 的空间（bin 0 除外，这个 bin 不存在），所以实际上这些哨兵结点的前驱和后继指针就保存在 `bins` 数组里，按顺序保存，首先是 bin 1 的前驱，然后是 bin 1 的后继，接着是 bin 2 的前驱，依此类推
+4. 虽然空间对上了，但是为了方便使用，代码里用 `bin_at` 宏来计算出一个 `malloc_chunk` 结构体的指针，而已知 bins 数组只保存了 `fd` 和 `bk` 两个指针，并且 bin 的下标从 1 开始，所以 bin i 的 `fd` 指针地址就是 `(char *) &((m)->bins[((i) - 1) * 2])`，再减去 `malloc_chunk` 结构体中 `fd` 成员的偏移，就得到了一个 `malloc_chunk` 结构体的指针，当然了，这个结构体只有 `fd` 和 `bk` 两个字段是合法的，其他字段如果访问了，就会访问到其他 bin 那里去
+
+抛开这些 trick，其实就等价于用一个数组保存了每个 bin 的 `fd` 和 `bk` 指针，至于为什么要强行转换成 `malloc_chunk` 类型的指针，可能是为了方便代码的编写，不需要区分空闲块的结点和哨兵结点。
+
+此外，small bin 的处理里还多了一次 `set_inuse_bit_at_offset (victim, nb)`，它的定义如下：
+
+```c
+#define set_inuse_bit_at_offset(p, s)					      \
+  (((mchunkptr) (((char *) (p)) + (s)))->mchunk_size |= PREV_INUSE)
+```
+
+乍一看会觉得很奇怪，这个访问不是越界了吗？其实这个就是跨过当前的 chunk，访问相邻的下一个 chunk，在它的 `mchunk_size` 字段上打标记，表示它的前一个 chunk 已经被占用。前面提到过，`mchunk_size` 同时保存了 chunk 的大小和一些 flag，由于 chunk 的大小至少是 8 字节对齐的（32 位系统上），所以最低的 3 位就被拿来保存如下的 flag：
+
+1. `PREV_INUSE(0x1)`: 前一个 chunk 已经被分配
+2. `IS_MAPPED(0x2)`：当前 chunk 的内存来自于 mmap
+3. `NON_MAIN_ARENA(0x4)`：当前 chunk 来自于 main arena 以外的其他 arena
+
+在这里，就是设置了 `PREV_INUSE` flag，方便后续的相邻块的合并。
+
+#### free
+
+在讲述 small bin 在 free 中的实现之前，先讨论 `_int_malloc` 的后续逻辑，最后再回过头来看 free 的部分。
 
 ## 参考
 
