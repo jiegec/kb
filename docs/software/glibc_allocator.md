@@ -1936,7 +1936,7 @@ flowchart TD
 6. 找到这个 chunk 从哪个 arena 分配的：检查 `mchunk_size` 的 `NON_MAIN_ARENA` 字段，如果它不是从 main arena 分配的，则根据 chunk 的地址，找到 heap 的地址（heap 的大小是有上限的，并且 heap 的起始地址是对齐到 `HEAP_MAX_SIZE` 即 1MB 边界的），再根据 heap 开头的 heap_info 找到 arena 的地址
 7. 进入 `_int_free`，接着分析 `_int_free` 的实现
 8. 根据 chunk size 找到对应的 tcache bin，如果它还没有满，则把空闲块放到 tcache 当中，然后返回
-9. 判断 chunk size 大小，如果对应 fast bin 的块大小，把空闲块放到对应的 fast bin 的单向链表中，然后返回
+9. 判断 chunk size 大小，如果对应 fast bin 的块大小，把空闲块放到对应的 fast bin 的单向链表中，然后返回；注意此时没有获取 arena 的锁，所以 fast bin 的操作会用到原子指令，同理 malloc 中对 fast bin 的操作也要用到原子指令，即使 malloc 持有了 arena 的锁
 10. 获取 arena 的锁，尝试把空闲块和在内存中相邻的前后空闲块进行合并，合并后的空闲块放入 unsorted bin；合并时，如果被合并的空闲块已经在 small bin 或者 large bin 当中，利用双向链表的特性，把它从双向链表中删除；如果和 top chunk 相邻，则可以直接合并到 top chunk 上，然后返回
 11. 如果释放的块比较大，超过了阈值，则触发一次 malloc_consolidate
 
