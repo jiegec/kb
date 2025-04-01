@@ -1760,6 +1760,23 @@ else
 
 由于 free 的实现相对简单，在这里就不详细解析了，比较详细的实现分析见后。
 
+### realloc
+
+realloc 的实现在 `__libc_realloc` 当中，它的实现比较简单：
+
+1. 如果重新分配的大小是 0，realloc 等价为 free，就调用 free
+2. 如果旧指针是 NULL，realloc 等价为 malloc，就调用 malloc
+3. 如果直接是 mmap 出来的块，利用 mremap 来扩展空间
+4. 如果是要申请更少的内存，把多出来的部分拆成一个单独的块，然后 free 掉它
+5. 如果是要申请更多的内存，尝试从内存更高地址的相邻块获取空间，如果有的话，合并两个块，然后把多余的空间拆成一个单独的块，然后 free 掉它；如果内存更高地址的相邻块已经被占用，就重新 malloc 一个块，用 memcpy 把数据拷贝过去，再 free 掉旧的内存
+
+### calloc
+
+calloc 的实现在 `__libc_calloc` 当中，它的语义相比 malloc 多了一个清零，所以它的实现也不复杂：
+
+1. 如果 top chunk 还有空间，并且 top chunk 的数据已经被清零，则优先从 top chunk 分配空间，避免了 memset 的开销
+2. fallback 到 `_int_malloc` 进行内存分配，分配成功后，再 memset 清零
+
 ### arena 和 heap
 
 前面讨论了各种 chunk 在内存分配器内部流转的情况，但并没有讨论这些空间是怎么从操作系统分配而来的，又是怎么维护的。glibc 内存分配器实际上设计了两个层次：
