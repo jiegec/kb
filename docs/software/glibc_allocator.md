@@ -1860,6 +1860,33 @@ flowchart TD
     alloc_system --> malloc_ret
 ```
 
+前面分段整理了 malloc 的实现，在这里列出完整的 malloc 流程：
+
+1. malloc 的入口是 `__libc_malloc (size_t bytes)` 函数
+2. 如果配置了 malloc hook，则调用 malloc hook，直接返回结果
+3. 根据用户传入的 malloc 的字节数（`bytes`），用 `checked_request2size` 计算出实际的 chunk 大小，算法是先加上 `sizeof(size_t)`（给 `mchunk_size` 预留空间），然后向上对齐到 `MALLOC_ALIGNMENT`（通常是 `2 * sizeof(size_t)`）的倍数，再和 `MINSIZE` 取 max，其中 `MINSIZE` 通常是 `4 * sizeof(size_t)`，因为空闲块至少要保存两个 size 加上双向链表的 `fd` 和 `bk` 指针
+4. 如果 tcache 还没初始化，就初始化 tcache
+5. 根据 chunk 大小，计算 tcache index，检查对应的 bin 是否有空闲块；如果有，直接分配空闲块并返回
+6. 接着获取一个 arena，如有必要，获取 arena 的锁；在单线程情况下，只有一个 main_arena；多线程情况下，每个线程有一个默认的 arena 指针（`static __thread mstate thread_arena`），在遇到 lock contention 的时候可以动态切换
+7. 进入 `_int_malloc` 从 arena 中分配一个 chunk，分配完成后释放 arena 的锁
+8. 接着分析 `_int_malloc` 的实现，除 tcache 以外的大部分逻辑都在 `_int_malloc` 函数中
+9. 判断 chunk size 大小，如果对应 fast bin 的块大小，在对应的 fast bin 的单向链表中寻找空闲块；如果链表非空，则取出链表头的空闲块，作为分配给 malloc 调用者的块，接着把 fast bin 链表上剩余的空闲块挪到 tcache 当中，直到 fast bin 链表空或者 tcache 满为止，然后函数结束
+10. 判断 chunk size 大小，如果对应 small bin 的块大小，在对应的 small bin 的双向链表中寻找空闲块；如果链表非空，则取出链表尾的空闲块，作为分配给 malloc 调用者的块，接着把 small bin 链表上剩余的空闲块挪到 tcache 当中，直到 small bin 链表空或者 tcache 满为止，然后函数结束
+11. 判断 chunk size 大小，如果对应 large bin 的块大小，则进行一次 malloc_consolidate：遍历 fast bin 每一个 bin 的每一个空闲块，尝试把它和内存上相邻的前后空闲块合并，合并后的空闲块放入 unsorted bin；特别地，如果空闲块和 top chunk 相邻，就会直接合并到 top chunk，这样就不需要把空闲块放入 unsorted bin
+12. 开始一个大的无限循环 `for (;;)`，如果后续尝试各种方式都分配不成功，但是 fast bin 还有空闲块，在 malloc_consolidate 后会从这里开始再尝试一次分配
+13. 遍历 unsorted bin，最多处理 10000 个空闲块：
+    1. 如果空闲块的大小对应 small bin，并且它是最近刚 split 出来的空闲块，并且可以放得下要分配的块，就原地把这个空闲块进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束
+    2. 把空闲块从 unsorted bin 链表中删除
+    3. 如果空闲块的大小正好是要分配的块的大小，判断 tcache 是否还有空间；如果 tcache 已经满了，直接把这个空闲块作为分配给 malloc 调用者的块，然后函数结束；如果 tcache 还没满，则先把空闲块挪到 tcache 当中，继续处理 unsorted bin 的其他空闲块，这样做的目的是尽量把 tcache 填满
+    4. 根据空闲块的大小，插入到对应的 small bin 或者 large bin 当中
+    5. 记录插入到 small bin 或者 large bin 的空闲块个数，如果超过了阈值，并且之前已经找到一个空闲块的大小正好是要分配的块的大小，同时挪到了 tcache 当中，则立即把这个空闲块从 tcache 中取出并分配给 malloc 调用者，然后函数结束；这样做的目的是避免处理太多无关的 unsorted bin 中的空闲块，导致 malloc 调用时间过长
+14. 如果在遍历 unsorted bin 过程中找到了和要分配的块一样大的空闲块，那么这个空闲块已经在 tcache 当中了，则立即把这个空闲块从 tcache 中取出并分配给 malloc 调用者，然后函数结束
+15. 判断 chunk size 大小，如果属于 large bin 的块大小，则找到对应的 large bin，从小到大通过 nextsize 链表遍历 large bin 中的空闲块，找到一个足够大的空闲块，对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束
+16. 根据 chunk size 大小，找到对应的 small bin 或者 large bin，然后从小到大遍历各个 bin（可能从 small bin 一路遍历到 large bin），通过 bitmap 跳过那些空的 bin，找到第一个非空的 bin 的空闲块，对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束
+17. 如果 top chunk 足够大，则对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分成为新的 top chunk，然后函数结束
+18. 如果此时 fast bin 有空闲块，调用 malloc_consolidate，然后回到无限循环的开头再尝试一次分配
+19. 最后的兜底分配方法：通过 mmap 或 sbrk 向操作系统申请更多的内存
+
 ## 后续版本更新
 
 接下来记录 glibc 2.31 后续版本对分配器的更新。
