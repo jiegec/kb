@@ -5144,7 +5144,7 @@ flowchart TD
 <li>small bin 和 large bin 的区分，主要是考虑到了分配的块的大小分布，越大倾向于越稀疏；代价是 large bin 需要额外维护 nextsize 链表来快速地寻找不同大小的空闲块</li>
 <li>在回收 unsorted bin 的时候，会进行一个内存局部性优化，即倾向于连续地从同一个块中切出小块用于分配，适合在循环中分配内存的场景</li>
 <li>回收 unsorted bin 时，如果遇到了正好和要分配的块大小相同的空闲块时，先不急着分配，而是丢到 tcache 中，然后继续往前回收若干个空闲块，直到 tcache 满了或者遇到了足够多的大小不同的空闲块为止：这是利用了 unsorted bin 中空闲块大小的局部性，有机会把一系列连续的相同大小的空闲块拿到 tcache 当中，并且限制了搜索的长度，避免带来过多额外的延迟</li>
-<li>如果尝试了 unsorted bin，small bin，large bin 和 top chunk 都无法分配，最后再检查一次 fast bin 是否为空，如果是空的，则进行一次 consolidate，把 fast bin 里的空闲块丢到 unsorted bin 中，再重新尝试分配一次：注意这整个过程 malloc 都是持有 arena 锁的，而 fast bin 在 free 中的写入是不需要持有 arena 锁的，而是直接用原子指令更新，所以这是考虑到其他线程在同时往同一个 arena free 的情况</li>
+<li>如果尝试了 unsorted bin、small bin、large bin 和 top chunk 都无法分配，最后再检查一次 fast bin 是否为空，如果是空的，则进行一次 consolidate，把 fast bin 里的空闲块丢到 unsorted bin 中，再重新尝试分配一次：注意这整个过程 malloc 都是持有 arena 锁的，而 fast bin 在 free 中的写入是不需要持有 arena 锁的，而是直接用原子指令更新，所以这是考虑到其他线程在同时往同一个 arena free 的情况</li>
 <li>在合并相邻空闲块的时候，被合并的空闲块可能已经在 unsorted bin、small bin 或者 large bin 当中，为了能够把空闲块从这些 bin 里删除，用双向链表来实现 O(1) 时间的删除</li>
 </ol>
 <h2 id="_8">后续版本更新</h2>
@@ -5533,7 +5533,7 @@ flowchart TD
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 16:57:22">2025年4月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 16:58:10">2025年4月1日</span>
   </span>
 
     
