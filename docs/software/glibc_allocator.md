@@ -1921,8 +1921,8 @@ main arena 是特殊的，因为它直接保存在 glibc 的 data 段当中，�
 内存在分配器中流转的过程大致如下：
 
 1. 一开始从 top chunk 当中被分配出来
-2. 被 free 了以后，进入 tcache，或者 fast bin，或者合并后放到 unsorted bin
-3. 在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并
+2. 被 free 了以后，进入 tcache，或者 fast bin，或者合并后放到 unsorted bin，或者合并到 top chunk
+3. 在 malloc 的时候，从 tcache 或者 fast bin 分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并
 
 ```mermaid
 flowchart TD
@@ -2124,6 +2124,7 @@ flowchart TD
 4. 在回收 unsorted bin 的时候，会进行一个内存局部性优化，即倾向于连续地从同一个块中切出小块用于分配，适合在循环中分配内存的场景
 5. 回收 unsorted bin 时，如果遇到了正好和要分配的块大小相同的空闲块时，先不急着分配，而是丢到 tcache 中，然后继续往前回收若干个空闲块，直到 tcache 满了或者遇到了足够多的大小不同的空闲块为止：这是利用了 unsorted bin 中空闲块大小的局部性，有机会把一系列连续的相同大小的空闲块拿到 tcache 当中，并且限制了搜索的长度，避免带来过多额外的延迟
 6. 如果尝试了 unsorted bin，small bin，large bin 和 top chunk 都无法分配，最后再检查一次 fast bin 是否为空，如果是空的，则进行一次 consolidate，把 fast bin 里的空闲块丢到 unsorted bin 中，再重新尝试分配一次：注意这整个过程 malloc 都是持有 arena 锁的，而 fast bin 在 free 中的写入是不需要持有 arena 锁的，而是直接用原子指令更新，所以这是考虑到其他线程在同时往同一个 arena free 的情况
+7. 在合并相邻空闲块的时候，被合并的空闲块可能已经在 unsorted bin、small bin 或者 large bin 当中，为了能够把空闲块从这些 bin 里删除，用双向链表来实现 O(1) 时间的删除
 
 ## 后续版本更新
 
