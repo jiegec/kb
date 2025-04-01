@@ -1760,6 +1760,8 @@ else
 
 ### 小结
 
+#### 结构
+
 到这里就基本把 glibc 的内存分配器分析得差不多了。glibc 把空闲块放在如下四种 bin 内：
 
 1. fast bin: 每个 bin 对应固定大小的空闲块，用单向链表维护，链表头指针保存在 `malloc_state` 的 `fastbinsY` 成员
@@ -1774,6 +1776,8 @@ else
 1. 一开始从 top chunk 当中被分配出来
 2. 被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin
 3. 在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并
+
+#### malloc
 
 malloc 的完整流程图如下：
 
@@ -1886,6 +1890,22 @@ flowchart TD
 17. 如果 top chunk 足够大，则对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分成为新的 top chunk，然后函数结束
 18. 如果此时 fast bin 有空闲块，调用 malloc_consolidate，然后回到无限循环的开头再尝试一次分配
 19. 最后的兜底分配方法：通过 mmap 或 sbrk 向操作系统申请更多的内存
+
+#### free
+
+在这里列出完整的 free 流程：
+
+1. free 的入口是 `__libc_free (void *mem)` 函数
+2. 如果配置了 free hook，则调用 free hook，直接返回
+3. 如果是调用 `free(NULL)`，直接返回
+4. 检查 `mchunk_size` 的 `IS_MAPPED` 字段，如果它之前是通过 mmap 分配的，那么对它进行 munmap，然后返回
+5. 如果 tcache 还没初始化，就初始化 tcache
+6. 找到这个 chunk 从哪个 arena 分配的：检查 `mchunk_size` 的 `NON_MAIN_ARENA` 字段，如果它不是从 main arena 分配的，则根据 chunk 的地址，找到 heap 的地址（heap 的大小是有上限的，并且 heap 的起始地址是对齐到 `HEAP_MAX_SIZE` 即 1MB 边界的），再根据 heap 开头的 heap_info 找到 arena 的地址
+7. 进入 `_int_free`，接着分析 `_int_free` 的实现
+8. 根据 chunk size 找到对应的 tcache bin，如果它还没有满，则把空闲块放到 tcache 当中，然后返回
+9. 判断 chunk size 大小，如果对应 fast bin 的块大小，把空闲块放到对应的 fast bin 的单向链表中，然后返回
+10. 获取 arena 的锁，尝试把空闲块和在内存中相邻的前后空闲块进行合并，合并后的空闲块放入 unsorted bin；合并时，如果被合并的空闲块已经在 small bin 或者 large bin 当中，利用双向链表的特性，把它从双向链表中删除；如果和 top chunk 相邻，则可以直接合并到 top chunk 上，然后返回
+11. 如果释放的块比较大，超过了阈值，则触发一次 malloc_consolidate
 
 ## 后续版本更新
 
