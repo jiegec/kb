@@ -1758,6 +1758,136 @@ else
 4. 如果释放的内存比较多，检查 top chunk 大小，如果剩余的空间比较多，则归还一部分内存给操作系统
 5. 对于 mmap 分配的内存，用 munmap 释放掉
 
+由于 free 的实现相对简单，在这里就不详细解析了，比较详细的实现分析见后。
+
+### arena 和 heap
+
+前面讨论了各种 chunk 在内存分配器内部流转的情况，但并没有讨论这些空间是怎么从操作系统分配而来的，又是怎么维护的。glibc 内存分配器实际上设计了两个层次：
+
+1. arena 层次：对应锁的粒度，一个 arena 可以对应多个 heap，有一个特殊的 arena 是 main_arena；arena 的数量有限制，在 64 位系统下默认的数量限制是处理器核心数的 8 倍，避免出现太多的内存碎片
+2. heap 层次：每个 heap 大小有上限：`1024 * 1024` 字节，也就是 1MB；当 arena 需要更多空间的时候，可以分配新的 heap；arena 自身就保存在 arena 的第一个 heap 内部的空间，同一个 arena 的多个 heap 之间通单向链表连接起来；arena 的 top chunk 指向最后一个创建的 heap 的顶部的空闲块
+
+arena 的结构就是前面看到的 `malloc_state`，包括如下字段：
+
+```c
+struct malloc_state
+{
+  /* Serialize access.  */
+  __libc_lock_define (, mutex);
+
+  /* Flags (formerly in max_fast).  */
+  int flags;
+
+  /* Set if the fastbin chunks contain recently inserted free blocks.  */
+  /* Note this is a bool but not all targets support atomics on booleans.  */
+  int have_fastchunks;
+
+  /* Fastbins */
+  mfastbinptr fastbinsY[NFASTBINS];
+
+  /* Base of the topmost chunk -- not otherwise kept in a bin */
+  mchunkptr top;
+
+  /* The remainder from the most recent split of a small request */
+  mchunkptr last_remainder;
+
+  /* Normal bins packed as described above */
+  mchunkptr bins[NBINS * 2 - 2];
+
+  /* Bitmap of bins */
+  unsigned int binmap[BINMAPSIZE];
+
+  /* Linked list */
+  struct malloc_state *next;
+
+  /* Linked list for free arenas.  Access to this field is serialized
+     by free_list_lock in arena.c.  */
+  struct malloc_state *next_free;
+
+  /* Number of threads attached to this arena.  0 if the arena is on
+     the free list.  Access to this field is serialized by
+     free_list_lock in arena.c.  */
+  INTERNAL_SIZE_T attached_threads;
+
+  /* Memory allocated from the system in this arena.  */
+  INTERNAL_SIZE_T system_mem;
+  INTERNAL_SIZE_T max_system_mem;
+};
+```
+
+这里很多字段在之前已经见过了，比如：
+
+1. `mutex`：arena 的互斥锁
+2. `have_fastchunks`：记录 fast bin 中是否还有空闲块，用于判断是否需要 consolidate
+3. `fastbinsY`：保存 fast bin 每个 bin 的头指针的数组
+4. `top`：指向 top chunk
+5. `last_remainder`：指向最近一次 split 出来的空闲块，用于访存局部性优化
+6. `bins`：保存 unsorted bin，small bin 和 large bin 各个双向链表的哨兵结点的 `fd` 和 `bk` 指针
+7. `binmap`：记录哪些 small 或 large bin 里面有空闲块，用于加速寻找下一个有空闲块的 bin
+
+之前没有涉及到的字段包括：
+
+1. `flags`: 维护 `NONCONTIGUOUS_BIT` 标记，即 arena 所使用的内存是否是连续的，例如用 sbrk 分配出来的内存是连续的，用 mmap 则不是
+2. `next`: 维护所有 arena 的单向链表，链表头就是 `main_arena`
+3. `next_free`: 维护所有空闲的 arena 的单向链表，链表头保存在 `static mstate free_list`
+4. `attached_threads`: 记录有多少个线程会使用这个 arena，类似于一种引用计数，当它减到零的时候，意味着 arena 可以被释放了
+5. `system_mem`: 记录它从操作系统分配了多少的内存的大小
+6. `max_system_mem`：记录它历史上从操作系统分配最多的内存的大小
+
+可见 arena 的结构还是比较简单的，接下来分析 heap 的结构：
+
+```c
+typedef struct _heap_info
+{
+  mstate ar_ptr; /* Arena for this heap. */
+  struct _heap_info *prev; /* Previous heap. */
+  size_t size;   /* Current size in bytes. */
+  size_t mprotect_size; /* Size in bytes that has been mprotected
+                           PROT_READ|PROT_WRITE.  */
+  /* Make sure the following data is properly aligned, particularly
+     that sizeof (heap_info) + 2 * SIZE_SZ is a multiple of
+     MALLOC_ALIGNMENT. */
+  char pad[-6 * SIZE_SZ & MALLOC_ALIGN_MASK];
+} heap_info;
+```
+
+字段如下：
+
+1. `ar_ptr`：指向 heap 所属的 arena
+2. `prev`：指向前一个 heap，组成一个 heap 的单向链表，新添加的 heap 放到链表的尾部
+3. `size`: heap 的大小
+4. `mprotect_size`: heap 被设置为可读写的部分的内存大小，也就是 heap 的活跃部分大小，对齐到页的边界；默认情况下，heap 的未分配空间被映射为不可读不可写不可执行的属性
+5. `pad`: 添加 padding，保证它的大小是 `MALLOC_ALIGNMENT` 的倍数
+
+前面提到过，arena 的空间会复用它的第一个 heap 的空间，紧接着放在 `heap_info` 结构体的后面。这个 `heap_info` 结构体就放在 heap 所用空间的开头。
+
+heap 有一个特性，就是它的起始地址，一定是对齐到 `HEAP_MAX_SIZE`（默认是 64MB）的整数倍数，并且它的大小也不会超过 `HEAP_MAX_SIZE`，所以如果要知道某个 chunk 属于哪个 heap，只需要向下取整到 `HEAP_MAX_SIZE` 的倍数即可。如果要知道某个 chunk 属于哪个 arena，就先找到 heap，再从 heap_info 获取 ar_ptr 就可以了。
+
+比较有意思的一个点是，heap 保存了 arena 的指针，但是反过来，arena 并没有保存 heap 的指针，那么怎么从 arena 找到属于这个 arena 的所有 heap 呢？这会用到一个性质：arena 的 top 永远指向最新的一个 heap 的地址最高的空闲块，而这个最新的 heap 正好处于 heap 链表的尾部，所以如果要遍历 arena 里的 heap，只需要：
+
+1. 获取 arena 的 top 指针
+2. 把 top 指针向下取整到 `HEAP_MAX_SIZE` 的整倍数，得到 top 所在 heap 的 heap_info 指针
+3. 沿着 heap_info 的 prev 指针向前走，一直遍历，直到 prev 指针为 NULL 为止
+
+所以 top 指针也充当了 heap 链表的尾指针的作用。
+
+接下来观察 arena 和 heap 是怎么初始化的。
+
+main arena 是特殊的，因为它直接保存在 glibc 的 data 段当中，所以不需要动态分配，并且 main arena 的数据是通过 sbrk 从系统分配的，它的维护逻辑在 `sysmalloc` 函数中实现：当 malloc 尝试各种办法都找不到空间分配时，就会调用 `sysmalloc` 来扩展 top chunk 并从 top chunk 中分配新的块。当 `sysmalloc` 遇到 main arena 的时候，就会尝试用 sbrk 扩展堆的大小，从而扩大 top chunk。当然了，sbrk 可能会失败，这个时候 main arena 也会通过 mmap 来分配更多的内存。
+
+其他的 arena 则是通过 `_int_new_arena` 分配的，它的流程是：
+
+1. 调用 `new_heap` 创建一个堆，至少能够放 `heap_info` 和 `malloc_state` 的空间
+2. 这段空间的开头就是 `heap_info`，紧随其后就是 arena 自己的 `malloc_state`，然后把 top chunk 指向 `malloc_state` 后面的空闲空间
+
+`new_heap` 则是会通过 `mmap` 向操作系统申请内存。因此除了 main_arena 以外，所有的 arena 的 heap 都会放在 mmap 出来的空间里。
+
+于是 `sysmalloc` 要做的事情也比较清晰了，它要做的就是，在 top chunk 不够大的时候，分配更多空间给 top chunk：
+
+1. 如果要分配的块特别大，超出了阈值 `mmap_threshold`，就直接用 mmap 申请内存
+2. 如果不是 main arena，就尝试扩大 top 所在的 heap：heap 在初始化的时候，虽然会 mmap 一个 `HEAP_MAX_SIZE` 大小的内存，但大部分空间都被映射为不可读不可写不可执行；所以扩大 heap，实际上就是把要用的部分通过 mprotect 添加可读和可写的权限；如果 heap 达到了大小的上限，那就新建一个 heap，把 top chunk 放到新的 heap 上去
+3. 如果是 main arena，就用 sbrk 扩大 top chunk；如果扩大失败，那就用 mmap 来分配内存
+
 ### 小结
 
 #### 结构
@@ -1922,7 +2052,7 @@ flowchart TD
 16. 根据 chunk size 大小，找到对应的 small bin 或者 large bin，然后从小到大遍历各个 bin（可能从 small bin 一路遍历到 large bin），通过 bitmap 跳过那些空的 bin，找到第一个非空的 bin 的空闲块，对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束
 17. 如果 top chunk 足够大，则对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分成为新的 top chunk，然后函数结束
 18. 如果此时 fast bin 有空闲块，调用 malloc_consolidate，然后回到无限循环的开头再尝试一次分配
-19. 最后的兜底分配方法：通过 mmap 或 sbrk 向操作系统申请更多的内存
+19. 最后的兜底分配方法：调用 `sysmalloc`，通过 mmap 或 sbrk 向操作系统申请更多的内存
 
 #### free
 
@@ -1933,7 +2063,7 @@ flowchart TD
 3. 如果是调用 `free(NULL)`，直接返回
 4. 检查 `mchunk_size` 的 `IS_MAPPED` 字段，如果它之前是通过 mmap 分配的，那么对它进行 munmap，然后返回
 5. 如果 tcache 还没初始化，就初始化 tcache
-6. 找到这个 chunk 从哪个 arena 分配的：检查 `mchunk_size` 的 `NON_MAIN_ARENA` 字段，如果它不是从 main arena 分配的，则根据 chunk 的地址，找到 heap 的地址（heap 的大小是有上限的，并且 heap 的起始地址是对齐到 `HEAP_MAX_SIZE` 即 1MB 边界的），再根据 heap 开头的 heap_info 找到 arena 的地址
+6. 找到这个 chunk 从哪个 arena 分配的：检查 `mchunk_size` 的 `NON_MAIN_ARENA` 字段，如果它不是从 main arena 分配的，则根据 chunk 的地址，找到 heap 的地址（heap 的大小是有上限的，并且 heap 的起始地址是对齐到 `HEAP_MAX_SIZE` 的整倍数边界的），再根据 heap 开头的 heap_info 找到 arena 的地址
 7. 进入 `_int_free`，接着分析 `_int_free` 的实现
 8. 根据 chunk size 找到对应的 tcache bin，如果它还没有满，则把空闲块放到 tcache 当中，然后返回
 9. 判断 chunk size 大小，如果对应 fast bin 的块大小，把空闲块放到对应的 fast bin 的单向链表中，然后返回；注意此时没有获取 arena 的锁，所以 fast bin 的操作会用到原子指令，同理 malloc 中对 fast bin 的操作也要用到原子指令，即使 malloc 持有了 arena 的锁
