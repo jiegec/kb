@@ -2696,6 +2696,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="小结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#malloc_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      malloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      free
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2704,7 +2737,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       后续版本更新
     </span>
@@ -2804,7 +2837,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       小结
     </span>
@@ -2818,7 +2851,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       参考
     </span>
@@ -4730,6 +4763,7 @@
 <li>对于 mmap 分配的内存，用 munmap 释放掉</li>
 </ol>
 <h3 id="_4">小结</h3>
+<h4 id="_5">结构</h4>
 <p>到这里就基本把 glibc 的内存分配器分析得差不多了。glibc 把空闲块放在如下四种 bin 内：</p>
 <ol>
 <li>fast bin: 每个 bin 对应固定大小的空闲块，用单向链表维护，链表头指针保存在 <code>malloc_state</code> 的 <code>fastbinsY</code> 成员</li>
@@ -4741,9 +4775,40 @@
 <p>内存在分配器中流转的过程大致如下：</p>
 <ol>
 <li>一开始从 top chunk 当中被分配出来</li>
-<li>被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin</li>
+<li>被 free 了以后，进入 tcache，或者 fast bin，或者合并后放到 unsorted bin</li>
 <li>在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并</li>
 </ol>
+<pre class="mermaid"><code>flowchart TD
+    top_chunk[top chunk]
+    user[user allocated]
+    tcache
+    fast_bin[fast bin]
+    small_bin[small bin]
+    large_bin[large_bin]
+    unsorted_bin[unsorted bin]
+
+    top_chunk --&gt;|malloc| user
+    tcache --&gt;|malloc| user
+    fast_bin --&gt;|malloc| user
+    fast_bin --&gt;|malloc| tcache
+    fast_bin --&gt;|consolidate| unsorted_bin
+    fast_bin --&gt;|consolidate| top_chunk
+    small_bin --&gt;|malloc| user
+    small_bin --&gt;|malloc| tcache
+    large_bin --&gt;|malloc| user
+    large_bin --&gt;|malloc| unsorted_bin
+    unsorted_bin --&gt;|malloc| user
+    unsorted_bin --&gt;|malloc| tcache
+    unsorted_bin --&gt;|malloc| small_bin
+    unsorted_bin --&gt;|malloc| large_bin
+
+    user --&gt;|free| tcache
+    user --&gt;|free| fast_bin
+    user --&gt;|free| unsorted_bin
+    user --&gt;|free| top_chunk
+    small_bin --&gt;|free| unsorted_bin
+    large_bin --&gt;|free| unsorted_bin</code></pre>
+<h4 id="malloc_4">malloc</h4>
 <p>malloc 的完整流程图如下：</p>
 <pre class="mermaid"><code>---
 config:
@@ -4825,7 +4890,51 @@ flowchart TD
     consolidate_2 --&gt; loop
     check_fast --&gt;|否| alloc_system
     alloc_system --&gt; malloc_ret</code></pre>
-<h2 id="_5">后续版本更新</h2>
+<p>前面分段整理了 malloc 的实现，在这里列出完整的 malloc 流程：</p>
+<ol>
+<li>malloc 的入口是 <code>__libc_malloc (size_t bytes)</code> 函数</li>
+<li>如果配置了 malloc hook，则调用 malloc hook，直接返回结果</li>
+<li>根据用户传入的 malloc 的字节数（<code>bytes</code>），用 <code>checked_request2size</code> 计算出实际的 chunk 大小，算法是先加上 <code>sizeof(size_t)</code>（给 <code>mchunk_size</code> 预留空间），然后向上对齐到 <code>MALLOC_ALIGNMENT</code>（通常是 <code>2 * sizeof(size_t)</code>）的倍数，再和 <code>MINSIZE</code> 取 max，其中 <code>MINSIZE</code> 通常是 <code>4 * sizeof(size_t)</code>，因为空闲块至少要保存两个 size 加上双向链表的 <code>fd</code> 和 <code>bk</code> 指针</li>
+<li>如果 tcache 还没初始化，就初始化 tcache</li>
+<li>根据 chunk 大小，计算 tcache index，检查对应的 bin 是否有空闲块；如果有，直接分配空闲块并返回</li>
+<li>接着获取一个 arena，如有必要，获取 arena 的锁；在单线程情况下，只有一个 main_arena；多线程情况下，每个线程有一个默认的 arena 指针（<code>static __thread mstate thread_arena</code>），在遇到 lock contention 的时候可以动态切换</li>
+<li>进入 <code>_int_malloc</code> 从 arena 中分配一个 chunk，分配完成后释放 arena 的锁</li>
+<li>接着分析 <code>_int_malloc</code> 的实现，除 tcache 以外的大部分逻辑都在 <code>_int_malloc</code> 函数中</li>
+<li>判断 chunk size 大小，如果对应 fast bin 的块大小，在对应的 fast bin 的单向链表中寻找空闲块；如果链表非空，则取出链表头的空闲块，作为分配给 malloc 调用者的块，接着把 fast bin 链表上剩余的空闲块挪到 tcache 当中，直到 fast bin 链表空或者 tcache 满为止，然后函数结束</li>
+<li>判断 chunk size 大小，如果对应 small bin 的块大小，在对应的 small bin 的双向链表中寻找空闲块；如果链表非空，则取出链表尾的空闲块，作为分配给 malloc 调用者的块，接着把 small bin 链表上剩余的空闲块挪到 tcache 当中，直到 small bin 链表空或者 tcache 满为止，然后函数结束</li>
+<li>判断 chunk size 大小，如果对应 large bin 的块大小，则进行一次 malloc_consolidate：遍历 fast bin 每一个 bin 的每一个空闲块，尝试把它和内存上相邻的前后空闲块合并，合并后的空闲块放入 unsorted bin；特别地，如果空闲块和 top chunk 相邻，就会直接合并到 top chunk，这样就不需要把空闲块放入 unsorted bin</li>
+<li>开始一个大的无限循环 <code>for (;;)</code>，如果后续尝试各种方式都分配不成功，但是 fast bin 还有空闲块，在 malloc_consolidate 后会从这里开始再尝试一次分配</li>
+<li>遍历 unsorted bin，最多处理 10000 个空闲块：<ol>
+<li>如果空闲块的大小对应 small bin，并且它是最近刚 split 出来的空闲块，并且可以放得下要分配的块，就原地把这个空闲块进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束</li>
+<li>把空闲块从 unsorted bin 链表中删除</li>
+<li>如果空闲块的大小正好是要分配的块的大小，判断 tcache 是否还有空间；如果 tcache 已经满了，直接把这个空闲块作为分配给 malloc 调用者的块，然后函数结束；如果 tcache 还没满，则先把空闲块挪到 tcache 当中，继续处理 unsorted bin 的其他空闲块，这样做的目的是尽量把 tcache 填满</li>
+<li>根据空闲块的大小，插入到对应的 small bin 或者 large bin 当中</li>
+<li>记录插入到 small bin 或者 large bin 的空闲块个数，如果超过了阈值，并且之前已经找到一个空闲块的大小正好是要分配的块的大小，同时挪到了 tcache 当中，则立即把这个空闲块从 tcache 中取出并分配给 malloc 调用者，然后函数结束；这样做的目的是避免处理太多无关的 unsorted bin 中的空闲块，导致 malloc 调用时间过长</li>
+</ol>
+</li>
+<li>如果在遍历 unsorted bin 过程中找到了和要分配的块一样大的空闲块，那么这个空闲块已经在 tcache 当中了，则立即把这个空闲块从 tcache 中取出并分配给 malloc 调用者，然后函数结束</li>
+<li>判断 chunk size 大小，如果属于 large bin 的块大小，则找到对应的 large bin，从小到大通过 nextsize 链表遍历 large bin 中的空闲块，找到一个足够大的空闲块，对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束</li>
+<li>根据 chunk size 大小，找到对应的 small bin 或者 large bin，然后从小到大遍历各个 bin（可能从 small bin 一路遍历到 large bin），通过 bitmap 跳过那些空的 bin，找到第一个非空的 bin 的空闲块，对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分则放回到 unsorted bin，然后函数结束</li>
+<li>如果 top chunk 足够大，则对它进行拆分，前面的部分是分配给 malloc 调用者的块，后面的部分成为新的 top chunk，然后函数结束</li>
+<li>如果此时 fast bin 有空闲块，调用 malloc_consolidate，然后回到无限循环的开头再尝试一次分配</li>
+<li>最后的兜底分配方法：通过 mmap 或 sbrk 向操作系统申请更多的内存</li>
+</ol>
+<h4 id="free_4">free</h4>
+<p>在这里列出完整的 free 流程：</p>
+<ol>
+<li>free 的入口是 <code>__libc_free (void *mem)</code> 函数</li>
+<li>如果配置了 free hook，则调用 free hook，直接返回</li>
+<li>如果是调用 <code>free(NULL)</code>，直接返回</li>
+<li>检查 <code>mchunk_size</code> 的 <code>IS_MAPPED</code> 字段，如果它之前是通过 mmap 分配的，那么对它进行 munmap，然后返回</li>
+<li>如果 tcache 还没初始化，就初始化 tcache</li>
+<li>找到这个 chunk 从哪个 arena 分配的：检查 <code>mchunk_size</code> 的 <code>NON_MAIN_ARENA</code> 字段，如果它不是从 main arena 分配的，则根据 chunk 的地址，找到 heap 的地址（heap 的大小是有上限的，并且 heap 的起始地址是对齐到 <code>HEAP_MAX_SIZE</code> 即 1MB 边界的），再根据 heap 开头的 heap_info 找到 arena 的地址</li>
+<li>进入 <code>_int_free</code>，接着分析 <code>_int_free</code> 的实现</li>
+<li>根据 chunk size 找到对应的 tcache bin，如果它还没有满，则把空闲块放到 tcache 当中，然后返回</li>
+<li>判断 chunk size 大小，如果对应 fast bin 的块大小，把空闲块放到对应的 fast bin 的单向链表中，然后返回</li>
+<li>获取 arena 的锁，尝试把空闲块和在内存中相邻的前后空闲块进行合并，合并后的空闲块放入 unsorted bin；合并时，如果被合并的空闲块已经在 small bin 或者 large bin 当中，利用双向链表的特性，把它从双向链表中删除；如果和 top chunk 相邻，则可以直接合并到 top chunk 上，然后返回</li>
+<li>如果释放的块比较大，超过了阈值，则触发一次 malloc_consolidate</li>
+</ol>
+<h2 id="_6">后续版本更新</h2>
 <p>接下来记录 glibc 2.31 后续版本对分配器的更新。</p>
 <h3 id="glibc-232">glibc 2.32</h3>
 <p>glibc 2.32 在 2.31 的基础上有如下的修改：</p>
@@ -5170,14 +5279,14 @@ flowchart TD
 <h3 id="glibc-237">glibc 2.37</h3>
 <p>glibc 2.37 的分配器对 realloc 的实现有少量的修改，但目前本文还没有分析 realloc，其余的部分没有什么变化。</p>
 <h3 id="glibc-238">glibc 2.38</h3>
-<p>glibc 2.38 的分配器添加了 memalign 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。</p>
+<p>glibc 2.38 的分配器添加了 C17 aligned_alloc 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。</p>
 <h3 id="glibc-239">glibc 2.39</h3>
 <p>glibc 2.39 的分配器针对 free 和 memalign 进行了一些代码重构，没有什么实质的变化。</p>
 <h3 id="glibc-240">glibc 2.40</h3>
 <p>glibc 2.40 的分配器没有修改。</p>
 <h3 id="glibc-241">glibc 2.41</h3>
 <p>glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了，之前的版本是不会的。此外对 free 的逻辑有一定的修改：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。</p>
-<h3 id="_6">小结</h3>
+<h3 id="_7">小结</h3>
 <p>总结一下从 glibc 2.31 之后内存分配器行为的几个大的变化：</p>
 <ol>
 <li>glibc 2.32 开始，tcache 和 fast bin 的单向链表的地址进行了保护：<code>(&amp;fd &gt;&gt; 12) ^ fd</code></li>
@@ -5185,7 +5294,7 @@ flowchart TD
 <li>glibc 2.41 开始，calloc 也会使用 tcache</li>
 <li>glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin</li>
 </ol>
-<h2 id="_7">参考</h2>
+<h2 id="_8">参考</h2>
 <ul>
 <li><a href="https://sourceware.org/glibc/wiki/MallocInternals">Malloc Internals</a></li>
 </ul>
@@ -5211,7 +5320,7 @@ flowchart TD
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 13:59:13">2025年3月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 09:39:13">2025年4月1日</span>
   </span>
 
     
