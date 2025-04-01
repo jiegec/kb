@@ -1846,8 +1846,8 @@ struct malloc_state
 
 1. `flags`: 维护 `NONCONTIGUOUS_BIT` 标记，即 arena 所使用的内存是否是连续的，例如用 sbrk 分配出来的内存是连续的，用 mmap 则不是
 2. `next`: 维护所有 arena 的单向链表，链表头就是 `main_arena`
-3. `next_free`: 维护所有空闲的 arena 的单向链表，链表头保存在 `static mstate free_list`
-4. `attached_threads`: 记录有多少个线程会使用这个 arena，类似于一种引用计数，当它减到零的时候，意味着 arena 可以被释放了
+3. `next_free`: 维护所有空闲的 arena 的单向链表 free list，链表头保存在 `static mstate free_list`
+4. `attached_threads`: 记录有多少个线程会使用这个 arena，类似于一种引用计数，当它减到零的时候，意味着 arena 可以被释放到 free list 了
 5. `system_mem`: 记录它从操作系统分配了多少的内存的大小
 6. `max_system_mem`：记录它历史上从操作系统分配最多的内存的大小
 
