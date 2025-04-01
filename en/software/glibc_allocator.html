@@ -4879,8 +4879,8 @@
 <ol>
 <li><code>flags</code>: 维护 <code>NONCONTIGUOUS_BIT</code> 标记，即 arena 所使用的内存是否是连续的，例如用 sbrk 分配出来的内存是连续的，用 mmap 则不是</li>
 <li><code>next</code>: 维护所有 arena 的单向链表，链表头就是 <code>main_arena</code></li>
-<li><code>next_free</code>: 维护所有空闲的 arena 的单向链表，链表头保存在 <code>static mstate free_list</code></li>
-<li><code>attached_threads</code>: 记录有多少个线程会使用这个 arena，类似于一种引用计数，当它减到零的时候，意味着 arena 可以被释放了</li>
+<li><code>next_free</code>: 维护所有空闲的 arena 的单向链表 free list，链表头保存在 <code>static mstate free_list</code></li>
+<li><code>attached_threads</code>: 记录有多少个线程会使用这个 arena，类似于一种引用计数，当它减到零的时候，意味着 arena 可以被释放到 free list 了</li>
 <li><code>system_mem</code>: 记录它从操作系统分配了多少的内存的大小</li>
 <li><code>max_system_mem</code>：记录它历史上从操作系统分配最多的内存的大小</li>
 </ol>
@@ -5513,7 +5513,7 @@ flowchart TD
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 13:28:45">2025年4月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 13:50:06">2025年4月1日</span>
   </span>
 
     
