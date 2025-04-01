@@ -2088,6 +2088,14 @@ flowchart TD
 12. `TCACHE_FILL_COUNT = 7`
 13. `NFASTBINS = fastbin_index(request2size(MAX_FAST_SIZE)) + 1` 即 10
 14. `NBINS = 128`
+15. `DEFAULT_MXFAST = 64 * sizeof(size_t) / 4` 即 128
+
+默认情况下各个 bin 负责的块大小范围：
+
+1. tcache: 块大小不超过 1040 字节，对应 `malloc(1032)` 或更小
+2. fast bin: 块大小不超过 128 字节，对应 `malloc(120)` 或更小
+3. small bin: 块大小不超过 1008 字节，对应 `malloc(1000)` 或更小
+4. large bin: 块大小不小于 1024 字节，不超过 131056 字节，对应 `malloc(1001)` 到 `malloc(131048)` 的范围
 
 ## 后续版本更新
 
