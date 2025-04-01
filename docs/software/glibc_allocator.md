@@ -1774,8 +1774,41 @@ else
 内存在分配器中流转的过程大致如下：
 
 1. 一开始从 top chunk 当中被分配出来
-2. 被 free 了以后，进入 tcache，或者 fast bin，或者 unsorted bin
+2. 被 free 了以后，进入 tcache，或者 fast bin，或者合并后放到 unsorted bin
 3. 在 malloc 的时候，从 tcache 或者 fast bin 被分配，又或者从 unsorted bin 中取出，放到 small bin 或 large bin，中途可能被分配、拆分或者合并
+
+```mermaid
+flowchart TD
+    top_chunk[top chunk]
+    user[user allocated]
+    tcache
+    fast_bin[fast bin]
+    small_bin[small bin]
+    large_bin[large_bin]
+    unsorted_bin[unsorted bin]
+
+    top_chunk -->|malloc| user
+    tcache -->|malloc| user
+    fast_bin -->|malloc| user
+    fast_bin -->|malloc| tcache
+    fast_bin -->|consolidate| unsorted_bin
+    fast_bin -->|consolidate| top_chunk
+    small_bin -->|malloc| user
+    small_bin -->|malloc| tcache
+    large_bin -->|malloc| user
+    large_bin -->|malloc| unsorted_bin
+    unsorted_bin -->|malloc| user
+    unsorted_bin -->|malloc| tcache
+    unsorted_bin -->|malloc| small_bin
+    unsorted_bin -->|malloc| large_bin
+
+    user -->|free| tcache
+    user -->|free| fast_bin
+    user -->|free| unsorted_bin
+    user -->|free| top_chunk
+    small_bin -->|free| unsorted_bin
+    large_bin -->|free| unsorted_bin
+```
 
 #### malloc
 
