@@ -1931,7 +1931,7 @@ flowchart TD
     tcache
     fast_bin[fast bin]
     small_bin[small bin]
-    large_bin[large_bin]
+    large_bin[large bin]
     unsorted_bin[unsorted bin]
 
     top_chunk -->|malloc| user
