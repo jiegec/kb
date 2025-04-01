@@ -2690,6 +2690,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#realloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      realloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      calloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#arena-heap" class="md-nav__link">
     <span class="md-ellipsis">
       arena 和 heap
@@ -4781,6 +4799,21 @@
 <li>对于 mmap 分配的内存，用 munmap 释放掉</li>
 </ol>
 <p>由于 free 的实现相对简单，在这里就不详细解析了，比较详细的实现分析见后。</p>
+<h3 id="realloc">realloc</h3>
+<p>realloc 的实现在 <code>__libc_realloc</code> 当中，它的实现比较简单：</p>
+<ol>
+<li>如果重新分配的大小是 0，realloc 等价为 free，就调用 free</li>
+<li>如果旧指针是 NULL，realloc 等价为 malloc，就调用 malloc</li>
+<li>如果直接是 mmap 出来的块，利用 mremap 来扩展空间</li>
+<li>如果是要申请更少的内存，把多出来的部分拆成一个单独的块，然后 free 掉它</li>
+<li>如果是要申请更多的内存，尝试从内存更高地址的相邻块获取空间，如果有的话，合并两个块，然后把多余的空间拆成一个单独的块，然后 free 掉它；如果内存更高地址的相邻块已经被占用，就重新 malloc 一个块，用 memcpy 把数据拷贝过去，再 free 掉旧的内存</li>
+</ol>
+<h3 id="calloc">calloc</h3>
+<p>calloc 的实现在 <code>__libc_calloc</code> 当中，它的语义相比 malloc 多了一个清零，所以它的实现也不复杂：</p>
+<ol>
+<li>如果 top chunk 还有空间，并且 top chunk 的数据已经被清零，则优先从 top chunk 分配空间，避免了 memset 的开销</li>
+<li>fallback 到 <code>_int_malloc</code> 进行内存分配，分配成功后，再 memset 清零</li>
+</ol>
 <h3 id="arena-heap">arena 和 heap</h3>
 <p>前面讨论了各种 chunk 在内存分配器内部流转的情况，但并没有讨论这些空间是怎么从操作系统分配而来的，又是怎么维护的。glibc 内存分配器实际上设计了两个层次：</p>
 <ol>
@@ -5480,7 +5513,7 @@ flowchart TD
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 13:06:50">2025年4月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 13:28:45">2025年4月1日</span>
   </span>
 
     
