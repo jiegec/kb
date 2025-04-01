@@ -2234,7 +2234,7 @@ glibc 2.37 的分配器对 realloc 的实现有少量的修改，但目前本文
 
 ### glibc 2.38
 
-glibc 2.38 的分配器添加了 memalign 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。
+glibc 2.38 的分配器添加了 C17 aligned_alloc 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。
 
 ### glibc 2.39
 
