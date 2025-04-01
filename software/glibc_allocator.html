@@ -2740,13 +2740,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      各种常量的默认值
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       后续版本更新
     </span>
@@ -2846,7 +2855,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       小结
     </span>
@@ -2860,7 +2869,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       参考
     </span>
@@ -5059,7 +5068,25 @@ flowchart TD
 <li>获取 arena 的锁，尝试把空闲块和在内存中相邻的前后空闲块进行合并，合并后的空闲块放入 unsorted bin；合并时，如果被合并的空闲块已经在 small bin 或者 large bin 当中，利用双向链表的特性，把它从双向链表中删除；如果和 top chunk 相邻，则可以直接合并到 top chunk 上，然后返回</li>
 <li>如果释放的块比较大，超过了阈值，则触发一次 malloc_consolidate</li>
 </ol>
-<h2 id="_6">后续版本更新</h2>
+<h3 id="_6">各种常量的默认值</h3>
+<p>下面给出 glibc 内存分配器各常量在 64 位下的默认值：</p>
+<ol>
+<li><code>MALLOC_ALIGNMENT = max(2 * SIZE_SZ, __alignof__ (long double))</code> 等于 16</li>
+<li><code>MIN_CHUNK_SIZE = offsetof(struct malloc_chunk, fd_nextsize)</code> 等于 32</li>
+<li><code>MINSIZE = alignUp(MIN_CHUNK_SIZE, MALLOC_ALIGNMENT)</code> 等于 32</li>
+<li><code>MAX_FAST_SIZE = 80 * SIZE_SZ / 4</code> 等于 160</li>
+<li><code>NSMALLBINS = 64</code></li>
+<li><code>MIN_LARGE_SIZE = (NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH</code> 等于 1024</li>
+<li><code>DEFAULT_MMAP_THRESHOLD_MIN = 128 * 1024</code> 即 128KB</li>
+<li><code>DEFAULT_MMAP_THRESHOLD_MAX = 4 * 1024 * 1024 * sizeof(long)</code> 即 32MB</li>
+<li><code>HEAP_MIN_SIZE = 32 * 1024</code> 即 32KB</li>
+<li><code>HEAP_MAX_SIZE = 2 * DEFAULT_MMAP_THRESHOLD_MAX</code> 即 64MB</li>
+<li><code>TCACHE_MAX_BINS = 64</code></li>
+<li><code>TCACHE_FILL_COUNT = 7</code></li>
+<li><code>NFASTBINS = fastbin_index(request2size(MAX_FAST_SIZE)) + 1</code> 即 10</li>
+<li><code>NBINS = 128</code></li>
+</ol>
+<h2 id="_7">后续版本更新</h2>
 <p>接下来记录 glibc 2.31 后续版本对分配器的更新。</p>
 <h3 id="glibc-232">glibc 2.32</h3>
 <p>glibc 2.32 在 2.31 的基础上有如下的修改：</p>
@@ -5411,7 +5438,7 @@ flowchart TD
 <p>glibc 2.40 的分配器没有修改。</p>
 <h3 id="glibc-241">glibc 2.41</h3>
 <p>glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了，之前的版本是不会的。此外对 free 的逻辑有一定的修改：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。</p>
-<h3 id="_7">小结</h3>
+<h3 id="_8">小结</h3>
 <p>总结一下从 glibc 2.31 之后内存分配器行为的几个大的变化：</p>
 <ol>
 <li>glibc 2.32 开始，tcache 和 fast bin 的单向链表的地址进行了保护：<code>(&amp;fd &gt;&gt; 12) ^ fd</code></li>
@@ -5419,7 +5446,7 @@ flowchart TD
 <li>glibc 2.41 开始，calloc 也会使用 tcache</li>
 <li>glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin</li>
 </ol>
-<h2 id="_8">参考</h2>
+<h2 id="_9">参考</h2>
 <ul>
 <li><a href="https://sourceware.org/glibc/wiki/MallocInternals">Malloc Internals</a></li>
 </ul>
@@ -5445,7 +5472,7 @@ flowchart TD
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 12:02:34">2025年4月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月1日 12:10:17">2025年4月1日</span>
   </span>
 
     
