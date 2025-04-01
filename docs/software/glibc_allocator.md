@@ -2070,6 +2070,25 @@ flowchart TD
 10. 获取 arena 的锁，尝试把空闲块和在内存中相邻的前后空闲块进行合并，合并后的空闲块放入 unsorted bin；合并时，如果被合并的空闲块已经在 small bin 或者 large bin 当中，利用双向链表的特性，把它从双向链表中删除；如果和 top chunk 相邻，则可以直接合并到 top chunk 上，然后返回
 11. 如果释放的块比较大，超过了阈值，则触发一次 malloc_consolidate
 
+### 各种常量的默认值
+
+下面给出 glibc 内存分配器各常量在 64 位下的默认值：
+
+1. `MALLOC_ALIGNMENT = max(2 * SIZE_SZ, __alignof__ (long double))` 等于 16
+2. `MIN_CHUNK_SIZE = offsetof(struct malloc_chunk, fd_nextsize)` 等于 32
+3. `MINSIZE = alignUp(MIN_CHUNK_SIZE, MALLOC_ALIGNMENT)` 等于 32
+4. `MAX_FAST_SIZE = 80 * SIZE_SZ / 4` 等于 160
+5. `NSMALLBINS = 64`
+6. `MIN_LARGE_SIZE = (NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH` 等于 1024
+7. `DEFAULT_MMAP_THRESHOLD_MIN = 128 * 1024` 即 128KB
+8. `DEFAULT_MMAP_THRESHOLD_MAX = 4 * 1024 * 1024 * sizeof(long)` 即 32MB
+9. `HEAP_MIN_SIZE = 32 * 1024` 即 32KB
+10. `HEAP_MAX_SIZE = 2 * DEFAULT_MMAP_THRESHOLD_MAX` 即 64MB
+11. `TCACHE_MAX_BINS = 64`
+12. `TCACHE_FILL_COUNT = 7`
+13. `NFASTBINS = fastbin_index(request2size(MAX_FAST_SIZE)) + 1` 即 10
+14. `NBINS = 128`
+
 ## 后续版本更新
 
 接下来记录 glibc 2.31 后续版本对分配器的更新。
