@@ -43,6 +43,14 @@
 - [华为 Mate70 Pro+ 性能分析：麒麟 9020 来啦！](https://www.bilibili.com/video/BV1j6iYYHEYG)
 - [HUAWEI PLA-AL10](https://browser.geekbench.com/v6/cpu/9233574)
 
+## 麒麟 9020 on Pura X
+
+- 丝印 Hi36C0 GFCV111
+
+来源：
+
+- [华为 Pura X发售第一时间又消费了！今年最惊喜的拆解，全新的9020换封装工艺了，CPU不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
+
 ## hip07
 
 - hip07 from DSDT oem table id
