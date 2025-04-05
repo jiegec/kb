@@ -90,18 +90,26 @@ struct locked_FILE
 };
 ```
 
-## FILE 结构体操作
+## 缓冲区操作
 
-接下来看常见的 I/O 操作是怎么实现的：
+FILE 结构体维护了一个缓冲区：`_IO_buf_base` 到 `_IO_buf_end`，里面保存了一些缓存的数据；为了从缓冲区读取数据，或者写入数据到缓冲区，额外维护了读和写的指针：
 
-- `getc`: 如果 `_IO_read_ptr < _IO_read_end`，说明缓冲区中还有数据，直接返回 `*_IO_read_ptr++`；如果 `_IO_read_ptr >= _IO_read_end`，说明缓冲区已经没有数据了，调用 `__uflow` 函数来读取更多的数据
-- `putc`: 如果 `_IO_write_ptr < _IO_write_end`，说明缓冲区中还有空间，直接 `*_IO_write_ptr++ = ch`；如果 `_IO_write_ptr >= _IO_write_end`，说明缓冲区已经没有空间了，调用 `__overflow` 函数来分配更多的空间
+- 读：`_IO_read_ptr` 指向缓冲区中还没有读取的下一个字节，`_IO_read_end` 指向缓冲区中可以读取的范围的结尾
+- 写：`_IO_write_ptr` 指向缓冲区中可以写入的下一个字节的位置，`_IO_write_end` 指向缓冲区中可以写入的范围的结尾
 
-这些指针通常会指向一个内部的缓冲区：`_IO_buf_base` 到 `_IO_buf_end`。
+### getc
 
-### underflow
+因此，读取数据的时候，如果 `_IO_read_ptr < _IO_read_end`，可以从 `_IO_read_ptr` 读取数据，并更新 `_IO_read_ptr` 指针即可，正如 `getc` 的实现：
 
-接下来看默认的 __uflow 实现，它会调用 FILE 结构体的 vtable 的 uflow hook，默认指向了 `_IO_default_uflow` 函数：
+```c
+#define __getc_unlocked_body(_fp)					\
+  (__glibc_unlikely ((_fp)->_IO_read_ptr >= (_fp)->_IO_read_end)	\
+   ? __uflow (_fp) : *(unsigned char *) (_fp)->_IO_read_ptr++)
+```
+
+### uflow
+
+但如果缓冲区中没有可以读的数据，即 `_IO_read_ptr >= _IO_read_end`，就需要把更多数据读取到 buffer 中，再获取下一个字节的内容。这是在 `__uflow` 函数中实现的，它会调用 FILE 结构体的 vtable 的 uflow hook，默认指向了 `_IO_default_uflow` 函数：
 
 ```c
 int
@@ -115,6 +123,8 @@ _IO_default_uflow (FILE *fp)
 ```
 
 它会继续调用 vtable 的 underflow hook，然后返回 `_IO_read_ptr` 指向的第一个字符，所以 uflow 就是 underflow 的特殊情况，用于 getc 的场景。
+
+### underflow
 
 接下来看 underflow hook 的实现，默认的 underflow hook 是 `_IO_new_file_underflow` 函数：
 
@@ -200,11 +210,79 @@ _IO_new_file_underflow (FILE *fp)
 }
 ```
 
-可以看到，核心思路就是通过 `read` 系统调用读取更多数据，把数据保存到 `_IO_buf_base` 指向的空间，然后把读取的指针 `_IO_read_ptr` 指向 buffer 的开头，`_IO_read_end` 指向 buffer 中已读取数据的结尾。
+可以看到，核心思路就是通过 `read` 系统调用读取更多数据，把数据保存到 `_IO_buf_base` 指向的空间，然后把读取的指针 `_IO_read_ptr` 指向 buffer 的开头 `_IO_buf_base`，`_IO_read_end` 指向 buffer 中已读取数据的结尾：`_IO_buf_base`。
+
+### 缓冲区初始化
+
+那么缓冲区是怎么初始化的呢？上面的 underflow hook 代码里，当 buffer 为 NULL 的时候，会通过 `_IO_doallocbuf` 函数来初始化缓冲区：
+
+```c
+void
+_IO_doallocbuf (FILE *fp)
+{
+  if (fp->_IO_buf_base)
+    return;
+  if (!(fp->_flags & _IO_UNBUFFERED) || fp->_mode > 0)
+    if (_IO_DOALLOCATE (fp) != EOF)
+      return;
+  _IO_setb (fp, fp->_shortbuf, fp->_shortbuf+1, 0);
+}
+```
+
+如果这个 stream 是 unbuffered（例如 stderr），它就会把 buffer 指向 FILE 结构体自己的 `char _shortbuf[1]` 字段，里面只能保存一个字节的数据，保证了有空间保存 `ungetc` 的数据。
+
+否则，它会调用 doallocate hook，默认指向 `_IO_file_doallocate` 函数：
+
+```c
+int
+_IO_file_doallocate (FILE *fp)
+{
+  size_t size;
+  char *p;
+  struct stat64 st;
+
+  size = BUFSIZ;
+  if (fp->_fileno >= 0 && __builtin_expect (_IO_SYSSTAT (fp, &st), 0) >= 0)
+    {
+      if (S_ISCHR (st.st_mode))
+        {
+          /* Possibly a tty.  */
+          if (
+#ifdef DEV_TTY_P
+              DEV_TTY_P (&st) ||
+#endif
+              local_isatty (fp->_fileno))
+            fp->_flags |= _IO_LINE_BUF;
+        }
+#if defined _STATBUF_ST_BLKSIZE
+      if (st.st_blksize > 0 && st.st_blksize < BUFSIZ)
+        size = st.st_blksize;
+#endif
+    }
+  p = malloc (size);
+  if (__glibc_unlikely (p == NULL))
+    return EOF;
+  _IO_setb (fp, p, p + size, 1);
+  return 1;
+}
+```
+
+即通过 malloc 分配一个缓冲区。
+
+### putc
+
+刚才讲到了 getc 的实现，类似地，putc 的实现则是在 `_IO_write_ptr < _IO_write_end` 的时候，把数据写入到 `_IO_write_ptr` 并更新：
+
+```c
+#define __putc_unlocked_body(_ch, _fp)					\
+  (__glibc_unlikely ((_fp)->_IO_write_ptr >= (_fp)->_IO_write_end)	\
+   ? __overflow (_fp, (unsigned char) (_ch))				\
+   : (unsigned char) (*(_fp)->_IO_write_ptr++ = (_ch)))
+```
 
 ### overflow
 
-默认的 overflow hook 实现是 `_IO_new_file_overflow` 函数：
+同样地，如果缓冲区已满，就需要调用 overflow 函数来处理，默认的 overflow hook 实现是 `_IO_new_file_overflow` 函数：
 
 ```c
 int
@@ -268,7 +346,41 @@ _IO_new_file_overflow (FILE *f, int ch)
 }
 ```
 
-它会尝试把目前缓冲区中的数据写出去，然后在 `_IO_do_write` 函数中重置 write 指针，使得 buffer 可以被复用。
+它会尝试把目前缓冲区中的数据通过 `_IO_do_write` 写出去：
+
+```c
+static size_t
+new_do_write (FILE *fp, const char *data, size_t to_do)
+{
+  size_t count;
+  if (fp->_flags & _IO_IS_APPENDING)
+    /* On a system without a proper O_APPEND implementation,
+       you would need to sys_seek(0, SEEK_END) here, but is
+       not needed nor desirable for Unix- or Posix-like systems.
+       Instead, just indicate that offset (before and after) is
+       unpredictable. */
+    fp->_offset = _IO_pos_BAD;
+  else if (fp->_IO_read_end != fp->_IO_write_base)
+    {
+      off64_t new_pos
+        = _IO_SYSSEEK (fp, fp->_IO_write_base - fp->_IO_read_end, 1);
+      if (new_pos == _IO_pos_BAD)
+        return 0;
+      fp->_offset = new_pos;
+    }
+  count = _IO_SYSWRITE (fp, data, to_do);
+  if (fp->_cur_column && count)
+    fp->_cur_column = _IO_adjust_column (fp->_cur_column - 1, data, count) + 1;
+  _IO_setg (fp, fp->_IO_buf_base, fp->_IO_buf_base, fp->_IO_buf_base);
+  fp->_IO_write_base = fp->_IO_write_ptr = fp->_IO_buf_base;
+  fp->_IO_write_end = (fp->_mode <= 0
+                       && (fp->_flags & (_IO_LINE_BUF | _IO_UNBUFFERED))
+                       ? fp->_IO_buf_base : fp->_IO_buf_end);
+  return count;
+}
+```
+
+它会把缓冲区中的数据通过 `write` 系统调用写出去，然后重置 write 指针，使得 buffer 可以被复用。
 
 ## stdin/stdout/stderr 初始化
 
