@@ -484,6 +484,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/glibc_allocator.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/software/glibc_file.html</loc>
+        <lastmod>2025-04-05</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/glibc_file.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/glibc_file.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/software/linux_graphics.html</loc>
         <lastmod>2025-04-05</lastmod>
         <changefreq>daily</changefreq>
@@ -1056,6 +1063,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/glibc_allocator.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/glibc_allocator.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/software/glibc_file.html</loc>
+        <lastmod>2025-04-05</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/glibc_file.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/glibc_file.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/linux_graphics.html</loc>
