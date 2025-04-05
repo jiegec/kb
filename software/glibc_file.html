@@ -2608,7 +2608,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      控制流挟持
+      控制流劫持
     </span>
   </a>
   
@@ -3543,7 +3543,7 @@
 </span><span id="__span-18-58"><a id="__codelineno-18-58" name="__codelineno-18-58" href="#__codelineno-18-58"></a><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;whoami &amp;&amp; id&quot;</span><span class="p">)</span>
 </span><span id="__span-18-59"><a id="__codelineno-18-59" name="__codelineno-18-59" href="#__codelineno-18-59"></a><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></code></pre></div>
-<h3 id="_3">控制流挟持</h3>
+<h3 id="_3">控制流劫持</h3>
 <p>前面提到，libc 在结束进程前，会遍历 <code>_IO_list_all</code> 链表，每个 FILE 的缓冲区是否还有内容：如果检查 <code>fp-&gt;_IO_write_ptr &gt; fp-&gt;_IO_write_base</code> 或者 <code>_IO_vtable_offset (fp) == 0 &amp;&amp; fp-&gt;_mode &gt; 0 &amp;&amp; (fp-&gt;_wide_data-&gt;_IO_write_ptr &gt; fp-&gt;_wide_data-&gt;_IO_write_base)</code> 成立，就说明还有数据没有通过 write syscall 写出去，这时候就会调用 overflow hook 函数来做这件事情。overflow hook 本身保存在 vtable 中，而 vtable 受到了保护，在 <code>IO_validate_vtable</code> 函数中检查它是否合法，即是否为 glibc 自带的 vtable，此时如果用自己构造的 vtable，就会出现 <code>Fatal error: glibc detected an invalid stdio handle</code> 错误。</p>
 <p>既然不能用 glibc 以外的 vtable，这时候可以利用 glibc 自带的另一个 vtable：<code>IO_wfile_jumps</code>，它的 <code>overflow</code> 函数指向了 <code>_IO_wfile_overflow</code>，而这个函数在一些条件下会调用 <code>_IO_wdoallocbuf</code> 进而调用 <code>_IO_WDOALLOCATE</code>，此时它会从 <code>_wide_data</code> 字段读取 vtable，这个 vtable 是没有检查的，所以可以攻击。演示代码如下：</p>
 <div class="language-c highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
@@ -3702,7 +3702,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月5日 17:06:15">2025年4月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月5日 17:16:13">2025年4月5日</span>
   </span>
 
     
