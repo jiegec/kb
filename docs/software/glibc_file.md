@@ -664,7 +664,7 @@ p.sendline(b"whoami && id")
 p.interactive()
 ```
 
-### 控制流挟持
+### 控制流劫持
 
 前面提到，libc 在结束进程前，会遍历 `_IO_list_all` 链表，每个 FILE 的缓冲区是否还有内容：如果检查 `fp->_IO_write_ptr > fp->_IO_write_base` 或者 `_IO_vtable_offset (fp) == 0 && fp->_mode > 0 && (fp->_wide_data->_IO_write_ptr > fp->_wide_data->_IO_write_base)` 成立，就说明还有数据没有通过 write syscall 写出去，这时候就会调用 overflow hook 函数来做这件事情。overflow hook 本身保存在 vtable 中，而 vtable 受到了保护，在 `IO_validate_vtable` 函数中检查它是否合法，即是否为 glibc 自带的 vtable，此时如果用自己构造的 vtable，就会出现 `Fatal error: glibc detected an invalid stdio handle` 错误。
 
