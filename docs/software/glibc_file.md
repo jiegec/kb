@@ -128,3 +128,53 @@ struct _IO_FILE_plus *_IO_list_all = &_IO_2_1_stderr_;
 2. `_fileno` 字段：stdin 对应 FD 0，stdout 对应 FD 1，stderr 对应 FD 2
 3. `_flags` 字段：设置为 `_IO_MAGIC | _IO_LINKED | _IO_IS_FILEBUF` 加额外的 flags，stdin 额外设置 `_IO_NO_WRITES` 表示不可写，stdout 和 stderr 额外设置 `_IO_NO_READS` 表示不可读，stderr 还额外设置了 `_IO_UNBUFFERED` 表示不做缓冲
 4. 其余部分就是初始化 `lock`、`vtable` 和 `wide_data`，然后把 offset 设置为 `_IO_pos_BAD`
+
+写一段程序通过遍历 `_IO_list_all` 来打印出所有的 `FILE *` 结构体：
+
+```c
+#include <stdint.h>
+#include <stdio.h>
+
+struct _IO_FILE_plus {
+  FILE file;
+  void *vtable;
+};
+
+int main() {
+  // offset obtained by objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep
+  // _IO_2_1_stdin_
+  uint8_t *libc_base = (uint8_t *)stdin - 0x1ec980;
+
+  // offset obtained by objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep
+  // _IO_list_all
+  struct _IO_FILE_plus **list_all =
+      (struct _IO_FILE_plus **)(libc_base + 0x1ed5a0);
+
+  printf("stdin is %p\n", stdin);
+  printf("stdout is %p\n", stdout);
+  printf("stderr is %p\n", stderr);
+  FILE *fp = fopen("log", "w");
+  fprintf(fp, "Hello, world!");
+  printf("fp is %p\n", fp);
+
+  FILE *file = &(*list_all)->file;
+  while (file) {
+    printf("Found FILE * at %p, fd is %d\n", file, file->_fileno);
+    file = file->_chain;
+  }
+  return 0;
+}
+```
+
+输出符合预期：
+
+```c
+stdin is 0x7f64e53f7980
+stdout is 0x7f64e53f86a0
+stderr is 0x7f64e53f85c0
+fp is 0x5650ba3846b0
+Found FILE * at 0x5650ba3846b0, fd is 3
+Found FILE * at 0x7f64e53f85c0, fd is 2
+Found FILE * at 0x7f64e53f86a0, fd is 1
+Found FILE * at 0x7f64e53f7980, fd is 0
+```
