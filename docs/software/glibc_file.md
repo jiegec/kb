@@ -1,5 +1,7 @@
 # glibc FILE 结构体
 
+glibc 2.31 是 ubuntu 20.04 所使用的 libc 版本，本文基于这个版本的代码进行分析，源码可以从 [glibc-2.31 tag](https://github.com/bminor/glibc/tree/glibc-2.31) 中找到。
+
 ## FILE 结构体定义
 
 FILE 结构体定义在 `libio/bits/types/FILE.h` 中，是个对 `_IO_FILE` 的 typedef，而 `_IO_FILE` 定义在 `libio/bits/types/struct_FILE.h` 中：
@@ -97,6 +99,177 @@ struct locked_FILE
 
 这些指针通常会指向一个内部的缓冲区：`_IO_buf_base` 到 `_IO_buf_end`。
 
+### underflow
+
+接下来看默认的 __uflow 实现，它会调用 FILE 结构体的 vtable 的 uflow hook，默认指向了 `_IO_default_uflow` 函数：
+
+```c
+int
+_IO_default_uflow (FILE *fp)
+{
+  int ch = _IO_UNDERFLOW (fp);
+  if (ch == EOF)
+    return EOF;
+  return *(unsigned char *) fp->_IO_read_ptr++;
+}
+```
+
+它会继续调用 vtable 的 underflow hook，然后返回 `_IO_read_ptr` 指向的第一个字符，所以 uflow 就是 underflow 的特殊情况，用于 getc 的场景。
+
+接下来看 underflow hook 的实现，默认的 underflow hook 是 `_IO_new_file_underflow` 函数：
+
+```c
+int
+_IO_new_file_underflow (FILE *fp)
+{
+  ssize_t count;
+
+  /* C99 requires EOF to be "sticky".  */
+  if (fp->_flags & _IO_EOF_SEEN)
+    return EOF;
+
+  if (fp->_flags & _IO_NO_READS)
+    {
+      fp->_flags |= _IO_ERR_SEEN;
+      __set_errno (EBADF);
+      return EOF;
+    }
+  if (fp->_IO_read_ptr < fp->_IO_read_end)
+    return *(unsigned char *) fp->_IO_read_ptr;
+
+  if (fp->_IO_buf_base == NULL)
+    {
+      /* Maybe we already have a push back pointer.  */
+      if (fp->_IO_save_base != NULL)
+        {
+          free (fp->_IO_save_base);
+          fp->_flags &= ~_IO_IN_BACKUP;
+        }
+      _IO_doallocbuf (fp);
+    }
+
+  /* FIXME This can/should be moved to genops ?? */
+  if (fp->_flags & (_IO_LINE_BUF|_IO_UNBUFFERED))
+    {
+      /* We used to flush all line-buffered stream.  This really isn't
+         required by any standard.  My recollection is that
+         traditional Unix systems did this for stdout.  stderr better
+         not be line buffered.  So we do just that here
+         explicitly.  --drepper */
+      _IO_acquire_lock (stdout);
+
+      if ((stdout->_flags & (_IO_LINKED | _IO_NO_WRITES | _IO_LINE_BUF))
+          == (_IO_LINKED | _IO_LINE_BUF))
+        _IO_OVERFLOW (stdout, EOF);
+
+      _IO_release_lock (stdout);
+    }
+
+  _IO_switch_to_get_mode (fp);
+
+  /* This is very tricky. We have to adjust those
+     pointers before we call _IO_SYSREAD () since
+     we may longjump () out while waiting for
+     input. Those pointers may be screwed up. H.J. */
+  fp->_IO_read_base = fp->_IO_read_ptr = fp->_IO_buf_base;
+  fp->_IO_read_end = fp->_IO_buf_base;
+  fp->_IO_write_base = fp->_IO_write_ptr = fp->_IO_write_end
+    = fp->_IO_buf_base;
+
+  count = _IO_SYSREAD (fp, fp->_IO_buf_base,
+                       fp->_IO_buf_end - fp->_IO_buf_base);
+  if (count <= 0)
+    {
+      if (count == 0)
+        fp->_flags |= _IO_EOF_SEEN;
+      else
+        fp->_flags |= _IO_ERR_SEEN, count = 0;
+  }
+  fp->_IO_read_end += count;
+  if (count == 0)
+    {
+      /* If a stream is read to EOF, the calling application may switch active
+         handles.  As a result, our offset cache would no longer be valid, so
+         unset it.  */
+      fp->_offset = _IO_pos_BAD;
+      return EOF;
+    }
+  if (fp->_offset != _IO_pos_BAD)
+    _IO_pos_adjust (fp->_offset, count);
+  return *(unsigned char *) fp->_IO_read_ptr;
+}
+```
+
+可以看到，核心思路就是通过 `read` 系统调用读取更多数据，把数据保存到 `_IO_buf_base` 指向的空间，然后把读取的指针 `_IO_read_ptr` 指向 buffer 的开头，`_IO_read_end` 指向 buffer 中已读取数据的结尾。
+
+### overflow
+
+默认的 overflow hook 实现是 `_IO_new_file_overflow` 函数：
+
+```c
+int
+_IO_new_file_overflow (FILE *f, int ch)
+{
+  if (f->_flags & _IO_NO_WRITES) /* SET ERROR */
+    {
+      f->_flags |= _IO_ERR_SEEN;
+      __set_errno (EBADF);
+      return EOF;
+    }
+  /* If currently reading or no buffer allocated. */
+  if ((f->_flags & _IO_CURRENTLY_PUTTING) == 0 || f->_IO_write_base == NULL)
+    {
+      /* Allocate a buffer if needed. */
+      if (f->_IO_write_base == NULL)
+        {
+          _IO_doallocbuf (f);
+          _IO_setg (f, f->_IO_buf_base, f->_IO_buf_base, f->_IO_buf_base);
+        }
+      /* Otherwise must be currently reading.
+         If _IO_read_ptr (and hence also _IO_read_end) is at the buffer end,
+         logically slide the buffer forwards one block (by setting the
+         read pointers to all point at the beginning of the block).  This
+         makes room for subsequent output.
+         Otherwise, set the read pointers to _IO_read_end (leaving that
+         alone, so it can continue to correspond to the external position). */
+      if (__glibc_unlikely (_IO_in_backup (f)))
+        {
+          size_t nbackup = f->_IO_read_end - f->_IO_read_ptr;
+          _IO_free_backup_area (f);
+          f->_IO_read_base -= MIN (nbackup,
+                                   f->_IO_read_base - f->_IO_buf_base);
+          f->_IO_read_ptr = f->_IO_read_base;
+        }
+
+      if (f->_IO_read_ptr == f->_IO_buf_end)
+        f->_IO_read_end = f->_IO_read_ptr = f->_IO_buf_base;
+      f->_IO_write_ptr = f->_IO_read_ptr;
+      f->_IO_write_base = f->_IO_write_ptr;
+      f->_IO_write_end = f->_IO_buf_end;
+      f->_IO_read_base = f->_IO_read_ptr = f->_IO_read_end;
+
+      f->_flags |= _IO_CURRENTLY_PUTTING;
+      if (f->_mode <= 0 && f->_flags & (_IO_LINE_BUF | _IO_UNBUFFERED))
+        f->_IO_write_end = f->_IO_write_ptr;
+    }
+  if (ch == EOF)
+    return _IO_do_write (f, f->_IO_write_base,
+                         f->_IO_write_ptr - f->_IO_write_base);
+  if (f->_IO_write_ptr == f->_IO_buf_end ) /* Buffer is really full */
+    if (_IO_do_flush (f) == EOF)
+      return EOF;
+  *f->_IO_write_ptr++ = ch;
+  if ((f->_flags & _IO_UNBUFFERED)
+      || ((f->_flags & _IO_LINE_BUF) && ch == '\n'))
+    if (_IO_do_write (f, f->_IO_write_base,
+                      f->_IO_write_ptr - f->_IO_write_base) == EOF)
+      return EOF;
+  return (unsigned char) ch;
+}
+```
+
+它会尝试把目前缓冲区中的数据写出去，然后在 `_IO_do_write` 函数中重置 write 指针，使得 buffer 可以被复用。
+
 ## stdin/stdout/stderr 初始化
 
 stdin/stdout/stderr 是一个初始化好的 `_IO_FILE_plus` 类型的结构体，其定义如下：
@@ -104,9 +277,9 @@ stdin/stdout/stderr 是一个初始化好的 `_IO_FILE_plus` 类型的结构体�
 ```c
 #  define FILEBUF_LITERAL(CHAIN, FLAGS, FD, WDP) \
        { _IO_MAGIC+_IO_LINKED+_IO_IS_FILEBUF+FLAGS, \
-	 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (FILE *) CHAIN, FD, \
-	 0, _IO_pos_BAD, 0, 0, { 0 }, &_IO_stdfile_##FD##_lock, _IO_pos_BAD,\
-	 NULL, WDP, 0 }
+         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (FILE *) CHAIN, FD, \
+         0, _IO_pos_BAD, 0, 0, { 0 }, &_IO_stdfile_##FD##_lock, _IO_pos_BAD,\
+         NULL, WDP, 0 }
 # define DEF_STDFILE(NAME, FD, CHAIN, FLAGS) \
   static _IO_lock_t _IO_stdfile_##FD##_lock = _IO_lock_initializer; \
   static struct _IO_wide_data _IO_wide_data_##FD \
