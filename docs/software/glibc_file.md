@@ -884,6 +884,7 @@ int main() {
   // 0x28: fake_file->file._IO_write_ptr = 1
   // 0x30: fake_file->file._wide_data->_IO_buf_base = 0
   // 0x68: fake_file->file._wide_data->_wide_vtable->__doallocate = system
+  // 0x88: fake_file->file._lock = _IO_stdfile_0_lock (required on glibc 2.38+)
   // 0xa0: fake_file->file._wide_data = fake_file
   // 0xc0: fake_file->file._mode = 0
   // 0xd8: fake_file->vtable = _IO_wfile_jumps
@@ -895,7 +896,7 @@ int main() {
 }
 ```
 
-注：从 glibc 2.38 开始，由于 [Always do locking when accessing streams (bug 15142, bug 14697)](https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26) 的改动，`_IO_cleanup` 会去获取 FILE 结构的锁，此时它的 `_lock` 字段需要指向一个合法的 `_IO_lock_t` 结构体，此时可以复用 stdin/stdout/stderr 已有的锁。
+注：从 glibc 2.38 开始，由于 [Always do locking when accessing streams (bug 15142, bug 14697)](https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26) 的改动，`_IO_cleanup` 会去获取 FILE 结构的锁，此时它的 `_lock` 字段需要指向一个合法的 `_IO_lock_t` 结构体，此时可以复用 stdin/stdout/stderr 已有的锁：`_IO_stdfile_{0,1,2}_lock`。
 
 ## 参考
 
