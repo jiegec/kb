@@ -2327,6 +2327,8 @@ printf("tcache is at %p\n", tcache);
 
 关于 TLS 的工作原理，特别是 glibc 所使用的 initial-exec TLS model，详见 [ELF Handling For Thread-Local Storage](https://www.akkadia.org/drepper/tls.pdf)。
 
+此外，glibc 2.34 还把 malloc/realloc/free/memalign/after_morecore hook 删掉了：虽然符号还在，但是不会被调用。
+
 ### glibc 2.35
 
 glibc 2.35 主要是改进了分配器对 Transparent Huge Page 的支持，其余没有什么变化。
