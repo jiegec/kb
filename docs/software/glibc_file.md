@@ -597,7 +597,7 @@ int main() {
 2. 根据任意地址两字节写，把 stdin 的 _IO_buf_base 指向它自己也就是 `&_IO_buf_base`（初始情况下，它指向 `_IO_2_1_stdin` 的 `_shortbuf` 字段，和 `&_IO_buf_base` 只有最低两字节不同）
 3. 利用 `scanf` 触发 `read(fd, _IO_buf_base, _IO_buf_end - _IO_buf_size)` 系统调用，往 `&_IO_buf_base` 写入 16 字节数据，覆盖掉 `_IO_buf_base` 和 `_IO_buf_end` 的取值：设置 `_IO_buf_base` 为 `__malloc_hook`，设置 `_IO_buf_end` 为 `__malloc_hook + 8`，保证 `_IO_buf_base < _IO_buf_end`
 4. 上一次调用过后，`_IO_read_ptr` 等于 `&_IO_buf_base`，`_IO_read_end` 等于 `_IO_read_ptr + 16`；调用 16 次 getchar，使得 `_IO_read_ptr == _IO_read_end`
-5. 利用 `scanf` 再次触发 `read(fd, _IO_buf_base, _IO_buf_end - _IO_buf_size)` 系统调用 ，往 `_IO_buf_base` 也就是 `__malloc_hook` 写入 8 字节数据：设置 `__malloc_hook` 为 `system`
+5. 利用 `scanf` 再次触发 `read(fd, _IO_buf_base, _IO_buf_end - _IO_buf_size)` 系统调用，往 `_IO_buf_base` 也就是 `__malloc_hook` 写入 8 字节数据：设置 `__malloc_hook` 为 `system`
 6. 最后利用已有的 `malloc(size)` 调用，把 `size` 设置为 `/bin/sh` 字符串的地址，由于 `__malloc_hook` 此时已经指向了 `system`，所以 `malloc("/bin/sh")` 会调用 `system("/bin/sh")` 实现 get shell
 
 利用代码如下：
@@ -800,8 +800,9 @@ int main() {
 
 ## 参考
 
-- [第七届“湖湘杯” House _OF _Emma | 设计思路与解析](https://www.anquanke.com/post/id/260614)
+- [第七届“湖湘杯”House _OF _Emma | 设计思路与解析](https://www.anquanke.com/post/id/260614)
 - [Unexpected heap primitive and unintended solve - codegate quals 2025 writeup](https://rosayxy.github.io/codegate-quals-2025-writeup/)
-- [[原创] House of apple 一种新的glibc中IO攻击方法 (2)](https://bbs.kanxue.com/thread-273832.htm)
+- [[原创] House of apple 一种新的 glibc 中 IO 攻击方法 (2)](https://bbs.kanxue.com/thread-273832.htm)
 - [Advanced Heap Exploitation: File Stream Oriented Programming](https://dangokyo.me/2018/01/01/advanced-heap-exploitation-file-stream-oriented-programming/)
 - [STACK the Flags CTF 2022](https://chovid99.github.io/posts/stack-the-flags-ctf-2022/)
+- [glibc 2.24 下 IO_FILE 的利用](https://ctf-wiki.org/pwn/linux/user-mode/io-file/exploit-in-libc2.24/)

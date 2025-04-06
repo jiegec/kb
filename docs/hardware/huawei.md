@@ -49,7 +49,7 @@
 
 来源：
 
-- [华为 Pura X发售第一时间又消费了！今年最惊喜的拆解，全新的9020换封装工艺了，CPU不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
+- [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
 ## hip07
 
