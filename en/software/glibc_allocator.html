@@ -3938,8 +3938,8 @@
 <p>接下来写一段代码来观察 fast bin 的更新过程：</p>
 <ol>
 <li>由于 fastbin 保存在 <code>main_arena</code> 中，所以我们需要找到 <code>main_arena</code> 的运行时地址</li>
-<li><code>main_arena</code> 不在符号表中，不能直接找到它的地址，此时可以请出 Ghidra 逆向 <code>__libc_malloc</code> 或者 <code>malloc_trim</code> 函数，结合代码找到它的地址是 <code>DAT_002ecb80</code>，它相对 image base 的 offset 是 <code>0x1ecb80</code></li>
-<li>再找一个在符号表中的符号 <code>_IO_2_1_stdout_</code>，在 Ghidra 中找到它的地址是 <code>0x2ed6a0</code>，相对 image base 的 offset 是 <code>0x1ed6a0</code></li>
+<li><code>main_arena</code> 不在 libc 符号表中，不能直接找到它的地址，此时可以通过 libc 的调试符号，找到它相对 image base 的 offset 是 <code>0x1ecb80</code></li>
+<li>再找一个在符号表中的符号 <code>_IO_2_1_stdout_</code>，它相对 image base 的 offset 是 <code>0x1ed6a0</code></li>
 <li>根据以上信息，就可以在运行时找到 libc 的 image base 地址，从而推断 <code>main_arena</code> 的地址，进而找到所有的 fast bin</li>
 <li>下面写一段代码，观察空闲块进入 fast bin 的过程</li>
 </ol>
@@ -4015,7 +4015,7 @@
 </span><span id="__span-25-70"><a id="__codelineno-25-70" name="__codelineno-25-70" href="#__codelineno-25-70"></a><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">libc_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">stdout</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x1ed6a0</span><span class="p">;</span><span class="w"> </span><span class="c1">// offset of _IO_2_1_stdout_</span>
 </span><span id="__span-25-71"><a id="__codelineno-25-71" name="__codelineno-25-71" href="#__codelineno-25-71"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">malloc_state</span><span class="w"> </span><span class="o">*</span><span class="n">main_arena</span><span class="w"> </span><span class="o">=</span>
 </span><span id="__span-25-72"><a id="__codelineno-25-72" name="__codelineno-25-72" href="#__codelineno-25-72"></a><span class="w">      </span><span class="n">libc_base</span><span class="w"> </span><span class="o">+</span>
-</span><span id="__span-25-73"><a id="__codelineno-25-73" name="__codelineno-25-73" href="#__codelineno-25-73"></a><span class="w">      </span><span class="mh">0x1ecb80</span><span class="p">;</span><span class="w"> </span><span class="c1">// offset of main_arena, found by decompiling malloc_trim</span>
+</span><span id="__span-25-73"><a id="__codelineno-25-73" name="__codelineno-25-73" href="#__codelineno-25-73"></a><span class="w">      </span><span class="mh">0x1ecb80</span><span class="p">;</span><span class="w"> </span><span class="c1">// offset of main_arena</span>
 </span><span id="__span-25-74"><a id="__codelineno-25-74" name="__codelineno-25-74" href="#__codelineno-25-74"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NFASTBINS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-25-75"><a id="__codelineno-25-75" name="__codelineno-25-75" href="#__codelineno-25-75"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">main_arena</span><span class="o">-&gt;</span><span class="n">fastbinsY</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-25-76"><a id="__codelineno-25-76" name="__codelineno-25-76" href="#__codelineno-25-76"></a><span class="w">      </span><span class="k">struct</span><span class="w"> </span><span class="nc">malloc_chunk</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">main_arena</span><span class="o">-&gt;</span><span class="n">fastbinsY</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
@@ -5795,7 +5795,7 @@ flowchart TD
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月6日 13:22:50">2025年4月6日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月7日 01:16:58">2025年4月7日</span>
   </span>
 
     
