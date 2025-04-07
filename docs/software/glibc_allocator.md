@@ -530,7 +530,6 @@ if (victim != NULL)
         if (__builtin_expect (victim_idx != idx, 0))
           malloc_printerr ("malloc(): memory corruption (fast)");
         check_remalloced_chunk (av, victim, nb);
-#if USE_TCACHE
         /* While we're here, if we see other chunks of the same size,
           stash them in the tcache.  */
         size_t tc_idx = csize2tidx (nb);
@@ -553,7 +552,6 @@ if (victim != NULL)
                 tcache_put (tc_victim, tc_idx);
               }
           }
-#endif
         void *p = chunk2mem (victim);
         alloc_perturb (p, bytes);
         return p;
@@ -807,7 +805,6 @@ if (in_smallbin_range (nb))
         if (av != &main_arena)
           set_non_main_arena (victim);
         check_malloced_chunk (av, victim, nb);
-#if USE_TCACHE
         /* While we're here, if we see other chunks of the same size,
            stash them in the tcache.  */
         size_t tc_idx = csize2tidx (nb);
@@ -832,7 +829,6 @@ if (in_smallbin_range (nb))
                   }
               }
           }
-#endif
         void *p = chunk2mem (victim);
         alloc_perturb (p, bytes);
         return p;
@@ -1117,7 +1113,6 @@ while ((victim = unsorted_chunks (av)->bk) != unsorted_chunks (av))
         set_inuse_bit_at_offset (victim, size);
         if (av != &main_arena)
           set_non_main_arena (victim);
-#if USE_TCACHE
         /* Fill cache first, return to user only if cache fills.
            We may return one of these chunks later.  */
         if (tcache_nb
@@ -1129,14 +1124,11 @@ while ((victim = unsorted_chunks (av)->bk) != unsorted_chunks (av))
           }
         else
           {
-#endif
-        check_malloced_chunk (av, victim, nb);
-        void *p = chunk2mem (victim);
-        alloc_perturb (p, bytes);
-        return p;
-#if USE_TCACHE
+            check_malloced_chunk (av, victim, nb);
+            void *p = chunk2mem (victim);
+            alloc_perturb (p, bytes);
+            return p;
           }
-#endif
       }
 
     /* place chunk in bin */
@@ -1205,7 +1197,6 @@ while ((victim = unsorted_chunks (av)->bk) != unsorted_chunks (av))
     fwd->bk = victim;
     bck->fd = victim;
 
-#if USE_TCACHE
     /* If we've processed as many chunks as we're allowed while
        filling the cache, return one of the cached ones.  */
     ++tcache_unsorted_count;
@@ -1215,7 +1206,6 @@ while ((victim = unsorted_chunks (av)->bk) != unsorted_chunks (av))
       {
         return tcache_get (tc_idx);
       }
-#endif
 
 #define MAX_ITERS       10000
     if (++iters >= MAX_ITERS)
