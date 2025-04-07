@@ -637,8 +637,8 @@ if ((unsigned long)(size) <= (unsigned long)(get_max_fast ()))
 接下来写一段代码来观察 fast bin 的更新过程：
 
 1. 由于 fastbin 保存在 `main_arena` 中，所以我们需要找到 `main_arena` 的运行时地址
-2. `main_arena` 不在符号表中，不能直接找到它的地址，此时可以请出 Ghidra 逆向 `__libc_malloc` 或者 `malloc_trim` 函数，结合代码找到它的地址是 `DAT_002ecb80`，它相对 image base 的 offset 是 `0x1ecb80`
-3. 再找一个在符号表中的符号 `_IO_2_1_stdout_`，在 Ghidra 中找到它的地址是 `0x2ed6a0`，相对 image base 的 offset 是 `0x1ed6a0`
+2. `main_arena` 不在 libc 符号表中，不能直接找到它的地址，此时可以通过 libc 的调试符号，找到它相对 image base 的 offset 是 `0x1ecb80`
+3. 再找一个在符号表中的符号 `_IO_2_1_stdout_`，它相对 image base 的 offset 是 `0x1ed6a0`
 4. 根据以上信息，就可以在运行时找到 libc 的 image base 地址，从而推断 `main_arena` 的地址，进而找到所有的 fast bin
 5. 下面写一段代码，观察空闲块进入 fast bin 的过程
 
@@ -715,7 +715,7 @@ void dump_fastbin() {
   void *libc_base = (char *)stdout - 0x1ed6a0; // offset of _IO_2_1_stdout_
   struct malloc_state *main_arena =
       libc_base +
-      0x1ecb80; // offset of main_arena, found by decompiling malloc_trim
+      0x1ecb80; // offset of main_arena
   for (int i = 0; i < NFASTBINS; i++) {
     if (main_arena->fastbinsY[i]) {
       struct malloc_chunk *p = main_arena->fastbinsY[i];
