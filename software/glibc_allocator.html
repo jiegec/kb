@@ -5147,7 +5147,7 @@ flowchart TD
 <h3 id="_7">性能优化</h3>
 <p>简单总结一下 glibc 内存分配器的各种性能优化特性：</p>
 <ol>
-<li>tcache 作为一个 thread local 的结构，不需要锁，性能是最好的，所以尽量把空闲块都丢到 tcache 里面，无论是刚 free 的空闲块，还是在 malloc 过程中，顺带把一些空闲块从 fast bin 或者 small bin 丢到 tcache 里，这样页减少了 lock arena 的次数</li>
+<li>tcache 作为一个 thread local 的结构，不需要锁，性能是最好的，所以尽量把空闲块都丢到 tcache 里面，无论是刚 free 的空闲块，还是在 malloc 过程中，顺带把一些空闲块从 fast bin 或者 small bin 丢到 tcache 里，这样也减少了 lock arena 的次数</li>
 <li>fast bin 虽然不再是 thread local，但它在 free 路径上使用原子指令来代替锁，使得 free 在很多时候不需要获取 arena 的锁；而把 fast bin 的空闲块的合并操作挪到 malloc 中进行，此时 arena 的锁是 lock 状态，尽量在一次 lock 的临界区里做更多的事情，减少 lock 的次数</li>
 <li>small bin 和 large bin 的区分，主要是考虑到了分配的块的大小分布，越大倾向于越稀疏；代价是 large bin 需要额外维护 nextsize 链表来快速地寻找不同大小的空闲块</li>
 <li>在回收 unsorted bin 的时候，会进行一个内存局部性优化，即倾向于连续地从同一个块中切出小块用于分配，适合在循环中分配内存的场景</li>
@@ -5785,7 +5785,7 @@ flowchart TD
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月7日 01:24:00">2025年4月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月7日 01:26:24">2025年4月7日</span>
   </span>
 
     
