@@ -1949,7 +1949,7 @@ flowchart TD
 
 简单总结一下 glibc 内存分配器的各种性能优化特性：
 
-1. tcache 作为一个 thread local 的结构，不需要锁，性能是最好的，所以尽量把空闲块都丢到 tcache 里面，无论是刚 free 的空闲块，还是在 malloc 过程中，顺带把一些空闲块从 fast bin 或者 small bin 丢到 tcache 里，这样页减少了 lock arena 的次数
+1. tcache 作为一个 thread local 的结构，不需要锁，性能是最好的，所以尽量把空闲块都丢到 tcache 里面，无论是刚 free 的空闲块，还是在 malloc 过程中，顺带把一些空闲块从 fast bin 或者 small bin 丢到 tcache 里，这样也减少了 lock arena 的次数
 2. fast bin 虽然不再是 thread local，但它在 free 路径上使用原子指令来代替锁，使得 free 在很多时候不需要获取 arena 的锁；而把 fast bin 的空闲块的合并操作挪到 malloc 中进行，此时 arena 的锁是 lock 状态，尽量在一次 lock 的临界区里做更多的事情，减少 lock 的次数
 3. small bin 和 large bin 的区分，主要是考虑到了分配的块的大小分布，越大倾向于越稀疏；代价是 large bin 需要额外维护 nextsize 链表来快速地寻找不同大小的空闲块
 4. 在回收 unsorted bin 的时候，会进行一个内存局部性优化，即倾向于连续地从同一个块中切出小块用于分配，适合在循环中分配内存的场景
