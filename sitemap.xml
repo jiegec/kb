@@ -113,6 +113,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/xiangguchaoqingcai.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/cooking/xihongshichaojidan.html</loc>
+        <lastmod>2025-04-15</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cooking/xihongshichaojidan.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/xihongshichaojidan.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/cryptography/ec.html</loc>
         <lastmod>2025-04-15</lastmod>
         <changefreq>daily</changefreq>
@@ -699,6 +706,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/xiangguchaoqingcai.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cooking/xiangguchaoqingcai.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/cooking/xihongshichaojidan.html</loc>
+        <lastmod>2025-04-15</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/cooking/xihongshichaojidan.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/cooking/xihongshichaojidan.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/cryptography/ec.html</loc>
