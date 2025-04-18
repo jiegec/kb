@@ -31,6 +31,7 @@ SDRAM 相关标准由 JEDEC 制定：
 
 - [JESD235D: HBM](https://www.jedec.org/standards-documents/docs/jesd235a)
 - [JESD238A: HBM3](https://www.jedec.org/system/files/docs/JESD238A.pdf)
+- [JESD270-4: HBM4](https://www.jedec.org/system/files/docs/JESD270-4.pdf)
 
 还有 GDDR SGRAM 系列：
 

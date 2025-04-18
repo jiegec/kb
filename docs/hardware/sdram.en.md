@@ -31,6 +31,7 @@ High-performance HBM is also based on SDRAM technology:
 
 - [JESD235D: HBM](https://www.jedec.org/standards-documents/docs/jesd235a)
 - [JESD238A: HBM3](https://www.jedec.org/system/files/docs/JESD238A.pdf)
+- [JESD270-4: HBM4](https://www.jedec.org/system/files/docs/JESD270-4.pdf)
 
 GDDR SGRAM series:
 
