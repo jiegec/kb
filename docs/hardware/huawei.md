@@ -133,7 +133,7 @@
 
 - ARMv8.5-A
 - SVE (256 bits)
-- part id 0xddd or 0xd05
+- part id 0xddd(?) or 0xd05（和麒麟 9020 大核一样）
 - 96KB L1 Cache, 1MB L2 Cache
 
 来源：
@@ -183,3 +183,14 @@
 
 - [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
 - [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
+
+## part id 列表
+
+- 0xd01: hip08
+- 0xd02: Kirin 9000s/hip09
+- 0xd03: Kirin 9010/hip10/hip10a
+- 0xd05: Kirin 9020/hip10c
+- 0xd06: hip12
+- 0xd22: hip11
+- 0xd42: Kirin 9000s/Kirin 9010
+- 0xddd: hip10c(?)
