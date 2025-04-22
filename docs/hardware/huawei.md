@@ -84,7 +84,7 @@
 ## hip09
 
 - ARMv8.5-A
-- SVE
+- SVE (256 bits)
 - part id 0xd02，和麒麟 9000s 大核一样
 - 华为云 kc2 实例
 - kunpeng 930
@@ -94,6 +94,8 @@
 
 - [Add hip09 machine discribtion](https://github.com/openeuler-mirror/gcc/commit/d9131757175667d35e74d9ee84689039990af768)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
+- [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
+- [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2174)
 
 ## hip09a
 
@@ -112,25 +114,53 @@
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [dpdk/config/arm/meson.build](https://github.com/DPDK/dpdk/blob/fd51012de5369679e807be1d6a81d63ef15015ce/config/arm/meson.build#L275)
 
-## hip10c
+## hip10a
 
 - ARMv8.5-A
-- SVE
-- part id 0xddd
+- SVE + SVE2 (256 bits)
+- part id 0xd03，和麒麟 9010 大核一样
 
 来源：
 
-- [Add hip10c machine discription](https://github.com/openeuler-mirror/gcc/commit/d3a8c59e7eaf99bff77447e08e15898530af8a9e)
+- [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b)
+- [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2207)
+
+## hip10c
+
+- ARMv8.5-A
+- SVE (256 bits)
+- part id 0xddd or 0xd05
+
+来源：
+
+- [Add hip10c machine discription](https://github.com/openeuler-mirror/gcc/commit/d3a8c59e7eaf99bff77447e08e15898530af8a9e) part id 0xddd
+- [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b) part id changes to 0xd05
+- [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240)
 
 ## hip11
 
 - ARMv8.5-A
-- SVE + SVE2
+- SVE + SVE2 (512 bits)
 - part id 0xd22
 
 来源：
 
 - [Add hip11 CPU pipeline scheduling](https://github.com/openeuler-mirror/gcc/commit/824fccdab1d3c5e87fb88b31f0eeb7abd1b35c1f)
+- [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
+- [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
+
+## hip12
+
+- ARMv9.2-A
+- SVE + SVE2 (256 bits)
+- impl id 0x4e instead of 0x48?
+- part id 0xd06
+
+来源：
+
+- [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
+- [Add hip12 core definition and cost model](https://github.com/openeuler-mirror/gcc/commit/c5970536c2caa3980bb1fded812ac0dc8ebf3681)
+- [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2308)
 
 ## Kunpeng 920B
 
