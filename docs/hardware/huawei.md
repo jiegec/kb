@@ -122,6 +122,7 @@
 - SVE + SVE2 (256 bits)
 - part id 0xd03，和麒麟 9010 大核一样
 - 128KB L1 Cache, 1MB L2 Cache
+- 疑似 hip10 和 hip10a 是同一个
 
 来源：
 
