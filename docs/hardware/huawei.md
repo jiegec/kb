@@ -72,6 +72,7 @@
 - kunpeng 920
 - 2.6 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
+- HIP08 appears in ACPI: `ACPI: XSDT 0x000000002F5DFE98 0000B4 (v01 HISI   HIP08    00000000 HISI 20151124)`
 
 来源：
 
