@@ -89,6 +89,7 @@
 - 华为云 kc2 实例
 - kunpeng 930
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng bti ecv
+- 64KB L1 Cache, 512KB L2 Cache
 
 来源：
 
@@ -96,6 +97,7 @@
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
 - [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2174)
+- [hip09_prefetch_tune](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L1746)
 
 ## hip09a
 
@@ -119,6 +121,7 @@
 - ARMv8.5-A
 - SVE + SVE2 (256 bits)
 - part id 0xd03，和麒麟 9010 大核一样
+- 128KB L1 Cache, 1MB L2 Cache
 
 来源：
 
@@ -130,6 +133,7 @@
 - ARMv8.5-A
 - SVE (256 bits)
 - part id 0xddd or 0xd05
+- 96KB L1 Cache, 1MB L2 Cache
 
 来源：
 
@@ -142,6 +146,7 @@
 - ARMv8.5-A
 - SVE + SVE2 (512 bits)
 - part id 0xd22
+- 64KB L1 Cache, 512KB L2 Cache
 
 来源：
 
@@ -155,6 +160,7 @@
 - SVE + SVE2 (256 bits)
 - impl id 0x4e instead of 0x48?
 - part id 0xd06
+- 64KB L1 Cache, 512KB L2 Cache
 
 来源：
 
