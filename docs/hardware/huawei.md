@@ -203,4 +203,5 @@
 - 0xd06: hip12
 - 0xd22: hip11
 - 0xd42: Kirin 9000s/Kirin 9010/Kirin x90
+- 0xd43: Kirin x90
 - 0xddd: hip10c(?)
