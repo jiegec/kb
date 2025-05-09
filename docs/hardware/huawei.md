@@ -16,7 +16,8 @@
 ## 麒麟 9010
 
 - 首发：Pura 70
-- 1x 大核（0xd03），3x 中核（0xd42），4x 小核 Cortex-A510
+- 1x 大核（0xd03），3x 中核（0xd42），4x 小核 Cortex-A510（impl 0x41, part 0xd46）
+- all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
 - 马良 910
 - 丝印 Hi36A0 GFCV121
@@ -59,7 +60,7 @@
 
 来源：
 
-- [【老戴】继续来折腾鸿蒙电脑！有你们最关心的CPU信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
+- [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 
 ## hip07
 
@@ -195,6 +196,10 @@
 - [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
 
 ## part id 列表
+
+implementer 0x48
+
+part id:
 
 - 0xd01: hip08
 - 0xd02: Kirin 9000s/hip09
