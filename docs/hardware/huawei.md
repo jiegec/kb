@@ -17,6 +17,7 @@
 
 - 首发：Pura 70
 - 1x 大核（0xd03，最大 2.3 GHz），3x 中核（0xd42，最大 2.18 GHz），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
+- 2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
 - 马良 910
@@ -55,7 +56,7 @@
 ## 麒麟 X90 on MateBook Pro
 
 - 20 threads
-- part id 0xd03, 0xd43, 0xd42
+- part id 0xd03（8 threads，可能是 4 核，同麒麟 9010 大核）, 0xd43（8 threads，可能是 4 核）, 0xd42（4 threads，可能是 2 核，同麒麟 9010 中核）
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
 
 来源：
