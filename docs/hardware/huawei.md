@@ -51,6 +51,16 @@
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
+## 麒麟 X90 on MateBook Pro
+
+- 20 threads
+- part id 0xd03, 0xd43, 0xd42
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
+
+来源：
+
+- [【老戴】继续来折腾鸿蒙电脑！有你们最关心的CPU信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
+
 ## hip07
 
 - hip07 from DSDT oem table id
@@ -188,9 +198,9 @@
 
 - 0xd01: hip08
 - 0xd02: Kirin 9000s/hip09
-- 0xd03: Kirin 9010/hip10/hip10a
+- 0xd03: Kirin 9010/hip10/hip10a/Kirin x90
 - 0xd05: Kirin 9020/hip10c
 - 0xd06: hip12
 - 0xd22: hip11
-- 0xd42: Kirin 9000s/Kirin 9010
+- 0xd42: Kirin 9000s/Kirin 9010/Kirin x90
 - 0xddd: hip10c(?)
