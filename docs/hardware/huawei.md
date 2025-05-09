@@ -16,7 +16,7 @@
 ## 麒麟 9010
 
 - 首发：Pura 70
-- 1x 大核（0xd03），3x 中核（0xd42），4x 小核 Cortex-A510（impl 0x41, part 0xd46）
+- 1x 大核（0xd03，最大 2.3 GHz），3x 中核（0xd42，最大 2.18 GHz），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
 - 马良 910
