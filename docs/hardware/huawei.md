@@ -146,13 +146,13 @@
 
 - ARMv8.5-A
 - SVE (256 bits)
-- part id 0xddd(?) or 0xd05（和麒麟 9020 大核一样）
+- part id 0xd05（和麒麟 9020 大核一样）
 - 96KB L1 Cache, 1MB L2 Cache
 
 来源：
 
 - [Add hip10c machine discription](https://github.com/openeuler-mirror/gcc/commit/d3a8c59e7eaf99bff77447e08e15898530af8a9e) part id 0xddd
-- [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b) part id changes to 0xd05
+- [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b) part id changes from 0xddd to 0xd05
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240)
 
 ## hip11
@@ -211,4 +211,3 @@ part id:
 - 0xd22: hip11
 - 0xd42: Kirin 9000s/Kirin 9010/Kirin x90
 - 0xd43: Kirin x90
-- 0xddd: hip10c(?)
