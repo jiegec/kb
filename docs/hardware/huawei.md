@@ -173,7 +173,7 @@
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
 - part id 0xd06
-- 64KB L1 Cache, 512KB L2 Cache
+- 128KB L1 Cache, 1MB L2 Cache
 
 来源：
 
