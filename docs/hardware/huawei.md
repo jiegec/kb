@@ -172,7 +172,6 @@
 
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
-- impl id 0x4e instead of 0x48?
 - part id 0xd06
 - 64KB L1 Cache, 512KB L2 Cache
 
@@ -180,6 +179,7 @@
 
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [Add hip12 core definition and cost model](https://github.com/openeuler-mirror/gcc/commit/c5970536c2caa3980bb1fded812ac0dc8ebf3681)
+- [Add hip12 instructions pipeline](https://gitee.com/openeuler/gcc/commit/d63119daeb54cd0c387c1b24981c47d795e5a672)
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2308)
 
 ## Kunpeng 920B
