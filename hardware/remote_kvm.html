@@ -3164,7 +3164,7 @@
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>| Operator   |
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>+------------+
 </span></code></pre></div>
-<p>运维人员通过网络访问远程 KVM，而远程 KVM 通过 HDMI 和 USB 连接到机器上。为了让运维人员可以远程操控机器，远程 KVM 通常会提供一个网页，在网页上可以观看机器的 HDMI 显示输出，运维人员通过网页，可以操作鼠标，键盘按键也会被传输到机器上。为了实现这个功能，远程 KVM 内置了一个采集芯片，可以把 HDMI 的输出转化为数字信号，通过视频编码，以视频流的方式传输到运维人员操作的浏览器是；同时远程 KVM 可以模拟 USB 设备：鼠标、键盘和 U 盘等，从而实现远程的鼠标键盘操控和虚拟镜像的挂载。</p>
+<p>运维人员通过网络访问远程 KVM，而远程 KVM 通过 HDMI 和 USB 连接到机器上。为了让运维人员可以远程操控机器，远程 KVM 通常会提供一个网页，在网页上可以观看机器的 HDMI 显示输出，运维人员通过网页，可以操作鼠标，键盘按键也会被传输到机器上。为了实现这个功能，远程 KVM 内置了一个采集芯片，可以把 HDMI 的输出转化为数字信号，通过视频编码，以视频流的方式传输到运维人员操作的浏览器里；同时远程 KVM 可以模拟 USB 设备：鼠标、键盘和 U 盘等，从而实现远程的鼠标键盘操控和虚拟镜像的挂载。</p>
 <p>在很多服务器中，BMC（Board Management Controller）内置了远程 KVM 的功能，只不过它和机器的集成程度更深：它通常是通过 PCIe 的方式连接服务器的 CPU，通过 PCIe 虚拟出显卡，这个显卡的输出可以直接被 BMC 采集到，不再需要额外的采集芯片。如果没有 BMC，则可以购买一些远程 KVM 的扩展卡，来提供这个功能，例如：</p>
 <ul>
 <li><a href="https://pikvm.org/">PiKVM</a></li>
@@ -3193,7 +3193,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月12日 08:37:49">2025年5月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月12日 08:41:31">2025年5月12日</span>
   </span>
 
     
