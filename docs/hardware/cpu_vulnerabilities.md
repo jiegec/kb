@@ -266,6 +266,27 @@
 - 原理：
 	- 在虚拟机中的攻击者，可以对外设进行 MMIO，MMIO 的不当实现可能会泄露核上宿主机或其他虚拟机的数据
 
+### Indirect Target Selection
+
+- CVE-2024-28956
+- [Indirect Target Selection / INTEL-SA-01153](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/indirect-target-selection.html)
+- [Training Solo](https://www.vusec.net/projects/training-solo/)
+- 原理：
+	- 部分 Intel 的 CPU 有 BUG，使得在缓存行前半部分（根据分支的最后一个字节的位置判断）的间接分支，它的目的地址可以被预测为缓存行后半部分的分支的目的地址
+- 缓解措施：
+	- 微码更新
+	- 把间接分支放到缓存行的后半部分
+
+### Branch Privilege Injection
+
+- CVE-2024-45332
+- [Brnach Privilege Injection](https://comsec.ethz.ch/research/microarch/branch-privilege-injection/)
+- 原理：
+	- 分支预测器的更新是异步的，从一个分支的正确结果出来，到把结果用于分支预测器的训练，需要若干个周期
+	- 切换特权态或者进行 IBPB（Indirect Branch Prediction Barrier）的时候，异步的更新依然在进行，导致有一些分支预测器的更新从一个特权态泄露到了另一个特权态
+- 缓解措施：
+	- 微码更新
+
 ## 缓解措施 Mitigations
 
 ### KASLR
