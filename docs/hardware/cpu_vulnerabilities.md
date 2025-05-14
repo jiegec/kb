@@ -280,7 +280,7 @@
 ### Branch Privilege Injection
 
 - CVE-2024-45332
-- [Brnach Privilege Injection](https://comsec.ethz.ch/research/microarch/branch-privilege-injection/)
+- [Branch Privilege Injection](https://comsec.ethz.ch/research/microarch/branch-privilege-injection/)
 - 原理：
 	- 分支预测器的更新是异步的，从一个分支的正确结果出来，到把结果用于分支预测器的训练，需要若干个周期
 	- 切换特权态或者进行 IBPB（Indirect Branch Prediction Barrier）的时候，异步的更新依然在进行，导致有一些分支预测器的更新从一个特权态泄露到了另一个特权态
