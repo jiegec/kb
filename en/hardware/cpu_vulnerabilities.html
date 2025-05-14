@@ -1609,6 +1609,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#indirect-target-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indirect Target Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-privilege-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Privilege Injection
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3760,6 +3778,35 @@
 </ul>
 </li>
 </ul>
+<h3 id="indirect-target-selection">Indirect Target Selection</h3>
+<ul>
+<li>CVE-2024-28956</li>
+<li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/indirect-target-selection.html">Indirect Target Selection / INTEL-SA-01153</a></li>
+<li><a href="https://www.vusec.net/projects/training-solo/">Training Solo</a></li>
+<li>原理：<ul>
+<li>部分 Intel 的 CPU 有 BUG，使得在缓存行前半部分（根据分支的最后一个字节的位置判断）的间接分支，它的目的地址可以被预测为缓存行后半部分的分支的目的地址</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>微码更新</li>
+<li>把间接分支放到缓存行的后半部分</li>
+</ul>
+</li>
+</ul>
+<h3 id="branch-privilege-injection">Branch Privilege Injection</h3>
+<ul>
+<li>CVE-2024-45332</li>
+<li><a href="https://comsec.ethz.ch/research/microarch/branch-privilege-injection/">Brnach Privilege Injection</a></li>
+<li>原理：<ul>
+<li>分支预测器的更新是异步的，从一个分支的正确结果出来，到把结果用于分支预测器的训练，需要若干个周期</li>
+<li>切换特权态或者进行 IBPB（Indirect Branch Prediction Barrier）的时候，异步的更新依然在进行，导致有一些分支预测器的更新从一个特权态泄露到了另一个特权态</li>
+</ul>
+</li>
+<li>缓解措施：<ul>
+<li>微码更新</li>
+</ul>
+</li>
+</ul>
 <h2 id="mitigations">缓解措施 Mitigations</h2>
 <h3 id="kaslr">KASLR</h3>
 <ul>
@@ -3977,7 +4024,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月25日 09:30:31">2025年3月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月14日 00:53:35">2025年5月14日</span>
   </span>
 
     
