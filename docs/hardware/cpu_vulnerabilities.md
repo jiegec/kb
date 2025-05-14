@@ -355,6 +355,8 @@
 - [Supervisor-Mode Execution Prevention (SMEP)](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/best-practices/related-intel-security-features-technologies.html) 在内核态下，禁止运行（包括推测运行）用户态地址空间内的代码，这样就缩小了攻击者可利用的代码范围
 - 又称 Intel® OS Guard
 - SMEP 本身不能修复漏洞，但可以给攻击者创造更多限制
+- x86 上，SMEP 在 CR4 寄存器中
+- ARMv8 上，这个功能通过 PXN(Privileged eXecute Never) 实现，记录在页表中
 
 ### Supervisor-Mode Access Prevention (SMAP)
 
@@ -370,7 +372,7 @@
 	clac
 	# cannot access user pointers
 	```
-- ARMv8 上，这个功能通过 [PAN(Privileged Acess Never)](https://developer.arm.com/documentation/ddi0601/2025-03/AArch64-Registers/PAN--Privileged-Access-Never) 实现
+- ARMv8 上，这个功能通过 [PSTATE.PAN(Privileged Acess Never)](https://developer.arm.com/documentation/ddi0601/2025-03/AArch64-Registers/PAN--Privileged-Access-Never) 实现
 - 虽然内核不能用用户态的指针访问用户态的数据，但由于 Linux 下所有的物理地址都被映射到了内核的地址空间，所以如果可以获取到用户态的指针对应的物理地址在内核态中被映射的地址，也可以在内核态访问它
 
 ### Bounds Clipping
