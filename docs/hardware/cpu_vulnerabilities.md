@@ -270,7 +270,7 @@
 
 - CVE-2024-28956
 - [Indirect Target Selection / INTEL-SA-01153](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/indirect-target-selection.html)
-- [Training Solo](https://www.vusec.net/projects/training-solo/)
+- [Training Solo](https://www.vusec.net/projects/training-solo/) 发现的其中一个漏洞
 - 原理：
 	- 部分 Intel 的 CPU 有 BUG，使得在缓存行前半部分（根据分支的最后一个字节的位置判断）的间接分支，它的目的地址可以被预测为缓存行后半部分的分支的目的地址
 - 缓解措施：
