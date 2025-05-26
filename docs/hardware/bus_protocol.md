@@ -251,7 +251,7 @@ TileLink 总线协议是 SiFive 公司提出的总线协议，在 Rocket Chip �
 TileLink Uncached(TL-UL 和 TL-UH) 包括了两个 channel：
 
 - A channel: M->S 发送请求，类比 AXI 的 AR/AW/W
-- D channel: S->M 发送响应，类比 AXI 的 R/W
+- D channel: S->M 发送响应，类比 AXI 的 R/B
 
 因此 TileLink 每个周期只能发送读或者写的请求，而 AXI 可以同时在 AR 和 AW channel 上发送请求。
 
