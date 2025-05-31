@@ -721,6 +721,66 @@ slab_empty:
 
 ![](./linux_allocator_slub.png)
 
+### kmalloc
+
+前面提到的都是 `kmem_cache_alloc`，那么如果直接用 kmalloc，会怎么样？来看 kmalloc 的定义：
+
+```c
+// in include/linux/slab.h
+static __always_inline void *kmalloc(size_t size, gfp_t flags)
+{
+	if (__builtin_constant_p(size)) {
+		unsigned int index;
+		if (size > KMALLOC_MAX_CACHE_SIZE)
+			return kmalloc_large(size, flags);
+		index = kmalloc_index(size);
+
+		if (!index)
+			return ZERO_SIZE_PTR;
+
+		return kmem_cache_alloc_trace(
+				kmalloc_caches[kmalloc_type(flags)][index],
+				flags, size);
+	}
+	return __kmalloc(size, flags);
+}
+```
+
+可以看到，它会判断输入的 size 是不是常量，比如传入的是一个 sizeof(struct)，那它就是一个常量，此时会判断它的大小：如果小于或等于 `KMALLOC_MAX_CACHE_SIZE`（等于两倍的页表大小），就会用全局的一系列 kmem_cache 来进行分配，它保存在 kmalloc_cache 数组当中：
+
+```c
+// in include/linux/slab.h
+extern struct kmem_cache *
+kmalloc_caches[NR_KMALLOC_TYPES][KMALLOC_SHIFT_HIGH + 1];
+```
+
+内核会初始化这几种 `kmem_cache`：
+
+```c
+#ifdef CONFIG_ZONE_DMA
+#define KMALLOC_DMA_NAME(sz)	.name[KMALLOC_DMA] = "dma-kmalloc-" #sz,
+#else
+#define KMALLOC_DMA_NAME(sz)
+#endif
+
+#ifdef CONFIG_MEMCG_KMEM
+#define KMALLOC_CGROUP_NAME(sz)	.name[KMALLOC_CGROUP] = "kmalloc-cg-" #sz,
+#else
+#define KMALLOC_CGROUP_NAME(sz)
+#endif
+
+#define INIT_KMALLOC_INFO(__size, __short_size)			\
+{								\
+	.name[KMALLOC_NORMAL]  = "kmalloc-" #__short_size,	\
+	.name[KMALLOC_RECLAIM] = "kmalloc-rcl-" #__short_size,	\
+	KMALLOC_CGROUP_NAME(__short_size)			\
+	KMALLOC_DMA_NAME(__short_size)				\
+	.size = __size,						\
+}
+```
+
+也就是在 `/proc/slabinfo` 里看到的 `kmalloc-*/kmalloc-rcl-*/kmalloc-cg-*/dma-kmalloc-*` 这些 slab cache allocator，它们是全局的，用于各种 kmalloc。
+
 ## 参考
 
 - [Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB](https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf)
