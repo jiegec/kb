@@ -79,6 +79,16 @@ $ ./test_svc &
 $ ./test_clnt
 Original: hello rpc
 Result  : HELLO RPC
+$ rpcinfo
+   program version netid     address                service    owner
+ 305419896    1    udp       0.0.0.0.197.117        -          1001
+ 305419896    1    tcp       0.0.0.0.211.156        -          1001
+$ lsof -c test_svc
+COMMAND     PID   USER   FD   TYPE    DEVICE SIZE/OFF     NODE NAME
+test_svc 825692 jiegec    3u  IPv4 248857870      0t0      UDP *:50549
+test_svc 825692 jiegec    4u  IPv4 248857872      0t0      TCP *:54172 (LISTEN)
 ```
+
+其中 305419896 就是 0x12345678，50549 是 `197*256+117`，54172 是 `211*256+156`。
 
 Credit: 本文由 DeepSeek 辅助编写。
