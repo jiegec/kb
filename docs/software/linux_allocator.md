@@ -494,9 +494,219 @@ return_single:
 这段代码有点长，下面整理一下它的工作流程：
 
 1. 首先尝试读取当前 per-cpu 结构体的 slab（即 `c->page`），如果它是空指针的，那就去分配一个新的 slab
-2. 如果新分配了一个 slab，或者有了 slab，那就把它的 freelist 接管过来：把 `struct page` 里面的 freelist 复制到 per-cpu 结构体里面的 freelist 指针，然后把 `struct page` 里面的 freelist 指针改成 NULL，当然这个过程需要用 compare exchange 来进行，并标记这个 slab 为 frozen 状态，即被一个 per-cpu 占用了
+2. 如果新分配了一个 slab，或者有了 slab，那就把它的 freelist 接管过来：把 `struct page` 里面的 freelist 复制到 per-cpu 结构体里面的 freelist 指针，然后把 `struct page` 里面的 freelist 指针改成 NULL，当然这个过程需要用 compare exchange 来进行，并标记这个 slab 为 frozen 状态，即被一个 cpu core 占用了，只能由这个 cpu core 来分配新的空闲块
 3. 如果获取到一个非空的 freelist，就从链表头分配空闲块，更新 freelist，指向下一个空闲块
 4. 如果没有非空的 freelist，再去分配一个新的 slab
+
+#### kmem_cache_free
+
+接下来看看 free 的实现：
+
+```c
+void kmem_cache_free(struct kmem_cache *s, void *x)
+{
+	s = cache_from_obj(s, x);
+	if (!s)
+		return;
+	slab_free(s, virt_to_head_page(x), x, NULL, 1, _RET_IP_);
+	trace_kmem_cache_free(_RET_IP_, x, s->name);
+}
+```
+
+它首先利用内核的 `virt_to_head_page` 功能来查询这个虚拟地址属于哪个 slab，因为每个 slab 是使用 `alloc_pages` 分配出来的连续的页，所以可以用这个函数快速地找到 slab 的 `struct page`，然后根据它内部的 slab_cache 字段找到它对应的 `struct kmem_cache`。找到 slab 以后，接下来也分 fast path 和 slow path，其中 fast path 逻辑在 `do_slab_free` 中实现：
+
+```c
+static __always_inline void do_slab_free(struct kmem_cache *s,
+				struct page *page, void *head, void *tail,
+				int cnt, unsigned long addr)
+{
+	void *tail_obj = tail ? : head;
+	struct kmem_cache_cpu *c;
+	unsigned long tid;
+
+	/* memcg_slab_free_hook() is already called for bulk free. */
+	if (!tail)
+		memcg_slab_free_hook(s, &head, 1);
+redo:
+	/*
+	 * Determine the currently cpus per cpu slab.
+	 * The cpu may change afterward. However that does not matter since
+	 * data is retrieved via this pointer. If we are on the same cpu
+	 * during the cmpxchg then the free will succeed.
+	 */
+	c = raw_cpu_ptr(s->cpu_slab);
+	tid = READ_ONCE(c->tid);
+
+	/* Same with comment on barrier() in slab_alloc_node() */
+	barrier();
+
+	if (likely(page == c->page)) {
+#ifndef CONFIG_PREEMPT_RT
+		void **freelist = READ_ONCE(c->freelist);
+
+		set_freepointer(s, tail_obj, freelist);
+
+		if (unlikely(!this_cpu_cmpxchg_double(
+				s->cpu_slab->freelist, s->cpu_slab->tid,
+				freelist, tid,
+				head, next_tid(tid)))) {
+
+			note_cmpxchg_failure("slab_free", s, tid);
+			goto redo;
+		}
+#else /* CONFIG_PREEMPT_RT */
+		/*
+		 * We cannot use the lockless fastpath on PREEMPT_RT because if
+		 * a slowpath has taken the local_lock_irqsave(), it is not
+		 * protected against a fast path operation in an irq handler. So
+		 * we need to take the local_lock. We shouldn't simply defer to
+		 * __slab_free() as that wouldn't use the cpu freelist at all.
+		 */
+		void **freelist;
+
+		local_lock(&s->cpu_slab->lock);
+		c = this_cpu_ptr(s->cpu_slab);
+		if (unlikely(page != c->page)) {
+			local_unlock(&s->cpu_slab->lock);
+			goto redo;
+		}
+		tid = c->tid;
+		freelist = c->freelist;
+
+		set_freepointer(s, tail_obj, freelist);
+		c->freelist = head;
+		c->tid = next_tid(tid);
+
+		local_unlock(&s->cpu_slab->lock);
+#endif
+		stat(s, FREE_FASTPATH);
+	} else
+		__slab_free(s, page, head, tail_obj, cnt, addr);
+}
+```
+
+大概思路是，如果要释放的 object，刚好在当前 cpu core 占用的 slab 内，就直接把它放到 per-cpu 的 freelist 链表头即可，不用加锁，直接原子指令完成，所以是 fast path。如果释放的 object 不在当前 cpu core 接管的 slab 内，就进入 slow path，在 `__slab_free` 中实现：
+
+```c
+static void __slab_free(struct kmem_cache *s, struct page *page,
+			void *head, void *tail, int cnt,
+			unsigned long addr)
+
+{
+	void *prior;
+	int was_frozen;
+	struct page new;
+	unsigned long counters;
+	struct kmem_cache_node *n = NULL;
+	unsigned long flags;
+
+	stat(s, FREE_SLOWPATH);
+
+	if (kfence_free(head))
+		return;
+
+	if (kmem_cache_debug(s) &&
+	    !free_debug_processing(s, page, head, tail, cnt, addr))
+		return;
+
+	do {
+		if (unlikely(n)) {
+			spin_unlock_irqrestore(&n->list_lock, flags);
+			n = NULL;
+		}
+		prior = page->freelist;
+		counters = page->counters;
+		set_freepointer(s, tail, prior);
+		new.counters = counters;
+		was_frozen = new.frozen;
+		new.inuse -= cnt;
+		if ((!new.inuse || !prior) && !was_frozen) {
+
+			if (kmem_cache_has_cpu_partial(s) && !prior) {
+
+				/*
+				 * Slab was on no list before and will be
+				 * partially empty
+				 * We can defer the list move and instead
+				 * freeze it.
+				 */
+				new.frozen = 1;
+
+			} else { /* Needs to be taken off a list */
+
+				n = get_node(s, page_to_nid(page));
+				/*
+				 * Speculatively acquire the list_lock.
+				 * If the cmpxchg does not succeed then we may
+				 * drop the list_lock without any processing.
+				 *
+				 * Otherwise the list_lock will synchronize with
+				 * other processors updating the list of slabs.
+				 */
+				spin_lock_irqsave(&n->list_lock, flags);
+
+			}
+		}
+
+	} while (!cmpxchg_double_slab(s, page,
+		prior, counters,
+		head, new.counters,
+		"__slab_free"));
+
+	if (likely(!n)) {
+
+		if (likely(was_frozen)) {
+			/*
+			 * The list lock was not taken therefore no list
+			 * activity can be necessary.
+			 */
+			stat(s, FREE_FROZEN);
+		} else if (new.frozen) {
+			/*
+			 * If we just froze the page then put it onto the
+			 * per cpu partial list.
+			 */
+			put_cpu_partial(s, page, 1);
+			stat(s, CPU_PARTIAL_FREE);
+		}
+
+		return;
+	}
+
+	if (unlikely(!new.inuse && n->nr_partial >= s->min_partial))
+		goto slab_empty;
+
+	/*
+	 * Objects left in the slab. If it was not on the partial list before
+	 * then add it.
+	 */
+	if (!kmem_cache_has_cpu_partial(s) && unlikely(!prior)) {
+		remove_full(s, n, page);
+		add_partial(n, page, DEACTIVATE_TO_TAIL);
+		stat(s, FREE_ADD_PARTIAL);
+	}
+	spin_unlock_irqrestore(&n->list_lock, flags);
+	return;
+
+slab_empty:
+	if (prior) {
+		/*
+		 * Slab on the partial list.
+		 */
+		remove_partial(n, page);
+		stat(s, FREE_REMOVE_PARTIAL);
+	} else {
+		/* Slab must be on the full list */
+		remove_full(s, n, page);
+	}
+
+	spin_unlock_irqrestore(&n->list_lock, flags);
+	stat(s, FREE_SLAB);
+	discard_slab(s, page);
+}
+```
+
+它的思路是，找到对应的 slab，把 object 放到对应的 freelist 内，如果它之前是满的，那么现在就有空闲块了，就可以被放到 partial slab list 中，用于后续的分配。
 
 #### 小结
 
@@ -504,7 +714,7 @@ return_single:
 
 1. 要保存的 object 都是相同大小的，所以把连续的几个页作为一个 slab，内部按照固定大小划分多个块，每个块放一个 object
 2. 每个 slab 维护一个 freelist 单向链表，链表头保存在 slab 的元数据 `struct page` 中，链表的 next 指针保存在空闲块内部
-3. 为了性能，避免锁的使用，维护一个 per-cpu 的 freelist 在 `struct kmem_cache_cpu` 当中，它可以接管 slab 的 freelist，使得这个 slab 只能被当前的 cpu core 使用，此时这个 slab 是 frozen 状态
+3. 为了性能，避免锁的使用，维护一个 per-cpu 的 freelist 在 `struct kmem_cache_cpu` 当中，它可以接管某个 slab，把 slab 的 freelist 里的空闲块都转移到 per-cpu 的 freelist 中，使得这个 slab 只能被当前的 cpu core 来分配新的空闲块，此时这个 slab 是 frozen 状态
 4. 为了实现 NUMA Aware，在分配内存的时候，可以指定在哪个 NUMA Node 上进行，此时会去 `struct kmem_cache.node` 字段寻找对应 NUMA Node 的 partial slab list，在里面寻找有空闲块的 slab 来进行分配
 
 下面是 [Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB](https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf) 文中的结构图，画的比较明了：
