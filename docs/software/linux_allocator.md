@@ -724,3 +724,7 @@ slab_empty:
 ## 参考
 
 - [Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB](https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf)
+- [Linux SLUB Allocator Internals and Debugging, Part 1 of 4](https://blogs.oracle.com/linux/post/linux-slub-allocator-internals-and-debugging-1)
+- [Linux SLUB Allocator Internals and Debugging, Part 2 of 4](https://blogs.oracle.com/linux/post/linux-slub-allocator-internals-and-debugging-2)
+- [Linux SLUB Allocator Internals and Debugging, Part 3 of 4](https://blogs.oracle.com/linux/post/linux-slub-allocator-internals-and-debugging-3)
+- [Linux SLUB Allocator Internals and Debugging, Part 4 of 4](https://blogs.oracle.com/linux/post/linux-slub-allocator-internals-and-debugging-4)
