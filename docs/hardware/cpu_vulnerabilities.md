@@ -297,7 +297,9 @@
 ### Kernel Page Table Isolation (KPTI/PTI/KAISER)
 
 - 又称 KAISER：[论文 KASLR is Dead: Long Live KASLR](https://gruss.cc/files/kaiser.pdf)
+- [Page Table Isolation (PTI)](https://www.kernel.org/doc/html/next/x86/pti.html#page-table-management)
 - 在用户态的页表里，不要映射整个内核态空间，只映射必须映射的部分，进入内核态后，再切换到具有完整的内核态地址空间的页表
+- 特别地，Linux 实现 KPTI 的时候，在内核态使用的完整的页表里，用户态地址会被标记为 NX，也就是不能执行
 - 那么在用户态尝试读取内核态地址的时候，由于地址不在 TLB 当中，也就无法读取内存，不会泄漏数据
 - 修复 Meltdown 漏洞
 
