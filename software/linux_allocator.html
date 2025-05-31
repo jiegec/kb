@@ -1,0 +1,3911 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Knowledge Base of @jiegec">
+      
+      
+      
+        <link rel="canonical" href="https://jia.je/kb/software/linux_allocator.html">
+      
+      
+        <link rel="prev" href="glibc_file.html">
+      
+      
+        <link rel="next" href="linux_graphics.html">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Linux 内存分配器 - 杰哥的知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-3109FRSVTT"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-3109FRSVTT",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-3109FRSVTT",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Linux 内存分配器 - 杰哥的知识库" >
+      
+        <meta  property="og:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/linux_allocator.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://jia.je/kb/software/linux_allocator.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Linux 内存分配器 - 杰哥的知识库" >
+      
+        <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
+      
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/linux_allocator.png" >
+      
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="杰哥的知识库" class="md-header__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            杰哥的知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux 内存分配器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../en/software/linux_allocator.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="linux_allocator.html" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  主页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cooking/bocaichaojidan.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  厨艺
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cryptography/ec.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  密码学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../hardware/async_sram.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  硬件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  数学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../networking/ethernet.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2fa.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  软件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../travel/italy.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  旅行
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="杰哥的知识库" class="md-nav__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    杰哥的知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    主页
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    厨艺
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            厨艺
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/bocaichaojidan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    菠菜炒鸡蛋
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/chaoqincai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    炒芹菜
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/congbaorou.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    葱爆肉
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/ganchaoniuhe.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    干炒牛河
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/jiandan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    煎蛋
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/liangbanzhengqiezi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    凉拌蒸茄子
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/luoboniunanbao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    萝卜牛腩煲
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/pidandoufu.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    皮蛋豆腐
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/qiezichaorou.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    茄子炒肉
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/suanlachaodouya.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    酸辣炒豆芽
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/suanlatudousi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    酸辣土豆丝
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/suanrongchaokongxincai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    蒜蓉炒空心菜
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/suanrongfensizhengdaxia.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    蒜蓉粉丝蒸大虾
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/xiangchunjiandan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    香椿煎蛋
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/xiangguchaoqingcai.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    香菇炒青菜
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking/xihongshichaojidan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    西红柿炒鸡蛋
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    密码学
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            密码学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ec.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    椭圆曲线
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/ecdsa.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ECDSA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/lll.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LLL 格基规约算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/montgomery_mul_mod.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Montgomery 模乘
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/zk_snark.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    zk-SNARK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    硬件
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            硬件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/async_sram.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    异步 SRAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/bus_protocol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    总线协议
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/cache_coherence_protocol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    缓存一致性协议
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/chiplet.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chiplet Interface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/cmos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CMOS (Complementary Metal Oxide Semiconductor)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/conditional_branch_predictor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    条件分支预测器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/cpu_microarchitecture.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU 微架构分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/cpu_vulnerabilities.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU 漏洞和缓解措施
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/cxl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CXL (Compute Express Link)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/display_interface.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    显示接口
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/error_detection_correction_code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    检错纠错码
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/gpgpu.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPGPU (General Purpose Graphics Processing Unit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/high_speed_serial.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    高速串行通信
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/huawei.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    华为芯片
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/i2c.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    I2C (Inter-Integrated Circuit)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/logic_levels.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    逻辑电平标准
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/motherboard.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    主板
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/nand_flash.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NAND Flash
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/on_chip_networks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    片上网络
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/ooo_cpu.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    乱序执行 CPU
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/oscillator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    振荡器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/pcie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PCIe (Peripheral Component Interconnect Express)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/remote_kvm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    远程 KVM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/rvv.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RISC-V Vector (RVV) Extension
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/sdram.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SDRAM (Synchronous Dynamic Random Access Memory)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/signal_processing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    信号处理
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/spi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SPI (Serial Peripheral Interface)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/usb_hci.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    USB Host Controller Interface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数学
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            数学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    抽象代数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    傅立叶变换
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/probability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    概率论
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mathematics/score.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Score
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    网络
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ethernet.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    以太网
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/infiniband.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/spanning_tree_protocol.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STP 协议
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/vlan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VLAN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/wlan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WLAN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    软件
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            软件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2fa.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2FA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="abi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ABI (Application Binary Interface)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="atomic_instructions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    原子指令
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aws-pricing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS Pricing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cfi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    控制流完整性 Control Flow Integrity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    计算机图形学
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cpio.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cpio 文件格式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cuda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CUDA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dijkstra.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dijkstra 算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="doh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNS over HTTPS (DoH)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    垃圾回收 Garbage Collection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gcc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GCC Internals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glibc_allocator.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    glibc 内存分配器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glibc_file.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    glibc FILE 结构体
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Linux 内存分配器
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="linux_allocator.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux 内存分配器
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux-515" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 5.15
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux 5.15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slab-cache-allocator" class="md-nav__link">
+    <span class="md-ellipsis">
+      slab cache allocator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="slab cache allocator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#struct-kmem_cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      struct kmem_cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kmem_cache_alloc-fast-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      kmem_cache_alloc (fast path)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__slab_alloc-slow-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      __slab_alloc (slow path)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      小结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="linux_graphics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux 图形软件栈
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="linux_mm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux 内存管理（Memory Management）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="linux_resctrl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux 资源控制（Resource Control）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="linux_scheduler.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="macos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    macOS Goodies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ohos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenHarmonyOS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="postgresql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redshift.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Amazon Redshift
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sgemm_cuda.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SGEMM on CUDA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spark.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Apache Spark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="svg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SVG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tar.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tar 文件格式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="transformer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transformer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    旅行
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            旅行
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../travel/italy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    意大利
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../travel/itinerary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    行程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/linux_allocator.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="linux">Linux 内存分配器</h1>
+<h2 id="linux-515">Linux 5.15</h2>
+<p>Linux 5.15 是 Ubuntu 22.04 Jammy 使用的默认内核版本。下面针对 Linux 5.15 的源码，分析它的内存分配器实现。</p>
+<p>首先来看 Linux 内核提供了哪些内存分配的 API，参考 <a href="https://www.kernel.org/doc/html/v5.15/core-api/memory-allocation.html">Memory Allocation Guide</a>：</p>
+<ul>
+<li>对于小块数据的分配，用 kmalloc/kmalloc_array/krealloc_array/kcalloc/kzalloc/kmem_cache_alloc</li>
+<li>对于较大块数据的分配，用 vmalloc/vzalloc</li>
+<li>以页为单位进行分配：alloc_pages</li>
+<li>其他专用的分配器：cma_alloc/zs_malloc</li>
+</ul>
+<p>分配时会需要传入一个 GFP（Get Free Pages）参数，常见是 GFP_KERNEL 和 GFP_KERNEL_ACCOUNT，其中后者有额外的安全保护措施，通常用于由用户态触发的内存分配。如果要分配用户态的内存，用 GFP_USER。</p>
+<h3 id="slab-cache-allocator">slab cache allocator</h3>
+<p>其中小块数据的分配，用的是 slab cache allocator，一共有三代实现：SLOB，SLAB 和 SLUB，目前的版本是 SLUB。它会把大小相同的对象放在一起，在 <code>/proc/slabinfo</code> 可以看到它的信息：</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>cat<span class="w"> </span>/proc/slabinfo
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>slabinfo<span class="w"> </span>-<span class="w"> </span>version:<span class="w"> </span><span class="m">2</span>.1
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># name            &lt;active_objs&gt; &lt;num_objs&gt; &lt;objsize&gt; &lt;objperslab&gt; &lt;pagesperslab&gt; : tunables &lt;limit&gt; &lt;batchcount&gt; &lt;sharedfactor&gt; : slabdata &lt;active_slabs&gt; &lt;num_&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>task_struct<span class="w">         </span><span class="m">1922</span><span class="w">   </span><span class="m">2100</span><span class="w">   </span><span class="m">6528</span><span class="w">    </span><span class="m">5</span><span class="w">    </span><span class="m">8</span><span class="w"> </span>:<span class="w"> </span>tunables<span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w"> </span>:<span class="w"> </span>slabdata<span class="w">    </span><span class="m">420</span><span class="w">    </span><span class="m">420</span><span class="w">      </span><span class="m">0</span>
+</span></code></pre></div>
+<p>意思是它可以保存 2100 个 <code>struct task_struct</code>，已经分配了 1922 个，每个 <code>struct task_struct</code> 是 6528 字节，每个 slab 可以保存 5 个 <code>struct task_struct</code>，也就是 <code>6528 * 5 = 32640</code> 字节，保存在 <code>ceil(32640 / 4096) = 8</code> 个 4KB 大小的页。这个叫做 <code>task_struct</code> 的 slab cache allocator 是在代码中这样创建出来的：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// in kernel/fork.c:fork_init</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm">/* create a slab on which task_structs can be allocated */</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">task_struct_whitelist</span><span class="p">(</span><span class="o">&amp;</span><span class="n">useroffset</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">usersize</span><span class="p">);</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">task_struct_cachep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmem_cache_create_usercopy</span><span class="p">(</span><span class="s">&quot;task_struct&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">arch_task_struct_size</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">SLAB_PANIC</span><span class="o">|</span><span class="n">SLAB_ACCOUNT</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">useroffset</span><span class="p">,</span><span class="w"> </span><span class="n">usersize</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span></code></pre></div>
+<p>后续要分配 <code>struct task_struct</code> 的时候，都用这个 <code>struct kmem_cache *</code>：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// in kernel/fork.c</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">task_struct_cachep</span><span class="p">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">alloc_task_struct_node</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">kmem_cache_alloc_node</span><span class="p">(</span><span class="n">task_struct_cachep</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">free_task_struct</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">tsk</span><span class="p">)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">{</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">kmem_cache_free</span><span class="p">(</span><span class="n">task_struct_cachep</span><span class="p">,</span><span class="w"> </span><span class="n">tsk</span><span class="p">);</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="_1">基本概念</h4>
+<p>slab cache allocator 每次只能分配固定大小的内存，所以需要不同的 slab cache allocator，用于分配不同大小的结构体。</p>
+<p>slab cache allocator 使用 alloc_pages 调用去获取 2 的幂次个页，这些页在虚拟地址和物理地址上都是连续的，这些页构成一个 slab，所以上面会看到 pages per slab 都是 2 的幂次。slab cache allocator 会维护多个 slab，每个 slab 对应若干个页。这些页里面会保存实际的对象。</p>
+<h4 id="struct-kmem_cache">struct kmem_cache</h4>
+<p>首先来看这个 <code>struct kmem_cache</code> 是怎么维护内存的。它的定义在 <code>include/linux/slub_def.h</code> 中：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="n">__percpu</span><span class="w"> </span><span class="o">*</span><span class="n">cpu_slab</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="cm">/* Used for retrieving partial slabs, etc. */</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">slab_flags_t</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">min_partial</span><span class="p">;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w">  </span><span class="cm">/* The size of an object including metadata */</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">object_size</span><span class="p">;</span><span class="cm">/* The size of an object without metadata */</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">reciprocal_value</span><span class="w"> </span><span class="n">reciprocal_size</span><span class="p">;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span><span class="w">    </span><span class="cm">/* Free pointer offset */</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="cm">/* Number of per cpu partial objects to keep around */</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cpu_partial</span><span class="p">;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_order_objects</span><span class="w"> </span><span class="n">oo</span><span class="p">;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="cm">/* Allocation and freeing of slabs */</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_order_objects</span><span class="w"> </span><span class="n">max</span><span class="p">;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_order_objects</span><span class="w"> </span><span class="n">min</span><span class="p">;</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">allocflags</span><span class="p">;</span><span class="w">   </span><span class="cm">/* gfp flags to use on each alloc */</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">refcount</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Refcount for slab cache destroy */</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">ctor</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">);</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inuse</span><span class="p">;</span><span class="w">     </span><span class="cm">/* Offset to metadata */</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">align</span><span class="p">;</span><span class="w">     </span><span class="cm">/* Alignment */</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">red_left_pad</span><span class="p">;</span><span class="w">  </span><span class="cm">/* Left redzone padding size */</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Name (only for display!) */</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w"> </span><span class="n">list</span><span class="p">;</span><span class="w">  </span><span class="cm">/* List of slab caches */</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kobject</span><span class="w"> </span><span class="n">kobj</span><span class="p">;</span><span class="w">    </span><span class="cm">/* For sysfs */</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">random</span><span class="p">;</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="cm">/*</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="cm">     * Defragmentation by allocating from a remote node.</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="cm">     */</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">remote_node_defrag_ratio</span><span class="p">;</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">random_seq</span><span class="p">;</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">useroffset</span><span class="p">;</span><span class="w">    </span><span class="cm">/* Usercopy region offset */</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">usersize</span><span class="p">;</span><span class="w">      </span><span class="cm">/* Usercopy region size */</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="p">[</span><span class="n">MAX_NUMNODES</span><span class="p">];</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>在这里面，比较重要的是 <code>struct kmem_cache_node *node[MAX_NUMNODES]</code> 字段，它维护了每个 NUMA Node 对应的内存里保存的数据，在 <code>mm/slab.h</code> 中的定义如下：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">spinlock_t</span><span class="w"> </span><span class="n">list_lock</span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nr_partial</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w"> </span><span class="n">partial</span><span class="p">;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>它的 <code>partial</code> 字段是一个双向链表的链表头，除了 <code>kmem_cache_node</code> 本身，其他的结点的类型都是 <code>struct page</code>，维护了哪些 slab 还有没有被分配的空间。<code>struct page</code> 是在通过 <code>alloc_pages</code> 分配若干个连续的页（即一个 slab）的时候，被构造的结构体，它内部预留了 5 个 size_t 大小的字段，给内核里这些连续的页的使用者预留，在这里 slab cache allocator 就是这个使用者，它的用法是：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w"> </span><span class="n">slab_list</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="cm">/* Partial pages */</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">            </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">pages</span><span class="p">;</span><span class="w">  </span><span class="cm">/* Nr of pages left */</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">pobjects</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Approximate count */</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="p">};</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">slab_cache</span><span class="p">;</span><span class="w"> </span><span class="cm">/* not slob */</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="cm">/* Double-word boundary */</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">freelist</span><span class="p">;</span><span class="w">     </span><span class="cm">/* first free object */</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">counters</span><span class="p">;</span><span class="w">     </span><span class="cm">/* SLUB */</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w">            </span><span class="cm">/* SLUB */</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">inuse</span><span class="o">:</span><span class="mi">16</span><span class="p">;</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">objects</span><span class="o">:</span><span class="mi">15</span><span class="p">;</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">frozen</span><span class="o">:</span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">        </span><span class="p">};</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>也就是说，slab cache allocator 维护了若干个 slab，每个 slab 对应若干个连续的页，它的元数据保存在 <code>struct page</code> 当中，元数据记录了 slab 链表，统计数据，以及 freelist 指针的信息。</p>
+<h4 id="kmem_cache_alloc-fast-path">kmem_cache_alloc (fast path)</h4>
+<p>根据以上信息，可以推测出 slab cache allocator 的工作方式：它会用 alloc_pages 分配并维护连续的若干个页（即一个 slab），然后在页里面放若干个相同大小的 object：这个 object 除了保存实际 malloc 出来的数据以外，还有一些元数据和 padding。当一个 object 被释放的时候，它内部会记录一个指针，指向下一个空闲 object 的地址，然后这些地址组成一个 freelist 的单向链表。这个 freelist 的单向链表的链表头，保存在 <code>struct page</code> 的 freelist 字段里面，或者在后面会看到的 per-cpu 结构体 <code>struct kmem_cache_cpu</code> 的 freelist 字段里面。要分配内存的时候，只需要：</p>
+<ol>
+<li>根据传入的 kmem_cache，找到一个 freelist，为了性能，首先用 per-cpu 的 <code>struct kmem_cache_cpu</code> 的 freelist</li>
+<li>如果 freelist 有空闲块，就把一个空闲块从 freelist 中取出，然后更新 freelist，指向它的下一个空闲块</li>
+<li>如果 freelist 已经满了，就走 slow path，寻找其他 freelist，或者申请更多的页</li>
+</ol>
+<p>接下来看这个 <code>struct kmem_cache</code> 是怎么实现分配的。先不考虑 NUMA-aware，分配的入口是 <code>kmem_cache_alloc</code> 函数：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">// in mm/slub.c</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">kmem_cache_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">_RET_IP_</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">object_size</span><span class="p">);</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">trace_kmem_cache_alloc</span><span class="p">(</span><span class="n">_RET_IP_</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">object_size</span><span class="p">,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">                </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">);</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">}</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">slab_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">orig_size</span><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">{</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">slab_alloc_node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">NUMA_NO_NODE</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">orig_size</span><span class="p">);</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>可以看到最终会调用到 <code>slab_alloc_node</code>，并且通过 <code>NUMA_NO_NODE</code> 表示不指定 NUMA Node。接下来看 <code>slab_alloc_node</code> 的实现：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// in mm/slub.c</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">slab_alloc_node</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">        </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">orig_size</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">{</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">object</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">page</span><span class="p">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">obj_cgroup</span><span class="w"> </span><span class="o">*</span><span class="n">objcg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="c1">// some code omitted</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="c1">// allocation loop</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="nl">redo</span><span class="p">:</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="c1">// access per-cpu cpu_slab field</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">READ_ONCE</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="n">barrier</span><span class="p">();</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="c1">// access freelist and page</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">    </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">    </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">;</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ENABLED</span><span class="p">(</span><span class="n">CONFIG_PREEMPT_RT</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">        </span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">page</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">node_match</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">        </span><span class="c1">// slow-path: call __slab_alloc to do the actual alloc</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="w">        </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">        </span><span class="c1">// fast-path: allocate object from the freelist</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">next_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_freepointer_safe</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">);</span>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">this_cpu_cmpxchg_double</span><span class="p">(</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">                </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">,</span>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="w">                </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">tid</span><span class="p">,</span>
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">                </span><span class="n">next_object</span><span class="p">,</span><span class="w"> </span><span class="n">next_tid</span><span class="p">(</span><span class="n">tid</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="w">            </span><span class="c1">// some code omitted</span>
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">redo</span><span class="p">;</span>
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="w">        </span><span class="c1">// some code omitted</span>
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>
+</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="w">    </span><span class="c1">// some code omitted</span>
+</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">object</span><span class="p">;</span>
+</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>它做的事情是：</p>
+<ol>
+<li>
+<p>读取 kmem_cache 里的 Per-CPU cpu_slab 字段，它是 kmem_cache_cpu 类型，定义如下：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// in include/linux/slub_def.h</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">freelist</span><span class="p">;</span><span class="w">    </span><span class="cm">/* Pointer to next available object */</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span><span class="w">  </span><span class="cm">/* Globally unique transaction id */</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">page</span><span class="p">;</span><span class="w">  </span><span class="cm">/* The slab from which we are allocating */</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">partial</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Partially allocated frozen slabs */</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="n">local_lock_t</span><span class="w"> </span><span class="n">lock</span><span class="p">;</span><span class="w">  </span><span class="cm">/* Protects the fields above */</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">};</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>接下来访问它的 tid 字段，这代表它的 freelist 的版本。先读取版本，再使用 freelist，使用 get_freepointer_safe 函数，找到 freelist 里的下一个空闲块的地址，这个地址就保存在这个空闲块内 offset 的位置：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// in mm/slub.c</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">get_freepointer_safe</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">object</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">freepointer_addr</span><span class="p">;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="c1">// some code is omitted</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="c1">// compute the address of free pointer</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="n">freepointer_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">object</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">;</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="n">copy_from_kernel_nofault</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="n">freepointer_addr</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">freelist_ptr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">freepointer_addr</span><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">}</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>然后使用 cmpxchg，原子更新 freelist 链表头，指向下一个空闲块的地址，失败就会重试分配：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">// in mm/slub.c</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">this_cpu_cmpxchg_double</span><span class="p">(</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">        </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">,</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">        </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">tid</span><span class="p">,</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">        </span><span class="n">next_object</span><span class="p">,</span><span class="w"> </span><span class="n">next_tid</span><span class="p">(</span><span class="n">tid</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="c1">// some code omitted</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">redo</span><span class="p">;</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>如果分配失败，就调用 <code>object = __slab_alloc(s, gfpflags, node, addr, c);</code> 进入 slow path 逻辑</p>
+</li>
+</ol>
+<p>简单来说，在 <code>slab_alloc_node</code> 函数里，实现了一个 fast path 逻辑，它直接访问一个 per-cpu 的结构体，它内部记录了一个 freelist 指针，它是一个把空闲块串起来的单向链表。为了避免不同 CPU 抢占一个共享变量，使用了 per-cpu 结构体。这个思路很像 <a href="glibc_allocator.html">glibc 内存分配器</a> 里的 tcache，它是个 per-thread 的结构体，避免了锁。但内核里有抢占的存在，虽然不用锁，但还是需要用原子指令，为了性能，使用 compare exchange 进行原子更新，这有点类似 <a href="glibc_allocator.html">glibc 内存分配器</a> 里的 fast bin。</p>
+<p>那么，为什么要用版本号 <code>tid</code> 呢？其实这是因为 compare exchange 有 ABA 问题，即从读取旧值到 compare exchange 中途，如果出现了两次改变 <code>A-&gt;B-&gt;A</code>，并且值被变回来了，那么 compare exchange 依然会成功，就好像这两次改变没有发生一样。但是添加版本号以后，即使值变了回来，版本号也变了 <code>(A,0)-&gt;(B,1)-&gt;(A,2)</code>，所以如果 compare exchange 成功，那么中途一定没有其他修改。这个 trick 需要处理器支持双倍 size_t 大小的 compare exchange，并且这个 trick 也被用在 qemu 中：用 compare exchange 模拟 LL/SC 的语义，并且避免 ABA 问题。</p>
+<h4 id="__slab_alloc-slow-path">__slab_alloc (slow path)</h4>
+<p>接下来看 slow path，也就是 __slab_alloc 的实现，此时我们知道 per-cpu 的无锁 freelist 已经是空的，需要去寻找一个没有满的 slab（叫做 partial slab，和 full slab 相对），从它的 freelist 里取出空闲块：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">__slab_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">              </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="cp">#ifdef CONFIG_PREEMPT_COUNT</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="cm">/*</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="cm">     * We may have been preempted and rescheduled on a different</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="cm">     * cpu before disabling preemption. Need to reload cpu area</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="cm">     * pointer.</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="cm">     */</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slub_get_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="cp">#endif</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">___slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="cp">#ifdef CONFIG_PREEMPT_COUNT</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span><span class="n">slub_put_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="cp">#endif</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="p">}</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">___slab_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">              </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="p">{</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">page</span><span class="p">;</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">    </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ALLOC_SLOWPATH</span><span class="p">);</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="nl">reread_page</span><span class="p">:</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="w">    </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">READ_ONCE</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">);</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">page</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="w">        </span><span class="cm">/*</span>
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="cm">         * if the node is not online or has no normal memory, just</span>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="cm">         * ignore the node constraint</span>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="cm">         */</span>
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">node</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">NUMA_NO_NODE</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="w">                 </span><span class="o">!</span><span class="n">node_isset</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">slab_nodes</span><span class="p">)))</span>
+</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a><span class="w">            </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NUMA_NO_NODE</span><span class="p">;</span>
+</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">new_slab</span><span class="p">;</span>
+</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a><span class="nl">redo</span><span class="p">:</span>
+</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>
+</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">node_match</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="w">        </span><span class="cm">/*</span>
+</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a><span class="cm">         * same as above but node_match() being false already</span>
+</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a><span class="cm">         * implies node != NUMA_NO_NODE</span>
+</span><span id="__span-11-50"><a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a><span class="cm">         */</span>
+</span><span id="__span-11-51"><a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">node_isset</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">slab_nodes</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-52"><a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a><span class="w">            </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NUMA_NO_NODE</span><span class="p">;</span>
+</span><span id="__span-11-53"><a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">redo</span><span class="p">;</span>
+</span><span id="__span-11-54"><a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-55"><a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a><span class="w">            </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ALLOC_NODE_MISMATCH</span><span class="p">);</span>
+</span><span id="__span-11-56"><a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">deactivate_slab</span><span class="p">;</span>
+</span><span id="__span-11-57"><a id="__codelineno-11-57" name="__codelineno-11-57" href="#__codelineno-11-57"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-11-58"><a id="__codelineno-11-58" name="__codelineno-11-58" href="#__codelineno-11-58"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-59"><a id="__codelineno-11-59" name="__codelineno-11-59" href="#__codelineno-11-59"></a>
+</span><span id="__span-11-60"><a id="__codelineno-11-60" name="__codelineno-11-60" href="#__codelineno-11-60"></a><span class="w">    </span><span class="cm">/*</span>
+</span><span id="__span-11-61"><a id="__codelineno-11-61" name="__codelineno-11-61" href="#__codelineno-11-61"></a><span class="cm">     * By rights, we should be searching for a slab page that was</span>
+</span><span id="__span-11-62"><a id="__codelineno-11-62" name="__codelineno-11-62" href="#__codelineno-11-62"></a><span class="cm">     * PFMEMALLOC but right now, we are losing the pfmemalloc</span>
+</span><span id="__span-11-63"><a id="__codelineno-11-63" name="__codelineno-11-63" href="#__codelineno-11-63"></a><span class="cm">     * information when the page leaves the per-cpu allocator</span>
+</span><span id="__span-11-64"><a id="__codelineno-11-64" name="__codelineno-11-64" href="#__codelineno-11-64"></a><span class="cm">     */</span>
+</span><span id="__span-11-65"><a id="__codelineno-11-65" name="__codelineno-11-65" href="#__codelineno-11-65"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">pfmemalloc_match_unsafe</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">)))</span>
+</span><span id="__span-11-66"><a id="__codelineno-11-66" name="__codelineno-11-66" href="#__codelineno-11-66"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">deactivate_slab</span><span class="p">;</span>
+</span><span id="__span-11-67"><a id="__codelineno-11-67" name="__codelineno-11-67" href="#__codelineno-11-67"></a>
+</span><span id="__span-11-68"><a id="__codelineno-11-68" name="__codelineno-11-68" href="#__codelineno-11-68"></a><span class="w">    </span><span class="cm">/* must check again c-&gt;page in case we got preempted and it changed */</span>
+</span><span id="__span-11-69"><a id="__codelineno-11-69" name="__codelineno-11-69" href="#__codelineno-11-69"></a><span class="w">    </span><span class="n">local_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-70"><a id="__codelineno-11-70" name="__codelineno-11-70" href="#__codelineno-11-70"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">page</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-71"><a id="__codelineno-11-71" name="__codelineno-11-71" href="#__codelineno-11-71"></a><span class="w">        </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-72"><a id="__codelineno-11-72" name="__codelineno-11-72" href="#__codelineno-11-72"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">reread_page</span><span class="p">;</span>
+</span><span id="__span-11-73"><a id="__codelineno-11-73" name="__codelineno-11-73" href="#__codelineno-11-73"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-74"><a id="__codelineno-11-74" name="__codelineno-11-74" href="#__codelineno-11-74"></a><span class="w">    </span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-75"><a id="__codelineno-11-75" name="__codelineno-11-75" href="#__codelineno-11-75"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">freelist</span><span class="p">)</span>
+</span><span id="__span-11-76"><a id="__codelineno-11-76" name="__codelineno-11-76" href="#__codelineno-11-76"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">load_freelist</span><span class="p">;</span>
+</span><span id="__span-11-77"><a id="__codelineno-11-77" name="__codelineno-11-77" href="#__codelineno-11-77"></a>
+</span><span id="__span-11-78"><a id="__codelineno-11-78" name="__codelineno-11-78" href="#__codelineno-11-78"></a><span class="w">    </span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_freelist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">page</span><span class="p">);</span>
+</span><span id="__span-11-79"><a id="__codelineno-11-79" name="__codelineno-11-79" href="#__codelineno-11-79"></a>
+</span><span id="__span-11-80"><a id="__codelineno-11-80" name="__codelineno-11-80" href="#__codelineno-11-80"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">freelist</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-81"><a id="__codelineno-11-81" name="__codelineno-11-81" href="#__codelineno-11-81"></a><span class="w">        </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-82"><a id="__codelineno-11-82" name="__codelineno-11-82" href="#__codelineno-11-82"></a><span class="w">        </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-83"><a id="__codelineno-11-83" name="__codelineno-11-83" href="#__codelineno-11-83"></a><span class="w">        </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">DEACTIVATE_BYPASS</span><span class="p">);</span>
+</span><span id="__span-11-84"><a id="__codelineno-11-84" name="__codelineno-11-84" href="#__codelineno-11-84"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">new_slab</span><span class="p">;</span>
+</span><span id="__span-11-85"><a id="__codelineno-11-85" name="__codelineno-11-85" href="#__codelineno-11-85"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-86"><a id="__codelineno-11-86" name="__codelineno-11-86" href="#__codelineno-11-86"></a>
+</span><span id="__span-11-87"><a id="__codelineno-11-87" name="__codelineno-11-87" href="#__codelineno-11-87"></a><span class="w">    </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ALLOC_REFILL</span><span class="p">);</span>
+</span><span id="__span-11-88"><a id="__codelineno-11-88" name="__codelineno-11-88" href="#__codelineno-11-88"></a>
+</span><span id="__span-11-89"><a id="__codelineno-11-89" name="__codelineno-11-89" href="#__codelineno-11-89"></a><span class="nl">load_freelist</span><span class="p">:</span>
+</span><span id="__span-11-90"><a id="__codelineno-11-90" name="__codelineno-11-90" href="#__codelineno-11-90"></a>
+</span><span id="__span-11-91"><a id="__codelineno-11-91" name="__codelineno-11-91" href="#__codelineno-11-91"></a><span class="w">    </span><span class="n">lockdep_assert_held</span><span class="p">(</span><span class="n">this_cpu_ptr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">));</span>
+</span><span id="__span-11-92"><a id="__codelineno-11-92" name="__codelineno-11-92" href="#__codelineno-11-92"></a>
+</span><span id="__span-11-93"><a id="__codelineno-11-93" name="__codelineno-11-93" href="#__codelineno-11-93"></a><span class="w">    </span><span class="cm">/*</span>
+</span><span id="__span-11-94"><a id="__codelineno-11-94" name="__codelineno-11-94" href="#__codelineno-11-94"></a><span class="cm">     * freelist is pointing to the list of objects to be used.</span>
+</span><span id="__span-11-95"><a id="__codelineno-11-95" name="__codelineno-11-95" href="#__codelineno-11-95"></a><span class="cm">     * page is pointing to the page from which the objects are obtained.</span>
+</span><span id="__span-11-96"><a id="__codelineno-11-96" name="__codelineno-11-96" href="#__codelineno-11-96"></a><span class="cm">     * That page must be frozen for per cpu allocations to work.</span>
+</span><span id="__span-11-97"><a id="__codelineno-11-97" name="__codelineno-11-97" href="#__codelineno-11-97"></a><span class="cm">     */</span>
+</span><span id="__span-11-98"><a id="__codelineno-11-98" name="__codelineno-11-98" href="#__codelineno-11-98"></a><span class="w">    </span><span class="n">VM_BUG_ON</span><span class="p">(</span><span class="o">!</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="o">-&gt;</span><span class="n">frozen</span><span class="p">);</span>
+</span><span id="__span-11-99"><a id="__codelineno-11-99" name="__codelineno-11-99" href="#__codelineno-11-99"></a><span class="w">    </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_freepointer</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">freelist</span><span class="p">);</span>
+</span><span id="__span-11-100"><a id="__codelineno-11-100" name="__codelineno-11-100" href="#__codelineno-11-100"></a><span class="w">    </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next_tid</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
+</span><span id="__span-11-101"><a id="__codelineno-11-101" name="__codelineno-11-101" href="#__codelineno-11-101"></a><span class="w">    </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-102"><a id="__codelineno-11-102" name="__codelineno-11-102" href="#__codelineno-11-102"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-103"><a id="__codelineno-11-103" name="__codelineno-11-103" href="#__codelineno-11-103"></a>
+</span><span id="__span-11-104"><a id="__codelineno-11-104" name="__codelineno-11-104" href="#__codelineno-11-104"></a><span class="nl">deactivate_slab</span><span class="p">:</span>
+</span><span id="__span-11-105"><a id="__codelineno-11-105" name="__codelineno-11-105" href="#__codelineno-11-105"></a>
+</span><span id="__span-11-106"><a id="__codelineno-11-106" name="__codelineno-11-106" href="#__codelineno-11-106"></a><span class="w">    </span><span class="n">local_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-107"><a id="__codelineno-11-107" name="__codelineno-11-107" href="#__codelineno-11-107"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">page</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-108"><a id="__codelineno-11-108" name="__codelineno-11-108" href="#__codelineno-11-108"></a><span class="w">        </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-109"><a id="__codelineno-11-109" name="__codelineno-11-109" href="#__codelineno-11-109"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">reread_page</span><span class="p">;</span>
+</span><span id="__span-11-110"><a id="__codelineno-11-110" name="__codelineno-11-110" href="#__codelineno-11-110"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-111"><a id="__codelineno-11-111" name="__codelineno-11-111" href="#__codelineno-11-111"></a><span class="w">    </span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-112"><a id="__codelineno-11-112" name="__codelineno-11-112" href="#__codelineno-11-112"></a><span class="w">    </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-113"><a id="__codelineno-11-113" name="__codelineno-11-113" href="#__codelineno-11-113"></a><span class="w">    </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-114"><a id="__codelineno-11-114" name="__codelineno-11-114" href="#__codelineno-11-114"></a><span class="w">    </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-115"><a id="__codelineno-11-115" name="__codelineno-11-115" href="#__codelineno-11-115"></a><span class="w">    </span><span class="n">deactivate_slab</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">freelist</span><span class="p">);</span>
+</span><span id="__span-11-116"><a id="__codelineno-11-116" name="__codelineno-11-116" href="#__codelineno-11-116"></a>
+</span><span id="__span-11-117"><a id="__codelineno-11-117" name="__codelineno-11-117" href="#__codelineno-11-117"></a><span class="nl">new_slab</span><span class="p">:</span>
+</span><span id="__span-11-118"><a id="__codelineno-11-118" name="__codelineno-11-118" href="#__codelineno-11-118"></a>
+</span><span id="__span-11-119"><a id="__codelineno-11-119" name="__codelineno-11-119" href="#__codelineno-11-119"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">slub_percpu_partial</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-120"><a id="__codelineno-11-120" name="__codelineno-11-120" href="#__codelineno-11-120"></a><span class="w">        </span><span class="n">local_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-121"><a id="__codelineno-11-121" name="__codelineno-11-121" href="#__codelineno-11-121"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-122"><a id="__codelineno-11-122" name="__codelineno-11-122" href="#__codelineno-11-122"></a><span class="w">            </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-123"><a id="__codelineno-11-123" name="__codelineno-11-123" href="#__codelineno-11-123"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">reread_page</span><span class="p">;</span>
+</span><span id="__span-11-124"><a id="__codelineno-11-124" name="__codelineno-11-124" href="#__codelineno-11-124"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-11-125"><a id="__codelineno-11-125" name="__codelineno-11-125" href="#__codelineno-11-125"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">slub_percpu_partial</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-126"><a id="__codelineno-11-126" name="__codelineno-11-126" href="#__codelineno-11-126"></a><span class="w">            </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-127"><a id="__codelineno-11-127" name="__codelineno-11-127" href="#__codelineno-11-127"></a><span class="w">            </span><span class="cm">/* we were preempted and partial list got empty */</span>
+</span><span id="__span-11-128"><a id="__codelineno-11-128" name="__codelineno-11-128" href="#__codelineno-11-128"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">new_objects</span><span class="p">;</span>
+</span><span id="__span-11-129"><a id="__codelineno-11-129" name="__codelineno-11-129" href="#__codelineno-11-129"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-11-130"><a id="__codelineno-11-130" name="__codelineno-11-130" href="#__codelineno-11-130"></a>
+</span><span id="__span-11-131"><a id="__codelineno-11-131" name="__codelineno-11-131" href="#__codelineno-11-131"></a><span class="w">        </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slub_percpu_partial</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span><span id="__span-11-132"><a id="__codelineno-11-132" name="__codelineno-11-132" href="#__codelineno-11-132"></a><span class="w">        </span><span class="n">slub_set_percpu_partial</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">page</span><span class="p">);</span>
+</span><span id="__span-11-133"><a id="__codelineno-11-133" name="__codelineno-11-133" href="#__codelineno-11-133"></a><span class="w">        </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-134"><a id="__codelineno-11-134" name="__codelineno-11-134" href="#__codelineno-11-134"></a><span class="w">        </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">CPU_PARTIAL_ALLOC</span><span class="p">);</span>
+</span><span id="__span-11-135"><a id="__codelineno-11-135" name="__codelineno-11-135" href="#__codelineno-11-135"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">redo</span><span class="p">;</span>
+</span><span id="__span-11-136"><a id="__codelineno-11-136" name="__codelineno-11-136" href="#__codelineno-11-136"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-137"><a id="__codelineno-11-137" name="__codelineno-11-137" href="#__codelineno-11-137"></a>
+</span><span id="__span-11-138"><a id="__codelineno-11-138" name="__codelineno-11-138" href="#__codelineno-11-138"></a><span class="nl">new_objects</span><span class="p">:</span>
+</span><span id="__span-11-139"><a id="__codelineno-11-139" name="__codelineno-11-139" href="#__codelineno-11-139"></a>
+</span><span id="__span-11-140"><a id="__codelineno-11-140" name="__codelineno-11-140" href="#__codelineno-11-140"></a><span class="w">    </span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_partial</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">page</span><span class="p">);</span>
+</span><span id="__span-11-141"><a id="__codelineno-11-141" name="__codelineno-11-141" href="#__codelineno-11-141"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">freelist</span><span class="p">)</span>
+</span><span id="__span-11-142"><a id="__codelineno-11-142" name="__codelineno-11-142" href="#__codelineno-11-142"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">check_new_page</span><span class="p">;</span>
+</span><span id="__span-11-143"><a id="__codelineno-11-143" name="__codelineno-11-143" href="#__codelineno-11-143"></a>
+</span><span id="__span-11-144"><a id="__codelineno-11-144" name="__codelineno-11-144" href="#__codelineno-11-144"></a><span class="w">    </span><span class="n">slub_put_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
+</span><span id="__span-11-145"><a id="__codelineno-11-145" name="__codelineno-11-145" href="#__codelineno-11-145"></a><span class="w">    </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_slab</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span>
+</span><span id="__span-11-146"><a id="__codelineno-11-146" name="__codelineno-11-146" href="#__codelineno-11-146"></a><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slub_get_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
+</span><span id="__span-11-147"><a id="__codelineno-11-147" name="__codelineno-11-147" href="#__codelineno-11-147"></a>
+</span><span id="__span-11-148"><a id="__codelineno-11-148" name="__codelineno-11-148" href="#__codelineno-11-148"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">page</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-149"><a id="__codelineno-11-149" name="__codelineno-11-149" href="#__codelineno-11-149"></a><span class="w">        </span><span class="n">slab_out_of_memory</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span>
+</span><span id="__span-11-150"><a id="__codelineno-11-150" name="__codelineno-11-150" href="#__codelineno-11-150"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-151"><a id="__codelineno-11-151" name="__codelineno-11-151" href="#__codelineno-11-151"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-152"><a id="__codelineno-11-152" name="__codelineno-11-152" href="#__codelineno-11-152"></a>
+</span><span id="__span-11-153"><a id="__codelineno-11-153" name="__codelineno-11-153" href="#__codelineno-11-153"></a><span class="w">    </span><span class="cm">/*</span>
+</span><span id="__span-11-154"><a id="__codelineno-11-154" name="__codelineno-11-154" href="#__codelineno-11-154"></a><span class="cm">     * No other reference to the page yet so we can</span>
+</span><span id="__span-11-155"><a id="__codelineno-11-155" name="__codelineno-11-155" href="#__codelineno-11-155"></a><span class="cm">     * muck around with it freely without cmpxchg</span>
+</span><span id="__span-11-156"><a id="__codelineno-11-156" name="__codelineno-11-156" href="#__codelineno-11-156"></a><span class="cm">     */</span>
+</span><span id="__span-11-157"><a id="__codelineno-11-157" name="__codelineno-11-157" href="#__codelineno-11-157"></a><span class="w">    </span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-158"><a id="__codelineno-11-158" name="__codelineno-11-158" href="#__codelineno-11-158"></a><span class="w">    </span><span class="n">page</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-159"><a id="__codelineno-11-159" name="__codelineno-11-159" href="#__codelineno-11-159"></a>
+</span><span id="__span-11-160"><a id="__codelineno-11-160" name="__codelineno-11-160" href="#__codelineno-11-160"></a><span class="w">    </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ALLOC_SLAB</span><span class="p">);</span>
+</span><span id="__span-11-161"><a id="__codelineno-11-161" name="__codelineno-11-161" href="#__codelineno-11-161"></a>
+</span><span id="__span-11-162"><a id="__codelineno-11-162" name="__codelineno-11-162" href="#__codelineno-11-162"></a><span class="nl">check_new_page</span><span class="p">:</span>
+</span><span id="__span-11-163"><a id="__codelineno-11-163" name="__codelineno-11-163" href="#__codelineno-11-163"></a>
+</span><span id="__span-11-164"><a id="__codelineno-11-164" name="__codelineno-11-164" href="#__codelineno-11-164"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kmem_cache_debug</span><span class="p">(</span><span class="n">s</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-165"><a id="__codelineno-11-165" name="__codelineno-11-165" href="#__codelineno-11-165"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">alloc_debug_processing</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">freelist</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-166"><a id="__codelineno-11-166" name="__codelineno-11-166" href="#__codelineno-11-166"></a><span class="w">            </span><span class="cm">/* Slab failed checks. Next slab needed */</span>
+</span><span id="__span-11-167"><a id="__codelineno-11-167" name="__codelineno-11-167" href="#__codelineno-11-167"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">new_slab</span><span class="p">;</span>
+</span><span id="__span-11-168"><a id="__codelineno-11-168" name="__codelineno-11-168" href="#__codelineno-11-168"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-169"><a id="__codelineno-11-169" name="__codelineno-11-169" href="#__codelineno-11-169"></a><span class="w">            </span><span class="cm">/*</span>
+</span><span id="__span-11-170"><a id="__codelineno-11-170" name="__codelineno-11-170" href="#__codelineno-11-170"></a><span class="cm">             * For debug case, we don&#39;t load freelist so that all</span>
+</span><span id="__span-11-171"><a id="__codelineno-11-171" name="__codelineno-11-171" href="#__codelineno-11-171"></a><span class="cm">             * allocations go through alloc_debug_processing()</span>
+</span><span id="__span-11-172"><a id="__codelineno-11-172" name="__codelineno-11-172" href="#__codelineno-11-172"></a><span class="cm">             */</span>
+</span><span id="__span-11-173"><a id="__codelineno-11-173" name="__codelineno-11-173" href="#__codelineno-11-173"></a><span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">return_single</span><span class="p">;</span>
+</span><span id="__span-11-174"><a id="__codelineno-11-174" name="__codelineno-11-174" href="#__codelineno-11-174"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-11-175"><a id="__codelineno-11-175" name="__codelineno-11-175" href="#__codelineno-11-175"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-176"><a id="__codelineno-11-176" name="__codelineno-11-176" href="#__codelineno-11-176"></a>
+</span><span id="__span-11-177"><a id="__codelineno-11-177" name="__codelineno-11-177" href="#__codelineno-11-177"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">pfmemalloc_match</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">)))</span>
+</span><span id="__span-11-178"><a id="__codelineno-11-178" name="__codelineno-11-178" href="#__codelineno-11-178"></a><span class="w">        </span><span class="cm">/*</span>
+</span><span id="__span-11-179"><a id="__codelineno-11-179" name="__codelineno-11-179" href="#__codelineno-11-179"></a><span class="cm">         * For !pfmemalloc_match() case we don&#39;t load freelist so that</span>
+</span><span id="__span-11-180"><a id="__codelineno-11-180" name="__codelineno-11-180" href="#__codelineno-11-180"></a><span class="cm">         * we don&#39;t make further mismatched allocations easier.</span>
+</span><span id="__span-11-181"><a id="__codelineno-11-181" name="__codelineno-11-181" href="#__codelineno-11-181"></a><span class="cm">         */</span>
+</span><span id="__span-11-182"><a id="__codelineno-11-182" name="__codelineno-11-182" href="#__codelineno-11-182"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">return_single</span><span class="p">;</span>
+</span><span id="__span-11-183"><a id="__codelineno-11-183" name="__codelineno-11-183" href="#__codelineno-11-183"></a>
+</span><span id="__span-11-184"><a id="__codelineno-11-184" name="__codelineno-11-184" href="#__codelineno-11-184"></a><span class="nl">retry_load_page</span><span class="p">:</span>
+</span><span id="__span-11-185"><a id="__codelineno-11-185" name="__codelineno-11-185" href="#__codelineno-11-185"></a>
+</span><span id="__span-11-186"><a id="__codelineno-11-186" name="__codelineno-11-186" href="#__codelineno-11-186"></a><span class="w">    </span><span class="n">local_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-187"><a id="__codelineno-11-187" name="__codelineno-11-187" href="#__codelineno-11-187"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-188"><a id="__codelineno-11-188" name="__codelineno-11-188" href="#__codelineno-11-188"></a><span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">flush_freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-189"><a id="__codelineno-11-189" name="__codelineno-11-189" href="#__codelineno-11-189"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">flush_page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="p">;</span>
+</span><span id="__span-11-190"><a id="__codelineno-11-190" name="__codelineno-11-190" href="#__codelineno-11-190"></a>
+</span><span id="__span-11-191"><a id="__codelineno-11-191" name="__codelineno-11-191" href="#__codelineno-11-191"></a><span class="w">        </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-192"><a id="__codelineno-11-192" name="__codelineno-11-192" href="#__codelineno-11-192"></a><span class="w">        </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-11-193"><a id="__codelineno-11-193" name="__codelineno-11-193" href="#__codelineno-11-193"></a><span class="w">        </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next_tid</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
+</span><span id="__span-11-194"><a id="__codelineno-11-194" name="__codelineno-11-194" href="#__codelineno-11-194"></a>
+</span><span id="__span-11-195"><a id="__codelineno-11-195" name="__codelineno-11-195" href="#__codelineno-11-195"></a><span class="w">        </span><span class="n">local_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-11-196"><a id="__codelineno-11-196" name="__codelineno-11-196" href="#__codelineno-11-196"></a>
+</span><span id="__span-11-197"><a id="__codelineno-11-197" name="__codelineno-11-197" href="#__codelineno-11-197"></a><span class="w">        </span><span class="n">deactivate_slab</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">flush_page</span><span class="p">,</span><span class="w"> </span><span class="n">flush_freelist</span><span class="p">);</span>
+</span><span id="__span-11-198"><a id="__codelineno-11-198" name="__codelineno-11-198" href="#__codelineno-11-198"></a>
+</span><span id="__span-11-199"><a id="__codelineno-11-199" name="__codelineno-11-199" href="#__codelineno-11-199"></a><span class="w">        </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">CPUSLAB_FLUSH</span><span class="p">);</span>
+</span><span id="__span-11-200"><a id="__codelineno-11-200" name="__codelineno-11-200" href="#__codelineno-11-200"></a>
+</span><span id="__span-11-201"><a id="__codelineno-11-201" name="__codelineno-11-201" href="#__codelineno-11-201"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">retry_load_page</span><span class="p">;</span>
+</span><span id="__span-11-202"><a id="__codelineno-11-202" name="__codelineno-11-202" href="#__codelineno-11-202"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-203"><a id="__codelineno-11-203" name="__codelineno-11-203" href="#__codelineno-11-203"></a><span class="w">    </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="p">;</span>
+</span><span id="__span-11-204"><a id="__codelineno-11-204" name="__codelineno-11-204" href="#__codelineno-11-204"></a>
+</span><span id="__span-11-205"><a id="__codelineno-11-205" name="__codelineno-11-205" href="#__codelineno-11-205"></a><span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">load_freelist</span><span class="p">;</span>
+</span><span id="__span-11-206"><a id="__codelineno-11-206" name="__codelineno-11-206" href="#__codelineno-11-206"></a>
+</span><span id="__span-11-207"><a id="__codelineno-11-207" name="__codelineno-11-207" href="#__codelineno-11-207"></a><span class="nl">return_single</span><span class="p">:</span>
+</span><span id="__span-11-208"><a id="__codelineno-11-208" name="__codelineno-11-208" href="#__codelineno-11-208"></a>
+</span><span id="__span-11-209"><a id="__codelineno-11-209" name="__codelineno-11-209" href="#__codelineno-11-209"></a><span class="w">    </span><span class="n">deactivate_slab</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">get_freepointer</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">freelist</span><span class="p">));</span>
+</span><span id="__span-11-210"><a id="__codelineno-11-210" name="__codelineno-11-210" href="#__codelineno-11-210"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">freelist</span><span class="p">;</span>
+</span><span id="__span-11-211"><a id="__codelineno-11-211" name="__codelineno-11-211" href="#__codelineno-11-211"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>这段代码有点长，下面整理一下它的工作流程：</p>
+<ol>
+<li>首先尝试读取当前 per-cpu 结构体的 slab（即 <code>c-&gt;page</code>），如果它是空指针的，那就去分配一个新的 slab</li>
+<li>如果新分配了一个 slab，或者有了 slab，那就把它的 freelist 接管过来：把 <code>struct page</code> 里面的 freelist 复制到 per-cpu 结构体里面的 freelist 指针，然后把 <code>struct page</code> 里面的 freelist 指针改成 NULL，当然这个过程需要用 compare exchange 来进行，并标记这个 slab 为 frozen 状态，即被一个 per-cpu 占用了</li>
+<li>如果获取到一个非空的 freelist，就从链表头分配空闲块，更新 freelist，指向下一个空闲块</li>
+<li>如果没有非空的 freelist，再去分配一个新的 slab</li>
+</ol>
+<h4 id="_2">小结</h4>
+<p>所以其实 slab cache allocator 的实现思路并不复杂：</p>
+<ol>
+<li>要保存的 object 都是相同大小的，所以把连续的几个页作为一个 slab，内部按照固定大小划分多个块，每个块放一个 object</li>
+<li>每个 slab 维护一个 freelist 单向链表，链表头保存在 slab 的元数据 <code>struct page</code> 中，链表的 next 指针保存在空闲块内部</li>
+<li>为了性能，避免锁的使用，维护一个 per-cpu 的 freelist 在 <code>struct kmem_cache_cpu</code> 当中，它可以接管 slab 的 freelist，使得这个 slab 只能被当前的 cpu core 使用，此时这个 slab 是 frozen 状态</li>
+<li>为了实现 NUMA Aware，在分配内存的时候，可以指定在哪个 NUMA Node 上进行，此时会去 <code>struct kmem_cache.node</code> 字段寻找对应 NUMA Node 的 partial slab list，在里面寻找有空闲块的 slab 来进行分配</li>
+</ol>
+<p>下面是 <a href="https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf">Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB</a> 文中的结构图，画的比较明了：</p>
+<p><a class="glightbox" href="linux_allocator_slub.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="linux_allocator_slub.png" /></a></p>
+<h2 id="_3">参考</h2>
+<ul>
+<li><a href="https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf">Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月31日 00:24:52">2025年5月31日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月31日 00:24:52">2025年5月31日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+  
+
+
+
+<!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
+<h2 id="__comments">评论</h2>
+<!-- Insert generated snippet here -->
+
+<script src="https://giscus.app/client.js"
+      data-repo="jiegec/kb"
+      data-repo-id="R_kgDOJZwffg"
+      data-category="General"
+      data-category-id="DIC_kwDOJZwffs4CV-wv"
+      data-mapping="pathname"
+      data-strict="1"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+</script>
+                
+
+  <script>
+    var language = "";
+    if (language === "None") {
+      language = "zh";
+    }
+    var prefix = "";
+    var suffix = "";
+    if (language === "zh") {
+      prefix = "图 ";
+      suffix = "：";
+    } else {
+      // en
+      prefix = "Figure ";
+      suffix = ": ";
+    }
+    /* prepend the counter to the figcaption content */
+    var styles = `figure figcaption:before { content: "${prefix}" counter(figureCounter) "${suffix}" }`;
+
+    var styleSheet = document.createElement("style")
+    styleSheet.innerText = styles
+    document.head.appendChild(styleSheet)
+  </script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="glibc_file.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: glibc FILE 结构体">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                glibc FILE 结构体
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="linux_graphics.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux 图形软件栈">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Linux 图形软件栈
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023-2025 Jiajie Chen
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/skins/default.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../javascripts/tablesort.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
