@@ -2791,6 +2791,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#kmalloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      kmalloc
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3916,6 +3925,55 @@
 </ol>
 <p>下面是 <a href="https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf">Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB</a> 文中的结构图，画的比较明了：</p>
 <p><a class="glightbox" href="../../software/linux_allocator_slub.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../software/linux_allocator_slub.png" /></a></p>
+<h3 id="kmalloc">kmalloc</h3>
+<p>前面提到的都是 <code>kmem_cache_alloc</code>，那么如果直接用 kmalloc，会怎么样？来看 kmalloc 的定义：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// in include/linux/slab.h</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">kmalloc</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">flags</span><span class="p">)</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">{</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__builtin_constant_p</span><span class="p">(</span><span class="n">size</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="p">;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">KMALLOC_MAX_CACHE_SIZE</span><span class="p">)</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">kmalloc_large</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">        </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc_index</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">index</span><span class="p">)</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">ZERO_SIZE_PTR</span><span class="p">;</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">kmem_cache_alloc_trace</span><span class="p">(</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">                </span><span class="n">kmalloc_caches</span><span class="p">[</span><span class="n">kmalloc_type</span><span class="p">(</span><span class="n">flags</span><span class="p">)][</span><span class="n">index</span><span class="p">],</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">                </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">__kmalloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>可以看到，它会判断输入的 size 是不是常量，比如传入的是一个 sizeof(struct)，那它就是一个常量，此时会判断它的大小：如果小于或等于 <code>KMALLOC_MAX_CACHE_SIZE</code>（等于两倍的页表大小），就会用全局的一系列 kmem_cache 来进行分配，它保存在 kmalloc_cache 数组当中：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">// in include/linux/slab.h</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">extern</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">kmalloc_caches</span><span class="p">[</span><span class="n">NR_KMALLOC_TYPES</span><span class="p">][</span><span class="n">KMALLOC_SHIFT_HIGH</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+</span></code></pre></div>
+<p>内核会初始化这几种 <code>kmem_cache</code>：</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="cp">#ifdef CONFIG_ZONE_DMA</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="cp">#define KMALLOC_DMA_NAME(sz)    .name[KMALLOC_DMA] = &quot;dma-kmalloc-&quot; #sz,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="cp">#else</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="cp">#define KMALLOC_DMA_NAME(sz)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="cp">#endif</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="cp">#ifdef CONFIG_MEMCG_KMEM</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="cp">#define KMALLOC_CGROUP_NAME(sz) .name[KMALLOC_CGROUP] = &quot;kmalloc-cg-&quot; #sz,</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="cp">#else</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="cp">#define KMALLOC_CGROUP_NAME(sz)</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="cp">#endif</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="cp">#define INIT_KMALLOC_INFO(__size, __short_size)         \</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="cp">{                               \</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="cp">    .name[KMALLOC_NORMAL]  = &quot;kmalloc-&quot; #__short_size,  \</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="cp">    .name[KMALLOC_RECLAIM] = &quot;kmalloc-rcl-&quot; #__short_size,  \</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="cp">    KMALLOC_CGROUP_NAME(__short_size)           \</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="cp">    KMALLOC_DMA_NAME(__short_size)              \</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="cp">    .size = __size,                     \</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="cp">}</span>
+</span></code></pre></div>
+<p>也就是在 <code>/proc/slabinfo</code> 里看到的 <code>kmalloc-*/kmalloc-rcl-*/kmalloc-cg-*/dma-kmalloc-*</code> 这些 slab cache allocator，它们是全局的，用于各种 kmalloc。</p>
 <h2 id="_3">参考</h2>
 <ul>
 <li><a href="https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf">Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB</a></li>
@@ -3946,7 +4004,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月31日 00:45:07">2025年5月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月31日 03:29:20">2025年5月31日</span>
   </span>
 
     
