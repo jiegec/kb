@@ -781,6 +781,8 @@ kmalloc_caches[NR_KMALLOC_TYPES][KMALLOC_SHIFT_HIGH + 1];
 
 也就是在 `/proc/slabinfo` 里看到的 `kmalloc-*/kmalloc-rcl-*/kmalloc-cg-*/dma-kmalloc-*` 这些 slab cache allocator，它们是全局的，用于各种 kmalloc。
 
+此外还有两个特殊的：`kmem_cache` 和 `kmem_cache_node`，它们用来维护 SLUB 自己的 kmem_cache 和 kmem_cache_node 结构体的分配和释放。
+
 ## 参考
 
 - [Slab allocators in the Linux Kernel: SLAB, SLOB, SLUB](https://events.static.linuxfound.org/sites/events/files/slides/slaballocators.pdf)
