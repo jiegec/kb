@@ -1,25 +1,44 @@
 # CTF
 
-## Fake FILE
+## glibc
+
+### fake FILE
 
 构建一个假的 `struct _IO_FILE_plus` 结构体，添加到 _IO_list_all 链表里，当 main 返回的时候，会 flush 它。通过构造特定的结构体内容，可以使得自定义的 `_IO_wdoallocbuf` 指针被调用，把它指向 system，第一个参数也可以被控制为 `/bin/sh` 字符串的指针，进而 get shell。
 
 glibc 2.38+：[在 `_IO_cleanup` 中会调用 `_IO_flockfile` 获取锁](https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26)，所以 lock 字段也需要是合法的。
 
-## malloc hook
+### malloc hook
 
 把 `__malloc_hook` 指向 `system`，控制 size 参数为 `/bin/sh` 字符串的指针，从而实现 get shell。
 
 glibc 2.34+：[移除了 __malloc_hook](https://github.com/bminor/glibc/commit/1e5a5866cb9541b5231dba3d86c8a1a35d516de9)，无法继续使用该办法。
 
-## malloc got
+### malloc got
 
 覆盖 .got.plt 中 malloc@plt 的指针，指向 `system`，控制 size 参数为 `/bin/sh` 字符串的指针，从而实现 get shell。
 
 要求可写的 `.got.plt`，即 `checksec` 报告 `No RELRO` 或 `Partial RELRO`。
 
-## glibc heap
+### heap
 
 glibc 2.32+：检查 chunk 的对齐，并且添加了 safe linking。
 
 详见 [glibc 内存分配器](./glibc_allocator.md)。
+
+## linux
+
+### modprobe path
+
+修改内核的 `modprobe_path` 内容，它指向 modprobe 路径，当内核遇到各种可能在尚未加载的内核模块中实现的功能时，会用 root 权限运行它去寻找合适的内核模块。把它指向攻击者控制的程序，然后用各种方法触发内核的自动 modprobe：
+
+- 执行非法的可执行文件，Linux 6.14+ 删掉了这个功能：[exec: remove legacy custom binfmt modules autoloading](https://github.com/torvalds/linux/commit/fa1bdca98d74472dcdb79cb948b54f63b5886c04)
+- 使用非常规的 socket 参数，例如 `socket(PF_MAX - 1, 0, 0)` 或 `socket(AF_INET, SOCK_STREAM, IPPROTO_MAX - 1)`
+
+### override cred
+
+`task_struct.cred` 字段记录了进程的权限（uid/gid 等），如果能覆盖 uid/gid 为 0，就得到了 root 权限。所以要做的是，找到当前进程的 cred 然后进行覆盖。方法：
+
+- 在堆上寻找当前进程的名字（可以预先用 `prctl(PR_SET_NAME, name)` 设置），它保存在 `task_struct.comm` 字段，在它前面不远就是这个进程的 `task_struct.cred` 字段
+- 在内核态运行 `commit_creds(prepare_kernel_cred(NULL))` 函数（在 Linux 6.2+，改为 `commit_creds(prepare_kernel_cred(&init_task))`，由于 [cred: Do not default to init_cred in prepare_kernel_cred()](https://github.com/torvalds/linux/commit/5a17f040fa332e71a45ca9ff02d6979d9176a423) 这一改动）
+
