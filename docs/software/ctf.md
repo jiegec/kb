@@ -6,6 +6,10 @@
 
 利用 x86 的特性，可以找到一系列 gadget，几条简单的指令，其中最后一条指令是 ret。在栈溢出的时候，通过构造栈，把要执行的一系列的 gadget 的地址放在栈上，使得函数在返回了以后，会按照顺序执行各个 gadget。
 
+### stack pivoting
+
+如果栈溢出可以覆盖的部分比较少，无法放下完整的 return oriented programming 攻击，可以利用一个简单的 gadget，修改 rsp 到一个可控的可以放比较多数据的位置，再进行后续的攻击。
+
 ## glibc
 
 ### fake FILE
