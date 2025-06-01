@@ -2556,15 +2556,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#glibc" class="md-nav__link">
+    <span class="md-ellipsis">
+      glibc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="glibc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#fake-file" class="md-nav__link">
     <span class="md-ellipsis">
-      Fake FILE
+      fake FILE
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#malloc-hook" class="md-nav__link">
     <span class="md-ellipsis">
       malloc hook
@@ -2572,8 +2582,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#malloc-got" class="md-nav__link">
     <span class="md-ellipsis">
       malloc got
@@ -2581,13 +2591,51 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#glibc-heap" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#heap" class="md-nav__link">
     <span class="md-ellipsis">
-      glibc heap
+      heap
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      linux
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modprobe-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      modprobe path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#override-cred" class="md-nav__link">
+    <span class="md-ellipsis">
+      override cred
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3243,18 +3291,32 @@
 
 
 <h1 id="ctf">CTF</h1>
-<h2 id="fake-file">Fake FILE</h2>
+<h2 id="glibc">glibc</h2>
+<h3 id="fake-file">fake FILE</h3>
 <p>构建一个假的 <code>struct _IO_FILE_plus</code> 结构体，添加到 _IO_list_all 链表里，当 main 返回的时候，会 flush 它。通过构造特定的结构体内容，可以使得自定义的 <code>_IO_wdoallocbuf</code> 指针被调用，把它指向 system，第一个参数也可以被控制为 <code>/bin/sh</code> 字符串的指针，进而 get shell。</p>
 <p>glibc 2.38+：<a href="https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26">在 <code>_IO_cleanup</code> 中会调用 <code>_IO_flockfile</code> 获取锁</a>，所以 lock 字段也需要是合法的。</p>
-<h2 id="malloc-hook">malloc hook</h2>
+<h3 id="malloc-hook">malloc hook</h3>
 <p>把 <code>__malloc_hook</code> 指向 <code>system</code>，控制 size 参数为 <code>/bin/sh</code> 字符串的指针，从而实现 get shell。</p>
 <p>glibc 2.34+：<a href="https://github.com/bminor/glibc/commit/1e5a5866cb9541b5231dba3d86c8a1a35d516de9">移除了 __malloc_hook</a>，无法继续使用该办法。</p>
-<h2 id="malloc-got">malloc got</h2>
+<h3 id="malloc-got">malloc got</h3>
 <p>覆盖 .got.plt 中 malloc@plt 的指针，指向 <code>system</code>，控制 size 参数为 <code>/bin/sh</code> 字符串的指针，从而实现 get shell。</p>
 <p>要求可写的 <code>.got.plt</code>，即 <code>checksec</code> 报告 <code>No RELRO</code> 或 <code>Partial RELRO</code>。</p>
-<h2 id="glibc-heap">glibc heap</h2>
+<h3 id="heap">heap</h3>
 <p>glibc 2.32+：检查 chunk 的对齐，并且添加了 safe linking。</p>
 <p>详见 <a href="glibc_allocator.html">glibc 内存分配器</a>。</p>
+<h2 id="linux">linux</h2>
+<h3 id="modprobe-path">modprobe path</h3>
+<p>修改内核的 <code>modprobe_path</code> 内容，它指向 modprobe 路径，当内核遇到各种可能在尚未加载的内核模块中实现的功能时，会用 root 权限运行它去寻找合适的内核模块。把它指向攻击者控制的程序，然后用各种方法触发内核的自动 modprobe：</p>
+<ul>
+<li>执行非法的可执行文件，Linux 6.14+ 删掉了这个功能：<a href="https://github.com/torvalds/linux/commit/fa1bdca98d74472dcdb79cb948b54f63b5886c04">exec: remove legacy custom binfmt modules autoloading</a></li>
+<li>使用非常规的 socket 参数，例如 <code>socket(PF_MAX - 1, 0, 0)</code> 或 <code>socket(AF_INET, SOCK_STREAM, IPPROTO_MAX - 1)</code></li>
+</ul>
+<h3 id="override-cred">override cred</h3>
+<p><code>task_struct.cred</code> 字段记录了进程的权限（uid/gid 等），如果能覆盖 uid/gid 为 0，就得到了 root 权限。所以要做的是，找到当前进程的 cred 然后进行覆盖。方法：</p>
+<ul>
+<li>在堆上寻找当前进程的名字（可以预先用 <code>prctl(PR_SET_NAME, name)</code> 设置），它保存在 <code>task_struct.comm</code> 字段，在它前面不远就是这个进程的 <code>task_struct.cred</code> 字段</li>
+<li>在内核态运行 <code>commit_creds(prepare_kernel_cred(NULL))</code> 函数（在 Linux 6.2+，改为 <code>commit_creds(prepare_kernel_cred(&amp;init_task))</code>，由于 <a href="https://github.com/torvalds/linux/commit/5a17f040fa332e71a45ca9ff02d6979d9176a423">cred: Do not default to init_cred in prepare_kernel_cred()</a> 这一改动）</li>
+</ul>
 
 
 
@@ -3277,7 +3339,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月1日 12:58:19">2025年6月1日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月1日 13:10:47">2025年6月1日</span>
   </span>
 
     
