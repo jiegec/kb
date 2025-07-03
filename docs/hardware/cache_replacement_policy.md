@@ -30,7 +30,7 @@
 
 ## RRIP(Re-Reference Interval Prediction)
 
-每个元素维护一个 RRPV（Re-Reference Prediction Value）值。当元素被换入时，它的 RRPV 设置为比较大的值。当元素被访问时，它的 RRPV 被设置为零。
+每个元素维护一个 RRPV（Re-Reference Prediction Value）值。当元素被换入时，它的 RRPV 设置为比较大的值。当元素被访问时，它的 RRPV 被设置为零（Hit Priority 方式）或者减去一（Frequency Priority 方式）。
 
 替换的时候，给所有元素的 RRPV 值不断同时加一，直到有一个元素的 RRPV 值等于 maxRRPV（RRPV 可能设置的最大值），此时它就是被替换的元素。等价地说，RRPV 最大的元素就是要被替换的元素，同时增加其余元素的 RRPV 值，增加的值，等于 maxRRPV，减去被替换的元素的 RRPV 值。
 
@@ -38,14 +38,14 @@
 
 ### SRRIP(Static RRIP)
 
-RRIP 的一种特殊情况：当元素被换入时，它的 RRPV 值设置为 maxRRPV。
+RRIP 的一种特殊情况：当元素被换入时，它的 RRPV 值设置为 maxRRPV-1。
 
 ### BRRIP(Bimodel RRIP)
 
-RRIP 的一种特殊情况：当元素被换入时，按照一定的概率，把它的 RRPV 值设置为 maxRRPV 或 maxRRPV-1
+RRIP 的一种特殊情况：当元素被换入时，按照一定的概率，把它的 RRPV 值设置为 maxRRPV 或 maxRRPV-1。
 
 ### NRU(Not Recently Used)
 
-RRIP 的一种特殊情况：RRPV 只能设置为零或者一；当元素被换入时，RRPV 设置为零。
+SRRIP 的一种特殊情况：RRPV 只能设置为零或者一；当元素被换入时，RRPV 设置为零。
 
 等价地说：当元素被换入时，RRPV 设置为零。当元素被访问时，RRPV 设置为零。在替换时，如果有 RRPV 等于一的元素，则替换它；如果所有元素的 RRPV 都等于零，则替换其中一个元素，并把剩下的元素的 RRPV 都设置为一。
