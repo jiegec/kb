@@ -3334,6 +3334,7 @@
 <p>替换的时候，随机选择一个合法元素去替换。</p>
 <p>为了优先替换非法元素，特别地，如果有非法元素，那么就优先替非法元素。</p>
 <h2 id="rripre-reference-interval-prediction">RRIP(Re-Reference Interval Prediction)</h2>
+<p>论文：<a href="https://people.csail.mit.edu/emer/media/papers/2010.06.isca.rrip.pdf">High Performance Cache Replacement Using Re-Reference Interval Prediction (RRIP)</a></p>
 <p>每个元素维护一个 RRPV（Re-Reference Prediction Value）值。当元素被换入时，它的 RRPV 设置为比较大的值。当元素被访问时，它的 RRPV 被设置为零（Hit Priority 方式）或者减去一（Frequency Priority 方式）。</p>
 <p>替换的时候，给所有元素的 RRPV 值不断同时加一，直到有一个元素的 RRPV 值等于 maxRRPV（RRPV 可能设置的最大值），此时它就是被替换的元素。等价地说，RRPV 最大的元素就是要被替换的元素，同时增加其余元素的 RRPV 值，增加的值，等于 maxRRPV，减去被替换的元素的 RRPV 值。</p>
 <p>为了优先替换非法元素，特别地，如果有非法元素，那么就优先替非法元素。</p>
@@ -3366,7 +3367,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月3日 17:02:46">2025年7月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月3日 17:05:31">2025年7月3日</span>
   </span>
 
     
