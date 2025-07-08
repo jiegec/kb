@@ -10,7 +10,7 @@
 
 1. 从上一层的输出 $(n, d_{model})$，每个 head 上乘以三个 $(d_{model}, d_{head})$ 的矩阵，得到 Q，K 和 V，尺寸为 $(n, d_{head})$
 2. 按照 attention 激活公式，得到 Z，尺寸为 $(n, d_{head})$
-3. 把所有 head 的 Z 矩阵拼起来，保证 $d_{model} = n_{head} * d_{head}$，那么所有的 Z 拼起来以后得到的矩阵的尺寸为 $(n, d_{head})$
+3. 把所有 head 的 Z 矩阵拼起来，保证 $d_{model} = n_{head} * d_{head}$，那么所有的 Z 拼起来以后得到的矩阵的尺寸为 $(n, d_{model})$
 4. 乘以一个尺寸为 $(d_{model}, d_{model})$ 的 Projection 矩阵，得到新矩阵 $(n, d_{model})$
 5. 经过一个 MLP，MLP 第一层是 $(d_{model}, 4*d_{model})$，第二层是 $(4*d_{model}, d_{model})$
 6. MLP 输出的矩阵尺寸为 $(n, d_{model})$
