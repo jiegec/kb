@@ -1,6 +1,8 @@
 # 华为芯片
 
-## 麒麟 9000s
+## 麒麟
+
+### 麒麟 9000s
 
 - 首发：Mate 60
 - 1x 大核（0xd02），3x 中核（0xd42），4x 小核 Cortex-A510
@@ -13,7 +15,7 @@
 - [麒麟 9000s 芯片性能详细解析——华为 mate60 系列！](https://www.zhihu.com/tardis/zm/art/659619471?source_id=1003)
 - [Kirin 9000S Review: How Powerful is Huawei Mate60 Pro?](https://www.youtube.com/watch?v=SCRIFe0uaac)
 
-## 麒麟 9010
+### 麒麟 9010
 
 - 首发：Pura 70
 - 1x 大核（0xd03，最大 2.3 GHz），3x 中核（0xd42，最大 2.18 GHz），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
@@ -29,7 +31,7 @@
 - [HiSilicon Kirin 9010](https://www.notebookcheck.net/HiSilicon-Kirin-9010-Processor-Benchmarks-and-Specs.855471.0.html)
 - [Huawei’s Kirin 9010 Is a Reality Check for China’s Semiconductor Ambitions](https://zh.ifixit.com/News/95646/huaweis-kirin-9010-is-a-reality-check-for-chinas-semiconductor-ambitions)
 
-## 麒麟 9020
+### 麒麟 9020
 
 - 首发：Mate 70
 - 1x 大核（0xd05），3x 中核，4x 小核
@@ -45,7 +47,7 @@
 - [华为 Mate70 Pro+ 性能分析：麒麟 9020 来啦！](https://www.bilibili.com/video/BV1j6iYYHEYG)
 - [HUAWEI PLA-AL10](https://browser.geekbench.com/v6/cpu/9233574)
 
-## 麒麟 9020 on Pura X
+### 麒麟 9020 on Pura X
 
 - 丝印 Hi36C0 GFCV111
 
@@ -53,7 +55,7 @@
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
-## 麒麟 X90 on MateBook Pro
+### 麒麟 X90 on MateBook Pro
 
 - 20 threads
 - part id 0xd03（8 threads，可能是 4 核，同麒麟 9010 大核）, 0xd43（8 threads，可能是 4 核）, 0xd42（4 threads，可能是 2 核，同麒麟 9010 中核）
@@ -64,17 +66,22 @@
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
 
-## hip07
+## hip
+
+### hip07
 
 - hip07 from DSDT oem table id
 - hi1616
+- kunpeng 916
+- Cortex-A72
 
 来源：
 
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
+- [Kunpeng 916 (Hi1616) - HiSilicon](https://en.wikichip.org/wiki/hisilicon/kunpeng/hi1616)
 
-## hip08
+### hip08
 
 - tsv110
 - part id 0xd01
@@ -93,8 +100,7 @@
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
 
-
-## hip09
+### hip09
 
 - ARMv8.5-A
 - SVE (256 bits)
@@ -112,13 +118,13 @@
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2174)
 - [hip09_prefetch_tune](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L1746)
 
-## hip09a
+### hip09a
 
 来源：
 
 - [ACPI/IORT: Add PMCG platform information for HiSilicon HIP09A](https://github.com/torvalds/linux/commit/c2b46ae022704a2d845e59461fa24431ad627022)
 
-## hip10
+### hip10
 
 - ARMv8.5-A
 - SVE
@@ -129,7 +135,7 @@
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [dpdk/config/arm/meson.build](https://github.com/DPDK/dpdk/blob/fd51012de5369679e807be1d6a81d63ef15015ce/config/arm/meson.build#L275)
 
-## hip10a
+### hip10a
 
 - ARMv8.5-A
 - SVE + SVE2 (256 bits)
@@ -142,7 +148,7 @@
 - [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b)
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2207)
 
-## hip10c
+### hip10c
 
 - ARMv8.5-A
 - SVE (256 bits)
@@ -155,7 +161,7 @@
 - [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b) part id changes from 0xddd to 0xd45
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240)
 
-## hip11
+### hip11
 
 - ARMv8.5-A
 - SVE + SVE2 (512 bits)
@@ -168,7 +174,7 @@
 - [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
 - [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
 
-## hip12
+### hip12
 
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
