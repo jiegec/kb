@@ -203,6 +203,14 @@
 - [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
 - [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
 
+## Kunpeng 920C
+
+- [Server Types Supported by EulerOS V2.0SP12](https://support.huawei.com/enterprise/en/doc/EDOC1100451965/257a3292/server-types-supported-by-euleros-v20sp12)
+
+## Kunpeng 920E
+
+- [Server Types Supported by EulerOS V2.0SP12](https://support.huawei.com/enterprise/en/doc/EDOC1100451965/257a3292/server-types-supported-by-euleros-v20sp12)
+
 ## part id 列表
 
 implementer 0x48
