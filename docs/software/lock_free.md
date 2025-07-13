@@ -86,6 +86,116 @@ template <class T> struct Stack {
 };
 ```
 
+生成的 AMD64 汇编指令如下：
+
+```asm
+tack<int>::push(int const&):
+        # function prologue
+        pushq   %rbp
+        movq    %rsi, %rbp
+        pushq   %rbx
+        # rbx = &head
+        movq    %rdi, %rbx
+
+        # call operator new to allocate 16 bytes of memory
+        movl    $16, %edi
+        subq    $8, %rsp
+        call    operator new(unsigned long)
+        # new_head = new (16)
+        movq    %rax, %rdx
+        # eax = data
+        movl    0(%rbp), %eax
+        # new_head->next = nullptr
+        movq    $0, 8(%rdx)
+        leaq    8(%rdx), %rcx
+        # new_head->data = data
+        movl    %eax, (%rdx)
+        # cur_head = head.load()
+        movq    (%rbx), %rax
+        # new_head->next = cur_head
+        movq    %rax, 8(%rdx)
+.L8:
+        # rax = new_head->next
+        movq    (%rcx), %rax
+        # compare rax(new_head->next) and head
+        # if equal: head = new_head
+        # else: rax = head
+        lock cmpxchgq   %rdx, (%rbx)
+        # jump to .L9 if swapped
+        je      .L9
+        # new_head->next = rax
+        movq    %rax, (%rcx)
+        # try again
+        jmp     .L8
+.L9:
+        addq    $8, %rsp
+        popq    %rbx
+        popq    %rbp
+        ret
+
+Stack<int>::pop():
+        subq    $40, %rsp
+        # cur_head = head.load()
+        movq    (%rdi), %rax
+.L12:
+        testq   %rax, %rax
+        # jump to .L22 if cur_head is null
+        je      .L22
+        # new_head = cur_head->next
+        movq    8(%rax), %rdx
+        # compare rax(cur_head) and head
+        # if equal: head = new_head
+        # else: rax = head
+        lock cmpxchgq   %rdx, (%rdi)
+        # jump to .L12 if not swapped
+        jne     .L12
+        # result = cur_head->data
+        movl    (%rax), %edx
+        testq   %rax, %rax
+        # jump to .L23 if cur_head != NULL
+        jne     .L23
+.L13:
+        movl    %edx, 24(%rsp)
+        movb    $1, 28(%rsp)
+.L14:
+        # return cur_head->data
+        movq    24(%rsp), %rax
+        addq    $40, %rsp
+        ret
+.L23:
+        movl    $16, %esi
+        movq    %rax, %rdi
+        movl    %edx, 12(%rsp)
+        # delete cur_head
+        call    operator delete(void*, unsigned long)
+        movl    12(%rsp), %edx
+        jmp     .L13
+.L22:
+        movq    $0, 24(%rsp)
+        jmp     .L14
+```
+
+可见核心就是 [`lock cmpxchgq reg, mem` 指令](https://www.felixcloutier.com/x86/cmpxchg)，它的语义是：
+
+- 比较 mem 指向的内存中的值和 rax 寄存器的值
+- 如果相等：ZF=1，把 reg 的值写入到 mem 指向的内容
+- 如果不相等：ZF=0，把 mem 指向的内存中的值，写入到 rax 寄存器
+
+并且整个过程是原子的。
+
+在 ARMv8.1-a 上编译，则：
+
+- push 会用 CASL 指令实现 release order 的 64-bit CAS
+- pop 会用 CASA 指令实现 acquire order 的 64-bit CAS
+
+`CAS{A,L} Xs, Xt, [Xn|SP, #0]` 的语义：
+
+- 比较 [Xn|SP, #0] 指向的内存中的值和 Xs 寄存器的值
+- 如果相等：把 Xt 的值写入到 [Xn|SP, #0] 指向的内容
+- 如果不相等：把 [Xn|SP, #0] 指向的内存中的值，写入到 Xs 寄存器
+
+为了判断是否交换成功，还需要额外的 CMP 指令，判断 Xs 在执行 CAS 指令前后的值是否相同。
+
 ### ABA 问题以及解决方法
 
 但是这样的实现有一个 ABA 问题：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push 回来，此时恰好 `new` 出来了同一个指针，就会导致 CAS 写入的 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值是非法的：
