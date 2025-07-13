@@ -27,6 +27,8 @@ template <class T> struct Stack {
   // head of singly linked list
   std::atomic<Node<T> *> head;
 
+  Stack() : head(nullptr) {}
+
   // paper: PUTEL
   void push(const T &data) {
     Node<T> *new_head = new Node<T>(data);
