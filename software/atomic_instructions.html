@@ -3620,7 +3620,7 @@
 <li>Alpha: ldl_l/stl_c, ldq_l/stq_c</li>
 <li>PowerPC/Power ISA: lwarx/stwcx, ldarx/stdcx</li>
 <li>MIPS: ll/sc, llwp/scwp(Double Width)</li>
-<li>ARM: ldrex/strex(ARMv6 &amp; ARMv7), ldxr/stxr(ARMv8)</li>
+<li>ARM: ldrex/strex(ARMv6 &amp; ARMv7), ldxr/stxr(ARMv8), ldxp/stxp(Double Width, ARMv8)</li>
 <li>ARC: llock/scond</li>
 </ul>
 <p>实际实现时，根据处理器实现不同，检测内存访问的粒度可能不同。</p>
@@ -3718,7 +3718,8 @@
 <p>除了 DWCAS 以外，还有一种 CAS 变体：<a href="https://en.wikipedia.org/wiki/Double_compare-and-swap">DCAS（Double Compare and Swap）</a>。和 DWCAS 不同的是，DCAS 实现的原子的两个 CAS 操作，这两个 CAS 可以操作不连续的内存。换句话说，DWCAS 可以认为是 DCAS 的一个特殊情况，特殊在于两个 CAS 操作的是连续的内存。</p>
 <h3 id="_10">指令集架构支持</h3>
 <p>x86_64 指令集提供了 CAS 指令，并且提供了 DWCAS 两倍位宽版本：<a href="https://www.felixcloutier.com/x86/cmpxchg8b:cmpxchg16b">cmpxchg16b 指令</a>，它把内存中的值和 RDX:RAX 比较，如果相等，就设置 ZF，并往内存写入 RCX:RBX；如果不相等，清空 ZF 并把内存中的值写入到 RDX:RAX。可以看到，这条指令采用的是多个源寄存器的方案：RDX、RAX、RCX、RBX 一共四个源 64 位通用寄存器，并且通过定死寄存器编号，解决了指令编码的问题。同时，一条指令也要写入两个通用寄存器 RDX 和 RAX，外加 FLAGS 寄存器的 ZF。</p>
-<p>LoongArch 从 V1.1 版本开始，支持了 AMCAS 指令。RISC-V 也有可选的 <a href="https://github.com/riscv/riscv-zacas">Zacas</a> 扩展。AArch64 也提供了 CAS 指令，并且 CASP 指令实现了 DWCAS。</p>
+<p>ARM64 也提供了 CAS 指令，通过 CASP 指令实现了 DWCAS：<code>CASP &lt;Xs&gt;, &lt;X(s+1)&gt;, &lt;Xt&gt;, &lt;X(t+1)&gt;, [&lt;Xn|SP&gt;{,#0}]</code>，可以把连续两个 64 位通用寄存器拼起来，作为一个 128 位的整体来进行 CAS。</p>
+<p>LoongArch 从 V1.1 版本开始，支持了 AMCAS 指令。RISC-V 也有可选的 <a href="https://github.com/riscv/riscv-zacas">Zacas</a> 扩展。</p>
 <h3 id="_11">硬件实现</h3>
 <p>CAS 的硬件实现也比较简单：在缓存一致性协议下，当一个缓存可以写缓存行的时候，它拥有了这个缓存行的所有权限，因此只需要在缓存里实现 CAS 即可，其他缓存无法打断这个原子的操作。</p>
 <h2 id="amo">AMO</h2>
@@ -3945,7 +3946,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 12:44:58 UTC">2025年7月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 13:38:32 UTC">2025年7月13日</span>
   </span>
 
     
