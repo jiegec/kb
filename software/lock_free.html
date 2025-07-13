@@ -2916,6 +2916,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3373,6 +3382,7 @@
 </span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="p">};</span>
 </span></code></pre></div>
+<p>在其他的一些 Treiber Stack 实现里，<code>push</code> 内部会写成一个 do-while 循环，在 CAS 失败的时候重新把 <code>new_head-&gt;next</code> 设置为 head 的值。这里直接用的无循环体的 while，是利用了 C++ <code>std::atomic</code> 的特性：它的 <code>compare_exchange_weak</code> 在失败的时候，会自动把 head 的值写入到第一个参数内。</p>
 <p>生成的 AMD64 汇编指令如下：</p>
 <div class="language-asm highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">tack</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span><span class="p">::</span><span class="no">push</span><span class="p">(</span><span class="no">int</span><span class="w"> </span><span class="no">const</span><span class="err">&amp;</span><span class="p">):</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">        </span><span class="c1"># function prologue</span>
@@ -3591,6 +3601,12 @@
 <li><a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Treiber_stack">Treiber stack</a></li>
 </ul>
+<h2 id="_1">推荐阅读</h2>
+<ul>
+<li><a href="https://preshing.com/20120612/an-introduction-to-lock-free-programming/">An Introduction to Lock-Free Programming</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/dxtecharts/lockless-programming">Lockless Programming Considerations for Xbox 360 and Microsoft Windows</a></li>
+<li><a href="https://www.cs.cmu.edu/~410-s05/lectures/L31_LockFree.pdf">Lock-Free Programming by Geoff Langdale</a></li>
+</ul>
 
 
 
@@ -3613,7 +3629,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 14:08:22 UTC">2025年7月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 14:35:36 UTC">2025年7月13日</span>
   </span>
 
     
