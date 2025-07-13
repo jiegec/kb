@@ -3479,7 +3479,7 @@
 </ul>
 <p>为了判断是否交换成功，还需要额外的 CMP 指令，判断 Xs 在执行 CAS 指令前后的值是否相同。</p>
 <h3 id="aba">ABA 问题以及解决方法</h3>
-<p>但是这样的实现有一个 ABA 问题：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push 回来，此时恰好 <code>new</code> 出来了同一个指针，就会导致 CAS 写入的 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值是非法的：</p>
+<p>但是这样的实现有一个 ABA 问题（ABA 指某个值从 A 改成 B 再改成 A）：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push，push 的时候恰好 <code>new</code> 出来了同一个指针，就会导致 CAS 写入 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值此时是非法的：</p>
 <figure>
 <p><a class="glightbox" href="../../software/lock_free_treiber_stack_aba.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Treiber Stack ABA Problem" src="../../software/lock_free_treiber_stack_aba.png" width="400" /></a>
   </p>
@@ -3613,7 +3613,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 13:38:32 UTC">2025年7月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 14:08:22 UTC">2025年7月13日</span>
   </span>
 
     
