@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="zh" class="no-js">
+<html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/cooking/suanrongchaokongxincai.html">
+        <link rel="canonical" href="https://jia.je/kb/en/software/lock_free.html">
       
       
-        <link rel="prev" href="suanlatudousi.html">
+        <link rel="prev" href="linux_scheduler.html">
       
       
-        <link rel="next" href="suanrongfensizhengdaxia.html">
+        <link rel="next" href="macos.html">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
-        <title>蒜蓉炒空心菜 - 杰哥的知识库</title>
+        <title>Lock Free 数据结构 - Jiegec's Knowledge Base</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
       
 
@@ -52,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -84,11 +84,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="蒜蓉炒空心菜 - 杰哥的知识库" >
+        <meta  property="og:title"  content="Lock Free 数据结构 - Jiegec's Knowledge Base" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/cooking/suanrongchaokongxincai.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/lock_free.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -96,19 +96,19 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/cooking/suanrongchaokongxincai.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/en/software/lock_free.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="蒜蓉炒空心菜 - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="Lock Free 数据结构 - Jiegec's Knowledge Base" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/cooking/suanrongchaokongxincai.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/lock_free.png" >
       
     
     
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -117,7 +117,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -129,8 +129,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
-          跳转至
+        <a href="#lock-free" class="md-skip">
+          Skip to content
         </a>
       
     </div>
@@ -142,8 +142,8 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../index.html" title="杰哥的知识库" class="md-header__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -157,13 +157,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            杰哥的知识库
+            Jiegec's Knowledge Base
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              蒜蓉炒空心菜
+              Lock Free 数据结构
             
           </span>
         </div>
@@ -177,20 +177,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="选择当前语言">
+    <button class="md-header__button md-icon" aria-label="Select language">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../en/cooking/suanrongchaokongxincai.html" hreflang="en" class="md-select__link">
+            <a href="lock_free.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="suanrongchaokongxincai.html" hreflang="zh" class="md-select__link">
+            <a href="../../software/lock_free.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -211,21 +211,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="查找">
+      <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -238,7 +238,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            正在初始化搜索引擎
+            Initializing search
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -250,7 +250,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+        <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -271,7 +271,7 @@
         
           
             
-<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -287,7 +287,7 @@
   
     
   
-  主页
+  Home
 
       </a>
     </li>
@@ -298,19 +298,17 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="bocaichaojidan.html" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../cooking/bocaichaojidan.html" class="md-tabs__link">
           
   
   
     
   
-  厨艺
+  Cooking
 
         </a>
       </li>
@@ -332,7 +330,7 @@
   
     
   
-  密码学
+  Cryptography
 
         </a>
       </li>
@@ -354,7 +352,7 @@
   
     
   
-  硬件
+  Hardware
 
         </a>
       </li>
@@ -376,7 +374,7 @@
   
     
   
-  数学
+  Mathematics
 
         </a>
       </li>
@@ -398,7 +396,7 @@
   
     
   
-  网络
+  Networking
 
         </a>
       </li>
@@ -410,17 +408,19 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../software/2fa.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2fa.html" class="md-tabs__link">
           
   
   
     
   
-  软件
+  Software
 
         </a>
       </li>
@@ -442,7 +442,7 @@
   
     
   
-  旅行
+  Travel
 
         </a>
       </li>
@@ -472,19 +472,19 @@
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="杰哥的知识库" class="md-nav__button md-logo" aria-label="杰哥的知识库" data-md-component="logo">
+    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    杰哥的知识库
+    Jiegec's Knowledge Base
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/jiegec/kb" title="前往仓库" class="md-source" data-md-component="source">
+      <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -509,7 +509,7 @@
   
   
   <span class="md-ellipsis">
-    主页
+    Home
     
   </span>
   
@@ -523,10 +523,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -566,27 +564,26 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    厨艺
+    Cooking
     
   </span>
   
@@ -594,10 +591,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            厨艺
+            Cooking
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -608,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bocaichaojidan.html" class="md-nav__link">
+      <a href="../cooking/bocaichaojidan.html" class="md-nav__link">
         
   
   
@@ -631,7 +628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="chaoqincai.html" class="md-nav__link">
+      <a href="../cooking/chaoqincai.html" class="md-nav__link">
         
   
   
@@ -654,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="congbaorou.html" class="md-nav__link">
+      <a href="../cooking/congbaorou.html" class="md-nav__link">
         
   
   
@@ -677,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ganchaoniuhe.html" class="md-nav__link">
+      <a href="../cooking/ganchaoniuhe.html" class="md-nav__link">
         
   
   
@@ -700,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="jiandan.html" class="md-nav__link">
+      <a href="../cooking/jiandan.html" class="md-nav__link">
         
   
   
@@ -723,7 +720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="liangbanzhengqiezi.html" class="md-nav__link">
+      <a href="../cooking/liangbanzhengqiezi.html" class="md-nav__link">
         
   
   
@@ -746,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="luoboniunanbao.html" class="md-nav__link">
+      <a href="../cooking/luoboniunanbao.html" class="md-nav__link">
         
   
   
@@ -769,7 +766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="pidandoufu.html" class="md-nav__link">
+      <a href="../cooking/pidandoufu.html" class="md-nav__link">
         
   
   
@@ -792,7 +789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="qiezichaorou.html" class="md-nav__link">
+      <a href="../cooking/qiezichaorou.html" class="md-nav__link">
         
   
   
@@ -815,7 +812,7 @@
   
   
     <li class="md-nav__item">
-      <a href="suanlachaodouya.html" class="md-nav__link">
+      <a href="../cooking/suanlachaodouya.html" class="md-nav__link">
         
   
   
@@ -838,7 +835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="suanlatudousi.html" class="md-nav__link">
+      <a href="../cooking/suanlatudousi.html" class="md-nav__link">
         
   
   
@@ -858,32 +855,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    蒜蓉炒空心菜
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="suanrongchaokongxincai.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../cooking/suanrongchaokongxincai.html" class="md-nav__link">
         
   
   
@@ -894,62 +869,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      食材
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      步骤
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      记录
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      参考
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -962,7 +881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="suanrongfensizhengdaxia.html" class="md-nav__link">
+      <a href="../cooking/suanrongfensizhengdaxia.html" class="md-nav__link">
         
   
   
@@ -985,7 +904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="xiangchunjiandan.html" class="md-nav__link">
+      <a href="../cooking/xiangchunjiandan.html" class="md-nav__link">
         
   
   
@@ -1008,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="xiangguchaoqingcai.html" class="md-nav__link">
+      <a href="../cooking/xiangguchaoqingcai.html" class="md-nav__link">
         
   
   
@@ -1031,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="xihongshichaojidan.html" class="md-nav__link">
+      <a href="../cooking/xihongshichaojidan.html" class="md-nav__link">
         
   
   
@@ -1096,7 +1015,7 @@
   
   
   <span class="md-ellipsis">
-    密码学
+    Cryptography
     
   </span>
   
@@ -1107,7 +1026,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            密码学
+            Cryptography
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1323,7 +1242,7 @@
   
   
   <span class="md-ellipsis">
-    硬件
+    Hardware
     
   </span>
   
@@ -1334,7 +1253,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            硬件
+            Hardware
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1350,7 +1269,7 @@
   
   
   <span class="md-ellipsis">
-    异步 SRAM
+    Asynchronous SRAM
     
   </span>
   
@@ -1718,7 +1637,7 @@
   
   
   <span class="md-ellipsis">
-    逻辑电平标准
+    Logic level standards
     
   </span>
   
@@ -2052,7 +1971,7 @@
   
   
   <span class="md-ellipsis">
-    数学
+    Mathematics
     
   </span>
   
@@ -2063,7 +1982,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            数学
+            Mathematics
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2208,7 +2127,7 @@
   
   
   <span class="md-ellipsis">
-    网络
+    Networking
     
   </span>
   
@@ -2219,7 +2138,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            网络
+            Networking
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2349,8 +2268,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -2420,26 +2341,27 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
-    软件
+    Software
     
   </span>
   
@@ -2447,10 +2369,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            软件
+            Software
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2461,7 +2383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/2fa.html" class="md-nav__link">
+      <a href="2fa.html" class="md-nav__link">
         
   
   
@@ -2484,7 +2406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/abi.html" class="md-nav__link">
+      <a href="abi.html" class="md-nav__link">
         
   
   
@@ -2507,7 +2429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/atomic_instructions.html" class="md-nav__link">
+      <a href="atomic_instructions.html" class="md-nav__link">
         
   
   
@@ -2530,7 +2452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/aws_pricing.html" class="md-nav__link">
+      <a href="aws_pricing.html" class="md-nav__link">
         
   
   
@@ -2553,7 +2475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cfi.html" class="md-nav__link">
+      <a href="cfi.html" class="md-nav__link">
         
   
   
@@ -2576,7 +2498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cg.html" class="md-nav__link">
+      <a href="cg.html" class="md-nav__link">
         
   
   
@@ -2599,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cpio.html" class="md-nav__link">
+      <a href="cpio.html" class="md-nav__link">
         
   
   
@@ -2622,7 +2544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/ctf.html" class="md-nav__link">
+      <a href="ctf.html" class="md-nav__link">
         
   
   
@@ -2645,7 +2567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/cuda.html" class="md-nav__link">
+      <a href="cuda.html" class="md-nav__link">
         
   
   
@@ -2668,7 +2590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/dijkstra.html" class="md-nav__link">
+      <a href="dijkstra.html" class="md-nav__link">
         
   
   
@@ -2691,7 +2613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/doh.html" class="md-nav__link">
+      <a href="doh.html" class="md-nav__link">
         
   
   
@@ -2714,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/gc.html" class="md-nav__link">
+      <a href="gc.html" class="md-nav__link">
         
   
   
@@ -2737,7 +2659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/gcc.html" class="md-nav__link">
+      <a href="gcc.html" class="md-nav__link">
         
   
   
@@ -2760,7 +2682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/glibc_allocator.html" class="md-nav__link">
+      <a href="glibc_allocator.html" class="md-nav__link">
         
   
   
@@ -2783,7 +2705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/glibc_file.html" class="md-nav__link">
+      <a href="glibc_file.html" class="md-nav__link">
         
   
   
@@ -2806,7 +2728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_allocator.html" class="md-nav__link">
+      <a href="linux_allocator.html" class="md-nav__link">
         
   
   
@@ -2829,7 +2751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_graphics.html" class="md-nav__link">
+      <a href="linux_graphics.html" class="md-nav__link">
         
   
   
@@ -2852,7 +2774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_mm.html" class="md-nav__link">
+      <a href="linux_mm.html" class="md-nav__link">
         
   
   
@@ -2875,7 +2797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_resctrl.html" class="md-nav__link">
+      <a href="linux_resctrl.html" class="md-nav__link">
         
   
   
@@ -2898,7 +2820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/linux_scheduler.html" class="md-nav__link">
+      <a href="linux_scheduler.html" class="md-nav__link">
         
   
   
@@ -2918,10 +2840,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../software/lock_free.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lock Free 数据结构
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="lock_free.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2932,6 +2876,35 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#treiber-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Treiber Stack
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2944,7 +2917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/macos.html" class="md-nav__link">
+      <a href="macos.html" class="md-nav__link">
         
   
   
@@ -2967,7 +2940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/ohos.html" class="md-nav__link">
+      <a href="ohos.html" class="md-nav__link">
         
   
   
@@ -2990,7 +2963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/postgresql.html" class="md-nav__link">
+      <a href="postgresql.html" class="md-nav__link">
         
   
   
@@ -3013,7 +2986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/redshift.html" class="md-nav__link">
+      <a href="redshift.html" class="md-nav__link">
         
   
   
@@ -3036,7 +3009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/sgemm_cuda.html" class="md-nav__link">
+      <a href="sgemm_cuda.html" class="md-nav__link">
         
   
   
@@ -3059,7 +3032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/spark.html" class="md-nav__link">
+      <a href="spark.html" class="md-nav__link">
         
   
   
@@ -3082,7 +3055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/sunrpc.html" class="md-nav__link">
+      <a href="sunrpc.html" class="md-nav__link">
         
   
   
@@ -3105,7 +3078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/svg.html" class="md-nav__link">
+      <a href="svg.html" class="md-nav__link">
         
   
   
@@ -3128,7 +3101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/tar.html" class="md-nav__link">
+      <a href="tar.html" class="md-nav__link">
         
   
   
@@ -3151,7 +3124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../software/transformer.html" class="md-nav__link">
+      <a href="transformer.html" class="md-nav__link">
         
   
   
@@ -3210,7 +3183,7 @@
   
   
   <span class="md-ellipsis">
-    旅行
+    Travel
     
   </span>
   
@@ -3221,7 +3194,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            旅行
+            Travel
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3295,7 +3268,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/cooking/suanrongchaokongxincai.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/lock_free.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3303,22 +3276,91 @@
   
 
 
-<h1 id="_1">蒜蓉炒空心菜</h1>
-<h2 id="_2">食材</h2>
-<p>空心菜 蒜（建议多放，可以加蒜蓉酱）</p>
-<h2 id="_3">步骤</h2>
-<ol>
-<li>空心菜洗净，梗和叶子分开，梗可以拍扁方便煮熟，都切成 5cm 的小段</li>
-<li>下锅对空心菜梗梗焯水，捞出</li>
-<li>下油把蒜蓉炒香，再下空心菜，调味</li>
-</ol>
-<h2 id="_4">记录</h2>
+<h1 id="lock-free">Lock Free 数据结构</h1>
+<h2 id="treiber-stack">Treiber Stack</h2>
+<p>Treiber Stack 是一个 Lock-Free 的 Stack，支持 Push 和 Pop 操作，出现在 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a> 第 17 页。翻译成 C++ 代码，它做的事情大概是（参考了 <a href="https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange">cppreference</a>）：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;atomic&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Node</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">        </span><span class="c1">// user data</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="w"> </span><span class="c1">// pointer to next node</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="n">Node</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">};</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Stack</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="c1">// paper: ANCHOR</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="c1">// head of singly linked list</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="c1">// paper: PUTEL</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">new_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="c1">// paper: L R2, ANCHOR</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="c1">// read current head</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">cur_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">);</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="c1">// paper: ST R2, ELNEXT-EL(,R4)</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="c1">// link the new list</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">new_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur_head</span><span class="p">;</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="c1">// paper: CS R2, R4, ANCHOR; ST R2, ELNEXT-EL(,R4) on failure</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="c1">// atomic swap if head == new_head-&gt;next</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="c1">// on success: head becomes new_head</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="c1">// on failure: new_head-&gt;next becomes the current value of head, and loop</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="c1">// release order: ensure new_head-&gt;next = cur_head is observed before CAS</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="p">.</span><span class="n">compare_exchange_weak</span><span class="p">(</span><span class="n">new_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span><span class="w"> </span><span class="n">new_head</span><span class="p">,</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">                                       </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_release</span><span class="p">,</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">                                       </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">))</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">      </span><span class="p">;</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="c1">// paper: GETEL</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">cur_head</span><span class="p">;</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="c1">// paper: L R2, ANCHOR</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="c1">// read current head</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="n">cur_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">);</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="c1">// paper: LTR R2, R2; BZ EMPTY</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">cur_head</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">      </span><span class="c1">// paper: L R4, ELNEXT-EL(,R2)</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">      </span><span class="c1">// cur_head-&gt;next becomes the new list head</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">      </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">new_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="w">      </span><span class="c1">// paper: CS R2, R4, ANCHOR</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">      </span><span class="c1">// atomic swap if head == cur_head</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">      </span><span class="c1">// on success: head becomes new_head</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">      </span><span class="c1">// on failure: cur_head becomes the current value of head, and loop</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">      </span><span class="c1">// release order: ensure cur_head-&gt;data is done after CAS</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="n">compare_exchange_weak</span><span class="p">(</span><span class="n">cur_head</span><span class="p">,</span><span class="w"> </span><span class="n">new_head</span><span class="p">,</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_acquire</span><span class="p">,</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">        </span><span class="c1">// success</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">        </span><span class="n">T</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur_head</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">cur_head</span><span class="p">;</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">    </span><span class="c1">// no elements</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>但是这样的实现有一个 ABA 问题：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push 回来，此时恰好 <code>new</code> 出来了同一个指针，就会导致 CAS 写入的 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值是非法的：</p>
+<figure>
+<p><a class="glightbox" href="lock_Free_aba.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Treiber Stack ABA Problem" src="lock_Free_aba.png" width="400" /></a>
+  </p>
+<figcaption>Treiber Stack 的 ABA 问题（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 10 on Page 19</a>）</figcaption>
+</figure>
+<p>为了解决这个问题，需要把指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。</p>
+<p>参考：</p>
 <ul>
-<li>2025-03-08: 做了一次，蒜蓉放的不够多，所以补了蒜蓉酱，空心菜的梗部没有拍扁，不够爽脆</li>
-</ul>
-<h2 id="_5">参考</h2>
-<ul>
-<li><a href="https://b23.tv/oByxgC5">青菜怎么炒翠绿又清爽？学会这道蒜蓉炒空心菜，做什么青菜都好吃</a></li>
+<li><a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Treiber_stack">Treiber stack</a></li>
 </ul>
 
 
@@ -3339,20 +3381,20 @@
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="最后更新">
+    <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月15日 04:56:43 UTC">2025年3月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 09:54:58 UTC">2025年7月13日</span>
   </span>
 
     
     
       
   <span class="md-source-file__fact">
-    <span class="md-icon" title="创建日期">
+    <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月8日 04:22:37 UTC">2025年3月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 09:54:58 UTC">2025年7月13日</span>
   </span>
 
     
@@ -3366,7 +3408,7 @@
 
 
 <!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
-<h2 id="__comments">评论</h2>
+<h2 id="__comments">Comments</h2>
 <!-- Insert generated snippet here -->
 
 <script src="https://giscus.app/client.js"
@@ -3420,7 +3462,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到页面顶部
+  Back to top
 </button>
         
       </main>
@@ -3429,33 +3471,33 @@
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="suanlatudousi.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 酸辣土豆丝">
+          <a href="linux_scheduler.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Linux Scheduler">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                上一页
+                Previous
               </span>
               <div class="md-ellipsis">
-                酸辣土豆丝
+                Linux Scheduler
               </div>
             </div>
           </a>
         
         
           
-          <a href="suanrongfensizhengdaxia.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 蒜蓉粉丝蒸大虾">
+          <a href="macos.html" class="md-footer__link md-footer__link--next" aria-label="Next: macOS Goodies">
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                下一页
+                Next
               </span>
               <div class="md-ellipsis">
-                蒜蓉粉丝蒸大虾
+                macOS Goodies
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3495,12 +3537,12 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
@@ -3510,7 +3552,7 @@
       
         <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
       
-        <script src="../javascripts/tablesort.js"></script>
+        <script src="../../javascripts/tablesort.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/kb/software/aws-pricing.html">
+        <link rel="canonical" href="https://jia.je/kb/software/lock_free.html">
       
       
-        <link rel="prev" href="atomic_instructions.html">
+        <link rel="prev" href="linux_scheduler.html">
       
       
-        <link rel="next" href="cfi.html">
+        <link rel="next" href="macos.html">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>AWS Pricing - 杰哥的知识库</title>
+        <title>Lock Free 数据结构 - 杰哥的知识库</title>
       
     
     
@@ -84,11 +84,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="AWS Pricing - 杰哥的知识库" >
+        <meta  property="og:title"  content="Lock Free 数据结构 - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/aws-pricing.png" >
+        <meta  property="og:image"  content="https://jia.je/kb/assets/images/social/software/lock_free.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -96,15 +96,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/kb/software/aws-pricing.html" >
+        <meta  property="og:url"  content="https://jia.je/kb/software/lock_free.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="AWS Pricing - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="Lock Free 数据结构 - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
-        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/aws-pricing.png" >
+        <meta  name="twitter:image"  content="https://jia.je/kb/assets/images/social/software/lock_free.png" >
       
     
     
@@ -129,7 +129,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#aws-pricing" class="md-skip">
+        <a href="#lock-free" class="md-skip">
           跳转至
         </a>
       
@@ -163,7 +163,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AWS Pricing
+              Lock Free 数据结构
             
           </span>
         </div>
@@ -184,13 +184,13 @@
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="../en/software/aws-pricing.html" hreflang="en" class="md-select__link">
+            <a href="../en/software/lock_free.html" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="aws-pricing.html" hreflang="zh" class="md-select__link">
+            <a href="lock_free.html" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -2335,6 +2335,8 @@
       
         
       
+        
+      
     
     
     
@@ -2447,32 +2449,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    AWS Pricing
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="aws-pricing.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="aws_pricing.html" class="md-nav__link">
         
   
   
@@ -2483,125 +2463,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#rdbms" class="md-nav__link">
-    <span class="md-ellipsis">
-      RDBMS
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="RDBMS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amazon-aurora" class="md-nav__link">
-    <span class="md-ellipsis">
-      Amazon Aurora
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amazon-redshift" class="md-nav__link">
-    <span class="md-ellipsis">
-      Amazon Redshift
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#nosql" class="md-nav__link">
-    <span class="md-ellipsis">
-      NoSQL
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="NoSQL">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amazon-opensearch" class="md-nav__link">
-    <span class="md-ellipsis">
-      Amazon OpenSearch
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amazon-documentdb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Amazon DocumentDB
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amazon-dynamodb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Amazon DynamoDB
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#others" class="md-nav__link">
-    <span class="md-ellipsis">
-      Others
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Others">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amazon-athena" class="md-nav__link">
-    <span class="md-ellipsis">
-      Amazon Athena
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2979,6 +2840,80 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lock Free 数据结构
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="lock_free.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lock Free 数据结构
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#treiber-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Treiber Stack
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -3333,7 +3268,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/software/aws-pricing.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/lock_free.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3341,146 +3276,92 @@
   
 
 
-<h1 id="aws-pricing">AWS Pricing</h1>
-<h2 id="rdbms">RDBMS</h2>
-<h3 id="amazon-aurora">Amazon Aurora</h3>
-<p><a href="https://aws.amazon.com/rds/aurora/pricing/">Amazon Aurora Pricing</a> <a href="https://calculator.aws/#/createCalculator/AuroraMySQL">Pricing Calculator</a></p>
-<p>Amazon Aurora is a modern relational database service. It offers unparalleled high performance and high availability at global scale with fully open-source MySQL- and PostgreSQL-compatible editions and a range of developer tools for building serverless and machine learning (ML)-driven applications.</p>
-<ol>
-<li>Instance type:<ol>
-<li>Aurora Standard</li>
-<li>Aurora I/O Optimized</li>
-</ol>
-</li>
-<li>Pricing by database instances:<ol>
-<li>Serverless: auto-scaling, billed per Aurora Capacity Units(ACU) per hour</li>
-<li>Provisioned On-Demand: billed per instance hour</li>
-<li>Provisioned Reserved: billed per term (1 year or 3 years)</li>
-</ol>
-</li>
-<li>Pricing by database storage and I/Os:<ol>
-<li>Storage: billed per GB per month</li>
-<li>I/O: billed per million requests, free if using Aurora I/O-Optimized</li>
-</ol>
-</li>
-<li>Aurora Global Database: single Aurora database to span multiple regions<ol>
-<li>Billing: billed per million replicated write I/Os</li>
-</ol>
-</li>
-<li>Backup storage costs: billed per GB per month</li>
-<li>Backtrack: quickly move to a prior point in time to recover from user errors<ol>
-<li>Billing: billed per 1 million change records(logs)</li>
-</ol>
-</li>
-<li>Data API: execute SQL queries through HTTPS<ol>
-<li>Billing: billed per 1 million requests</li>
-<li>32 KB metered per request, one 35KB payload accounts for two requests</li>
-</ol>
-</li>
-<li>Data transfer costs:<ol>
-<li>Free transfer from Internet to AWS</li>
-<li>Transfer from AWS to Internet billed per GB</li>
-<li>Transfer from one AWS region to another billed per GB</li>
-</ol>
-</li>
-<li>Extended support: billed per ACU/VCPU per hour</li>
-<li>Snapshot export to S3: billed per GB</li>
-<li>Zero-ETL integration with Amazon Redshift: no additional fee</li>
-</ol>
-<h3 id="amazon-redshift">Amazon Redshift</h3>
-<p><a href="https://aws.amazon.com/redshift/pricing/">Amazon Redshift Pricing</a></p>
-<ol>
-<li>On-demand pricing: billed per instance per hour</li>
-<li>Serverless: billed per RPU(Redshift Processing Unit) per hour</li>
-<li>Redshift managed storage: billed per GB per month</li>
-<li>Redshift Spectrum: directly run SQL queries against S3<ol>
-<li>Pricing: billed per TB of data scanned</li>
-</ol>
-</li>
-<li>Concurrency scaling: billed per instance per second</li>
-<li>Redshift ML: billed per million cells</li>
-<li>Reserved instance: billed per term (1 year or 3 years)</li>
-<li>Zero-ETL integration cost with Amazon Aurora: no additiona fee</li>
-<li>Backup storage: billed per GB per month</li>
-<li>Data transfer: billed per GB</li>
-</ol>
-<h2 id="nosql">NoSQL</h2>
-<h3 id="amazon-opensearch">Amazon OpenSearch</h3>
-<p><a href="https://aws.amazon.com/opensearch-service/pricing/">Amazon OpenSearch pricing</a></p>
-<ol>
-<li>On-demand instance: billed per instance per hour</li>
-<li>Reserved instance: reserve for 1 year or 3 years<ol>
-<li>No upfront reserved instances: pay nothing upfront, pay a discounted hourly rate every hour</li>
-<li>Partial upfront reserved instances: pay a portion upfront, pay a discounted hourlay rate</li>
-<li>All upfront reserved instances, pay entirety of the cost upfront</li>
-</ol>
-</li>
-<li>Serverless:<ol>
-<li>Compute(Indexing, Search and Query): billed per OCU(OpenSearch Compute Unit) per hour</li>
-<li>Storage: billed per GB per month</li>
-</ol>
-</li>
-<li>Ingestion: billed per OCU per hour</li>
-<li>Direct Query: billed per OCU per hour</li>
-<li>EBS volume pricing: billed per GB per month</li>
-<li>UltraWarm and cold storage:<ol>
-<li>Compute: billed per hour per instance</li>
-<li>Storage: billed per GB per month</li>
-</ol>
-</li>
-</ol>
-<h3 id="amazon-documentdb">Amazon DocumentDB</h3>
-<p><a href="https://aws.amazon.com/documentdb/pricing/">Amazon DocumentDB pricing</a></p>
-<p>AWS Pricing Calculator
-AWS Pricing Calculator</p>
-<p>Calculate your Amazon DocumentDB (with MongoDB compatibility) and architecture cost in a single estimate.</p>
-<p>Create your custom estimate now »</p>
-<p>Amazon DocumentDB (with MongoDB compatibility) is a fully managed document database service that supports MongoDB workloads. With Amazon DocumentDB, you only pay for what you use, and there are no upfront costs.</p>
-<ol>
-<li>Instance types: Standard vs I/O-Optimized</li>
-<li>On-demand instances: billed per instance per hour</li>
-<li>Storage: billed per GB per month</li>
-<li>I/O: billed per 1 million requests, free if using I/O-Optimized</li>
-<li>Elastic cluster:<ol>
-<li>Compute: billed per vCPU hour</li>
-<li>Storage: billed per GB per month</li>
-<li>Backup storage: billed per GB per month</li>
-</ol>
-</li>
-<li>Global clusters: fast replication across regions, billed per million replicated write I/O</li>
-<li>Data transfer: billed per GB</li>
-<li>Backup storage: billed per GB per month</li>
-</ol>
-<h3 id="amazon-dynamodb">Amazon DynamoDB</h3>
-<p><a href="https://aws.amazon.com/dynamodb/pricing/">Amazon DynamoDB pricing</a></p>
-<ol>
-<li>On-demand/Provisioned:<ol>
-<li>Write request: billed per million write request units (1KB)</li>
-<li>Read request: billed per million read request units (4KB)</li>
-<li>Storage: billed per GB per month</li>
-<li>Backup: billed per GB per month</li>
-<li>Restore from backup: billed per GB</li>
-<li>Global table: billed per million replicated write request units</li>
-<li>Change data capture for AWS Kinesis Data Streams/AWS Glue: billed per million change data capture units (1KB)</li>
-<li>Data import/export from/to S3: billed per GB</li>
-<li>DynamoDB Accelerator(caching service): billed per instance per hour</li>
-<li>DynamoDB Streams: billed per million read request units</li>
-<li>Data transfer: billed per GB</li>
-</ol>
-</li>
-</ol>
-<h2 id="others">Others</h2>
-<h3 id="amazon-athena">Amazon Athena</h3>
-<p><a href="https://aws.amazon.com/athena/pricing/">Amazon Athena Pricing</a></p>
-<p>Amazon Athena is a serverless, interactive analytics service built on open-source frameworks that enables you to analyze petabytes of data where it lives. With Athena, you can use SQL or Apache Spark and there is no infrastructure to set up or manage. Pricing is simple: you pay based on data processed or compute used.</p>
-<ol>
-<li>SQL queries: billed per TB of data scanned<ol>
-<li>Save up to 90% by compressing, partitioning and using columnar formats</li>
-</ol>
-</li>
-<li>SQL queries with Provision Capacity: billed per DPU-hour(4 vCPU and 16GB memory) per minute</li>
-<li>Apache Spark application: billed per DPU-hour per minute</li>
-</ol>
+<h1 id="lock-free">Lock Free 数据结构</h1>
+<h2 id="treiber-stack">Treiber Stack</h2>
+<p>Treiber Stack 是一个 Lock-Free 的 Stack，支持 Push 和 Pop 操作，出现在 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a> 第 17 页。翻译成 C++ 代码，它做的事情大概是（参考了 <a href="https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange">cppreference</a>）：</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;atomic&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Node</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">        </span><span class="c1">// user data</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="w"> </span><span class="c1">// pointer to next node</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="n">Node</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">};</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Stack</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="c1">// paper: ANCHOR</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="c1">// head of singly linked list</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="c1">// paper: PUTEL</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">new_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="c1">// paper: L R2, ANCHOR</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="c1">// read current head</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">cur_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">);</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="c1">// paper: ST R2, ELNEXT-EL(,R4)</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="c1">// link the new list</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">new_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur_head</span><span class="p">;</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="c1">// paper: CS R2, R4, ANCHOR; ST R2, ELNEXT-EL(,R4) on failure</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="c1">// atomic swap if head == new_head-&gt;next</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="c1">// on success: head becomes new_head</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="c1">// on failure: new_head-&gt;next becomes the current value of head, and loop</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="c1">// release order: ensure new_head-&gt;next = cur_head is observed before CAS</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="p">.</span><span class="n">compare_exchange_weak</span><span class="p">(</span><span class="n">new_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span><span class="w"> </span><span class="n">new_head</span><span class="p">,</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">                                       </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_release</span><span class="p">,</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">                                       </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">))</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">      </span><span class="p">;</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="c1">// paper: GETEL</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">cur_head</span><span class="p">;</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="c1">// paper: L R2, ANCHOR</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="c1">// read current head</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="n">cur_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">);</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="c1">// paper: LTR R2, R2; BZ EMPTY</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">cur_head</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">      </span><span class="c1">// paper: L R4, ELNEXT-EL(,R2)</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">      </span><span class="c1">// cur_head-&gt;next becomes the new list head</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">      </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="n">new_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="w">      </span><span class="c1">// paper: CS R2, R4, ANCHOR</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">      </span><span class="c1">// atomic swap if head == cur_head</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">      </span><span class="c1">// on success: head becomes new_head</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">      </span><span class="c1">// on failure: cur_head becomes the current value of head, and loop</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">      </span><span class="c1">// release order: ensure cur_head-&gt;data is done after CAS</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="n">compare_exchange_weak</span><span class="p">(</span><span class="n">cur_head</span><span class="p">,</span><span class="w"> </span><span class="n">new_head</span><span class="p">,</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_acquire</span><span class="p">,</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">                                     </span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_relaxed</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">        </span><span class="c1">// success</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">        </span><span class="n">T</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur_head</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">cur_head</span><span class="p">;</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">    </span><span class="c1">// no elements</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>但是这样的实现有一个 ABA 问题：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push 回来，此时恰好 <code>new</code> 出来了同一个指针，就会导致 CAS 写入的 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值是非法的：</p>
+<figure>
+<p><a class="glightbox" href="lock_Free_aba.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Treiber Stack ABA Problem" src="lock_Free_aba.png" width="400" /></a>
+  </p>
+<figcaption>Treiber Stack 的 ABA 问题（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 10 on Page 19</a>）</figcaption>
+</figure>
+<p>为了解决这个问题，需要把指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Treiber_stack">Treiber stack</a></li>
+</ul>
 
 
 
@@ -3503,7 +3384,7 @@ AWS Pricing Calculator</p>
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年6月10日 18:49:04 UTC">2024年6月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 09:54:58 UTC">2025年7月13日</span>
   </span>
 
     
@@ -3513,7 +3394,7 @@ AWS Pricing Calculator</p>
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年6月10日 18:49:04 UTC">2024年6月10日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 09:54:58 UTC">2025年7月13日</span>
   </span>
 
     
@@ -3593,7 +3474,7 @@ AWS Pricing Calculator</p>
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="atomic_instructions.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 原子指令">
+          <a href="linux_scheduler.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux Scheduler">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3603,20 +3484,20 @@ AWS Pricing Calculator</p>
                 上一页
               </span>
               <div class="md-ellipsis">
-                原子指令
+                Linux Scheduler
               </div>
             </div>
           </a>
         
         
           
-          <a href="cfi.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 控制流完整性 Control Flow Integrity">
+          <a href="macos.html" class="md-footer__link md-footer__link--next" aria-label="下一页: macOS Goodies">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                控制流完整性 Control Flow Integrity
+                macOS Goodies
               </div>
             </div>
             <div class="md-footer__button md-icon">
