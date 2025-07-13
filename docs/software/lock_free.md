@@ -86,6 +86,8 @@ template <class T> struct Stack {
 };
 ```
 
+在其他的一些 Treiber Stack 实现里，`push` 内部会写成一个 do-while 循环，在 CAS 失败的时候重新把 `new_head->next` 设置为 head 的值。这里直接用的无循环体的 while，是利用了 C++ `std::atomic` 的特性：它的 `compare_exchange_weak` 在失败的时候，会自动把 head 的值写入到第一个参数内。
+
 生成的 AMD64 汇编指令如下：
 
 ```asm
@@ -315,3 +317,9 @@ template <class T> struct Stack {
 
 - [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf)
 - [Treiber stack](https://en.wikipedia.org/wiki/Treiber_stack)
+
+## 推荐阅读
+
+- [An Introduction to Lock-Free Programming](https://preshing.com/20120612/an-introduction-to-lock-free-programming/)
+- [Lockless Programming Considerations for Xbox 360 and Microsoft Windows](https://learn.microsoft.com/en-us/windows/win32/dxtecharts/lockless-programming)
+- [Lock-Free Programming by Geoff Langdale](https://www.cs.cmu.edu/~410-s05/lectures/L31_LockFree.pdf)
