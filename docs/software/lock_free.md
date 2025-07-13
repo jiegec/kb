@@ -2,7 +2,7 @@
 
 ## Treiber Stack
 
-Treiber Stack 是一个 Lock-Free 的 Stack，支持 Push 和 Pop 操作，出现在 [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf) 第 17 页。原文中，它是由汇编编写的：
+Treiber Stack 是一个 Lock-Free 的 Stack，支持 Push 和 Pop 操作，由 R. Kent Treiber 在 1986 年提出，出现在 [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf) 第 17 页。原文中，它是由汇编编写的：
 
 <figure markdown>
   ![Treiber Stack](lock_free_treiber_stack_v1.png){ width="400" }
@@ -86,6 +86,8 @@ template <class T> struct Stack {
 };
 ```
 
+### ABA 问题以及解决方法
+
 但是这样的实现有一个 ABA 问题：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push 回来，此时恰好 `new` 出来了同一个指针，就会导致 CAS 写入的 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值是非法的：
 
 <figure markdown>
@@ -93,7 +95,112 @@ template <class T> struct Stack {
   <figcaption>Treiber Stack 的 ABA 问题（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 10 on Page 19</a>）</figcaption>
 </figure>
 
-为了解决这个问题，需要把指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。
+为了解决这个问题，需要把链表头指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。这需要硬件的支持，通常叫做 Double-wide compare and swap，详见 [原子指令](./atomic_instructions.md)。更新后的汇编版本：
+
+<figure markdown>
+  ![Treiber Stack](lock_free_treiber_stack_v2.png){ width="400" }
+  <figcaption>Treiber Stack 修正 ABA 问题的版本（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 11 on Page 20</a>）</figcaption>
+</figure>
+
+对应的 C++ 版本：
+
+```c++
+#include <atomic>
+#include <optional>
+
+template <class T> struct Node {
+  T data;        // user data
+  Node<T> *next; // pointer to next node
+
+  Node(const T &data) : data(data), next(nullptr) {}
+};
+
+template <class T> struct HeadWithCounter {
+  // paper: ANCHORP
+  // head of singly linked list
+  Node<T> *head;
+  // paper: ANCHORC
+  // allocation counter
+  size_t counter;
+
+  HeadWithCounter() : head(nullptr), counter(0) {}
+};
+
+template <class T> struct Stack {
+  // paper: ANCHOR
+  // head of singly linked list with counter
+  std::atomic<HeadWithCounter<T>> head;
+
+  Stack() : head(HeadWithCounter<T>()) {}
+
+  // paper: PUTEL
+  void push(const T &data) {
+    HeadWithCounter<T> new_head;
+    new_head.head = new Node<T>(data);
+
+    // paper: L R2, ANCHORP
+    // read current head
+    // in paper, only head pointer is used for CAS;
+    // it is hard to do so with std::atomic
+    HeadWithCounter<T> cur_head = head.load(std::memory_order_relaxed);
+
+    do {
+      // paper: ST R2, ELNEXT-EL(,R4)
+      // link the new list
+      new_head.head->next = cur_head.head;
+      new_head.counter = cur_head.counter;
+
+      // paper: CS R2, R4, ANCHOR; ST R2, ELNEXT-EL(,R4) on failure
+      // atomic swap if head == cur_head
+      // on success: head becomes new_head
+      // on failure: cur_head becomes the current value of head, and loop
+      // release order: ensure write to new_head.head is observed before CAS
+    } while (!head.compare_exchange_weak(cur_head, new_head,
+                                         std::memory_order_release,
+                                         std::memory_order_relaxed));
+  }
+
+  // paper: GETEL
+  std::optional<T> pop() {
+    HeadWithCounter<T> cur_head;
+    // paper: LM R2, R3, ANCHOR
+    // read current head
+    cur_head = head.load(std::memory_order_relaxed);
+
+    // paper: LTR R2, R2; BZ EMPTY
+    while (cur_head.head) {
+      // paper: L R4, ELNEXT-EL(,R2)
+      // cur_head->next becomes the new list head
+      HeadWithCounter<T> new_head;
+      new_head.head = cur_head.head->next;
+
+      // paper: LA R5, 1; AR R5, R3
+      // update counter to handle ABA problem
+      new_head.counter = cur_head.counter + 1;
+
+      // paper: CDS R2, R4, ANCHOR
+      // atomic swap if head == cur_head
+      // on success: head becomes new_head
+      // on failure: cur_head becomes the current value of head, and loop
+      // release order: ensure cur_head->data is done after CAS
+      if (head.compare_exchange_weak(cur_head, new_head,
+                                     std::memory_order_acquire,
+                                     std::memory_order_relaxed)) {
+        // success
+        T result = cur_head.head->data;
+        delete cur_head.head;
+        return result;
+      }
+    }
+
+    // no elements
+    return {};
+  }
+};
+```
+
+
+在 Java 语言版本的 Treiber Stack 中，不会有 ABA 的问题，因为 Java 运行时保证了，CAS 的时候两个不同的对象不会被视为相等。
 
 参考：
 
