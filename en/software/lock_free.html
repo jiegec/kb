@@ -3317,6 +3317,14 @@
   </p>
 <figcaption>Treiber Stack（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Page 18</a>）</figcaption>
 </figure>
+<p>图中用的是 <a href="http://www.simotime.com/simoi370.htm">IBM System/370 指令集</a>，用到的部分汇编指令包括：</p>
+<ul>
+<li><code>LABEL EQU *</code>: 创建一个 LABEL 符号，它的值等于当前的地址，相当于 <code>LABEL:</code> 语法</li>
+<li><code>L REG, MEM</code>：从 MEM 内存读取数据到 REG 寄存器</li>
+<li><code>ST REG, MEM</code>：把 REG 寄存器的数据写入到 MEM 内存</li>
+<li><code>CS REG1, REG2, MEM</code>：Compare and Swap，把 MEM 内存中的数据和 REG1 进行比较，如果相等，把 REG2 写到 MEM 内存中；如果不相等，把 MEM 内存中的值读取到 REG1 寄存器</li>
+<li><code>LTR REG1, REG2</code>：Load Test Register，比较 REG1 和 REG2 的值</li>
+</ul>
 <p>翻译成 C++ 代码，它做的事情大概是（参考了 <a href="https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange">cppreference</a>）：</p>
 <div class="language-c++ highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;atomic&gt;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span>
@@ -3497,6 +3505,13 @@
   </p>
 <figcaption>Treiber Stack 修正 ABA 问题的版本（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 11 on Page 20</a>）</figcaption>
 </figure>
+<p>汇编出现了新的指令：</p>
+<ul>
+<li><code>LM REG1, REG2, MEM</code>：从 MEM 内存读取两个寄存器的数据，到 REG1 和 REG2</li>
+<li><code>LA REG, IMM</code>：Load Address，加载立即数 IMM 到 REG</li>
+<li><code>AR REG1, REG2</code>：Add Register，两个寄存器相加</li>
+<li><code>CDS REG1, REG2, MEM</code>：Compare Double and Swap，把 REG1 和 REG1+1 两个l连号的存器作为一个整体，把 REG2 和 REG2+1 两个连号的寄存器作为一个整体，实现一个两倍宽度的 Compare and Swap</li>
+</ul>
 <p>对应的 C++ 版本：</p>
 <div class="language-c++ highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;atomic&gt;</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span>
@@ -3642,7 +3657,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 16:11:24 UTC">2025年7月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月13日 22:27:27 UTC">2025年7月13日</span>
   </span>
 
     
