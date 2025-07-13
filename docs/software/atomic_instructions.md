@@ -284,7 +284,7 @@ AMO 指令相当于是把一些常见的读 - 改 - 写循环固化成了指令�
 
 RISC-V 和 LoongArch 都提供了 AMO 指令，它们可以完成内存的原子更新，同时得到更新前的旧值。x86 指令集下，通过给 [add 指令添加 lock 前缀](https://en.wikipedia.org/wiki/Fetch-and-add#x86_implementation)，也可以实现原子更新的效果，如果要得到更新前的旧值，可以用 xadd 指令。
 
-AArch64 提供了 AMO 指令：LDADD、LDCLR、LDEOR、LDSET、LDSMAX、LDSMIN、LDUMAX、LDUMIN、STADD、STCLR、STEOR、STSET、STSMAX、STSMIN、STUMAX、STUMIN、SWP 等等。
+AArch64 提供了 AMO 指令：LDADD、LDCLR、LDEOR、LDSET、LDSMAX、LDSMIN、LDUMAX、LDUMIN、STADD、STCLR、STEOR、STSET、STSMAX、STSMIN、STUMAX、STUMIN、SWP 等等。此外，在实现了 LSFE 扩展的 AArch64 处理器上，还支持浮点的 AMO 指令：LDFADD、LDFMAX、LDFMIN、LDBFADD、LDBFMAX、LDBFMIN、STFADD、STFMAX、STFMIN、STBFADD、STBFMAX、STBFMIN。
 
 ### 硬件实现
 
