@@ -107,7 +107,7 @@ LL.{W/D} 执行时记录下访问地址并置上一个标记（LLbit 置为 1）
 - Alpha: ldl_l/stl_c, ldq_l/stq_c
 - PowerPC/Power ISA: lwarx/stwcx, ldarx/stdcx
 - MIPS: ll/sc, llwp/scwp(Double Width)
-- ARM: ldrex/strex(ARMv6 & ARMv7), ldxr/stxr(ARMv8)
+- ARM: ldrex/strex(ARMv6 & ARMv7), ldxr/stxr(ARMv8), ldxp/stxp(Double Width, ARMv8)
 - ARC: llock/scond
 
 实际实现时，根据处理器实现不同，检测内存访问的粒度可能不同。
@@ -246,7 +246,9 @@ cas dest_hi, dest_lo, addr, old_data_hi, old_data_lo, new_data_hi, new_data_lo
 
 x86_64 指令集提供了 CAS 指令，并且提供了 DWCAS 两倍位宽版本：[cmpxchg16b 指令](https://www.felixcloutier.com/x86/cmpxchg8b:cmpxchg16b)，它把内存中的值和 RDX:RAX 比较，如果相等，就设置 ZF，并往内存写入 RCX:RBX；如果不相等，清空 ZF 并把内存中的值写入到 RDX:RAX。可以看到，这条指令采用的是多个源寄存器的方案：RDX、RAX、RCX、RBX 一共四个源 64 位通用寄存器，并且通过定死寄存器编号，解决了指令编码的问题。同时，一条指令也要写入两个通用寄存器 RDX 和 RAX，外加 FLAGS 寄存器的 ZF。
 
-LoongArch 从 V1.1 版本开始，支持了 AMCAS 指令。RISC-V 也有可选的 [Zacas](https://github.com/riscv/riscv-zacas) 扩展。AArch64 也提供了 CAS 指令，并且 CASP 指令实现了 DWCAS。
+ARM64 也提供了 CAS 指令，通过 CASP 指令实现了 DWCAS：`CASP <Xs>, <X(s+1)>, <Xt>, <X(t+1)>, [<Xn|SP>{,#0}]`，可以把连续两个 64 位通用寄存器拼起来，作为一个 128 位的整体来进行 CAS。
+
+LoongArch 从 V1.1 版本开始，支持了 AMCAS 指令。RISC-V 也有可选的 [Zacas](https://github.com/riscv/riscv-zacas) 扩展。
 
 ### 硬件实现
 

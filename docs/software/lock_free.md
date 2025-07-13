@@ -309,7 +309,6 @@ template <class T> struct Stack {
 };
 ```
 
-
 在 Java 语言版本的 Treiber Stack 中，不会有 ABA 的问题，因为 Java 运行时保证了，CAS 的时候两个不同的对象不会被视为相等。
 
 参考：
