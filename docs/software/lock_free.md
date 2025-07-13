@@ -75,7 +75,8 @@ template <class T> struct Stack {
                                      std::memory_order_relaxed)) {
         // success
         T result = cur_head->data;
-        delete cur_head;
+        // can we delete here?
+        // delete cur_head;
         return result;
       }
     }
@@ -300,7 +301,8 @@ template <class T> struct Stack {
                                      std::memory_order_relaxed)) {
         // success
         T result = cur_head.head->data;
-        delete cur_head.head;
+        // can we delete here?
+        // delete cur_head.head;
         return result;
       }
     }
@@ -313,10 +315,26 @@ template <class T> struct Stack {
 
 在 Java 语言版本的 Treiber Stack 中，不会有 ABA 的问题，因为 Java 运行时保证了，CAS 的时候两个不同的对象不会被视为相等。
 
+### 内存回收问题
+
+但其实，上面的两种实现都有一个问题，就是把 delete 注释掉了，这样其实会导致内存泄漏。假如不注释 delete，会导致什么情况呢：
+
+- 假如两个线程同时进入 `pop()` 函数，并且此时链表的内容是 `head -> A -> B`
+- 两个线程都获取到了当前的 `head` 的值，记录到了 `cur_head` 局部变量当中，这个值等于 A 的地址
+- 然后第一个线程完成了 pop 的剩余过程，此时链表的内容是 `head -> B`，同时 `delete A`
+- 第二个线程继续执行，尝试读取 `cur_head->next`，但此时 `cur_head` 就是 A，但它已经被释放了，出现了 use after free
+
+可能的解决办法：
+
+1. 延迟释放：把要释放的结点放到一个 lock free 的链表当中，然后统计当前正在执行 pop 的线程的个数，当只有当前一个线程在进行 pop，则释放链表中的结点
+2. 引用计数：对结点进行引用计数，当引用计数降为零的时候再释放
+3. Hazard Pointer：维护一个指针数组，每个线程对应数组里的一项（或若干项，在这里只需要一项就足够，因为 pop 只访问一个结点），这一项记录了该线程正在访问的结点；在释放结点之前，检查它是否被其他的线程访问，如果是，则放到一个链表中延迟释放；如果否，则可以立即释放
+
 参考：
 
 - [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf)
 - [Treiber stack](https://en.wikipedia.org/wiki/Treiber_stack)
+- [A Lock-Free Stack: A Complete Implementation](https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/)
 
 ## 推荐阅读
 
