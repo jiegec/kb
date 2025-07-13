@@ -137,13 +137,12 @@ tack<int>::push(int const&):
         ret
 
 Stack<int>::pop():
-        subq    $40, %rsp
         # cur_head = head.load()
         movq    (%rdi), %rax
 .L12:
         testq   %rax, %rax
-        # jump to .L22 if cur_head is null
-        je      .L22
+        # jump to .L17 if cur_head is null
+        je      .L17
         # new_head = cur_head->next
         movq    8(%rax), %rdx
         # compare rax(cur_head) and head
@@ -153,29 +152,16 @@ Stack<int>::pop():
         # jump to .L12 if not swapped
         jne     .L12
         # result = cur_head->data
-        movl    (%rax), %edx
-        testq   %rax, %rax
-        # jump to .L23 if cur_head != NULL
-        jne     .L23
+        movl    (%rax), %eax
+        # return result
+        movb    $1, -4(%rsp)
+        movl    %eax, -8(%rsp)
 .L13:
-        movl    %edx, 24(%rsp)
-        movb    $1, 28(%rsp)
-.L14:
-        # return cur_head->data
-        movq    24(%rsp), %rax
-        addq    $40, %rsp
+        movq    -8(%rsp), %rax
         ret
-.L23:
-        movl    $16, %esi
-        movq    %rax, %rdi
-        movl    %edx, 12(%rsp)
-        # delete cur_head
-        call    operator delete(void*, unsigned long)
-        movl    12(%rsp), %edx
+.L17:
+        movq    $0, -8(%rsp)
         jmp     .L13
-.L22:
-        movq    $0, 24(%rsp)
-        jmp     .L14
 ```
 
 可见核心就是 [`lock cmpxchgq reg, mem` 指令](https://www.felixcloutier.com/x86/cmpxchg)，它的语义是：
@@ -335,6 +321,7 @@ template <class T> struct Stack {
 - [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf)
 - [Treiber stack](https://en.wikipedia.org/wiki/Treiber_stack)
 - [A Lock-Free Stack: A Complete Implementation](https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/)
+- [Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects](https://ieeexplore.ieee.org/document/1291819)
 
 ## 推荐阅读
 
