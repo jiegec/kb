@@ -9,6 +9,14 @@ Treiber Stack 是一个 Lock-Free 的 Stack，支持 Push 和 Pop 操作，由 R
   <figcaption>Treiber Stack（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Page 18</a>）</figcaption>
 </figure>
 
+图中用的是 [IBM System/370 指令集](http://www.simotime.com/simoi370.htm)，用到的部分汇编指令包括：
+
+- `LABEL EQU *`: 创建一个 LABEL 符号，它的值等于当前的地址，相当于 `LABEL:` 语法
+- `L REG, MEM`：从 MEM 内存读取数据到 REG 寄存器
+- `ST REG, MEM`：把 REG 寄存器的数据写入到 MEM 内存
+- `CS REG1, REG2, MEM`：Compare and Swap，把 MEM 内存中的数据和 REG1 进行比较，如果相等，把 REG2 写到 MEM 内存中；如果不相等，把 MEM 内存中的值读取到 REG1 寄存器
+- `LTR REG1, REG2`：Load Test Register，比较 REG1 和 REG2 的值
+
 翻译成 C++ 代码，它做的事情大概是（参考了 [cppreference](https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange)）：
 
 ```c++
@@ -200,6 +208,13 @@ Stack<int>::pop():
   ![Treiber Stack](lock_free_treiber_stack_v2.png){ width="400" }
   <figcaption>Treiber Stack 修正 ABA 问题的版本（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 11 on Page 20</a>）</figcaption>
 </figure>
+
+汇编出现了新的指令：
+
+- `LM REG1, REG2, MEM`：从 MEM 内存读取两个寄存器的数据，到 REG1 和 REG2
+- `LA REG, IMM`：Load Address，加载立即数 IMM 到 REG
+- `AR REG1, REG2`：Add Register，两个寄存器相加
+- `CDS REG1, REG2, MEM`：Compare Double and Swap，把 REG1 和 REG1+1 两个l连号的存器作为一个整体，把 REG2 和 REG2+1 两个连号的寄存器作为一个整体，实现一个两倍宽度的 Compare and Swap
 
 对应的 C++ 版本：
 
