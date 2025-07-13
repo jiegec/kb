@@ -87,7 +87,7 @@ template <class T> struct Stack {
 但是这样的实现有一个 ABA 问题：CAS 是根据指针的值来判断是否要 swap，但是指针的值不变，不代表指针指向的还是同一个对象。例如 head 指针（下图的 ANCHOR）指向的 node（下图的 A）被 pop 掉了，未来又重新 push 回来，此时恰好 `new` 出来了同一个指针，就会导致 CAS 写入的 next 指针的值用的是原来的 node（下图的 A）的 next（下图的 B），但这个值是非法的：
 
 <figure markdown>
-  ![Treiber Stack ABA Problem](lock_free_aba.png){ width="400" }
+  ![Treiber Stack ABA Problem](lock_free_treiber_stack_aba.png){ width="400" }
   <figcaption>Treiber Stack 的 ABA 问题（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 10 on Page 19</a>）</figcaption>
 </figure>
 
