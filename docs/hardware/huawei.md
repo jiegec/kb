@@ -211,6 +211,19 @@
 
 - [Server Types Supported by EulerOS V2.0SP12](https://support.huawei.com/enterprise/en/doc/EDOC1100451965/257a3292/server-types-supported-by-euleros-v20sp12)
 
+## Taishan V200M
+
+- 昇腾 310P AI 处理器
+- ARMv8.2-A
+- SVE
+
+来源：
+
+- [Atlas 200I SoC A1 核心板 开发指南 01](https://www.hiascend.com/doc_center/source/zh/200I-SoC-A1/devguide/Atlas%20200I%20SoC%20A1%20%E6%A0%B8%E5%BF%83%E6%9D%BF%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%2001.pdf)
+- <https://www.hiascend.com/doc_center/source/zh/Atlas200IDKA2DeveloperKit/23.0.RC1/pd/pd_0004.html>
+- <https://www.hiascend.com/doc_center/source/zh/200I-SoC-A1/devguide/devguide_0012.html>
+- [OrangePi AIpro (20T)](http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20t).html)
+
 ## part id 列表
 
 implementer 0x48
