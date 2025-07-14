@@ -596,6 +596,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/postgresql.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/software/read_copy_update.html</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/read_copy_update.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/read_copy_update.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/software/redshift.html</loc>
         <lastmod>2025-07-14</lastmod>
         <changefreq>daily</changefreq>
@@ -1252,6 +1259,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/postgresql.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/postgresql.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/software/read_copy_update.html</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/read_copy_update.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/read_copy_update.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/redshift.html</loc>
