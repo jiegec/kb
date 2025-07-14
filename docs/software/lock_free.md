@@ -202,7 +202,7 @@ Stack<int>::pop():
   <figcaption>Treiber Stack 的 ABA 问题（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 10 on Page 19</a>）</figcaption>
 </figure>
 
-为了解决这个问题，需要把链表头指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。这需要硬件的支持，通常叫做 Double-wide compare and swap，详见 [原子指令](./atomic_instructions.md)。更新后的汇编版本：
+为了解决这个问题，需要把链表头指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。这需要硬件的支持，通常叫做 Double-wide compare and swap，详见 [原子指令](./atomic_instructions.md)；如果硬件不支持 Double-wide compare and swap，同时虚拟地址没有占用完整的指针长度（例如 64 位下虚拟地址通常只有 48 位），可以复用指针的高位来保存这个整数。使用 Double-wide compare and swap 的汇编版本：
 
 <figure markdown>
   ![Treiber Stack](lock_free_treiber_stack_v2.png){ width="400" }
