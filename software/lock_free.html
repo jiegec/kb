@@ -3533,7 +3533,7 @@
   </p>
 <figcaption>Treiber Stack 的 ABA 问题（图源 <a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism Figure 10 on Page 19</a>）</figcaption>
 </figure>
-<p>为了解决这个问题，需要把链表头指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。这需要硬件的支持，通常叫做 Double-wide compare and swap，详见 <a href="atomic_instructions.html">原子指令</a>。更新后的汇编版本：</p>
+<p>为了解决这个问题，需要把链表头指针和一个整数绑在一起，二者同时 CAS：每次更新指针的时候，就把这个整数加一，这样就可以区分出前后两个 A 指针了，即使它们指针的值相同，但是整数不同，依然可以正常区分。这需要硬件的支持，通常叫做 Double-wide compare and swap，详见 <a href="atomic_instructions.html">原子指令</a>；如果硬件不支持 Double-wide compare and swap，同时虚拟地址没有占用完整的指针长度（例如 64 位下虚拟地址通常只有 48 位），可以复用指针的高位来保存这个整数。使用 Double-wide compare and swap 的汇编版本：</p>
 <figure>
 <p><a class="glightbox" href="lock_free_treiber_stack_v2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Treiber Stack" src="lock_free_treiber_stack_v2.png" width="400" /></a>
   </p>
@@ -3746,7 +3746,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月14日 02:26:28 UTC">2025年7月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月14日 02:35:40 UTC">2025年7月14日</span>
   </span>
 
     
