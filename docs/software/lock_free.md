@@ -340,7 +340,14 @@ template <class T> struct Stack {
 
 ## Queue
 
-在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作。这个算法来自论文 [Simple, fast, and practical non-blocking and blocking concurrent queue algorithms](https://dl.acm.org/doi/10.1145/248052.248106)，由 Maged M. Michael 和 Michael L. Scott 在 1996 年提出。其 Java 实现如下：
+在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作。这个算法来自论文 [Simple, fast, and practical non-blocking and blocking concurrent queue algorithms](https://dl.acm.org/doi/10.1145/248052.248106)，由 Maged M. Michael 和 Michael L. Scott 在 1996 年提出。论文中的实现如下：
+
+<figure markdown>
+  ![Lock Free Queue](lock_free_queue.png){ width="400" }
+  <figcaption>Lock Free Queue（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms</a>）</figcaption>
+</figure>
+
+其 Java 实现如下：
 
 ```java
 // from Figure 10.9 to 10.11
