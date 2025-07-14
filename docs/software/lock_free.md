@@ -340,7 +340,7 @@ template <class T> struct Stack {
 
 ## Queue
 
-在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现：
+在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作：
 
 ```java
 // from Figure 10.9 to 10.11
@@ -396,6 +396,15 @@ public class LockFreeQueue<T> {
   }
 }
 ```
+
+## Lock Free vs Wait Free
+
+根据 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452)：
+
+- A method is wait-free if it guarantees that every call finishes in a finite number of steps.
+- A method is lock-free if it guarantees that some call always finishes in a finite number of steps.
+
+Wait free 更强，要求所有调用都可以在有限步内完成；Lock free 强调的是整个系统一直在工作，总有调用可以在有限步内完成。在 Treiber Stack 里，push 和 pop 都有 `while(true)` 循环，如果线程 A 一直在调用 push/pop，那么线程 B 的 push/pop 调用可能一直无法成功，此时不能保证 Wait free，但是两个线程至少有一个是在操作 Treiber Stack 的，所以是 Lock free。
 
 ## 推荐阅读
 
