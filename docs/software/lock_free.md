@@ -340,7 +340,7 @@ template <class T> struct Stack {
 
 ## Queue
 
-在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作：
+在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作。这个算法来自论文 [Simple, fast, and practical non-blocking and blocking concurrent queue algorithms](https://dl.acm.org/doi/10.1145/248052.248106)，由 Maged M. Michael 和 Michael L. Scott 在 1996 年提出。其 Java 实现如下：
 
 ```java
 // from Figure 10.9 to 10.11
@@ -396,6 +396,96 @@ public class LockFreeQueue<T> {
   }
 }
 ```
+
+## Set
+
+在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 9.8 Non-Blocking Synchronization 中描述了一种 Lock Free 的 Set 实现，它支持 add、remove 和 contains 三个操作，它的实现方式是把 Set 的元素按照 key 从小到大放置在一个链表当中（List-based set）。这个算法由 Maged M. Michael 在 2002 年的论文 [High performance dynamic lock-free hash tables and list-based sets](https://dl.acm.org/doi/10.1145/564870.564881) 中提出。
+
+其 Java 实现如下：
+
+```java
+class Window {
+  public Node pred, curr;
+  Window(Node myPred, Node myCurr) {
+    pred = myPred;
+    curr = myCurr;
+  }
+}
+
+public Window find(Node head, int key) {
+  Node pred = null, curr = null, succ = null;
+  boolean[] marked = {false};
+  boolean snip;
+retry:
+  while (true) {
+    pred = head;
+    curr = pred.next.getReference();
+    while (true) {
+      succ = curr.next.get(marked);
+      while (marked[0]) {
+        snip = pred.next.compareAndSet(curr, succ, false, false);
+        if (!snip)
+          continue retry;
+        curr = succ;
+        succ = curr.next.get(marked);
+      }
+      if (curr.key >= key)
+        return new Window(pred, curr);
+      pred = curr;
+      curr = succ;
+    }
+  }
+}
+
+public boolean add(T item) {
+  int key = item.hashCode();
+  while (true) {
+    Window window = find(head, key);
+    Node pred = window.pred, curr = window.curr;
+    if (curr.key == key) {
+      return false;
+    } else {
+      Node node = new Node(item);
+      node.next = new AtomicMarkableReference(curr, false);
+      if (pred.next.compareAndSet(curr, node, false, false)) {
+        return true;
+      }
+    }
+  }
+}
+
+public boolean remove(T item) {
+  int key = item.hashCode();
+  boolean snip;
+  while (true) {
+    Window window = find(head, key);
+    Node pred = window.pred, curr = window.curr;
+    if (curr.key != key) {
+      return false;
+    } else {
+      Node succ = curr.next.getReference();
+      snip = curr.next.compareAndSet(succ, succ, false, true);
+      if (!snip)
+        continue;
+      pred.next.compareAndSet(curr, succ, false, false);
+      return true;
+    }
+  }
+}
+
+public boolean contains(T item) {
+  boolean[] marked = false;
+  int key = item.hashCode();
+  Node curr = head;
+  while (curr.key < key) {
+    curr = curr.next.getReference();
+    Node succ = curr.next.get(marked);
+  }
+  return (curr.key == key && !marked[0])
+}
+```
+
+为了解决链表的并发修改问题，它给每个结点添加了一个 marked 属性，当这个结点要被删除的时候，先不把它从链表中删掉，而是打上标记；之后在遍历的时候，再把要删除的结点从链表中删除并回收。
 
 ## Lock Free vs Wait Free
 
