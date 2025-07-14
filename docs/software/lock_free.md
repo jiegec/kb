@@ -404,6 +404,11 @@ public class LockFreeQueue<T> {
 }
 ```
 
+Java 版本和论文的实现有两点不同：
+
+1. CAS 没有加 counter，因为 Java 保证了不同对象的比较不会相等
+2. 去掉了显式的 free，而是交给垃圾回收
+
 ## Set
 
 在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 9.8 Non-Blocking Synchronization 中描述了一种 Lock Free 的 Set 实现，它支持 add、remove 和 contains 三个操作，它的实现方式是把 Set 的元素按照 key 从小到大放置在一个链表当中（List-based set）。这个算法由 Maged M. Michael 在 2002 年的论文 [High performance dynamic lock-free hash tables and list-based sets](https://dl.acm.org/doi/10.1145/564870.564881) 中提出。论文中的实现如下：
