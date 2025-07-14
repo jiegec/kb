@@ -406,7 +406,12 @@ public class LockFreeQueue<T> {
 
 ## Set
 
-在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 9.8 Non-Blocking Synchronization 中描述了一种 Lock Free 的 Set 实现，它支持 add、remove 和 contains 三个操作，它的实现方式是把 Set 的元素按照 key 从小到大放置在一个链表当中（List-based set）。这个算法由 Maged M. Michael 在 2002 年的论文 [High performance dynamic lock-free hash tables and list-based sets](https://dl.acm.org/doi/10.1145/564870.564881) 中提出。
+在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 9.8 Non-Blocking Synchronization 中描述了一种 Lock Free 的 Set 实现，它支持 add、remove 和 contains 三个操作，它的实现方式是把 Set 的元素按照 key 从小到大放置在一个链表当中（List-based set）。这个算法由 Maged M. Michael 在 2002 年的论文 [High performance dynamic lock-free hash tables and list-based sets](https://dl.acm.org/doi/10.1145/564870.564881) 中提出。论文中的实现如下：
+
+<figure markdown>
+  ![Lock Free Set](lock_free_set.png){ width="400" }
+  <figcaption>Lock Free Set（图源 <a href="https://dl.acm.org/doi/10.1145/564870.564881">High performance dynamic lock-free hash tables and list-based sets</a>）</figcaption>
+</figure>
 
 其 Java 实现如下：
 
