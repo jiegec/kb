@@ -338,6 +338,65 @@ template <class T> struct Stack {
 - [A Lock-Free Stack: A Complete Implementation](https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/)
 - [Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects](https://ieeexplore.ieee.org/document/1291819)
 
+## Queue
+
+在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现：
+
+```java
+// from Figure 10.9 to 10.11
+public class Node {
+  public T value;
+  public AtomicReference<Node> next;
+  public Node(T value) {
+    this.value = value;
+    next = new AtomicReference<Node>(null);
+  }
+}
+
+public class LockFreeQueue<T> {
+  private AtomicReference<Node> head;
+  private AtomicReference<Node> tail;
+
+  public void enq(T value) {
+    Node node = new Node(value);
+    while (true) {
+      Node last = tail.get();
+      Node next = last.next.get();
+      if (last == tail.get()) {
+        if (next == null) {
+          if (last.next.compareAndSet(next, node)) {
+            tail.compareAndSet(last, node);
+            return;
+          }
+        } else {
+          tail.compareAndSet(last, next);
+        }
+      }
+    }
+  }
+
+  public T deq() throws EmptyException {
+    while (true) {
+      Node first = head.get();
+      Node last = tail.get();
+      Node next = first.next.get();
+      if (first == head.get()) {
+        if (first == last) {
+          if (next == null) {
+            throw new EmptyException();
+          }
+          tail.compareAndSet(last, next);
+        } else {
+          T value = next.value;
+          if (head.compareAndSet(first, next))
+            return value;
+        }
+      }
+    }
+  }
+}
+```
+
 ## 推荐阅读
 
 - [An Introduction to Lock-Free Programming](https://preshing.com/20120612/an-introduction-to-lock-free-programming/)

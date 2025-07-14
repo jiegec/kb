@@ -102,3 +102,5 @@ do {									\
 	(typeof(x))__x;							\
 })
 ```
+
+READ_ONCE/WRITE_ONCE 比较接近 C/C++ 的 atomic_load/atomic_store（指定 relaxed order）。
