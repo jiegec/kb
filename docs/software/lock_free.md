@@ -338,6 +338,16 @@ template <class T> struct Stack {
 - [A Lock-Free Stack: A Complete Implementation](https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/)
 - [Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects](https://ieeexplore.ieee.org/document/1291819)
 
+### Push/Pop Elimination 消除
+
+虽然 Treiber Stack 实现了 Lock free 的 Push 和 Pop 操作，但由于每次都是操作的同一个指针，导致实际上更新是串行的，性能受限。为了解决这个问题，可以引入 Elimination：即给 Push 和 Pop 进行配对，如果发现两个线程分别在进行 Push 和 Pop，那就把 Push 的数据传递给 Pop，然后就不需要更新 Stack 了。为了实现这个配对，需要引入额外的 Elimination Array。这个方法由 Danny Hendler、Nir Shavit 和 Lena Yerushalmi 在论文 [A scalable lock-free stack algorithm](https://dl.acm.org/doi/10.1145/1007912.1007944) 中提出，具体地：
+
+- Push/Pop 的时候，首先按照 Treiber Stack 的方式进行 CAS，如果 CAS 成功，那就直接结束；如果 CAS 失败，不立即重试，而是尝试进行一次 Elimination
+- 尝试 Eliminate：在一个 Elimination Array 当中，随机选取一项，根据它的占用状态：
+    - 如果没有其他线程在占用，那就由本线程占用这一项，然后等待一段时间，直到有其他线程来访问同一项
+    - 如果已经有其他线程占用了这一项，并且本线程和占用了这一项的现场正好是一 Push 一 Pop，就进行 Eliminate
+- 如果 Eliminate 失败，回到 Treiber Stack 的方式，重新进行 CAS
+
 ## Queue
 
 在 [The Art of Multiprocessor Programming](https://dl.acm.org/doi/pdf/10.5555/2385452) 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作。这个算法来自论文 [Simple, fast, and practical non-blocking and blocking concurrent queue algorithms](https://dl.acm.org/doi/10.1145/248052.248106)，由 Maged M. Michael 和 Michael L. Scott 在 1996 年提出。论文中的实现如下：
@@ -350,7 +360,7 @@ template <class T> struct Stack {
 其 Java 实现如下：
 
 ```java
-// from Figure 10.9 to 10.11
+// from The Art of Multiprocessor Programming Figure 10.9 to 10.11
 public class Node {
   public T value;
   public AtomicReference<Node> next;
@@ -421,6 +431,7 @@ Java 版本和论文的实现有两点不同：
 其 Java 实现如下：
 
 ```java
+// from The Art of Multiprocessor Programming 
 class Window {
   public Node pred, curr;
   Window(Node myPred, Node myCurr) {
