@@ -3716,7 +3716,7 @@
 <li><a href="https://ieeexplore.ieee.org/document/1291819">Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects</a></li>
 </ul>
 <h3 id="pushpop-elimination">Push/Pop Elimination 消除</h3>
-<p>虽然 Treiber Stack 实现了 Lock free 的 Push 和 Pop 操作，但由于每次都是操作的同一个指针，导致实际上更新是串行的，性能受限。为了解决这个问题，可以引入 Elimination：即给 Push 和 Pop 进行配对，如果发现两个线程分别在进行 Push 和 Pop，那就把 Push 的数据传递给 Pop，然后就不需要更新 Stack 了。为了实现这个配对，需要引入额外的 Elimination Array。这个方法由 Danny Hendler、Nir Shavit 和 Lena Yerushalmi 在论文 <a href="https://dl.acm.org/doi/10.1145/1007912.1007944">A scalable lock-free stack algorithm</a> 中提出，具体地：</p>
+<p>虽然 Treiber Stack 实现了 Lock free 的 Push 和 Pop 操作，但由于每次都是操作的同一个指针，导致实际上更新是串行的，性能受限。为了解决这个问题，可以引入 Elimination：即给 Push 和 Pop 进行配对，如果发现两个线程分别在进行 Push 和 Pop，那就把 Push 的数据传递给 Pop，然后就不需要更新 Stack 了。为了实现这个配对，需要引入额外的 Elimination Array。这个方法由 Danny Hendler、Nir Shavit 和 Lena Yerushalmi 在 2004 年的论文 <a href="https://dl.acm.org/doi/10.1145/1007912.1007944">A scalable lock-free stack algorithm</a> 中提出，具体地：</p>
 <ul>
 <li>Push/Pop 的时候，首先按照 Treiber Stack 的方式进行 CAS，如果 CAS 成功，那就直接结束；如果 CAS 失败，不立即重试，而是尝试进行一次 Elimination</li>
 <li>尝试 Eliminate：在一个 Elimination Array 当中，随机选取一项，根据它的占用状态：<ul>
@@ -3917,7 +3917,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月15日 17:24:57 UTC">2025年7月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月15日 17:27:27 UTC">2025年7月15日</span>
   </span>
 
     
