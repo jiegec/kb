@@ -77,7 +77,7 @@ template <class T> struct Stack {
       // atomic swap if head == cur_head
       // on success: head becomes new_head
       // on failure: cur_head becomes the current value of head, and loop
-      // release order: ensure cur_head->data is done after CAS
+      // acquire order: ensure cur_head->data is done after CAS
       if (head.compare_exchange_weak(cur_head, new_head,
                                      std::memory_order_acquire,
                                      std::memory_order_relaxed)) {
@@ -296,7 +296,7 @@ template <class T> struct Stack {
       // atomic swap if head == cur_head
       // on success: head becomes new_head
       // on failure: cur_head becomes the current value of head, and loop
-      // release order: ensure cur_head->data is done after CAS
+      // acquire order: ensure cur_head->data is done after CAS
       if (head.compare_exchange_weak(cur_head, new_head,
                                      std::memory_order_acquire,
                                      std::memory_order_relaxed)) {
