@@ -296,7 +296,7 @@ template <class T> struct Stack {
       // atomic swap if head == cur_head
       // on success: head becomes new_head
       // on failure: cur_head becomes the current value of head, and loop
-      // acquire order: ensure cur_head->data is done after CAS
+      // acquire order: ensure cur_head->data is read after CAS
       if (head.compare_exchange_weak(cur_head, new_head,
                                      std::memory_order_acquire,
                                      std::memory_order_relaxed)) {
@@ -311,6 +311,106 @@ template <class T> struct Stack {
     // no elements
     return {};
   }
+};
+```
+
+如果想要在 `push` 里只 CAS head 指针而不是完整的两倍宽度的 `HeadWithCounter`，可以用 `__atomic builtin`：
+
+```cpp
+#define dsize_t unsigned __int128
+template <class T> struct Node {
+  T data;        // user data
+  Node<T> *next; // pointer to next node
+
+  Node(const T &data) : data(data), next(nullptr) {}
+};
+
+template <class T> struct HeadWithCounter {
+  union {
+    dsize_t inner;
+
+    struct {
+      // paper: ANCHORP
+      // head of singly linked list
+      Node<T> *head;
+      // paper: ANCHORC
+      // allocation counter
+      size_t counter;
+    };
+  };
+
+  HeadWithCounter() : head(nullptr), counter(0) {}
+};
+
+template <class T> struct Stack : BaseStack<T> {
+  // paper: ANCHOR
+  // head of singly linked list with counter
+  HeadWithCounter<T> head;
+
+  Stack() {}
+
+  // paper: PUTEL
+  void push(const T &data) override {
+    Node<T> *new_head = new Node<T>(data);
+
+    // paper: L R2, ANCHORP
+    // read current head
+    Node<T> *cur_head = __atomic_load_n(&head.head, __ATOMIC_RELAXED);
+
+    // paper: ST R2, ELNEXT-EL(,R4)
+    // link the new list
+    new_head->next = cur_head;
+
+    // paper: CS R2, R4, ANCHOR; ST R2, ELNEXT-EL(,R4) on failure
+    // atomic swap if head == new_head->next
+    // on success: head becomes new_head
+    // on failure: new_head->next becomes the current value of head, and loop
+    // release order: ensure new_head->next = cur_head is observed before CAS
+    while (!__atomic_compare_exchange_n(&head.head, &new_head->next, new_head,
+                                        true, __ATOMIC_RELEASE,
+                                        __ATOMIC_RELAXED))
+      ;
+  }
+
+  // paper: GETEL
+  std::optional<T> pop() override {
+    HeadWithCounter<T> cur_head;
+    // paper: LM R2, R3, ANCHOR
+    // read current head
+    cur_head.inner = __atomic_load_n(&head.inner, __ATOMIC_RELAXED);
+
+    // paper: LTR R2, R2; BZ EMPTY
+    while (cur_head.head) {
+      // paper: L R4, ELNEXT-EL(,R2)
+      // cur_head->next becomes the new list head
+      HeadWithCounter<T> new_head;
+      new_head.head = cur_head.head->next;
+
+      // paper: LA R5, 1; AR R5, R3
+      // update counter to handle ABA problem
+      new_head.counter = cur_head.counter + 1;
+
+      // paper: CDS R2, R4, ANCHOR
+      // atomic swap if head == cur_head
+      // on success: head becomes new_head
+      // on failure: cur_head becomes the current value of head, and loop
+      // acquire order: ensure cur_head->data is read after CAS
+      if (__atomic_compare_exchange_n(&head.inner, &cur_head.inner,
+                                      new_head.inner, true, __ATOMIC_ACQUIRE,
+                                      __ATOMIC_RELAXED)) {
+        // success
+        T result = cur_head.head->data;
+        // cur_head is leaked, since we cannot reclaim memory immediately
+        cur_head.head->next = nullptr;
+        return result;
+      }
+    }
+
+    // no elements
+    return {};
+  }
+
+  virtual const char *name() override { return "treiber_stack_v2"; }
 };
 ```
 
