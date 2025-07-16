@@ -456,7 +456,7 @@ Hazard Pointers 是由 M.M.Michael 在 2004 的论文 [Hazard Pointers: Safe Mem
 有了 Hazard Pointers 机制以后，再改写 Treiber Stack 的 pop 函数，就可以实现内存回收了：
 
 <figure markdown>
-  ![Hazard Pointers on Treiber Stack](lock_free_hazard_stack.png){ width="400" }
+  ![Hazard Pointers on Treiber Stack](lock_free_hazard_pointers_stack.png){ width="400" }
   <figcaption>Hazard Pointers 应用到 Treiber Stack（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 8</a>）</figcaption>
 </figure>
 
