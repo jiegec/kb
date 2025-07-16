@@ -2948,9 +2948,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#hazard-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hazard Pointers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pushpop-elimination" class="md-nav__link">
     <span class="md-ellipsis">
       Push/Pop Elimination 消除
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考
     </span>
   </a>
   
@@ -2989,7 +3007,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       推荐阅读
     </span>
@@ -3801,17 +3819,32 @@
 </ul>
 <p>可能的解决办法：</p>
 <ol>
-<li>延迟释放：把要释放的结点放到一个 lock free 的链表当中，然后统计当前正在执行 pop 的线程的个数，当只有当前一个线程在进行 pop，则释放链表中的结点</li>
+<li>延迟释放：把要释放的结点放到一个 lock free 的链表当中，然后统计当前正在执行 pop 的线程的个数，当只有当前一个线程在进行 pop，则把链表取下来（CAS 成 null），再释放链表中的结点</li>
 <li>引用计数：对结点进行引用计数，当引用计数降为零的时候再释放</li>
-<li>Hazard Pointer：维护一个指针数组，每个线程对应数组里的一项（或若干项，在这里只需要一项就足够，因为 pop 只访问一个结点），这一项记录了该线程正在访问的结点；在释放结点之前，检查它是否被其他的线程访问，如果是，则放到一个链表中延迟释放；如果否，则可以立即释放</li>
+<li>Hazard Pointer：见下</li>
 </ol>
-<p>参考：</p>
-<ul>
-<li><a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Treiber_stack">Treiber stack</a></li>
-<li><a href="https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/">A Lock-Free Stack: A Complete Implementation</a></li>
-<li><a href="https://ieeexplore.ieee.org/document/1291819">Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects</a></li>
-</ul>
+<h3 id="hazard-pointers">Hazard Pointers</h3>
+<p>Hazard Pointers 是由 M.M.Michael 在 2004 的论文 <a href="https://ieeexplore.ieee.org/document/1291819">Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects</a> 中提出的一种方法，可以给很多种 Lock Free 数据结构实现内存的安全回收。</p>
+<p>它的思路是：维护一个全局的指针数组，每个线程对应数组里的一项（或若干项，在 Treiber Stack 里只需要一项就足够，因为 pop 只会访问一个结点，也就只需要保护这一个结点），这一项记录了该线程在 pop 函数中正在访问的结点；在释放结点之前，首先要在全局的指针数组里检查它是否被其他的线程访问：如果是，则放到一个链表中等待释放，直到未来某次检查的时候，发现没有被其他线程访问为止；如果否，则可以立即释放。</p>
+<p>检查要释放的结点是否在全局的指针数组中，并回收那些可以释放的结点的过程如下：</p>
+<figure>
+<p><a class="glightbox" href="lock_free_hazard_pointers_scan.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Hazard Pointers Scan" src="lock_free_hazard_pointers_scan.png" width="400" /></a>
+  </p>
+<figcaption>Hazard Pointers 的 Scan 函数（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 3</a>）</figcaption>
+</figure>
+<p>图中 head 维护了各个线程的信息的链表，其中 HP 数组就是记录了各个线程正在访问的 Hazard Pointers；rlist 就是等待被释放的结点，如果它不在任何一个线程的 HP 当中，就可以释放掉了；否则就继续放在 rlist 里面，等下一次 Scan 再尝试释放。</p>
+<p>接下来就是如何维护这些全局的状态：</p>
+<figure>
+<p><a class="glightbox" href="lock_free_hazard_pointers.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Hazard Pointers" src="lock_free_hazard_pointers.png" width="400" /></a>
+  </p>
+<figcaption>Hazard Pointers（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 4</a>）</figcaption>
+</figure>
+<p>有了 Hazard Pointers 机制以后，再改写 Treiber Stack 的 pop 函数，就可以实现内存回收了：</p>
+<figure>
+<p><a class="glightbox" href="lock_free_hazard_stack.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Hazard Pointers on Treiber Stack" src="lock_free_hazard_stack.png" width="400" /></a>
+  </p>
+<figcaption>Hazard Pointers 应用到 Treiber Stack（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 8</a>）</figcaption>
+</figure>
 <h3 id="pushpop-elimination">Push/Pop Elimination 消除</h3>
 <p>虽然 Treiber Stack 实现了 Lock free 的 Push 和 Pop 操作，但由于每次都是操作的同一个指针，导致实际上更新是串行的，性能受限。为了解决这个问题，可以引入 Elimination：即给 Push 和 Pop 进行配对，如果发现两个线程分别在进行 Push 和 Pop，那就把 Push 的数据传递给 Pop，然后就不需要更新 Stack 了。为了实现这个配对，需要引入额外的 Elimination Array。这个方法由 Danny Hendler、Nir Shavit 和 Lena Yerushalmi 在 2004 年的论文 <a href="https://dl.acm.org/doi/10.1145/1007912.1007944">A scalable lock-free stack algorithm</a> 中提出，具体地：</p>
 <ul>
@@ -3822,6 +3855,13 @@
 </ul>
 </li>
 <li>如果 Eliminate 失败，回到 Treiber Stack 的方式，重新进行 CAS</li>
+</ul>
+<h3 id="_2">参考</h3>
+<ul>
+<li><a href="https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf">Systems Programming: Coping With Parallelism</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Treiber_stack">Treiber stack</a></li>
+<li><a href="https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/">A Lock-Free Stack: A Complete Implementation</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/1291819">Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects</a></li>
 </ul>
 <h2 id="queue">Queue</h2>
 <p>在 <a href="https://dl.acm.org/doi/pdf/10.5555/2385452">The Art of Multiprocessor Programming</a> 的 10.5 An Unbounded Lock-Free Queue 中描述了一种 Lock Free 的 Queue 实现，它支持 enqueue 和 dequeue 两个操作。这个算法来自论文 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms</a>，由 Maged M. Michael 和 Michael L. Scott 在 1996 年提出。论文中的实现如下：</p>
@@ -3986,7 +4026,7 @@
 <li>A method is lock-free if it guarantees that some call always finishes in a finite number of steps.</li>
 </ul>
 <p>Wait free 更强，要求所有调用都可以在有限步内完成；Lock free 强调的是整个系统一直在工作，总有调用可以在有限步内完成。在 Treiber Stack 里，push 和 pop 都有 <code>while(true)</code> 循环，如果线程 A 一直在调用 push/pop，那么线程 B 的 push/pop 调用可能一直无法成功，此时不能保证 Wait free，但是两个线程至少有一个是在操作 Treiber Stack 的，所以是 Lock free。</p>
-<h2 id="_2">推荐阅读</h2>
+<h2 id="_3">推荐阅读</h2>
 <ul>
 <li><a href="https://preshing.com/20120612/an-introduction-to-lock-free-programming/">An Introduction to Lock-Free Programming</a></li>
 <li><a href="https://learn.microsoft.com/en-us/windows/win32/dxtecharts/lockless-programming">Lockless Programming Considerations for Xbox 360 and Microsoft Windows</a></li>
@@ -4014,7 +4054,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月16日 08:49:38 UTC">2025年7月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月16日 13:07:45 UTC">2025年7月16日</span>
   </span>
 
     
