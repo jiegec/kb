@@ -27,7 +27,7 @@
     
     
       
-        <title>GCC Internals - 杰哥的知识库</title>
+        <title>GCC 内部实现 - 杰哥的知识库</title>
       
     
     
@@ -84,7 +84,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="GCC Internals - 杰哥的知识库" >
+        <meta  property="og:title"  content="GCC 内部实现 - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
@@ -100,7 +100,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="GCC Internals - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="GCC 内部实现 - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
@@ -129,7 +129,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#gcc-internals" class="md-skip">
+        <a href="#gcc" class="md-skip">
           跳转至
         </a>
       
@@ -163,7 +163,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GCC Internals
+              GCC 内部实现
             
           </span>
         </div>
@@ -2553,7 +2553,7 @@
   
   
   <span class="md-ellipsis">
-    CTF
+    CTF 常用信息
     
   </span>
   
@@ -2576,7 +2576,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA
+    CUDA 相关
     
   </span>
   
@@ -2677,7 +2677,7 @@
   
   
   <span class="md-ellipsis">
-    GCC Internals
+    GCC 内部实现
     
   </span>
   
@@ -2690,7 +2690,7 @@
   
   
   <span class="md-ellipsis">
-    GCC Internals
+    GCC 内部实现
     
   </span>
   
@@ -2782,7 +2782,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gcc" class="md-nav__link">
+  <a href="#gcc_1" class="md-nav__link">
     <span class="md-ellipsis">
       构建用于开发的 GCC
     </span>
@@ -2791,7 +2791,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gcc_1" class="md-nav__link">
+  <a href="#gcc_2" class="md-nav__link">
     <span class="md-ellipsis">
       调试 GCC
     </span>
@@ -2800,7 +2800,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gcc_2" class="md-nav__link">
+  <a href="#gcc_3" class="md-nav__link">
     <span class="md-ellipsis">
       测试 GCC
     </span>
@@ -2921,7 +2921,7 @@
   
   
   <span class="md-ellipsis">
-    Linux Kernel Memory Barriers
+    Linux Kernel Memory Barriers 总结
     
   </span>
   
@@ -2990,7 +2990,7 @@
   
   
   <span class="md-ellipsis">
-    Linux Scheduler
+    Linux Scheduler 分析
     
   </span>
   
@@ -3105,7 +3105,7 @@
   
   
   <span class="md-ellipsis">
-    RCU (Read-Copy-Update)
+    RCU (Read-Copy-Update) 总结
     
   </span>
   
@@ -3128,7 +3128,7 @@
   
   
   <span class="md-ellipsis">
-    Amazon Redshift
+    Amazon Redshift 分析
     
   </span>
   
@@ -3151,7 +3151,7 @@
   
   
   <span class="md-ellipsis">
-    SGEMM on CUDA
+    使用 CUDA 实现 SGEMM
     
   </span>
   
@@ -3197,7 +3197,7 @@
   
   
   <span class="md-ellipsis">
-    SUNRPC 例子
+    SUNRPC 使用样例
     
   </span>
   
@@ -3220,7 +3220,7 @@
   
   
   <span class="md-ellipsis">
-    SVG
+    SVG 速查
     
   </span>
   
@@ -3266,7 +3266,7 @@
   
   
   <span class="md-ellipsis">
-    Transformer
+    Transformer 解析
     
   </span>
   
@@ -3413,7 +3413,7 @@
   
 
 
-<h1 id="gcc-internals">GCC Internals</h1>
+<h1 id="gcc">GCC 内部实现</h1>
 <p>本文是对 <a href="https://gcc.gnu.org/onlinedocs/gccint.pdf">GNU Compiler Collection Internals</a> 文档的整理和总结。文章引用了部分 GCC 源码。</p>
 <h2 id="rtl">RTL</h2>
 <h3 id="rtl_1">查看 RTL</h3>
@@ -3707,7 +3707,7 @@
 </span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="w">   </span><span class="o">...</span><span class="nv">]</span>
 </span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="s">&quot;preparation-statements&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<h2 id="gcc">构建用于开发的 GCC</h2>
+<h2 id="gcc_1">构建用于开发的 GCC</h2>
 <p>完整的 GCC 需要经过 bootstrap，但是为了开发，可以简化：</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>mkdir<span class="w"> </span>gcc-build
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">cd</span><span class="w"> </span>gcc-build
@@ -3729,10 +3729,10 @@
 <li>再构建一个依赖 libc 的 gcc+libgcc</li>
 </ol>
 <p>还有一种办法，是用 newlib 来做一个简单的空壳 libc 实现，这样可以直接一步到位。</p>
-<h2 id="gcc_1">调试 GCC</h2>
+<h2 id="gcc_2">调试 GCC</h2>
 <p>给 GCC 传递编译选项，可以让 GCC 打印中间结果，见 <a href="https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html">GCC Developer Options</a>：<code>-fdump-tree-all -fdump-rtl-all -dP</code>。想要更加详细的日志，可以用 <code>-fdump-tree-all-details</code> 甚至 <code>-fdump-tree-all-all</code>。</p>
 <p>为了给 GCC 打断点，可以添加 <code>-v</code> 参数，找到实际的 <code>cc1</code> 命令行调用，再用调试器调试 cc1。GCC 提供了 gdbinit 配置：<code>gcc/gdbinit.in</code>。</p>
-<h2 id="gcc_2">测试 GCC</h2>
+<h2 id="gcc_3">测试 GCC</h2>
 <p>参考：<a href="https://gcc.gnu.org/install/test.html">Installing GCC: Testing</a> <a href="https://dmalcolm.fedorapeople.org/gcc/newbies-guide/working-with-the-testsuite.html">Working with the testsuite</a></p>
 <p>运行所有 gcc 测试：<code>make check-gcc</code>。针对测试类型进行过滤：</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># test according to all files named execute.exp</span>
@@ -3767,7 +3767,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年1月2日 00:07:55 UTC">2025年1月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月16日 13:12:47 UTC">2025年7月16日</span>
   </span>
 
     
