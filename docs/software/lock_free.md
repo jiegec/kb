@@ -427,16 +427,38 @@ template <class T> struct Stack : BaseStack<T> {
 
 可能的解决办法：
 
-1. 延迟释放：把要释放的结点放到一个 lock free 的链表当中，然后统计当前正在执行 pop 的线程的个数，当只有当前一个线程在进行 pop，则释放链表中的结点
+1. 延迟释放：把要释放的结点放到一个 lock free 的链表当中，然后统计当前正在执行 pop 的线程的个数，当只有当前一个线程在进行 pop，则把链表取下来（CAS 成 null），再释放链表中的结点
 2. 引用计数：对结点进行引用计数，当引用计数降为零的时候再释放
-3. Hazard Pointer：维护一个指针数组，每个线程对应数组里的一项（或若干项，在这里只需要一项就足够，因为 pop 只访问一个结点），这一项记录了该线程正在访问的结点；在释放结点之前，检查它是否被其他的线程访问，如果是，则放到一个链表中延迟释放；如果否，则可以立即释放
+3. Hazard Pointer：见下
 
-参考：
+### Hazard Pointers
 
-- [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf)
-- [Treiber stack](https://en.wikipedia.org/wiki/Treiber_stack)
-- [A Lock-Free Stack: A Complete Implementation](https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/)
-- [Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects](https://ieeexplore.ieee.org/document/1291819)
+Hazard Pointers 是由 M.M.Michael 在 2004 的论文 [Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects](https://ieeexplore.ieee.org/document/1291819) 中提出的一种方法，可以给很多种 Lock Free 数据结构实现内存的安全回收。
+
+它的思路是：维护一个全局的指针数组，每个线程对应数组里的一项（或若干项，在 Treiber Stack 里只需要一项就足够，因为 pop 只会访问一个结点，也就只需要保护这一个结点），这一项记录了该线程在 pop 函数中正在访问的结点；在释放结点之前，首先要在全局的指针数组里检查它是否被其他的线程访问：如果是，则放到一个链表中等待释放，直到未来某次检查的时候，发现没有被其他线程访问为止；如果否，则可以立即释放。
+
+检查要释放的结点是否在全局的指针数组中，并回收那些可以释放的结点的过程如下：
+
+<figure markdown>
+  ![Hazard Pointers Scan](lock_free_hazard_pointers_scan.png){ width="400" }
+  <figcaption>Hazard Pointers 的 Scan 函数（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 3</a>）</figcaption>
+</figure>
+
+图中 head 维护了各个线程的信息的链表，其中 HP 数组就是记录了各个线程正在访问的 Hazard Pointers；rlist 就是等待被释放的结点，如果它不在任何一个线程的 HP 当中，就可以释放掉了；否则就继续放在 rlist 里面，等下一次 Scan 再尝试释放。
+
+接下来就是如何维护这些全局的状态：
+
+<figure markdown>
+  ![Hazard Pointers](lock_free_hazard_pointers.png){ width="400" }
+  <figcaption>Hazard Pointers（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 4</a>）</figcaption>
+</figure>
+
+有了 Hazard Pointers 机制以后，再改写 Treiber Stack 的 pop 函数，就可以实现内存回收了：
+
+<figure markdown>
+  ![Hazard Pointers on Treiber Stack](lock_free_hazard_stack.png){ width="400" }
+  <figcaption>Hazard Pointers 应用到 Treiber Stack（图源 <a href="https://dl.acm.org/doi/10.1145/248052.248106">Simple, fast, and practical non-blocking and blocking concurrent queue algorithms Figure 8</a>）</figcaption>
+</figure>
 
 ### Push/Pop Elimination 消除
 
@@ -447,6 +469,13 @@ template <class T> struct Stack : BaseStack<T> {
     - 如果没有其他线程在占用，那就由本线程占用这一项，然后等待一段时间，直到有其他线程来访问同一项
     - 如果已经有其他线程占用了这一项，并且本线程和占用了这一项的现场正好是一 Push 一 Pop，就进行 Eliminate
 - 如果 Eliminate 失败，回到 Treiber Stack 的方式，重新进行 CAS
+
+### 参考
+
+- [Systems Programming: Coping With Parallelism](https://dominoweb.draco.res.ibm.com/reports/rj5118.pdf)
+- [Treiber stack](https://en.wikipedia.org/wiki/Treiber_stack)
+- [A Lock-Free Stack: A Complete Implementation](https://www.modernescpp.com/index.php/a-lock-free-stack-a-complete-implementation/)
+- [Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects](https://ieeexplore.ieee.org/document/1291819)
 
 ## Queue
 
