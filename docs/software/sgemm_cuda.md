@@ -1,4 +1,4 @@
-# SGEMM on CUDA
+# 使用 CUDA 实现 SGEMM
 
 使用 CUDA 实现 SGEMM（准确地说，实现了矩阵乘法 $C=A*B$，而不是完整的 GEMM 计算 $C = \alpha A*B + \beta C$）。
 

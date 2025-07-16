@@ -1,4 +1,4 @@
-# GCC Internals
+# GCC 内部实现
 
 本文是对 [GNU Compiler Collection Internals](https://gcc.gnu.org/onlinedocs/gccint.pdf) 文档的整理和总结。文章引用了部分 GCC 源码。
 

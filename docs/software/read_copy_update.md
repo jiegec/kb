@@ -1,4 +1,4 @@
-# RCU (Read-Copy-Update)
+# RCU (Read-Copy-Update) 总结
 
 RCU 是一种读写锁的替代方案，主要针对以读为主的 workload，它的思路是：
 

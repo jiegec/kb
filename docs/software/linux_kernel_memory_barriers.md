@@ -1,4 +1,4 @@
-# Linux Kernel Memory Barriers
+# Linux Kernel Memory Barriers 总结
 
 本文是对 [Linux Kernel Memory Barriers](https://www.kernel.org/doc/Documentation/memory-barriers.txt) 一文的总结。
 

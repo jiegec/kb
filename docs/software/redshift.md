@@ -1,4 +1,4 @@
-# Amazon Redshift
+# Amazon Redshift 分析
 
 本文基于 [Amazon Redshift Database Developer Guide](https://docs.aws.amazon.com/redshift/latest/dg/welcome.html) 整理。
 

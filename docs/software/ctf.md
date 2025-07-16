@@ -1,4 +1,4 @@
-# CTF
+# CTF 常用信息
 
 ## general
 
