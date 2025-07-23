@@ -61,11 +61,13 @@
 - 20 threads
 - part id 0xd03（8 threads，可能是 4 核，同麒麟 9010 大核）, 0xd43（8 threads，可能是 4 核）, 0xd42（4 threads，可能是 2 核，同麒麟 9010 中核）
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
+- Charlotte Pro
 
 来源：
 
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
+- [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
 
 ### 麒麟 9010S
 
