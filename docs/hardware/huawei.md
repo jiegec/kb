@@ -34,7 +34,7 @@
 ### 麒麟 9020
 
 - 首发：Mate 70
-- 1x 大核（0xd05），3x 中核，4x 小核
+- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
 - 大核中核有超线程
 - 马良 920
 - 丝印 Hi36C0 GFCV110
@@ -46,6 +46,7 @@
 - [HiSilicon Kirin 9020 from Mate 70 Pro Plus - Die Analysis](https://library.techinsights.com/public/hg-asset/e71466a2-64ef-410a-af5f-b3d001bd2318?utm_source=blog&utm_medium=website&utm_campaign=Huawei%20Mate%2070%20Pro%20Series#moduleName=Search&reportCode=FCT-2412-801&subscriptionId=null&channelId=null&reportName=HiSilicon+Kirin+9020+from+Mate+70+Pro+Plus+-+Die+Analysis)
 - [华为 Mate70 Pro+ 性能分析：麒麟 9020 来啦！](https://www.bilibili.com/video/BV1j6iYYHEYG)
 - [HUAWEI PLA-AL10](https://browser.geekbench.com/v6/cpu/9233574)
+- [nova 14 ultra 的 cpu 信息](https://www.coolapk.com/feed/64975023)
 
 ### 麒麟 9020 on Pura X
 
@@ -65,6 +66,16 @@
 
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
+
+### 麒麟 9010S
+
+— Pura 80
+- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
+- Maleoon 920C
+
+来源：
+
+- [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
 
 ## hip
 
@@ -230,12 +241,14 @@ implementer 0x48
 
 part id:
 
-- 0xd01: hip08
-- 0xd02: Kirin 9000s/hip09
-- 0xd03: Kirin 9010/hip10/hip10a/Kirin x90
-- 0xd05: Kirin 9020
-- 0xd06: hip12
-- 0xd22: hip11
-- 0xd42: Kirin 9000s/Kirin 9010/Kirin x90
-- 0xd43: Kirin x90
-- 0xd45: hip10c
+- 0xd01(3329): hip08
+- 0xd02(3330): Kirin 9000s/hip09
+- 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin x90
+- 0xd05(3333): Kirin 9020/Kirin 9010s
+- 0xd06(3334): hip12
+- 0xd22(3362): hip11
+- 0xd23(3363): Kirin 9020/Kirin 9010s
+- 0xd42(3394): Kirin 9000s/Kirin 9010/Kirin x90
+- 0xd43(3395): Kirin x90
+- 0xd45(3397): hip10c
+- 0xd46(3398): Kirin 9020/Kirin 9010s
