@@ -1,4 +1,4 @@
-# SPI (Serial Peripheral Interface)
+# SPI (Serial Peripheral Interface) 协议
 
 ## 接口
 

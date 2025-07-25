@@ -1,4 +1,4 @@
-# Chiplet Interface
+# Chiplet 接口
 
 ## ACC RV (Road vehicles - Advanced Cost-driven Chiplet Interface) 车规级芯粒互联接口标准
 
