@@ -222,7 +222,15 @@ if (tcache != NULL && tc_idx < mp_.tcache_bins)
 
 也就是说，它有 64 个 bin，每个 bin 的链表最多 7 个空闲块。
 
-在 64 位下，这 64 个 bin 对应的块大小是从 32 字节到 1040 字节，每 16 字节一个 bin（`(1040 - 32) / 16 + 1 = 64`）。那么，`malloc(1032)` 或更小的分配会经过 tcache，而 `malloc(1033)` 或更大的分配则不会。
+在 64 位下，这 64 个 bin 对应的块大小是从 32 字节到 1040 字节，每 16 字节一个 bin（`(1040 - 32) / 16 + 1 = 64`）。那么，`malloc(1032)` 或更小的分配会经过 tcache，而 `malloc(1033)` 或更大的分配则不会。1032 在代码中对应 `MAX_TCACHE_SIZE`：
+
+```c
+# define TCACHE_MAX_BINS  64
+# define tidx2usize(idx)       (((size_t) idx) * MALLOC_ALIGNMENT + MINSIZE - SIZE_SZ)
+# define MAX_TCACHE_SIZE       tidx2usize (TCACHE_MAX_BINS-1)
+// MAX_TCACHE_SIZE = (TCACHE_MAX_BINS - 1) * MALLOC_ALIGNMENT + MINSIZE - SIZE_SZ
+// on 64-bit: 63 * 16 + 32 - 8 = 1032
+```
 
 #### 实验
 
@@ -2346,6 +2354,61 @@ glibc 2.40 的分配器没有修改。
 ### glibc 2.41
 
 glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了，之前的版本是不会的。此外对 free 的逻辑有一定的修改：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。
+
+### glibc 2.42
+
+glibc 2.42 针对 tcache 进行了比较大的改动。之前的版本里，tcache 共有 64（`TCACHE_MAX_BINS`）个 bin，在 64 位下，这 64 个 bin 对应的块大小是从 32 字节到 1040 字节，每 16 字节一个 bin。而 glibc 2.42 给 tcache 添加了额外的 12（`TCACHE_LARGE_BINS`）个 bin：把原来的 64 个 bin 称为 tcache small bin，新添加的 12 个 bin 称为 tcache large bin。不过 tcache large bin 默认不会被用到，除非手动设置了 `tcache_max_bytes` tunables，默认行为和之前版本一样。
+
+tcache large bin 下标的计算公式：
+
+```c
+# define TCACHE_SMALL_BINS             64
+# define TCACHE_LARGE_BINS             12 /* Up to 4M chunks */
+# define TCACHE_MAX_BINS       (TCACHE_SMALL_BINS + TCACHE_LARGE_BINS)
+// on 64-bit, MAX_TCACHE_SMALL_SIZE = 63 * 16 + 32 - 8 = 1032
+# define MAX_TCACHE_SMALL_SIZE tidx2usize (TCACHE_SMALL_BINS-1)
+
+static __always_inline size_t
+large_csize2tidx(size_t nb)
+{
+  size_t idx = TCACHE_SMALL_BINS
+              + __builtin_clz (MAX_TCACHE_SMALL_SIZE)
+              - __builtin_clz (nb);
+  return idx;
+}
+```
+
+可以得到每个 tcache large bin 对应的块大小范围：
+
+```
+1056-2040: bin 64
+2056-4088: bin 65
+4104-8184: bin 66
+8200-16376: bin 67
+16392-32760: bin 68
+32776-65528: bin 69
+65544-131064: bin 70
+131080-262136: bin 71
+262152-524280: bin 72
+524296-1048568: bin 73
+1048584-2097144: bin 74
+2097160-4194288: bin 75
+```
+
+超过 4MB（4194304 bytes）的块不会进入 tcache large bin 当中。
+
+在 glibc 2.42 中，允许不同的 tcache bin 的最大空闲块个数不同，此时 `tcache_perthread_struct` 从记录 bin 链表中的空闲块个数 `counts[TCACHE_MAX_BINS]`，变成还可以加到链表中的空闲块的个数 `num_slots[TCACHE_MAX_BINS]`（即最大个数减去当前个数）。但默认依然是每个 tcache bin 最多放 7 个空闲块。
+
+由于 tcache large bin 中空闲块的大小不再相同，所以为了分配的时候找到满足分配要求的尽可能小的空闲块，在把空闲块放入 tcache large bin 时，会按照块大小从小到大的顺序放在链表当中。
+
+总而言之，虽然 glibc 2.42 对 tcache 做了不少修改，但是默认配置下，还是原来的 tcache bin 的组织方式。不确定未来会不会进一步修改默认配置。
+
+此外，glibc 2.42 针对 large bin 添加了对 nextsize 链表的检查：
+
+```c
+if (__glibc_unlikely (fwd->fd->bk_nextsize->fd_nextsize != fwd->fd))
+  malloc_printerr ("malloc(): largebin double linked list corrupted (nextsize)");
+```
 
 ### 小结
 
