@@ -15,6 +15,7 @@
 
 或者：`./xsetup --batch ConfigGen`，修改 install_config.txt 后再 `./xsetup --agree 3rdPartyEULA,XilinxEULA --batch Install --config install_config.txt`。这样可以删掉一些不用的模块。
 
+可以参考 [thu-cs-lab/vivado-docker](https://github.com/thu-cs-lab/vivado-docker) 项目。
 
 ## 补丁
 
