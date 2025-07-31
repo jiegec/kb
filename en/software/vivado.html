@@ -3390,11 +3390,13 @@
 <li><a href="https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html">下载地址</a></li>
 </ul>
 <h2 id="_1">命令行安装</h2>
+<p>静默命令行安装命令：</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Vivado HL, 2020.3 or below</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>./xsetup<span class="w"> </span>--agree<span class="w"> </span>3rdPartyEULA,WebTalkTerms,XilinxEULA<span class="w"> </span>--batch<span class="w"> </span>Install<span class="w"> </span>--edition<span class="w"> </span><span class="s2">&quot;Vivado HL Design Edition&quot;</span><span class="w"> </span>--location<span class="w"> </span><span class="s2">&quot;/opt/Xilinx&quot;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Vivado ML, 2021.1 or above</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>./xsetup<span class="w"> </span>--agree<span class="w"> </span>3rdPartyEULA,XilinxEULA<span class="w"> </span>--batch<span class="w"> </span>Install<span class="w"> </span>--edition<span class="w"> </span><span class="s2">&quot;Vivado ML Standard&quot;</span><span class="w"> </span>--product<span class="w"> </span>Vivado<span class="w"> </span>--location<span class="w"> </span><span class="s2">&quot;/opt/Xilinx&quot;</span>
 </span></code></pre></div>
+<p>或者：<code>./xsetup --batch ConfigGen</code>，修改 install_config.txt 后再 <code>./xsetup --agree 3rdPartyEULA,XilinxEULA --batch Install --config install_config.txt</code>。这样可以删掉一些不用的模块。</p>
 <h2 id="_2">补丁</h2>
 <p>打补丁方法：下载官网上的 zip 文件，解压到 <code>/opt/Vivado/2023.2/patches/ARxxxxx</code> 路径。以 <code>AR000035293_vivado_2023_2_preliminary_rev1</code> 为例，最终应该得到：<code>/opt/Xilinx/Vivado/2023.2/patches/AR000035293_vivado_2023_2_preliminary_rev1/vivado/patch_readme/AR000035293_vivado_2023_2_preliminary_rev1.txt</code> 这个文件。打好了以后，启动 Vivado 可以看到版本号变成了 <code>2023.2_AR000035293</code>。</p>
 <p>常用补丁列表：</p>
@@ -3429,7 +3431,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月31日 08:47:46 UTC">2025年7月31日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月31日 09:06:11 UTC">2025年7月31日</span>
   </span>
 
     
