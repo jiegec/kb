@@ -27,7 +27,7 @@
     
     
       
-        <title>控制流完整性 Control Flow Integrity - 杰哥的知识库</title>
+        <title>Control Flow Integrity 控制流完整性 - 杰哥的知识库</title>
       
     
     
@@ -84,7 +84,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="控制流完整性 Control Flow Integrity - 杰哥的知识库" >
+        <meta  property="og:title"  content="Control Flow Integrity 控制流完整性 - 杰哥的知识库" >
       
         <meta  property="og:description"  content="Knowledge Base of @jiegec" >
       
@@ -100,7 +100,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="控制流完整性 Control Flow Integrity - 杰哥的知识库" >
+        <meta  name="twitter:title"  content="Control Flow Integrity 控制流完整性 - 杰哥的知识库" >
       
         <meta  name="twitter:description"  content="Knowledge Base of @jiegec" >
       
@@ -163,7 +163,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              控制流完整性 Control Flow Integrity
+              Control Flow Integrity 控制流完整性
             
           </span>
         </div>
@@ -2419,7 +2419,7 @@
   
   
   <span class="md-ellipsis">
-    2FA
+    2FA/MFA 多因素认证
     
   </span>
   
@@ -2442,7 +2442,7 @@
   
   
   <span class="md-ellipsis">
-    ABI (Application Binary Interface)
+    ABI (Application Binary Interface) 分析
     
   </span>
   
@@ -2520,7 +2520,7 @@
   
   
   <span class="md-ellipsis">
-    控制流完整性 Control Flow Integrity
+    Control Flow Integrity 控制流完整性
     
   </span>
   
@@ -2533,7 +2533,7 @@
   
   
   <span class="md-ellipsis">
-    控制流完整性 Control Flow Integrity
+    Control Flow Integrity 控制流完整性
     
   </span>
   
@@ -2718,7 +2718,7 @@
   
   
   <span class="md-ellipsis">
-    DNS over HTTPS (DoH)
+    DNS over HTTPS (DoH) 协议分析
     
   </span>
   
@@ -2741,7 +2741,7 @@
   
   
   <span class="md-ellipsis">
-    垃圾回收 Garbage Collection
+    Garbage Collection 垃圾回收
     
   </span>
   
@@ -3394,7 +3394,7 @@
   
 
 
-<h1 id="control-flow-integrity">控制流完整性 Control Flow Integrity</h1>
+<h1 id="control-flow-integrity">Control Flow Integrity 控制流完整性</h1>
 <h2 id="_1">目的地址检查</h2>
 <p>一类常见的 CFI 机制是检查间接分支（call/jmp reg）的目的地址，是否落到预期的位置上，比如函数的开头。这个机制主要防止的是 ROP gadget，即从现有指令的中间某个位置开始执行一段代码，从而实现攻击者想要的效果。引入目的地址检查后，不再能从间接分支跳转到任意位置开始执行一段代码。这个预期的位置，一般是用指令来标识的。</p>
 <p><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/technical-look-control-flow-enforcement-technology.html">Intel CET(Control-flow Enforcement Technology)</a> 包括 IBT(Indirect Branch Tracking) 机制，要求 call/jmp 指令跳转到 endbr32/endbr64 指令。编译时，可以用 <code>-fcf-protection</code> 来启用 IBT。可以用 <code>readelf -n $BINARY</code> 来查看它是否启用了 IBT：<code>Properties: x86 feature: IBT, SHSTK</code>。</p>
@@ -3442,7 +3442,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年12月13日 02:25:22 UTC">2024年12月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月31日 09:10:29 UTC">2025年7月31日</span>
   </span>
 
     
