@@ -2353,11 +2353,20 @@ glibc 2.40 的分配器没有修改。
 
 ### glibc 2.41
 
-glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了，之前的版本是不会的。此外对 free 的逻辑有一定的修改：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。
+glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了（commit [malloc: Add tcache path for calloc](https://github.com/bminor/glibc/commit/226e3b0a413673c0d6691a0ae6dd001fe05d21cd)），之前的版本是不会的。
+
+此外对 free 的逻辑有一定的修改（commit [malloc: send freed small chunks to smallbin](https://github.com/bminor/glibc/commit/e2436d6f5aa47ce8da80c2ba0f59dfb9ffde08f3)）：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。
 
 ### glibc 2.42
 
-glibc 2.42 针对 tcache 进行了比较大的改动。之前的版本里，tcache 共有 64（`TCACHE_MAX_BINS`）个 bin，在 64 位下，这 64 个 bin 对应的块大小是从 32 字节到 1040 字节，每 16 字节一个 bin。而 glibc 2.42 给 tcache 添加了额外的 12（`TCACHE_LARGE_BINS`）个 bin：把原来的 64 个 bin 称为 tcache small bin，新添加的 12 个 bin 称为 tcache large bin。不过 tcache large bin 默认不会被用到，除非手动设置了 `tcache_max_bytes` tunables，默认行为和之前版本一样。
+glibc 2.42 针对 tcache 进行了比较大的改动。它的 release notes 中是这么写的：
+
+> The thread-local cache in malloc (tcache) now supports caching of
+> large blocks.  This feature can be enabled by setting the tunable
+> glibc.malloc.tcache_max to a larger value (max 4194304). Tcache is
+> also significantly faster for small sizes.
+
+首先来看 tcache 是如何保存更大的空闲块的。之前的版本里，tcache 共有 64（`TCACHE_MAX_BINS`）个 bin，在 64 位下，这 64 个 bin 对应的块大小是从 32 字节到 1040 字节，每 16 字节一个 bin。而 glibc 2.42 给 tcache 添加了额外的 12（`TCACHE_LARGE_BINS`）个 bin：把原来的 64 个 bin 称为 tcache small bin，新添加的 12 个 bin 称为 tcache large bin。不过 tcache large bin 默认不会被用到，除非手动设置了 `tcache_max_bytes` tunables，默认行为和之前版本一样。
 
 tcache large bin 下标的计算公式：
 
@@ -2403,12 +2412,31 @@ large_csize2tidx(size_t nb)
 
 总而言之，虽然 glibc 2.42 对 tcache 做了不少修改，但是默认配置下，还是原来的 tcache bin 的组织方式。不确定未来会不会进一步修改默认配置。
 
-此外，glibc 2.42 针对 large bin 添加了对 nextsize 链表的检查：
+安全方面，glibc 2.42 做了如下加固：
+
+针对 large bin 的 nextsize 双向链表，在 commit [malloc: Add integrity check to largebin nextsizes](https://github.com/bminor/glibc/commit/4cf2d869367e3813c6c8f662915dedb1f3830c53) 中添加了对 nextsize 链表的检查：
 
 ```c
 if (__glibc_unlikely (fwd->fd->bk_nextsize->fd_nextsize != fwd->fd))
   malloc_printerr ("malloc(): largebin double linked list corrupted (nextsize)");
 ```
+
+针对 fast bin 中空闲块大小都相同的特性，在 commit [malloc: Add size check when moving fastbin->tcache](https://github.com/bminor/glibc/commit/d10176c0ffeadbc0bcd443741f53ebd85e70db44) 中，空闲块从 fast bin 挪到 tcache 时，添加了对 victim chunk 的 chunk size 大小的检查：
+
+```c
+size_t victim_tc_idx = csize2tidx (chunksize (tc_victim));
+if (__glibc_unlikely (tc_idx != victim_tc_idx))
+  malloc_printerr ("malloc(): chunk size mismatch in fastbin");
+```
+
+针对 tcache 的 double free 检测的加固，在 commit [malloc: Improved double free detection in the tcache](https://github.com/bminor/glibc/commit/eff1f680cffb005a5623d1c8a952d095b988d6a2) 中，原来为了检测 double free，只遍历当前被 free 的块的大小对应的 tcache bin 的所有空闲块，现在改成了遍历所有 tcache bin 的所有空闲块。这样如果攻击者在两次 free 之间修改了块的大小，在 glibc 2.41 上不会检测出 double free，但在 glibc 2.42 上，由于块的指针值不变，也会被检测出来。
+
+性能方面，在 commit [malloc: Improve performance of __libc_malloc](https://github.com/bminor/glibc/commit/b0897944cc3081e019b39981790051f7ee127406) 中对 __libc_malloc 进行了拆分：
+
+1. __libc_malloc 尝试进行 tcache 分配，如果成功则直接返回
+2. 如果 tcache 分配失败，再尾调用 __libc_malloc2，完成原来剩下的分配内容
+
+通过拆分，使得在通过 tcache 分配时，不需要进行栈帧的初始化，提升了性能。
 
 ### 小结
 
