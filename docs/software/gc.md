@@ -1,4 +1,4 @@
-# 垃圾回收 Garbage Collection
+# Garbage Collection 垃圾回收
 
 本文是对 [The Garbage Collection Handbook - The art of automatic memory management](http://gchandbook.org/) 一书的学习笔记。
 

@@ -1,4 +1,4 @@
-# 2FA
+# 2FA/MFA 多因素认证
 
 2FA 指的是 Two factor authentication，核心思想是，基于密码的认证太脆弱，所以要用额外的方法来验证用户。常见的 2FA 方案包括：
 
