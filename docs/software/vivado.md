@@ -4,12 +4,17 @@
 
 ## 命令行安装
 
+静默命令行安装命令：
+
 ```shell
 # Vivado HL, 2020.3 or below
 ./xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --edition "Vivado HL Design Edition" --location "/opt/Xilinx"
 # Vivado ML, 2021.1 or above
 ./xsetup --agree 3rdPartyEULA,XilinxEULA --batch Install --edition "Vivado ML Standard" --product Vivado --location "/opt/Xilinx"
 ```
+
+或者：`./xsetup --batch ConfigGen`，修改 install_config.txt 后再 `./xsetup --agree 3rdPartyEULA,XilinxEULA --batch Install --config install_config.txt`。这样可以删掉一些不用的模块。
+
 
 ## 补丁
 
