@@ -2325,7 +2325,23 @@ printf("tcache is at %p\n", tcache);
 
 关于 TLS 的工作原理，特别是 glibc 所使用的 initial-exec TLS model，详见 [ELF Handling For Thread-Local Storage](https://www.akkadia.org/drepper/tls.pdf)。
 
-此外，glibc 2.34 还把 malloc/realloc/free/memalign/after_morecore hook 删掉了：虽然符号还在，但是不会被调用。
+此外，glibc 2.34 还把 malloc/realloc/free/memalign/after_morecore hook 删掉了：
+
+> The deprecated memory allocation hooks __malloc_hook, __realloc_hook,
+> __memalign_hook and __free_hook are now removed from the API.  Compatibility
+> symbols are present to support legacy programs but new applications can no
+> longer link to these symbols.  These hooks no longer have any effect on glibc
+> functionality.  The malloc debugging DSO libc_malloc_debug.so currently
+> supports hooks and can be preloaded to get this functionality back for older
+> programs.  However this is a transitional measure and may be removed in a
+> future release of the GNU C Library.  Users may port away from these hooks by
+> writing and preloading their own malloc interposition library.
+> The __morecore and __after_morecore_hook malloc hooks and the default
+> implementation __default_morecore have been removed from the API.  Existing
+> applications will continue to link against these symbols but the interfaces
+> no longer have any effect on malloc.
+
+虽然符号还在，但是不会被调用。
 
 ### glibc 2.35
 
