@@ -214,7 +214,7 @@ Stack<int>::pop():
 - `LM REG1, REG2, MEM`：从 MEM 内存读取两个寄存器的数据，到 REG1 和 REG2
 - `LA REG, IMM`：Load Address，加载立即数 IMM 到 REG
 - `AR REG1, REG2`：Add Register，两个寄存器相加
-- `CDS REG1, REG2, MEM`：Compare Double and Swap，把 REG1 和 REG1+1 两个l连号的存器作为一个整体，把 REG2 和 REG2+1 两个连号的寄存器作为一个整体，实现一个两倍宽度的 Compare and Swap
+- `CDS REG1, REG2, MEM`：Compare Double and Swap，把 REG1 和 REG1+1 两个 l 连号的存器作为一个整体，把 REG2 和 REG2+1 两个连号的寄存器作为一个整体，实现一个两倍宽度的 Compare and Swap
 
 对应的 C++ 版本：
 
