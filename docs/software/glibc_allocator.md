@@ -95,7 +95,7 @@ tcache_get (size_t tc_idx)
 
 bin 是内存分配器的一个常见做法，把要分配的块的大小分 bin，从而保证拿到的空闲块足够大。接下来看 `tcache_put` 是如何把空闲块放到 tcache 中的：
 
-1. 把空闲块强制转换为 `tcache_entry` 结构体类型
+1. 把空闲块被分配给用户的部分的地址（即跳过头部）强制转换为 `tcache_entry` 结构体类型
 2. 把它的 `key` 字段指向 tcache，用来表示这个空闲块当前在 `tcache` 当中，后续用它来检测 double free
 3. 以新的 `tcache_entry` 作为链表头，插入到 tcache 的对应的 bin 当中：`entries[tc_idx]`
 4. 更新这个 bin 的空闲块个数到 `count[tc_idx]` 当中
@@ -105,7 +105,7 @@ bin 是内存分配器的一个常见做法，把要分配的块的大小分 bin
 1. 从链表头 `entries[tc_idx]` 取出一个空闲块，把它从链表中删除：`entries[tc_idx] = e->next`
 2. 更新这个 bin 的空闲块个数到 `count[tc_idx]` 当中
 3. 把它的 `key` 字段指向 NULL，用来表示这个空闲块当前不在 `tcache` 当中
-4. 返回这个空闲块的地址
+4. 返回这个空闲块的地址（实际上是被分配给用户的部分，即跳过空闲块头部）
 
 #### malloc
 
@@ -166,7 +166,7 @@ if (tc_idx < mp_.tcache_bins
 
 可以看到，tcache 相当于是一个 per thread 的小缓存，记录了最近释放的内存块，可供 malloc 使用。由于 bin 的数量有限，所以比较大的内存分配不会经过 tcache。
 
-P.S. `calloc` 不会使用 tcache，而是用后面提到的 `_int_malloc` 进行各种分配。
+P.S. glibc 2.40 以及更早的版本里，`calloc` 不会使用 tcache，而是用后面提到的 `_int_malloc` 进行各种分配。
 
 #### free
 
