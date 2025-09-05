@@ -1,6 +1,6 @@
 # Pohlig-Hellman 算法
 
-参考：[Wikipedi](https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm)
+参考：[Wikipedia](https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm)
 
 Pohlig-Hellman 算法是一种在有限交换群中高效实现离散对数的方法。例如，要求解 $x$ 使得：$2^x = 22 \pmod{43}$，如何高效地进行计算？
 
