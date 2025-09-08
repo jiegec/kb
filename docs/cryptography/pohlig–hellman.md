@@ -6,7 +6,7 @@ Pohlig-Hellman 算法是一种在有限交换群中高效实现离散对数的�
 
 方法一：枚举 $x$，找到满足要求的值为止，可以得到 $x=13$。
 
-方法二：用 [Baby-step Giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step) 方法，为了找到 $x$ 满足 $a^x = b \pmod p$，设 $m = \lceil \sqrt{p-1} \rceil$，那么一定可以找到 $i, j \in [0, m)$ 使得 $x = i + mj$，那就枚举所有的 $i \in [0, m)$，计算出 $a^i \pmod p$ 并保存下来，放到一个集合当中，然后枚举 $b$，计算 $b(a^{-m})^j \pmod p$ 是否出现在前述集合中，如果有，那么就有 $i, j$ 使得 $a^i = b(a^{-m})^j \pmod p$ 即 $a^{i+mj}=a^x=b \pmod p$。
+方法二：用 [Baby-step Giant-step](./bsgs.md) 方法。
 
 方法三：使用 Pohlig-Hellman 算法，它的思路是，把问题分解成子群上的问题，例如上述 $2^x = 22 \pmod {43}$ 可以分解，这个群的阶是 $42 = 2 * 3 * 7$，可以拆出来阶为 2、3 和 7 的子群。
 
