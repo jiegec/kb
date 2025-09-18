@@ -237,6 +237,12 @@
 - <https://www.hiascend.com/doc_center/source/zh/200I-SoC-A1/devguide/devguide_0012.html>
 - [OrangePi AIpro (20T)](http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20t).html)
 
+## Roadmap
+
+- 2024 Q1, Kunpeng 920, 64C, 80C/160T, w/ HCCS
+- 2026 Q4, Kunpeng 950, 96C/192T, 192C/384T
+- 2028 Q1, Kunpeng 960, 96C/192T, >= 256C/512T
+
 ## part id 列表
 
 implementer 0x48
