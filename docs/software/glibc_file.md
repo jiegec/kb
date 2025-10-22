@@ -972,7 +972,7 @@ payload = flat(
         # (_flags & 0x0002) == 0
         # (_flags & 0x0008) == 0
         # (_flags & 0x0800) == 0
-        # basic approach with spaces:
+        # with spaces:
         # " sh\x00"
         # 0x20, 0x73, 0x68, 0x00
         # 0x00: b" sh\x00",
@@ -1001,7 +1001,6 @@ payload = flat(
     }
 )
 ```
-
 
 ### 控制流劫持（House of Cat）
 
