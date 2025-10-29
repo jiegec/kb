@@ -1142,6 +1142,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3582,7 +3591,7 @@ B=\begin{pmatrix}
 \]</div>
 <p>以 <span class="arithmatex">\((q_1, q_2, \cdots, q_t)\)</span> 为系数组合上述格中的基向量，可以得到向量 <span class="arithmatex">\(v\)</span>：</p>
 <p><span class="arithmatex">\(v = (q_1, q_2, \cdots, q_t)B = (q_12^{\rho+1}, q_1x_2-q_2x_2, \cdots, q_1x_t-q_tx_1)\)</span></p>
-<p>因为 <span class="arithmatex">\(x_i/x_1 \approx q_i/q_1\)</span> 成立，所以 <span class="arithmatex">\(q_1x_i - q_ix_1 \approx 0\)</span>，因此 <span class="arithmatex">\(v\)</span> 是一个比较短的向量。通过 <a href="lll.html">LLL 格基规约算法</a>，我们可以找到 <span class="arithmatex">\(B\)</span> 对应的格中比较短的一个向量，那么在满足一定条件的情况下（详细推导见论文），通过 LLL 得到的最短的向量，可能就是上面的 <span class="arithmatex">\(v\)</span>。通过 <span class="arithmatex">\(v\)</span>，可以求出 <span class="arithmatex">\(q_1\)</span>，进而 <span class="arithmatex">\(r_1 = x_1 \bmod q_1\)</span>, <span class="arithmatex">\(p = (x_1 - r_1) / q_1\)</span>。</p>
+<p>因为 <span class="arithmatex">\(x_i/x_1 \approx q_i/q_1\)</span> 成立，所以 <span class="arithmatex">\(q_1x_i - q_ix_1 \approx 0\)</span>，因此 <span class="arithmatex">\(v\)</span> 是一个比较短的向量。通过 <a href="lll.html">LLL 格基规约算法</a>，我们可以找到 <span class="arithmatex">\(B\)</span> 对应的格中比较短的一个向量，那么在满足一定条件的情况下（详细推导见<a href="https://eprint.iacr.org/2016/215.pdf">论文</a>），通过 LLL 得到的最短的向量，可能就是上面的 <span class="arithmatex">\(v\)</span>。通过 <span class="arithmatex">\(v\)</span>，可以求出 <span class="arithmatex">\(q_1\)</span>，进而 <span class="arithmatex">\(r_1 = x_1 \bmod q_1\)</span>, <span class="arithmatex">\(p = (x_1 - r_1) / q_1\)</span>。</p>
 <p>代码实现：</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sage.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">Crypto.Util.number</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
@@ -3645,7 +3654,7 @@ x_t &amp; &amp; &amp; &amp; &amp; 2^{\rho} \\
 <p>由于 <span class="arithmatex">\(x_i = pq_i + r_i\)</span>，所以 <span class="arithmatex">\(x_i - r_i = 0 \pmod p\)</span> 成立，同理 <span class="arithmatex">\(\Sigma_{i=1}^{i=t}u_i(x_i-r_i) = 0 \pmod p\)</span>。而如果你注意力特别惊人，还可以发现当 <span class="arithmatex">\(v\)</span> 向量比较短的时候，<span class="arithmatex">\(\mathrm{abs}(v_1 - \Sigma_{i=1}^{i=t} v_{i+1}r_i/2^{\rho}) &lt; p/2\)</span>。</p>
 <p>那么此时只有一个解：<span class="arithmatex">\(\Sigma_{i=1}^{i=t}u_i(x_i-r_i) = 0\)</span>，那么 <span class="arithmatex">\(\Sigma_{i=1}^{i=t}u_ipq_i = 0\)</span>，由于 <span class="arithmatex">\(p \ne 0\)</span>，所以 <span class="arithmatex">\(\Sigma_{i=1}^{i=t}u_iq_i = 0\)</span>。也就是说，向量 <span class="arithmatex">\((u_1, u_2, \ldots, u_t)\)</span> 和向量 <span class="arithmatex">\((q_1, q_2, \ldots, q_t)\)</span> 是正交的。</p>
 <p>每当我们找到一个比较短的向量 <span class="arithmatex">\(v\)</span>，就找到了一组向量 <span class="arithmatex">\((u_1, u_2, \ldots, u_t)\)</span> 和 <span class="arithmatex">\((q_1, q_2, \ldots, q_t)\)</span> 是正交的。</p>
-<p>而对矩阵 <span class="arithmatex">\(B\)</span> 进行 <a href="lll.html">LLL 格基规约算法</a>，满足一定条件下是可以找到 <span class="arithmatex">\(t-1\)</span> 个这样的满足要求的短向量 <span class="arithmatex">\(v\)</span>，也就找到了 <span class="arithmatex">\(t-1\)</span> 个和 <span class="arithmatex">\((q_1, q_2, \ldots, q_t)\)</span> 正交的向量，并且 LLL 保证了这些向量还是线性无关的。在核空间中找到一组整系数的基，就得到了 <span class="arithmatex">\(q_i\)</span>，剩下就是 <span class="arithmatex">\(r_i = x_i \bmod q_i, p = (x_i - r_i) / q_i\)</span>，完成求解。</p>
+<p>而对矩阵 <span class="arithmatex">\(B\)</span> 进行 <a href="lll.html">LLL 格基规约算法</a>，满足一定条件下（详细推导见<a href="https://eprint.iacr.org/2016/215.pdf">论文</a>）是可以找到 <span class="arithmatex">\(t-1\)</span> 个这样的满足要求的短向量 <span class="arithmatex">\(v\)</span>，也就找到了 <span class="arithmatex">\(t-1\)</span> 个和 <span class="arithmatex">\((q_1, q_2, \ldots, q_t)\)</span> 正交的向量，并且 LLL 保证了这些向量还是线性无关的。在核空间中找到一组整系数的基，就得到了 <span class="arithmatex">\(q_i\)</span>，剩下就是 <span class="arithmatex">\(r_i = x_i \bmod q_i, p = (x_i - r_i) / q_i\)</span>，完成求解。</p>
 <p>代码实现：</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sage.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">Crypto.Util.number</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
@@ -3698,6 +3707,10 @@ x_t &amp; &amp; &amp; &amp; &amp; 2^{\rho} \\
 </span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got result:&quot;</span><span class="p">,</span> <span class="n">res</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span>
 </span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result correct:&quot;</span><span class="p">,</span> <span class="n">res</span> <span class="o">==</span> <span class="n">p</span><span class="p">)</span>
 </span></code></pre></div>
+<h2 id="_1">参考文献</h2>
+<ul>
+<li><a href="https://eprint.iacr.org/2016/215.pdf">Algorithms for the Approximate Common Divisor Problem</a></li>
+</ul>
 
 
 
@@ -3720,7 +3733,7 @@ x_t &amp; &amp; &amp; &amp; &amp; 2^{\rho} \\
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月29日 10:08:11 UTC">2025年10月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月29日 11:44:57 UTC">2025年10月29日</span>
   </span>
 
     
