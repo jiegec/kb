@@ -3576,7 +3576,7 @@
 <li>其中 <span class="arithmatex">\(q_i \ge 0\)</span>，<span class="arithmatex">\(r_i\)</span> 满足 <span class="arithmatex">\(\mathrm{abs}(r_i) &lt; 2^{\rho}\)</span>，<span class="arithmatex">\(\rho\)</span> 是一个已知参数</li>
 </ul>
 <p>特别地，如果其中一个已知数是 <span class="arithmatex">\(p\)</span> 的精确整数倍，即 <span class="arithmatex">\(r_1 = 0\)</span>，使得 <span class="arithmatex">\(x_1 = pq_1\)</span>，这个问题就称为部分近似公约数问题（Partial Approximate Common Divisor Problem）。</p>
-<p>下面介绍针对近似公约数问题的求解方法。</p>
+<p>下面介绍针对近似公约数问题的求解方法。以下方法有时候会求出来一些合法的近似解，例如求出来的 <span class="arithmatex">\(p\)</span> 实际上是 <span class="arithmatex">\(p+1\)</span>、<span class="arithmatex">\(2p\)</span> 或者 <span class="arithmatex">\(2p \pm 1\)</span> 一类的。如果已知 <span class="arithmatex">\(p\)</span> 是素数或者知道 <span class="arithmatex">\(p\)</span> 的位数，可以对求出来的 <span class="arithmatex">\(p\)</span> 做一些后处理来提高准确率。</p>
 <h2 id="simultaneous-diophantine-approximation-sda">同时丢番图逼近方法（Simultaneous Diophantine Approximation，缩写 SDA）</h2>
 <p>同时丢番图逼近算法的思路是：既然 <span class="arithmatex">\(r_i\)</span> 是比较小的数，那么 <span class="arithmatex">\(x_i/x_1 \approx q_i/q_1\)</span> 成立。已知 <span class="arithmatex">\(x_i\)</span>，可以计算出 <span class="arithmatex">\(x_i/x_1\)</span>，通过丢番图逼近，可以找到两个整数 <span class="arithmatex">\(q_i/q_1\)</span> 使得 <span class="arithmatex">\(x_i/x_1 \approx q_i/q_1\)</span> 成立。但是，丢番图逼近有无穷多种解，我们希望找到一种丢番图逼近，使得求出来的 <span class="arithmatex">\(q_i\)</span> 就是原来用于计算 <span class="arithmatex">\(x_i = pq_i + r_i\)</span> 中所使用的 <span class="arithmatex">\(q_i\)</span>。</p>
 <p>为了实现这一点，同时对所有的 <span class="arithmatex">\(t-1\)</span> 个 <span class="arithmatex">\(x_i/x_1, i \in {2, 3, \ldots, t}\)</span> 同时进行丢番图逼近，并且要求它们的分母相等。具体做法是，构建以如下矩阵的行向量为基向量的格：</p>
@@ -3733,7 +3733,7 @@ x_t &amp; &amp; &amp; &amp; &amp; 2^{\rho} \\
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月29日 11:44:57 UTC">2025年10月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月29日 11:54:55 UTC">2025年10月29日</span>
   </span>
 
     
