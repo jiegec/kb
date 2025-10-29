@@ -67,7 +67,7 @@ def sda_attack(x, rho):
     q_1 = v[0] // (2 ** (rho + 1))
     r_1 = x[0] % q_1
 
-    p = (x[0] - r_1) // q_1
+    p = abs((x[0] - r_1) // q_1)
     return p
 
 
