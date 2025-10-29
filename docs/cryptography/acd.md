@@ -29,7 +29,7 @@ $$
 
 $v = (q_1, q_2, \cdots, q_t)B = (q_12^{\rho+1}, q_1x_2-q_2x_2, \cdots, q_1x_t-q_tx_1)$
 
-因为 $x_i/x_1 \approx q_i/q_1$ 成立，所以 $q_1x_i - q_ix_1 \approx 0$，因此 $v$ 是一个比较短的向量。通过 [LLL 格基规约算法](./lll.md)，我们可以找到 $B$ 对应的格中比较短的一个向量，那么在满足一定条件的情况下（详细推导见论文），通过 LLL 得到的最短的向量，可能就是上面的 $v$。通过 $v$，可以求出 $q_1$，进而 $r_1 = x_1 \bmod q_1$, $p = (x_1 - r_1) / q_1$。
+因为 $x_i/x_1 \approx q_i/q_1$ 成立，所以 $q_1x_i - q_ix_1 \approx 0$，因此 $v$ 是一个比较短的向量。通过 [LLL 格基规约算法](./lll.md)，我们可以找到 $B$ 对应的格中比较短的一个向量，那么在满足一定条件的情况下（详细推导见[论文](https://eprint.iacr.org/2016/215.pdf)），通过 LLL 得到的最短的向量，可能就是上面的 $v$。通过 $v$，可以求出 $q_1$，进而 $r_1 = x_1 \bmod q_1$, $p = (x_1 - r_1) / q_1$。
 
 代码实现：
 
@@ -107,7 +107,7 @@ $v_1 - \Sigma_{i=1}^{i=t} v_{i+1}r_i/2^{\rho} = \Sigma_{i=1}^{i=t} u_ix_i - \Sig
 
 每当我们找到一个比较短的向量 $v$，就找到了一组向量 $(u_1, u_2, \ldots, u_t)$ 和 $(q_1, q_2, \ldots, q_t)$ 是正交的。
 
-而对矩阵 $B$ 进行 [LLL 格基规约算法](./lll.md)，满足一定条件下是可以找到 $t-1$ 个这样的满足要求的短向量 $v$，也就找到了 $t-1$ 个和 $(q_1, q_2, \ldots, q_t)$ 正交的向量，并且 LLL 保证了这些向量还是线性无关的。在核空间中找到一组整系数的基，就得到了 $q_i$，剩下就是 $r_i = x_i \bmod q_i, p = (x_i - r_i) / q_i$，完成求解。
+而对矩阵 $B$ 进行 [LLL 格基规约算法](./lll.md)，满足一定条件下（详细推导见[论文](https://eprint.iacr.org/2016/215.pdf)）是可以找到 $t-1$ 个这样的满足要求的短向量 $v$，也就找到了 $t-1$ 个和 $(q_1, q_2, \ldots, q_t)$ 正交的向量，并且 LLL 保证了这些向量还是线性无关的。在核空间中找到一组整系数的基，就得到了 $q_i$，剩下就是 $r_i = x_i \bmod q_i, p = (x_i - r_i) / q_i$，完成求解。
 
 代码实现：
 
@@ -163,3 +163,7 @@ res = ol_attack(x, rho)
 print(f"Got result:", res != None)
 print(f"Result correct:", res == p)
 ```
+
+## 参考文献
+
+- [Algorithms for the Approximate Common Divisor Problem](https://eprint.iacr.org/2016/215.pdf)
