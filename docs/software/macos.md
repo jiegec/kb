@@ -40,3 +40,11 @@ Configs:
 - `sudo scutil --set HostName newhostname`
 - Disk Utility -> Volume + -> Name: Data -> Add
 - Time Machine: backup daily, create APFS Container on external disk, create Time Machine volumes for each machine separately
+
+Danger Zone:
+
+- [Disabling and Enabling System Integrity Protection](developer.apple.com/documentation/security/disabling-and-enabling-system-integrity-protection)
+- [Generating a Non-Maskable Interrupt](https://developer.apple.com/documentation/kernel/generating_a_non-maskable_interrupt)
+- [Kernel Core Dumps](https://developer.apple.com/library/archive/technotes/tn2004/tn2118.html)
+- Trigger kernel panic: `sudo dtrace -w -n "BEGIN{ panic();}"`, it will reboot automatically
+- Generate kernel core dump on panic: `sudo nvram boot-args="debug=0x400"` (0x400 means `DB_KERN_DUMP_ON_PANIC`, you can add other bitflags), applied after reboot; core dumps are saved under `/var/tmp/kernel_panics`
