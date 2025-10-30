@@ -48,3 +48,4 @@ Danger Zone:
 - [Kernel Core Dumps](https://developer.apple.com/library/archive/technotes/tn2004/tn2118.html)
 - Trigger kernel panic: `sudo dtrace -w -n "BEGIN{ panic();}"`, it will reboot automatically
 - Generate kernel core dump on panic: `sudo nvram boot-args="debug=0x400"` (0x400 means `DB_KERN_DUMP_ON_PANIC`, you can add other bitflags), applied after reboot; core dumps are saved under `/var/tmp/kernel_panics`
+- Find panic log under `/Library/Logs/DiagnosticReports/panic-full-*.panic`
