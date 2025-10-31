@@ -47,11 +47,11 @@ def sda_attack(x, rho):
     # Simultaneous Diophantine approximation approach (SDA)
 
     # create matrix
-    # 2^{rho+1},  x_2,  x_3, ..., x_t
+    # 2^{rho+1},  x_2,  x_3, ...,  x_t
     #         0, -x_1, ...
     #         0,    0, -x_1, ...
     #         ...
-    #         0,    0,       ...,   0
+    #         0,    0,       ..., -x_1
     t = len(x)
     matrix = [[0] * t for _ in range(t)]
     matrix[0][0] = 2 ** (rho + 1)
