@@ -50,11 +50,11 @@ $(x_i - x_0)e_0e_i + (b_0x_i - b_0x_0 + 0)e_i + (b_ix_i - b_ix_0 - 0)e_0 + b_0b_
 
 $A_i = x_i - x_1$
 
-$B_i = b_1 * x_i - b_1 * x_1 + 1$
+$B_i = b_1x_i - b_1x_1 + 1$
 
-$C_i = b_i * x_i - b_i * x_1 - 1$
+$C_i = b_ix_i - b_ix_1 - 1$
 
-$D_i = b_1 * b_i * (x_i - x_1) + b_i - b_1$
+$D_i = b_1b_i(x_i - x_1) + b_i - b_1$
 
 那么
 
