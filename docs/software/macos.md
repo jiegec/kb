@@ -49,3 +49,4 @@ Danger Zone:
 - Trigger kernel panic: `sudo dtrace -w -n "BEGIN{ panic();}"`, it will reboot automatically
 - Generate kernel core dump on panic: `sudo nvram boot-args="debug=0x400"` (0x400 means `DB_KERN_DUMP_ON_PANIC`, you can add other bitflags), applied after reboot; core dumps are saved under `/var/tmp/kernel_panics`
 - Find panic log under `/Library/Logs/DiagnosticReports/panic-full-*.panic`
+- Allow loading custom kernel module: long-press power button to enter boot menu, enter `Options`, enter recovery of the macOS in use, `Utilities -> Startup Security Utility`, unlock disk, `Security Policy... -> Permissive Security -> Allow user management of kernel extensions from identified developers -> OK`.
