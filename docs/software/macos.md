@@ -9,7 +9,7 @@ Apps:
 - Thunderbird, pin to Dock, click top-right button and change ui density and font size in the menu
 - Visual Studio Code, pin to Dock
 - WeChat, pin to Dock
-- iTerm, pin to Dock
+- iTerm/Ghostty, pin to Dock
 - Squirrel Rime
 - 1Password
 - Homebrew with TUNA Mirrors
