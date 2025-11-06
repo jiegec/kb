@@ -145,7 +145,7 @@ if ((bestScore >= scoreMax) || (round >= roundMax)) {
 }
 ```
 
-然后用这个 Offset 去进行预取，在这里 Gem5 允许预取 X + O * I 的多个地址：
+然后用这个 Offset 去进行预取，在这里 Gem5 允许预取 X + O * I 的多个地址，但通常 degree 就是 1：
 
 ```c
 if (issuePrefetchRequests) {
@@ -197,6 +197,16 @@ if (issuePrefetchRequests) {
 4. 为了记录访存的延迟，维护 previous demand requests 表和 previous prefetch requests 表
 
 实际预取的时候，就是两种模式：Burst 模式类似 Spatial Memory Streaming，但只把那些距离小于 delta 且之前访问过的 cacheline 取进来；Berti 模式类似 MICRO 版本，根据学习到的最佳 delta 来进行 Offset Prefetch。
+
+### Signature Path Prefetcher
+
+[Path Confidence based Lookahead Prefetching](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7783763) 提出了一种 Signature Path Prefetcher，其借用了分支预测的思路，把访存的地址进行差分，得到一个 delta 序列，然后对 delta 序列进行预测：把 delta 的序列折叠成一个 signature，然后用 signature 去访问 Pattern Table，提供下一个 delta 是多少的预测。
+
+它包括一个 Signature Table，它根据 Page 进行索引，维护在同一个 Page 内的访问的 signature 和最后一次访问的 offset：当对这个 Page 进行一次新的访问时，用当前访问的 offset 减去最后一次的 offset，然后哈希到 signature 当中，同时更新最后一次访问的 offset。
+
+它还包括一个 Pattern Table，它针对 Signature 和下一次访问的 delta，维护 confidence 信息。在预取的时候，根据 Signature，找到 confidence 最高的那个 delta，计算出新的 Signature，再去查询 Pattern Table，循环若干次，直到 confidence 足够低或者达到一定的预取深度。
+
+代码实现可参考 [ChampSim](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/spp_dev/spp_dev.cc)。
 
 ## Spatial Prefetcher
 
@@ -325,8 +335,8 @@ Sms::notifyEvict(const EvictionInfo &info)
 
 [Instruction Pointer Classifier based Prefetching (IPCP)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Bouquet.pdf) 在 IP-stride Prefetch 的基础上，支持了更多的访存模式：
 
-- IP Constant Stride(CS)，和 IP-stride Prefetch 一样，从某个地址开始，按照固定的 stride 进行访问
-- IP Complex Stride(CPLX)，思路是根据 stride 历史来预测下一个 stride 是多少，可以支持不固定但有规律的 stride
+- IP Constant Stride(CS)，和前面提到的 IP-stride Prefetch 一样，从某个地址开始，按照固定的 stride 进行访问
+- IP Complex Stride(CPLX)，思路是根据 stride 历史来预测下一个 stride 是多少，可以支持不固定但有规律的 stride，类似前面提到的 Signature Path Prefetching
 - IP Global Stream(GS)，就是和 Load 指令无关，但是从全局来看，是访问连续的 cacheline，对应 Stream Prefetcher
 
 具体来说，维护了一个 IP table，使用 Load 指令的地址来索引，它的表项包括：
