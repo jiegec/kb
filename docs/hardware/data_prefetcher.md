@@ -247,3 +247,75 @@ Sms::notifyEvict(const EvictionInfo &info)
 }
 ```
 
+## Stride Prefetcher
+
+Stride Prefetcher 的思路是，很多时候访存模式是针对数组的，由于数组的元素大小是固定的，那么访存地址通常满足 `X`, `X+Stride`, `X+2*Stride`, ... 的规律。于是 Stride Prefetcher 会尝试识别这种访存模式的 Stride，访问 `Y` 时预取 `Y+Stride`、`Y+2*Stride`, ...。
+
+### IP Stride Prefetcher
+
+[IP Stride Prefetcher](https://dl.acm.org/doi/10.1145/358923.358939) 是一种根据 Load 指令的地址进行跟踪的 Stride Prefetcher：它维护了一个 Reference Prediction Table，使用 Load 指令的地址进行索引，表项维护两个信息：最后一次访问的 cacheline 地址和当前的 stride。其工作过程如下：
+
+- 当 Load 指令第一次访问的时候，在 Reference Prediction Table 中分别新的表项，记录它的访问地址，stride 还没有学习到，置为 0
+- 当 Load 指令第二次访问的时候，计算访问地址和记录在 Reference Prediction Table 中上一次访问地址的差值，写入到 stride 当中，同时更新访问地址
+- 当 Load 指令第三次访问的时候，再次计算访问地址和上一次访问地址的差值，如果差值等于记录的 stride，就启动 stride prefetcher
+
+代码实现可参考 [ChampSim](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/ip_stride/ip_stride.cc)：
+
+检查当前 Load 指令的 PC 是否已经在 Reference Prediction Table 当中：
+
+```c
+champsim::block_number cl_addr{addr};
+champsim::block_number::difference_type stride = 0;
+
+auto found = table.check_hit({ip, cl_addr, stride});
+```
+
+如果在，计算一下访问地址减去上一次访问地址的差值，和已有的 stride 比对，如果相等且不为 0，启动预取：
+
+```c
+// if we found a matching entry
+if (found.has_value()) {
+    stride = champsim::offset(found->last_cl_addr, cl_addr);
+
+    // Initialize prefetch state unless we somehow saw the same address twice in
+    // a row or if this is the first time we've seen this stride
+    if (stride != 0 && stride == found->last_stride)
+        active_lookahead = {champsim::address{cl_addr}, stride, PREFETCH_DEGREE};
+}
+
+// update tracking set
+table.fill({ip, cl_addr, stride});
+```
+
+另一方面，启动预取，把 `Y+Stride*i` 的数据预取进来：
+
+```c
+
+void ip_stride::prefetcher_cycle_operate()
+{
+    // If a lookahead is active
+    if (active_lookahead.has_value()) {
+        auto [old_pf_address, stride, degree] = active_lookahead.value();
+        assert(degree > 0);
+
+        champsim::address pf_address{champsim::block_number{old_pf_address} + stride};
+
+        // If the next step would exceed the degree or run off the page, stop
+        if (intern_->virtual_prefetch || champsim::page_number{pf_address} == champsim::page_number{old_pf_address}) {
+            // check the MSHR occupancy to decide if we're going to prefetch to this level or not
+            const bool mshr_under_light_load = intern_->get_mshr_occupancy_ratio() < 0.5;
+            const bool success = prefetch_line(pf_address, mshr_under_light_load, 0);
+            if (success)
+                active_lookahead = {pf_address, stride, degree - 1};
+            // If we fail, try again next cycle
+
+            if (active_lookahead->degree == 0) {
+                active_lookahead.reset();
+            }
+        } else {
+            active_lookahead.reset();
+        }
+    }
+}
+```
+
