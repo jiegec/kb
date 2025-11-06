@@ -319,3 +319,277 @@ void ip_stride::prefetcher_cycle_operate()
 }
 ```
 
+## Other Prefetcher
+
+有的 Prefetcher 集合了多种 Prefetcher 于一体，可以支持多种不同的访存模式。
+
+### Instruction Pointer Classifier based Prefetching
+
+[Instruction Pointer Classifier based Prefetching (IPCP)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Bouquet.pdf) 在 IP-stride Prefetch 的基础上，支持了更多的访存模式：
+
+- IP Constant Stride(CS)，和 IP-stride Prefetch 一样，从某个地址开始，按照固定的 stride 进行访问
+- IP Complex Stride(CPLX)，思路是根据 stride 历史来预测下一个 stride 是多少，可以支持不固定但有规律的 stride
+- IP Global Stream(GS)，就是和 Load 指令无关，但是从全局来看，是访问连续的 cacheline，对应 Stream Prefetcher
+
+具体来说，维护了一个 IP table，使用 Load 指令的地址来索引，它的表项包括：
+
+- 6-bit 的 tag
+- 1-bit 的 valid
+- 针对 IP Constant Stride，记录：
+    - 52-bit 的 page 地址
+    - 6-bit 的 page 内 cacheline offset
+    - 7-bit 的 last stride，记录最后两次访存地址的差值
+    - 2-bit 的 confidence
+- 针对 IP Complex Stride，记录：
+    - 12-bit 的 signature，是最近若干次 stride 经过哈希的结果
+- 针对 IP Global Stream，记录：
+    - 1-bit 的 stream valid，表示是否为合法的 Stream
+    - 1-bit 的 stream direction，表示向地址更高的方向还是向地址更低的方向
+    - 1-bit 的 strength
+
+下面来结合[代码](https://dpc3.compas.cs.stonybrook.edu/src/Bouquet.zip) 来分析一下：
+
+首先是 IP Constant Stride 的部分，计算和上一次访存地址的差值：
+
+```c
+// calculate the stride between the current address and the last address
+int64_t stride = 0;
+if (cl_offset > trackers_l1[cpu][index].last_cl_offset)
+    stride = cl_offset - trackers_l1[cpu][index].last_cl_offset;
+else {
+    stride = trackers_l1[cpu][index].last_cl_offset - cl_offset;
+    stride *= -1;
+}
+
+// don't do anything if same address is seen twice in a row
+if (stride == 0)
+    return;
+```
+
+如果和之前的结果一致，就增加 confidence，反之减少：
+
+```c
+int update_conf(int stride, int pred_stride, int conf){
+    if(stride == pred_stride){             // use 2-bit saturating counter for confidence
+        conf++;
+        if(conf > 3)
+            conf = 3;
+    } else {
+        conf--;
+        if(conf < 0)
+            conf = 0;
+    }
+
+    return conf;
+}
+
+// update constant stride(CS) confidence
+trackers_l1[cpu][index].conf = update_conf(stride, trackers_l1[cpu][index].last_stride, trackers_l1[cpu][index].conf);
+
+// update CS only if confidence is zero
+if(trackers_l1[cpu][index].conf == 0)                      
+    trackers_l1[cpu][index].last_stride = stride;
+```
+
+如果 confidence 大于 1 且 stride 不等于 0，则继续往后预取：
+
+```c
+if(trackers_l1[cpu][index].conf > 1 && trackers_l1[cpu][index].last_stride != 0){            // CS IP  
+    for (int i=0; i<prefetch_degree; i++) {
+        uint64_t pf_address = (cl_addr + (trackers_l1[cpu][index].last_stride*(i+1))) << LOG2_BLOCK_SIZE;
+
+        // Check if prefetch address is in same 4 KB page
+        if ((pf_address >> LOG2_PAGE_SIZE) != (addr >> LOG2_PAGE_SIZE)){
+            break;
+        }
+
+        metadata = encode_metadata(trackers_l1[cpu][index].last_stride, CS_TYPE, spec_nl[cpu]);
+        prefetch_line(ip, addr, pf_address, FILL_L1, metadata);
+        num_prefs++;
+        SIG_DP(cout << trackers_l1[cpu][index].last_stride << ", ");
+    }
+}
+```
+
+接下来看 IP Complex Stride。它的思路是，计算 stride 序列，通过哈希得到一个 signature，然后用 signature 去预测下一个 delta 是多少，和分支预测是类似的。首先是 signature 的计算：
+
+```c
+uint16_t update_sig_l1(uint16_t old_sig, int delta){                           
+    uint16_t new_sig = 0;
+    int sig_delta = 0;
+
+    // 7-bit sign magnitude form, since we need to track deltas from +63 to -63
+    sig_delta = (delta < 0) ? (((-1) * delta) + (1 << 6)) : delta;
+    new_sig = ((old_sig << 1) ^ sig_delta) & 0xFFF;                     // 12-bit signature
+
+    return new_sig;
+}
+
+// calculate and update new signature in IP table
+signature = update_sig_l1(last_signature, stride);
+trackers_l1[cpu][index].signature = signature;
+```
+
+使用 signature 去访问 Delta Prediction Table，它的表项是 delta 和 confidence：
+
+```cpp
+class DELTA_PRED_TABLE {
+public:
+    int delta;
+    int conf;
+
+    DELTA_PRED_TABLE () {
+        delta = 0;
+        conf = 0;
+    };        
+};
+```
+
+如果 confidence 非负，就用它预测的 delta 来进行预取：
+
+```c
+if(DPT_l1[cpu][signature].conf >= 0 && DPT_l1[cpu][signature].delta != 0) {  // if conf>=0, continue looking for delta
+    int pref_offset = 0,i=0;                                                        // CPLX IP
+    for (i=0; i<prefetch_degree; i++) {
+        pref_offset += DPT_l1[cpu][signature].delta;
+        uint64_t pf_address = ((cl_addr + pref_offset) << LOG2_BLOCK_SIZE);
+
+        // Check if prefetch address is in same 4 KB page
+        if (((pf_address >> LOG2_PAGE_SIZE) != (addr >> LOG2_PAGE_SIZE)) || 
+                (DPT_l1[cpu][signature].conf == -1) ||
+                (DPT_l1[cpu][signature].delta == 0)){
+            // if new entry in DPT or delta is zero, break
+            break;
+        }
+
+        // we are not prefetching at L2 for CPLX type, so encode delta as 0
+        metadata = encode_metadata(0, CPLX_TYPE, spec_nl[cpu]);
+        if(DPT_l1[cpu][signature].conf > 0){                                 // prefetch only when conf>0 for CPLX
+            prefetch_line(ip, addr, pf_address, FILL_L1, metadata);
+            num_prefs++;
+            SIG_DP(cout << pref_offset << ", ");
+        }
+        signature = update_sig_l1(signature, DPT_l1[cpu][signature].delta);
+    }
+} 
+```
+
+根据 signature 和当前的 delta，更新 Delta Prediction Table：
+
+```c
+// update complex stride(CPLX) confidence
+DPT_l1[cpu][last_signature].conf = update_conf(stride, DPT_l1[cpu][last_signature].delta, DPT_l1[cpu][last_signature].conf);
+
+// update CPLX only if confidence is zero
+if(DPT_l1[cpu][last_signature].conf == 0)
+    DPT_l1[cpu][last_signature].delta = stride;
+```
+
+最后是 IP Global Stream，它使用 Global History Buffer 记录了全局的若干次 cacheline 访问：
+
+```c
+// update GHB
+// search for matching cl addr
+int ghb_index=0;
+for(ghb_index = 0; ghb_index < NUM_GHB_ENTRIES; ghb_index++)
+    if(cl_addr == ghb_l1[cpu][ghb_index])
+        break;
+// only update the GHB upon finding a new cl address
+if(ghb_index == NUM_GHB_ENTRIES){
+    for(ghb_index=NUM_GHB_ENTRIES-1; ghb_index>0; ghb_index--)
+        ghb_l1[cpu][ghb_index] = ghb_l1[cpu][ghb_index-1];
+    ghb_l1[cpu][0] = cl_addr;
+}
+```
+
+检测当前访问往低地址或者高地址的连续若干个 cacheline 是不是都在 GHB 当中，是的话激活 IP Global Stream 模式：
+
+```c
+void check_for_stream_l1(int index, uint64_t cl_addr, uint8_t cpu){
+    int pos_count=0, neg_count=0, count=0;
+    uint64_t check_addr = cl_addr;
+
+    // check for +ve stream
+    for(int i=0; i<NUM_GHB_ENTRIES; i++){
+        check_addr--;
+        for(int j=0; j<NUM_GHB_ENTRIES; j++)
+            if(check_addr == ghb_l1[cpu][j]){
+                pos_count++;
+                break;
+            }
+    }
+
+    check_addr = cl_addr;
+    // check for -ve stream
+    for(int i=0; i<NUM_GHB_ENTRIES; i++){
+        check_addr++;
+        for(int j=0; j<NUM_GHB_ENTRIES; j++)
+            if(check_addr == ghb_l1[cpu][j]){
+                neg_count++;
+                break;
+            }
+    }
+
+    if(pos_count > neg_count){                                // stream direction is +ve
+        trackers_l1[cpu][index].str_dir = 1;
+        count = pos_count;
+    }
+    else{                                                     // stream direction is -ve
+        trackers_l1[cpu][index].str_dir = 0;
+        count = neg_count;
+    }
+
+    if(count > NUM_GHB_ENTRIES/2){                                // stream is detected
+        trackers_l1[cpu][index].str_valid = 1;
+        if(count >= (NUM_GHB_ENTRIES*3)/4)                        // stream is classified as strong if more than 3/4th entries belong to stream
+            trackers_l1[cpu][index].str_strength = 1;
+    }
+    else{
+        if(trackers_l1[cpu][index].str_strength == 0)             // if identified as weak stream, we need to reset
+            trackers_l1[cpu][index].str_valid = 0;
+    }
+
+}
+```
+
+在 IP Global Stream 模式下的预取：
+
+```c
+if(trackers_l1[cpu][index].str_valid == 1){                         // stream IP
+    // for stream, prefetch with twice the usual degree
+    prefetch_degree = prefetch_degree*2;
+    for (int i=0; i<prefetch_degree; i++) {
+        uint64_t pf_address = 0;
+
+        if(trackers_l1[cpu][index].str_dir == 1){                   // +ve stream
+            pf_address = (cl_addr + i + 1) << LOG2_BLOCK_SIZE;
+            metadata = encode_metadata(1, S_TYPE, spec_nl[cpu]);    // stride is 1
+        }
+        else{                                                       // -ve stream
+            pf_address = (cl_addr - i - 1) << LOG2_BLOCK_SIZE;
+            metadata = encode_metadata(-1, S_TYPE, spec_nl[cpu]);   // stride is -1
+        }
+
+        // Check if prefetch address is in same 4 KB page
+        if ((pf_address >> LOG2_PAGE_SIZE) != (addr >> LOG2_PAGE_SIZE)){
+            break;
+        }
+
+        prefetch_line(ip, addr, pf_address, FILL_L1, metadata);
+        num_prefs++;
+        SIG_DP(cout << "1, ");
+        }
+}
+```
+
+最后，如果这几种模式都没有匹配，就采用 Next Line Prefetcher：
+
+```cpp
+// if no prefetches are issued till now, speculatively issue a next_line prefetch
+if(num_prefs == 0 && spec_nl[cpu] == 1){                                        // NL IP
+    uint64_t pf_address = ((addr>>LOG2_BLOCK_SIZE)+1) << LOG2_BLOCK_SIZE;  
+    metadata = encode_metadata(1, NL_TYPE, spec_nl[cpu]);
+    prefetch_line(ip, addr, pf_address, FILL_L1, metadata);
+    SIG_DP(cout << "1, ");
+}
+```
