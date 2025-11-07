@@ -2,9 +2,20 @@
 
 ## Offset Prefetcher
 
-Offset Prefetch 是一类预取器，它的行为是，当访问地址为 X 的 cacheline 时，预取地址为 X + O 的 cacheline，其中 O 就是 Offset，可以是固定的，或者是动态学习出来的。
+Offset Prefetcher 是一类预取器，它的行为是，当访问地址为 X 的 cacheline 时，预取地址为 X + O 的 cacheline，其中 O 就是 Offset，可以是固定的，或者是动态学习出来的。
 
 如果采用一个 Offset 去预取 `X + O`, `X + O * 2`, ...，那么这种 Offset Prefetcher 也叫 Stride Prefetcher，针对的是数组的访存模式，由于数组的元素大小是固定的，那么访存地址通常满足 `X`, `X+Stride`, `X+2*Stride`, ... 的规律。
+
+### Next Line Prefetcher
+
+Next Line Prefetch 就是 O 恒等于 1 的 Offset Prefetcher，即总是预取下一个 cacheline。
+
+代码参考 [ChampSim 实现](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/next_line/next_line.cc)：
+
+```c
+champsim::block_number pf_addr{addr};
+prefetch_line(champsim::address{pf_addr + 1}, true, metadata_in);
+```
 
 ### IP Stride Prefetcher
 
@@ -72,18 +83,6 @@ void ip_stride::prefetcher_cycle_operate()
         }
     }
 }
-```
-
-
-### Next Line Prefetcher
-
-Next Line Prefetch 就是 O 恒等于 1 的 Offset Prefetcher，即总是预取下一个 cacheline。
-
-代码参考 [ChampSim 实现](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/next_line/next_line.cc)：
-
-```c
-champsim::block_number pf_addr{addr};
-prefetch_line(champsim::address{pf_addr + 1}, true, metadata_in);
 ```
 
 ### Best Offset Prefetcher
@@ -200,7 +199,7 @@ if (issuePrefetchRequests) {
 
 ### Signature Path Prefetcher
 
-[Path Confidence based Lookahead Prefetching](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7783763) 提出了一种 Signature Path Prefetcher，其借用了分支预测的思路，把访存的地址进行差分，得到一个 delta 序列，然后对 delta 序列进行预测：把 delta 的序列折叠成一个 signature，然后用 signature 去访问 Pattern Table，提供下一个 delta 是多少的预测。
+[Path Confidence based Lookahead Prefetching](https://ieeexplore.ieee.org/document/7783763) 提出了一种 Signature Path Prefetcher，其借用了分支预测的思路，把访存的地址进行差分，得到一个 delta 序列，然后对 delta 序列进行预测：把 delta 的序列折叠成一个 signature，然后用 signature 去访问 Pattern Table，提供下一个 delta 是多少的预测。其思路和后面的 Variable Length Delta Predictor 类似。
 
 它包括一个 Signature Table，它根据 Page 进行索引，维护在同一个 Page 内的访问的 signature 和最后一次访问的 offset：当对这个 Page 进行一次新的访问时，用当前访问的 offset 减去最后一次的 offset，然后哈希到 signature 当中，同时更新最后一次访问的 offset。
 
@@ -327,6 +326,25 @@ Sms::notifyEvict(const EvictionInfo &info)
     AGT.erase(region_base);
 }
 ```
+
+### Bingo
+
+[Bingo Spatial Prefetcher](https://ieeexplore.ieee.org/document/8675188/) 在 Spatial Memory Streaming 的基础上做了改进：Spatial Memory Streaming 用的是 Load 指令的地址和 Region 内的 Offset 作为索引，去访问 Bitmap 信息，然后用 Bitmap 去预取 Region 内的被访问过的 cacheline。Bingo 的思路是，有些时候用 Load 指令的地址和 Region 内 Offset 作为索引不够精确，而如果用 Load 指令的地址和完整的 Load 地址作为索引会更加精确。
+
+因此 Bingo 的思路是，先用 Load 指令的地址加完整的 Load 地址去查询，如果有匹配的，就直接预取；如果没有匹配的，再用 Load 指令的地址加 Load 地址在 Region 内的 Offset 去查询，此时就和 Spatial Memory Streaming 一致了。为了在不增加太多开销的前提下实现这个查询，它把 Region 内的 Offset 作为 index，Region 外的 Load 地址部分参与到 tag 当中，那么要做的事情就变成，访问同一个 set 内的多个 way，如果有某个 way 的 tag 匹配，则优先用匹配的（相当于 Load 指令的地址加完整的 Load 地址去查询），否则就可以用其他的（相当于用 Load 指令的地址加 Region 内的 Offset 去查询）。
+
+### Variable Length Delta Prefetcher
+
+[Variable Length Delta Prefetcher](https://ieeexplore.ieee.org/document/7856594) 是一种基于 delta 预测的 Spatial Prefetcher，具体地，它对访存序列求差分，即用第 k 次访存地址减去第 k-1 次访存地址，得到 Delta 序列，然后对当前的 Delta 序列，预测下一个 Delta，那么预取的地址，就是 Delta 加上最后一次访存的地址。它的实现思路是：
+
+- 在 Delta History Buffer 中对每个物理页分别保存物理页号，最后一次访问地址的偏移，最近的最多四个 Delta 值，最近一次用了哪个表来做预测，这个页面被访问多少次，以及最近四次预取的 offset
+- 当程序第一次访问某个物理页时，在 Delta History Buffer 中创建表项，同时根据访问的页内偏移，查询 Offset Prediction Table，得到预取的距离，进行预取
+- 当程序第二次访问某个物理页时，根据 Delta History Buffer 中保存的信息，得到这两次访问的偏移的差值 Delta，然后用这个 Delta 去访问第一个 Delta Prediction Table，即用一个 Delta 预测下一个 Delta
+- 当程序第三次访问时，用前两个 Delta 访问第二个 Delta Prediction Table，预测第三个 Delta；第四次访问时，用前三个 Delta 访问第三个 Delta Prediction Table，预测第四个 Delta；依此类推
+
+与 Signature Path Prefetcher 把 Delta 序列压缩为 Signature 不同，Variable Length Delta Prefetcher 用的是完整的最多四个 Delta 序列来进行预测。
+
+
 ## Other Prefetcher
 
 有的 Prefetcher 集合了多种 Prefetcher 于一体，可以支持多种不同的访存模式。
