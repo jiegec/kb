@@ -333,6 +333,49 @@ Sms::notifyEvict(const EvictionInfo &info)
 
 因此 Bingo 的思路是，先用 Load 指令的地址加完整的 Load 地址去查询，如果有匹配的，就直接预取；如果没有匹配的，再用 Load 指令的地址加 Load 地址在 Region 内的 Offset 去查询，此时就和 Spatial Memory Streaming 一致了。为了在不增加太多开销的前提下实现这个查询，它把 Region 内的 Offset 作为 index，Region 外的 Load 地址部分参与到 tag 当中，那么要做的事情就变成，访问同一个 set 内的多个 way，如果有某个 way 的 tag 匹配，则优先用匹配的（相当于 Load 指令的地址加完整的 Load 地址去查询），否则就可以用其他的（相当于用 Load 指令的地址加 Region 内的 Offset 去查询）。
 
+这个匹配逻辑见 [Bingo 在 DPC-3 上的源码](https://dpc3.compas.cs.stonybrook.edu/src/Accurately.zip)：
+
+```cpp
+/**
+ * First searches for a PC+Address match. If no match is found, returns all PC+Offset matches.
+ * @return All un-rotated patterns if matches were found, returns an empty vector otherwise
+ */
+vector<vector<bool>> find(uint64_t pc, uint64_t address) {
+    if (this->debug_level >= 2)
+        cerr << "PatternHistoryTable::find(pc=0x" << hex << pc << ", address=0x" << address << ")" << dec << endl;
+    uint64_t key = this->build_key(pc, address);
+    uint64_t index = key % this->num_sets;
+    uint64_t tag = key / this->num_sets;
+    auto &set = this->entries[index];
+    uint64_t min_tag_mask = (1 << (this->pc_width + this->min_addr_width - this->index_len)) - 1;
+    uint64_t max_tag_mask = (1 << (this->pc_width + this->max_addr_width - this->index_len)) - 1;
+    vector<vector<bool>> matches;
+    this->last_event = MISS;
+    for (int i = 0; i < this->num_ways; i += 1) {
+        if (!set[i].valid)
+            continue;
+        bool min_match = ((set[i].tag & min_tag_mask) == (tag & min_tag_mask));
+        bool max_match = ((set[i].tag & max_tag_mask) == (tag & max_tag_mask));
+        vector<bool> &cur_pattern = set[i].data.pattern;
+        if (max_match) {
+            this->last_event = PC_ADDRESS;
+            Super::set_mru(set[i].key);
+            matches.clear();
+            matches.push_back(cur_pattern);
+            break;
+        }
+        if (min_match) {
+            this->last_event = PC_OFFSET;
+            matches.push_back(cur_pattern);
+        }
+    }
+    int offset = address % this->pattern_len;
+    for (int i = 0; i < (int)matches.size(); i += 1)
+        matches[i] = my_rotate(matches[i], +offset);
+    return matches;
+}
+```
+
 ### Variable Length Delta Prefetcher
 
 [Variable Length Delta Prefetcher](https://ieeexplore.ieee.org/document/7856594) 是一种基于 delta 预测的 Spatial Prefetcher，具体地，它对访存序列求差分，即用第 k 次访存地址减去第 k-1 次访存地址，得到 Delta 序列，然后对当前的 Delta 序列，预测下一个 Delta，那么预取的地址，就是 Delta 加上最后一次访存的地址。它的实现思路是：
