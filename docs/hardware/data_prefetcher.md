@@ -155,6 +155,10 @@ if (issuePrefetchRequests) {
 }
 ```
 
+### Multi-Lookahead Offset Prefetching
+
+[Multi-Lookahead Offset Prefetching](https://dpc3.compas.cs.stonybrook.edu/pdfs/Multi_lookahead.pdf) 是一种在 Best Offset Prefetcher 的基础上的改进：Best Offset Prefetcher 会按照固定的 Offset 序列，给 Offset 打分：访问 Y 的时候，如果 Y-Offset 在最近的访问序列中，就给 Offset 加分。然后用最高分的 Offset 去进行预取。Multi-Lookahead Offset Prefetching 的思路是，有时候单独一个最佳的 Offset 不够，而是设置不同的 Lookahead 等级：Lookahead 等级为几，就代表跳过了最近的几个访问序列；然后对每个 Lookahead 等级都去计算一个最佳的 Offset，用这些 Offset 去预取。其实就相当于，Best Offset Prefetcher 用完整的最近访问序列去计算分数，而在这里，会按照 Lookahead 等级来忽略最后几次访问，再去计算最佳的 Offset，这样算出来的 Offset 它预取的时间距离更远
+
 ### Berti (MICRO 版本)
 
 [Berti: an Accurate Local-Delta Data Prefetcher](https://ieeexplore.ieee.org/document/9923806) 在 Best Offset Prefetcher 的基础上更进一步：Best Offset Prefetcher 认为不同程序的最佳 Offset 不同，所以要动态地寻找最佳的 Offset；而 Berti 认为，程序里不同 Load 指令的最佳 Offset 不同，所以要给不同的 Load 指令使用不同的最佳的 Offset。
