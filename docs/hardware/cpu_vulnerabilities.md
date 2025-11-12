@@ -487,3 +487,13 @@
 
 - 这段代码从 `1:` 处开始执行，由于 `test $0xcc, %bl` 的编码和 `.byte 0xf6; ret; int3` 指令相同，所以它的语义相当于是 `test $0xcc, %bl; lfence; jmp 2b`；然后跳转到 `2:` 处的 ret 指令
 - 在执行 `test $0xcc, %bl` 的时候，就会把 `ret` 指令标记为非分支指令，之后再去执行它的时候，预测器就不会工作，从而避免了漏洞的利用
+
+### Core Scheduling
+
+- [Core Scheduling](https://docs.kernel.org/admin-guide/hw-vuln/core-scheduling.html)
+- 通过 prctl 设置哪些进程可以共享同一个物理核的多个逻辑核，避免受害者和攻击者在同一个物理核当中执行
+
+### L1D Flushing
+
+- [L1D Flushing](https://docs.kernel.org/admin-guide/hw-vuln/l1d_flush.html)
+- 通过 prctl 设置，当上下文切换时 flush l1d
