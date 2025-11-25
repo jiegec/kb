@@ -89,7 +89,7 @@ void ip_stride::prefetcher_cycle_operate()
 
 Code: <https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc>
 
-[Best Offset Prefetcher](https://www.irisa.fr/alf/downloads/michaud/dpc2_michaud.pdf) 的思路是，在不同程序下，最优的 Offset 可能不一样，所以动态地计算出最佳的 Offset。思路如下：
+[Best Offset Prefetcher (BOP, DPC-2)](https://www.irisa.fr/alf/downloads/michaud/dpc2_michaud.pdf) 的思路是，在不同程序下，最优的 Offset 可能不一样，所以动态地计算出最佳的 Offset。思路如下：
 
 1. 记录最近访问的若干个 cacheline 的地址 X 到 Recent Requests 表中
 2. 当地址为 Y 的 cacheline 进入到缓存时，根据预先设好的若干个 Offset：O1、O2、...、On，计算 Y - Oi，判断它是不是在 Recent Requests 表中，如果在，就增加 Oi 的分数
@@ -157,11 +157,11 @@ if (issuePrefetchRequests) {
 
 ### Multi-Lookahead Offset Prefetching
 
-[Multi-Lookahead Offset Prefetching](https://dpc3.compas.cs.stonybrook.edu/pdfs/Multi_lookahead.pdf) 是一种在 Best Offset Prefetcher 的基础上的改进：Best Offset Prefetcher 会按照固定的 Offset 序列，给 Offset 打分：访问 Y 的时候，如果 Y-Offset 在最近的访问序列中，就给 Offset 加分。然后用最高分的 Offset 去进行预取。Multi-Lookahead Offset Prefetching 的思路是，有时候单独一个最佳的 Offset 不够，而是设置不同的 Lookahead 等级：Lookahead 等级为几，就代表跳过了最近的几个访问序列；然后对每个 Lookahead 等级都去计算一个最佳的 Offset，用这些 Offset 去预取。其实就相当于，Best Offset Prefetcher 用完整的最近访问序列去计算分数，而在这里，会按照 Lookahead 等级来忽略最后几次访问，再去计算最佳的 Offset，这样算出来的 Offset 它预取的时间距离更远
+[Multi-Lookahead Offset Prefetching (MLOP, DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Multi_lookahead.pdf) 是一种在 Best Offset Prefetcher 的基础上的改进：Best Offset Prefetcher 会按照固定的 Offset 序列，给 Offset 打分：访问 Y 的时候，如果 Y-Offset 在最近的访问序列中，就给 Offset 加分。然后用最高分的 Offset 去进行预取。Multi-Lookahead Offset Prefetching 的思路是，有时候单独一个最佳的 Offset 不够，而是设置不同的 Lookahead 等级：Lookahead 等级为几，就代表跳过了最近的几个访问序列；然后对每个 Lookahead 等级都去计算一个最佳的 Offset，用这些 Offset 去预取。其实就相当于，Best Offset Prefetcher 用完整的最近访问序列去计算分数，而在这里，会按照 Lookahead 等级来忽略最后几次访问，再去计算最佳的 Offset，这样算出来的 Offset 它预取的时间距离更远
 
 ### Berti (MICRO 版本)
 
-[Berti: an Accurate Local-Delta Data Prefetcher](https://ieeexplore.ieee.org/document/9923806) 在 Best Offset Prefetcher 的基础上更进一步：Best Offset Prefetcher 认为不同程序的最佳 Offset 不同，所以要动态地寻找最佳的 Offset；而 Berti 认为，程序里不同 Load 指令的最佳 Offset 不同，所以要给不同的 Load 指令使用不同的最佳的 Offset。
+[Berti: an Accurate Local-Delta Data Prefetcher (MICRO-55)](https://ieeexplore.ieee.org/document/9923806) 在 Best Offset Prefetcher 的基础上更进一步：Best Offset Prefetcher 认为不同程序的最佳 Offset 不同，所以要动态地寻找最佳的 Offset；而 Berti 认为，程序里不同 Load 指令的最佳 Offset 不同，所以要给不同的 Load 指令使用不同的最佳的 Offset。
 
 此外，和 Best Offset Prefetcher 不同的是，Berti 没有一个预设的 Offset 列表，而是根据实际的 cacheline 地址去找到合适的 Offset。下面来看它具体是怎么做的。
 
@@ -190,7 +190,7 @@ if (issuePrefetchRequests) {
 
 ### Berti (DPC-3 版本)
 
-[Berti: A Per-Page Best-Request-Time Delta Prefetcher](https://dpc3.compas.cs.stonybrook.edu/pdfs/Berti.pdf) 在 DPC-3 比赛中的设计，与后来在 MICRO 上发表的设计不同，这里的 Berti 同时作为 L1D 和 L2 级别的 Prefetcher 出现，采用的是物理地址，因此相比使用虚拟地址的在 MICRO 上的 Berti 设计，DPC-3 版本的 Berti 额外引入了 Burst 机制，用来解决每个页开头的若干个 cacheline 无法找到更早的 cacheline 来触发 Offset Prefetch 的问题。
+[Berti: A Per-Page Best-Request-Time Delta Prefetcher (DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Berti.pdf) 在 DPC-3 比赛中的设计，与后来在 MICRO 上发表的设计不同，这里的 Berti 同时作为 L1D 和 L2 级别的 Prefetcher 出现，采用的是物理地址，因此相比使用虚拟地址的在 MICRO 上的 Berti 设计，DPC-3 版本的 Berti 额外引入了 Burst 机制，用来解决每个页开头的若干个 cacheline 无法找到更早的 cacheline 来触发 Offset Prefetch 的问题。
 
 那么 DPC-3 版本的 Berti 记录了哪些信息呢：
 
@@ -203,7 +203,7 @@ if (issuePrefetchRequests) {
 
 ### Signature Path Prefetcher
 
-[Path Confidence based Lookahead Prefetching](https://ieeexplore.ieee.org/document/7783763) 提出了一种 Signature Path Prefetcher，其借用了分支预测的思路，把访存的地址进行差分，得到一个 delta 序列，然后对 delta 序列进行预测：把 delta 的序列折叠成一个 signature，然后用 signature 去访问 Pattern Table，提供下一个 delta 是多少的预测。其思路和后面的 Variable Length Delta Predictor 类似。
+[Path Confidence based Lookahead Prefetching (MICRO-49)](https://ieeexplore.ieee.org/document/7783763) 提出了一种 Signature Path Prefetcher（SPP），其借用了分支预测的思路，把访存的地址进行差分，得到一个 delta 序列，然后对 delta 序列进行预测：把 delta 的序列折叠成一个 signature，然后用 signature 去访问 Pattern Table，提供下一个 delta 是多少的预测。其思路和后面的 Variable Length Delta Predictor 类似。
 
 它包括一个 Signature Table，它根据 Page 进行索引，维护在同一个 Page 内的访问的 signature 和最后一次访问的 offset：当对这个 Page 进行一次新的访问时，用当前访问的 offset 减去最后一次的 offset，然后哈希到 signature 当中，同时更新最后一次访问的 offset。
 
@@ -217,7 +217,7 @@ Spatial Prefetcher 利用的是程序的访存模式在空间上的相似性，�
 
 ### Spatial Memory Streaming
 
-[Spatial Memory Streaming (SMS)](https://ieeexplore.ieee.org/document/1635957/) 的做法是，把内存分成很多个相同大小的 Region（通常一个 Region 是多个连续 Cacheline，例如 32 或 64 个 Cacheline），在第一次访问某个 Region 时，维护当前 Region 的信息，记录这次访存指令的 PC 以及访存的地址相对 Region 的偏移，然后开始跟踪这个 Region 内哪些数据被读取了，直到这个 Region 的数据被换出 Cache，就结束记录，把信息保存下来。当同一条访存指令访问到了任何一个 Region 内和之前一样的偏移时，根据之前保存的信息，把 Region 里曾经读过的地址预取一遍。这里的核心是只匹配偏移而不是完整的地址，忽略了地址的高位，最后预取的时候，也是拿新的 Region 的地址去加偏移，自然而然实现了空间上的平移。
+[Spatial Memory Streaming (SMS, ISCA '06)](https://ieeexplore.ieee.org/document/1635957/) 的做法是，把内存分成很多个相同大小的 Region（通常一个 Region 是多个连续 Cacheline，例如 32 或 64 个 Cacheline），在第一次访问某个 Region 时，维护当前 Region 的信息，记录这次访存指令的 PC 以及访存的地址相对 Region 的偏移，然后开始跟踪这个 Region 内哪些数据被读取了，直到这个 Region 的数据被换出 Cache，就结束记录，把信息保存下来。当同一条访存指令访问到了任何一个 Region 内和之前一样的偏移时，根据之前保存的信息，把 Region 里曾经读过的地址预取一遍。这里的核心是只匹配偏移而不是完整的地址，忽略了地址的高位，最后预取的时候，也是拿新的 Region 的地址去加偏移，自然而然实现了空间上的平移。
 
 具体来说，Spatial Memory Streaming 维护了一个 Active Generation Table（缩写 AGT）来记录上面所述的 Region 内哪些数据被读取的信息，当这个 Region 里的数据被换出 Cache，对应的信息就会被保存到 Pattern History Table（缩写 PHT）当中，后续会根据 PHT 来预测预取的地址。其中 Active Generation Table 又包括了 Accumulation Table 和 Filter Table，这样做是为了减少不必要的分配，只有当一个 Region 出现至少两次访问才会被分配到 Accmuluation Table 当中。具体步骤：
 
@@ -382,7 +382,7 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 
 ### Variable Length Delta Prefetcher
 
-[Variable Length Delta Prefetcher](https://ieeexplore.ieee.org/document/7856594) 是一种基于 delta 预测的 Spatial Prefetcher，具体地，它对访存序列求差分，即用第 k 次访存地址减去第 k-1 次访存地址，得到 Delta 序列，然后对当前的 Delta 序列，预测下一个 Delta，那么预取的地址，就是 Delta 加上最后一次访存的地址。它的实现思路是：
+[Variable Length Delta Prefetcher (VLDP, MICRO-48)](https://ieeexplore.ieee.org/document/7856594) 是一种基于 delta 预测的 Spatial Prefetcher，具体地，它对访存序列求差分，即用第 k 次访存地址减去第 k-1 次访存地址，得到 Delta 序列，然后对当前的 Delta 序列，预测下一个 Delta，那么预取的地址，就是 Delta 加上最后一次访存的地址。它的实现思路是：
 
 - 在 Delta History Buffer 中对每个物理页分别保存物理页号，最后一次访问地址的偏移，最近的最多四个 Delta 值，最近一次用了哪个表来做预测，这个页面被访问多少次，以及最近四次预取的 offset
 - 当程序第一次访问某个物理页时，在 Delta History Buffer 中创建表项，同时根据访问的页内偏移，查询 Offset Prediction Table，得到预取的距离，进行预取
@@ -395,7 +395,7 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 
 ### Irregular Stream Buffer
 
-[Irregular Stream Buffer](https://dl.acm.org/doi/10.1145/2540708.2540730) 是一种 Temporal Prefetcher，它可以把时间上连续的若干个地址联系起来，实现一些不规则访问的预取。它的思路是，把不连续的物理地址，映射到一个连续的地址空间（称其中的地址为 Structural Address），那么预取的时候，就可以在这个连续的地址空间内连续地取地址，再反查对应的物理地址。其原理如下：
+[Irregular Stream Buffer (ISB, MICRO-46)](https://dl.acm.org/doi/10.1145/2540708.2540730) 是一种 Temporal Prefetcher，它可以把时间上连续的若干个地址联系起来，实现一些不规则访问的预取。它的思路是，把不连续的物理地址，映射到一个连续的地址空间（称其中的地址为 Structural Address），那么预取的时候，就可以在这个连续的地址空间内连续地取地址，再反查对应的物理地址。其原理如下：
 
 1. 维护一个 Training Unit，记录每个 Load PC 最后一次 Load 的物理地址
 2. 维护一个 Physical to Structural Address Mapping Cache（PS-AMC），记录物理地址到 Structural Address 的映射；具体地，当执行 Load 指令时：
@@ -410,13 +410,21 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 
 由于片上空间有限，它设计了一个基于 TLB 的换入换出机制，同时利用 TLB 来节省物理地址的存储。
 
+### Managed Irregular Stream Buffer
+
+[Managed Irregular Stream Buffer (MISB, ISCA '19)](https://dl.acm.org/doi/10.1145/3307650.3322225) 是针对 Irregular Stream Buffer (ISB) 的改进：
+
+1. 管理 Structural Address 和 Physical Address 之间映射的粒度从页缩小到了缓存行
+2. 实现 Metadata Prefetching，根据 Structural Address 的连续性提前把 off chip 当中的信息预取到 on chip
+3. 通过 Bloom Filter 减少无用的 Metadata 内存请求
+
 ## Other Prefetcher
 
 有的 Prefetcher 集合了多种 Prefetcher 于一体，可以支持多种不同的访存模式。
 
 ### Instruction Pointer Classifier based Prefetching
 
-[Instruction Pointer Classifier based Prefetching (IPCP)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Bouquet.pdf) 在 IP-stride Prefetch 的基础上，支持了更多的访存模式：
+[Instruction Pointer Classifier based Prefetching (IPCP, DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Bouquet.pdf) 在 IP-stride Prefetch 的基础上，支持了更多的访存模式：
 
 - IP Constant Stride(CS)，和前面提到的 IP-stride Prefetch 一样，从某个地址开始，按照固定的 stride 进行访问
 - IP Complex Stride(CPLX)，思路是根据 stride 历史来预测下一个 stride 是多少，可以支持不固定但有规律的 stride，类似前面提到的 Signature Path Prefetching
