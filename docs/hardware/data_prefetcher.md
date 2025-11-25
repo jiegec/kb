@@ -380,6 +380,76 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 }
 ```
 
+### Pattern Merging Prefetcher
+
+[Pattern Merging Perfetcher (PMP, MICRO-55)](https://ieeexplore.ieee.org/document/9923831) 也是一个 Spatial Prefetcher，它的思路是，很多 Spatial Pattern 是类似的，但保存了很多份，所以它希望通过合并 Pattern（类似 SMS 里面的那个 Bitmap）来节省空间。合并思路是这样的：
+
+1. 把 Bitmap 进行旋转移位，使得 Trigger Access 对应的 Bit 挪到开头
+2. 用 Counter Vector 代替 Bitmap，每一个位置记录一个数而不再是 0/1，合并 Bitmap 时，将旋转移位后的 Bitmap 求和到 Counter Vector 当中
+3. 根据 Counter Vector 的值：计算 Counter 除以 Trigger Access 的 Counter，即这一个 Cacheline 的出现频率，根据频率决定哪些 Cacheline 预取到 L1 或 L2
+
+实现参考它的[代码](https://github.com/zeal4u/PMP/blob/main/prefetcher/pmp.l1d_pref)：
+
+```c++
+// step 1: rotate
+int offset = __coarse_offset(__fine_offset(address));
+offset = is_degrade ? offset / PATTERN_DEGRADE_LEVEL : offset;
+pattern = my_rotate(pattern, -offset);
+
+if (entry)
+{
+    // step 2: added to stored pattern
+    int max_value = 0;
+    auto &stored_pattern = entry->data.pattern; 
+    for (int i = 0; i < this->pattern_len; i++)
+    {
+        pattern[i] ? ADD(stored_pattern[i], max_conf) : 0;
+        if (i > 0 && max_value < stored_pattern[i]) {
+            max_value = stored_pattern[i];
+        }
+    }
+
+    // handle overflow
+    if (entry->data.pattern[0] == max_conf) {
+        if (max_value < (1 << BACKOFF_TIMES)) {
+            entry->data.pattern[0] = max_value;
+        }
+        else 
+            for (auto &e : stored_pattern) {
+                e >>= BACKOFF_TIMES;
+            }
+    }
+    Super::rp_promote(key);
+}
+
+// step 3: prefetch based on frequency
+int cnt = 0;
+for (int j = 0; j < n; j += 1)
+{
+    cnt += x[j].pattern[i];
+}
+double p = 1.0 * cnt / x[0].pattern[0];
+if (p > 1) {
+    cout << "cnt:" << cnt << ",total:" << x[0].pattern[0] << endl;
+    assert(p <= 1);
+}
+
+if (x[0].pattern[0] <= START_CONF) {
+    break;
+}
+
+if (p >= PC_L1D_THRESH)
+    res[i] = FILL_L1;
+else if (p >= PC_L2C_THRESH)
+    res[i] = FILL_L2;
+else if (p >= PC_LLC_THRESH)
+    res[i] = FILL_LLC;
+else
+    res[i] = 0;
+```
+
+此外，它根据 Offset 和 PC 分别进行预测，对应 Offset Pattern Table 和 PC Pattern Table。
+
 ### Variable Length Delta Prefetcher
 
 [Variable Length Delta Prefetcher (VLDP, MICRO-48)](https://ieeexplore.ieee.org/document/7856594) 是一种基于 delta 预测的 Spatial Prefetcher，具体地，它对访存序列求差分，即用第 k 次访存地址减去第 k-1 次访存地址，得到 Delta 序列，然后对当前的 Delta 序列，预测下一个 Delta，那么预取的地址，就是 Delta 加上最后一次访存的地址。它的实现思路是：
