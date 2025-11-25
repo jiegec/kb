@@ -391,6 +391,24 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 
 与 Signature Path Prefetcher 把 Delta 序列压缩为 Signature 不同，Variable Length Delta Prefetcher 用的是完整的最多四个 Delta 序列来进行预测。
 
+## Temporal Prefetcher
+
+### Irregular Stream Buffer
+
+[Irregular Stream Buffer](https://dl.acm.org/doi/10.1145/2540708.2540730) 是一种 Temporal Prefetcher，它可以把时间上连续的若干个地址联系起来，实现一些不规则访问的预取。它的思路是，把不连续的物理地址，映射到一个连续的地址空间（称其中的地址为 Structural Address），那么预取的时候，就可以在这个连续的地址空间内连续地取地址，再反查对应的物理地址。其原理如下：
+
+1. 维护一个 Training Unit，记录每个 Load PC 最后一次 Load 的物理地址
+2. 维护一个 Physical to Structural Address Mapping Cache（PS-AMC），记录物理地址到 Structural Address 的映射；具体地，当执行 Load 指令时：
+    1. 检查 Training Unit，如果没有表项，则初始化，记录第一次 Load 的物理地址
+    2. 如果已有表项，查询最后一次 Load 的物理地址，记为 A；当前 Load 指令访问的物理地址，记为 B；在 PS-AMC 中分别查询 A 和 B
+    3. 如果 A 和 B 都不在 PS-AMC 中，则给它们分配两个连续的 Structural Address，记录在 PS-AMC 当中
+    4. 如果 A 在 PS-AMC 当中而 B 不在，给 B 的 Structural Address 设置为 A 的 Structural Address 加一
+    5. 如果 A 和 B 都在 PS-AMC 当中，如果它们的 Structural Address 已经是连续的，就增加 Confidence，否则减少 Confidence；如果 Confidence 减到了 0，则给 B 的 Structural Address 设置为 A 的 Structural Address 加一
+3. 同时维护一个 Structural to Physical Address Mapping Cache（SP-AMC），记录 Structural Address 到物理地址的映射
+
+要预取的时候，根据物理地址，查询 PS-AMC，找到它的 Structural Address，计算它的后续 Structural Address，然后反查 SP-AMC 从而得到要预取的物理地址。
+
+由于片上空间有限，它设计了一个基于 TLB 的换入换出机制，同时利用 TLB 来节省物理地址的存储。
 
 ## Other Prefetcher
 
