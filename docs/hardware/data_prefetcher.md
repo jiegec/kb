@@ -186,7 +186,7 @@ if (issuePrefetchRequests) {
 
 有了这些信息以后，就可以根据上述 Tables of delta 中学习到的状态，按照不同的 Offset 来进行预取了。
 
-代码参考 [官方实现](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc)，在实现上述 History Table 和 Tables of delta 以外，为了记录L1D miss latency，还实现了 Latency Table 和 Shadow Cache，但在硬件中不需要这么麻烦，只需要在 L1D 中额外记录 miss 的时间戳，等 refill 的时候求差即可知道延迟。
+代码参考 [官方实现](https://github.com/agusnt/Berti-Artifact)，在实现上述 History Table 和 Tables of delta 以外，为了记录 L1D miss latency，还实现了 Latency Table 和 Shadow Cache，但在硬件中不需要这么麻烦，只需要在 L1D 中额外记录 miss 的时间戳，等 refill 的时候求差即可知道延迟。
 
 ### Berti (DPC-3 版本)
 
@@ -232,6 +232,8 @@ if (issuePrefetchRequests) {
 3. 预取的时候，根据当前的 State，找到最好的 Action 使得对应的 Q 值最大（小的概率选择随机 Action），用这个 Action 作为 Offset 来进行预取；然后把这次预取的信息插入到 EQ 当中
 4. 如果 Action 等于 0，即没有要预取的数据，给一个 No prefetch 的 Reward；如果要预取的地址超出物理页边界，给一个 Loss of coverage 的 Reward
 5. 按照 SARSA 方式更新从 EQ evict 出来的 entry 的 Q 值
+
+代码实现可参考 [CMU-SAFARI/Pythia](https://github.com/CMU-SAFARI/Pythia/)。
 
 ## Spatial Prefetcher
 
