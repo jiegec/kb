@@ -211,6 +211,28 @@ if (issuePrefetchRequests) {
 
 代码实现可参考 [ChampSim](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/spp_dev/spp_dev.cc)。
 
+### Pythia
+
+[Pythia](https://dl.acm.org/doi/10.1145/3466752.3480114) 是一种基于 Reinforcement Learning 的 Offset Prefetcher。强化学习（Reinforcement Learning）的概念是，智能体 Agent 感知状态 State，输出动作 Action，得到奖励 Reward，目标是长期的奖励最大。在这里，Action 就是决定 Offset Prefetcher 预取所采用的 Offset。Q 函数输入是 State 和 Action，输出预测的 Reward 值，所以强化学习要做的事情就是找到一个很精确的 Q 函数的近似，然后根据学习到的 Q 函数来选择 Action。Reward 则是根据预取器的效果来取值：
+
+1. Accurate and timely：预取进到缓存的数据被访问了
+2. Accurate but late：预取的数据在还没预取完成的时候就被访问了，这意味着预取准确，但是不够早
+3. Loss of coverage：预取的地址超出了页边界，因为采用的是物理地址，所以预取失败
+4. Inaccurate：预取的数据没有被访问过，说明预取了错误的数据
+5. No-prefetch：不进行预取
+
+在论文中，Accurate and timely 会给 20 的 Reward，Accurate but late 给 12 的 Reward，这两种是希望发生的；Loss of coverage 给 -12 的 Reward，Incorrect 给 -8 或 -14（内存带宽占用率高）的 Reward，No-prefetch 给 -4 或 -2（内存带宽占用率高）的 Reward。优化目标就是要找到 Action（即 Offset）实现最高的 Reward。可以看到，当内存带宽占用率高的时候，给错误的预取更大的惩罚，也允许不做预取。
+
+[论文](https://arxiv.org/pdf/2109.12021)中的伪代码如下：
+
+![](./data_prefetcher_pythia.png)
+
+1. 用 EQ（Evaluation Queue）维护 Prefetch 历史
+2. 当 LSU 读取某个 Cacheline 的时候，查询它的地址是否在 EQ 当中，如果是，且这个 Cacheline 命中，给一个 Accurate and timely 的 Reward；如果在 EQ 当中但 Cacheline 缺失，给一个 Accurate but late 的 Reward
+3. 预取的时候，根据当前的 State，找到最好的 Action 使得对应的 Q 值最大（小的概率选择随机 Action），用这个 Action 作为 Offset 来进行预取；然后把这次预取的信息插入到 EQ 当中
+4. 如果 Action 等于 0，即没有要预取的数据，给一个 No prefetch 的 Reward；如果要预取的地址超出物理页边界，给一个 Loss of coverage 的 Reward
+5. 按照 SARSA 方式更新从 EQ evict 出来的 entry 的 Q 值
+
 ## Spatial Prefetcher
 
 Spatial Prefetcher 利用的是程序的访存模式在空间上的相似性，即程序对这一段内存的访存模式，可能会在另外很多段内存里以相同的模式重现。
