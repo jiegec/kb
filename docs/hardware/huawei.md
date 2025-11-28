@@ -5,8 +5,8 @@
 ### 麒麟 9000s
 
 - 首发：Mate 60
-- 1x 大核（0xd02），3x 中核（0xd42），4x 小核 Cortex-A510
-- 大核中核有超线程
+- 1x 大核（带 SMT，0xd02），3x 中核（带 SMT，0xd42），4x 小核 Cortex-A510（无 SMT）
+- 大核中核有超线程，共 12 线程
 - 马良 910
 - 丝印 Hi36A0 GFCV120
 
@@ -18,7 +18,7 @@
 ### 麒麟 9010
 
 - 首发：Pura 70
-- 1x 大核（0xd03，最大 2.3 GHz），3x 中核（0xd42，最大 2.18 GHz），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
+- 1x 大核（0xd03，最大 2.3 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
 - 2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
@@ -34,8 +34,8 @@
 ### 麒麟 9020
 
 - 首发：Mate 70
-- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
-- 大核中核有超线程
+- 1x 大核（0xd05，带 SMT），3x 中核（0xd46，带 SMT），4x 小核（0xd23，无 SMT）
+- 大核中核有超线程，共 12 线程
 - 马良 920
 - 丝印 Hi36C0 GFCV110
 
@@ -59,7 +59,7 @@
 ### 麒麟 X90 on MateBook Pro
 
 - 20 threads
-- part id 0xd03（8 threads，可能是 4 核，同麒麟 9010 大核）, 0xd43（8 threads，可能是 4 核）, 0xd42（4 threads，可能是 2 核，同麒麟 9010 中核）
+- part id 0xd03（8 threads，4 核，同麒麟 9010 大核）, 0xd43（8 threads，4 核）, 0xd42（4 threads，2 核，同麒麟 9010 中核），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
 - Charlotte Pro
 
@@ -78,6 +78,18 @@
 来源：
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
+
+### 麒麟 9030/3090Pro
+
+- Mate 80/Mate X7
+- Kirin 9030: 1x 大核（带 SMT，2.75 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
+- Kirin 9030 Pro: 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
+- Maleoon 935
+
+来源：
+
+- [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
+- [酷安](https://www.coolapk.com/feed/68880017)
 
 ## hip
 
@@ -253,10 +265,12 @@ part id:
 - 0xd02(3330): Kirin 9000s/hip09
 - 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin x90
 - 0xd05(3333): Kirin 9020/Kirin 9010s
-- 0xd06(3334): hip12
+- 0xd06(3334): hip12/Kirin 9030Pro
 - 0xd22(3362): hip11
 - 0xd23(3363): Kirin 9020/Kirin 9010s
+- 0xd24(3364): Kirin 9030Pro
 - 0xd42(3394): Kirin 9000s/Kirin 9010/Kirin x90
 - 0xd43(3395): Kirin x90
 - 0xd45(3397): hip10c
 - 0xd46(3398): Kirin 9020/Kirin 9010s
+- 0xd47(3399): Kirin 9030Pro
