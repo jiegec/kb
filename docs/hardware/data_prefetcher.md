@@ -2,23 +2,23 @@
 
 本文分析了如下的数据预取器：
 
-| 名字                                             | 年份 | 来源                  |
-|--------------------------------------------------|------|-----------------------|
-| IP Stride Prefetcher                             | 2000 | ACM Computing Surveys |
-| Spatial Memory Streaming                         | 2006 | ISCA '06              |
-| Irregular Stream Buffer                          | 2013 | MICRO-46              |
-| Best Offset Prefetcher                           | 2015 | DPC-2                 |
-| Variable Length Delta Prefetcher                 | 2015 | MICRO-48              |
-| Signature Path Prefetcher                        | 2016 | MICRO-49              |
-| Multi-Lookahead Offset Prefetcher                | 2019 | DPC-3                 |
-| Berti                                            | 2019 | DPC-3                 |
-| Instruction Pointer Classifier based Prefetching | 2019 | DPC-3                 |
-| Bingo                                            | 2019 | HPCA '19              |
-| Managed Irregular Stream Buffer                  | 2019 | ISCA '19              |
-| Pythia                                           | 2021 | MICRO-54              |
-| Berti                                            | 2022 | MICRO-55              |
-| Pattern Merging Prefetcher                       | 2022 | MICRO-55              |
-| Micro Armed Bandit                               | 2023 | MICRO-56              |
+| 名字                                                    | 年份 | 来源                  |
+|---------------------------------------------------------|------|-----------------------|
+| IP Stride Prefetcher                                    | 2000 | ACM Computing Surveys |
+| Spatial Memory Streaming (SMS)                          | 2006 | ISCA '06              |
+| Irregular Stream Buffer (ISB)                           | 2013 | MICRO-46              |
+| Best Offset Prefetcher (BOP)                            | 2015 | DPC-2                 |
+| Variable Length Delta Prefetcher (VLDP)                 | 2015 | MICRO-48              |
+| Signature Path Prefetcher (SPP)                         | 2016 | MICRO-49              |
+| Multi-Lookahead Offset Prefetcher (MLOP)                | 2019 | DPC-3                 |
+| Berti                                                   | 2019 | DPC-3                 |
+| Instruction Pointer Classifier based Prefetching (IPCP) | 2019 | DPC-3                 |
+| Bingo                                                   | 2019 | HPCA '19              |
+| Managed Irregular Stream Buffer (MISB)                  | 2019 | ISCA '19              |
+| Pythia                                                  | 2021 | MICRO-54              |
+| Berti                                                   | 2022 | MICRO-55              |
+| Pattern Merging Prefetcher (PMP)                        | 2022 | MICRO-55              |
+| Micro Armed Bandit                                      | 2023 | MICRO-56              |
 
 ## Offset Prefetcher
 
