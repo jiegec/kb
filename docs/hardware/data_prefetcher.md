@@ -1,5 +1,25 @@
 # 数据预取器
 
+本文分析了如下的数据预取器：
+
+| 名字                                             | 年份 | 来源                  |
+|--------------------------------------------------|------|-----------------------|
+| IP Stride Prefetcher                             | 2000 | ACM Computing Surveys |
+| Spatial Memory Streaming                         | 2006 | ISCA '06              |
+| Irregular Stream Buffer                          | 2013 | MICRO-46              |
+| Best Offset Prefetcher                           | 2015 | DPC-2                 |
+| Variable Length Delta Prefetcher                 | 2015 | MICRO-48              |
+| Signature Path Prefetcher                        | 2016 | MICRO-49              |
+| Multi-Lookahead Offset Prefetcher                | 2019 | DPC-3                 |
+| Berti                                            | 2019 | DPC-3                 |
+| Instruction Pointer Classifier based Prefetching | 2019 | DPC-3                 |
+| Bingo                                            | 2019 | HPCA '19              |
+| Managed Irregular Stream Buffer                  | 2019 | ISCA '19              |
+| Pythia                                           | 2021 | MICRO-54              |
+| Berti                                            | 2022 | MICRO-55              |
+| Pattern Merging Prefetcher                       | 2022 | MICRO-55              |
+| Micro Armed Bandit                               | 2023 | MICRO-56              |
+
 ## Offset Prefetcher
 
 Offset Prefetcher 是一类预取器，它的行为是，当访问地址为 X 的 cacheline 时，预取地址为 X + O 的 cacheline，其中 O 就是 Offset，可以是固定的，或者是动态学习出来的。
@@ -85,7 +105,7 @@ void ip_stride::prefetcher_cycle_operate()
 }
 ```
 
-### Best Offset Prefetcher
+### Best Offset Prefetcher（DPC-2）
 
 Code: <https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc>
 
@@ -155,11 +175,11 @@ if (issuePrefetchRequests) {
 }
 ```
 
-### Multi-Lookahead Offset Prefetching
+### Multi-Lookahead Offset Prefetching（DPC-3）
 
 [Multi-Lookahead Offset Prefetching (MLOP, DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Multi_lookahead.pdf) 是一种在 Best Offset Prefetcher 的基础上的改进：Best Offset Prefetcher 会按照固定的 Offset 序列，给 Offset 打分：访问 Y 的时候，如果 Y-Offset 在最近的访问序列中，就给 Offset 加分。然后用最高分的 Offset 去进行预取。Multi-Lookahead Offset Prefetching 的思路是，有时候单独一个最佳的 Offset 不够，而是设置不同的 Lookahead 等级：Lookahead 等级为几，就代表跳过了最近的几个访问序列；然后对每个 Lookahead 等级都去计算一个最佳的 Offset，用这些 Offset 去预取。其实就相当于，Best Offset Prefetcher 用完整的最近访问序列去计算分数，而在这里，会按照 Lookahead 等级来忽略最后几次访问，再去计算最佳的 Offset，这样算出来的 Offset 它预取的时间距离更远
 
-### Berti (MICRO 版本)
+### Berti (MICRO-55)
 
 [Berti: an Accurate Local-Delta Data Prefetcher (MICRO-55)](https://ieeexplore.ieee.org/document/9923806) 在 Best Offset Prefetcher 的基础上更进一步：Best Offset Prefetcher 认为不同程序的最佳 Offset 不同，所以要动态地寻找最佳的 Offset；而 Berti 认为，程序里不同 Load 指令的最佳 Offset 不同，所以要给不同的 Load 指令使用不同的最佳的 Offset。
 
@@ -188,7 +208,7 @@ if (issuePrefetchRequests) {
 
 代码参考 [官方实现](https://github.com/agusnt/Berti-Artifact)，在实现上述 History Table 和 Tables of delta 以外，为了记录 L1D miss latency，还实现了 Latency Table 和 Shadow Cache，但在硬件中不需要这么麻烦，只需要在 L1D 中额外记录 miss 的时间戳，等 refill 的时候求差即可知道延迟。
 
-### Berti (DPC-3 版本)
+### Berti (DPC-3)
 
 [Berti: A Per-Page Best-Request-Time Delta Prefetcher (DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Berti.pdf) 在 DPC-3 比赛中的设计，与后来在 MICRO 上发表的设计不同，这里的 Berti 同时作为 L1D 和 L2 级别的 Prefetcher 出现，采用的是物理地址，因此相比使用虚拟地址的在 MICRO 上的 Berti 设计，DPC-3 版本的 Berti 额外引入了 Burst 机制，用来解决每个页开头的若干个 cacheline 无法找到更早的 cacheline 来触发 Offset Prefetch 的问题。
 
@@ -201,7 +221,7 @@ if (issuePrefetchRequests) {
 
 实际预取的时候，就是两种模式：Burst 模式类似 Spatial Memory Streaming，但只把那些距离小于 delta 且之前访问过的 cacheline 取进来；Berti 模式类似 MICRO 版本，根据学习到的最佳 delta 来进行 Offset Prefetch。
 
-### Signature Path Prefetcher
+### Signature Path Prefetcher（MICRO-49）
 
 [Path Confidence based Lookahead Prefetching (MICRO-49)](https://ieeexplore.ieee.org/document/7783763) 提出了一种 Signature Path Prefetcher（SPP），其借用了分支预测的思路，把访存的地址进行差分，得到一个 delta 序列，然后对 delta 序列进行预测：把 delta 的序列折叠成一个 signature，然后用 signature 去访问 Pattern Table，提供下一个 delta 是多少的预测。其思路和后面的 Variable Length Delta Predictor 类似。
 
@@ -211,9 +231,9 @@ if (issuePrefetchRequests) {
 
 代码实现可参考 [ChampSim](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/spp_dev/spp_dev.cc)。
 
-### Pythia
+### Pythia（MICRO-54）
 
-[Pythia](https://dl.acm.org/doi/10.1145/3466752.3480114) 是一种基于 Reinforcement Learning 的 Offset Prefetcher。强化学习（Reinforcement Learning）的概念是，智能体 Agent 感知状态 State，输出动作 Action，得到奖励 Reward，目标是长期的奖励最大。在这里，Action 就是决定 Offset Prefetcher 预取所采用的 Offset。Q 函数输入是 State 和 Action，输出预测的 Reward 值，所以强化学习要做的事情就是找到一个很精确的 Q 函数的近似，然后根据学习到的 Q 函数来选择 Action。Reward 则是根据预取器的效果来取值：
+[Pythia (MICRO-54)](https://dl.acm.org/doi/10.1145/3466752.3480114) 是一种基于 Reinforcement Learning 的 Offset Prefetcher。强化学习（Reinforcement Learning）的概念是，智能体 Agent 感知状态 State，输出动作 Action，得到奖励 Reward，目标是长期的奖励最大。在这里，Action 就是决定 Offset Prefetcher 预取所采用的 Offset。Q 函数输入是 State 和 Action，输出预测的 Reward 值，所以强化学习要做的事情就是找到一个很精确的 Q 函数的近似，然后根据学习到的 Q 函数来选择 Action。Reward 则是根据预取器的效果来取值：
 
 1. Accurate and timely：预取进到缓存的数据被访问了
 2. Accurate but late：预取的数据在还没预取完成的时候就被访问了，这意味着预取准确，但是不够早
@@ -239,7 +259,7 @@ if (issuePrefetchRequests) {
 
 Spatial Prefetcher 利用的是程序的访存模式在空间上的相似性，即程序对这一段内存的访存模式，可能会在另外很多段内存里以相同的模式重现。
 
-### Spatial Memory Streaming
+### Spatial Memory Streaming（ISCA '06）
 
 [Spatial Memory Streaming (SMS, ISCA '06)](https://ieeexplore.ieee.org/document/1635957/) 的做法是，把内存分成很多个相同大小的 Region（通常一个 Region 是多个连续 Cacheline，例如 32 或 64 个 Cacheline），在第一次访问某个 Region 时，维护当前 Region 的信息，记录这次访存指令的 PC 以及访存的地址相对 Region 的偏移，然后开始跟踪这个 Region 内哪些数据被读取了，直到这个 Region 的数据被换出 Cache，就结束记录，把信息保存下来。当同一条访存指令访问到了任何一个 Region 内和之前一样的偏移时，根据之前保存的信息，把 Region 里曾经读过的地址预取一遍。这里的核心是只匹配偏移而不是完整的地址，忽略了地址的高位，最后预取的时候，也是拿新的 Region 的地址去加偏移，自然而然实现了空间上的平移。
 
@@ -355,9 +375,9 @@ Sms::notifyEvict(const EvictionInfo &info)
 }
 ```
 
-### Bingo
+### Bingo（HPCA '19）
 
-[Bingo Spatial Prefetcher](https://ieeexplore.ieee.org/document/8675188/) 在 Spatial Memory Streaming 的基础上做了改进：Spatial Memory Streaming 用的是 Load 指令的地址和 Region 内的 Offset 作为索引，去访问 Bitmap 信息，然后用 Bitmap 去预取 Region 内的被访问过的 cacheline。Bingo 的思路是，有些时候用 Load 指令的地址和 Region 内 Offset 作为索引不够精确，而如果用 Load 指令的地址和完整的 Load 地址作为索引会更加精确。
+[Bingo Spatial Prefetcher (HPCA '19)](https://ieeexplore.ieee.org/document/8675188/) 在 Spatial Memory Streaming 的基础上做了改进：Spatial Memory Streaming 用的是 Load 指令的地址和 Region 内的 Offset 作为索引，去访问 Bitmap 信息，然后用 Bitmap 去预取 Region 内的被访问过的 cacheline。Bingo 的思路是，有些时候用 Load 指令的地址和 Region 内 Offset 作为索引不够精确，而如果用 Load 指令的地址和完整的 Load 地址作为索引会更加精确。
 
 因此 Bingo 的思路是，先用 Load 指令的地址加完整的 Load 地址去查询，如果有匹配的，就直接预取；如果没有匹配的，再用 Load 指令的地址加 Load 地址在 Region 内的 Offset 去查询，此时就和 Spatial Memory Streaming 一致了。为了在不增加太多开销的前提下实现这个查询，它把 Region 内的 Offset 作为 index，Region 外的 Load 地址部分参与到 tag 当中，那么要做的事情就变成，访问同一个 set 内的多个 way，如果有某个 way 的 tag 匹配，则优先用匹配的（相当于 Load 指令的地址加完整的 Load 地址去查询），否则就可以用其他的（相当于用 Load 指令的地址加 Region 内的 Offset 去查询）。
 
@@ -404,7 +424,7 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 }
 ```
 
-### Pattern Merging Prefetcher
+### Pattern Merging Prefetcher（MICRO-55）
 
 [Pattern Merging Perfetcher (PMP, MICRO-55)](https://ieeexplore.ieee.org/document/9923831) 也是一个 Spatial Prefetcher，它的思路是，很多 Spatial Pattern 是类似的，但保存了很多份，所以它希望通过合并 Pattern（类似 SMS 里面的那个 Bitmap）来节省空间。合并思路是这样的：
 
@@ -474,7 +494,7 @@ else
 
 此外，它根据 Offset 和 PC 分别进行预测，对应 Offset Pattern Table 和 PC Pattern Table。
 
-### Variable Length Delta Prefetcher
+### Variable Length Delta Prefetcher（MICRO-48）
 
 [Variable Length Delta Prefetcher (VLDP, MICRO-48)](https://ieeexplore.ieee.org/document/7856594) 是一种基于 delta 预测的 Spatial Prefetcher，具体地，它对访存序列求差分，即用第 k 次访存地址减去第 k-1 次访存地址，得到 Delta 序列，然后对当前的 Delta 序列，预测下一个 Delta，那么预取的地址，就是 Delta 加上最后一次访存的地址。它的实现思路是：
 
@@ -487,7 +507,7 @@ else
 
 ## Temporal Prefetcher
 
-### Irregular Stream Buffer
+### Irregular Stream Buffer（MICRO-46）
 
 [Irregular Stream Buffer (ISB, MICRO-46)](https://dl.acm.org/doi/10.1145/2540708.2540730) 是一种 Temporal Prefetcher，它可以把时间上连续的若干个地址联系起来，实现一些不规则访问的预取。它的思路是，把不连续的物理地址，映射到一个连续的地址空间（称其中的地址为 Structural Address），那么预取的时候，就可以在这个连续的地址空间内连续地取地址，再反查对应的物理地址。其原理如下：
 
@@ -504,7 +524,7 @@ else
 
 由于片上空间有限，它设计了一个基于 TLB 的换入换出机制，同时利用 TLB 来节省物理地址的存储。
 
-### Managed Irregular Stream Buffer
+### Managed Irregular Stream Buffer（ISCA '19）
 
 [Managed Irregular Stream Buffer (MISB, ISCA '19)](https://dl.acm.org/doi/10.1145/3307650.3322225) 是针对 Irregular Stream Buffer (ISB) 的改进：
 
@@ -516,7 +536,7 @@ else
 
 有的 Prefetcher 集合了多种 Prefetcher 于一体，可以支持多种不同的访存模式。
 
-### Instruction Pointer Classifier based Prefetching
+### Instruction Pointer Classifier based Prefetching（DPC-3）
 
 [Instruction Pointer Classifier based Prefetching (IPCP, DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Bouquet.pdf) 在 IP-stride Prefetch 的基础上，支持了更多的访存模式：
 
@@ -787,7 +807,7 @@ if(num_prefs == 0 && spec_nl[cpu] == 1){                                        
 }
 ```
 
-### Micro Armed Bandit
+### Micro Armed Bandit（MICRO-56）
 
 [Micro Armed Bandit (MICRO-56)](https://dl.acm.org/doi/10.1145/3613424.3623780) 把强化学习的 Multi-Armed Bandit 算法用于预取器的设计当中。首先介绍一下 Multi-Armed Bandit，它的意思是一个多臂的老虎机，模拟的是一个玩家，面前有多个不同的老虎机，每个老虎机可能带来不同的收益，但收益是未知的，那么 Multi-Armed Bandit 算法就是要寻找一种方法去选择玩哪些老虎机、玩多少次以最大化收益。它会给每个老虎机维护从这个老虎机上获取的 Reward 有多少，以及游玩的次数；在开始的 Round Robin 阶段，先轮流尝试各个老虎机，收集对应的 Reward，之后再根据启发式的算法，寻找一个 Reward 较高的老虎机或者选择一个随机老虎机，然后根据 Reward 来不断调整后续的选择。
 
