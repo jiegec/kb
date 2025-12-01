@@ -786,3 +786,9 @@ if(num_prefs == 0 && spec_nl[cpu] == 1){                                        
     SIG_DP(cout << "1, ");
 }
 ```
+
+### Micro Armed Bandit
+
+[Micro Armed Bandit (MICRO-56)](https://dl.acm.org/doi/10.1145/3613424.3623780) 把强化学习的 Multi-Armed Bandit 算法用于预取器的设计当中。首先介绍一下 Multi-Armed Bandit，它的意思是一个多臂的老虎机，模拟的是一个玩家，面前有多个不同的老虎机，每个老虎机可能带来不同的收益，但收益是未知的，那么 Multi-Armed Bandit 算法就是要寻找一种方法去选择玩哪些老虎机、玩多少次以最大化收益。它会给每个老虎机维护从这个老虎机上获取的 Reward 有多少，以及游玩的次数；在开始的 Round Robin 阶段，先轮流尝试各个老虎机，收集对应的 Reward，之后再根据启发式的算法，寻找一个 Reward 较高的老虎机或者选择一个随机老虎机，然后根据 Reward 来不断调整后续的选择。
+
+在这里，老虎机就是选择哪些预取器，例如在 Next-Line、Stride 还是 Stream 当中选择，然后预取深度是多少。Reward 就是 IPC，因此会根据 IPC 的变化来选择更优的预取器。
