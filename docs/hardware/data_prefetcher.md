@@ -19,6 +19,7 @@
 | Berti                                                   | 2022 | MICRO-55              |
 | Pattern Merging Prefetcher (PMP)                        | 2022 | MICRO-55              |
 | Micro Armed Bandit                                      | 2023 | MICRO-56              |
+| Micro-MAMA                                              | 2025 | MICRO-58              |
 
 ## Offset Prefetcher
 
@@ -812,3 +813,14 @@ if(num_prefs == 0 && spec_nl[cpu] == 1){                                        
 [Micro Armed Bandit (MICRO-56)](https://dl.acm.org/doi/10.1145/3613424.3623780) 把强化学习的 Multi-Armed Bandit 算法用于预取器的设计当中。首先介绍一下 Multi-Armed Bandit，它的意思是一个多臂的老虎机，模拟的是一个玩家，面前有多个不同的老虎机，每个老虎机可能带来不同的收益，但收益是未知的，那么 Multi-Armed Bandit 算法就是要寻找一种方法去选择玩哪些老虎机、玩多少次以最大化收益。它会给每个老虎机维护从这个老虎机上获取的 Reward 有多少，以及游玩的次数；在开始的 Round Robin 阶段，先轮流尝试各个老虎机，收集对应的 Reward，之后再根据启发式的算法，寻找一个 Reward 较高的老虎机或者选择一个随机老虎机，然后根据 Reward 来不断调整后续的选择。
 
 在这里，老虎机就是选择哪些预取器，例如在 Next-Line、Stride 还是 Stream 当中选择，然后预取深度是多少。Reward 就是 IPC，因此会根据 IPC 的变化来选择更优的预取器。
+
+### Micro-MAMA (MICRO-58)
+
+[Micro-MAMA (MICRO-58)](https://dl.acm.org/doi/10.1145/3725843.3756096) 在 Micro Armed Bandit 的基础上，针对多核场景做了改进。在 Micro Armed Bandit 里，每个核心的 private L2 prefetcher 都是独立工作的，它们都为了最大化自己的 IPC 目标而优化，但在多核系统内，这可能会导致性能下降，或者出现不公平的情况。为了解决这个问题，Micro-MAMA 设置了一个全局的 Agent，会根据全局的性能指标来决定，是否继续用各个 private L2 Micro Armed Bandit prefetcher 的 local action，还是覆盖它们的 action。
+
+怎么定义全局的性能指标呢？在这里，它用的是 Weighted Speedup，就是在多核加了预取器后的 IPC，分别除以对应程序在单核没有预取器下的 IPC，得到每个核心上的程序对应的加速比，再求算数平均值。但是为了测量这个指标，又不能真的测试单核没有预取器情况下的 IPC，所以只能估计。它的估计方法是：
+
+1. 估计程序在多核场景下，预取器比无预取器的加速：根据 Micro-Armed Bandit 在开始的拓展阶段时观察到的 IPC 作为无预取器时的性能的估计
+2. 估计程序在多核相比单核的劣化：程序 L2 miss 次数越多，那么它的劣化就越严重，因此就用一减去 L2 miss 占所有核的 L2 miss 的比例来估计它的劣化程度
+
+另一种全局的性能指标是 Harmonic Speedup，它更多考虑的是公平性，和 Weight Speedup 的区别是，它采用调和平均代替了算术平均。
