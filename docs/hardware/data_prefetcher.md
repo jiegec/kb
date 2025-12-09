@@ -15,6 +15,7 @@
 | Instruction Pointer Classifier based Prefetching (IPCP) | 2019 | DPC-3                 |
 | Bingo                                                   | 2019 | HPCA '19              |
 | Managed Irregular Stream Buffer (MISB)                  | 2019 | ISCA '19              |
+| Perceptron-Based Prefetch Filtering (PPF)               | 2019 | ISCA '19              |
 | Pythia                                                  | 2021 | MICRO-54              |
 | Berti                                                   | 2022 | MICRO-55              |
 | Pattern Merging Prefetcher (PMP)                        | 2022 | MICRO-55              |
@@ -824,3 +825,7 @@ if(num_prefs == 0 && spec_nl[cpu] == 1){                                        
 2. 估计程序在多核相比单核的劣化：程序 L2 miss 次数越多，那么它的劣化就越严重，因此就用一减去 L2 miss 占所有核的 L2 miss 的比例来估计它的劣化程度
 
 另一种全局的性能指标是 Harmonic Speedup，它更多考虑的是公平性，和 Weight Speedup 的区别是，它采用调和平均代替了算术平均。
+
+### Perceptron-Base Prefetch Filtering (ICSA '19)
+
+[Perceptron-Base Prefetch Filtering](https://ieeexplore.ieee.org/document/8980306/) 是一种改进已有预取器的方法，它的思路是，添加额外的过滤器，在让已有预取器更加激进的同时，过滤掉那些错误的预取，从而实现 coverage 和 accuracy 的双重保证。这个过滤器用的是 Perceptron，即输入一系列的 feature，通过查表求和后，和阈值比较，判断是否进行预取。然后根据预取的数据是否被使用，来训练 Perceptron。
