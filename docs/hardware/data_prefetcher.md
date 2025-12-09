@@ -1,6 +1,6 @@
 # 数据预取器
 
-本文分析了如下的数据预取器：
+本文分析了以下数据预取器：
 
 | 名字                                                    | 年份 | 来源                  |
 |---------------------------------------------------------|------|-----------------------|
@@ -43,9 +43,9 @@ prefetch_line(champsim::address{pf_addr + 1}, true, metadata_in);
 
 [IP Stride Prefetcher](https://dl.acm.org/doi/10.1145/358923.358939) 是一种根据 Load 指令的地址进行跟踪的 Stride Prefetcher：它维护了一个 Reference Prediction Table，使用 Load 指令的地址进行索引，表项维护两个信息：最后一次访问的 cacheline 地址和当前的 stride。其工作过程如下：
 
-- 当 Load 指令第一次访问的时候，在 Reference Prediction Table 中分别新的表项，记录它的访问地址，stride 还没有学习到，置为 0
-- 当 Load 指令第二次访问的时候，计算访问地址和记录在 Reference Prediction Table 中上一次访问地址的差值，写入到 stride 当中，同时更新访问地址
-- 当 Load 指令第三次访问的时候，再次计算访问地址和上一次访问地址的差值，如果差值等于记录的 stride，就启动 stride prefetcher
+- 当 Load 指令第一次访问时，在 Reference Prediction Table 中创建新的表项，记录访问地址，此时 stride 尚未学习到，置为 0
+- 当 Load 指令第二次访问时，计算访问地址与 Reference Prediction Table 中记录的上一次访问地址的差值，写入 stride 字段，同时更新访问地址
+- 当 Load 指令第三次访问时，再次计算访问地址与上一次访问地址的差值，如果差值等于记录的 stride，就启动 stride prefetcher
 
 代码实现可参考 [ChampSim](https://github.com/ChampSim/ChampSim/blob/master/prefetcher/ip_stride/ip_stride.cc)：
 
@@ -111,13 +111,13 @@ void ip_stride::prefetcher_cycle_operate()
 
 Code: <https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc>
 
-[Best Offset Prefetcher (BOP, DPC-2)](https://www.irisa.fr/alf/downloads/michaud/dpc2_michaud.pdf) 的思路是，在不同程序下，最优的 Offset 可能不一样，所以动态地计算出最佳的 Offset。思路如下：
+[Best Offset Prefetcher (BOP, DPC-2)](https://www.irisa.fr/alf/downloads/michaud/dpc2_michaud.pdf) 的思路是，不同程序的最优 Offset 可能不同，因此需要动态计算最佳 Offset。算法如下：
 
-1. 记录最近访问的若干个 cacheline 的地址 X 到 Recent Requests 表中
-2. 当地址为 Y 的 cacheline 进入到缓存时，根据预先设好的若干个 Offset：O1、O2、...、On，计算 Y - Oi，判断它是不是在 Recent Requests 表中，如果在，就增加 Oi 的分数
-3. 当某个 Offset 分数达到上限，或者到达一定的时间上限，就用当前学习到的分数最高的 Offset 去进行预取，然后分数清零，重新学习
+1. 记录最近访问的若干个 cacheline 地址 X 到 Recent Requests 表中
+2. 当地址为 Y 的 cacheline 进入缓存时，根据预设的若干个 Offset：O1、O2、...、On，计算 Y - Oi，判断是否在 Recent Requests 表中，如果在，则增加 Oi 的分数
+3. 当某个 Offset 分数达到上限，或达到时间上限时，使用当前分数最高的 Offset 进行预取，然后分数清零，重新学习
 
-相比固定 Offset 的 Offset Prefetcher，Best Offset Prefetcher 可以动态地找到该应用最适合的 Offset。
+相比固定 Offset 的 Offset Prefetcher，Best Offset Prefetcher 能够动态找到最适合当前应用的 Offset。
 
 代码参考 [Gem5 实现](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc)：
 
@@ -179,17 +179,17 @@ if (issuePrefetchRequests) {
 
 ### Multi-Lookahead Offset Prefetching（DPC-3）
 
-[Multi-Lookahead Offset Prefetching (MLOP, DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Multi_lookahead.pdf) 是一种在 Best Offset Prefetcher 的基础上的改进：Best Offset Prefetcher 会按照固定的 Offset 序列，给 Offset 打分：访问 Y 的时候，如果 Y-Offset 在最近的访问序列中，就给 Offset 加分。然后用最高分的 Offset 去进行预取。Multi-Lookahead Offset Prefetching 的思路是，有时候单独一个最佳的 Offset 不够，而是设置不同的 Lookahead 等级：Lookahead 等级为几，就代表跳过了最近的几个访问序列；然后对每个 Lookahead 等级都去计算一个最佳的 Offset，用这些 Offset 去预取。其实就相当于，Best Offset Prefetcher 用完整的最近访问序列去计算分数，而在这里，会按照 Lookahead 等级来忽略最后几次访问，再去计算最佳的 Offset，这样算出来的 Offset 它预取的时间距离更远
+[Multi-Lookahead Offset Prefetching (MLOP, DPC-3)](https://dpc3.compas.cs.stonybrook.edu/pdfs/Multi_lookahead.pdf) 是对 Best Offset Prefetcher 的改进：Best Offset Prefetcher 按照固定的 Offset 序列给 Offset 打分：访问 Y 时，如果 Y-Offset 在最近的访问序列中，就给 Offset 加分，然后使用最高分的 Offset 进行预取。Multi-Lookahead Offset Prefetching 的思路是，有时单个最佳 Offset 不够，需要设置不同的 Lookahead 等级：Lookahead 等级为几，就代表跳过了最近的几个访问序列；然后对每个 Lookahead 等级都计算一个最佳 Offset，用这些 Offset 进行预取。这相当于 Best Offset Prefetcher 使用完整的最近访问序列计算分数，而 MLOP 根据 Lookahead 等级忽略最后几次访问，再计算最佳 Offset，这样得到的 Offset 预取时间距离更远。
 
 ### Berti (MICRO-55)
 
-[Berti: an Accurate Local-Delta Data Prefetcher (MICRO-55)](https://ieeexplore.ieee.org/document/9923806) 在 Best Offset Prefetcher 的基础上更进一步：Best Offset Prefetcher 认为不同程序的最佳 Offset 不同，所以要动态地寻找最佳的 Offset；而 Berti 认为，程序里不同 Load 指令的最佳 Offset 不同，所以要给不同的 Load 指令使用不同的最佳的 Offset。
+[Berti: an Accurate Local-Delta Data Prefetcher (MICRO-55)](https://ieeexplore.ieee.org/document/9923806) 在 Best Offset Prefetcher 的基础上更进一步：Best Offset Prefetcher 认为不同程序的最佳 Offset 不同，需要动态寻找最佳 Offset；而 Berti 认为，程序中不同 Load 指令的最佳 Offset 也不同，因此需要为不同的 Load 指令使用不同的最佳 Offset。
 
-此外，和 Best Offset Prefetcher 不同的是，Berti 没有一个预设的 Offset 列表，而是根据实际的 cacheline 地址去找到合适的 Offset。下面来看它具体是怎么做的。
+与 Best Offset Prefetcher 不同，Berti 没有预设的 Offset 列表，而是根据实际的 cacheline 地址找到合适的 Offset。具体实现如下：
 
-首先，Berti 会给不同的 Load 指令的 PC 分别维护访问历史，也就是说，Best Offset Prefetcher 中的 Recent Requests 表在 Berti 这里就不是全局的了，而是需要给不同的 PC 维护不同的历史，在这里这个信息记录在 History Table 当中。
+首先，Berti 为不同的 Load 指令 PC 分别维护访问历史，即 Best Offset Prefetcher 中的 Recent Requests 表在 Berti 中不再是全局的，而是需要为不同 PC 维护不同的历史，这些信息记录在 History Table 中。
 
-接着，Berti 会测量 L1D 缓存缺失的延迟，也就是从产生缺失到数据取回来花费的时间。那么，为了能够及时地预取数据，就需要保证预取的时刻，加上缓存缺失的延迟，还要早于在实际使用的时刻。由于 Berti 是一个 Offset Prefetcher，为了预取由某个 Load 指令访问的地址为 Y 的 cacheline，我们就需要找到由同一个 Load 指令在更早的时候访问地址为 X 的 cacheline，使得在访问 X 时预取 Y 是及时的。然后计算 Y - X 的差值，作为一个合适的 Offset。那么我们就知道，用这个 Offset 做预取是合理的，增加这个 Offset 对应的分数。最后，使用分数高的 Offset 来进行预取。
+接着，Berti 测量 L1D 缓存缺失延迟，即从产生缺失到数据返回的时间。为了及时预取数据，需要保证预取时刻加上缓存缺失延迟早于实际使用时刻。由于 Berti 是 Offset Prefetcher，要预取由某个 Load 指令访问的地址为 Y 的 cacheline，需要找到同一 Load 指令更早访问的地址 X 的 cacheline，使得在访问 X 时预取 Y 是及时的。然后计算 Y - X 的差值作为合适的 Offset。这样就知道用这个 Offset 预取是合理的，增加该 Offset 对应的分数。最后，使用分数高的 Offset 进行预取。
 
 下面来看具体设计，Berti 采用 History Table 来记录访问历史，它是一个 16 路组相连的结构，但允许 tag 出现冲突，从而可以记录同一个 PC 对应的多个历史。每个 History Table 的表项记录由 Load 指令的 PC 哈希得到的 7-bit tag，某次访问的 24-bit cacheline 地址，以及一个 16-bit 时间戳。查询的时候，根据当前时间戳，减去缓存缺失延迟得到差值，找到时间戳小于差值的表项对应的 cacheline 地址，用于后续的 Offset 计算。
 
@@ -250,7 +250,7 @@ if (issuePrefetchRequests) {
 ![](./data_prefetcher_pythia.png)
 
 1. 用 EQ（Evaluation Queue）维护 Prefetch 历史
-2. 当 LSU 读取某个 Cacheline 的时候，查询它的地址是否在 EQ 当中，如果是，且这个 Cacheline 命中，给一个 Accurate and timely 的 Reward；如果在 EQ 当中但 Cacheline 缺失，给一个 Accurate but late 的 Reward
+2. 当 LSU 读取某个 cacheline 的时候，查询它的地址是否在 EQ 当中，如果是，且这个 cacheline 命中，给一个 Accurate and timely 的 Reward；如果在 EQ 当中但 cacheline 缺失，给一个 Accurate but late 的 Reward
 3. 预取的时候，根据当前的 State，找到最好的 Action 使得对应的 Q 值最大（小的概率选择随机 Action），用这个 Action 作为 Offset 来进行预取；然后把这次预取的信息插入到 EQ 当中
 4. 如果 Action 等于 0，即没有要预取的数据，给一个 No prefetch 的 Reward；如果要预取的地址超出物理页边界，给一个 Loss of coverage 的 Reward
 5. 按照 SARSA 方式更新从 EQ evict 出来的 entry 的 Q 值
@@ -263,15 +263,15 @@ Spatial Prefetcher 利用的是程序的访存模式在空间上的相似性，�
 
 ### Spatial Memory Streaming（ISCA '06）
 
-[Spatial Memory Streaming (SMS, ISCA '06)](https://ieeexplore.ieee.org/document/1635957/) 的做法是，把内存分成很多个相同大小的 Region（通常一个 Region 是多个连续 Cacheline，例如 32 或 64 个 Cacheline），在第一次访问某个 Region 时，维护当前 Region 的信息，记录这次访存指令的 PC 以及访存的地址相对 Region 的偏移，然后开始跟踪这个 Region 内哪些数据被读取了，直到这个 Region 的数据被换出 Cache，就结束记录，把信息保存下来。当同一条访存指令访问到了任何一个 Region 内和之前一样的偏移时，根据之前保存的信息，把 Region 里曾经读过的地址预取一遍。这里的核心是只匹配偏移而不是完整的地址，忽略了地址的高位，最后预取的时候，也是拿新的 Region 的地址去加偏移，自然而然实现了空间上的平移。
+[Spatial Memory Streaming (SMS, ISCA '06)](https://ieeexplore.ieee.org/document/1635957/) 的做法是，将内存划分为多个相同大小的 Region（通常一个 Region 包含多个连续 cacheline，例如 32 或 64 个 cacheline）。第一次访问某个 Region 时，维护当前 Region 的信息，记录访存指令的 PC 以及访存地址相对于 Region 的偏移，然后开始跟踪该 Region 内哪些数据被读取。当 Region 的数据被换出 Cache 时，结束记录并将信息保存。当同一条访存指令访问任何 Region 内相同偏移时，根据保存的信息，将 Region 内曾经读取过的地址预取一遍。核心思想是只匹配偏移而非完整地址，忽略地址高位，预取时使用新 Region 地址加上偏移，自然实现空间上的平移。
 
-具体来说，Spatial Memory Streaming 维护了一个 Active Generation Table（缩写 AGT）来记录上面所述的 Region 内哪些数据被读取的信息，当这个 Region 里的数据被换出 Cache，对应的信息就会被保存到 Pattern History Table（缩写 PHT）当中，后续会根据 PHT 来预测预取的地址。其中 Active Generation Table 又包括了 Accumulation Table 和 Filter Table，这样做是为了减少不必要的分配，只有当一个 Region 出现至少两次访问才会被分配到 Accmuluation Table 当中。具体步骤：
+具体来说，Spatial Memory Streaming 维护一个 Active Generation Table（AGT）来记录 Region 内哪些数据被读取的信息。当 Region 数据被换出 Cache 时，对应信息保存到 Pattern History Table（PHT）中，后续根据 PHT 预测预取地址。Active Generation Table 又包括 Accumulation Table 和 Filter Table，这样设计是为了减少不必要的分配，只有当一个 Region 出现至少两次访问才会分配到 Accumulation Table 中。具体步骤：
 
-1. 当一个 Region 第一次被访问的时候，此时 Accumuation Table 还没有对应的表项，把访存的 PC 和 Region 内 offset 记录到 Filter Table 当中
-2. 当一个 Region 第二次被访问的时候，此时 Filter Table 中应当有对应的表项，把表项挪到 Accumulation Table 当中，用 Bitmap 维护这个 Region 内哪些 Cacheline 被访问过的信息
-3. 当一个 Region 内第三次或更多次被访问的时候，继续更新 Region 内哪些 Cacheline 被访问过的 Bitmap
-4. 当 Region 内缓存被换出 Cache 时，认为这个 Region 已经学习完毕，把对应的信息移动到 Pattern History Table 中，注意此时 Region 地址信息不会被记录在 Pattern History Table 上，这样它就可以被用来预测多个 Region
-5. 与此同时，查询 Pattern History Table，如果有 PC 和 offset 匹配的 entry，就按照 Bitmap 把 Region 内被访问过的 Cacheline 预取进来
+1. 当 Region 第一次被访问时，Accumulation Table 还没有对应表项，将访存 PC 和 Region 内 offset 记录到 Filter Table 中
+2. 当 Region 第二次被访问时，Filter Table 中应有对应表项，将表项移到 Accumulation Table 中，用 Bitmap 维护该 Region 内哪些 cacheline 被访问过的信息
+3. 当 Region 内第三次或更多次被访问时，继续更新 Region 内哪些 cacheline 被访问过的 Bitmap
+4. 当 Region 内缓存被换出 Cache 时，认为该 Region 学习完毕，将对应信息移动到 Pattern History Table 中，注意此时 Region 地址信息不会被记录在 Pattern History Table 上，这样它可以用来预测多个 Region
+5. 同时，查询 Pattern History Table，如果有 PC 和 offset 匹配的 entry，按照 Bitmap 将 Region 内被访问过的 cacheline 预取进来
 
 Gem5 实现了 [Spartial Memory Stream 预取器](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/sms.cc)，基本就是按照上面的思路实现的：
 
@@ -432,7 +432,7 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 
 1. 把 Bitmap 进行旋转移位，使得 Trigger Access 对应的 Bit 挪到开头
 2. 用 Counter Vector 代替 Bitmap，每一个位置记录一个数而不再是 0/1，合并 Bitmap 时，将旋转移位后的 Bitmap 求和到 Counter Vector 当中
-3. 根据 Counter Vector 的值：计算 Counter 除以 Trigger Access 的 Counter，即这一个 Cacheline 的出现频率，根据频率决定哪些 Cacheline 预取到 L1 或 L2
+3. 根据 Counter Vector 的值：计算 Counter 除以 Trigger Access 的 Counter，即这一个 cacheline 的出现频率，根据频率决定哪些 cacheline 预取到 L1 或 L2
 
 实现参考它的[代码](https://github.com/zeal4u/PMP/blob/main/prefetcher/pmp.l1d_pref)：
 
@@ -446,7 +446,7 @@ if (entry)
 {
     // step 2: added to stored pattern
     int max_value = 0;
-    auto &stored_pattern = entry->data.pattern; 
+    auto &stored_pattern = entry->data.pattern;
     for (int i = 0; i < this->pattern_len; i++)
     {
         pattern[i] ? ADD(stored_pattern[i], max_conf) : 0;
@@ -460,7 +460,7 @@ if (entry)
         if (max_value < (1 << BACKOFF_TIMES)) {
             entry->data.pattern[0] = max_value;
         }
-        else 
+        else
             for (auto &e : stored_pattern) {
                 e >>= BACKOFF_TIMES;
             }
@@ -602,14 +602,14 @@ int update_conf(int stride, int pred_stride, int conf){
 trackers_l1[cpu][index].conf = update_conf(stride, trackers_l1[cpu][index].last_stride, trackers_l1[cpu][index].conf);
 
 // update CS only if confidence is zero
-if(trackers_l1[cpu][index].conf == 0)                      
+if(trackers_l1[cpu][index].conf == 0)
     trackers_l1[cpu][index].last_stride = stride;
 ```
 
 如果 confidence 大于 1 且 stride 不等于 0，则继续往后预取：
 
 ```c
-if(trackers_l1[cpu][index].conf > 1 && trackers_l1[cpu][index].last_stride != 0){            // CS IP  
+if(trackers_l1[cpu][index].conf > 1 && trackers_l1[cpu][index].last_stride != 0){            // CS IP
     for (int i=0; i<prefetch_degree; i++) {
         uint64_t pf_address = (cl_addr + (trackers_l1[cpu][index].last_stride*(i+1))) << LOG2_BLOCK_SIZE;
 
@@ -629,7 +629,7 @@ if(trackers_l1[cpu][index].conf > 1 && trackers_l1[cpu][index].last_stride != 0)
 接下来看 IP Complex Stride。它的思路是，计算 stride 序列，通过哈希得到一个 signature，然后用 signature 去预测下一个 delta 是多少，和分支预测是类似的。首先是 signature 的计算：
 
 ```c
-uint16_t update_sig_l1(uint16_t old_sig, int delta){                           
+uint16_t update_sig_l1(uint16_t old_sig, int delta){
     uint16_t new_sig = 0;
     int sig_delta = 0;
 
@@ -656,7 +656,7 @@ public:
     DELTA_PRED_TABLE () {
         delta = 0;
         conf = 0;
-    };        
+    };
 };
 ```
 
@@ -670,7 +670,7 @@ if(DPT_l1[cpu][signature].conf >= 0 && DPT_l1[cpu][signature].delta != 0) {  // 
         uint64_t pf_address = ((cl_addr + pref_offset) << LOG2_BLOCK_SIZE);
 
         // Check if prefetch address is in same 4 KB page
-        if (((pf_address >> LOG2_PAGE_SIZE) != (addr >> LOG2_PAGE_SIZE)) || 
+        if (((pf_address >> LOG2_PAGE_SIZE) != (addr >> LOG2_PAGE_SIZE)) ||
                 (DPT_l1[cpu][signature].conf == -1) ||
                 (DPT_l1[cpu][signature].delta == 0)){
             // if new entry in DPT or delta is zero, break
@@ -686,7 +686,7 @@ if(DPT_l1[cpu][signature].conf >= 0 && DPT_l1[cpu][signature].delta != 0) {  // 
         }
         signature = update_sig_l1(signature, DPT_l1[cpu][signature].delta);
     }
-} 
+}
 ```
 
 根据 signature 和当前的 delta，更新 Delta Prediction Table：
@@ -802,7 +802,7 @@ if(trackers_l1[cpu][index].str_valid == 1){                         // stream IP
 ```cpp
 // if no prefetches are issued till now, speculatively issue a next_line prefetch
 if(num_prefs == 0 && spec_nl[cpu] == 1){                                        // NL IP
-    uint64_t pf_address = ((addr>>LOG2_BLOCK_SIZE)+1) << LOG2_BLOCK_SIZE;  
+    uint64_t pf_address = ((addr>>LOG2_BLOCK_SIZE)+1) << LOG2_BLOCK_SIZE;
     metadata = encode_metadata(1, NL_TYPE, spec_nl[cpu]);
     prefetch_line(ip, addr, pf_address, FILL_L1, metadata);
     SIG_DP(cout << "1, ");
