@@ -7,6 +7,7 @@
 | IP Stride Prefetcher                                    | 2000 | ACM Computing Surveys |
 | Spatial Memory Streaming (SMS)                          | 2006 | ISCA '06              |
 | Irregular Stream Buffer (ISB)                           | 2013 | MICRO-46              |
+| Sandbox Prefetcher                                      | 2014 | HPCA '14              |
 | Best Offset Prefetcher (BOP)                            | 2015 | DPC-2                 |
 | Variable Length Delta Prefetcher (VLDP)                 | 2015 | MICRO-48              |
 | Signature Path Prefetcher (SPP)                         | 2016 | MICRO-49              |
@@ -829,3 +830,10 @@ if(num_prefs == 0 && spec_nl[cpu] == 1){                                        
 ### Perceptron-Base Prefetch Filtering (ICSA '19)
 
 [Perceptron-Base Prefetch Filtering](https://ieeexplore.ieee.org/document/8980306/) 是一种改进已有预取器的方法，它的思路是，添加额外的过滤器，在让已有预取器更加激进的同时，过滤掉那些错误的预取，从而实现 coverage 和 accuracy 的双重保证。这个过滤器用的是 Perceptron，即输入一系列的 feature，通过查表求和后，和阈值比较，判断是否进行预取。然后根据预取的数据是否被使用，来训练 Perceptron。
+
+### Sandbox Prefetcher (HPCA '14)
+
+[Sandbox Prefetcher](https://ieeexplore.ieee.org/document/6835971) 是一种在运行时评估多种预取器或预取参数（例如 Offset 和预取深度），从中选择比较好的那一个进行实际的预取的办法。但如果实际去跑这些预取器，会耗费一段时间在评估上，同时应用的特性也会不断变化，使得最优的参数出现变化，所以最好是能在不进行实现预取的前提下，评估预取器或预取参数的效果，这怎么做呢？
+
+Sandbox Prefetcher 的思路是，使用 Bloom filter 来模拟预取的效果：如果某个预取器要预取某个地址，就把这个地址加到 Bloom filter 当中；然后在访问缓存的时候，查询 Bloom filter，如果有命中，就猜测这个预取器能够正确地把缓存行预取出来，如果没有命中，就认为预取器进行了失败的预取。论文中，根据不同的 Offset，得到了多个预取器，在 Bloom filter 中评估这些 Offset 的效果如何，然后选出分数高的用于实际的预取；每隔一段时间就重新评估一次。
+
