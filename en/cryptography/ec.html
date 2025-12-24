@@ -370,7 +370,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
+        <a href="../mathematics/abstract_algebra.html" class="md-tabs__link">
           
   
   
@@ -1193,6 +1193,15 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
+      齐次坐标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
       有限域上的椭圆曲线
     </span>
   </a>
@@ -1348,7 +1357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="pohlig%E2%80%93hellman.html" class="md-nav__link">
+      <a href="pohlig_hellman.html" class="md-nav__link">
         
   
   
@@ -1425,6 +1434,8 @@
   
     
     
+      
+        
       
         
       
@@ -1742,6 +1753,29 @@
   
   <span class="md-ellipsis">
     CXL (Compute Express Link)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/data_prefetcher.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据预取器
     
   </span>
   
@@ -2258,7 +2292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
+      <a href="../mathematics/abstract_algebra.html" class="md-nav__link">
         
   
   
@@ -2281,7 +2315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
+      <a href="../mathematics/fourier_transform.html" class="md-nav__link">
         
   
   
@@ -3659,7 +3693,10 @@ y_R &amp;= y_P + k(x_R - x_P)
 </ol>
 <p>这部分推导参考了 <a href="https://en.wikipedia.org/wiki/Elliptic_curve">Wikipedia</a>。</p>
 <p>除了加法以外，还可以定义数乘：整数 <span class="arithmatex">\(n\)</span> 乘以点 <span class="arithmatex">\(P\)</span>，实际上就是求 <span class="arithmatex">\(n\)</span> 个 <span class="arithmatex">\(P\)</span> 的和。</p>
-<h2 id="_3">有限域上的椭圆曲线</h2>
+<p>由于运算过程只用到了加减法、乘法和除法，所以坐标也可以扩展到其他的域上。</p>
+<h2 id="_3">齐次坐标</h2>
+<p>上面的计算过程会涉及到除法，为了避免除法运算，可以使用齐次坐标来表示：<code>[X : Y : Z]</code> 对应的点就是 <code>(X/Z, Y/Z)</code>。有了齐次坐标以后，就可以把计算过程中的除法变成对 Z 的乘法，从而避免了除法运算。</p>
+<h2 id="_4">有限域上的椭圆曲线</h2>
 <p>从上面的观察可以发现，在计算两点间的加法运算的时候，对 X Y 坐标的计算只涉及到了加减乘除。因此，可以把椭圆曲线的坐标换到其他域上，而不局限于上面使用的 <span class="arithmatex">\(\mathbb{R}\)</span>。例如在密码学中，通常会使用 <span class="arithmatex">\(F_p\)</span> 素数域或者 <span class="arithmatex">\(GF(2^m)\)</span>。例如取素数域 <span class="arithmatex">\(F_p\)</span> 上的椭圆曲线，那么点的坐标满足</p>
 <div class="arithmatex">\[
 y^2 \equiv x^3 + ax + b \pmod p
@@ -3734,7 +3771,7 @@ ax^2 + y^2 = 1 + dx^2y^2
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2023年11月9日 14:47:31 UTC">2023年11月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年11月28日 05:35:54 UTC">2025年11月28日</span>
   </span>
 
     

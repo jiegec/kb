@@ -370,7 +370,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../mathematics/abstract-algebra.html" class="md-tabs__link">
+        <a href="../mathematics/abstract_algebra.html" class="md-tabs__link">
           
   
   
@@ -1258,7 +1258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cryptography/pohlig%E2%80%93hellman.html" class="md-nav__link">
+      <a href="../cryptography/pohlig_hellman.html" class="md-nav__link">
         
   
   
@@ -1337,6 +1337,8 @@
   
     
     
+      
+        
       
         
       
@@ -1672,6 +1674,29 @@
   
   
     <li class="md-nav__item">
+      <a href="data_prefetcher.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据预取器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="display_interface.html" class="md-nav__link">
         
   
@@ -1872,6 +1897,15 @@
   <a href="#9010s" class="md-nav__link">
     <span class="md-ellipsis">
       麒麟 9010S
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#90303090pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      麒麟 9030/3090Pro
     </span>
   </a>
   
@@ -2432,7 +2466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mathematics/abstract-algebra.html" class="md-nav__link">
+      <a href="../mathematics/abstract_algebra.html" class="md-nav__link">
         
   
   
@@ -2455,7 +2489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mathematics/fourier-transform.html" class="md-nav__link">
+      <a href="../mathematics/fourier_transform.html" class="md-nav__link">
         
   
   
@@ -3791,8 +3825,8 @@
 <h3 id="9000s">麒麟 9000s</h3>
 <ul>
 <li>首发：Mate 60</li>
-<li>1x 大核（0xd02），3x 中核（0xd42），4x 小核 Cortex-A510</li>
-<li>大核中核有超线程</li>
+<li>1x 大核（带 SMT，0xd02），3x 中核（带 SMT，0xd42），4x 小核 Cortex-A510（无 SMT）</li>
+<li>大核中核有超线程，共 12 线程</li>
 <li>马良 910</li>
 <li>丝印 Hi36A0 GFCV120</li>
 </ul>
@@ -3804,7 +3838,7 @@
 <h3 id="9010">麒麟 9010</h3>
 <ul>
 <li>首发：Pura 70</li>
-<li>1x 大核（0xd03，最大 2.3 GHz），3x 中核（0xd42，最大 2.18 GHz），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）</li>
+<li>1x 大核（0xd03，最大 2.3 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）</li>
 <li>2+6+4=12 线程</li>
 <li>all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti</li>
 <li>大核中核有超线程</li>
@@ -3820,8 +3854,8 @@
 <h3 id="9020">麒麟 9020</h3>
 <ul>
 <li>首发：Mate 70</li>
-<li>1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）</li>
-<li>大核中核有超线程</li>
+<li>1x 大核（0xd05，带 SMT），3x 中核（0xd46，带 SMT），4x 小核（0xd23，无 SMT）</li>
+<li>大核中核有超线程，共 12 线程</li>
 <li>马良 920</li>
 <li>丝印 Hi36C0 GFCV110</li>
 </ul>
@@ -3845,7 +3879,7 @@
 <h3 id="x90-on-matebook-pro">麒麟 X90 on MateBook Pro</h3>
 <ul>
 <li>20 threads</li>
-<li>part id 0xd03（8 threads，可能是 4 核，同麒麟 9010 大核）, 0xd43（8 threads，可能是 4 核）, 0xd42（4 threads，可能是 2 核，同麒麟 9010 中核）</li>
+<li>part id 0xd03（8 threads，4 核，同麒麟 9010 大核）, 0xd43（8 threads，4 核）, 0xd42（4 threads，2 核，同麒麟 9010 中核），都带 SMT</li>
 <li>Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv</li>
 <li>Charlotte Pro</li>
 </ul>
@@ -3862,6 +3896,18 @@
 <p>来源：</p>
 <ul>
 <li><a href="https://www.coolapk.com/feed/66237183">Pura 80 数字版搭载 Kirin 9010S</a></li>
+</ul>
+<h3 id="90303090pro">麒麟 9030/3090Pro</h3>
+<ul>
+<li>Mate 80/Mate X7</li>
+<li>Kirin 9030: 1x 大核（带 SMT，2.75 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程</li>
+<li>Kirin 9030 Pro: 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程</li>
+<li>Maleoon 935</li>
+</ul>
+<p>来源：</p>
+<ul>
+<li><a href="https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/">Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips</a></li>
+<li><a href="https://www.coolapk.com/feed/68880017">酷安</a></li>
 </ul>
 <h2 id="hip">hip</h2>
 <h3 id="hip07">hip07</h3>
@@ -4033,13 +4079,15 @@
 <li>0xd02(3330): Kirin 9000s/hip09</li>
 <li>0xd03(3331): Kirin 9010/hip10/hip10a/Kirin x90</li>
 <li>0xd05(3333): Kirin 9020/Kirin 9010s</li>
-<li>0xd06(3334): hip12</li>
+<li>0xd06(3334): hip12/Kirin 9030Pro</li>
 <li>0xd22(3362): hip11</li>
 <li>0xd23(3363): Kirin 9020/Kirin 9010s</li>
+<li>0xd24(3364): Kirin 9030Pro</li>
 <li>0xd42(3394): Kirin 9000s/Kirin 9010/Kirin x90</li>
 <li>0xd43(3395): Kirin x90</li>
 <li>0xd45(3397): hip10c</li>
 <li>0xd46(3398): Kirin 9020/Kirin 9010s</li>
+<li>0xd47(3399): Kirin 9030Pro</li>
 </ul>
 
 
@@ -4063,7 +4111,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月18日 07:42:17 UTC">2025年9月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年11月28日 08:29:35 UTC">2025年11月28日</span>
   </span>
 
     
