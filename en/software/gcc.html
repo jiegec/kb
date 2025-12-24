@@ -1,7 +1,4 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
+<!DOCTYPE html><html lang="en" class="no-js"><head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -54,7 +51,7 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -77,11 +74,7 @@
   gtag('config', 'G-3109FRSVTT');
 </script>
 
-<script
-    src="https://analytics.jiege.pro/api/script.js"
-    data-site-id="1"
-    defer
-></script>
+<script src="https://analytics.jiege.pro/api/script.js" data-site-id="1" defer></script>
   
     <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
   
@@ -89,28 +82,29 @@
     
     
   
-<meta property="og:type" content="website" />
-<meta property="og:title" content="GCC 内部实现 - Jiegec's Knowledge Base" />
-<meta property="og:description" content="Knowledge Base of @jiegec" />
-<meta property="og:image" content="https://jia.je/kb/assets/images/social/en/software/gcc.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://jia.je/kb/en/software/gcc.html" />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="GCC 内部实现 - Jiegec's Knowledge Base" />
-<meta property="twitter:description" content="Knowledge Base of @jiegec" />
-<meta property="twitter:image" content="https://jia.je/kb/assets/images/social/en/software/gcc.png" />
- <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-    html.glightbox-open { overflow: initial; height: 100%; }
-    .gslide-title { margin-top: 0px; user-select: text; }
-    .gslide-desc { color: #666; user-select: text; }
-    .gslide-image img { background: white; }
-    .gscrollbar-fixer { padding-right: 15px; }
-    .gdesc-inner { font-size: 0.75rem; }
-    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<meta property="og:type" content="website">
+<meta property="og:title" content="GCC 内部实现 - Jiegec's Knowledge Base">
+<meta property="og:description" content="Knowledge Base of @jiegec">
+<meta property="og:image" content="https://jia.je/kb/assets/images/social/en/software/gcc.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://jia.je/kb/en/software/gcc.html">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="GCC 内部实现 - Jiegec's Knowledge Base">
+<meta property="twitter:description" content="Knowledge Base of @jiegec">
+<meta property="twitter:image" content="https://jia.je/kb/assets/images/social/en/software/gcc.png">
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
   
   
     <body dir="ltr">
@@ -136,15 +130,15 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+    <a href="../index.html" title="Jiegec's Knowledge Base" class="md-header__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -171,7 +165,7 @@
   <div class="md-select">
     
     <button class="md-header__button md-icon" aria-label="Select language">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
@@ -198,7 +192,7 @@
       
         <label class="md-header__button md-icon" for="__search">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
         </label>
         <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -207,20 +201,20 @@
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
           <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
           </a>
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
         </button>
       </nav>
       
@@ -246,7 +240,7 @@
         <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -454,7 +448,7 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -467,10 +461,10 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Jiegec&#39;s Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
+    <a href="../index.html" title="Jiegec's Knowledge Base" class="md-nav__button md-logo" aria-label="Jiegec's Knowledge Base" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
 
     </a>
     Jiegec's Knowledge Base
@@ -480,7 +474,7 @@
       <a href="https://github.com/jiegec/kb" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -575,7 +569,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -1136,7 +1130,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -1567,7 +1561,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -2478,7 +2472,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5">
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -2663,7 +2657,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -4151,7 +4145,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8">
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -4294,7 +4288,7 @@
   
     <a href="https://github.com/jiegec/kb/edit/main/docs/software/gcc.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
   
   
@@ -4307,11 +4301,11 @@
 <p>GCC 的 RTL 是采用 Lisp 语言描述的低层次的中间语言，是转换为机器指令前的最后一个表示。在生成汇编的时候，添加参数 <code>-dP</code> 就可以看到最后的 RTL 和汇编的对应关系：</p>
 <div class="language-asm highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">#(insn 13 8 14 (set (reg/i:DI 10 a0)</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">#        (sign_extend:DI (mult:SI (reg:SI 10 a0 [77])</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">#                (reg:SI 11 a1 [78])))) &quot;kb.c&quot;:3:1 21 {*mulsi3_extended}</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">#                (reg:SI 11 a1 [78])))) "kb.c":3:1 21 {*mulsi3_extended}</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">#     (expr_list:REG_DEAD (reg:SI 11 a1 [78])</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">#        (nil)))</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="nf">mulw</span><span class="w">    </span><span class="no">a0</span><span class="p">,</span><span class="no">a0</span><span class="p">,</span><span class="no">a1</span><span class="w">        </span><span class="c1"># 13    [c=20 l=4]  *mulsi3_extended</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">#(jump_insn 21 20 22 (simple_return) &quot;kb.c&quot;:3:1 246 {simple_return}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">#(jump_insn 21 20 22 (simple_return) "kb.c":3:1 246 {simple_return}</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">#     (nil)</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># -&gt; simple_return)</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="nf">ret</span><span class="w">             </span><span class="c1"># 21    [c=0 l=4]  simple_return</span>
@@ -4329,13 +4323,13 @@
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">(</span><span class="nv">note</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="nv">NOTE_INSN_DELETED</span><span class="p">)</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">(</span><span class="nv">insn</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">reg/i:DI</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">a0</span><span class="p">)</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="p">(</span><span class="nv">sign_extend:DI</span><span class="w"> </span><span class="p">(</span><span class="nv">mult:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">a0</span><span class="w"> </span><span class="nv">[77]</span><span class="p">)</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">                </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="nv">a1</span><span class="w"> </span><span class="nv">[78]</span><span class="p">))))</span><span class="w"> </span><span class="s">&quot;kb.c&quot;</span><span class="ss">:3:1</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="nv">{*mulsi3_extended}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">                </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="nv">a1</span><span class="w"> </span><span class="nv">[78]</span><span class="p">))))</span><span class="w"> </span><span class="s">"kb.c"</span><span class="ss">:3:1</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="nv">{*mulsi3_extended}</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">     </span><span class="p">(</span><span class="nv">expr_list:REG_DEAD</span><span class="w"> </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="nv">a1</span><span class="w"> </span><span class="nv">[78]</span><span class="p">)</span>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="p">(</span><span class="no">nil</span><span class="p">)))</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">(</span><span class="nv">insn</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">(</span><span class="nv">use</span><span class="w"> </span><span class="p">(</span><span class="nv">reg/i:DI</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">a0</span><span class="p">))</span><span class="w"> </span><span class="s">&quot;kb.c&quot;</span><span class="ss">:3:1</span><span class="w"> </span><span class="mi">-1</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">(</span><span class="nv">insn</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="p">(</span><span class="nv">use</span><span class="w"> </span><span class="p">(</span><span class="nv">reg/i:DI</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="nv">a0</span><span class="p">))</span><span class="w"> </span><span class="s">"kb.c"</span><span class="ss">:3:1</span><span class="w"> </span><span class="mi">-1</span>
 </span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">     </span><span class="p">(</span><span class="no">nil</span><span class="p">))</span>
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">(</span><span class="nv">note</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="nv">NOTE_INSN_EPILOGUE_BEG</span><span class="p">)</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">(</span><span class="nv">jump_insn</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="p">(</span><span class="nv">simple_return</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;kb.c&quot;</span><span class="ss">:3:1</span><span class="w"> </span><span class="mi">246</span><span class="w"> </span><span class="nv">{simple_return}</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">(</span><span class="nv">jump_insn</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="p">(</span><span class="nv">simple_return</span><span class="p">)</span><span class="w"> </span><span class="s">"kb.c"</span><span class="ss">:3:1</span><span class="w"> </span><span class="mi">246</span><span class="w"> </span><span class="nv">{simple_return}</span>
 </span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">     </span><span class="p">(</span><span class="no">nil</span><span class="p">)</span>
 </span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w"> </span><span class="nv">-&gt;</span><span class="w"> </span><span class="nv">simple_return</span><span class="p">)</span>
 </span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="p">(</span><span class="nv">barrier</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">18</span><span class="p">)</span>
@@ -4365,40 +4359,40 @@
 <p>这里的 DI/SI 就是类型，10/11 是寄存器编号，后面的 a0/a1 是寄存器 10/11 在 RISC-V 架构里的 ABI 名称。<code>/i</code> 表示这个寄存器会保存函数的返回值（<code>REG_FUNCTION_VALUE_P(x)</code>）。</p>
 <h3 id="_1">指令模板</h3>
 <p>同一行最后还有一个 <code>{*mulsi3_extended}</code>，这表示的是这一个 insn 对应了哪一个规则，这可以在 <a href="https://github.com/gcc-mirror/gcc/blob/63663e4e69527b308687c63bacb0cc038b386593/gcc/config/riscv/riscv.md#L1048-L1056">riscv.md</a> 中找到：</p>
-<div class="language-lisp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">(</span><span class="nv">define_insn</span><span class="w"> </span><span class="s">&quot;mulsi3_extended&quot;</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:DI</span><span class="w">              </span><span class="mi">0</span><span class="w"> </span><span class="s">&quot;register_operand&quot;</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">)</span>
+<div class="language-lisp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">(</span><span class="nv">define_insn</span><span class="w"> </span><span class="s">"mulsi3_extended"</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:DI</span><span class="w">              </span><span class="mi">0</span><span class="w"> </span><span class="s">"register_operand"</span><span class="w"> </span><span class="s">"=r"</span><span class="p">)</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="p">(</span><span class="nv">sign_extend:DI</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="p">(</span><span class="nv">mult:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">&quot;register_operand&quot;</span><span class="w"> </span><span class="s">&quot; r&quot;</span><span class="p">)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">             </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="s">&quot;register_operand&quot;</span><span class="w"> </span><span class="s">&quot; r&quot;</span><span class="p">))))</span><span class="nv">]</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="s">&quot;(TARGET_ZMMUL || TARGET_MUL) &amp;&amp; TARGET_64BIT&quot;</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="s">&quot;mulw\t%0,%1,%2&quot;</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="s">&quot;imul&quot;</span><span class="p">)</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;mode&quot;</span><span class="w"> </span><span class="s">&quot;SI&quot;</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="p">(</span><span class="nv">mult:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"register_operand"</span><span class="w"> </span><span class="s">" r"</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">             </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="s">"register_operand"</span><span class="w"> </span><span class="s">" r"</span><span class="p">))))</span><span class="nv">]</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="s">"(TARGET_ZMMUL || TARGET_MUL) &amp;&amp; TARGET_64BIT"</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="s">"mulw\t%0,%1,%2"</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">"type"</span><span class="w"> </span><span class="s">"imul"</span><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">"mode"</span><span class="w"> </span><span class="s">"SI"</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
 </span></code></pre></div>
 <p>这表示一个模式匹配的规则，构成了从 RTL 到指令的映射关系。模式匹配的部分是：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  [(set (match_operand:DI              0 &quot;register_operand&quot; &quot;=r&quot;)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  [(set (match_operand:DI              0 "register_operand" "=r")
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    (sign_extend:DI
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        (mult:SI (match_operand:SI 1 &quot;register_operand&quot; &quot; r&quot;)
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>             (match_operand:SI 2 &quot;register_operand&quot; &quot; r&quot;))))]
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        (mult:SI (match_operand:SI 1 "register_operand" " r")
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>             (match_operand:SI 2 "register_operand" " r"))))]
 </span></code></pre></div>
 <p>意思是可以匹配两个操作数，这两个操作数应当是寄存器操作数（<code>register_operand</code>，<code>r</code> 表示通用寄存器），类型是 int32（<code>:SI</code>），操作数乘法后符号扩展到 int64（<code>:DI</code>），最后写入一个寄存器的目的操作数（<code>register_operand</code>，类型是 int64 <code>:DI</code>，保存在通用寄存器 <code>r</code>，<code>=</code> 表示写入，旧数据丢弃）。满足这些要求，就匹配上了 <code>mulsi3_extended</code>。</p>
 <p>下一行：</p>
-<div class="language-lisp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">  </span><span class="s">&quot;(TARGET_ZMMUL || TARGET_MUL) &amp;&amp; TARGET_64BIT&quot;</span>
+<div class="language-lisp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">  </span><span class="s">"(TARGET_ZMMUL || TARGET_MUL) &amp;&amp; TARGET_64BIT"</span>
 </span></code></pre></div>
 <p>指的是额外的条件，用 C 代码编写。比如这里要用到 mulw 指令，但是如果当前的 target 不支持这个指令，那就不要生成 mulw 指令，所以这里就要制定限制条件：实现了乘法，并且是 64 位。</p>
 <p>再下一行就是输出的指令：</p>
-<div class="language-lisp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">  </span><span class="s">&quot;mulw\t%0,%1,%2&quot;</span>
+<div class="language-lisp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">  </span><span class="s">"mulw\t%0,%1,%2"</span>
 </span></code></pre></div>
 <p>这里的 <code>%0</code> <code>%1</code> <code>%2</code> 就会替换为前面匹配得到的操作数，注意前面 <code>match_operand</code> 后的整数，这就是对应的编号。可以看到这里和 GCC 内联汇编的语法特别相似，包括前面 <code>match_operand</code> 的最后一个参数：<code>=r</code> 和 <code>r</code>，其实和内联汇编里对操作数的 specifier 也是非常像的。</p>
-<div class="language-lisp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="s">&quot;imul&quot;</span><span class="p">)</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;mode&quot;</span><span class="w"> </span><span class="s">&quot;SI&quot;</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
+<div class="language-lisp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">"type"</span><span class="w"> </span><span class="s">"imul"</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">"mode"</span><span class="w"> </span><span class="s">"SI"</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
 </span></code></pre></div>
 <p>最后是一些额外的属性，这个是用来给运算标记类型的，例如要针对处理器流水线进行优化，那就需要知道每个指令会被分到哪个流水线里面。</p>
 <p><a href="https://gcc.gnu.org/onlinedocs/gccint/Patterns.html">完整的格式</a>如下：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">(</span><span class="nv">define_insn</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="s">&quot;condition&quot;</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="s">&quot;output-template&quot;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="s">"condition"</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="s">"output-template"</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nv">[insn-attribute]</span><span class="p">)</span>
 </span></code></pre></div>
 <p>忽略了可选的命名。</p>
@@ -4406,39 +4400,39 @@
 <p>回顾一下开头的例子：</p>
 <div class="language-asm highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">#(insn 13 8 14 (set (reg/i:DI 10 a0)</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1">#        (sign_extend:DI (mult:SI (reg:SI 10 a0 [77])</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1">#                (reg:SI 11 a1 [78])))) &quot;kb.c&quot;:3:1 21 {*mulsi3_extended}</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1">#                (reg:SI 11 a1 [78])))) "kb.c":3:1 21 {*mulsi3_extended}</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1">#     (expr_list:REG_DEAD (reg:SI 11 a1 [78])</span>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1">#        (nil)))</span>
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="nf">mulw</span><span class="w">    </span><span class="no">a0</span><span class="p">,</span><span class="no">a0</span><span class="p">,</span><span class="no">a1</span><span class="w">        </span><span class="c1"># 13    [c=20 l=4]  *mulsi3_extended</span>
 </span></code></pre></div>
 <p>这一个 insn 与 mulsi3_extended 相匹配，操作数 0 匹配到了 <code>(reg/i:DI 10 a0)</code>，操作数 1 匹配到了 <code>(reg:SI 10 a0 [77])</code>，操作数 2 匹配到了 <code>(reg:SI 11 a1 [78])</code>，所以最后生成指令的时候，把对应的寄存器名字填进去，就得到了 <code>mulw a0,a0,a1</code>。</p>
 <p>有时候，比较复杂的指令会在 C 代码中生成，例如 <code>simple_return</code>：</p>
-<div class="language-lisp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">(</span><span class="nv">define_insn</span><span class="w"> </span><span class="s">&quot;simple_return&quot;</span>
+<div class="language-lisp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">(</span><span class="nv">define_insn</span><span class="w"> </span><span class="s">"simple_return"</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">simple_return</span><span class="p">)</span><span class="nv">]</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="s">&quot;&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="s">""</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nv">{</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nb">return</span><span class="w"> </span><span class="nv">riscv_output_return</span><span class="w"> </span><span class="p">()</span><span class="c1">;</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nv">}</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="s">&quot;jump&quot;</span><span class="p">)</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">&quot;mode&quot;</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">"type"</span><span class="w"> </span><span class="s">"jump"</span><span class="p">)</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">   </span><span class="p">(</span><span class="nv">set_attr</span><span class="w"> </span><span class="s">"mode"</span><span class="w"> </span><span class="s">"none"</span><span class="p">)</span><span class="nv">]</span><span class="p">)</span>
 </span></code></pre></div>
 <p>那么匹配以后，会调用 <code>riscv_output_return</code> 函数：</p>
 <div class="language-c highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nf">riscv_output_return</span><span class="w"> </span><span class="p">()</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cfun</span><span class="o">-&gt;</span><span class="n">machine</span><span class="o">-&gt;</span><span class="n">naked_p</span><span class="p">)</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
 </span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;ret&quot;</span><span class="p">;</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="s">"ret"</span><span class="p">;</span>
 </span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>实现也很简单，除了 naked 函数以外，都是一条 ret 指令。</p>
 <h3 id="_3">原理探究</h3>
 <p>具体地，在 <code>riscv.md</code> 中写模式匹配的时候：</p>
-<div class="language-lisp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:DI</span><span class="w">              </span><span class="mi">0</span><span class="w"> </span><span class="s">&quot;register_operand&quot;</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">)</span>
+<div class="language-lisp highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:DI</span><span class="w">              </span><span class="mi">0</span><span class="w"> </span><span class="s">"register_operand"</span><span class="w"> </span><span class="s">"=r"</span><span class="p">)</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="p">(</span><span class="nv">sign_extend:DI</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">        </span><span class="p">(</span><span class="nv">mult:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">&quot;register_operand&quot;</span><span class="w"> </span><span class="s">&quot; r&quot;</span><span class="p">)</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">             </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="s">&quot;register_operand&quot;</span><span class="w"> </span><span class="s">&quot; r&quot;</span><span class="p">))))</span><span class="nv">]</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">        </span><span class="p">(</span><span class="nv">mult:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"register_operand"</span><span class="w"> </span><span class="s">" r"</span><span class="p">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">             </span><span class="p">(</span><span class="nv">match_operand:SI</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="s">"register_operand"</span><span class="w"> </span><span class="s">" r"</span><span class="p">))))</span><span class="nv">]</span>
 </span></code></pre></div>
 <p>会在 <code>gcc/insn-recog.cc</code> 生成如下的代码：</p>
 <div class="language-c highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// x1 = (set (reg/i:DI 10 a0)</span>
@@ -4467,7 +4461,7 @@
 </span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">MULT</span><span class="p">:</span>
 </span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pattern14</span><span class="w"> </span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="w"> </span><span class="n">E_SImode</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span>
 </span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="w">          </span><span class="o">||</span><span class="w"> </span><span class="o">!</span>
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="cp">#line 869 &quot;/home/jiegec/ct-ng/.build/riscv64-unknown-linux-gnu/src/gcc/gcc/config/riscv/riscv.md&quot;</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="cp">#line 869 "/home/jiegec/ct-ng/.build/riscv64-unknown-linux-gnu/src/gcc/gcc/config/riscv/riscv.md"</span>
 </span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="p">(</span><span class="n">TARGET_MUL</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">TARGET_64BIT</span><span class="p">))</span>
 </span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
 </span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">21</span><span class="p">;</span><span class="w"> </span><span class="cm">/* *mulsi3_extended */</span>
@@ -4512,10 +4506,10 @@
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">(</span><span class="nv">define_mode_iterator</span><span class="w"> </span><span class="nv">MOVE64</span><span class="w"> </span><span class="nv">[DI</span><span class="w"> </span><span class="nv">DF]</span><span class="p">)</span>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">(</span><span class="nv">define_split</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:MOVE64</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="s">&quot;nonimmediate_operand&quot;</span><span class="p">)</span>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="p">(</span><span class="nv">match_operand:MOVE64</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">&quot;move_operand&quot;</span><span class="p">))</span><span class="nv">]</span>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">  </span><span class="s">&quot;reload_completed</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="s">   &amp;&amp; riscv_split_64bit_move_p (operands[0], operands[1])&quot;</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">match_operand:MOVE64</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="s">"nonimmediate_operand"</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="p">(</span><span class="nv">match_operand:MOVE64</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"move_operand"</span><span class="p">))</span><span class="nv">]</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">  </span><span class="s">"reload_completed</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="s">   &amp;&amp; riscv_split_64bit_move_p (operands[0], operands[1])"</span>
 </span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">  </span><span class="nv">[</span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="nv">]</span>
 </span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="nv">{</span>
 </span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="nv">riscv_split_doubleword_move</span><span class="w"> </span><span class="p">(</span><span class="nv">operands[0],</span><span class="w"> </span><span class="nv">operands[1]</span><span class="p">)</span><span class="c1">;</span>
@@ -4523,8 +4517,8 @@
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="nv">}</span><span class="p">)</span>
 </span></code></pre></div>
 <p>可以看到，它会尝试匹配从一个 64 位整数（DI）或浮点数（DF）到另一个 64 位整数（DI）或浮点数（DF）的 set，也就是 move 操作。匹配上以后，判断条件：</p>
-<div class="language-c highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">  </span><span class="s">&quot;reload_completed</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">riscv_split_64bit_move_p</span><span class="w"> </span><span class="p">(</span><span class="n">operands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">operands</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="s">&quot;</span>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">  </span><span class="s">"reload_completed</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">riscv_split_64bit_move_p</span><span class="w"> </span><span class="p">(</span><span class="n">operands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">operands</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="s">"</span>
 </span></code></pre></div>
 <p>是否成立。这里 <code>reload_completed == true</code> 表示已经完成寄存器分配。</p>
 <p>如果成立，就认为可以拆分 64 位的 move 为两个 32 位的 move，就生成下列 RTL：</p>
@@ -4539,17 +4533,17 @@
 <p>完整的 <a href="https://gcc.gnu.org/onlinedocs/gccint/Insn-Splitting.html"><code>define_split</code></a> 定义如下：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">(</span><span class="nv">define-split</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="s">&quot;condition&quot;</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="s">"condition"</span>
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nv">[new-insn-pattern-1</span>
 </span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">   </span><span class="nv">new-insn-pattern-2</span>
 </span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">   </span><span class="o">...</span><span class="nv">]</span>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="s">&quot;preparation-statements&quot;</span><span class="p">)</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="s">"preparation-statements"</span><span class="p">)</span>
 </span></code></pre></div>
 <p>忽略了可选的命名。</p>
 <p>下面来看一个具体的例子，这一段是在 split 之前的 RTL 代码：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">(</span><span class="nv">insn</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">reg:DI</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="nv">a4</span><span class="w"> </span><span class="nv">[orig:72</span><span class="w"> </span><span class="nv">_2</span><span class="w"> </span><span class="nv">]</span><span class="w"> </span><span class="nv">[72]</span><span class="p">)</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">        </span><span class="p">(</span><span class="nv">mem/c:DI</span><span class="w"> </span><span class="p">(</span><span class="nv">plus:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">reg/f:SI</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nv">s0</span><span class="p">)</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">                </span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">-24</span><span class="w"> </span><span class="nv">[0xffffffffffffffe8]</span><span class="p">))</span><span class="w"> </span><span class="nv">[1</span><span class="w"> </span><span class="nv">a+0</span><span class="w"> </span><span class="nv">S8</span><span class="w"> </span><span class="nv">A64]</span><span class="p">))</span><span class="w"> </span><span class="s">&quot;kb.c&quot;</span><span class="ss">:1:38</span><span class="w"> </span><span class="mi">134</span><span class="w"> </span><span class="nv">{*movdi_32bit}</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">                </span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">-24</span><span class="w"> </span><span class="nv">[0xffffffffffffffe8]</span><span class="p">))</span><span class="w"> </span><span class="nv">[1</span><span class="w"> </span><span class="nv">a+0</span><span class="w"> </span><span class="nv">S8</span><span class="w"> </span><span class="nv">A64]</span><span class="p">))</span><span class="w"> </span><span class="s">"kb.c"</span><span class="ss">:1:38</span><span class="w"> </span><span class="mi">134</span><span class="w"> </span><span class="nv">{*movdi_32bit}</span>
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">     </span><span class="p">(</span><span class="no">nil</span><span class="p">))</span>
 </span></code></pre></div>
 <p>它做的事情是，从内存地址 <code>$s0-24</code> 读取读取 8 个字节，写入到 a4 寄存器当中，由于 RV32 寄存器宽度只有 32 位，所以需要拆成两个读取：</p>
@@ -4559,46 +4553,46 @@
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
 </span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">(</span><span class="nv">insn</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="nv">a4</span><span class="w"> </span><span class="nv">[orig:72</span><span class="w"> </span><span class="nv">_2</span><span class="w"> </span><span class="nv">]</span><span class="w"> </span><span class="nv">[72]</span><span class="p">)</span>
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">        </span><span class="p">(</span><span class="nv">mem/c:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">plus:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">reg/f:SI</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nv">s0</span><span class="p">)</span>
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">                </span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">-24</span><span class="w"> </span><span class="nv">[0xffffffffffffffe8]</span><span class="p">))</span><span class="w"> </span><span class="nv">[1</span><span class="w"> </span><span class="nv">a+0</span><span class="w"> </span><span class="nv">S4</span><span class="w"> </span><span class="nv">A64]</span><span class="p">))</span><span class="w"> </span><span class="s">&quot;kb.c&quot;</span><span class="ss">:1:38</span><span class="w"> </span><span class="mi">136</span><span class="w"> </span><span class="nv">{*movsi_internal}</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">                </span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">-24</span><span class="w"> </span><span class="nv">[0xffffffffffffffe8]</span><span class="p">))</span><span class="w"> </span><span class="nv">[1</span><span class="w"> </span><span class="nv">a+0</span><span class="w"> </span><span class="nv">S4</span><span class="w"> </span><span class="nv">A64]</span><span class="p">))</span><span class="w"> </span><span class="s">"kb.c"</span><span class="ss">:1:38</span><span class="w"> </span><span class="mi">136</span><span class="w"> </span><span class="nv">{*movsi_internal}</span>
 </span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">     </span><span class="p">(</span><span class="no">nil</span><span class="p">))</span>
 </span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="p">(</span><span class="nv">insn</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">32</span><span class="w"> </span><span class="p">(</span><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="nv">reg:SI</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="nv">a5</span><span class="w"> </span><span class="nv">[</span><span class="w"> </span><span class="nv">_2+4</span><span class="w"> </span><span class="nv">]</span><span class="p">)</span>
 </span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">        </span><span class="p">(</span><span class="nv">mem/c:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">plus:SI</span><span class="w"> </span><span class="p">(</span><span class="nv">reg/f:SI</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nv">s0</span><span class="p">)</span>
-</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">                </span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">-20</span><span class="w"> </span><span class="nv">[0xffffffffffffffec]</span><span class="p">))</span><span class="w"> </span><span class="nv">[1</span><span class="w"> </span><span class="nv">a+4</span><span class="w"> </span><span class="nv">S4</span><span class="w"> </span><span class="nv">A32]</span><span class="p">))</span><span class="w"> </span><span class="s">&quot;kb.c&quot;</span><span class="ss">:1:38</span><span class="w"> </span><span class="mi">136</span><span class="w"> </span><span class="nv">{*movsi_internal}</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">                </span><span class="p">(</span><span class="nv">const_int</span><span class="w"> </span><span class="mi">-20</span><span class="w"> </span><span class="nv">[0xffffffffffffffec]</span><span class="p">))</span><span class="w"> </span><span class="nv">[1</span><span class="w"> </span><span class="nv">a+4</span><span class="w"> </span><span class="nv">S4</span><span class="w"> </span><span class="nv">A32]</span><span class="p">))</span><span class="w"> </span><span class="s">"kb.c"</span><span class="ss">:1:38</span><span class="w"> </span><span class="mi">136</span><span class="w"> </span><span class="nv">{*movsi_internal}</span>
 </span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">     </span><span class="p">(</span><span class="no">nil</span><span class="p">))</span>
 </span></code></pre></div>
 <p>可以看到，64 位的目的寄存器被拆成了两个 32 位寄存器，分别是 a4 和 a5；内存读取指令也拆分成了两个 SI 类型的读取，栈上的偏移也做了相应的调整。</p>
 <p>有时候还可以见到 <code>define_insn_and_split</code>：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">(</span><span class="nv">define_insn_and_split</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="s">&quot;condition&quot;</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span><span class="s">&quot;output-template&quot;</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="s">&quot;split-condition&quot;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="s">"condition"</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span><span class="s">"output-template"</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="s">"split-condition"</span>
 </span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span><span class="nv">[new-insn-pattern-1</span>
 </span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">   </span><span class="nv">new-insn-pattern-2</span>
 </span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">   </span><span class="o">...</span><span class="nv">]</span>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">  </span><span class="s">&quot;preparation-statements&quot;</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">  </span><span class="s">"preparation-statements"</span>
 </span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">  </span><span class="nv">[insn-attribute]</span><span class="p">)</span>
 </span></code></pre></div>
 <p>这实际上就是一个 <code>define_insn</code> 加一个 <code>define_split</code>，二者的 <code>insn-pattern</code> 一致：</p>
 <div class="language-lisp highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">(</span><span class="nv">define_insn</span>
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="s">&quot;condition&quot;</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="s">&quot;output-template&quot;</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="s">"condition"</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="s">"output-template"</span>
 </span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">  </span><span class="nv">[insn-attribute]</span><span class="p">)</span>
 </span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
 </span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="p">(</span><span class="nv">define_split</span>
 </span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">  </span><span class="nv">[insn-pattern]</span>
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">  </span><span class="s">&quot;split-condition&quot;</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">  </span><span class="s">"split-condition"</span>
 </span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">  </span><span class="nv">[new-insn-pattern-1</span>
 </span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">   </span><span class="nv">new-insn-pattern-2</span>
 </span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="w">   </span><span class="o">...</span><span class="nv">]</span>
-</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="s">&quot;preparation-statements&quot;</span><span class="p">)</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="s">"preparation-statements"</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="gcc_1">构建用于开发的 GCC</h2>
 <p>完整的 GCC 需要经过 bootstrap，但是为了开发，可以简化：</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>mkdir<span class="w"> </span>gcc-build
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">cd</span><span class="w"> </span>gcc-build
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>../gcc/configure<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$PREFIX</span><span class="w"> </span>--enable-languages<span class="o">=</span>c,c++<span class="w"> </span>--disable-bootstrap<span class="w"> </span><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-g -O0&quot;</span><span class="w"> </span><span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">&quot;-g -O0&quot;</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>../gcc/configure<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$PREFIX</span><span class="w"> </span>--enable-languages<span class="o">=</span>c,c++<span class="w"> </span>--disable-bootstrap<span class="w"> </span><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-g -O0"</span><span class="w"> </span><span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">"-g -O0"</span>
 </span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>make<span class="w"> </span>-j8
 </span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>make<span class="w"> </span>install<span class="w"> </span>-j8
 </span></code></pre></div>
@@ -4623,14 +4617,14 @@
 <p>参考：<a href="https://gcc.gnu.org/install/test.html">Installing GCC: Testing</a> <a href="https://dmalcolm.fedorapeople.org/gcc/newbies-guide/working-with-the-testsuite.html">Working with the testsuite</a></p>
 <p>运行所有 gcc 测试：<code>make check-gcc</code>。针对测试类型进行过滤：</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># test according to all files named execute.exp</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>make<span class="w"> </span>check-gcc<span class="w"> </span><span class="nv">RUNTESTFLAGS</span><span class="o">=</span><span class="s2">&quot;execute.exp&quot;</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>make<span class="w"> </span>check-gcc<span class="w"> </span><span class="nv">RUNTESTFLAGS</span><span class="o">=</span><span class="s2">"execute.exp"</span>
 </span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="c1"># test according to all files named execute.exp</span>
 </span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># ./gcc/testsuite/g++.target/loongarch/loongarch.exp</span>
 </span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="c1"># ./gcc/testsuite/gcc.target/loongarch/loongarch.exp</span>
-</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>make<span class="w"> </span>check-gcc<span class="w"> </span><span class="nv">RUNTESTFLAGS</span><span class="o">=</span><span class="s2">&quot;loongarch.exp&quot;</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>make<span class="w"> </span>check-gcc<span class="w"> </span><span class="nv">RUNTESTFLAGS</span><span class="o">=</span><span class="s2">"loongarch.exp"</span>
 </span></code></pre></div>
 <p>进一步，限制到某个测例，例如要测试 <code>gcc.target/loongarch/cas-acquire.c</code>：</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>make<span class="w"> </span>check-gcc<span class="w"> </span><span class="nv">RUNTESTFLAGS</span><span class="o">=</span><span class="s2">&quot;loongarch.exp=&#39;cas-acquire.c&#39;&quot;</span>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>make<span class="w"> </span>check-gcc<span class="w"> </span><span class="nv">RUNTESTFLAGS</span><span class="o">=</span><span class="s2">"loongarch.exp='cas-acquire.c'"</span>
 </span></code></pre></div>
 
 
@@ -4652,7 +4646,7 @@
       
   <span class="md-source-file__fact">
     <span class="md-icon" title="Last update">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
     <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月16日 13:12:47 UTC">2025年7月16日</span>
   </span>
@@ -4662,7 +4656,7 @@
       
   <span class="md-source-file__fact">
     <span class="md-icon" title="Created">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
     </span>
     <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2023年8月5日 16:58:49 UTC">2023年8月5日</span>
   </span>
@@ -4681,21 +4675,7 @@
 <h2 id="__comments">Comments</h2>
 <!-- Insert generated snippet here -->
 
-<script src="https://giscus.app/client.js"
-      data-repo="jiegec/kb"
-      data-repo-id="R_kgDOJZwffg"
-      data-category="General"
-      data-category-id="DIC_kwDOJZwffs4CV-wv"
-      data-mapping="pathname"
-      data-strict="1"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="top"
-      data-theme="light"
-      data-lang="en"
-      data-loading="lazy"
-      crossorigin="anonymous"
-      async>
+<script src="https://giscus.app/client.js" data-repo="jiegec/kb" data-repo-id="R_kgDOJZwffg" data-category="General" data-category-id="DIC_kwDOJZwffs4CV-wv" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async>
 </script>
                 
 
@@ -4731,7 +4711,7 @@
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
   Back to top
 </button>
         
@@ -4741,13 +4721,13 @@
   
     
       
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
           <a href="gc.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Garbage Collection 垃圾回收">
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
             </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
@@ -4772,7 +4752,7 @@
             </div>
             <div class="md-footer__button md-icon">
               
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
             </div>
           </a>
         
@@ -4784,7 +4764,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2023-2025 Jiajie Chen
+      Copyright © 2023-2025 Jiajie Chen
     </div>
   
   
@@ -4826,7 +4806,7 @@
         <script src="../../javascripts/tablesort.js"></script>
       
     
-  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
-document$.subscribe(() => { lightbox.reload() });
-</script></body>
-</html>
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
