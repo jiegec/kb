@@ -79,7 +79,7 @@
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
 
-### 麒麟 9030/3090Pro
+### 麒麟 9030/9030Pro
 
 - Mate 80/Mate X7
 - Kirin 9030: 1x 大核（带 SMT，2.75 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
