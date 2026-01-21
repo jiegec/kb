@@ -26,6 +26,7 @@
 		- 特定场景下（例如 usercopy 和 swapgs）加入 lfence 指令阻止错误路径上的 load 指令被执行
 		- Supervisor-Mode Access Prevention (SMAP)
 		- __user pointer sanitization
+	- `/sys/devices/system/cpu/vulnerabilities/spectre_v1`
 - Variant 2: Branch Target Injection (BTI)
 	- [CVE-2017-5715](https://nvd.nist.gov/vuln/detail/cve-2017-5715)
 	- 原理：CPU 的分支预测器的状态是全局共享的，因此可以在虚拟机内控制分支预测器的状态，当 CPU 控制权回到宿主机时（比如进行一次 hypercall），CPU 会使用虚拟机准备好的分支预测器的状态来进行分支预测，从而推测执行了原本宿主机不会执行的代码，具体方法是欺骗 BTB 或间接分支预测器，注入攻击者指定的分支目的地址，使得 CPU 在预测错误路径上预测执行攻击者指定的代码；类似的方法也可以用于从用户态攻击内核态
@@ -37,6 +38,7 @@
 		- Single Threaded Indirect Branch Predictors (STIBP)
 		- Indirect Branch Prediction Barrier (IBPB)
 		- Supervisor-Mode Execution Prevention (SMEP)
+	- `/sys/devices/system/cpu/vulnerabilities/spectre_v2`
 
 ### Meltdown (Rouge Data Cache Load)
 
@@ -90,6 +92,7 @@
 		VULNERABLE
 		```
 	- 继续增加读取的字节数，可以得到完整的 `linux_proc_banner` 的内容：`%s version %s (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) %s`
+- `/sys/devices/system/cpu/vulnerabilities/meltdown`
 - Meltdown 的变种：Meltdown variant 3a, Meltdown-CPL-REG, Rogue System Register Read, [CVE-2018-3640](https://nvd.nist.gov/vuln/detail/cve-2018-3640), [lgeek/spec_poc_arm](https://github.com/lgeek/spec_poc_arm) 把 Meltdown 中读取内核态地址改成在用户态读取 System Register，而这本来是在内核态才能读取的
 
 ### Retbleed (Return Stack Buffer Underflow)
@@ -108,6 +111,7 @@
 	- RSB stuffing/filling
 	- RRSBA_DIS_S
 	- untrained return thunk
+- `/sys/devices/system/cpu/vulnerabilities/retbleed`
 
 ### Speculative Return Stack Overflow (SRSO/Spec rstack overflow/INCEPTION)
 
@@ -125,6 +129,7 @@
 	- 硬件上，BTB 也要用 full tag 比较，不允许 alias
 	- Safe RET
 	- Indirect Branch Prediction Barrier (IBPB)
+- `/sys/devices/system/cpu/vulnerabilities/spec_rstack_overflow`
 
 ### Gather Data Sampling (DOWNFALL)
 
@@ -162,6 +167,7 @@
 	- 进一步测试，发现不仅能够泄露同一个物理核的另一个逻辑核的数据，同一个逻辑核内的数据也可以从内核态泄露到用户态
 - 缓解措施：
 	- 硬件 Microcode 修复
+- `/sys/devices/system/cpu/vulnerabilities/gather_data_sampling`
 
 ### Branch History Injection/Intra-mode BTI (IMBTI)
 
@@ -190,6 +196,7 @@
 	- 在虚拟机内的内核，通过修改页表的大小，使得同一个地址出现在不同大小页表对应的 ITLB 表项时，会导致宿主机出现 Machine Check Error，无法继续工作
 - 缓解措施：
 	- 宿主机观测虚拟机的页表，如果虚拟机分配了可执行的大页，则宿主机把它拆分成多个 4K 大小的页，避免了问题
+- `/sys/devices/system/cpu/vulnerabilities/itlb_multihit`
 
 ### L1 Terminal Fault (L1TF, Foreshadow)
 
@@ -198,6 +205,7 @@
 	- 处理器在推测执行的时候，有时候会无视掉页表项的 Present bit，即使它最终会导致 page fault，但还是会执行/读取它指向的物理地址的指令/数据
 - 环节措施：
 	- PTE inversion：避免 Present bit 设为 0 的页表项的物理地址指向一个合法的可以被缓存的物理地址，从而避免内存中数据的泄漏
+- `/sys/devices/system/cpu/vulnerabilities/l1tf`
 
 ### Microarchitectural Data Sampling (MDS)
 
@@ -208,6 +216,7 @@
 	- 获取到的结果可能来自错误的指令，从而泄露了信息，即使这条 load 指令最终会被回滚，但可能把数据通过侧信道泄露出去
 - 缓解措施：
 	- 切换特权级或在宿主机和虚拟机之间切换时，清空微架构上的状态以避免数据泄露
+- `/sys/devices/system/cpu/vulnerabilities/mds`
 
 ### Register File Data Sampling
 
@@ -217,6 +226,7 @@
 - 缓解措施：
 	- 升级 Microcode
 	- 主动执行 `VERW` 指令来避免旧值被后续代码泄漏
+- `/sys/devices/system/cpu/vulnerabilities/reg_file_data_sampling`
 
 ### Speculative Store Bypass (SSB)
 
@@ -236,6 +246,7 @@
 - 缓解措施：
 	- 添加 LFENCE 以阻止推测执行
 	- 设置 Speculative Store Bypass Disable (SSBD)
+- `/sys/devices/system/cpu/vulnerabilities/spec_store_bypass`
 
 ### Zenbleed
 
@@ -252,6 +263,7 @@
 - Intel Transactional Synchronization Extensions (TSX) 是 Intel 的 Transactional Memory 的实现，可以把一系列的指令当成一个事务原子地完成
 - 原理：
 	- 攻击者启动一个 TSX Transaction，当它被异步地打断时，一些指令会在推测执行路径上读取到处理器内部结构的值，进而泄露信息
+- `/sys/devices/system/cpu/vulnerabilities/tsx_async_abort`
 
 ### Special Register Buffer Data Sampling (SRBDS)
 
@@ -259,12 +271,14 @@
 - 原理：
 	- RDRAND 和 RDSEED 指令的结果会保存在 Special Register Buffer 当中
 	- 通过 Microarchitectural Data Sampling (MDS) 的方法，可以泄露出 Special Register Buffer 的内容，从而嗅探到随机数生成指令的结果
+- `/sys/devices/system/cpu/vulnerabilities/srbds`
 
 ### MMIO Stale Data
 
 - [Processor MMIO Stale Data Vulnerabilities](https://docs.kernel.org/admin-guide/hw-vuln/processor_mmio_stale_data.html)
 - 原理：
 	- 在虚拟机中的攻击者，可以对外设进行 MMIO，MMIO 的不当实现可能会泄露核上宿主机或其他虚拟机的数据
+- `/sys/devices/system/cpu/vulnerabilities/mmio_stale_data`
 
 ### Indirect Target Selection (ITS)
 
@@ -276,6 +290,7 @@
 - 缓解措施：
 	- 微码更新
 	- 把间接分支放到缓存行的后半部分
+- `/sys/devices/system/cpu/vulnerabilities/indirect_target_selection`
 
 ### Branch Privilege Injection (BPI)
 
