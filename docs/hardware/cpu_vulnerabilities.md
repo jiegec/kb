@@ -308,6 +308,12 @@
 - [Technical guidance for mitigating transient scheduler attacks](https://www.amd.com/content/dam/amd/en/documents/resources/bulletin/technical-guidance-for-mitigating-transient-scheduler-attacks.pdf)
 - CVE-2024-36350, CVE-2024-36357, CVE-2024-36348, CVE-2024-36349
 
+### GhostWrite
+
+- [GhostWrite Attack](https://ghostwriteattack.com/)
+- CVE-2024-44067
+- `/sys/devices/system/cpu/vulnerabilities/ghostwrite`
+
 ## 缓解措施 Mitigations
 
 ### KASLR
