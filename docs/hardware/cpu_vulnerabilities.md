@@ -314,6 +314,14 @@
 - CVE-2024-44067
 - `/sys/devices/system/cpu/vulnerabilities/ghostwrite`
 
+### VMSCAPE
+
+- [VMSCAPE](https://docs.kernel.org/admin-guide/hw-vuln/vmscape.html)
+- CVE-2025-40300
+- 缓解措施：
+	- Conditional IBPB
+- `/sys/devices/system/cpu/vulnerabilities/vmscape`
+
 ## 缓解措施 Mitigations
 
 ### KASLR
