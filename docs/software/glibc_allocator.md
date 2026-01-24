@@ -2456,7 +2456,7 @@ if (__glibc_unlikely (tc_idx != victim_tc_idx))
 
 ### glibc 2.43
 
-glibc 2.43 一个很大的改动是，fast bin 整个机制删掉了，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
+glibc 2.43 一个很大的改动是，fast bin [整个机制删掉了](https://sourceware.org/pipermail/libc-alpha/2025-December/173279.html)，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
 
 ### 小结
 
