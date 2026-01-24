@@ -2454,6 +2454,10 @@ if (__glibc_unlikely (tc_idx != victim_tc_idx))
 
 通过拆分，使得在通过 tcache 分配时，不需要进行栈帧的初始化，提升了性能。
 
+### glibc 2.43
+
+glibc 2.43 一个很大的改动是，fast bin 整个机制删掉了，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
+
 ### 小结
 
 总结一下从 glibc 2.31 之后内存分配器行为的几个大的变化：
@@ -2462,6 +2466,7 @@ if (__glibc_unlikely (tc_idx != victim_tc_idx))
 2. glibc 2.34 开始，tcache 的 key 不再指向 tcache 自己，而是设置为一个随机数
 3. glibc 2.41 开始，calloc 也会使用 tcache
 4. glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin
+5. glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16
 
 ## CTF
 
