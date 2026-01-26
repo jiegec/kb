@@ -114,13 +114,17 @@ Code: <https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc>
 
 [Best Offset Prefetcher (BOP, DPC-2)](https://www.irisa.fr/alf/downloads/michaud/dpc2_michaud.pdf) 的思路是，不同程序的最优 Offset 可能不同，因此需要动态计算最佳 Offset。算法如下：
 
-1. 记录最近访问的若干个 cacheline 地址 X 到 Recent Requests 表中
-2. 当地址为 Y 的 cacheline 进入缓存时，根据预设的若干个 Offset：O1、O2、...、On，计算 Y - Oi，判断是否在 Recent Requests 表中，如果在，则增加 Oi 的分数
+1. 当某个 cacheline Y 被预取到缓存中时，保存 Y-O 当 Recent Requests 表当中，其中 O 是当前的预取 Offset
+2. 当访问 cacheline X 缺失或者命中了之前预取进来的数据，根据预设的若干个 Offset：O1、O2、...、On，计算 X - Oi，判断是否在 Recent Requests 表中，如果在，则增加 Oi 的分数
 3. 当某个 Offset 分数达到上限，或达到时间上限时，使用当前分数最高的 Offset 进行预取，然后分数清零，重新学习
 
 相比固定 Offset 的 Offset Prefetcher，Best Offset Prefetcher 能够动态找到最适合当前应用的 Offset。
 
-代码参考 [Gem5 实现](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc)：
+代码参考 [Gem5 实现](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/bop.cc)，它的算法和原版 BOP 略有不同，算法如下：
+
+1. 记录最近访问的若干个 cacheline 地址 X 到 Recent Requests 表中
+2. 当地址为 Y 的 cacheline 进入缓存时，根据预设的若干个 Offset：O1、O2、...、On，计算 Y - Oi，判断是否在 Recent Requests 表中，如果在，则增加 Oi 的分数
+3. 当某个 Offset 分数达到上限，或达到时间上限时，使用当前分数最高的 Offset 进行预取，然后分数清零，重新学习
 
 记录访问历史到 Recent Requests 表：
 
