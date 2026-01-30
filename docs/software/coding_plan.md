@@ -12,7 +12,7 @@
 - [MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/coding-plan/intro)
 - [方舟 Coding Plan 40/200 RMB](https://www.volcengine.com/activity/codingplan)
 - [智谱 GLM Coding Plan 40/200/400 RMB 每月](https://docs.bigmodel.cn/cn/coding-plan/overview)
-    - Lite 套餐：每 5 小时最多约 120 次 prompts，相当于 Claude Pro 套餐用量的 3 倍
+    - Lite 套餐：每 5 小时最多约 120 次 prompts，相当于 Claude Pro 套餐用量的 3 倍（通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 判断用量限制是所有请求的 input + output token 总和不超过 40000000）
     - Pro 套餐：每 5 小时最多约 600 次 prompts，相当于 Claude Max(5x) 套餐用量的 3 倍
     - Max 套餐：每 5 小时最多约 2400 次 prompts，相当于 Claude Max(20x) 套餐用量的 3 倍
     - 从可消耗 tokens 量来看，每次 prompt 预计可调用模型 15-20 次，每月总计可用总量高达几十亿到数百亿 tokens，折算下来仅为 API 价格的 0.1 折，极具性价比。
