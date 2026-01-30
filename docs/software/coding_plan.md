@@ -1,7 +1,7 @@
 # AI Coding Plan
 
 - [Kimi 登月计划 49/99/199 RMB 每月](https://www.kimi.com/membership/pricing)
-    - 每 5 小时支持 100-500 次 请求，确保复杂项目不间断。
+    - 每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。
     - Moderato：2 倍额度
     - Allegretto：7 倍额度
 - [MiniMax Coding Plan 29/49/119 RMB 每月](https://platform.minimaxi.com/docs/coding-plan/intro)
