@@ -26,3 +26,12 @@
 - [阿里云百炼 Coding Plan 40/200 RMB 每月](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite: 固定月费，每月 1.8 万次请求，其中每 5 小时限额 1200 次
     - Pro: 固定月费，每月 9 万次请求，其中每 5 小时限额 6000 次
+
+常见 API 定价方式：
+
+- OpenAI 模式：自动缓存，有输入未命中缓存价格、输入命中缓存价格和输出价格
+    - OpenAI 有 Input，Cached Input 和 Output 三种价格，如果访问没有命中缓存，不命中的部分按 Input 收费，OpenAI 可能会进行缓存；如果访问命中缓存，命中的部分按 Cached Input 收费
+    - 通常 Cached Input 是 0.1 倍的 Input 价格，也有 0.1-0.2 倍之间的
+- Anthropic 模式：手动缓存，有输入未命中缓存价格、输入命中缓存价格、带缓存写入的输入价格（不同的 TTL 可能对应不同的价格）和输出价格
+    - Claude 有 Base Input Tokens，5m Cache Writes，1h Cache Writes，Cache Hits & Refreshes 和 Output Tokens 五种价格，如果不使用缓存，那么每次输入都按 Base Input Tokens 收费；如果使用缓存，写入缓存部分的输入按 5m/1h Cache Writes 收费，之后命中缓存部分的输入按 Cache Hits & Refreshes 收费
+    - 目前 5m Cache Writes 是 1.25 倍的 Base Input Tokens 价格，1h Cache Writes 是 2 倍的 Base Input Tokens 价格，Cache Hits & Refreshes 是 0.1 倍的 Base Input Tokens 价格
