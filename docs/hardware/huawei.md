@@ -205,6 +205,7 @@
 - SVE + SVE2 (256 bits)
 - part id 0xd06
 - 128KB L1 Cache, 1MB L2 Cache
+- kunpeng 950
 
 来源：
 
@@ -212,6 +213,7 @@
 - [Add hip12 core definition and cost model](https://github.com/openeuler-mirror/gcc/commit/c5970536c2caa3980bb1fded812ac0dc8ebf3681)
 - [Add hip12 instructions pipeline](https://gitee.com/openeuler/gcc/commit/d63119daeb54cd0c387c1b24981c47d795e5a672)
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2308)
+- [Add support for Hisilicon's hip12 core](https://patchwork.sourceware.org/project/gcc/patch/97a7d78ec85d4a05891366b3d39028ca@huawei.com/)
 
 ## Kunpeng 920B
 
