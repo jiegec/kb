@@ -743,6 +743,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/vivado.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/travel/hk.html</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/hk.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/hk.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/travel/italy.html</loc>
         <lastmod>2026-02-10</lastmod>
         <changefreq>daily</changefreq>
@@ -1504,6 +1511,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/vivado.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/vivado.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/travel/hk.html</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/hk.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/hk.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/travel/italy.html</loc>
