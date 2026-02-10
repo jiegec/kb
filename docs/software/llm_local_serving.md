@@ -5,15 +5,20 @@
 [zai-org/GLM-4.7-Flash](huggingface.co/zai-org/GLM-4.7-Flash)
 
 ```shell
-python3 -m venv venv
-source venv/bin/activate.fish
+# install uv
+pipx install uv
+set -x PATH ~/.local/bin $PATH
+# setup venv in $PWD/.venv
+uv venv
 # https://github.com/sgl-project/sglang/pull/17247
 # released in sglang 0.5.8
-pip install sglang==0.5.8
+uv pip install sglang==0.5.8
 # https://github.com/huggingface/transformers/pull/43031
 # https://github.com/sgl-project/sglang/pull/17381
-pip install git+https://github.com/huggingface/transformers.git@76732b4e7120808ff989edbd16401f61fa6a0afa
-python3 -m sglang.launch_server \
+uv pip install git+https://github.com/huggingface/transformers.git@76732b4e7120808ff989edbd16401f61fa6a0afa
+# optional: HF_HUB_OFFLINE=1
+# set CUDA_VISIBLE_DEVICES when required
+uv run python3 -m sglang.launch_server \
   --model-path zai-org/GLM-4.7-Flash \
   --tp-size 4 \
   --tool-call-parser glm47 \
