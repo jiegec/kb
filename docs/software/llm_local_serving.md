@@ -1,13 +1,17 @@
 # LLM 本地部署
 
+## 安装 uv
+
+```shell
+pipx install uv
+set -x PATH ~/.local/bin $PATH
+```
+
 ## GLM-4.7-Flash
 
 [zai-org/GLM-4.7-Flash](huggingface.co/zai-org/GLM-4.7-Flash)
 
 ```shell
-# install uv
-pipx install uv
-set -x PATH ~/.local/bin $PATH
 # setup venv in $PWD/.venv
 uv venv
 # https://github.com/sgl-project/sglang/pull/17247
@@ -16,8 +20,6 @@ uv pip install sglang==0.5.8
 # https://github.com/huggingface/transformers/pull/43031
 # https://github.com/sgl-project/sglang/pull/17381
 uv pip install git+https://github.com/huggingface/transformers.git@76732b4e7120808ff989edbd16401f61fa6a0afa
-# optional: HF_HUB_OFFLINE=1
-# set CUDA_VISIBLE_DEVICES when required
 uv run python3 -m sglang.launch_server \
   --model-path zai-org/GLM-4.7-Flash \
   --tp-size 4 \
@@ -32,3 +34,8 @@ uv run python3 -m sglang.launch_server \
   --host 127.0.0.1 \
   --port 8000
 ```
+
+## 常见环境变量
+
+- `HF_HUB_ONLINE=1`
+- `CUDA_VISIBLE_DEVICES`
