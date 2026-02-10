@@ -645,6 +645,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/linux_soft_raid.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/software/llm_local_serving.html</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/llm_local_serving.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/llm_local_serving.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/software/lock_free.html</loc>
         <lastmod>2026-02-10</lastmod>
         <changefreq>daily</changefreq>
@@ -1399,6 +1406,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/linux_soft_raid.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/linux_soft_raid.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/software/llm_local_serving.html</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/llm_local_serving.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/llm_local_serving.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/lock_free.html</loc>
