@@ -4,7 +4,11 @@
     - Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。（通过实际测试，猜测是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token）
     - Moderato：2 倍额度
     - Allegretto：7 倍额度
-    - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：输入 0.7/4 RMB 每 1M token，输出 21 RMB 每 1M token，256K 上下文
+    - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
+        - 输入命中缓存 0.7 RMB 每 1M token
+        - 输入未命中缓存 4 RMB 每 1M token
+        - 输出 21 RMB 每 1M token
+        - 256K 上下文
 - [MiniMax Coding Plan 29/49/119 RMB 每月](https://platform.minimaxi.com/docs/coding-plan/intro)
     - Starter: 40 prompts / 每 5 小时
     - Plus: 100 prompts / 每 5 小时
@@ -16,12 +20,21 @@
     - Lite 套餐：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐：Lite 套餐的 5 倍用量
 - [智谱 GLM Coding Plan 40/200/400 RMB 每月](https://docs.bigmodel.cn/cn/coding-plan/overview)
-    - Lite 套餐：每 5 小时最多约 120 次 prompts，相当于 Claude Pro 套餐用量的 3 倍（通过实际测试，猜测用量限制是每 5 小时所有请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数）
+    - Lite 套餐：每 5 小时最多约 120 次 prompts，相当于 Claude Pro 套餐用量的 3 倍（通过实际测试，猜测用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数）
     - Pro 套餐：每 5 小时最多约 600 次 prompts，相当于 Claude Max(5x) 套餐用量的 3 倍
     - Max 套餐：每 5 小时最多约 2400 次 prompts，相当于 Claude Max(20x) 套餐用量的 3 倍
     - 从可消耗 tokens 量来看，每次 prompt 预计可调用模型 15-20 次，每月总计可用总量高达几十亿到数百亿 tokens，折算下来仅为 API 价格的 0.1 折，极具性价比。
     - 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
-    - [GLM-4.7 API 价格](https://bigmodel.cn/pricing)：输入 0.4/2/3/4 RMB 每 1M token，输出 8/14/16 RMB 每 1M token，200K 上下文
+    - [GLM-5 API 价格](https://bigmodel.cn/pricing)：
+        - 输入命中缓存 1/1.5 RMB 每 1M token
+        - 输入未命中缓存 4/6 RMB 每 1M token
+        - 输出 18/22 RMB 每 1M token
+        - 200K 上下文
+    - [GLM-4.7 API 价格](https://bigmodel.cn/pricing)：
+        - 输入命中缓存 0.4/0.6/0.8 RMB 每 1M token
+        - 输入未命中缓存 2/3/4 RMB 每 1M token
+        - 输出 8/14/16 RMB 每 1M token
+        - 200K 上下文
 - [智谱国际版 GLM Coding Plan](https://z.ai/subscribe)
 - [阿里云百炼 Coding Plan 40/200 RMB 每月](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite: 固定月费，每月 1.8 万次请求，其中每 5 小时限额 1200 次
@@ -38,4 +51,4 @@
 
 更新历史：
 
-- 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备，但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
+- 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
