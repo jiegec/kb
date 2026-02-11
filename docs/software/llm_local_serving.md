@@ -36,6 +36,17 @@ uv run python3 -m sglang.launch_server \
   --served-model-name glm-4.7-flash \
   --host 127.0.0.1 \
   --port 8000
+
+# without speculative decoding
+uv run python3 -m sglang.launch_server \
+  --model-path zai-org/GLM-4.7-Flash \
+  --tp-size 4 \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.8 \
+  --served-model-name glm-4.7-flash \
+  --host 127.0.0.1 \
+  --port 8000
 ```
 
 ## 常见环境变量
