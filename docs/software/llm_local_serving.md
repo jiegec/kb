@@ -63,6 +63,7 @@ $ ~/.lmstudio/bin/lms get
 $ ~/.lmstudio/bin/lms server start
 $ ~/.lmstudio/bin/lms load glm-4.7-flash [--context-length=1-N]
 $ ~/.lmstudio/bin/lms ps
+$ ~/.lmstudio/bin/lms log stream
 ```
 
 ## 常见环境变量
