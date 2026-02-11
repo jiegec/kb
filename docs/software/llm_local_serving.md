@@ -9,7 +9,7 @@ set -x PATH ~/.local/bin $PATH
 
 ## GLM-4.7-Flash
 
-[zai-org/GLM-4.7-Flash](huggingface.co/zai-org/GLM-4.7-Flash)
+[zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
 
 ```shell
 # setup venv in $PWD/.venv
