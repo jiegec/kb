@@ -11,6 +11,8 @@ set -x PATH ~/.local/bin $PATH
 
 [zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
 
+SGLang:
+
 ```shell
 # setup venv in $PWD/.venv
 uv venv
@@ -47,6 +49,20 @@ uv run python3 -m sglang.launch_server \
   --served-model-name glm-4.7-flash \
   --host 127.0.0.1 \
   --port 8000
+```
+
+LM Studio:
+
+```shell
+$ curl -fsSL https://lmstudio.ai/install.sh | bash
+$ ~/.lmstudio/bin/lms get
+
+✔ Select a model to download zai-org/glm-4.7-flash
+   ↓ To download: model zai-org/glm-4.7-flash - 14.72 KB
+   └─ ↓ To download: GLM 4.7 Flash Q4_K_M [GGUF] - 18.13 GB
+$ ~/.lmstudio/bin/lms server start
+$ ~/.lmstudio/bin/lms load glm-4.7-flash [--context-length=1-N]
+$ ~/.lmstudio/bin/lms ps
 ```
 
 ## 常见环境变量
