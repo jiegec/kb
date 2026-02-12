@@ -2,56 +2,73 @@
 
 ## Coding Plan
 
-- [Kimi 登月计划 49/99/199/699 RMB 每月](https://www.kimi.com/membership/pricing)
-    - Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。
-    - Moderato：Kimi Code 4 倍额度
-    - Allegretto：Kimi Code 20 倍额度
-    - Allegro：Kimi Code 60 倍额度
-    - 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额
-    - 宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K
-    - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
-        - 输入命中缓存 0.7 RMB 每 1M token
-        - 输入未命中缓存 4 RMB 每 1M token
-        - 输出 21 RMB 每 1M token
-        - 256K 上下文
-- [MiniMax Coding Plan 29/49/119 RMB 每月](https://platform.minimaxi.com/docs/coding-plan/intro)
-    - Starter: 40 prompts / 每 5 小时
-    - Plus: 100 prompts / 每 5 小时
-    - Max: 300 prompts / 每 5 小时
-    - Q: 为什么“一个 prompt 约等于 15 次模型调用”？A: 在 AI 编程工具中，您的一次操作（例如请求代码补全或解释代码）在工具后台可能会被拆分为多次与 AI 模型的连续交互（例如：获取上下文、生成建议、修正建议等）。为了简化计费，我们将这些后台的连续调用打包为一次“prompt”计数。这意味着您在套餐内的一次“prompt”实际上包含了多次模型的复杂调用。
-    - [M2.5 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
-        - 输入命中缓存 0.21 RMB 每 1M token
-        - 输入未命中缓存 2.1 RMB 每 1M token
-        - 输入写入缓存 2.625 RMB 每 1M token
-        - 输出 8.4 RMB 每 1M token
-        - 200K 上下文
-- [MiniMax 国际版 Coding Plan 10/20/50 USD 每月](https://platform.minimax.io/docs/coding-plan/intro)
-    - Starter: 100 prompts / 每 5 小时
-    - Plus: 300 prompts / 每 5 小时
-    - Max: 1000 prompts / 每 5 小时
+### Kimi
+
+[Kimi 登月计划 49/99/199/699 RMB 每月](https://www.kimi.com/membership/pricing)
+
+- Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。
+- Moderato：Kimi Code 4 倍额度
+- Allegretto：Kimi Code 20 倍额度
+- Allegro：Kimi Code 60 倍额度
+- 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额
+- 宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K
+- [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
+    - 输入命中缓存 0.7 RMB 每 1M token
+    - 输入未命中缓存 4 RMB 每 1M token
+    - 输出 21 RMB 每 1M token
+    - 256K 上下文
+
+### MiniMax
+
+[MiniMax Coding Plan 29/49/119 RMB 每月](https://platform.minimaxi.com/docs/coding-plan/intro)
+
+- Starter: 40 prompts / 每 5 小时
+- Plus: 100 prompts / 每 5 小时
+- Max: 300 prompts / 每 5 小时
+- Q: 为什么“一个 prompt 约等于 15 次模型调用”？A: 在 AI 编程工具中，您的一次操作（例如请求代码补全或解释代码）在工具后台可能会被拆分为多次与 AI 模型的连续交互（例如：获取上下文、生成建议、修正建议等）。为了简化计费，我们将这些后台的连续调用打包为一次“prompt”计数。这意味着您在套餐内的一次“prompt”实际上包含了多次模型的复杂调用。
+- [M2.5 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
+    - 输入命中缓存 0.21 RMB 每 1M token
+    - 输入未命中缓存 2.1 RMB 每 1M token
+    - 输入写入缓存 2.625 RMB 每 1M token
+    - 输出 8.4 RMB 每 1M token
+    - 200K 上下文
+
+MiniMax 国际版 Coding Plan 10/20/50 USD 每月](https://platform.minimax.io/docs/coding-plan/intro)
+
+- Starter: 100 prompts / 每 5 小时
+- Plus: 300 prompts / 每 5 小时
+- Max: 1000 prompts / 每 5 小时
+
+### 智谱
+
+[智谱 GLM Coding Plan 49/149/469 RMB 每月](https://docs.bigmodel.cn/cn/coding-plan/overview)
+
+- Lite 套餐：每 5 小时最多约 80 次 prompts，相当于 Claude Pro 套餐用量的 3 倍
+- Pro 套餐：每 5 小时最多约 400 次 prompts，相当于 Lite 套餐用量的 5 倍
+- Max 套餐：每 5 小时最多约 1600 次 prompts，相当于 Pro 套餐用量的 4 倍
+- 从可消耗 tokens 量来看，每次 prompt 预计可调用模型 15-20 次，每月总计可用总量高达几十亿到数百亿 tokens，折算下来仅为 API 价格的 0.1 折，极具性价比。
+- 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
+- 注：对于在 2 月 12 日之前订阅的用户，在您当前订阅套餐的有效期内，套餐的用量额度不变，仍按您订阅时页面显示执行。
+- 注：对于在 2 月 12 日之前开启续订的用户，续费价格及套餐的用量额度不变，仍按您订阅时页面显示执行。
+- 为了管理资源并确保所有用户的公平访问，我们增加了每周使用额度限制。该限额自您下单时开启计时，以 7 天为一个周期额度刷新重置。您可以在 用量统计 中查看您的额度消耗进展。2 月 12 日前订阅及开启自动续费的用户，在订阅有效期内，不受周使用额度限制。
+- [GLM-5 API 价格](https://bigmodel.cn/pricing)：
+    - 输入命中缓存 1/1.5 RMB 每 1M token
+    - 输入未命中缓存 4/6 RMB 每 1M token
+    - 输出 18/22 RMB 每 1M token
+    - 200K 上下文
+- [GLM-4.7 API 价格](https://bigmodel.cn/pricing)：
+    - 输入命中缓存 0.4/0.6/0.8 RMB 每 1M token
+    - 输入未命中缓存 2/3/4 RMB 每 1M token
+    - 输出 8/14/16 RMB 每 1M token
+    - 200K 上下文
+
+[智谱国际版 GLM Coding Plan](https://z.ai/subscribe)
+
+### 其他
+
 - [方舟 Coding Plan 40/200 RMB 每月](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐：Lite 套餐的 5 倍用量
-- [智谱 GLM Coding Plan 49/149/469 RMB 每月](https://docs.bigmodel.cn/cn/coding-plan/overview)
-    - Lite 套餐：每 5 小时最多约 80 次 prompts，相当于 Claude Pro 套餐用量的 3 倍
-    - Pro 套餐：每 5 小时最多约 400 次 prompts，相当于 Lite 套餐用量的 5 倍
-    - Max 套餐：每 5 小时最多约 1600 次 prompts，相当于 Pro 套餐用量的 4 倍
-    - 从可消耗 tokens 量来看，每次 prompt 预计可调用模型 15-20 次，每月总计可用总量高达几十亿到数百亿 tokens，折算下来仅为 API 价格的 0.1 折，极具性价比。
-    - 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
-    - 注：对于在 2 月 12 日之前订阅的用户，在您当前订阅套餐的有效期内，套餐的用量额度不变，仍按您订阅时页面显示执行。
-    - 注：对于在 2 月 12 日之前开启续订的用户，续费价格及套餐的用量额度不变，仍按您订阅时页面显示执行。
-    - 为了管理资源并确保所有用户的公平访问，我们增加了每周使用额度限制。该限额自您下单时开启计时，以 7 天为一个周期额度刷新重置。您可以在 用量统计 中查看您的额度消耗进展。2 月 12 日前订阅及开启自动续费的用户，在订阅有效期内，不受周使用额度限制。
-    - [GLM-5 API 价格](https://bigmodel.cn/pricing)：
-        - 输入命中缓存 1/1.5 RMB 每 1M token
-        - 输入未命中缓存 4/6 RMB 每 1M token
-        - 输出 18/22 RMB 每 1M token
-        - 200K 上下文
-    - [GLM-4.7 API 价格](https://bigmodel.cn/pricing)：
-        - 输入命中缓存 0.4/0.6/0.8 RMB 每 1M token
-        - 输入未命中缓存 2/3/4 RMB 每 1M token
-        - 输出 8/14/16 RMB 每 1M token
-        - 200K 上下文
-- [智谱国际版 GLM Coding Plan](https://z.ai/subscribe)
 - [阿里云百炼 Coding Plan 40/200 RMB 每月](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite: 固定月费，每月 18000 次请求，每周 9000 次，每 5 小时 1200 次
     - Pro: 固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
