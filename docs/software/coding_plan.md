@@ -3,10 +3,11 @@
 ## Coding Plan
 
 - [Kimi 登月计划 49/99/199/699 RMB 每月](https://www.kimi.com/membership/pricing)
-    - Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。（通过实际测试，猜测是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token）
+    - Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。
     - Moderato：Kimi Code 4 倍额度
     - Allegretto：Kimi Code 20 倍额度
     - Allegro：Kimi Code 60 倍额度
+    - 通过实际测试，猜测 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方估计的每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地实测下来是 31K
     - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
         - 输入命中缓存 0.7 RMB 每 1M token
         - 输入未命中缓存 4 RMB 每 1M token
