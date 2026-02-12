@@ -1,5 +1,7 @@
 # AI Coding Plan
 
+## Coding Plan
+
 - [Kimi 登月计划 49/99/199/699 RMB 每月](https://www.kimi.com/membership/pricing)
     - Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。（通过实际测试，猜测是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token）
     - Moderato：Kimi Code 4 倍额度
@@ -28,12 +30,15 @@
 - [方舟 Coding Plan 40/200 RMB 每月](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐：Lite 套餐的 5 倍用量
-- [智谱 GLM Coding Plan 40/200/400 RMB 每月](https://docs.bigmodel.cn/cn/coding-plan/overview)
-    - Lite 套餐：每 5 小时最多约 120 次 prompts，相当于 Claude Pro 套餐用量的 3 倍（通过实际测试，猜测用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数）
-    - Pro 套餐：每 5 小时最多约 600 次 prompts，相当于 Claude Max(5x) 套餐用量的 3 倍
-    - Max 套餐：每 5 小时最多约 2400 次 prompts，相当于 Claude Max(20x) 套餐用量的 3 倍
+- [智谱 GLM Coding Plan 49/149/469 RMB 每月](https://docs.bigmodel.cn/cn/coding-plan/overview)
+    - Lite 套餐：每 5 小时最多约 80 次 prompts，相当于 Claude Pro 套餐用量的 3 倍
+    - Pro 套餐：每 5 小时最多约 400 次 prompts，相当于 Lite 套餐用量的 5 倍
+    - Max 套餐：每 5 小时最多约 1600 次 prompts，相当于 Pro 套餐用量的 4 倍
     - 从可消耗 tokens 量来看，每次 prompt 预计可调用模型 15-20 次，每月总计可用总量高达几十亿到数百亿 tokens，折算下来仅为 API 价格的 0.1 折，极具性价比。
     - 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
+    - 注：对于在 2 月 12 日之前订阅的用户，在您当前订阅套餐的有效期内，套餐的用量额度不变，仍按您订阅时页面显示执行。
+    - 注：对于在 2 月 12 日之前开启续订的用户，续费价格及套餐的用量额度不变，仍按您订阅时页面显示执行。
+    - 为了管理资源并确保所有用户的公平访问，我们增加了每周使用额度限制。该限额自您下单时开启计时，以 7 天为一个周期额度刷新重置。您可以在 用量统计 中查看您的额度消耗进展。2 月 12 日前订阅及开启自动续费的用户，在订阅有效期内，不受周使用额度限制。
     - [GLM-5 API 价格](https://bigmodel.cn/pricing)：
         - 输入命中缓存 1/1.5 RMB 每 1M token
         - 输入未命中缓存 4/6 RMB 每 1M token
@@ -49,7 +54,7 @@
     - Lite: 固定月费，每月 1.8 万次请求，其中每 5 小时限额 1200 次
     - Pro: 固定月费，每月 9 万次请求，其中每 5 小时限额 6000 次
 
-常见 API 定价方式：
+## 常见 API 定价方式
 
 - OpenAI 模式：自动缓存，有输入未命中缓存价格、输入命中缓存价格和输出价格
     - OpenAI 有 Input，Cached Input 和 Output 三种价格，如果访问没有命中缓存，不命中的部分按 Input 收费，OpenAI 可能会进行缓存；如果访问命中缓存，命中的部分按 Cached Input 收费
@@ -58,7 +63,12 @@
     - Claude 有 Base Input Tokens，5m Cache Writes，1h Cache Writes，Cache Hits & Refreshes 和 Output Tokens 五种价格，如果不使用缓存，那么每次输入都按 Base Input Tokens 收费；如果使用缓存，写入缓存部分的输入按 5m/1h Cache Writes 收费，之后命中缓存部分的输入按 Cache Hits & Refreshes 收费
     - 目前 5m Cache Writes 是 1.25 倍的 Base Input Tokens 价格，1h Cache Writes 是 2 倍的 Base Input Tokens 价格，Cache Hits & Refreshes 是 0.1 倍的 Base Input Tokens 价格
 
-更新历史：
+## 更新历史
 
+- 2026/02/12：GLM Coding Plan 价格从 40/200/400 RMB 每月改成 49/149/469 RMB 每月；与此同时，用量额度减少了：
+    - Lite 套餐：每 5 小时最多约 80（原来是 120）次 prompts，相当于 Claude Pro 套餐用量的 3 倍
+    - Pro 套餐：每 5 小时最多约 400（原来是 600）次 prompts，相当于 Lite 套餐用量的 5 倍
+    - Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍
+    - 通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；待切换到新版后，再测试新版的用量限制对应多少 token
 - 2026/02/12：增加 Kimi Allegro 套餐的描述
 - 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
