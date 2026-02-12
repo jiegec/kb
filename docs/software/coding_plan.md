@@ -7,7 +7,8 @@
     - Moderato：Kimi Code 4 倍额度
     - Allegretto：Kimi Code 20 倍额度
     - Allegro：Kimi Code 60 倍额度
-    - 通过实际测试，猜测 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方估计的每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地实测下来是 31K
+    - 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额
+    - 宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K
     - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
         - 输入命中缓存 0.7 RMB 每 1M token
         - 输入未命中缓存 4 RMB 每 1M token
@@ -59,6 +60,14 @@
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
 
+## prompt、请求和 token
+
+- prompt：用户输入提示词到 CLI，按回车发出去
+- 请求：除了 prompt 本身会有一次请求以外，每轮 tool call 结束后，会把 tool call 结果带上上下文再发送请求，直到没有 tool call 为止
+- token：每次请求都有一定量的 input 和 output token，在 Vibe Coding 场景下，实测 input token 是大多数，通常占 input + output 的 99.5%，因为多轮对话下来，input token 会不断累积变多，重复计算。
+
+一次 prompt 对应多次请求，每次请求都有很多的 input 和 output token。
+
 ## 常见 API 定价方式
 
 - OpenAI 模式：自动缓存，有输入未命中缓存价格、输入命中缓存价格和输出价格
@@ -74,6 +83,6 @@
     - Lite 套餐：每 5 小时最多约 80（原来是 120）次 prompts，相当于 Claude Pro 套餐用量的 3 倍
     - Pro 套餐：每 5 小时最多约 400（原来是 600）次 prompts，相当于 Lite 套餐用量的 5 倍
     - Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍
-    - 通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额；待切换到新版后，再测试新版的用量限制对应多少 token
+    - 通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token（意味着每次 prompt 对应 40M/120=333K token），这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额；待切换到新版后，再测试新版的用量限制对应多少 token
 - 2026/02/12：增加 Kimi Allegro 套餐的描述
 - 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
