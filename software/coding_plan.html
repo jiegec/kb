@@ -3245,6 +3245,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#prompt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prompt、请求和 token
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4339,7 +4350,8 @@
 <li>Moderato：Kimi Code 4 倍额度</li>
 <li>Allegretto：Kimi Code 20 倍额度</li>
 <li>Allegro：Kimi Code 60 倍额度</li>
-<li>通过实际测试，猜测 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方估计的每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地实测下来是 31K</li>
+<li>通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额</li>
+<li>宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K</li>
 <li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.5 API 价格</a>：<ul>
 <li>输入命中缓存 0.7 RMB 每 1M token</li>
 <li>输入未命中缓存 4 RMB 每 1M token</li>
@@ -4411,6 +4423,13 @@
 </ul>
 </li>
 </ul>
+<h2 id="prompt-token">prompt、请求和 token</h2>
+<ul>
+<li>prompt：用户输入提示词到 CLI，按回车发出去</li>
+<li>请求：除了 prompt 本身会有一次请求以外，每轮 tool call 结束后，会把 tool call 结果带上上下文再发送请求，直到没有 tool call 为止</li>
+<li>token：每次请求都有一定量的 input 和 output token，在 Vibe Coding 场景下，实测 input token 是大多数，通常占 input + output 的 99.5%，因为多轮对话下来，input token 会不断累积变多，重复计算。</li>
+</ul>
+<p>一次 prompt 对应多次请求，每次请求都有很多的 input 和 output token。</p>
 <h2 id="api">常见 API 定价方式</h2>
 <ul>
 <li>OpenAI 模式：自动缓存，有输入未命中缓存价格、输入命中缓存价格和输出价格<ul>
@@ -4430,7 +4449,7 @@
 <li>Lite 套餐：每 5 小时最多约 80（原来是 120）次 prompts，相当于 Claude Pro 套餐用量的 3 倍</li>
 <li>Pro 套餐：每 5 小时最多约 400（原来是 600）次 prompts，相当于 Lite 套餐用量的 5 倍</li>
 <li>Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍</li>
-<li>通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <a href="https://open.bigmodel.cn/api/monitor/usage/quota/limit">https://open.bigmodel.cn/api/monitor/usage/quota/limit</a> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额；待切换到新版后，再测试新版的用量限制对应多少 token</li>
+<li>通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token（意味着每次 prompt 对应 40M/120=333K token），这和在 2026.2.12 之前通过 <a href="https://open.bigmodel.cn/api/monitor/usage/quota/limit">https://open.bigmodel.cn/api/monitor/usage/quota/limit</a> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额；待切换到新版后，再测试新版的用量限制对应多少 token</li>
 </ul>
 </li>
 <li>2026/02/12：增加 Kimi Allegro 套餐的描述</li>
@@ -4458,7 +4477,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月12日 05:04:22 UTC">2026年2月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月12日 05:23:15 UTC">2026年2月12日</span>
   </span>
 
     
