@@ -21,7 +21,10 @@
         - 输入写入缓存 2.625 RMB 每 1M token
         - 输出 8.4 RMB 每 1M token
         - 200K 上下文
-- [MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/coding-plan/intro)
+- [MiniMax 国际版 Coding Plan 10/20/50 USD 每月](https://platform.minimax.io/docs/coding-plan/intro)
+    - Starter: 100 prompts / 每 5 小时
+    - Plus: 300 prompts / 每 5 小时
+    - Max: 1000 prompts / 每 5 小时
 - [方舟 Coding Plan 40/200 RMB 每月](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐：Lite 套餐的 5 倍用量
