@@ -33,7 +33,7 @@
     - 输出 8.4 RMB 每 1M token
     - 200K 上下文
 
-MiniMax 国际版 Coding Plan 10/20/50 USD 每月](https://platform.minimax.io/docs/coding-plan/intro)
+[MiniMax 国际版 Coding Plan 10/20/50 USD 每月](https://platform.minimax.io/docs/coding-plan/intro)
 
 - Starter: 100 prompts / 每 5 小时
 - Plus: 300 prompts / 每 5 小时
