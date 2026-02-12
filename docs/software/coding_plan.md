@@ -19,7 +19,7 @@
     - Plus: 100 prompts / 每 5 小时
     - Max: 300 prompts / 每 5 小时
     - Q: 为什么“一个 prompt 约等于 15 次模型调用”？A: 在 AI 编程工具中，您的一次操作（例如请求代码补全或解释代码）在工具后台可能会被拆分为多次与 AI 模型的连续交互（例如：获取上下文、生成建议、修正建议等）。为了简化计费，我们将这些后台的连续调用打包为一次“prompt”计数。这意味着您在套餐内的一次“prompt”实际上包含了多次模型的复杂调用。
-    - [M2.1 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
+    - [M2.5 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
         - 输入命中缓存 0.21 RMB 每 1M token
         - 输入未命中缓存 2.1 RMB 每 1M token
         - 输入写入缓存 2.625 RMB 每 1M token
