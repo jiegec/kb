@@ -1,9 +1,10 @@
 # AI Coding Plan
 
-- [Kimi 登月计划 49/99/199 RMB 每月](https://www.kimi.com/membership/pricing)
+- [Kimi 登月计划 49/99/199/699 RMB 每月](https://www.kimi.com/membership/pricing)
     - Andante：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。（通过实际测试，猜测是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token）
-    - Moderato：2 倍额度
-    - Allegretto：7 倍额度
+    - Moderato：Kimi Code 4 倍额度
+    - Allegretto：Kimi Code 20 倍额度
+    - Allegro：Kimi Code 60 倍额度
     - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
         - 输入命中缓存 0.7 RMB 每 1M token
         - 输入未命中缓存 4 RMB 每 1M token
@@ -56,4 +57,5 @@
 
 更新历史：
 
+- 2026/02/12：增加 Kimi Allegro 套餐的描述
 - 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
