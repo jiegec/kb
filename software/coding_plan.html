@@ -4425,7 +4425,7 @@
 <li>Lite 套餐：每 5 小时最多约 80（原来是 120）次 prompts，相当于 Claude Pro 套餐用量的 3 倍</li>
 <li>Pro 套餐：每 5 小时最多约 400（原来是 600）次 prompts，相当于 Lite 套餐用量的 5 倍</li>
 <li>Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍</li>
-<li>通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <a href="https://open.bigmodel.cn/api/monitor/usage/quota/limit">https://open.bigmodel.cn/api/monitor/usage/quota/limit</a> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；待切换到新版后，再测试新版的用量限制对应多少 token</li>
+<li>通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <a href="https://open.bigmodel.cn/api/monitor/usage/quota/limit">https://open.bigmodel.cn/api/monitor/usage/quota/limit</a> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额；待切换到新版后，再测试新版的用量限制对应多少 token</li>
 </ul>
 </li>
 <li>2026/02/12：增加 Kimi Allegro 套餐的描述</li>
@@ -4453,7 +4453,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月12日 04:38:16 UTC">2026年2月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月12日 04:40:14 UTC">2026年2月12日</span>
   </span>
 
     
