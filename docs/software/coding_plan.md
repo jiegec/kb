@@ -69,6 +69,6 @@
     - Lite 套餐：每 5 小时最多约 80（原来是 120）次 prompts，相当于 Claude Pro 套餐用量的 3 倍
     - Pro 套餐：每 5 小时最多约 400（原来是 600）次 prompts，相当于 Lite 套餐用量的 5 倍
     - Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍
-    - 通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；待切换到新版后，再测试新版的用量限制对应多少 token
+    - 通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token，这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额；待切换到新版后，再测试新版的用量限制对应多少 token
 - 2026/02/12：增加 Kimi Allegro 套餐的描述
 - 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
