@@ -82,9 +82,13 @@
 
 - prompt：用户输入提示词到 CLI，按回车发出去，从请求来看，就是最后一个消息是来自用户的，而非 tool call result
 - 请求：除了 prompt 本身会有一次请求以外，每轮 tool call 结束后，会把 tool call 结果带上上下文再发送请求，直到没有 tool call 为止
-- token：每次请求都有一定量的 input 和 output token，在 Vibe Coding 场景下，实测 input token 是大多数，通常占 input + output 的 99.5%，因为多轮对话下来，input token 会不断累积变多，重复计算。
+- token：每次请求都有一定量的 input 和 output token
 
-一次 prompt 对应多次请求，每次请求都有很多的 input 和 output token。
+一次 prompt 对应多次请求，每次请求都有很多的 input 和 output token。其中部分 input token 会命中缓存。实际测试下来，在 Vibe Coding 场景下，input + output token 当中：
+
+- input token 占比 99.5%，因为多轮对话下来，input token 会不断累积变多，被重复计算
+    - 其中 cached token 占 input + output token 约 90-95%
+- output token 占比 0.5%
 
 ## 常见 API 定价方式
 
