@@ -10,7 +10,7 @@
 - Moderato（99 RMB 每月）：Kimi Code 4 倍额度
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
-- 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额
+- 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额；每月按 30 天算的话，大概是 `30/7*50M=214M` token 的量级
 - 宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K
 - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
     - 输入命中缓存 0.7 RMB 每 1M token
@@ -110,4 +110,4 @@
     - Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍
     - 通过实际测试，猜测在 2026.2.12 之前的用量限制是每 5 小时所有 GLM-4.7 请求的 input + output token 总和不超过 40M token（意味着每次 prompt 对应 40M/120=333K token），这和在 2026.2.12 之前通过 <https://open.bigmodel.cn/api/monitor/usage/quota/limit> 接口返回的结果一致，目前该接口只返回百分比，不再返回 token 数；如果按照新是旧的 2/3 比例的话，那就是每 5 小时 26.67M token，另外新版还有每周的限额（见上）；待切换到新套餐后（不打算切了），再测试新版的用量限制对应多少 token（有读者感兴趣可以测完反馈一下）
 - 2026/02/12：增加 Kimi Allegro 套餐的描述
-- 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时
+- 2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时；由于只有每 5 小时的限额，按每月 30 天算，理论上每月最多可以用到 `30*24/5*40=5760M` token
