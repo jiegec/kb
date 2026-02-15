@@ -10,7 +10,7 @@
 - Moderato（99 RMB 每月）：Kimi Code 4 倍额度
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
-- 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额；每月按 30 天算的话，大概是 `30/7*50M=214M` token 的量级
+- 通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token；每周的限额是 4M uncached input + output token，即不考虑命中缓存的输入 token
 - 宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K
 - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
     - 输入命中缓存 0.7 RMB 每 1M token
@@ -102,8 +102,20 @@
     - Claude 有 Base Input Tokens，5m Cache Writes，1h Cache Writes，Cache Hits & Refreshes 和 Output Tokens 五种价格，如果不使用缓存，那么每次输入都按 Base Input Tokens 收费；如果使用缓存，写入缓存部分的输入按 5m/1h Cache Writes 收费，之后命中缓存部分的输入按 Cache Hits & Refreshes 收费
     - 目前 5m Cache Writes 是 1.25 倍的 Base Input Tokens 价格，1h Cache Writes 是 2 倍的 Base Input Tokens 价格，Cache Hits & Refreshes 是 0.1 倍的 Base Input Tokens 价格
 
+## 模型参数比较
+
+- [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5): 1T parameters (32B active)
+- [GLM-5](https://huggingface.co/zai-org/GLM-5): 744B parameters (40B active) 
+- [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7): 355B parameters (32B active) 
+- [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5): 230B parameters (10B active)
+
 ## 更新历史
 
+- 2026/02/16：最近发现 Kimi Code 的计费方式有一些不同：
+    - 每 5 小时的限额不变还是 10M input + output token，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%，但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算（即每周的限额是 5 倍的每 5 小时的限额），每周的用量大概是 48M input + output token 而非原来的 50M，是个比较奇怪的数字
+    - 这个疑问被 [LLM 推理系统、Code Agent 与电网 - 许欣然](https://zhuanlan.zhihu.com/p/2006506955775169424) 解释了：cached token 不收钱
+    - 如果按照 uncached input + output token 来计算，那么每周的用量就是 4M uncached input + output token；而 5 小时的限制应该还是老的算法
+    - 这样做的目的是，如果把 Kimi Code 用于一些 cache 比例很低的非 Vibe Coding 场景，那么每周的限额会消耗地很快
 - 2026/02/15：MiniMax Coding Plan 添加了 Plus/Max/Ultra 极速版
 - 2026/02/14: GLM Coding Plan 添加了每周的限额，是每 5 小时限额的 4 倍（Kimi 是 5 倍，方舟和阿里是 7.5 倍），同时 GLM-5 对限额的消耗速度是 GLM-4.7 的三倍
     - 不正经评语：看来在智谱，一周只用上四天班，每天工作 5 小时，而在 Moonshot 一周需要上五天班，在字节和阿里要每周上 7.5 天的班，哪个公司加班多一目了然，狗头（但字节和阿里一个月只用上两周，其他两周不上班，这就是“大小周”吗）
