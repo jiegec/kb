@@ -90,5 +90,5 @@ uv run hf download unsloth/GLM-4.7-Flash-GGUF \
 
 ## 常见环境变量
 
-- `HF_HUB_ONLINE=1`
+- `HF_HUB_OFFLINE=1`
 - `CUDA_VISIBLE_DEVICES`
