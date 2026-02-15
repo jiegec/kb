@@ -107,7 +107,9 @@
 - [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5): 1T parameters (32B active)
 - [GLM-5](https://huggingface.co/zai-org/GLM-5): 744B parameters (40B active) 
 - [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7): 355B parameters (32B active) 
+- [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash): 30B parameters (3B active) 
 - [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5): 230B parameters (10B active)
+- [DeepSeek-V3.2](https://huggingface.co/deepseek-ai/DeepSeek-V3.2): 671B parameters (37B active)
 
 ## 更新历史
 
