@@ -25,6 +25,9 @@
 - Starter（29 RMB 每月）: 40 prompts / 每 5 小时
 - Plus（49 RMB 每月）: 100 prompts / 每 5 小时
 - Max（119 RMB 每月）: 300 prompts / 每 5 小时
+- Plus-极速版（98 RMB 每月）：100 prompts / 每 5 小时
+- Max-极速版（199 RMB 每月）：300 prompts / 每 5 小时
+- Ultra-极速版（899 RMB 每月）：2000 prompts / 每 5 小时
 - Q: 为什么“一个 prompt 约等于 15 次模型调用”？A: 在 AI 编程工具中，您的一次操作（例如请求代码补全或解释代码）在工具后台可能会被拆分为多次与 AI 模型的连续交互（例如：获取上下文、生成建议、修正建议等）。为了简化计费，我们将这些后台的连续调用打包为一次“prompt”计数。这意味着您在套餐内的一次“prompt”实际上包含了多次模型的复杂调用。
 - [M2.5 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
     - 输入命中缓存 0.21 RMB 每 1M token
@@ -101,6 +104,7 @@
 
 ## 更新历史
 
+- 2026/02/15：MiniMax Coding Plan 添加了 Plus/Max/Ultra 极速版
 - 2026/02/14: GLM Coding Plan 添加了每周的限额，是每 5 小时限额的 4 倍（Kimi 是 5 倍，方舟和阿里是 7.5 倍），同时 GLM-5 对限额的消耗速度是 GLM-4.7 的三倍
     - 不正经评语：看来在智谱，一周只用上四天班，每天工作 5 小时，而在 Moonshot 一周需要上五天班，在字节和阿里要每周上 7.5 天的班，哪个公司加班多一目了然，狗头（但字节和阿里一个月只用上两周，其他两周不上班，这就是“大小周”吗）
     - 正经评语：新 GLM Coding Plan 的性价比一下从夯降低到 NPC 的水平，那么 Kimi/MiniMax 的性价比就显现出来了，解决办法是继续续订老套餐，坚持 GLM-4.7 不动摇
