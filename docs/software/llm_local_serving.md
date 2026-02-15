@@ -74,7 +74,7 @@ llama.cpp:
 git clone https://github.com/ggml-org/llama.cpp
 cmake llama.cpp -B llama.cpp/build \
     -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
-cmake --build llama.cpp/build --config Release -j --clean-first --target llama-cli llama-mtmd-cli llama-server llama-gguf-split
+cmake --build llama.cpp/build --config Release -j --clean-first --target llama-cli llama-mtmd-cli llama-server llama-gguf-split llama-bench
 cp llama.cpp/build/bin/llama-* llama.cpp
 
 # download gguf from hf
@@ -86,6 +86,8 @@ uv run hf download unsloth/GLM-4.7-Flash-GGUF \
     --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf \
     --jinja --ctx-size 202752 \
     --temp 0.7 --top-p 1.0 --min-p 0.01 --fit on
+./llama.cpp/llama-bench \
+    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf
 ```
 
 ## 常见环境变量
