@@ -112,7 +112,7 @@
 ## 更新历史
 
 - 2026/02/16：最近发现 Kimi Code 的计费方式有一些不同：
-    - 每 5 小时的限额不变还是 10M input + output token，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%，但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算（即每周的限额是 5 倍的每 5 小时的限额），每周的用量大概是 48M input + output token 而非原来的 50M，是个比较奇怪的数字
+    - Andante 套餐每 5 小时的限额不变还是 10M input + output token，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%（之前的推算结果里，每周的限额是 5 倍的每 5 小时的限额），但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算，每周的用量大概是 48M input + output token 而非原来的 50M，是个比较奇怪的数字
     - 这个疑问被 [LLM 推理系统、Code Agent 与电网 - 许欣然](https://zhuanlan.zhihu.com/p/2006506955775169424) 解释了：cached token 不收钱
     - 如果按照 uncached input + output token 来计算，那么每周的用量就是 4M uncached input + output token；而 5 小时的限制应该还是老的算法
     - 这样做的目的是，如果把 Kimi Code 用于一些 cache 比例很低的非 Vibe Coding 场景，那么每周的限额会消耗地很快
