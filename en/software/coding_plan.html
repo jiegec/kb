@@ -3320,6 +3320,17 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
+        模型参数比较
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         更新历史
       
     </span>
@@ -4401,7 +4412,7 @@
 <li>Moderato（99 RMB 每月）：Kimi Code 4 倍额度</li>
 <li>Allegretto（199 RMB 每月）：Kimi Code 20 倍额度</li>
 <li>Allegro（699 RMB 每月）：Kimi Code 60 倍额度</li>
-<li>通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token，每周的限额是每 5 小时的 5 倍，即 50M token，也就是说官方实际是按 token 限额；每月按 30 天算的话，大概是 <code>30/7*50M=214M</code> token 的量级</li>
+<li>通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token；每周的限额是 4M uncached input + output token，即不考虑命中缓存的输入 token</li>
 <li>宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K</li>
 <li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.5 API 价格</a>：<ul>
 <li>输入命中缓存 0.7 RMB 每 1M token</li>
@@ -4508,8 +4519,22 @@
 </ul>
 </li>
 </ul>
-<h2 id="_3">更新历史</h2>
+<h2 id="_3">模型参数比较</h2>
 <ul>
+<li><a href="https://huggingface.co/moonshotai/Kimi-K2.5">Kimi-K2.5</a>: 1T parameters (32B active)</li>
+<li><a href="https://huggingface.co/zai-org/GLM-5">GLM-5</a>: 744B parameters (40B active) </li>
+<li><a href="https://huggingface.co/zai-org/GLM-4.7">GLM-4.7</a>: 355B parameters (32B active) </li>
+<li><a href="https://huggingface.co/MiniMaxAI/MiniMax-M2.5">MiniMax-M2.5</a>: 230B parameters (10B active)</li>
+</ul>
+<h2 id="_4">更新历史</h2>
+<ul>
+<li>2026/02/16：最近发现 Kimi Code 的计费方式有一些不同：<ul>
+<li>每 5 小时的限额不变还是 10M input + output token，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%，但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算（即每周的限额是 5 倍的每 5 小时的限额），每周的用量大概是 48M input + output token 而非原来的 50M，是个比较奇怪的数字</li>
+<li>这个疑问被 <a href="https://zhuanlan.zhihu.com/p/2006506955775169424">LLM 推理系统、Code Agent 与电网 - 许欣然</a> 解释了：cached token 不收钱</li>
+<li>如果按照 uncached input + output token 来计算，那么每周的用量就是 4M uncached input + output token；而 5 小时的限制应该还是老的算法</li>
+<li>这样做的目的是，如果把 Kimi Code 用于一些 cache 比例很低的非 Vibe Coding 场景，那么每周的限额会消耗地很快</li>
+</ul>
+</li>
 <li>2026/02/15：MiniMax Coding Plan 添加了 Plus/Max/Ultra 极速版</li>
 <li>2026/02/14: GLM Coding Plan 添加了每周的限额，是每 5 小时限额的 4 倍（Kimi 是 5 倍，方舟和阿里是 7.5 倍），同时 GLM-5 对限额的消耗速度是 GLM-4.7 的三倍<ul>
 <li>不正经评语：看来在智谱，一周只用上四天班，每天工作 5 小时，而在 Moonshot 一周需要上五天班，在字节和阿里要每周上 7.5 天的班，哪个公司加班多一目了然，狗头（但字节和阿里一个月只用上两周，其他两周不上班，这就是“大小周”吗）</li>
@@ -4550,7 +4575,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月15日 09:47:45 UTC">2026年2月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月15日 23:07:49 UTC">2026年2月15日</span>
   </span>
 
     
