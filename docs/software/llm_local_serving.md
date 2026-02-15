@@ -66,6 +66,28 @@ $ ~/.lmstudio/bin/lms ps
 $ ~/.lmstudio/bin/lms log stream
 ```
 
+llama.cpp:
+
+```shell
+# follow https://unsloth.ai/docs/models/glm-4.7-flash
+# build latest llama.cpp
+git clone https://github.com/ggml-org/llama.cpp
+cmake llama.cpp -B llama.cpp/build \
+    -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
+cmake --build llama.cpp/build --config Release -j --clean-first --target llama-cli llama-mtmd-cli llama-server llama-gguf-split
+cp llama.cpp/build/bin/llama-* llama.cpp
+
+# download gguf from hf
+uv run hf download unsloth/GLM-4.7-Flash-GGUF \
+    --local-dir unsloth/GLM-4.7-Flash-GGUF \
+    --include "*UD-Q2_K_XL*"
+# serve
+./llama.cpp/llama-server \
+    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf \
+    --jinja --ctx-size 202752 \
+    --temp 0.7 --top-p 1.0 --min-p 0.01 --fit on
+```
+
 ## 常见环境变量
 
 - `HF_HUB_ONLINE=1`
