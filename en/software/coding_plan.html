@@ -4450,14 +4450,14 @@
 <h3 id="_1">智谱</h3>
 <p><a href="https://docs.bigmodel.cn/cn/coding-plan/overview">智谱 GLM Coding Plan</a></p>
 <ul>
-<li>Lite 套餐（49 RMB 每月）：每 5 小时最多约 80 次 prompts，每周最多约 320 次 prompts</li>
-<li>Pro 套餐（149 RMB 每月）：每 5 小时最多约 400 次 prompts，每周最多约 1600 次 prompts</li>
-<li>Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 6400 次 prompts</li>
-<li>一次 prompt 指一次提问，每次 prompt 预计可调用模型 15-20 次。每周额度价值约为同等 API 费用的 13-23 倍。</li>
-<li>调用 GLM-5 会 3 倍速率（和其他历史模型相比）消耗套餐额度</li>
+<li>Lite 套餐（49 RMB 每月）：每 5 小时最多约 80 次 prompts，每周最多约 400 次 prompts</li>
+<li>Pro 套餐（149 RMB 每月）：每 5 小时最多约 400 次 prompts，每周最多约 2000 次 prompts</li>
+<li>Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 8000 次 prompts</li>
+<li>一次 prompt 指一次提问，每次 prompt 预计可调用模型 15-20 次。每月可用额度按 API 定价折算，相当于月订阅费用的 15–30 倍（已计入周限额影响）。</li>
 <li>注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。</li>
-<li>注：对于在 2 月 12 日之前订阅的用户，在您当前订阅套餐的有效期内，套餐的用量额度不变，仍按您订阅时页面显示执行。</li>
-<li>注：对于在 2 月 12 日之前开启续订的用户，续费价格及套餐的用量额度不变，仍按您订阅时页面显示执行。</li>
+<li>注：GLM-5 参数量更大，对标 Claude Opus 模型，调用 GLM-5 时用量将按照“高峰期 3 倍，非高峰期 2 倍”进行计算抵扣；我们推荐您在复杂任务上切换至 GLM-5 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。注：高峰期为每日的 14:00～18:00（UTC+8）</li>
+<li>注：2 月 12 日之前订阅及开启自动续费的用户，在订阅有效期内，套餐的用量额度不变，且不受周使用额度限制。</li>
+<li>注：2 月 12 日之前开启续订的用户，续费价格及套餐的用量额度都不变，仍按您订阅时页面显示执行。</li>
 <li>为了管理资源并确保所有用户的公平访问，我们增加了每周使用额度限制。该限额自您下单时开启计时，以 7 天为一个周期额度刷新重置。您可以在 用量统计 中查看您的额度消耗进展。2 月 12 日前订阅及开启自动续费的用户，在订阅有效期内，不受周使用额度限制。</li>
 <li><a href="https://bigmodel.cn/pricing">GLM-5 API 价格</a>：<ul>
 <li>输入命中缓存 1/1.5 RMB 每 1M token</li>
@@ -4530,6 +4530,7 @@
 </ul>
 <h2 id="_4">更新历史</h2>
 <ul>
+<li>2026/02/16：GLM Coding Plan 调高了每周限额，从每 5 小时限额的 4 倍（320/1600/6400 prompts）提高到了 5 倍（400/2000/8000 prompts），同时 GLM-5 对用量的消耗速度从 3 倍改成高峰期 3 倍，非高峰期 2 倍（高峰期为每日的 14:00～18:00（UTC+8））</li>
 <li>2026/02/16：最近发现 Kimi Code 的计费方式有一些不同：<ul>
 <li>Andante 套餐每 5 小时的限额不变还是 10M input + output token，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%（之前的推算结果里，每周的限额是 5 倍的每 5 小时的限额），但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算，每周的用量大概是 48M input + output token 而非原来的 50M，是个比较奇怪的数字</li>
 <li>这个疑问被 <a href="https://zhuanlan.zhihu.com/p/2006506955775169424">LLM 推理系统、Code Agent 与电网 - 许欣然</a> 解释了：cached token 不计入用量</li>
@@ -4577,7 +4578,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月15日 23:42:10 UTC">2026年2月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月16日 06:26:59 UTC">2026年2月16日</span>
   </span>
 
     
