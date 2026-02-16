@@ -103,15 +103,15 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Model Parameters Comparison
 
-| Name                                                               | Parameters | Active |
-|--------------------------------------------------------------------|------------|--------|
-| [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T         | 32B    |
-| [GLM-5](https://huggingface.co/zai-org/GLM-5)                      | 744B       | 40B    |
-| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B       | 32B    |
-| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B        | 3B     |
-| [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5)      | 230B       | 10B    |
-| [DeepSeek-V3.2](https://huggingface.co/deepseek-ai/DeepSeek-V3.2)  | 671B       | 37B    |
-| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B       | 17B    |
+| Name                                                               | Parameters | Active | Vision |
+|--------------------------------------------------------------------|------------|--------|--------|
+| [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T         | 32B    | Y      |
+| [GLM-5](https://huggingface.co/zai-org/GLM-5)                      | 744B       | 40B    | N      |
+| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B       | 32B    | N      |
+| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B        | 3B     | N      |
+| [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5)      | 230B       | 10B    | N      |
+| [DeepSeek-V3.2](https://huggingface.co/deepseek-ai/DeepSeek-V3.2)  | 671B       | 37B    | N      |
+| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B       | 17B    | Y      |
 
 ## Update History
 

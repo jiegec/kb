@@ -103,15 +103,15 @@
 
 ## 模型参数比较
 
-| 模型名称                                                           | 参数量 | 激活量 |
-|--------------------------------------------------------------------|--------|--------|
-| [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T     | 32B    |
-| [GLM-5](https://huggingface.co/zai-org/GLM-5)                      | 744B   | 40B    |
-| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B   | 32B    |
-| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B    | 3B     |
-| [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5)      | 230B   | 10B    |
-| [DeepSeek-V3.2](https://huggingface.co/deepseek-ai/DeepSeek-V3.2)  | 671B   | 37B    |
-| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B   | 17B    |
+| 模型名称                                                           | 参数量 | 激活量 | 视觉 |
+|--------------------------------------------------------------------|--------|--------|------|
+| [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T     | 32B    | 是   |
+| [GLM-5](https://huggingface.co/zai-org/GLM-5)                      | 744B   | 40B    | 否   |
+| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B   | 32B    | 否   |
+| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B    | 3B     | 否   |
+| [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5)      | 230B   | 10B    | 否   |
+| [DeepSeek-V3.2](https://huggingface.co/deepseek-ai/DeepSeek-V3.2)  | 671B   | 37B    | 否   |
+| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B   | 17B    | 是   |
 
 ## 更新历史
 
