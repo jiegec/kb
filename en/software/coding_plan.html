@@ -3268,10 +3268,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#zhipu-glm-zai" class="md-nav__link">
     <span class="md-ellipsis">
       
-        智谱
+        Zhipu (GLM, Z.ai)
       
     </span>
   </a>
@@ -3279,10 +3279,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#others" class="md-nav__link">
     <span class="md-ellipsis">
       
-        其他
+        Others
       
     </span>
   </a>
@@ -3295,10 +3295,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prompt-token" class="md-nav__link">
+  <a href="#prompts-requests-and-tokens" class="md-nav__link">
     <span class="md-ellipsis">
       
-        prompt、请求和 token
+        Prompts, Requests, and Tokens
       
     </span>
   </a>
@@ -3306,10 +3306,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
+  <a href="#common-api-pricing-models" class="md-nav__link">
     <span class="md-ellipsis">
       
-        常见 API 定价方式
+        Common API Pricing Models
       
     </span>
   </a>
@@ -3317,10 +3317,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#model-parameters-comparison" class="md-nav__link">
     <span class="md-ellipsis">
       
-        模型参数比较
+        Model Parameters Comparison
       
     </span>
   </a>
@@ -3328,10 +3328,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#update-history" class="md-nav__link">
     <span class="md-ellipsis">
       
-        更新历史
+        Update History
       
     </span>
   </a>
@@ -4395,7 +4395,7 @@
 
 
   
-    <a href="https://github.com/jiegec/kb/edit/main/docs/software/coding_plan.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/jiegec/kb/edit/main/docs/software/coding_plan.en.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -4406,155 +4406,154 @@
 <h1 id="ai-coding-plan">AI Coding Plan</h1>
 <h2 id="coding-plan">Coding Plan</h2>
 <h3 id="kimi">Kimi</h3>
-<p><a href="https://www.kimi.com/membership/pricing">Kimi 登月计划</a></p>
+<p><a href="https://www.kimi.com/membership/pricing">Kimi Membership</a></p>
 <ul>
-<li>Andante（49 RMB 每月）：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，确保复杂项目不间断。</li>
-<li>Moderato（99 RMB 每月）：Kimi Code 4 倍额度</li>
-<li>Allegretto（199 RMB 每月）：Kimi Code 20 倍额度</li>
-<li>Allegro（699 RMB 每月）：Kimi Code 60 倍额度</li>
-<li>通过实际测试，认为 Andante 是所有请求的 input + output token 总和每 5 小时不超过 10M token；每周的限额是 4M uncached input + output token，即不考虑命中缓存的输入 token</li>
-<li>宣传的是请求而非 token 数，根据 10M token 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output token 数量在 8K-33K 之间，本地用一段时间实测来看是 31K</li>
-<li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.5 API 价格</a>：<ul>
-<li>输入命中缓存 0.7 RMB 每 1M token</li>
-<li>输入未命中缓存 4 RMB 每 1M token</li>
-<li>输出 21 RMB 每 1M token</li>
-<li>256K 上下文</li>
+<li>Andante (49 RMB/month): A 5-hour token quota supports approximately 300–1,200 API calls, with a maximum concurrency of 30, ensuring uninterrupted operation for complex workloads</li>
+<li>Moderato (99 RMB/month): 4x Kimi Code quota</li>
+<li>Allegretto (199 RMB/month): 20x Kimi Code quota</li>
+<li>Allegro (699 RMB/month): 60x Kimi Code quota</li>
+<li>Based on actual testing, Andante appears to limit input + output tokens to 10M per 5 hours; the weekly limit is 4M uncached input + output tokens (i.e. not counting cached input tokens)</li>
+<li>The marketing focuses on requests rather than token counts. Based on 10M tokens corresponding to 300-1200 requests, the estimated average input + output tokens per API request is between 8K-33K; local testing shows approximately 31K</li>
+<li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.5 API Pricing</a>:<ul>
+<li>Cached input: 0.7 RMB per 1M tokens</li>
+<li>Uncached input: 4 RMB per 1M tokens</li>
+<li>Output: 21 RMB per 1M tokens</li>
+<li>256K context</li>
 </ul>
 </li>
 </ul>
 <h3 id="minimax">MiniMax</h3>
 <p><a href="https://platform.minimaxi.com/docs/coding-plan/intro">MiniMax Coding Plan</a></p>
 <ul>
-<li>Starter（29 RMB 每月）: 40 prompts / 每 5 小时</li>
-<li>Plus（49 RMB 每月）: 100 prompts / 每 5 小时</li>
-<li>Max（119 RMB 每月）: 300 prompts / 每 5 小时</li>
-<li>Plus-极速版（98 RMB 每月）：100 prompts / 每 5 小时</li>
-<li>Max-极速版（199 RMB 每月）：300 prompts / 每 5 小时</li>
-<li>Ultra-极速版（899 RMB 每月）：2000 prompts / 每 5 小时</li>
-<li>Q: 为什么“一个 prompt 约等于 15 次模型调用”？A: 在 AI 编程工具中，您的一次操作（例如请求代码补全或解释代码）在工具后台可能会被拆分为多次与 AI 模型的连续交互（例如：获取上下文、生成建议、修正建议等）。为了简化计费，我们将这些后台的连续调用打包为一次“prompt”计数。这意味着您在套餐内的一次“prompt”实际上包含了多次模型的复杂调用。</li>
-<li><a href="https://platform.minimaxi.com/docs/guides/pricing-paygo">M2.5 API 价格</a>：<ul>
-<li>输入命中缓存 0.21 RMB 每 1M token</li>
-<li>输入未命中缓存 2.1 RMB 每 1M token</li>
-<li>输入写入缓存 2.625 RMB 每 1M token</li>
-<li>输出 8.4 RMB 每 1M token</li>
-<li>200K 上下文</li>
+<li>Starter (29 RMB/month): 40 prompts / per 5 hours</li>
+<li>Plus (49 RMB/month): 100 prompts / per 5 hours</li>
+<li>Max (119 RMB/month): 300 prompts / per 5 hours</li>
+<li>Plus-High-Speed (98 RMB/month): 100 prompts / per 5 hours</li>
+<li>Max-High-Speed (199 RMB/month): 300 prompts / per 5 hours</li>
+<li>Ultra-High-Speed (899 RMB/month): 2000 prompts / per 5 hours</li>
+<li>Q: Why is “1 prompt ≈ 15 model calls”? A: In an AI coding tool, a single action you take (like requesting code completion or an explanation) may be broken down by the tool into multiple, consecutive interactions with the AI model behind the scenes (e.g., fetching context, generating suggestions, refining suggestions, etc.). To simplify billing, we bundle these backend calls into a single “prompt” count. This means that 1 “prompt” within your plan actually covers multiple complex model invocations.</li>
+<li><a href="https://platform.minimaxi.com/docs/guides/pricing-paygo">M2.5 API Pricing</a>:<ul>
+<li>Cached input: 0.21 RMB per 1M tokens</li>
+<li>Uncached input: 2.1 RMB per 1M tokens</li>
+<li>Cache write input: 2.625 RMB per 1M tokens</li>
+<li>Output: 8.4 RMB per 1M tokens</li>
+<li>200K context</li>
 </ul>
 </li>
 </ul>
-<p><a href="https://platform.minimax.io/docs/coding-plan/intro">MiniMax 国际版 Coding Plan</a></p>
+<p><a href="https://platform.minimax.io/docs/coding-plan/intro">MiniMax International Coding Plan</a></p>
 <ul>
-<li>Starter（10 USD 每月）: 100 prompts / 每 5 小时</li>
-<li>Plus（20 USD 每月）: 300 prompts / 每 5 小时</li>
-<li>Max（50 USD 每月）: 1000 prompts / 每 5 小时</li>
+<li>Starter (10 USD/month): 100 prompts / per 5 hours</li>
+<li>Plus (20 USD/month): 300 prompts / per 5 hours</li>
+<li>Max (50 USD/month): 1000 prompts / per 5 hours</li>
 </ul>
-<h3 id="_1">智谱</h3>
-<p><a href="https://docs.bigmodel.cn/cn/coding-plan/overview">智谱 GLM Coding Plan</a></p>
+<h3 id="zhipu-glm-zai">Zhipu (GLM, Z.ai)</h3>
+<p><a href="https://docs.bigmodel.cn/en/coding-plan/overview">Zhipu GLM Coding Plan</a></p>
 <ul>
-<li>Lite 套餐（49 RMB 每月）：每 5 小时最多约 80 次 prompts，每周最多约 400 次 prompts</li>
-<li>Pro 套餐（149 RMB 每月）：每 5 小时最多约 400 次 prompts，每周最多约 2000 次 prompts</li>
-<li>Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 8000 次 prompts</li>
-<li>一次 prompt 指一次提问，每次 prompt 预计可调用模型 15-20 次。每月可用额度按 API 定价折算，相当于月订阅费用的 15–30 倍（已计入周限额影响）。</li>
-<li>注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。</li>
-<li>注：GLM-5 参数量更大，对标 Claude Opus 模型，调用 GLM-5 时用量将按照“高峰期 3 倍，非高峰期 2 倍”进行计算抵扣；我们推荐您在复杂任务上切换至 GLM-5 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。注：高峰期为每日的 14:00～18:00（UTC+8）</li>
-<li>注：2 月 12 日之前订阅及开启自动续费的用户，在订阅有效期内，套餐的用量额度不变，且不受周使用额度限制。</li>
-<li>注：2 月 12 日之前开启续订的用户，续费价格及套餐的用量额度都不变，仍按您订阅时页面显示执行。</li>
-<li>为了管理资源并确保所有用户的公平访问，我们增加了每周使用额度限制。该限额自您下单时开启计时，以 7 天为一个周期额度刷新重置。您可以在 用量统计 中查看您的额度消耗进展。2 月 12 日前订阅及开启自动续费的用户，在订阅有效期内，不受周使用额度限制。</li>
-<li><a href="https://bigmodel.cn/pricing">GLM-5 API 价格</a>：<ul>
-<li>输入命中缓存 1/1.5 RMB 每 1M token</li>
-<li>输入未命中缓存 4/6 RMB 每 1M token</li>
-<li>输出 18/22 RMB 每 1M token</li>
-<li>200K 上下文</li>
+<li>Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week</li>
+<li>Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2000 prompts per week</li>
+<li>Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week</li>
+<li>One prompt refers to one query. Each prompt is estimated to invoke the model 15–20 times. The monthly available quota is converted based on API pricing, equivalent to approximately 15–30× the monthly subscription fee (weekly caps already factored in).</li>
+<li>Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.</li>
+<li>Note: GLM-5 has a larger parameter size and is benchmarked against the Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. Peak hours are 14:00–18:00 (UTC+8).</li>
+<li>Note: For users who subscribed and enabled auto-renewal before February 12 (UTC+8), the original quota will remain in effect throughout the subscription validity period, and no weekly usage limits will apply.</li>
+<li>Note: For users who enabled auto-renewal before February 12, both the renewal price and the usage quota will remain unchanged and will continue to follow the limits shown at the time of your original subscription.</li>
+<li><a href="https://bigmodel.cn/pricing">GLM-5 API Pricing</a>:<ul>
+<li>Cached input: 1/1.5 RMB per 1M tokens</li>
+<li>Uncached input: 4/6 RMB per 1M tokens</li>
+<li>Output: 18/22 RMB per 1M tokens</li>
+<li>200K context</li>
 </ul>
 </li>
-<li><a href="https://bigmodel.cn/pricing">GLM-4.7 API 价格</a>：<ul>
-<li>输入命中缓存 0.4/0.6/0.8 RMB 每 1M token</li>
-<li>输入未命中缓存 2/3/4 RMB 每 1M token</li>
-<li>输出 8/14/16 RMB 每 1M token</li>
-<li>200K 上下文</li>
+<li><a href="https://bigmodel.cn/pricing">GLM-4.7 API Pricing</a>:<ul>
+<li>Cached input: 0.4/0.6/0.8 RMB per 1M tokens</li>
+<li>Uncached input: 2/3/4 RMB per 1M tokens</li>
+<li>Output: 8/14/16 RMB per 1M tokens</li>
+<li>200K context</li>
 </ul>
 </li>
 </ul>
-<p><a href="https://z.ai/subscribe">智谱国际版 GLM Coding Plan</a></p>
-<h3 id="_2">其他</h3>
+<p><a href="https://z.ai/subscribe">Zhipu International GLM Coding Plan</a></p>
+<h3 id="others">Others</h3>
 <ul>
-<li><a href="https://www.volcengine.com/activity/codingplan">方舟 Coding Plan</a><ul>
-<li>Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。</li>
-<li>Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量</li>
+<li><a href="https://www.volcengine.com/activity/codingplan">Volcano Engine Coding Plan</a><ul>
+<li>Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.</li>
+<li>Pro Plan (200 RMB/month): 5x the Lite Plan quota</li>
 </ul>
 </li>
-<li><a href="https://help.aliyun.com/zh/model-studio/coding-plan">阿里云百炼 Coding Plan</a><ul>
-<li>Lite（40 RMB 每月）: 固定月费，每月 18000 次请求，每周 9000 次，每 5 小时 1200 次</li>
-<li>Pro（200 RMB 每月）: 固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次</li>
-<li>一次用户提问可能触发多次模型调用，每次模型调用均计入一次额度消耗。典型场景下的额度消耗如下：</li>
-<li>简单问答或代码生成：通常触发 5-10 次模型调用</li>
-<li>代码重构或复杂任务：可能触发 10-30 次或更多模型调用</li>
-<li>实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。</li>
+<li><a href="https://help.aliyun.com/zh/model-studio/coding-plan">Alibaba Bailian Coding Plan</a><ul>
+<li>Lite (40 RMB/month): Fixed monthly fee, 18,000 requests per month, 9,000 per week, 1,200 per 5 hours</li>
+<li>Pro (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours</li>
+<li>One user question may trigger multiple model calls; each model call counts as one quota consumption. Typical quota consumption scenarios:</li>
+<li>Simple Q&amp;A or code generation: usually triggers 5-10 model calls</li>
+<li>Code refactoring or complex tasks: may trigger 10-30 or more model calls</li>
+<li>Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.</li>
 </ul>
 </li>
 </ul>
-<h2 id="prompt-token">prompt、请求和 token</h2>
+<h2 id="prompts-requests-and-tokens">Prompts, Requests, and Tokens</h2>
 <ul>
-<li>prompt：用户输入提示词到 CLI，按回车发出去，从请求来看，就是最后一个消息是来自用户的，而非 tool call result</li>
-<li>请求：除了 prompt 本身会有一次请求以外，每轮 tool call 结束后，会把 tool call 结果带上上下文再发送请求，直到没有 tool call 为止</li>
-<li>token：每次请求都有一定量的 input 和 output token</li>
+<li>Prompt: User inputs a prompt into the CLI and presses Enter to send it. From the request perspective, it's when the last message is from the user, not from a tool call result.</li>
+<li>Request: In addition to the prompt itself generating one request, after each round of tool calls, the tool call results are sent along with the context until there are no more tool calls.</li>
+<li>Token: Each request has a certain amount of input and output tokens.</li>
 </ul>
-<p>一次 prompt 对应多次请求，每次请求都有很多的 input 和 output token。其中部分 input token 会命中缓存。实际测试下来，在 Vibe Coding 场景下，input + output token 当中：</p>
+<p>One prompt corresponds to multiple requests, and each request has many input and output tokens. Some input tokens will hit the cache. In actual testing in Vibe Coding scenarios, among input + output tokens:</p>
 <ul>
-<li>input token 占比 99.5%，因为多轮对话下来，input token 会不断累积变多，被重复计算<ul>
-<li>其中 cached token 占 input + output token 约 90-95%</li>
+<li>Input tokens account for 99.5%, because with multi-turn conversations, input tokens accumulate and are repeatedly counted<ul>
+<li>Among which cached tokens account for approximately 90-95% of input + output tokens</li>
 </ul>
 </li>
-<li>output token 占比 0.5%</li>
+<li>Output tokens account for 0.5%</li>
 </ul>
-<h2 id="api">常见 API 定价方式</h2>
+<h2 id="common-api-pricing-models">Common API Pricing Models</h2>
 <ul>
-<li>OpenAI 模式：自动缓存，有输入未命中缓存价格、输入命中缓存价格和输出价格<ul>
-<li>OpenAI 有 Input，Cached Input 和 Output 三种价格，如果访问没有命中缓存，不命中的部分按 Input 收费，OpenAI 可能会进行缓存；如果访问命中缓存，命中的部分按 Cached Input 收费</li>
-<li>通常 Cached Input 是 0.1 倍的 Input 价格，也有 0.1-0.2 倍之间的</li>
+<li>OpenAI Model: Automatic caching, with uncached input price, cached input price, and output price<ul>
+<li>OpenAI has three prices: Input, Cached Input, and Output. If the access doesn't hit the cache, the uncached portion is charged at the Input rate; OpenAI may perform caching; if the access hits the cache, the cached portion is charged at the Cached Input rate.</li>
+<li>Typically Cached Input is 0.1x the Input price, sometimes between 0.1-0.2x.</li>
 </ul>
 </li>
-<li>Anthropic 模式：手动缓存，有输入未命中缓存价格、输入命中缓存价格、带缓存写入的输入价格（不同的 TTL 可能对应不同的价格）和输出价格<ul>
-<li>Claude 有 Base Input Tokens，5m Cache Writes，1h Cache Writes，Cache Hits &amp; Refreshes 和 Output Tokens 五种价格，如果不使用缓存，那么每次输入都按 Base Input Tokens 收费；如果使用缓存，写入缓存部分的输入按 5m/1h Cache Writes 收费，之后命中缓存部分的输入按 Cache Hits &amp; Refreshes 收费</li>
-<li>目前 5m Cache Writes 是 1.25 倍的 Base Input Tokens 价格，1h Cache Writes 是 2 倍的 Base Input Tokens 价格，Cache Hits &amp; Refreshes 是 0.1 倍的 Base Input Tokens 价格</li>
+<li>Anthropic Model: Manual caching, with uncached input price, cached input price, input price with cache write (different TTLs may correspond to different prices), and output price<ul>
+<li>Claude has five prices: Base Input Tokens, 5m Cache Writes, 1h Cache Writes, Cache Hits &amp; Refreshes, and Output Tokens. If caching is not used, each input is charged at the Base Input Tokens rate; if caching is used, the portion written to cache is charged at the 5m/1h Cache Writes rate, and subsequent cache hits are charged at the Cache Hits &amp; Refreshes rate.</li>
+<li>Currently 5m Cache Writes are 1.25x the Base Input Tokens price, 1h Cache Writes are 2x the Base Input Tokens price, and Cache Hits &amp; Refreshes are 0.1x the Base Input Tokens price.</li>
 </ul>
 </li>
 </ul>
-<h2 id="_3">模型参数比较</h2>
+<h2 id="model-parameters-comparison">Model Parameters Comparison</h2>
 <ul>
 <li><a href="https://huggingface.co/moonshotai/Kimi-K2.5">Kimi-K2.5</a>: 1T parameters (32B active)</li>
-<li><a href="https://huggingface.co/zai-org/GLM-5">GLM-5</a>: 744B parameters (40B active) </li>
-<li><a href="https://huggingface.co/zai-org/GLM-4.7">GLM-4.7</a>: 355B parameters (32B active) </li>
-<li><a href="https://huggingface.co/zai-org/GLM-4.7-Flash">GLM-4.7-Flash</a>: 30B parameters (3B active) </li>
+<li><a href="https://huggingface.co/zai-org/GLM-5">GLM-5</a>: 744B parameters (40B active)</li>
+<li><a href="https://huggingface.co/zai-org/GLM-4.7">GLM-4.7</a>: 355B parameters (32B active)</li>
+<li><a href="https://huggingface.co/zai-org/GLM-4.7-Flash">GLM-4.7-Flash</a>: 30B parameters (3B active)</li>
 <li><a href="https://huggingface.co/MiniMaxAI/MiniMax-M2.5">MiniMax-M2.5</a>: 230B parameters (10B active)</li>
 <li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V3.2">DeepSeek-V3.2</a>: 671B parameters (37B active)</li>
 </ul>
-<h2 id="_4">更新历史</h2>
+<h2 id="update-history">Update History</h2>
 <ul>
-<li>2026/02/16：GLM Coding Plan 调高了每周限额，从每 5 小时限额的 4 倍（320/1600/6400 prompts）提高到了 5 倍（400/2000/8000 prompts），同时 GLM-5 对用量的消耗速度从 3 倍改成高峰期 3 倍，非高峰期 2 倍（高峰期为每日的 14:00～18:00（UTC+8））</li>
-<li>2026/02/16：最近发现 Kimi Code 的计费方式有一些不同：<ul>
-<li>Andante 套餐每 5 小时的限额不变还是 10M input + output token，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%（之前的推算结果里，每周的限额是 5 倍的每 5 小时的限额），但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算，每周的用量大概是 48M input + output token 而非原来的 50M，是个比较奇怪的数字</li>
-<li>这个疑问被 <a href="https://zhuanlan.zhihu.com/p/2006506955775169424">LLM 推理系统、Code Agent 与电网 - 许欣然</a> 解释了：cached token 不计入用量</li>
-<li>如果按照 uncached input + output token 来推算，那么每周的用量就是 4M uncached input + output token；而 5 小时的限制应该还是老的算法，10M input + output token</li>
-<li>这样做的目的是，如果把 Kimi Code 用于一些 cache 比例很低的非 Vibe Coding 场景，那么每周的限额会消耗地很快</li>
+<li>2026/02/16: GLM Coding Plan increased weekly limits from 4x the per-5-hour limit (320/1600/6400 prompts) to 5x (400/2000/8000 prompts). Meanwhile, GLM-5 consumption rate changed from 3x to 3x during peak hours and 2x during off-peak hours (peak hours: 14:00-18:00 UTC+8 daily).</li>
+<li>2026/02/16: Recently discovered some changes in Kimi Code billing:<ul>
+<li>The Andante plan's per-5-hour limit remains unchanged at 10M input + output tokens, but the weekly limit observed when opening a new Code Session depletes faster, clearly not being 20% of the per-5-hour usage (previous calculation showed weekly limit was 5x the per-5-hour limit). However, with continued use, the ratio stays around 20%. Calculated using the previous method, weekly usage is approximately 48M input + output tokens rather than the original 50M—a rather odd number.</li>
+<li>This question was explained by <a href="https://zhuanlan.zhihu.com/p/2006506955775169424">LLM Inference Systems, Code Agents, and Power Grids - Xu Xinran</a>: cached tokens are not counted in usage.</li>
+<li>If calculated by uncached input + output tokens, then weekly usage is 4M uncached input + output tokens; the 5-hour limit should still use the old calculation of 10M input + output tokens.</li>
+<li>The purpose is that if Kimi Code is used for non-Vibe Coding scenarios with low cache hit rates, the weekly limit will be consumed quickly.</li>
 </ul>
 </li>
-<li>2026/02/15：MiniMax Coding Plan 添加了 Plus/Max/Ultra 极速版</li>
-<li>2026/02/14: GLM Coding Plan 添加了每周的限额，是每 5 小时限额的 4 倍（Kimi 是 5 倍，方舟和阿里是 7.5 倍），同时 GLM-5 对限额的消耗速度是 GLM-4.7 的三倍<ul>
-<li>不正经评语：看来在智谱，一周只用上四天班，每天工作 5 小时，而在 Moonshot 一周需要上五天班，在字节和阿里要每周上 7.5 天的班，哪个公司加班多一目了然，狗头（但字节和阿里一个月只用上两周，其他两周不上班，这就是“大小周”吗）</li>
-<li>正经评语：新 GLM Coding Plan 的性价比一下从夯降低到 NPC 的水平，那么 Kimi/MiniMax 的性价比就显现出来了，解决办法是继续续订老套餐，坚持 GLM-4.7 不动摇</li>
-<li>如果按照新套餐是原来的 2/3 限额折算，按 GLM-4.7 计算，那么 Lite 套餐每月（按 30 天算）可以用 <code>40M*2/3*4*30/7=457M</code> token；按 GLM-5 计算，则是 <code>40M*2/3*4*30/7/3=152M</code> token</li>
+<li>2026/02/15: MiniMax Coding Plan added Plus/Max/Ultra High Speed versions</li>
+<li>2026/02/14: GLM Coding Plan added weekly limits at 4x the per-5-hour limit (Kimi is 5x, Volcano and Alibaba are 7.5x). Meanwhile, GLM-5 consumes quota at 3x the rate of GLM-4.7.<ul>
+<li>Unserious comment: Looks like at Zhipu, you only work 4 days a week, 5 hours a day, while at Moonshot you work 5 days a week, and at ByteDance and Alibaba you work 7.5 days a week. Which company has more overtime is clear at a glance, lol. (But ByteDance and Alibaba only work for two weeks a month; the other two weeks are off, this is the "big week small weeks" system?)</li>
+<li>Serious comment: The new GLM Coding Plan's cost-effectiveness dropped from “夯”(S-level) to “NPC”(C-level), making Kimi/MiniMax's value stand out. The solution is to continue renewing the old plan and stick with GLM-4.7.</li>
+<li>If calculated using the new plan at 2/3 of the old quota limit, using GLM-4.7, the Lite plan can use <code>40M*2/3*4*30/7=457M</code> tokens per month (30 days); using GLM-5, it would be <code>40M*2/3*4*30/7/3=152M</code> tokens.</li>
 </ul>
 </li>
-<li>2026/02/12：GLM Coding Plan 价格从 40/200/400 RMB 每月改成 49/149/469 RMB 每月；与此同时，用量额度减少了，变成了原来的 2/3：<ul>
-<li>Lite 套餐：每 5 小时最多约 80（原来是 120）次 prompts，相当于 Claude Pro 套餐用量的 3 倍</li>
-<li>Pro 套餐：每 5 小时最多约 400（原来是 600）次 prompts，相当于 Lite 套餐用量的 5 倍</li>
-<li>Max 套餐：每 5 小时最多约 1600（原来是 2400）次 prompts，相当于 Pro 套餐用量的 4 倍</li>
-<li>如果按照新是旧的 2/3 比例的话，那 Lite 套餐限额就是每 5 小时 <code>40/3*2=27M</code> token，另外新版还有每周的限额（2026/02/14 发布了具体规则见上）；待切换到新套餐后（不打算切了），再测试新版的用量限制对应多少 token（有读者感兴趣可以测完反馈一下）</li>
+<li>2026/02/12: GLM Coding Plan prices changed from 40/200/400 RMB/month to 49/149/469 RMB/month; meanwhile, usage quotas were reduced to 2/3 of the original:<ul>
+<li>Lite Plan: Maximum ~80 prompts per 5 hours (was 120), equivalent to 3x Claude Pro plan usage</li>
+<li>Pro Plan: Maximum ~400 prompts per 5 hours (was 600), equivalent to 5x Lite plan usage</li>
+<li>Max Plan: Maximum ~1600 prompts per 5 hours (was 2400), equivalent to 4x Pro plan usage</li>
+<li>If using the 2/3 ratio, the Lite plan limit would be <code>40/3*2=27M</code> tokens per 5 hours. The new version also has weekly limits (specific rules published on 2026/02/14, see above). After switching to the new plan (I am not planning to), need to test what the new usage limits correspond to in tokens (interested readers can test and provide feedback).</li>
 </ul>
 </li>
-<li>2026/02/12：增加 Kimi Allegro 套餐的描述</li>
-<li>2026/02/12：随着 GLM-5 的发布，GLM Coding Plan 的 quota/limit 接口不再返回具体的 token 数，应该是为了之后 GLM-5 与 GLM-4.7 以不同的速度消耗用量做准备（根据 API 价格猜测会有个 2 倍的系数？等待后续的测试），但目前测下来 GLM-4.7 的用量限制不变，Lite 套餐依然是输入加输出 40M token 每 5 小时；由于只有每 5 小时的限额，按每月 30 天算，理论上每月最多可以用到 <code>30*24/5*40=5760M</code> token</li>
-<li>2026/01/30：通过实际测试，猜测 GLM Coding Plan 的 Lite 套餐用量限制是每 5 小时所有请求的 input + output token 总和不超过 40M token（意味着每次 prompt 对应 40M/120=333K token），这和 <a href="https://open.bigmodel.cn/api/monitor/usage/quota/limit">https://open.bigmodel.cn/api/monitor/usage/quota/limit</a> 接口返回的结果一致（2026/02/12 后该接口只返回百分比，不返回 token 数）</li>
+<li>2026/02/12: Added description for Kimi Allegro plan</li>
+<li>2026/02/12: With the release of GLM-5, GLM Coding Plan's quota/limit API no longer returns specific token counts—presumably preparing for GLM-5 and GLM-4.7 to consume usage at different rates (based on API pricing, guessing there might be a 2x coefficient? Awaiting further testing). However, current testing shows GLM-4.7 usage limits remain unchanged; Lite plan is still 40M input + output tokens per 5 hours. Since there's only a per-5-hour limit, calculated at 30 days per month, theoretically maximum monthly usage could be <code>30*24/5*40=5760M</code> tokens.</li>
+<li>2026/01/30: Through actual testing, speculated that GLM Coding Plan's Lite plan usage limit is that the sum of all requests' input + output tokens does not exceed 40M per 5 hours (meaning each prompt corresponds to 40M/120=333K tokens), which is consistent with the results returned by the <code>https://open.bigmodel.cn/api/monitor/usage/quota/limit</code> API (after 2026/02/12, this API only returns percentages, not token counts).</li>
 </ul>
 
 
@@ -4578,7 +4577,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年2月16日 06:26:59 UTC">2026年2月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 16, 2026 06:58:49 UTC">February 16, 2026</span>
   </span>
 
     
@@ -4588,7 +4587,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月20日 14:44:34 UTC">2026年1月20日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 16, 2026 06:58:49 UTC">February 16, 2026</span>
   </span>
 
     
