@@ -79,6 +79,14 @@
     - Simple Q&A or code generation: usually triggers 5-10 model calls
     - Code refactoring or complex tasks: may trigger 10-30 or more model calls
     - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
+    - [Qwen3.5-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
+        - Input: 0.8/2/4 RMB per 1M tokens
+        - Output: 4.8/12/24 RMB per 1M tokens
+        - 1M context
+    - [Qwen3-Max API Pricing](https://help.aliyun.com/zh/model-studio/models)：
+        - Input: 2.5/4/7 RMB per 1M tokens
+        - Output: 10/16/28 RMB per 1M tokens
+        - 256K context
 
 ## Prompts, Requests, and Tokens
 

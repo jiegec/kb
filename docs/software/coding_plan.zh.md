@@ -79,6 +79,14 @@
     - 简单问答或代码生成：通常触发 5-10 次模型调用
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
+    - [Qwen3.5-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
+        - 输入 0.8/2/4 RMB 每 1M tokens
+        - 输出 4.8/12/24 RMB 每 1M tokens
+        - 1M 上下文
+    - [Qwen3-Max API 价格](https://help.aliyun.com/zh/model-studio/models)：
+        - 输入 2.5/4/7 RMB 每 1M tokens
+        - 输出 10/16/28 RMB 每 1M tokens
+        - 256K 上下文
 
 ## prompt、请求和 token
 
