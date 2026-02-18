@@ -10,8 +10,7 @@
 - Moderato (99 RMB/month): 4x Kimi Code quota
 - Allegretto (199 RMB/month): 20x Kimi Code quota
 - Allegro (699 RMB/month): 60x Kimi Code quota
-- Based on actual testing, Andante appears to limit input + output tokens to 10M per 5 hours; the weekly limit is 4M uncached input + output tokens (i.e. not counting cached input tokens)
-- The marketing focuses on requests rather than token counts. Based on 10M tokens corresponding to 300-1200 requests, the estimated average input + output tokens per API request is between 8K-33K; local testing shows approximately 31K
+- Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week
 - [K2.5 API Pricing](https://platform.moonshot.cn/docs/pricing/chat):
     - Cached input: 0.7 RMB per 1M tokens
     - Uncached input: 4 RMB per 1M tokens
@@ -123,6 +122,10 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/02/18: Kimi Code billing has changed:
+    - Previously, the weekly limit was changed from 50M input + output tokens to 4M uncached input + output tokens, while the per-5-hour limit remained 10M input + output tokens
+    - Now the per-5-hour limit has been changed to 1M uncached input + output tokens
+    - Therefore, there is now a 4x relationship between the per-5-hour limit and the weekly limit
 - 2026/02/16: GLM Coding Plan increased weekly limits from 4x the per-5-hour limit (320/1600/6400 prompts) to 5x (400/2000/8000 prompts). Meanwhile, GLM-5 consumption rate changed from 3x to 3x during peak hours and 2x during off-peak hours (peak hours: 14:00-18:00 UTC+8 daily).
 - 2026/02/16: Recently discovered some changes in Kimi Code billing:
     - The Andante plan's per-5-hour limit remains unchanged at 10M input + output tokens, but the weekly limit observed when opening a new Code Session depletes faster, clearly not being 20% of the per-5-hour usage (previous calculation showed weekly limit was 5x the per-5-hour limit). However, with continued use, the ratio stays around 20%. Calculated using the previous method, weekly usage is approximately 48M input + output tokens rather than the original 50M—a rather odd number.

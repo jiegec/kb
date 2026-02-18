@@ -10,8 +10,7 @@
 - Moderato（99 RMB 每月）：Kimi Code 4 倍额度
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
-- 通过实际测试，认为 Andante 是所有请求的 input + output tokens 总和每 5 小时不超过 10M tokens；每周的限额是 4M uncached input + output tokens，即不考虑命中缓存的输入 tokens
-- 宣传的是请求而非 tokens 数，根据 10M tokens 对应 300-1200 的请求次数，估计每次 API 请求的平均 input + output tokens 数量在 8K-33K 之间，本地用一段时间实测来看是 31K
+- 通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens
 - [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
     - 输入命中缓存 0.7 RMB 每 1M tokens
     - 输入未命中缓存 4 RMB 每 1M tokens
@@ -123,6 +122,10 @@
 
 ## 更新历史
 
+- 2026/02/18：Kimi Code 的计费方式出现了新变化：
+    - 此前是每周的限额从 50M input + output tokens 改成了 4M uncached input + output tokens，而每 5 小时的限额依然是 10M input + output tokens
+    - 现在每 5 小时的限额改成了 1M uncached input + output tokens
+    - 因此现在每 5 小时的限额与每周的限额有一个 4 倍的关系
 - 2026/02/16：GLM Coding Plan 调高了每周限额，从每 5 小时限额的 4 倍（320/1600/6400 prompts）提高到了 5 倍（400/2000/8000 prompts），同时 GLM-5 对用量的消耗速度从 3 倍改成高峰期 3 倍，非高峰期 2 倍（高峰期为每日的 14:00～18:00（UTC+8））
 - 2026/02/16：最近发现 Kimi Code 的计费方式有一些变化：
     - Andante 套餐每 5 小时的限额不变还是 10M input + output tokens，但每周的限额，表现为开一个新的 Code Session 时用的比较快，明显不是每 5 小时用量的 20%（之前的推算结果里，每周的限额是 5 倍的每 5 小时的限额），但慢慢用下来，比例还是在 20% 附近，按照之前的方法推算，每周的用量大概是 48M input + output tokens 而非原来的 50M，是个比较奇怪的数字
