@@ -126,6 +126,17 @@ One prompt corresponds to multiple requests, and each request has many input and
     - Previously, the weekly limit was changed from 50M input + output tokens to 4M uncached input + output tokens, while the per-5-hour limit remained 10M input + output tokens
     - Now the per-5-hour limit has been changed to 1M uncached input + output tokens
     - Therefore, there is now a 4x relationship between the per-5-hour limit and the weekly limit
+    - Assuming 99.5% input (95% cached, 5% uncached) + 0.5% output ratio, old vs new limit comparison:
+        - Old weekly limit 50M input + output tokens: `50M*0.5%=250K` output tokens
+        - New weekly limit 4M uncached input + output tokens: `4M*0.5%/(0.5%+99.5%*5%)=365K` output tokens
+        - Old per-5-hour limit 10M input + output tokens: `10M*0.5%=50K` output tokens
+        - New per-5-hour limit 1M uncached input + output tokens: `1M*0.5%/(0.5%+99.5%*5%)=91K` output tokens
+    - Assuming 99.5% input (90% cached, 10% uncached) + 0.5% output ratio, old vs new limit comparison:
+        - Old weekly limit 50M input + output tokens: `50M*0.5%=250K` output tokens
+        - New weekly limit 4M uncached input + output tokens: `4M*0.5%/(0.5%+99.5%*10%)=191K` output tokens
+        - Old per-5-hour limit 10M input + output tokens: `10M*0.5%=50K` output tokens
+        - New per-5-hour limit 1M uncached input + output tokens: `1M*0.5%/(0.5%+99.5%*10%)=48K` output tokens
+    - As can be seen, whether the new or old limit is more restrictive depends on the cache hit rate
 - 2026/02/16: GLM Coding Plan increased weekly limits from 4x the per-5-hour limit (320/1600/6400 prompts) to 5x (400/2000/8000 prompts). Meanwhile, GLM-5 consumption rate changed from 3x to 3x during peak hours and 2x during off-peak hours (peak hours: 14:00-18:00 UTC+8 daily).
 - 2026/02/16: Recently discovered some changes in Kimi Code billing:
     - The Andante plan's per-5-hour limit remains unchanged at 10M input + output tokens, but the weekly limit observed when opening a new Code Session depletes faster, clearly not being 20% of the per-5-hour usage (previous calculation showed weekly limit was 5x the per-5-hour limit). However, with continued use, the ratio stays around 20%. Calculated using the previous method, weekly usage is approximately 48M input + output tokens rather than the original 50M—a rather odd number.
