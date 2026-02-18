@@ -146,6 +146,7 @@
     - 这个疑问被 [LLM 推理系统、Code Agent 与电网 - 许欣然](https://zhuanlan.zhihu.com/p/2006506955775169424) 解释了：cached tokens 不计入用量
     - 如果按照 uncached input + output tokens 来推算，那么每周的用量就是 4M uncached input + output tokens；而 5 小时的限制应该还是老的算法，10M input + output tokens
     - 这样做的目的是，如果把 Kimi Code 用于一些 cache 比例很低的非 Vibe Coding 场景，那么每周的限额会消耗地很快
+    - 扩展阅读：[suspiciously precise floats, or, how I got Claude's real limits](https://she-llac.com/claude-limits)
 - 2026/02/15：MiniMax Coding Plan 添加了 Plus/Max/Ultra 极速版
 - 2026/02/14: GLM Coding Plan 添加了每周的限额，是每 5 小时限额的 4 倍（Kimi 是 5 倍，方舟和阿里是 7.5 倍），同时 GLM-5 对限额的消耗速度是 GLM-4.7 的三倍
     - 不正经评语：看来在智谱，一周只用上四天班，每天工作 5 小时，而在 Moonshot 一周需要上五天班，在字节和阿里要每周上 7.5 天的班，哪个公司加班多一目了然，狗头（但字节和阿里一个月只用上两周，其他两周不上班，这就是“大小周”吗）

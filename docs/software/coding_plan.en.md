@@ -146,6 +146,7 @@ One prompt corresponds to multiple requests, and each request has many input and
     - This question was explained by [LLM Inference Systems, Code Agents, and Power Grids - Xu Xinran](https://zhuanlan.zhihu.com/p/2006506955775169424): cached tokens are not counted in usage.
     - If calculated by uncached input + output tokens, then weekly usage is 4M uncached input + output tokens; the 5-hour limit should still use the old calculation of 10M input + output tokens.
     - The purpose is that if Kimi Code is used for non-Vibe Coding scenarios with low cache hit rates, the weekly limit will be consumed quickly.
+    - Further reading: [suspiciously precise floats, or, how I got Claude's real limits](https://she-llac.com/claude-limits)
 - 2026/02/15: MiniMax Coding Plan added Plus/Max/Ultra High Speed versions
 - 2026/02/14: GLM Coding Plan added weekly limits at 4x the per-5-hour limit (Kimi is 5x, Volcano and Alibaba are 7.5x). Meanwhile, GLM-5 consumes quota at 3x the rate of GLM-4.7.
     - Unserious comment: Looks like at Zhipu, you only work 4 days a week, 5 hours a day, while at Moonshot you work 5 days a week, and at ByteDance and Alibaba you work 7.5 days a week. Which company has more overtime is clear at a glance, lol. (But ByteDance and Alibaba only work for two weeks a month; the other two weeks are off, this is the "big week small weeks" system?)
