@@ -86,6 +86,9 @@
         - Input: 2.5/4/7 RMB per 1M tokens
         - Output: 10/16/28 RMB per 1M tokens
         - 256K context
+- [Infini-AI Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
+    - Lite (40 RMB/month): Fixed monthly fee, 12,000 requests per month, 6,000 per week, 1,000 per 5 hours
+    - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
 
 ## Prompts, Requests, and Tokens
 

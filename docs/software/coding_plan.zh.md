@@ -86,6 +86,9 @@
         - 输入 2.5/4/7 RMB 每 1M tokens
         - 输出 10/16/28 RMB 每 1M tokens
         - 256K 上下文
+- [无问芯穹 Infini Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
+    - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
+    - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
 
 ## prompt、请求和 token
 
