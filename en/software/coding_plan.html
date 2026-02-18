@@ -4412,8 +4412,7 @@
 <li>Moderato (99 RMB/month): 4x Kimi Code quota</li>
 <li>Allegretto (199 RMB/month): 20x Kimi Code quota</li>
 <li>Allegro (699 RMB/month): 60x Kimi Code quota</li>
-<li>Based on actual testing, Andante appears to limit input + output tokens to 10M per 5 hours; the weekly limit is 4M uncached input + output tokens (i.e. not counting cached input tokens)</li>
-<li>The marketing focuses on requests rather than token counts. Based on 10M tokens corresponding to 300-1200 requests, the estimated average input + output tokens per API request is between 8K-33K; local testing shows approximately 31K</li>
+<li>Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week</li>
 <li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.5 API Pricing</a>:<ul>
 <li>Cached input: 0.7 RMB per 1M tokens</li>
 <li>Uncached input: 4 RMB per 1M tokens</li>
@@ -4587,6 +4586,27 @@
 </table>
 <h2 id="update-history">Update History</h2>
 <ul>
+<li>2026/02/18: Kimi Code billing has changed:<ul>
+<li>Previously, the weekly limit was changed from 50M input + output tokens to 4M uncached input + output tokens, while the per-5-hour limit remained 10M input + output tokens</li>
+<li>Now the per-5-hour limit has been changed to 1M uncached input + output tokens</li>
+<li>Therefore, there is now a 4x relationship between the per-5-hour limit and the weekly limit</li>
+<li>Assuming 99.5% input (95% cached, 5% uncached) + 0.5% output ratio, old vs new limit comparison:<ul>
+<li>Old weekly limit 50M input + output tokens: <code>50M*0.5%=250K</code> output tokens</li>
+<li>New weekly limit 4M uncached input + output tokens: <code>4M*0.5%/(0.5%+99.5%*5%)=365K</code> output tokens</li>
+<li>Old per-5-hour limit 10M input + output tokens: <code>10M*0.5%=50K</code> output tokens</li>
+<li>New per-5-hour limit 1M uncached input + output tokens: <code>1M*0.5%/(0.5%+99.5%*5%)=91K</code> output tokens</li>
+</ul>
+</li>
+<li>Assuming 99.5% input (90% cached, 10% uncached) + 0.5% output ratio, old vs new limit comparison:<ul>
+<li>Old weekly limit 50M input + output tokens: <code>50M*0.5%=250K</code> output tokens</li>
+<li>New weekly limit 4M uncached input + output tokens: <code>4M*0.5%/(0.5%+99.5%*10%)=191K</code> output tokens</li>
+<li>Old per-5-hour limit 10M input + output tokens: <code>10M*0.5%=50K</code> output tokens</li>
+<li>New per-5-hour limit 1M uncached input + output tokens: <code>1M*0.5%/(0.5%+99.5%*10%)=48K</code> output tokens</li>
+</ul>
+</li>
+<li>As can be seen, whether the new or old limit is more restrictive depends on the cache hit rate</li>
+</ul>
+</li>
 <li>2026/02/16: GLM Coding Plan increased weekly limits from 4x the per-5-hour limit (320/1600/6400 prompts) to 5x (400/2000/8000 prompts). Meanwhile, GLM-5 consumption rate changed from 3x to 3x during peak hours and 2x during off-peak hours (peak hours: 14:00-18:00 UTC+8 daily).</li>
 <li>2026/02/16: Recently discovered some changes in Kimi Code billing:<ul>
 <li>The Andante plan's per-5-hour limit remains unchanged at 10M input + output tokens, but the weekly limit observed when opening a new Code Session depletes faster, clearly not being 20% of the per-5-hour usage (previous calculation showed weekly limit was 5x the per-5-hour limit). However, with continued use, the ratio stays around 20%. Calculated using the previous method, weekly usage is approximately 48M input + output tokens rather than the original 50M—a rather odd number.</li>
@@ -4635,7 +4655,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 17, 2026 02:24:11 UTC">February 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 18, 2026 08:57:54 UTC">February 18, 2026</span>
   </span>
 
     
