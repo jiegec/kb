@@ -125,6 +125,7 @@
 
 ## 更新历史
 
+- 2026/02/21：观测到阿里云百炼 Coding Plan 新增了第三方模型 glm-4.7 和 kimi-k2.5 的支持，之前只有 qwen 自己的模型
 - 2026/02/18：Kimi Code 的计费方式出现了新变化：
     - 此前是每周的限额从 50M input + output tokens 改成了 4M uncached input + output tokens，而每 5 小时的限额依然是 10M input + output tokens
     - 现在每 5 小时的限额改成了 1M uncached input + output tokens
