@@ -71,6 +71,7 @@
 - [Volcano Engine Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
+    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-Code, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2, Kimi-K2-Thinking
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite (40 RMB/month): Fixed monthly fee, 18,000 requests per month, 9,000 per week, 1,200 per 5 hours
     - Pro (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
@@ -78,6 +79,7 @@
     - Simple Q&A or code generation: usually triggers 5-10 model calls
     - Code refactoring or complex tasks: may trigger 10-30 or more model calls
     - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
+    - Supported models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7, kimi-k2.5
     - [Qwen3.5-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
         - Input: 0.8/2/4 RMB per 1M tokens
         - Output: 4.8/12/24 RMB per 1M tokens

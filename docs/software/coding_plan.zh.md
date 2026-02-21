@@ -71,6 +71,7 @@
 - [方舟 Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
+    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-Code、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2、Kimi-K2-Thinking
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite（40 RMB 每月）: 固定月费，每月 18000 次请求，每周 9000 次，每 5 小时 1200 次
     - Pro（200 RMB 每月）: 固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
@@ -78,6 +79,7 @@
     - 简单问答或代码生成：通常触发 5-10 次模型调用
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
+    - 支持模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7、kimi-k2.5
     - [Qwen3.5-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
         - 输入 0.8/2/4 RMB 每 1M tokens
         - 输出 4.8/12/24 RMB 每 1M tokens
