@@ -325,7 +325,7 @@ fail:
 
 ### 指令集架构支持
 
-x86_64 指令集提供了 Transactional Synchronization Extensions (TSX) 扩展，它有两种使用方法：Hardware Lock Elision 和 Restricted Transactional Memory。它的文档在 Intel 64 and IA-32 Architectures Software Develop's Manual 的 Volume 1 Chapter 16 Programming with Intel Transaction Synchronization Extensions。
+x86_64 指令集提供了 Transactional Synchronization Extensions (TSX) 扩展，它有两种使用方法：Hardware Lock Elision 和 Restricted Transactional Memory。它的文档在 Intel 64 and IA-32 Architectures Software Developer's Manual 的 Volume 1 Chapter 16 Programming with Intel Transaction Synchronization Extensions。
 
 Hardware Lock Elision 的应用场景是，程序编写了 critical section，并且用锁来保护它，保证同时只有一个核心在执行这个 critical section。但锁会带来额外的开销。既然有了硬件内存事务，就可以先跳过加锁这一步，在事务里执行一次 critical section，在原来释放锁的地方结束事务。如果事务成功提交，说明没有其他核心要进入 critical section，那就省下了锁的开销；如果事务没有成功提交，就会回滚，再正常执行带锁的 critical section。
 

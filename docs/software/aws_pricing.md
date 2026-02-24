@@ -46,7 +46,7 @@ Amazon Aurora is a modern relational database service. It offers unparalleled hi
 5. Concurrency scaling: billed per instance per second
 6. Redshift ML: billed per million cells
 7. Reserved instance: billed per term (1 year or 3 years)
-8. Zero-ETL integration cost with Amazon Aurora: no additiona fee
+8. Zero-ETL integration cost with Amazon Aurora: no additional fee
 9. Backup storage: billed per GB per month
 10. Data transfer: billed per GB
 
@@ -59,7 +59,7 @@ Amazon Aurora is a modern relational database service. It offers unparalleled hi
 1. On-demand instance: billed per instance per hour
 2. Reserved instance: reserve for 1 year or 3 years
 	1. No upfront reserved instances: pay nothing upfront, pay a discounted hourly rate every hour
-	2. Partial upfront reserved instances: pay a portion upfront, pay a discounted hourlay rate
+	2. Partial upfront reserved instances: pay a portion upfront, pay a discounted hourly rate
 	3. All upfront reserved instances, pay entirety of the cost upfront
 3. Serverless:
 	1. Compute(Indexing, Search and Query): billed per OCU(OpenSearch Compute Unit) per hour

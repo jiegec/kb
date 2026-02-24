@@ -120,7 +120,7 @@ Copying Collection 的方法是，把堆分成两个区域，分别叫做 fromsp
 在遍历 fromspace 的对象用于复制的算法中，Cheney Scanning 算法是一种经典的实现，相当于用 tospace 来维护 BFS 的队列：
 
 1. 首先把 GC root 引用的对象复制到 tospace 空间
-2. 维护两个指针：`scan` 一开始指向 tospce 空间的最开头，`free` 指向 tospace 中空闲的空间的开头
+2. 维护两个指针：`scan` 一开始指向 tospace 空间的最开头，`free` 指向 tospace 中空闲的空间的开头
 3. 从 `scan` 指针开始，扫描 tospace 已有的对象，找到它所引用的在 fromspace 中还没复制到 tospace 的对象，把 fromspace 中的对象复制到 tospace 中 `free` 指向的空闲空间，更新 forwardingAddress，然后更新 `free` 指向剩余的空闲空间
 4. 当 `scan` 等于 `free` 的时候，所有的 fromspace 活跃对象都已经复制完毕
 
