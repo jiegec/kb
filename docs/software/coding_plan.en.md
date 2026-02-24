@@ -79,7 +79,7 @@
     - Simple Q&A or code generation: usually triggers 5-10 model calls
     - Code refactoring or complex tasks: may trigger 10-30 or more model calls
     - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
-    - Supported models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7, kimi-k2.5
+    - Supported models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7, glm-5, kimi-k2.5
     - [Qwen3.5-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
         - Input: 0.8/2/4 RMB per 1M tokens
         - Output: 4.8/12/24 RMB per 1M tokens
@@ -127,6 +127,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/02/24: Alibaba Bailian Coding Plan added support for third-party model glm-5
 - 2026/02/21: Observed that Alibaba Bailian Coding Plan added support for third-party models glm-4.7 and kimi-k2.5; previously only Qwen's own models were available
 - 2026/02/18: Kimi Code billing has changed:
     - Previously, the weekly limit was changed from 50M input + output tokens to 4M uncached input + output tokens, while the per-5-hour limit remained 10M input + output tokens
