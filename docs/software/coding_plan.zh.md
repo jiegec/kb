@@ -79,7 +79,7 @@
     - 简单问答或代码生成：通常触发 5-10 次模型调用
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
-    - 支持模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7、glm-5、kimi-k2.5
+    - 支持模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7、glm-5、kimi-k2.5、minimax-m2.5
     - [Qwen3.5-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
         - 输入 0.8/2/4 RMB 每 1M tokens
         - 输出 4.8/12/24 RMB 每 1M tokens
@@ -127,6 +127,7 @@
 
 ## 更新历史
 
+- 2026/02/25：阿里云百炼 Coding Plan 新增了第三方模型 minimax-m2.5 的支持
 - 2026/02/24：阿里云百炼 Coding Plan 新增了第三方模型 glm-5 的支持
 - 2026/02/21：观测到阿里云百炼 Coding Plan 新增了第三方模型 glm-4.7 和 kimi-k2.5 的支持，之前只有 qwen 自己的模型
 - 2026/02/18：Kimi Code 的计费方式出现了新变化：
