@@ -127,3 +127,98 @@ uv run uv run hf download unsloth/Qwen3.5-35B-A3B-GGUF \
 
 - `HF_HUB_OFFLINE=1`
 - `CUDA_VISIBLE_DEVICES`
+
+## 推理性能测试
+
+```shell
+$ llama-bench -p 1024 -n 64 -d 0,16384,32768,49152 --model unsloth/Qwen3.5-27B-GGUF/Qwen3.5-27B-UD-Q4_K_XL.gguf
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 |          pp1024 |       2458.27 ± 0.90 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 |            tg64 |         38.99 ± 0.34 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 | pp1024 @ d16384 |       1709.17 ± 1.14 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 |   tg64 @ d16384 |         36.41 ± 0.21 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 | pp1024 @ d32768 |       1305.55 ± 1.61 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 |   tg64 @ d32768 |         33.23 ± 0.17 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 | pp1024 @ d49152 |       1044.94 ± 0.57 |
+| qwen35 ?B Q4_K - Medium        |  15.57 GiB |    26.90 B | CUDA       |  99 |   tg64 @ d49152 |         30.73 ± 0.18 |
+
+build: 244641955 (8148)
+$ llama-bench -p 1024 -n 64 -d 0,16384,32768,49152 --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 |          pp1024 |      5179.66 ± 11.30 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 |            tg64 |        116.50 ± 1.84 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d16384 |       3727.19 ± 5.49 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d16384 |        109.45 ± 2.16 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d32768 |       2900.42 ± 5.31 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d32768 |         98.17 ± 1.51 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d49152 |       2355.58 ± 3.22 |
+| qwen35moe ?B Q3_K - Medium     |  14.66 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d49152 |         89.04 ± 0.99 |
+
+build: 244641955 (8148)
+$ llama-bench -p 1024 -n 64 -d 0,16384,32768,49152 --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q4_K_XL.gguf
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 |          pp1024 |      5588.52 ± 46.39 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 |            tg64 |        118.33 ± 1.71 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d16384 |       3923.77 ± 5.52 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d16384 |        110.72 ± 2.12 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d32768 |       3011.25 ± 7.92 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d32768 |         98.76 ± 1.57 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d49152 |       2418.66 ± 4.49 |
+| qwen35moe ?B Q4_K - Medium     |  18.32 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d49152 |         89.46 ± 1.22 |
+
+build: 4e76d24f2 (8169)
+$ llama-bench -p 1024 -n 64 -d 0,16384,32768,49152 --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-MXFP4_MOE.gguf
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 |          pp1024 |      5727.19 ± 20.73 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 |            tg64 |        107.93 ± 1.49 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d16384 |       3965.90 ± 7.16 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d16384 |        101.73 ± 1.79 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d32768 |       3037.72 ± 1.54 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d32768 |         92.25 ± 1.14 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d49152 |       2442.20 ± 2.96 |
+| qwen35moe ?B MXFP4 MoE         |  18.42 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d49152 |         83.67 ± 0.96 |
+
+build: 4e76d24f2 (8169)
+$ llama-bench -p 1024 -n 64 -d 0,16384,32768,49152 --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 |          pp1024 |      5211.90 ± 11.66 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 |            tg64 |        138.18 ± 1.94 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 | pp1024 @ d16384 |       1406.24 ± 1.47 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d16384 |         35.17 ± 0.12 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 | pp1024 @ d32768 |        807.41 ± 0.34 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d32768 |         19.07 ± 0.04 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 | pp1024 @ d49152 |        492.38 ± 0.08 |
+| deepseek2 30B.A3B Q2_K - Medium |  11.06 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d49152 |         12.72 ± 0.02 |
+
+build: 244641955 (8148)
+$ llama-bench -p 1024 -n 64 -d 0,16384,32768,49152 --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q4_K_XL.gguf
+ggml_cuda_init: found 1 CUDA devices:
+  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |          pp1024 |      5956.03 ± 19.83 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |            tg64 |        132.07 ± 1.71 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 | pp1024 @ d16384 |       1458.44 ± 1.41 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d16384 |         34.52 ± 0.11 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 | pp1024 @ d32768 |        827.43 ± 0.44 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d32768 |         18.98 ± 0.04 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 | pp1024 @ d49152 |        498.64 ± 0.19 |
+| deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d49152 |         12.71 ± 0.02 |
+
+build: 244641955 (8148)
+```
