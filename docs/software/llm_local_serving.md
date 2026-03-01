@@ -105,7 +105,7 @@ cp llama.cpp/build/bin/llama-* llama.cpp
 
 # download gguf from hf
 # Qwen3.5-27B
-uv run uv run hf download unsloth/Qwen3.5-27B-GGUF \
+uv run hf download unsloth/Qwen3.5-27B-GGUF \
     --local-dir unsloth/Qwen3.5-27B-GGUF \
     Qwen3.5-27B-UD-Q4_K_XL.gguf
 ./llama.cpp/llama-server \
@@ -114,7 +114,7 @@ uv run uv run hf download unsloth/Qwen3.5-27B-GGUF \
     --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
 
 # Qwen3.5-35B-A3B
-uv run uv run hf download unsloth/Qwen3.5-35B-A3B-GGUF \
+uv run hf download unsloth/Qwen3.5-35B-A3B-GGUF \
     --local-dir unsloth/Qwen3.5-35B-A3B-GGUF \
     Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf
 ./llama.cpp/llama-server \
