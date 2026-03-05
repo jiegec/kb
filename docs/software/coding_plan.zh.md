@@ -92,6 +92,7 @@
     - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
     - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
     - 支持模型：DeepSeek-v3.2、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、GLM-4.7、GLM-5
+- [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 
 ## prompt、请求和 token
 
