@@ -93,6 +93,9 @@
     - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
     - 支持模型：DeepSeek-v3.2、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、GLM-4.7、GLM-5
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
+- [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
+- [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
+- [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 
 ## prompt、请求和 token
 

@@ -93,6 +93,9 @@
     - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
     - Supported models: DeepSeek-v3.2, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, GLM-4.7, GLM-5
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
+- [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
+- [Moorethreads AI Coding Plan](https://code.mthreads.com/)
+- [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 
 ## Prompts, Requests, and Tokens
 
