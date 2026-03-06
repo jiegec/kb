@@ -71,7 +71,7 @@
 - [Volcano Engine Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-Code, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2, Kimi-K2-Thinking
+    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-2.5, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite (40 RMB/month): Fixed monthly fee, 18,000 requests per month, 9,000 per week, 1,200 per 5 hours
     - Pro (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
@@ -132,6 +132,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/06: Volcano Engine Coding Plan added support for third-party model MiniMax-M2.5
 - 2026/02/25: Alibaba Bailian Coding Plan added support for third-party model minimax-m2.5
 - 2026/02/24: Alibaba Bailian Coding Plan added support for third-party model glm-5
 - 2026/02/21: Observed that Alibaba Bailian Coding Plan added support for third-party models glm-4.7 and kimi-k2.5; previously only Qwen's own models were available

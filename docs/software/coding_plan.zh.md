@@ -71,7 +71,7 @@
 - [方舟 Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-Code、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2、Kimi-K2-Thinking
+    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-2.5、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Lite（40 RMB 每月）: 固定月费，每月 18000 次请求，每周 9000 次，每 5 小时 1200 次
     - Pro（200 RMB 每月）: 固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
@@ -132,6 +132,7 @@
 
 ## 更新历史
 
+- 2026/03/06：方舟 Coding Plan 新增了第三方模型 MiniMax-M2.5 的支持
 - 2026/02/25：阿里云百炼 Coding Plan 新增了第三方模型 minimax-m2.5 的支持
 - 2026/02/24：阿里云百炼 Coding Plan 新增了第三方模型 glm-5 的支持
 - 2026/02/21：观测到阿里云百炼 Coding Plan 新增了第三方模型 glm-4.7 和 kimi-k2.5 的支持，之前只有 qwen 自己的模型
