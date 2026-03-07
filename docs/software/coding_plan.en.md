@@ -132,6 +132,27 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/07: Zhipu issued a 15-day compensation credit for GLM Coding Plan. The translated email text is as follows (original was in Chinese):
+    ```
+    Dear GLM Coding Plan User,
+
+
+    Thank you for your continued support and trust.
+
+
+    To address the recent service issues some users experienced and to express our sincere apologies, we have credited your account with compensation equivalent to 15 days of your current subscription fee (with no expiration). You can view the credit details in your account dashboard under "Zhipu Open Platform Console - Billing - Transaction History", and it will be automatically applied to your future usage.
+
+
+    Thank you again for your understanding and patience, as well as your ongoing support. We remain committed to improving our product capabilities and service quality to deliver a more stable and efficient development experience.
+
+
+    Best regards,
+
+
+    Zhipu AI Platform Team
+
+    March 7, 2026
+    ```
 - 2026/03/06: Volcano Engine Coding Plan added support for third-party model MiniMax-M2.5
 - 2026/02/25: Alibaba Bailian Coding Plan added support for third-party model minimax-m2.5
 - 2026/02/24: Alibaba Bailian Coding Plan added support for third-party model glm-5
