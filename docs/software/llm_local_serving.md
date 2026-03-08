@@ -129,6 +129,9 @@ uv run hf download unsloth/Qwen3.5-35B-A3B-GGUF \
 uv run hf download unsloth/Qwen3.5-9B-GGUF \
     --local-dir unsloth/Qwen3.5-9B-GGUF \
     Qwen3.5-9B-Q8_0.gguf
+uv run hf download unsloth/Qwen3.5-9B-GGUF \
+    --local-dir unsloth/Qwen3.5-9B-GGUF \
+    Qwen3.5-9B-UD-Q4_K_XL.gguf
 ```
 
 ## 常见环境变量
@@ -137,6 +140,8 @@ uv run hf download unsloth/Qwen3.5-9B-GGUF \
 - `CUDA_VISIBLE_DEVICES`
 
 ## 推理性能测试
+
+NVIDIA GeForece RTX 4090:
 
 ```shell
 $ llama-bench -p 1024 -n 64 -d 0,16384,32768,65536 --model unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q8_0.gguf
