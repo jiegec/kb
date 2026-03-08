@@ -132,6 +132,11 @@ uv run hf download unsloth/Qwen3.5-9B-GGUF \
 uv run hf download unsloth/Qwen3.5-9B-GGUF \
     --local-dir unsloth/Qwen3.5-9B-GGUF \
     Qwen3.5-9B-UD-Q4_K_XL.gguf
+
+# Qwen3.5-4B
+uv run hf download unsloth/Qwen3.5-4B-GGUF \
+    --local-dir unsloth/Qwen3.5-4B-GGUF \
+    Qwen3.5-4B-UD-Q4_K_XL.gguf
 ```
 
 ## 常见环境变量
@@ -249,4 +254,23 @@ ggml_cuda_init: found 1 CUDA devices:
 | deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d32768 |         18.96 ± 0.06 |
 
 build: cf232515c (8207)
+```
+
+Apple M4:
+
+```shell
+$ llama-bench -p 1024 -n 64 --model unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-UD-Q4_K_XL.gguf
+| model                          |       size |     params | backend    | threads |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | ------: | --------------: | -------------------: |
+| qwen35 9B Q4_K - Medium        |   5.55 GiB |     8.95 B | MTL,BLAS   |       4 |          pp1024 |        164.67 ± 4.76 |
+| qwen35 9B Q4_K - Medium        |   5.55 GiB |     8.95 B | MTL,BLAS   |       4 |            tg64 |         12.18 ± 0.80 |
+
+build: d088d5b74 (8240)
+$ llama-bench -p 1024 -n 64 --model unsloth/Qwen3.5-4B-GGUF/Qwen3.5-4B-UD-Q4_K_XL.gguf
+| model                          |       size |     params | backend    | threads |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | ------: | --------------: | -------------------: |
+| qwen35 4B Q4_K - Medium        |   2.70 GiB |     4.21 B | MTL,BLAS   |       4 |          pp1024 |        221.25 ± 2.70 |
+| qwen35 4B Q4_K - Medium        |   2.70 GiB |     4.21 B | MTL,BLAS   |       4 |            tg64 |         14.27 ± 0.37 |
+
+build: d088d5b74 (8240)
 ```
