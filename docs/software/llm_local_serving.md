@@ -7,6 +7,23 @@ pipx install uv
 set -x PATH ~/.local/bin $PATH
 ```
 
+## 安装 llama.cpp
+
+```shell
+# build latest llama.cpp
+git clone https://github.com/ggml-org/llama.cpp
+cmake llama.cpp -B llama.cpp/build \
+    -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
+cmake --build llama.cpp/build --config Release -j --clean-first --target llama-cli llama-mtmd-cli llama-server llama-gguf-split llama-bench
+cp llama.cpp/build/bin/llama-* llama.cpp
+```
+
+## 安装 lmstudio
+
+```shell
+curl -fsSL https://lmstudio.ai/install.sh | bash
+```
+
 ## GLM-4.7-Flash
 
 [zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
@@ -54,7 +71,6 @@ uv run python3 -m sglang.launch_server \
 LM Studio:
 
 ```shell
-$ curl -fsSL https://lmstudio.ai/install.sh | bash
 $ ~/.lmstudio/bin/lms get
 
 ✔ Select a model to download zai-org/glm-4.7-flash
@@ -70,13 +86,6 @@ llama.cpp:
 
 ```shell
 # follow https://unsloth.ai/docs/models/glm-4.7-flash
-# build latest llama.cpp
-git clone https://github.com/ggml-org/llama.cpp
-cmake llama.cpp -B llama.cpp/build \
-    -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
-cmake --build llama.cpp/build --config Release -j --clean-first --target llama-cli llama-mtmd-cli llama-server llama-gguf-split llama-bench
-cp llama.cpp/build/bin/llama-* llama.cpp
-
 # download gguf from hf
 uv run hf download unsloth/GLM-4.7-Flash-GGUF \
     --local-dir unsloth/GLM-4.7-Flash-GGUF \
@@ -96,12 +105,6 @@ llama.cpp:
 
 ```shell
 # follow https://unsloth.ai/docs/models/qwen3.5
-# build latest llama.cpp
-git clone https://github.com/ggml-org/llama.cpp
-cmake llama.cpp -B llama.cpp/build \
-    -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
-cmake --build llama.cpp/build --config Release -j --clean-first --target llama-cli llama-mtmd-cli llama-server llama-gguf-split llama-bench
-cp llama.cpp/build/bin/llama-* llama.cpp
 
 # download gguf from hf
 # Qwen3.5-27B
