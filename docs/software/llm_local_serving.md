@@ -1,13 +1,15 @@
 # LLM 本地部署
 
-## 安装 uv
+## 环境配置
+
+### 安装 uv
 
 ```shell
 pipx install uv
 set -x PATH ~/.local/bin $PATH
 ```
 
-## 安装 llama.cpp
+### 安装 llama.cpp
 
 ```shell
 # build latest llama.cpp
@@ -18,13 +20,23 @@ cmake --build llama.cpp/build --config Release -j --clean-first --target llama-c
 cp llama.cpp/build/bin/llama-* llama.cpp
 ```
 
-## 安装 lmstudio
+### 安装 lmstudio
 
 ```shell
 curl -fsSL https://lmstudio.ai/install.sh | bash
 ```
 
-## GLM-4.7-Flash
+### 安装 MLX-LM
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+uv pip install mlx-lm
+```
+
+## 部署模型
+
+### GLM-4.7-Flash
 
 [zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
 
@@ -99,7 +111,7 @@ uv run hf download unsloth/GLM-4.7-Flash-GGUF \
     --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf
 ```
 
-## Qwen3.5 series
+### Qwen3.5 series
 
 llama.cpp:
 
@@ -137,9 +149,13 @@ uv run hf download unsloth/Qwen3.5-9B-GGUF \
 uv run hf download unsloth/Qwen3.5-4B-GGUF \
     --local-dir unsloth/Qwen3.5-4B-GGUF \
     Qwen3.5-4B-UD-Q4_K_XL.gguf
+# for MLX on Apple Silicon
+uv run hf download mlx-community/Qwen3.5-4B-MLX-4bit \
+    --local-dir mlx-community/Qwen3.5-4B-MLX-4bit
+uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --log-level DEBUG
 ```
 
-## 常见环境变量
+### 常见环境变量
 
 - `HF_HUB_OFFLINE=1`
 - `CUDA_VISIBLE_DEVICES`
@@ -273,4 +289,13 @@ $ llama-bench -p 1024 -n 64 --model unsloth/Qwen3.5-4B-GGUF/Qwen3.5-4B-UD-Q4_K_X
 | qwen35 4B Q4_K - Medium        |   2.70 GiB |     4.21 B | MTL,BLAS   |       4 |            tg64 |         14.27 ± 0.37 |
 
 build: d088d5b74 (8240)
+$ uv run python3 -m mlx_lm.benchmark --model ./mlx-community/Qwen3.5-4B-MLX-4bit -p 1024 -g 64
+Running warmup..
+Timing with prompt_tokens=1024, generation_tokens=64, batch_size=1.
+Trial 1:  prompt_tps=351.905, generation_tps=38.757, peak_memory=3.502
+Trial 2:  prompt_tps=363.097, generation_tps=38.150, peak_memory=3.503
+Trial 3:  prompt_tps=359.749, generation_tps=39.020, peak_memory=3.503
+Trial 4:  prompt_tps=359.048, generation_tps=39.020, peak_memory=3.504
+Trial 5:  prompt_tps=358.087, generation_tps=39.119, peak_memory=3.504
+Averages: prompt_tps=358.377, generation_tps=38.813, peak_memory=3.503
 ```
