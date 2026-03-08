@@ -88,6 +88,10 @@
         - 输入 2.5/4/7 RMB 每 1M tokens
         - 输出 10/16/28 RMB 每 1M tokens
         - 256K 上下文
+- [腾讯云大模型 Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
+    - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求，每周：最多约 9,000 次请求，每订阅月：最多约 18,000 次请求
+    - Pro 套餐（200 RMB 每月）：每 5 小时：最多约 6,000 次请求，每周：最多约 45,000 次请求，每订阅月：最多约 90,000 次请求
+    - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
 - [无问芯穹 Infini Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
     - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
     - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
@@ -96,7 +100,6 @@
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
-- [腾讯云大模型 Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
 
 ## prompt、请求和 token
 

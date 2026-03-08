@@ -88,6 +88,10 @@
         - Input: 2.5/4/7 RMB per 1M tokens
         - Output: 10/16/28 RMB per 1M tokens
         - 256K context
+- [Tencent Cloud LLM Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
+    - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests
+    - Pro Plan (200 RMB/month): Per 5 hours: maximum ~6,000 requests. Per week: maximum ~45,000 requests. Per subscription month: maximum ~90,000 requests
+    - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
 - [Infini-AI Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
     - Lite (40 RMB/month): Fixed monthly fee, 12,000 requests per month, 6,000 per week, 1,000 per 5 hours
     - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
@@ -96,7 +100,6 @@
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
-- [TencentCloud LLM Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
 
 ## Prompts, Requests, and Tokens
 
