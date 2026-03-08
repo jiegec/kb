@@ -299,3 +299,15 @@ Trial 4:  prompt_tps=359.048, generation_tps=39.020, peak_memory=3.504
 Trial 5:  prompt_tps=358.087, generation_tps=39.119, peak_memory=3.504
 Averages: prompt_tps=358.377, generation_tps=38.813, peak_memory=3.503
 ```
+
+## 模型能力测试
+
+### MMLU-Pro
+
+```shell
+git clone https://github.com/TIGER-AI-Lab/MMLU-Pro
+cd MMLU-Pro
+uv venv
+uv pip install openai datasets anthropic google.generativeai ai21
+uv run python3 evaluate_from_apiX.py --url http://127.0.0.1:8080 -m MODEL_NAME_HERE -o results --num_workers NUM_WORKERS
+```
