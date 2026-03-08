@@ -96,6 +96,7 @@
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
+- [腾讯云大模型 Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
 
 ## prompt、请求和 token
 
@@ -132,6 +133,7 @@
 
 ## 更新历史
 
+- 2026/03/08：腾讯云大模型 Coding Plan 上线
 - 2026/03/07：智谱发放了 GLM Coding Plan 15 日补偿赠金，邮件全文如下：
     ```
     亲爱的 GLM Coding Plan 用户，

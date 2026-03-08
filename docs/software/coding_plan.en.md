@@ -96,6 +96,7 @@
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
+- [TencentCloud LLM Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
 
 ## Prompts, Requests, and Tokens
 
@@ -132,6 +133,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/08: Tencent Cloud LLM Coding Plan launched
 - 2026/03/07: Zhipu issued a 15-day compensation credit for GLM Coding Plan. The translated email text is as follows (original was in Chinese):
     ```
     Dear GLM Coding Plan User,
