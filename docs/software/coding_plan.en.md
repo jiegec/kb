@@ -193,7 +193,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 - 2026/02/15: MiniMax Coding Plan added Plus/Max/Ultra High Speed versions
 - 2026/02/14: GLM Coding Plan added weekly limits at 4x the per-5-hour limit (Kimi is 5x, Volcano and Alibaba are 7.5x). Meanwhile, GLM-5 consumes quota at 3x the rate of GLM-4.7.
     - Unserious comment: Looks like at Zhipu, you only work 4 days a week, 5 hours a day, while at Moonshot you work 5 days a week, and at ByteDance and Alibaba you work 7.5 days a week. Which company has more overtime is clear at a glance, lol. (But ByteDance and Alibaba only work for two weeks a month; the other two weeks are off, this is the "big week small weeks" system?)
-    - Serious comment: The new GLM Coding Plan's cost-effectiveness dropped from “夯”(S-level) to “NPC”(C-level), making Kimi/MiniMax's value stand out. The solution is to continue renewing the old plan and stick with GLM-4.7.
+    - Serious comment: The new GLM Coding Plan's cost-effectiveness dropped from "夯"(S-level) to "NPC"(C-level), making Kimi/MiniMax's value stand out. The solution is to continue renewing the old plan and stick with GLM-4.7.
     - If calculated using the new plan at 2/3 of the old quota limit, using GLM-4.7, the Lite plan can use `40M*2/3*4*30/7=457M` tokens per month (30 days); using GLM-5, it would be `40M*2/3*4*30/7/3=152M` tokens.
 - 2026/02/12: GLM Coding Plan prices changed from 40/200/400 RMB/month to 49/149/469 RMB/month; meanwhile, usage quotas were reduced to 2/3 of the original:
     - Lite Plan: Maximum ~80 prompts per 5 hours (was 120), equivalent to 3x Claude Pro plan usage
