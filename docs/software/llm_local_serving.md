@@ -165,6 +165,7 @@ uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --lo
 NVIDIA GeForece RTX 4090:
 
 ```shell
+# llama-bench
 $ llama-bench -p 1024 -n 64 -d 0,16384,32768,65536 --model unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q8_0.gguf
 ggml_cuda_init: found 1 CUDA devices:
   Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes
@@ -270,6 +271,23 @@ ggml_cuda_init: found 1 CUDA devices:
 | deepseek2 30B.A3B Q4_K - Medium |  16.31 GiB |    29.94 B | CUDA       |  99 |   tg64 @ d32768 |         18.96 ± 0.06 |
 
 build: cf232515c (8207)
+
+# llama-server + llama-benchy
+$ llama-server \
+  --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf \
+  --jinja --ctx-size 262144 \
+  --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
+$ uvx llama-benchy --base-url http://127.0.0.1:8080 --no-cache --model qwen/Qwen3.5-35B-A3B --depth 0 8192 16384 32768
+| model                |            test |              t/s |     peak t/s |         ttfr (ms) |      est_ppt (ms) |     e2e_ttft (ms) |
+|:---------------------|----------------:|-----------------:|-------------:|------------------:|------------------:|------------------:|
+| qwen/Qwen3.5-35B-A3B |          pp2048 | 4552.09 ± 157.63 |              |    451.92 ± 15.38 |    450.66 ± 15.38 |    452.04 ± 15.39 |
+| qwen/Qwen3.5-35B-A3B |            tg32 |     88.93 ± 7.55 | 92.40 ± 7.61 |                   |                   |                   |
+| qwen/Qwen3.5-35B-A3B |  pp2048 @ d8192 | 4647.32 ± 244.49 |              |  2210.91 ± 114.12 |  2209.64 ± 114.12 |  2210.99 ± 114.12 |
+| qwen/Qwen3.5-35B-A3B |    tg32 @ d8192 |     77.78 ± 1.07 | 81.07 ± 1.26 |                   |                   |                   |
+| qwen/Qwen3.5-35B-A3B | pp2048 @ d16384 | 4013.07 ± 140.09 |              |  4600.26 ± 160.04 |  4598.99 ± 160.04 |  4600.36 ± 160.04 |
+| qwen/Qwen3.5-35B-A3B |   tg32 @ d16384 |     72.69 ± 1.43 | 75.81 ± 1.53 |                   |                   |                   |
+| qwen/Qwen3.5-35B-A3B | pp2048 @ d32768 | 3330.52 ± 187.49 |              | 10488.31 ± 590.45 | 10487.04 ± 590.45 | 10488.39 ± 590.41 |
+| qwen/Qwen3.5-35B-A3B |   tg32 @ d32768 |     65.91 ± 2.42 | 68.76 ± 2.62 |                   |                   |                   |
 ```
 
 Apple M4:
