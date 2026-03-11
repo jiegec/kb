@@ -21,15 +21,3 @@
 稀有：
 
 - 吊杀（Hang）：造成 10 点伤害。让所有“吊杀”牌对这名敌人造成的伤害翻倍。
-
-参考卡组：
-
-- 防御（Defend）
-- 违逆（Defy）
-- 挽歌（Dirge）
-- 守墓人（Grave Warden）
-- 吊杀（Hang）
-- 纠缠（Haunt）
-- 唤起（Invoke）
-- 打击（Strike）
-- 出击（Unleash）
