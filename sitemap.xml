@@ -792,6 +792,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/rules.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/travel/spire.html</loc>
+        <lastmod>2026-03-11</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/spire.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/spire.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/en/index.html</loc>
         <lastmod>2026-03-11</lastmod>
         <changefreq>daily</changefreq>
@@ -1581,5 +1588,12 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/rules.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/rules.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/travel/spire.html</loc>
+        <lastmod>2026-03-11</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/spire.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/spire.html"/>
     </url>
 </urlset>
