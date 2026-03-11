@@ -149,10 +149,41 @@ uv run hf download unsloth/Qwen3.5-9B-GGUF \
 uv run hf download unsloth/Qwen3.5-4B-GGUF \
     --local-dir unsloth/Qwen3.5-4B-GGUF \
     Qwen3.5-4B-UD-Q4_K_XL.gguf
+```
+
+MLX-LM:
+
+```shell
+# Qwen3.5-4B
 # for MLX on Apple Silicon
 uv run hf download mlx-community/Qwen3.5-4B-MLX-4bit \
     --local-dir mlx-community/Qwen3.5-4B-MLX-4bit
 uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --log-level DEBUG
+```
+
+SGLang:
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+
+# released in sglang 0.5.9, but latest main branch is required
+uv pip install 'git+https://github.com/sgl-project/sglang.git#subdirectory=python'
+# fix pytorch 2.9.1 & cudnn 9.10 incompat
+uv pip install nvidia-cudnn-cu12==9.16.0.29
+
+# Qwen3.5-4B
+# some additional args may be required
+uv run python -m sglang.launch_server \
+  --model Qwen/Qwen3.5-4B \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --enable-flashinfer-allreduce-fusion \
+  --mem-fraction-static 0.8
 ```
 
 ### 常见环境变量
@@ -273,7 +304,7 @@ ggml_cuda_init: found 1 CUDA devices (Total VRAM: 24210 MiB):
 build: 5f91b1d5d (8286)
 
 # llama-server + llama-benchy
-# version: 8286 (5f91b1d5d)
+# llama-server version: 8286 (5f91b1d5d)
 $ llama-server \
   --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf \
   --jinja --ctx-size 262144 \
@@ -289,6 +320,49 @@ $ uvx llama-benchy@v0.3.4 --base-url http://127.0.0.1:8080 --no-cache --model qw
 | qwen/Qwen3.5-35B-A3B |   tg32 @ d16384 |      95.02 ± 1.95 |   98.98 ± 1.95 |                   |                   |                   |
 | qwen/Qwen3.5-35B-A3B | pp2048 @ d32768 |  3077.20 ± 225.70 |                | 11375.13 ± 811.46 | 11373.95 ± 811.46 | 11375.25 ± 811.48 |
 | qwen/Qwen3.5-35B-A3B |   tg32 @ d32768 |      84.94 ± 2.32 |   88.18 ± 2.60 |                   |                   |                   |
+$ llama-server \
+  --model unsloth/Qwen3.5-4B-GGUF/Qwen3.5-4B-Q8_0.gguf \
+  --jinja --ctx-size 262144 \
+  --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
+$ uvx llama-benchy@v0.3.4 --base-url http://127.0.0.1:8080 --no-cache --model qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
+| model           |            test |              t/s |      peak t/s |        ttfr (ms) |     est_ppt (ms) |    e2e_ttft (ms) |
+|:----------------|----------------:|-----------------:|--------------:|-----------------:|-----------------:|-----------------:|
+| qwen/Qwen3.5-4B |          pp2048 | 5884.44 ± 597.23 |               |   353.71 ± 38.52 |   352.09 ± 38.52 |   353.82 ± 38.52 |
+| qwen/Qwen3.5-4B |            tg32 |    111.07 ± 6.90 | 114.92 ± 7.16 |                  |                  |                  |
+| qwen/Qwen3.5-4B |  pp2048 @ d8192 | 6434.15 ± 509.45 |               | 1603.20 ± 124.67 | 1601.58 ± 124.67 | 1603.30 ± 124.68 |
+| qwen/Qwen3.5-4B |    tg32 @ d8192 |    100.81 ± 4.02 | 104.42 ± 4.11 |                  |                  |                  |
+| qwen/Qwen3.5-4B | pp2048 @ d16384 | 5523.88 ± 346.92 |               | 3351.58 ± 207.61 | 3349.95 ± 207.61 | 3351.72 ± 207.56 |
+| qwen/Qwen3.5-4B |   tg32 @ d16384 |     87.84 ± 2.97 |  91.12 ± 3.10 |                  |                  |                  |
+| qwen/Qwen3.5-4B | pp2048 @ d32768 | 4293.27 ± 444.08 |               | 8194.35 ± 805.30 | 8192.73 ± 805.30 | 8194.46 ± 805.30 |
+| qwen/Qwen3.5-4B |   tg32 @ d32768 |     74.82 ± 3.33 |  77.60 ± 3.57 |                  |                  |                  |
+
+# sglang commit 57b093d
+# Add --tp 2 (use two cards) due to OOM
+# Add --mamba-scheduler-strategy extra_buffer to fix error: 
+# ValueError: Speculative decoding for Qwen3_5ForConditionalGeneration is not compatible with radix cache when using --mamba-scheduler-strategy no_buffer. To use radix cache with speculative decoding, please use --mamba-scheduler-strategy extra_buffer and set SGLANG_ENABLE_SPEC_V2=1.
+$ SGLANG_ENABLE_SPEC_V2=1 uv run python -m sglang.launch_server \
+  --model Qwen/Qwen3.5-4B \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --enable-flashinfer-allreduce-fusion \
+  --mem-fraction-static 0.8 \
+  --tp 2 \
+  --mamba-scheduler-strategy extra_buffer
+$ uvx llama-benchy@v0.3.4 --base-url http://127.0.0.1:30000/v1 --no-cache --model qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
+| model           |            test |              t/s |     peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
+|:----------------|----------------:|-----------------:|-------------:|----------------:|----------------:|----------------:|
+| qwen/Qwen3.5-4B |          pp2048 | 6999.30 ± 337.02 |              |  298.17 ± 14.26 |  293.43 ± 14.26 |  298.31 ± 14.27 |
+| qwen/Qwen3.5-4B |            tg32 |     63.38 ± 0.26 | 69.68 ± 0.68 |                 |                 |                 |
+| qwen/Qwen3.5-4B |  pp2048 @ d8192 | 9171.37 ± 455.86 |              | 1124.28 ± 58.29 | 1119.54 ± 58.29 | 1124.41 ± 58.29 |
+| qwen/Qwen3.5-4B |    tg32 @ d8192 |     62.56 ± 0.30 | 68.99 ± 0.59 |                 |                 |                 |
+| qwen/Qwen3.5-4B | pp2048 @ d16384 | 9508.49 ± 100.97 |              | 1943.56 ± 20.39 | 1938.82 ± 20.39 | 1943.71 ± 20.35 |
+| qwen/Qwen3.5-4B |   tg32 @ d16384 |     61.17 ± 0.53 | 67.91 ± 1.01 |                 |                 |                 |
+| qwen/Qwen3.5-4B | pp2048 @ d32768 |  9396.72 ± 30.12 |              | 3710.01 ± 11.91 | 3705.27 ± 11.91 | 3710.14 ± 11.91 |
+| qwen/Qwen3.5-4B |   tg32 @ d32768 |     58.76 ± 1.87 | 64.87 ± 2.16 |                 |                 |                 |
 ```
 
 结论：Qwen3.5-35B-A3B 的推理速度相较于 Qwen3.5 稠密模型（27B/9B）显著更快；在长上下文推理性能方面，Qwen3.5 相较于 GLM-4.7-Flash 优势明显，具体表现为前者性能随上下文长度增加衰减很少，后者则衰减显著。这大概是因为 Qwen3.5 引入了线性注意力机制。
