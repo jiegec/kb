@@ -778,6 +778,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/itinerary.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/travel/maldives.html</loc>
+        <lastmod>2026-03-11</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/maldives.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/maldives.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/travel/rules.html</loc>
         <lastmod>2026-03-11</lastmod>
         <changefreq>daily</changefreq>
@@ -1560,6 +1567,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/itinerary.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/itinerary.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/travel/maldives.html</loc>
+        <lastmod>2026-03-11</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/maldives.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/maldives.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/travel/rules.html</loc>
