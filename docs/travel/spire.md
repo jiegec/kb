@@ -77,7 +77,7 @@
 
 8. 在项目根目录准备一张图片，名为 `mod_image.png`，用于 Mod 的图片
 9. 点击 Project -> Export...，点击 Add...，选择 Windows Desktop
-10. 在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 `mod_image.png` 和 `mod_manifest.json`，点击下面的 Export PCK/ZIP，保存为 `FirstMod.pck`，之后也可以用命令行来导出，如 `/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck`
+10. 在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 `mod_image.png` 和 `mod_manifest.json`，点击下面的 Export PCK/ZIP，保存为 `FirstMod.pck`，之后也可以用命令行来导出，如 `/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless`
 11. 复制 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 到游戏的 `mods` 目录下的 `FirstMod` 目录，如 `~/Library/Application\ Support/SlayTheSpire2/mods/FirstMod`（macOS）或 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`（Linux），不存在需要创建
 12. 启动游戏
 
@@ -87,10 +87,10 @@
 #!/bin/sh
 set -x
 cp ~/Library/Application\ Support/steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_arm64/sts2.dll .
-/Applications/Godot_mono.app/Contents/MacOS/Godot --build-solutions --quit
+/Applications/Godot_mono.app/Contents/MacOS/Godot --build-solutions --quit --headless
 mkdir -p FirstMod
 cp ./.godot/mono/temp/bin/Debug/FirstMod.dll FirstMod/
-/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod/FirstMod.pck
+/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod/FirstMod.pck --headless
 ```
 
 启动 Godot 的 Debug Server：
