@@ -91,3 +91,8 @@
 
 1. 在 macOS ARM 上可以正常构建 dll 和 pck，但是无法在 macOS 上的游戏中加载
 2. Linux 上的游戏可以加载在 macOS 上构建的 dll 和 pck
+
+存档路径：
+
+1. 不打 mod 时：`~/Library/Application\ Support/SlayTheSpire2/steam/*`（macOS）或 `~/.local/share/SlayTheSpire2/steam/76561198118473939/*`（Linux）
+2. 打 mod 时：`~/Library/Application\ Support/SlayTheSpire2/steam/*/modded`（macOS）或 `~/.local/share/SlayTheSpire2/steam/76561198118473939/*/modded`（Linux）
