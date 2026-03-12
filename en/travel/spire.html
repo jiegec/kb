@@ -4547,10 +4547,19 @@
 <p>在项目根目录准备一张图片，名为 <code>mod_image.png</code>，用于 Mod 的图片</p>
 </li>
 <li>点击 Project -&gt; Export...，点击 Add...，选择 Windows Desktop</li>
-<li>在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 <code>mod_image.png</code> 和 <code>mod_manifest.json</code>，点击下面的 Export PCK/ZIP，保存为 <code>FirstMod.pck</code>，之后也可以用命令行来导出，如 <code>/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck</code></li>
+<li>在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 <code>mod_image.png</code> 和 <code>mod_manifest.json</code>，点击下面的 Export PCK/ZIP，保存为 <code>FirstMod.pck</code>，之后也可以用命令行来导出，如 <code>/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless</code></li>
 <li>复制 <code>./.godot/mono/temp/bin/Debug/FirstMod.dll</code> 和 <code>FirstMod.pck</code> 到游戏的 <code>mods</code> 目录下的 <code>FirstMod</code> 目录，如 <code>~/Library/Application\ Support/SlayTheSpire2/mods/FirstMod</code>（macOS）或 <code>~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod</code>（Linux），不存在需要创建</li>
 <li>启动游戏</li>
 </ol>
+<p>命令行构建脚本，生成 dll 和 pck 到 FirstMod 目录下：</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">set</span><span class="w"> </span>-x
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cp<span class="w"> </span>~/Library/Application<span class="se">\ </span>Support/steam/steamapps/common/Slay<span class="se">\ </span>the<span class="se">\ </span>Spire<span class="se">\ </span><span class="m">2</span>/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_arm64/sts2.dll<span class="w"> </span>.
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/Applications/Godot_mono.app/Contents/MacOS/Godot<span class="w"> </span>--build-solutions<span class="w"> </span>--quit<span class="w"> </span>--headless
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>FirstMod
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>cp<span class="w"> </span>./.godot/mono/temp/bin/Debug/FirstMod.dll<span class="w"> </span>FirstMod/
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>/Applications/Godot_mono.app/Contents/MacOS/Godot<span class="w"> </span>--export-pack<span class="w"> </span><span class="s2">"Windows Desktop"</span><span class="w"> </span>FirstMod/FirstMod.pck<span class="w"> </span>--headless
+</span></code></pre></div>
 <p>启动 Godot 的 Debug Server：</p>
 <ol>
 <li>在 Godot 中，选择 Debug -&gt; Keep Debug Server Open</li>
@@ -4589,7 +4598,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月12日 01:51:46 UTC">2026年3月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月12日 02:23:42 UTC">2026年3月12日</span>
   </span>
 
     
