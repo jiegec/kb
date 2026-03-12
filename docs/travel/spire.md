@@ -81,6 +81,18 @@
 11. 复制 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 到游戏的 `mods` 目录下的 `FirstMod` 目录，如 `~/Library/Application\ Support/SlayTheSpire2/mods/FirstMod`（macOS）或 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`（Linux），不存在需要创建
 12. 启动游戏
 
+命令行构建脚本，生成 dll 和 pck 到 FirstMod 目录下：
+
+```shell
+#!/bin/sh
+set -x
+cp ~/Library/Application\ Support/steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_arm64/sts2.dll .
+/Applications/Godot_mono.app/Contents/MacOS/Godot --build-solutions --quit
+mkdir -p FirstMod
+cp ./.godot/mono/temp/bin/Debug/FirstMod.dll FirstMod/
+/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod/FirstMod.pck
+```
+
 启动 Godot 的 Debug Server：
 
 1. 在 Godot 中，选择 Debug -> Keep Debug Server Open
