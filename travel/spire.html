@@ -4526,7 +4526,7 @@
 <h2 id="2">杀戮尖塔 2</h2>
 <h3 id="_2">铁甲战士</h3>
 <h4 id="_3">易伤流</h4>
-<p>打法：给敌人挂易伤，通过熔融之拳让层数翻倍，再用主宰把易伤转化为力量。</p>
+<p>思路：先给敌人上易伤，熔融之拳把层数翻倍，最后用主宰把易伤转成力量。</p>
 <p>普通：</p>
 <ul>
 <li>痛击（Bash）：造成 8 点伤害。给予 2 层易伤。</li>
@@ -4549,7 +4549,7 @@
 </ul>
 <h3 id="_4">亡灵契约师</h3>
 <h4 id="_5">灵魂流</h4>
-<p>打法：获取大量灵魂用于过牌，用捕捉灵魂和吊杀进行输出，用守墓人和挽歌保证生存，用唤起获得大量能量</p>
+<p>思路：捕捉灵魂攒灵魂过牌，吊杀和死亡行军打伤害，守墓人和挽歌保命，唤起和预借时间给能量。</p>
 <p>普通：</p>
 <ul>
 <li>守墓人（Grave Warden）：获得 8 点格挡。将一张灵魂放入你的抽牌堆中。</li>
@@ -4562,6 +4562,7 @@
 <li>挽歌（Dirge）：召唤 3X 次。将 X 张灵魂添加到你的抽牌堆中。</li>
 <li>捕捉灵魂（Capture Spirit）：敌人失去 3 生命。将 3 张灵魂加入你的抽牌堆。</li>
 <li>预借时间（Borrowed Soul）：给予自身 3 层灾厄。获得 1 能量。</li>
+<li>死亡行军（Death March）：造成 8 点伤害。在你回合进行中每抽到一张牌，都会使其额外造成 3 点伤害。</li>
 </ul>
 <p>稀有：</p>
 <ul>
@@ -4570,20 +4571,20 @@
 <p>无限：</p>
 <ul>
 <li>捕捉灵魂加回复费用牌（预借时间或疯狂科学）：<ul>
-<li>前置条件：卡组足够小，有一张捕捉灵魂，外加一张回复费用牌，如预借时间，或在打造时间事件中，获得疯狂科学，进行充能改造。</li>
+<li>前置条件：卡组够小，有捕捉灵魂和一张回费牌（预借时间，或在打造时间事件中获得疯狂科学并充能改造）。</li>
 <li>卡牌说明：<ul>
 <li>捕捉灵魂（Capture Spirit，耗费 1 能量）：敌人失去 3 生命。将 3 张灵魂加入你的抽牌堆。</li>
 <li>预借时间（Borrowed Time，耗费 0 能量）：给予自身 3 层灾厄。获得 1 能量。</li>
 <li>疯狂科学（Mad Science，耗费 1 能量）：获得 8 点格挡。获得 2 能量。</li>
 </ul>
 </li>
-<li>无限流程：把其他无关牌都留在手上，先打捕捉灵魂，一直抽灵魂，直到把回复费用牌（预借时间或疯狂科学）和捕捉灵魂抽上来，再打回复费用牌，循环。</li>
-<li>其中捕捉灵魂可以换成其他打伤害同时可以获得灵魂的牌，如剥夺（耗费 1 能量，造成 9 点伤害。将一张灵魂加入你的抽牌堆）；如果有纠缠（每当你打出一张灵魂时，随机一名敌人失去 6 生命），其他生成灵魂的牌也都可以。</li>
+<li>无限流程：把无关牌留在手上，先打捕捉灵魂抽灵魂，抽到回费牌（预借时间或疯狂科学）和捕捉灵魂后，打回费牌，循环。</li>
+<li>捕捉灵魂可换成其他打伤害同时产灵魂的牌，如剥夺（耗费 1 能量，造成 9 点伤害。将一张灵魂加入你的抽牌堆）；如有纠缠（每当你打出一张灵魂时，随机一名敌人失去 6 生命），其他产灵魂的牌也可用。</li>
 </ul>
 </li>
 </ul>
 <h3 id="mod">创建 Mod</h3>
-<p>针对 v0.98.3 版本，参考 <a href="https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/">STS2 Early Access Mod Guide</a>:</p>
+<p>以下步骤适用于 v0.98.3 版本，参考了 <a href="https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/">STS2 Early Access Mod Guide</a>：</p>
 <ol>
 <li>安装 <a href="https://godotengine.org/download/archive/4.5.1-stable/">Godot 4.5.1 .NET 版</a>，如 <code>Godot_v4.5.1-stable_mono_macos.unitervsal.zip</code></li>
 <li>安装 <a href="https://dotnet.microsoft.com/zh-cn/download">.NET SDK</a>，如 <code>dotnet-sdk-10.0.200-osx-arm64.pkg</code></li>
@@ -4634,11 +4635,11 @@
 </span></code></pre></div>
 </li>
 <li>
-<p>在项目根目录下 <code>FirstMod</code> 目录下准备一张图片，名为 <code>mod_image.png</code>，用于 Mod 的图片</p>
+<p>在项目根目录创建 <code>FirstMod</code> 子目录，放入一张名为 <code>mod_image.png</code> 的图片作为 Mod 封面</p>
 </li>
-<li>点击 Project -&gt; Export...，点击 Add...，选择 Windows Desktop</li>
-<li>在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 <code>mod_image.png</code> 和 <code>mod_manifest.json</code>，点击下面的 Export PCK/ZIP，保存为 <code>FirstMod.pck</code>，之后也可以用命令行来导出，如 <code>/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless</code></li>
-<li>复制 <code>./.godot/mono/temp/bin/Debug/FirstMod.dll</code> 和 <code>FirstMod.pck</code> 到游戏的 <code>mods</code> 目录下的 <code>FirstMod</code> 目录，如 <code>/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod</code>（macOS）或 <code>~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod</code>（Linux），不存在需要创建</li>
+<li>点击 Project -&gt; Export...，Add... -&gt; Windows Desktop</li>
+<li>在 Resources 选项卡选择 Export selected resources，勾选 <code>mod_image.png</code> 和 <code>mod_manifest.json</code>，点击 Export PCK/ZIP，保存为 <code>FirstMod.pck</code>。也可以用命令行导出：<code>/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless</code></li>
+<li>将 <code>./.godot/mono/temp/bin/Debug/FirstMod.dll</code> 和 <code>FirstMod.pck</code> 复制到游戏 <code>mods/FirstMod</code> 目录（路径：macOS 为 <code>/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod</code>，Linux 为 <code>~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod</code>），目录不存在则手动创建</li>
 <li>启动游戏</li>
 </ol>
 <p>最终项目见 <a href="https://github.com/jiegec/STS2FirstMod">jiegec/STS2FirstMod</a>。</p>
@@ -4657,12 +4658,8 @@
 <li>在 Steam 中，设置启动选项 <code>--remote-debug tcp://127.0.0.1:6007</code></li>
 <li>启动游戏</li>
 </ol>
-<p>目前的情况：</p>
-<ol>
-<li>在 macOS ARM 上可以正常构建 dll 和 pck，但是无法在 macOS 上的游戏中加载</li>
-<li>Linux 上的游戏可以加载在 macOS 上构建的 dll 和 pck</li>
-</ol>
-<p>针对 Beta v0.99 版本（修复了 macOS 上加载 Mod 的 bug），改动如下：</p>
+<p>v0.98.3 已知问题：macOS ARM 能构建 dll 和 pck，但游戏无法加载；Linux 版游戏可以加载 macOS 构建的文件。</p>
+<p>Beta v0.99 已修复 macOS 加载 Mod 的问题，改动如下：</p>
 <ol>
 <li>
 <p>修改 <code>mod_manifest.json</code> 格式：</p>
@@ -4714,7 +4711,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 08:16:58 UTC">2026年3月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 08:25:22 UTC">2026年3月13日</span>
   </span>
 
     
