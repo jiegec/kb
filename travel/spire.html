@@ -4453,6 +4453,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        存档路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反编译
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4559,7 +4581,7 @@
 </li>
 </ul>
 <h3 id="mod">创建 Mod</h3>
-<p>参考 <a href="https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/">STS2 Early Access Mod Guide</a>:</p>
+<p>针对 v0.98.3 版本，参考 <a href="https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/">STS2 Early Access Mod Guide</a>:</p>
 <ol>
 <li>安装 <a href="https://godotengine.org/download/archive/4.5.1-stable/">Godot 4.5.1 .NET 版</a>，如 <code>Godot_v4.5.1-stable_mono_macos.unitervsal.zip</code></li>
 <li>安装 <a href="https://dotnet.microsoft.com/zh-cn/download">.NET SDK</a>，如 <code>dotnet-sdk-10.0.200-osx-arm64.pkg</code></li>
@@ -4614,9 +4636,10 @@
 </li>
 <li>点击 Project -&gt; Export...，点击 Add...，选择 Windows Desktop</li>
 <li>在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 <code>mod_image.png</code> 和 <code>mod_manifest.json</code>，点击下面的 Export PCK/ZIP，保存为 <code>FirstMod.pck</code>，之后也可以用命令行来导出，如 <code>/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless</code></li>
-<li>复制 <code>./.godot/mono/temp/bin/Debug/FirstMod.dll</code> 和 <code>FirstMod.pck</code> 到游戏的 <code>mods</code> 目录下的 <code>FirstMod</code> 目录，如 <code>~/Library/Application\ Support/SlayTheSpire2/mods/FirstMod</code>（macOS）或 <code>~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod</code>（Linux），不存在需要创建</li>
+<li>复制 <code>./.godot/mono/temp/bin/Debug/FirstMod.dll</code> 和 <code>FirstMod.pck</code> 到游戏的 <code>mods</code> 目录下的 <code>FirstMod</code> 目录，如 <code>/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod</code>（macOS）或 <code>~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod</code>（Linux），不存在需要创建</li>
 <li>启动游戏</li>
 </ol>
+<p>最终项目见 <a href="https://github.com/jiegec/STS2FirstMod">jiegec/STS2FirstMod</a>。</p>
 <p>命令行构建脚本，生成 dll 和 pck 到 FirstMod 目录下：</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/bin/sh</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">set</span><span class="w"> </span>-x
@@ -4637,11 +4660,36 @@
 <li>在 macOS ARM 上可以正常构建 dll 和 pck，但是无法在 macOS 上的游戏中加载</li>
 <li>Linux 上的游戏可以加载在 macOS 上构建的 dll 和 pck</li>
 </ol>
-<p>存档路径：</p>
+<p>针对 Beta v0.99 版本（修复了 macOS 上加载 Mod 的 bug），改动如下：</p>
+<ol>
+<li>
+<p>修改 <code>mod_manifest.json</code> 格式：</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstMod"</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstMod"</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"doctornoodlearms"</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">"has_pck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">"has_dll"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">"affects_gameplay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
+</span></code></pre></div>
+</li>
+<li>
+<p><code>mod_manifest.json</code> 也要安装到 <code>mods</code> 目录下，不再放到 pck 内部</p>
+</li>
+</ol>
+<h3 id="_6">存档路径</h3>
 <ol>
 <li>不打 mod 时：<code>~/Library/Application\ Support/SlayTheSpire2/steam/*</code>（macOS）或 <code>~/.local/share/SlayTheSpire2/steam/76561198118473939/*</code>（Linux）</li>
 <li>打 mod 时：<code>~/Library/Application\ Support/SlayTheSpire2/steam/*/modded</code>（macOS）或 <code>~/.local/share/SlayTheSpire2/steam/76561198118473939/*/modded</code>（Linux）</li>
 </ol>
+<h3 id="_7">反编译</h3>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/icsharpcode/ILSpy.git
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>nix-shell<span class="w"> </span>-p<span class="w"> </span>dotnet-sdk_10<span class="w"> </span>-p<span class="w"> </span>dotnet-runtime_10<span class="w"> </span>-p<span class="w"> </span>powershell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"cd ILSpy &amp;&amp; dotnet build ILSpy.XPlat.slnf &amp;&amp; dotnet ./ICSharpCode.ILSpyCmd/bin/Debug/net10.0/ilspycmd.dll -o </span><span class="nv">$PWD</span><span class="s2"> ~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/data_sts2_linuxbsd_x86_64/sts2.dll --nested-directories -p"</span>
+</span></code></pre></div>
 
 
 
@@ -4664,7 +4712,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月12日 13:28:42 UTC">2026年3月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月13日 04:21:57 UTC">2026年3月13日</span>
   </span>
 
     
