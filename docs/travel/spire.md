@@ -6,7 +6,7 @@
 
 #### 易伤流
 
-打法：给敌人挂易伤，通过熔融之拳让层数翻倍，再用主宰把易伤转化为力量。
+思路：先给敌人上易伤，熔融之拳把层数翻倍，最后用主宰把易伤转成力量。
 
 普通：
 
@@ -32,7 +32,7 @@
 
 #### 灵魂流
 
-打法：获取大量灵魂用于过牌，用捕捉灵魂和吊杀进行输出，用守墓人和挽歌保证生存，用唤起获得大量能量
+思路：捕捉灵魂攒灵魂过牌，吊杀和死亡行军打伤害，守墓人和挽歌保命，唤起和预借时间给能量。
 
 普通：
 
@@ -46,6 +46,7 @@
 - 挽歌（Dirge）：召唤 3X 次。将 X 张灵魂添加到你的抽牌堆中。
 - 捕捉灵魂（Capture Spirit）：敌人失去 3 生命。将 3 张灵魂加入你的抽牌堆。
 - 预借时间（Borrowed Soul）：给予自身 3 层灾厄。获得 1 能量。
+- 死亡行军（Death March）：造成 8 点伤害。在你回合进行中每抽到一张牌，都会使其额外造成 3 点伤害。
 
 稀有：
 
@@ -54,17 +55,17 @@
 无限：
 
 - 捕捉灵魂加回复费用牌（预借时间或疯狂科学）：
-    - 前置条件：卡组足够小，有一张捕捉灵魂，外加一张回复费用牌，如预借时间，或在打造时间事件中，获得疯狂科学，进行充能改造。
+    - 前置条件：卡组够小，有捕捉灵魂和一张回费牌（预借时间，或在打造时间事件中获得疯狂科学并充能改造）。
     - 卡牌说明：
         - 捕捉灵魂（Capture Spirit，耗费 1 能量）：敌人失去 3 生命。将 3 张灵魂加入你的抽牌堆。
         - 预借时间（Borrowed Time，耗费 0 能量）：给予自身 3 层灾厄。获得 1 能量。
         - 疯狂科学（Mad Science，耗费 1 能量）：获得 8 点格挡。获得 2 能量。
-    - 无限流程：把其他无关牌都留在手上，先打捕捉灵魂，一直抽灵魂，直到把回复费用牌（预借时间或疯狂科学）和捕捉灵魂抽上来，再打回复费用牌，循环。
-    - 其中捕捉灵魂可以换成其他打伤害同时可以获得灵魂的牌，如剥夺（耗费 1 能量，造成 9 点伤害。将一张灵魂加入你的抽牌堆）；如果有纠缠（每当你打出一张灵魂时，随机一名敌人失去 6 生命），其他生成灵魂的牌也都可以。
+    - 无限流程：把无关牌留在手上，先打捕捉灵魂抽灵魂，抽到回费牌（预借时间或疯狂科学）和捕捉灵魂后，打回费牌，循环。
+    - 捕捉灵魂可换成其他打伤害同时产灵魂的牌，如剥夺（耗费 1 能量，造成 9 点伤害。将一张灵魂加入你的抽牌堆）；如有纠缠（每当你打出一张灵魂时，随机一名敌人失去 6 生命），其他产灵魂的牌也可用。
 
 ### 创建 Mod
 
-针对 v0.98.3 版本，参考 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/):
+以下步骤适用于 v0.98.3 版本，参考了 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/)：
 
 1. 安装 [Godot 4.5.1 .NET 版](https://godotengine.org/download/archive/4.5.1-stable/)，如 `Godot_v4.5.1-stable_mono_macos.unitervsal.zip`
 2. 安装 [.NET SDK](https://dotnet.microsoft.com/zh-cn/download)，如 `dotnet-sdk-10.0.200-osx-arm64.pkg`
@@ -115,10 +116,10 @@
     } 
     ```
 
-8. 在项目根目录下 `FirstMod` 目录下准备一张图片，名为 `mod_image.png`，用于 Mod 的图片
-9. 点击 Project -> Export...，点击 Add...，选择 Windows Desktop
-10. 在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 `mod_image.png` 和 `mod_manifest.json`，点击下面的 Export PCK/ZIP，保存为 `FirstMod.pck`，之后也可以用命令行来导出，如 `/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless`
-11. 复制 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 到游戏的 `mods` 目录下的 `FirstMod` 目录，如 `/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod`（macOS）或 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`（Linux），不存在需要创建
+8. 在项目根目录创建 `FirstMod` 子目录，放入一张名为 `mod_image.png` 的图片作为 Mod 封面
+9. 点击 Project -> Export...，Add... -> Windows Desktop
+10. 在 Resources 选项卡选择 Export selected resources，勾选 `mod_image.png` 和 `mod_manifest.json`，点击 Export PCK/ZIP，保存为 `FirstMod.pck`。也可以用命令行导出：`/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless`
+11. 将 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 复制到游戏 `mods/FirstMod` 目录（路径：macOS 为 `/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod`，Linux 为 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`），目录不存在则手动创建
 12. 启动游戏
 
 最终项目见 [jiegec/STS2FirstMod](https://github.com/jiegec/STS2FirstMod)。
@@ -141,12 +142,9 @@ cp ./.godot/mono/temp/bin/Debug/FirstMod.dll FirstMod/
 2. 在 Steam 中，设置启动选项 `--remote-debug tcp://127.0.0.1:6007`
 3. 启动游戏
 
-目前的情况：
+v0.98.3 已知问题：macOS ARM 能构建 dll 和 pck，但游戏无法加载；Linux 版游戏可以加载 macOS 构建的文件。
 
-1. 在 macOS ARM 上可以正常构建 dll 和 pck，但是无法在 macOS 上的游戏中加载
-2. Linux 上的游戏可以加载在 macOS 上构建的 dll 和 pck
-
-针对 Beta v0.99 版本（修复了 macOS 上加载 Mod 的 bug），改动如下：
+Beta v0.99 已修复 macOS 加载 Mod 的问题，改动如下：
 
 1. 修改 `mod_manifest.json` 格式：
 
