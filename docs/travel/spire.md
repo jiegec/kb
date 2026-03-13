@@ -62,7 +62,7 @@
 
 ### 创建 Mod
 
-参考 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/):
+针对 v0.98.3 版本，参考 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/):
 
 1. 安装 [Godot 4.5.1 .NET 版](https://godotengine.org/download/archive/4.5.1-stable/)，如 `Godot_v4.5.1-stable_mono_macos.unitervsal.zip`
 2. 安装 [.NET SDK](https://dotnet.microsoft.com/zh-cn/download)，如 `dotnet-sdk-10.0.200-osx-arm64.pkg`
@@ -116,8 +116,10 @@
 8. 在项目根目录下 `FirstMod` 目录下准备一张图片，名为 `mod_image.png`，用于 Mod 的图片
 9. 点击 Project -> Export...，点击 Add...，选择 Windows Desktop
 10. 在 Export Path 下面的 Resources，选择 Export selected resources (and dependencies)，下面勾选 `mod_image.png` 和 `mod_manifest.json`，点击下面的 Export PCK/ZIP，保存为 `FirstMod.pck`，之后也可以用命令行来导出，如 `/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless`
-11. 复制 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 到游戏的 `mods` 目录下的 `FirstMod` 目录，如 `~/Library/Application\ Support/SlayTheSpire2/mods/FirstMod`（macOS）或 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`（Linux），不存在需要创建
+11. 复制 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 到游戏的 `mods` 目录下的 `FirstMod` 目录，如 `/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod`（macOS）或 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`（Linux），不存在需要创建
 12. 启动游戏
+
+最终项目见 [jiegec/STS2FirstMod](https://github.com/jiegec/STS2FirstMod)。
 
 命令行构建脚本，生成 dll 和 pck 到 FirstMod 目录下：
 
@@ -142,7 +144,34 @@ cp ./.godot/mono/temp/bin/Debug/FirstMod.dll FirstMod/
 1. 在 macOS ARM 上可以正常构建 dll 和 pck，但是无法在 macOS 上的游戏中加载
 2. Linux 上的游戏可以加载在 macOS 上构建的 dll 和 pck
 
-存档路径：
+针对 Beta v0.99 版本（修复了 macOS 上加载 Mod 的 bug），改动如下：
+
+1. 修改 `mod_manifest.json` 格式：
+
+    ```json
+    {
+        "id": "FirstMod",
+        "name": "FirstMod",
+        "author": "doctornoodlearms",
+        "description": "",
+        "version": "1.0.0",
+        "has_pck": true,
+        "has_dll": true,
+        "dependencies": [],
+        "affects_gameplay": true
+    }
+    ```
+
+2. `mod_manifest.json` 也要安装到 `mods` 目录下，不再放到 pck 内部
+
+### 存档路径
 
 1. 不打 mod 时：`~/Library/Application\ Support/SlayTheSpire2/steam/*`（macOS）或 `~/.local/share/SlayTheSpire2/steam/76561198118473939/*`（Linux）
 2. 打 mod 时：`~/Library/Application\ Support/SlayTheSpire2/steam/*/modded`（macOS）或 `~/.local/share/SlayTheSpire2/steam/76561198118473939/*/modded`（Linux）
+
+### 反编译
+
+```shell
+git clone https://github.com/icsharpcode/ILSpy.git
+nix-shell -p dotnet-sdk_10 -p dotnet-runtime_10 -p powershell --run "cd ILSpy && dotnet build ILSpy.XPlat.slnf && dotnet ./ICSharpCode.ILSpyCmd/bin/Debug/net10.0/ilspycmd.dll -o $PWD ~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/data_sts2_linuxbsd_x86_64/sts2.dll --nested-directories -p"
+```
