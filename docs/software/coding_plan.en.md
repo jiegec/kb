@@ -55,6 +55,11 @@
 - Note: GLM-5 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April. Peak hours are 14:00–18:00 (UTC+8).
 - Note: For users who subscribed and enabled auto-renewal before February 12 (UTC+8), the original quota will remain in effect throughout the subscription validity period, and no weekly usage limits will apply.
 - Note: For users who enabled auto-renewal before February 12, both the renewal price and the usage quota will remain unchanged and will continue to follow the limits shown at the time of your original subscription.
+- [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
+    - Cached input: 1.2/1.8 RMB per 1M tokens
+    - Uncached input: 5/7 RMB per 1M tokens
+    - Output: 22/26 RMB per 1M tokens
+    - 200K context
 - [GLM-5 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 1/1.5 RMB per 1M tokens
     - Uncached input: 4/6 RMB per 1M tokens
