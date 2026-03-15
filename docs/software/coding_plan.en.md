@@ -50,7 +50,9 @@
 - Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
 - One prompt refers to one query. Each prompt is estimated to invoke the model 15–20 times. The monthly available quota is converted based on API pricing, equivalent to approximately 15–30× the monthly subscription fee (weekly caps already factored in).
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: GLM-5 has a larger parameter size and is benchmarked against the Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. Peak hours are 14:00–18:00 (UTC+8).
+- Note: GLM-5 support in Coding Plan: Supported on both Max and Pro plans; expected to be available on the Lite plan by the end of March
+- Note: GLM-5-Turbo support in Coding Plan: Supported on the Max plan; expected to be available on the Pro plan by the end of March and on the Lite plan sometime in April
+- Note: GLM-5 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April. Peak hours are 14:00–18:00 (UTC+8).
 - Note: For users who subscribed and enabled auto-renewal before February 12 (UTC+8), the original quota will remain in effect throughout the subscription validity period, and no weekly usage limits will apply.
 - Note: For users who enabled auto-renewal before February 12, both the renewal price and the usage quota will remain unchanged and will continue to follow the limits shown at the time of your original subscription.
 - [GLM-5 API Pricing](https://bigmodel.cn/pricing):
@@ -142,6 +144,12 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/18: Z.ai released GLM-5-Turbo model:
+    - Designed for high-throughput OpenClaw lobster workloads, GLM-5-Turbo focuses on improving stability and efficiency in long-chain Agent tasks, enabling smoother execution for complex, multi-step workflows.
+    - It strengthens tool and Skills integration and enhances complex instruction decomposition, allowing the model to better identify task goals, plan execution steps, coordinate across multiple agents, and maintain temporal consistency in extended tasks.
+    - GLM-5 support in Coding Plan: Supported on both Max and Pro plans; expected to be available on the Lite plan by the end of March
+    - GLM-5-Turbo support in Coding Plan: Supported on the Max plan; expected to be available on the Pro plan by the end of March and on the Lite plan sometime in April
+    - GLM-5 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April. Peak hours are 14:00–18:00 (UTC+8).
 - 2026/03/08: Tencent Cloud LLM Coding Plan launched
 - 2026/03/07: Zhipu issued a 15-day compensation credit for GLM Coding Plan. The translated email text is as follows (original was in Chinese):
     ```
