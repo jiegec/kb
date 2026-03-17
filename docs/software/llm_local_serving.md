@@ -99,8 +99,9 @@ llama.cpp:
 ```shell
 # follow https://unsloth.ai/docs/models/glm-4.7-flash
 # download gguf from hf
-uv run hf download unsloth/GLM-4.7-Flash-GGUF \
+uv run hf download \
     --local-dir unsloth/GLM-4.7-Flash-GGUF \
+    unsloth/GLM-4.7-Flash-GGUF \
     --include "*UD-Q2_K_XL*"
 # serve
 ./llama.cpp/llama-server \
@@ -120,8 +121,9 @@ llama.cpp:
 
 # download gguf from hf
 # Qwen3.5-27B
-uv run hf download unsloth/Qwen3.5-27B-GGUF \
+uv run hf download \
     --local-dir unsloth/Qwen3.5-27B-GGUF \
+    unsloth/Qwen3.5-27B-GGUF \
     Qwen3.5-27B-UD-Q4_K_XL.gguf
 ./llama.cpp/llama-server \
     --model unsloth/Qwen3.5-27B-GGUF/Qwen3.5-27B-UD-Q4_K_XL.gguf \
@@ -129,8 +131,9 @@ uv run hf download unsloth/Qwen3.5-27B-GGUF \
     --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
 
 # Qwen3.5-35B-A3B
-uv run hf download unsloth/Qwen3.5-35B-A3B-GGUF \
+uv run hf download \
     --local-dir unsloth/Qwen3.5-35B-A3B-GGUF \
+    unsloth/Qwen3.5-35B-A3B-GGUF \
     Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf
 ./llama.cpp/llama-server \
     --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf \
@@ -138,16 +141,19 @@ uv run hf download unsloth/Qwen3.5-35B-A3B-GGUF \
     --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
 
 # Qwen3.5-9B
-uv run hf download unsloth/Qwen3.5-9B-GGUF \
+uv run hf download \
     --local-dir unsloth/Qwen3.5-9B-GGUF \
+    unsloth/Qwen3.5-9B-GGUF \
     Qwen3.5-9B-Q8_0.gguf
-uv run hf download unsloth/Qwen3.5-9B-GGUF \
+uv run hf download \
     --local-dir unsloth/Qwen3.5-9B-GGUF \
+    unsloth/Qwen3.5-9B-GGUF \
     Qwen3.5-9B-UD-Q4_K_XL.gguf
 
 # Qwen3.5-4B
-uv run hf download unsloth/Qwen3.5-4B-GGUF \
+uv run hf download \
     --local-dir unsloth/Qwen3.5-4B-GGUF \
+    unsloth/Qwen3.5-4B-GGUF \
     Qwen3.5-4B-UD-Q4_K_XL.gguf
 ```
 
@@ -156,8 +162,9 @@ MLX-LM:
 ```shell
 # Qwen3.5-4B
 # for MLX on Apple Silicon
-uv run hf download mlx-community/Qwen3.5-4B-MLX-4bit \
-    --local-dir mlx-community/Qwen3.5-4B-MLX-4bit
+uv run hf download \
+    --local-dir mlx-community/Qwen3.5-4B-MLX-4bit \
+    mlx-community/Qwen3.5-4B-MLX-4bit 
 uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --log-level DEBUG
 ```
 
