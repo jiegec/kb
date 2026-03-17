@@ -103,6 +103,13 @@
     - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
     - Supported models: Kimi-K2.5, DeepSeek-V3.2, GLM-5, MiniMax-M2.5, GLM-4.7, MiniMax-M2.1
+- [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
+    - First Month Edition:
+        - Starter (3.9 RMB first purchase/month, 19 RMB add-on/month): 20M tokens daily, supports DeepSeek-V3.2 and GLM-4.7-Flash models, QPS=20
+        - Professional (7.9 RMB first purchase/month, 39 RMB add-on/month): 10M tokens daily, supports DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=5
+        - Efficient (39.9 RMB first purchase/month, 199 RMB add-on/month): 50M tokens daily, supports DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=20
+    - Subsequent Month Edition:
+        - Has 5-hour, weekly, and monthly limits based on request count; limits not yet published
 
 ### Others
 
@@ -149,6 +156,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/17: Added iFlytek MaaS Astron Coding Plan
 - 2026/03/18: Z.ai released GLM-5-Turbo model:
     - Designed for high-throughput OpenClaw lobster workloads, GLM-5-Turbo focuses on improving stability and efficiency in long-chain Agent tasks, enabling smoother execution for complex, multi-step workflows.
     - It strengthens tool and Skills integration and enhances complex instruction decomposition, allowing the model to better identify task goals, plan execution steps, coordinate across multiple agents, and maintain temporal consistency in extended tasks.

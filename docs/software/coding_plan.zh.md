@@ -103,6 +103,13 @@
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
     - 支持模型：Kimi-K2.5、DeepSeek-V3.2、GLM-5、MiniMax-M2.5、GLM-4.7、MiniMax-M2.1
+- [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
+    - 首月版：
+        - 入门版（3.9 RMB 每月首购，19 RMB 每月叠加）：每日 2000 万 tokens，支持 DeepSeek-V3.2 和 GLM-4.7-Flash 模型，QPS=20
+        - 专业版（7.9 RMB 每月首购，39 RMB 每月叠加）：每日 1000 万 tokens，支持 DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5 模型，QPS=5
+        - 高效版（39.9 RMB 每月首购，199 RMB 每月叠加）：每日 5000 万 tokens，支持 DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5 模型，QPS=20
+    - 次月迭代版：
+        - 有 5 小时、每周和每月限额，按请求次数，限额尚未发布
 
 ### 其他
 
@@ -149,7 +156,8 @@
 
 ## 更新历史
 
-- 2026/03/18：智谱上线了 GLM-5-Turbo 模型，描述如下：
+- 2026/03/17：添加了讯飞星辰 MaaS Astron Coding Plan
+- 2026/03/16：智谱上线了 GLM-5-Turbo 模型，描述如下：
     - 面向 OpenClaw 龙虾场景深度优化的基座模型
     - 强化了对外部工具与各类 Skills 的调用能力，在多步任务中更稳定、更可靠
     - 复杂指令拆解更强，能够精准识别目标、规划步骤，并支持多智能体之间的协同分工
