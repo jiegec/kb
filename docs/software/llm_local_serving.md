@@ -358,8 +358,7 @@ $ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:8080 --no-cache --model Qw
 | Qwen/Qwen3.5-4B | pp2048 @ d32768 |  5179.34 ± 663.92 |               | 6835.63 ± 879.64 | 6834.27 ± 879.64 | 6835.73 ± 879.64 |
 | Qwen/Qwen3.5-4B |   tg32 @ d32768 |      78.65 ± 4.70 |  81.64 ± 4.81 |                  |                  |                  |
 
-# sglang commit 57b093d
-# Add --tp 2 (use two cards) due to OOM
+# sglang commit 7f99319c
 # Add --mamba-scheduler-strategy extra_buffer to fix error: 
 # ValueError: Speculative decoding for Qwen3_5ForConditionalGeneration is not compatible with radix cache when using --mamba-scheduler-strategy no_buffer. To use radix cache with speculative decoding, please use --mamba-scheduler-strategy extra_buffer and set SGLANG_ENABLE_SPEC_V2=1.
 $ SGLANG_ENABLE_SPEC_V2=1 uv run python -m sglang.launch_server \
@@ -371,20 +370,19 @@ $ SGLANG_ENABLE_SPEC_V2=1 uv run python -m sglang.launch_server \
   --speculative-eagle-topk 1 \
   --speculative-num-draft-tokens 4 \
   --enable-flashinfer-allreduce-fusion \
-  --mem-fraction-static 0.8 \
-  --tp 2 \
+  --mem-fraction-static 0.95 \
   --mamba-scheduler-strategy extra_buffer
-$ uvx llama-benchy@v0.3.4 --base-url http://127.0.0.1:30000/v1 --no-cache --model Qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
-| model           |            test |              t/s |     peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
-|:----------------|----------------:|-----------------:|-------------:|----------------:|----------------:|----------------:|
-| Qwen/Qwen3.5-4B |          pp2048 | 6999.30 ± 337.02 |              |  298.17 ± 14.26 |  293.43 ± 14.26 |  298.31 ± 14.27 |
-| Qwen/Qwen3.5-4B |            tg32 |     63.38 ± 0.26 | 69.68 ± 0.68 |                 |                 |                 |
-| Qwen/Qwen3.5-4B |  pp2048 @ d8192 | 9171.37 ± 455.86 |              | 1124.28 ± 58.29 | 1119.54 ± 58.29 | 1124.41 ± 58.29 |
-| Qwen/Qwen3.5-4B |    tg32 @ d8192 |     62.56 ± 0.30 | 68.99 ± 0.59 |                 |                 |                 |
-| Qwen/Qwen3.5-4B | pp2048 @ d16384 | 9508.49 ± 100.97 |              | 1943.56 ± 20.39 | 1938.82 ± 20.39 | 1943.71 ± 20.35 |
-| Qwen/Qwen3.5-4B |   tg32 @ d16384 |     61.17 ± 0.53 | 67.91 ± 1.01 |                 |                 |                 |
-| Qwen/Qwen3.5-4B | pp2048 @ d32768 |  9396.72 ± 30.12 |              | 3710.01 ± 11.91 | 3705.27 ± 11.91 | 3710.14 ± 11.91 |
-| Qwen/Qwen3.5-4B |   tg32 @ d32768 |     58.76 ± 1.87 | 64.87 ± 2.16 |                 |                 |                 |
+$ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:30000/v1 --no-cache --model Qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
+| model           |            test |               t/s |     peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
+|:----------------|----------------:|------------------:|-------------:|----------------:|----------------:|----------------:|
+| Qwen/Qwen3.5-4B |          pp2048 |  8768.36 ± 886.82 |              |  239.95 ± 21.02 |  235.78 ± 21.02 |  240.08 ± 21.03 |
+| Qwen/Qwen3.5-4B |            tg32 |      49.87 ± 0.22 | 55.22 ± 0.68 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |  pp2048 @ d8192 | 11567.46 ± 226.15 |              |  889.81 ± 16.91 |  885.64 ± 16.91 |  889.93 ± 16.91 |
+| Qwen/Qwen3.5-4B |    tg32 @ d8192 |      49.00 ± 0.06 | 53.82 ± 0.75 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d16384 | 11502.00 ± 381.09 |              | 1608.61 ± 55.36 | 1604.44 ± 55.36 | 1608.72 ± 55.35 |
+| Qwen/Qwen3.5-4B |   tg32 @ d16384 |      47.91 ± 0.14 | 53.12 ± 0.42 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d32768 |  11019.27 ± 76.24 |              | 3163.95 ± 21.94 | 3159.78 ± 21.94 | 3164.07 ± 21.93 |
+| Qwen/Qwen3.5-4B |   tg32 @ d32768 |      45.98 ± 0.20 | 51.13 ± 0.45 |                 |                 |                 |
 
 # vllm 0.17.0
 $ uv run vllm serve Qwen/Qwen3.5-4B \
