@@ -422,15 +422,16 @@ $ llama-bench -p 1024 -n 64 --model unsloth/Qwen3.5-4B-GGUF/Qwen3.5-4B-UD-Q4_K_X
 | qwen35 4B Q4_K - Medium        |   2.70 GiB |     4.21 B | MTL,BLAS   |       4 |            tg64 |         24.44 ± 0.28 |
 
 build: 054d8b0f2 (8396)
+# mlx-lm 0.31.1
 $ uv run python3 -m mlx_lm.benchmark --model ./mlx-community/Qwen3.5-4B-MLX-4bit -p 1024 -g 64
 Running warmup..
 Timing with prompt_tokens=1024, generation_tokens=64, batch_size=1.
-Trial 1:  prompt_tps=351.905, generation_tps=38.757, peak_memory=3.502
-Trial 2:  prompt_tps=363.097, generation_tps=38.150, peak_memory=3.503
-Trial 3:  prompt_tps=359.749, generation_tps=39.020, peak_memory=3.503
-Trial 4:  prompt_tps=359.048, generation_tps=39.020, peak_memory=3.504
-Trial 5:  prompt_tps=358.087, generation_tps=39.119, peak_memory=3.504
-Averages: prompt_tps=358.377, generation_tps=38.813, peak_memory=3.503
+Trial 1:  prompt_tps=361.322, generation_tps=39.657, peak_memory=3.502
+Trial 2:  prompt_tps=358.414, generation_tps=38.724, peak_memory=3.503
+Trial 3:  prompt_tps=356.888, generation_tps=39.224, peak_memory=3.503
+Trial 4:  prompt_tps=359.941, generation_tps=38.759, peak_memory=3.504
+Trial 5:  prompt_tps=359.376, generation_tps=38.754, peak_memory=3.504
+Averages: prompt_tps=359.188, generation_tps=39.023, peak_memory=3.503
 ```
 
 ## 模型能力测试
