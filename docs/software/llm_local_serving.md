@@ -199,8 +199,12 @@ vLLM:
 # setup venv in $PWD/.venv
 uv venv
 
-# install latest vllm
+# install latest stable vllm
 uv pip install -U vllm --torch-backend=auto
+# or nightly vllm
+uv pip install -U vllm \
+    --torch-backend=auto \
+    --extra-index-url https://wheels.vllm.ai/nightly 
 
 # Qwen3.5-4B
 uv run vllm serve Qwen/Qwen3.5-4B \
@@ -384,21 +388,21 @@ $ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:30000/v1 --no-cache --mode
 | Qwen/Qwen3.5-4B | pp2048 @ d32768 |  11019.27 ± 76.24 |              | 3163.95 ± 21.94 | 3159.78 ± 21.94 | 3164.07 ± 21.93 |
 | Qwen/Qwen3.5-4B |   tg32 @ d32768 |      45.98 ± 0.20 | 51.13 ± 0.45 |                 |                 |                 |
 
-# vllm 0.17.1
+# vllm 0.17.2rc1.dev13+gf34032433
 $ uv run vllm serve Qwen/Qwen3.5-4B \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 1}' \
   --reasoning-parser qwen3
 $ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:8000/v1 --no-cache --model Qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
 | model           |            test |                t/s |     peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
 |:----------------|----------------:|-------------------:|-------------:|----------------:|----------------:|----------------:|
-| Qwen/Qwen3.5-4B |          pp2048 | 10110.05 ± 4405.47 |              | 451.52 ± 562.67 | 447.82 ± 562.67 | 454.00 ± 561.53 |
-| Qwen/Qwen3.5-4B |            tg32 |       66.71 ± 0.07 | 70.56 ± 0.14 |                 |                 |                 |
-| Qwen/Qwen3.5-4B |  pp2048 @ d8192 |  14004.87 ± 241.15 |              |  735.14 ± 12.90 |  731.44 ± 12.90 |  735.26 ± 12.89 |
-| Qwen/Qwen3.5-4B |    tg32 @ d8192 |       54.32 ± 0.38 | 57.67 ± 0.45 |                 |                 |                 |
-| Qwen/Qwen3.5-4B | pp2048 @ d16384 |  13537.13 ± 161.68 |              | 1365.56 ± 16.32 | 1361.86 ± 16.32 | 1365.72 ± 16.39 |
-| Qwen/Qwen3.5-4B |   tg32 @ d16384 |       45.23 ± 1.29 | 47.95 ± 1.38 |                 |                 |                 |
-| Qwen/Qwen3.5-4B | pp2048 @ d32768 |   12372.68 ± 93.63 |              | 2817.89 ± 21.29 | 2814.18 ± 21.29 | 2818.00 ± 21.29 |
-| Qwen/Qwen3.5-4B |   tg32 @ d32768 |       33.89 ± 0.68 | 35.93 ± 0.74 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |          pp2048 | 10182.61 ± 4263.12 |              | 384.14 ± 427.86 | 380.34 ± 427.86 | 384.25 ± 427.87 |
+| Qwen/Qwen3.5-4B |            tg32 |       67.75 ± 0.30 | 71.96 ± 0.25 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |  pp2048 @ d8192 |  13898.49 ± 158.49 |              |   740.75 ± 8.52 |   736.94 ± 8.52 |   740.88 ± 8.52 |
+| Qwen/Qwen3.5-4B |    tg32 @ d8192 |       54.07 ± 0.55 | 57.29 ± 0.50 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d16384 |   13501.59 ± 94.79 |              |  1369.14 ± 9.68 |  1365.33 ± 9.68 |  1369.32 ± 9.65 |
+| Qwen/Qwen3.5-4B |   tg32 @ d16384 |       45.20 ± 1.65 | 51.93 ± 7.32 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d32768 |   12373.95 ± 18.78 |              |  2817.55 ± 4.27 |  2813.74 ± 4.27 |  2817.67 ± 4.29 |
+| Qwen/Qwen3.5-4B |   tg32 @ d32768 |       34.31 ± 0.21 | 36.42 ± 0.28 |                 |                 |                 |
 ```
 
 结论：Qwen3.5-35B-A3B 的推理速度相较于 Qwen3.5 稠密模型（27B/9B）显著更快；在长上下文推理性能方面，Qwen3.5 相较于 GLM-4.7-Flash 优势明显，具体表现为前者性能随上下文长度增加衰减很少，后者则衰减显著。这大概是因为 Qwen3.5 引入了线性注意力机制。随着 llama.cpp 版本的更新，推理性能也在逐渐提升，因此安装最新版是很有必要的。
