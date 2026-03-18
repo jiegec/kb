@@ -26,7 +26,7 @@
 - Plus-High-Speed (98 RMB/month): 1,500 requests / per 5 hours
 - Max-High-Speed (199 RMB/month): 4,500 requests / per 5 hours
 - Ultra-High-Speed (899 RMB/month): 30,000 requests / per 5 hours
-- High-Speed plans (Plus-Highspeed, Max-Highspeed, Ultra-Highspeed) with dedicated support for the MiniMax-M2.7-highspeed model, which consumes 2 requests per call
+- High-Speed plans (Plus-Highspeed, Max-Highspeed, Ultra-Highspeed) with dedicated support for the MiniMax-M2.7-highspeed model
 - [M2.7 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
     - Cached input: 0.42 RMB per 1M tokens
     - Uncached input: 2.1 RMB per 1M tokens
@@ -157,6 +157,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/18: MiniMax Token Plan removed the statement that the MiniMax-M2.7-highspeed version consumes double the requests.
 - 2026/03/18: MiniMax-M2.7 launched; meanwhile, MiniMax Coding Plan was renamed to MiniMax Token Plan, supporting non-text LLMs (e.g., audio and video). The Token Plan removed the Starter Plan and changed the description from "prompts" to "requests" though the actual limits remain unchanged (previously, the limit was also calculated as 1 prompt equaling 15 requests)
 - 2026/03/17: Added iFlytek MaaS Astron Coding Plan
 - 2026/03/18: Z.ai released GLM-5-Turbo model:

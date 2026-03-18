@@ -26,7 +26,7 @@
 - Plus-极速版（98 RMB 每月）：1500 请求 / 每 5 小时
 - Max-极速版（199 RMB 每月）：4500 请求 / 每 5 小时
 - Ultra-极速版（899 RMB 每月）：30000 请求 / 每 5 小时
-- 极速版方案（Plus-极速版、Max-极速版、Ultra-极速版），专属支持 MiniMax-M2.7-highspeed 模型，每次调用消耗 2 次请求
+- 极速版方案（Plus-极速版、Max-极速版、Ultra-极速版），专属支持 MiniMax-M2.7-highspeed 模型
 - [M2.7 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
     - 输入命中缓存 0.42 RMB 每 1M tokens
     - 输入未命中缓存 2.1 RMB 每 1M tokens
@@ -157,6 +157,7 @@
 
 ## 更新历史
 
+- 2026/03/18：MiniMax Token Plan 去掉了 MiniMax-M2.7-highspeed 版本消耗两倍请求的表述
 - 2026/03/18：MiniMax-M2.7 上线，同时 MiniMax Coding Plan 改名为 MiniMax Token Plan，支持非文本的 LLM（如音频和视频）；Token Plan 去除了 Starter Plan，把表述从 Prompt 改成了请求，实际限额不变（之前也是按 1 prompt 等于 15 请求来限额）
 - 2026/03/17：添加了讯飞星辰 MaaS Astron Coding Plan
 - 2026/03/16：智谱上线了 GLM-5-Turbo 模型，描述如下：
