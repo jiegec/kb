@@ -19,27 +19,28 @@
 
 ### MiniMax
 
-[MiniMax Coding Plan](https://platform.minimaxi.com/docs/coding-plan/intro)
+[MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan)
 
-- Starter (29 RMB/month): 40 prompts / per 5 hours
-- Plus (49 RMB/month): 100 prompts / per 5 hours
-- Max (119 RMB/month): 300 prompts / per 5 hours
-- Plus-High-Speed (98 RMB/month): 100 prompts / per 5 hours
-- Max-High-Speed (199 RMB/month): 300 prompts / per 5 hours
-- Ultra-High-Speed (899 RMB/month): 2000 prompts / per 5 hours
-- Q: Why is “1 prompt ≈ 15 model calls”? A: In an AI coding tool, a single action you take (like requesting code completion or an explanation) may be broken down by the tool into multiple, consecutive interactions with the AI model behind the scenes (e.g., fetching context, generating suggestions, refining suggestions, etc.). To simplify billing, we bundle these backend calls into a single “prompt” count. This means that 1 “prompt” within your plan actually covers multiple complex model invocations.
-- [M2.5 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
-    - Cached input: 0.21 RMB per 1M tokens
+- Plus (49 RMB/month): 1,500 requests / per 5 hours
+- Max (119 RMB/month): 4,500 requests / per 5 hours
+- Plus-High-Speed (98 RMB/month): 1,500 requests / per 5 hours
+- Max-High-Speed (199 RMB/month): 4,500 requests / per 5 hours
+- Ultra-High-Speed (899 RMB/month): 30,000 requests / per 5 hours
+- High-Speed plans (Plus-Highspeed, Max-Highspeed, Ultra-Highspeed) with dedicated support for the MiniMax-M2.7-highspeed model, which consumes 2 requests per call
+- [M2.7 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
+    - Cached input: 0.42 RMB per 1M tokens
     - Uncached input: 2.1 RMB per 1M tokens
     - Cache write input: 2.625 RMB per 1M tokens
     - Output: 8.4 RMB per 1M tokens
     - 200K context
 
-[MiniMax International Coding Plan](https://platform.minimax.io/docs/coding-plan/intro)
+[MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
 
-- Starter (10 USD/month): 100 prompts / per 5 hours
-- Plus (20 USD/month): 300 prompts / per 5 hours
-- Max (50 USD/month): 1000 prompts / per 5 hours
+- Plus (20 USD/month): 4,500 requests / per 5 hours
+- Max (50 USD/month): 15,000 requests / per 5 hours
+- Plus-High-Speed (40 USD/month): 4,500 requests / per 5 hours
+- Max-High-Speed (80 USD/month): 15,000 requests / per 5 hours
+- Ultra-High-Speed (150 USD/month): 30,000 requests / per 5 hours
 
 ### Zhipu (GLM, Z.ai)
 
@@ -156,6 +157,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/18: MiniMax-M2.7 launched; meanwhile, MiniMax Coding Plan was renamed to MiniMax Token Plan, supporting non-text LLMs (e.g., audio and video). The Token Plan removed the Starter Plan and changed the description from "prompts" to "requests" though the actual limits remain unchanged (previously, the limit was also calculated as 1 prompt equaling 15 requests)
 - 2026/03/17: Added iFlytek MaaS Astron Coding Plan
 - 2026/03/18: Z.ai released GLM-5-Turbo model:
     - Designed for high-throughput OpenClaw lobster workloads, GLM-5-Turbo focuses on improving stability and efficiency in long-chain Agent tasks, enabling smoother execution for complex, multi-step workflows.

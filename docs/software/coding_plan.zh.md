@@ -19,27 +19,28 @@
 
 ### MiniMax
 
-[MiniMax Coding Plan](https://platform.minimaxi.com/docs/coding-plan/intro)
+[MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan)
 
-- Starter（29 RMB 每月）: 40 prompts / 每 5 小时
-- Plus（49 RMB 每月）: 100 prompts / 每 5 小时
-- Max（119 RMB 每月）: 300 prompts / 每 5 小时
-- Plus-极速版（98 RMB 每月）：100 prompts / 每 5 小时
-- Max-极速版（199 RMB 每月）：300 prompts / 每 5 小时
-- Ultra-极速版（899 RMB 每月）：2000 prompts / 每 5 小时
-- Q: 为什么“一个 prompt 约等于 15 次模型调用”？A: 在 AI 编程工具中，您的一次操作（例如请求代码补全或解释代码）在工具后台可能会被拆分为多次与 AI 模型的连续交互（例如：获取上下文、生成建议、修正建议等）。为了简化计费，我们将这些后台的连续调用打包为一次“prompt”计数。这意味着您在套餐内的一次“prompt”实际上包含了多次模型的复杂调用。
-- [M2.5 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
-    - 输入命中缓存 0.21 RMB 每 1M tokens
+- Plus（49 RMB 每月）: 1500 请求 / 每 5 小时
+- Max（119 RMB 每月）: 4500 请求 / 每 5 小时
+- Plus-极速版（98 RMB 每月）：1500 请求 / 每 5 小时
+- Max-极速版（199 RMB 每月）：4500 请求 / 每 5 小时
+- Ultra-极速版（899 RMB 每月）：30000 请求 / 每 5 小时
+- 极速版方案（Plus-极速版、Max-极速版、Ultra-极速版），专属支持 MiniMax-M2.7-highspeed 模型，每次调用消耗 2 次请求
+- [M2.7 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
+    - 输入命中缓存 0.42 RMB 每 1M tokens
     - 输入未命中缓存 2.1 RMB 每 1M tokens
     - 输入写入缓存 2.625 RMB 每 1M tokens
     - 输出 8.4 RMB 每 1M tokens
     - 200K 上下文
 
-[MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/coding-plan/intro)
+[MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)
 
-- Starter（10 USD 每月）: 100 prompts / 每 5 小时
-- Plus（20 USD 每月）: 300 prompts / 每 5 小时
-- Max（50 USD 每月）: 1000 prompts / 每 5 小时
+- Plus（20 USD 每月）: 4500 请求 / 每 5 小时
+- Max（50 USD 每月）: 15000 请求 / 每 5 小时
+- Plus-极速版（40 USD 每月）：4500 请求 / 每 5 小时
+- Max-极速版（80 USD 每月）：15000 请求 / 每 5 小时
+- Ultra-极速版（150 USD 每月）：30000 请求 / 每 5 小时
 
 ### 智谱
 
@@ -156,6 +157,7 @@
 
 ## 更新历史
 
+- 2026/03/18：MiniMax-M2.7 上线，同时 MiniMax Coding Plan 改名为 MiniMax Token Plan，支持非文本的 LLM（如音频和视频）；Token Plan 去除了 Starter Plan，把表述从 Prompt 改成了请求，实际限额不变（之前也是按 1 prompt 等于 15 请求来限额）
 - 2026/03/17：添加了讯飞星辰 MaaS Astron Coding Plan
 - 2026/03/16：智谱上线了 GLM-5-Turbo 模型，描述如下：
     - 面向 OpenClaw 龙虾场景深度优化的基座模型
