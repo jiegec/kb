@@ -117,7 +117,7 @@
 - [Infini-AI Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
     - Lite (40 RMB/month): Fixed monthly fee, 12,000 requests per month, 6,000 per week, 1,000 per 5 hours
     - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
-    - Supported models: DeepSeek-v3.2, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, GLM-4.7, GLM-5
+    - Supported models: DeepSeek-v3.2, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, MiniMax-M2.7, GLM-4.7, GLM-5
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
@@ -157,6 +157,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/19: Infini-AI Coding Plan added support for third-party model minimax-m2.7
 - 2026/03/18: MiniMax Token Plan removed the statement that the MiniMax-M2.7-highspeed version consumes double the requests.
 - 2026/03/18: MiniMax-M2.7 launched; meanwhile, MiniMax Coding Plan was renamed to MiniMax Token Plan, supporting non-text LLMs (e.g., audio and video). The Token Plan removed the Starter Plan and changed the description from "prompts" to "requests" though the actual limits remain unchanged (previously, the limit was also calculated as 1 prompt equaling 15 requests)
 - 2026/03/17: Added iFlytek MaaS Astron Coding Plan

@@ -117,7 +117,7 @@
 - [无问芯穹 Infini Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
     - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
     - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
-    - 支持模型：DeepSeek-v3.2、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、GLM-4.7、GLM-5
+    - 支持模型：DeepSeek-v3.2、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、MiniMax-M2.7、GLM-4.7、GLM-5
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
@@ -157,6 +157,7 @@
 
 ## 更新历史
 
+- 2026/03/19：无问芯穹 Infini Coding Plan 新增了第三方模型 minimax-m2.7 的支持
 - 2026/03/18：MiniMax Token Plan 去掉了 MiniMax-M2.7-highspeed 版本消耗两倍请求的表述
 - 2026/03/18：MiniMax-M2.7 上线，同时 MiniMax Coding Plan 改名为 MiniMax Token Plan，支持非文本的 LLM（如音频和视频）；Token Plan 去除了 Starter Plan，把表述从 Prompt 改成了请求，实际限额不变（之前也是按 1 prompt 等于 15 请求来限额）
 - 2026/03/17：添加了讯飞星辰 MaaS Astron Coding Plan
