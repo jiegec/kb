@@ -157,6 +157,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/19: Alibaba Cloud Bailian Coding Plan Release [Announcement](https://www.aliyun.com/notice/118094), new purchases of the Coding Plan Lite will be suspended from 2026-03-20 00:00:00 Beijing Time.
 - 2026/03/19: Infini-AI Coding Plan added support for third-party model minimax-m2.7
 - 2026/03/18: MiniMax Token Plan removed the statement that the MiniMax-M2.7-highspeed version consumes double the requests.
 - 2026/03/18: MiniMax-M2.7 launched; meanwhile, MiniMax Coding Plan was renamed to MiniMax Token Plan, supporting non-text LLMs (e.g., audio and video). The Token Plan removed the Starter Plan and changed the description from "prompts" to "requests" though the actual limits remain unchanged (previously, the limit was also calculated as 1 prompt equaling 15 requests)

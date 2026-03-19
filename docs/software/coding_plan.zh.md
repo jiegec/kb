@@ -157,6 +157,7 @@
 
 ## 更新历史
 
+- 2026/03/19：阿里云百炼 Coding Plan 发布[公告](https://www.aliyun.com/notice/118094)，从北京时间 2026-03-20 00:00:00 停止新购Coding Plan Lite 基础套餐
 - 2026/03/19：无问芯穹 Infini Coding Plan 新增了第三方模型 minimax-m2.7 的支持
 - 2026/03/18：MiniMax Token Plan 去掉了 MiniMax-M2.7-highspeed 版本消耗两倍请求的表述
 - 2026/03/18：MiniMax-M2.7 上线，同时 MiniMax Coding Plan 改名为 MiniMax Token Plan，支持非文本的 LLM（如音频和视频）；Token Plan 去除了 Starter Plan，把表述从 Prompt 改成了请求，实际限额不变（之前也是按 1 prompt 等于 15 请求来限额）
