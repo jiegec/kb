@@ -41,7 +41,7 @@
 
 [MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
 
-- Starter（10 USD/month）: 1,500 requests / per 5 hours
+- Starter (10 USD/month): 1,500 requests / per 5 hours
 - Plus (20 USD/month): 4,500 requests / per 5 hours
 - Max (50 USD/month): 15,000 requests / per 5 hours
 - Plus-High-Speed (40 USD/month): 4,500 requests / per 5 hours
