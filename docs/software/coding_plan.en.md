@@ -31,6 +31,7 @@
     - M2.7 / M2.7-highspeed: Measured by requests, with a 5-hour rolling reset.
     - Other models (speech, video, music, image): Measured by daily quotas, resetting daily.
 - All plans include the latest MiniMax M2.7 model, with M2.7-highspeed availability based on resource load. High-Speed subscriptions offer dedicated M2.7-highspeed support for even faster inference.
+- Weekly Usage Quota: The current weekly usage quota is 10 times the “5-hour quota” (industry common range is 5–8 times)
 - [M2.7 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
     - Cached input: 0.42 RMB per 1M tokens
     - Uncached input: 2.1 RMB per 1M tokens
@@ -162,7 +163,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
-- 2026/03/21：MiniMax Token Plan has brought back the Starter Plan, with the same pricing and limits.
+- 2026/03/21：MiniMax Token Plan has brought back the Starter Plan, with the same pricing and limits. Additionally, a weekly limit has been introduced, which is 10 times the limit per 5 hours.
 - 2026/03/19: Alibaba Cloud Bailian Coding Plan Release [Announcement](https://www.aliyun.com/notice/118094), new purchases of the Coding Plan Lite will be suspended from 2026-03-20 00:00:00 Beijing Time.
 - 2026/03/19: Infini-AI Coding Plan added support for third-party model minimax-m2.7
 - 2026/03/18: MiniMax Token Plan removed the statement that the MiniMax-M2.7-highspeed version consumes double the requests.

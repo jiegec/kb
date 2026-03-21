@@ -31,6 +31,7 @@
     - M2.7 / M2.7-highspeed：按请求（request）计算，每 5 小时滚动重置。
     - 其他模型（语音、视频、音乐、图像）：按每日配额计算，每日重置。
 - 所有方案均搭载最新 MiniMax M2.7 模型，并根据资源负载提供 M2.7-highspeed 使用。极速版订阅提供专属 M2.7-highspeed 支持，带来更快的推理速度。
+- 周使用额度：当前每周可使用额度为「5 小时额度」的 10 倍（行业常见为 5–8 倍）
 - [M2.7 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
     - 输入命中缓存 0.42 RMB 每 1M tokens
     - 输入未命中缓存 2.1 RMB 每 1M tokens
@@ -162,7 +163,7 @@
 
 ## 更新历史
 
-- 2026/03/21：MiniMax Token Plan 把 Starter Plan 加了回来，价格和限额不变
+- 2026/03/21：MiniMax Token Plan 把 Starter Plan 加了回来，价格和限额不变；此外还加入了每周限额，是每 5 小时限额的 10 倍
 - 2026/03/19：阿里云百炼 Coding Plan 发布[公告](https://www.aliyun.com/notice/118094)，从北京时间 2026-03-20 00:00:00 停止新购Coding Plan Lite 基础套餐
 - 2026/03/19：无问芯穹 Infini Coding Plan 新增了第三方模型 minimax-m2.7 的支持
 - 2026/03/18：MiniMax Token Plan 去掉了 MiniMax-M2.7-highspeed 版本消耗两倍请求的表述
