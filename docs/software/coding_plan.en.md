@@ -21,12 +21,16 @@
 
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan)
 
+- Starter (29 RMB/month): 600 requests / per 5 hours
 - Plus (49 RMB/month): 1,500 requests / per 5 hours
 - Max (119 RMB/month): 4,500 requests / per 5 hours
 - Plus-High-Speed (98 RMB/month): 1,500 requests / per 5 hours
 - Max-High-Speed (199 RMB/month): 4,500 requests / per 5 hours
 - Ultra-High-Speed (899 RMB/month): 30,000 requests / per 5 hours
-- High-Speed plans (Plus-Highspeed, Max-Highspeed, Ultra-Highspeed) with dedicated support for the MiniMax-M2.7-highspeed model
+- The Token Plan usage quota is calculated per model:
+    - M2.7 / M2.7-highspeed: Measured by requests, with a 5-hour rolling reset.
+    - Other models (speech, video, music, image): Measured by daily quotas, resetting daily.
+- All plans include the latest MiniMax M2.7 model, with M2.7-highspeed availability based on resource load. High-Speed subscriptions offer dedicated M2.7-highspeed support for even faster inference.
 - [M2.7 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
     - Cached input: 0.42 RMB per 1M tokens
     - Uncached input: 2.1 RMB per 1M tokens
@@ -36,6 +40,7 @@
 
 [MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
 
+- Starter（10 USD/month）: 1,500 requests / per 5 hours
 - Plus (20 USD/month): 4,500 requests / per 5 hours
 - Max (50 USD/month): 15,000 requests / per 5 hours
 - Plus-High-Speed (40 USD/month): 4,500 requests / per 5 hours
@@ -157,6 +162,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/21：MiniMax Token Plan has brought back the Starter Plan, with the same pricing and limits.
 - 2026/03/19: Alibaba Cloud Bailian Coding Plan Release [Announcement](https://www.aliyun.com/notice/118094), new purchases of the Coding Plan Lite will be suspended from 2026-03-20 00:00:00 Beijing Time.
 - 2026/03/19: Infini-AI Coding Plan added support for third-party model minimax-m2.7
 - 2026/03/18: MiniMax Token Plan removed the statement that the MiniMax-M2.7-highspeed version consumes double the requests.

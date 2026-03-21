@@ -21,12 +21,16 @@
 
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan)
 
+- Starter（29 RMB 每月）: 600 请求 / 每 5 小时
 - Plus（49 RMB 每月）: 1500 请求 / 每 5 小时
 - Max（119 RMB 每月）: 4500 请求 / 每 5 小时
 - Plus-极速版（98 RMB 每月）：1500 请求 / 每 5 小时
 - Max-极速版（199 RMB 每月）：4500 请求 / 每 5 小时
 - Ultra-极速版（899 RMB 每月）：30000 请求 / 每 5 小时
-- 极速版方案（Plus-极速版、Max-极速版、Ultra-极速版），专属支持 MiniMax-M2.7-highspeed 模型
+- Token Plan 的用量额度按模型分别计算：
+    - M2.7 / M2.7-highspeed：按请求（request）计算，每 5 小时滚动重置。
+    - 其他模型（语音、视频、音乐、图像）：按每日配额计算，每日重置。
+- 所有方案均搭载最新 MiniMax M2.7 模型，并根据资源负载提供 M2.7-highspeed 使用。极速版订阅提供专属 M2.7-highspeed 支持，带来更快的推理速度。
 - [M2.7 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
     - 输入命中缓存 0.42 RMB 每 1M tokens
     - 输入未命中缓存 2.1 RMB 每 1M tokens
@@ -36,6 +40,7 @@
 
 [MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)
 
+- Starter（10 USD 每月）: 1500 请求 / 每 5 小时
 - Plus（20 USD 每月）: 4500 请求 / 每 5 小时
 - Max（50 USD 每月）: 15000 请求 / 每 5 小时
 - Plus-极速版（40 USD 每月）：4500 请求 / 每 5 小时
@@ -157,6 +162,7 @@
 
 ## 更新历史
 
+- 2026/03/21：MiniMax Token Plan 把 Starter Plan 加了回来，价格和限额不变
 - 2026/03/19：阿里云百炼 Coding Plan 发布[公告](https://www.aliyun.com/notice/118094)，从北京时间 2026-03-20 00:00:00 停止新购Coding Plan Lite 基础套餐
 - 2026/03/19：无问芯穹 Infini Coding Plan 新增了第三方模型 minimax-m2.7 的支持
 - 2026/03/18：MiniMax Token Plan 去掉了 MiniMax-M2.7-highspeed 版本消耗两倍请求的表述
