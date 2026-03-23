@@ -24,9 +24,9 @@
 - Starter (29 RMB/month): 600 requests / per 5 hours
 - Plus (49 RMB/month): 1,500 requests / per 5 hours
 - Max (119 RMB/month): 4,500 requests / per 5 hours
-- Plus-High-Speed (98 RMB/month): 1,500 requests / per 5 hours
-- Max-High-Speed (199 RMB/month): 4,500 requests / per 5 hours
-- Ultra-High-Speed (899 RMB/month): 30,000 requests / per 5 hours
+- Plus-Highspeed (98 RMB/month): 1,500 requests / per 5 hours
+- Max-Highspeed (199 RMB/month): 4,500 requests / per 5 hours
+- Ultra-Highspeed (899 RMB/month): 30,000 requests / per 5 hours
 - The Token Plan usage quota is calculated per model:
     - M2.7 / M2.7-highspeed: Measured by requests, with a 5-hour rolling reset.
     - Other models (speech, video, music, image): Measured by daily quotas, resetting daily.
