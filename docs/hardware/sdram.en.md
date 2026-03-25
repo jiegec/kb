@@ -186,6 +186,15 @@ If you study SDRAM memory controllers, such as [MIG on Xilinx FPGA](https://www.
 
 As you can imagine, different address mapping methods will have different performance for different access modes. For sequential memory accesses, the ROW_COLUMN_BANK method is more suitable, because sequential accesses are distributed to different banks, so the performance will be better.
 
+Take [DRAMSim3](https://github.com/umd-memsys/DRAMsim3) as an example: it uses a syntax similar to `rochrababgco` to represent the mapping from an address to various levels of DRAM addresses, from the most significant bit to the least significant bit. Using its [`DDR4_8Gb_x8_3200.ini`](https://github.com/umd-memsys/DRAMsim3/blob/master/configs/DDR4_8Gb_x8_3200.ini) configuration as an example:
+
+- `ro=addr[33:18]`: Row address, total of 65,536 rows
+- `ch=0`: Channel address, total of 1 channel
+- `ra=addr[17:17]`: Rank address, total of 2 ranks
+- `ba=addr[16:15]`: Bank address, 4 banks per bank group
+- `bg=addr[14:13]`: Bank group address, total of 4 bank groups
+- `co=addr[12:6]`: Column address, total of 1,024 columns, with every 8 columns forming one burst
+
 ## Timing Parameters
 
 Below are the main timing parameters for DDR4:

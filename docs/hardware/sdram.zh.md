@@ -186,6 +186,15 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 就是将地址的不同部分映射到 DRAM 的几个地址：Row，Column，Bank。可以想象，不同的地址映射方式针对不同的访存模式会有不同的性能。对于连续的内存访问，ROW_COLUMN_BANK 方式是比较适合的，因为连续的访问会分布到不同的 Bank 上，这样可以比较好地掩盖 Activate/Precharge 延迟，性能就会更好。
 
+以 [DRAMSim3](https://github.com/umd-memsys/DRAMsim3) 为例，它可以用类似 `rochrababgco` 的语法表示从地址到 DRAM 各级地址的映射，从高位到低位，以它的 [`DDR4_8Gb_x8_3200.ini`](https://github.com/umd-memsys/DRAMsim3/blob/master/configs/DDR4_8Gb_x8_3200.ini) 配置为例：
+
+- `ro=addr[33:18]`：Row 地址，共 65536 个 Row
+- `ch=0`：Channel 地址，共 1 个 Channel
+- `ra=addr[17:17]`：Rank 地址，共 2 个 Rank
+- `ba=addr[16:15]`：Bank 地址，每个 Bank Group 内有 4 个 Bank
+- `bg=addr[14:13]`：Bank Group 地址，共 4 个 Bank Group
+- `co=addr[12:6]`：Column 地址，共 1024 个 Column，每 8 个 Column 为一个 Burst
+
 ## 时序参数
 
 下面列出 DDR4 的主要时序参数：
