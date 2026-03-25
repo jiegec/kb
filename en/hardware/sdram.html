@@ -4873,6 +4873,15 @@
 <li>ROW_COLUMN_BANK_INTLV</li>
 </ul>
 <p>As you can imagine, different address mapping methods will have different performance for different access modes. For sequential memory accesses, the ROW_COLUMN_BANK method is more suitable, because sequential accesses are distributed to different banks, so the performance will be better.</p>
+<p>Take <a href="https://github.com/umd-memsys/DRAMsim3">DRAMSim3</a> as an example: it uses a syntax similar to <code>rochrababgco</code> to represent the mapping from an address to various levels of DRAM addresses, from the most significant bit to the least significant bit. Using its <a href="https://github.com/umd-memsys/DRAMsim3/blob/master/configs/DDR4_8Gb_x8_3200.ini"><code>DDR4_8Gb_x8_3200.ini</code></a> configuration as an example:</p>
+<ul>
+<li><code>ro=addr[33:18]</code>: Row address, total of 65,536 rows</li>
+<li><code>ch=0</code>: Channel address, total of 1 channel</li>
+<li><code>ra=addr[17:17]</code>: Rank address, total of 2 ranks</li>
+<li><code>ba=addr[16:15]</code>: Bank address, 4 banks per bank group</li>
+<li><code>bg=addr[14:13]</code>: Bank group address, total of 4 bank groups</li>
+<li><code>co=addr[12:6]</code>: Column address, total of 1,024 columns, with every 8 columns forming one burst</li>
+</ul>
 <h2 id="timing-parameters">Timing Parameters</h2>
 <p>Below are the main timing parameters for DDR4:</p>
 <ul>
@@ -5327,7 +5336,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 18, 2025 05:17:43 UTC">April 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 25, 2026 08:14:28 UTC">March 25, 2026</span>
   </span>
 
     

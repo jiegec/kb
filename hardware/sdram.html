@@ -4862,6 +4862,15 @@
 <li>ROW_COLUMN_BANK_INTLV</li>
 </ul>
 <p>就是将地址的不同部分映射到 DRAM 的几个地址：Row，Column，Bank。可以想象，不同的地址映射方式针对不同的访存模式会有不同的性能。对于连续的内存访问，ROW_COLUMN_BANK 方式是比较适合的，因为连续的访问会分布到不同的 Bank 上，这样可以比较好地掩盖 Activate/Precharge 延迟，性能就会更好。</p>
+<p>以 <a href="https://github.com/umd-memsys/DRAMsim3">DRAMSim3</a> 为例，它可以用类似 <code>rochrababgco</code> 的语法表示从地址到 DRAM 各级地址的映射，从高位到低位，以它的 <a href="https://github.com/umd-memsys/DRAMsim3/blob/master/configs/DDR4_8Gb_x8_3200.ini"><code>DDR4_8Gb_x8_3200.ini</code></a> 配置为例：</p>
+<ul>
+<li><code>ro=addr[33:18]</code>：Row 地址，共 65536 个 Row</li>
+<li><code>ch=0</code>：Channel 地址，共 1 个 Channel</li>
+<li><code>ra=addr[17:17]</code>：Rank 地址，共 2 个 Rank</li>
+<li><code>ba=addr[16:15]</code>：Bank 地址，每个 Bank Group 内有 4 个 Bank</li>
+<li><code>bg=addr[14:13]</code>：Bank Group 地址，共 4 个 Bank Group</li>
+<li><code>co=addr[12:6]</code>：Column 地址，共 1024 个 Column，每 8 个 Column 为一个 Burst</li>
+</ul>
 <h2 id="_7">时序参数</h2>
 <p>下面列出 DDR4 的主要时序参数：</p>
 <ul>
@@ -5315,7 +5324,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月18日 05:17:43 UTC">2025年4月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月25日 08:14:28 UTC">2026年3月25日</span>
   </span>
 
     
