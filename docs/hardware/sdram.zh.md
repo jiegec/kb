@@ -206,7 +206,7 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 - tWTR_S：对不同 Bank Group 先 WRITE 后 READ 时，WRITE 完成写入（最后一个数据写入完成）到 READ 的延迟（Write to Read short）
 - tWTR_L：对相同 Bank Group 先 WRITE 后 READ 时，WRITE 完成写入（最后一个数据写入完成）到 READ 的延迟（Write to Read long）
 - tREFI：内存控制器需要按照 tREFI 的间隔发送 REFRESH 命令（Refresh Interval）
-- tRFC：两次 REFRESH 命令的最小间隔（Refresh Cycle）
+- tRFC：REFRESH 命令到 REFRESH/ACTIVATE 的最小间隔（Refresh Cycle）
 - tFAW: 在连续的 FAW 时间内，最多发送四个 ACTIVATE 命令（Four Activate Window），换句话说，第 i 次 ACTIVATE 和第 i+4 次 ACTIVATE 至少间隔 tFAW 时间
 - tRP：PRECHARGE 命令发送以后，到对同一个 Bank 的下一个命令的延迟（Precharge）
 - tRTP：对同一个 Bank 的 READ 到 PRE 的最小间隔（Read to Precharge）

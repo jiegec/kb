@@ -206,7 +206,7 @@ Below are the main timing parameters for DDR4:
 - tWTR_S: Write to Read short, the delay from the completion of a WRITE (last data written) to a READ command to a different Bank Group.
 - tWTR_L: Write to Read long, the delay from the completion of a WRITE (last data written) to a READ command to the same Bank Group.
 - tREFI: Refresh Interval, the interval at which the memory controller needs to send REFRESH commands.
-- tRFC: Refresh Cycle, the minimum interval between two REFRESH commands.
+- tRFC: Refresh Cycle, the minimum interval between a REFRESH and REFRESH/ACTIVATE commands.
 - tFAW: Four Activate Window, the maximum number of ACTIVATE commands that can be sent within a continuous tFAW period. In other words, the i-th ACTIVATE and the (i+4)-th ACTIVATE must be at least tFAW apart.
 - tRP: Precharge, the delay from sending a PRECHARGE command to the next command to the same Bank.
 - tRTP: Read to Precharge, the minimum interval between a READ and a PRECHARGE command to the same Bank.
