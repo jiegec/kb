@@ -50,16 +50,15 @@
 
 ### Zhipu (GLM, Z.ai)
 
-[Zhipu GLM Coding Plan](https://docs.bigmodel.cn/en/coding-plan/overview)
+[Zhipu GLM Coding Plan](https://docs.bigmodel.cn/cn/coding-plan/overview)
 
 - Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week
 - Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2000 prompts per week
 - Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
 - One prompt refers to one query. Each prompt is estimated to invoke the model 15–20 times. The monthly available quota is converted based on API pricing, equivalent to approximately 15–30× the monthly subscription fee (weekly caps already factored in).
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: GLM-5 support in Coding Plan: Supported on both Max and Pro plans; expected to be available on the Lite plan by the end of March
-- Note: GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, and GLM-4.5-Air are available on all plans
-- Note: GLM-5 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April. Peak hours are 14:00–18:00 (UTC+8).
+- Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, and GLM-4.5-Air. The Max and Pro plans now support GLM-5.
+- Note: GLM-5.1, GLM-5 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April.
 - Note: For users who subscribed and enabled auto-renewal before February 12 (UTC+8), the original quota will remain in effect throughout the subscription validity period, and no weekly usage limits will apply.
 - Note: For users who enabled auto-renewal before February 12, both the renewal price and the usage quota will remain unchanged and will continue to follow the limits shown at the time of your original subscription.
 - [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
@@ -169,6 +168,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/27: GLM-5.1 launched in GLM Coding Plan
 - 2026/03/27: Added Tencent Cloud LLM Token Plan, which uses token-based limits instead of request counts compared to the Coding Plan
 - 2026/03/26: GLM-5-Turbo is now available on all GLM Coding Plan tiers; previously only available on Max
 - 2026/03/21: MiniMax Token Plan has brought back the Starter Plan, with the same pricing and limits. Additionally, a weekly limit has been introduced, which is 10 times the limit per 5 hours.
