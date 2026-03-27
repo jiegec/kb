@@ -106,6 +106,12 @@
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求，每周：最多约 9,000 次请求，每订阅月：最多约 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多约 6,000 次请求，每周：最多约 45,000 次请求，每订阅月：最多约 90,000 次请求
     - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
+- [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
+    - Lite 套餐（39 RMB 每月）：每订阅月 3500 万 Token
+    - Standard 套餐（99 RMB 每月）：每订阅月 1 亿 Token
+    - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
+    - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
+    - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
@@ -163,6 +169,7 @@
 
 ## 更新历史
 
+- 2026/03/27：添加了腾讯云大模型 Token Plan，相比 Coding Plan，用 Token 计限额而不是请求数
 - 2026/03/26：GLM-5-Turbo 对所有 GLM Coding Plan 开放使用，之前仅对 Max 开放
 - 2026/03/21：MiniMax Token Plan 把 Starter Plan 加了回来，价格和限额不变；此外还加入了每周限额，是每 5 小时限额的 10 倍
 - 2026/03/19：阿里云百炼 Coding Plan 发布[公告](https://www.aliyun.com/notice/118094)，从北京时间 2026-03-20 00:00:00 停止新购 Coding Plan Lite 基础套餐

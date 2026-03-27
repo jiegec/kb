@@ -106,6 +106,12 @@
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum ~6,000 requests. Per week: maximum ~45,000 requests. Per subscription month: maximum ~90,000 requests
     - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
+- [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
+    - Lite Plan (39 RMB/month): 35M tokens per subscription month
+    - Standard Plan (99 RMB/month): 100M tokens per subscription month
+    - Pro Plan (299 RMB/month): 320M tokens per subscription month
+    - Max Plan (599 RMB/month): 650M tokens per subscription month
+    - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
@@ -163,6 +169,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/03/27: Added Tencent Cloud LLM Token Plan, which uses token-based limits instead of request counts compared to the Coding Plan
 - 2026/03/26: GLM-5-Turbo is now available on all GLM Coding Plan tiers; previously only available on Max
 - 2026/03/21: MiniMax Token Plan has brought back the Starter Plan, with the same pricing and limits. Additionally, a weekly limit has been introduced, which is 10 times the limit per 5 hours.
 - 2026/03/19: Alibaba Cloud Bailian Coding Plan Release [Announcement](https://www.aliyun.com/notice/118094), new purchases of the Coding Plan Lite will be suspended from 2026-03-20 00:00:00 Beijing Time.
