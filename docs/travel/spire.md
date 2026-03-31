@@ -73,7 +73,7 @@
 
 ### 创建 Mod
 
-以下步骤适用于 v0.98.3 版本，参考了 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/)：
+以下步骤适用于 v0.99+ 版本，参考了 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/)：
 
 1. 安装 [Godot 4.5.1 .NET 版](https://godotengine.org/download/archive/4.5.1-stable/)，如 `Godot_v4.5.1-stable_mono_macos.unitervsal.zip`
 2. 安装 [.NET SDK](https://dotnet.microsoft.com/zh-cn/download)，如 `dotnet-sdk-10.0.200-osx-arm64.pkg`
@@ -112,49 +112,7 @@
     </Project>
     ```
 
-7. 在项目根目录创建 `mod_manifest.json`：
-
-    ```json
-    {
-        "pck_name": "FirstMod",
-        "name": "FirstMod",
-        "author": "doctornoodlearms",
-        "description": "",
-        "version": "1.0.0"
-    } 
-    ```
-
-8. 在项目根目录创建 `FirstMod` 子目录，放入一张名为 `mod_image.png` 的图片作为 Mod 封面
-9. 点击 Project -> Export...，Add... -> Windows Desktop
-10. 在 Resources 选项卡选择 Export selected resources，勾选 `mod_image.png` 和 `mod_manifest.json`，点击 Export PCK/ZIP，保存为 `FirstMod.pck`。也可以用命令行导出：`/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless`
-11. 将 `./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 复制到游戏 `mods/FirstMod` 目录（路径：macOS 为 `/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod`，Linux 为 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`），目录不存在则手动创建
-12. 启动游戏
-
-最终项目见 [jiegec/STS2FirstMod](https://github.com/jiegec/STS2FirstMod)。
-
-命令行构建脚本，生成 dll 和 pck 到 FirstMod 目录下：
-
-```shell
-#!/bin/sh
-set -x
-cp ~/Library/Application\ Support/steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_arm64/sts2.dll .
-/Applications/Godot_mono.app/Contents/MacOS/Godot --build-solutions --quit --headless
-mkdir -p FirstMod
-cp ./.godot/mono/temp/bin/Debug/FirstMod.dll FirstMod/
-/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod/FirstMod.pck --headless
-```
-
-启动 Godot 的 Debug Server：
-
-1. 在 Godot 中，选择 Debug -> Keep Debug Server Open
-2. 在 Steam 中，设置启动选项 `--remote-debug tcp://127.0.0.1:6007`
-3. 启动游戏
-
-v0.98.3 已知问题：macOS ARM 能构建 dll 和 pck，但游戏无法加载；Linux 版游戏可以加载 macOS 构建的文件。
-
-Beta v0.99 已修复 macOS 加载 Mod 的问题，改动如下：
-
-1. 修改 `mod_manifest.json` 格式：
+7. 在项目根目录创建 `FirstMod.json`：
 
     ```json
     {
@@ -170,7 +128,32 @@ Beta v0.99 已修复 macOS 加载 Mod 的问题，改动如下：
     }
     ```
 
-2. `mod_manifest.json` 也要安装到 `mods` 目录下，不再放到 pck 内部
+8. 在项目根目录创建 `FirstMod` 子目录，放入一张名为 `mod_image.png` 的图片作为 Mod 封面
+9. 点击 Project -> Export...，Add... -> Windows Desktop
+10. 在 Resources 选项卡选择 Export selected resources，勾选 `mod_image.png`，点击 Export PCK/ZIP，保存为 `FirstMod.pck`。也可以用命令行导出：`/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod.pck --headless`
+11. 将 `FirstMod.json`、`./.godot/mono/temp/bin/Debug/FirstMod.dll` 和 `FirstMod.pck` 复制到游戏 `mods/FirstMod` 目录（路径：macOS 为 `/Library/Application\ Support/Steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/MacOS/mods/FirstMod`，Linux 为 `~/.steam/steam/steamapps/common/Slay\ the\ Spire\ 2/mods/FirstMod`），目录不存在则手动创建
+12. 启动游戏
+
+最终项目见 [jiegec/STS2FirstMod](https://github.com/jiegec/STS2FirstMod)。
+
+命令行构建脚本，生成 dll 和 pck 到 FirstMod 目录下：
+
+```shell
+#!/bin/sh
+set -x
+cp ~/Library/Application\ Support/steam/steamapps/common/Slay\ the\ Spire\ 2/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_arm64/sts2.dll .
+/Applications/Godot_mono.app/Contents/MacOS/Godot --build-solutions --quit --headless
+mkdir -p FirstMod
+cp ./.godot/mono/temp/bin/Debug/FirstMod.dll FirstMod/
+/Applications/Godot_mono.app/Contents/MacOS/Godot --export-pack "Windows Desktop" FirstMod/FirstMod.pck --headless
+cp FirstMod.json FirstMod
+```
+
+启动 Godot 的 Debug Server：
+
+1. 在 Godot 中，选择 Debug -> Keep Debug Server Open
+2. 在 Steam 中，设置启动选项 `--remote-debug tcp://127.0.0.1:6007`
+3. 启动游戏
 
 ### 存档路径
 
