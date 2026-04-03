@@ -4660,7 +4660,7 @@
 </ul>
 </li>
 <li><a href="https://help.aliyun.com/zh/model-studio/coding-plan">阿里云百炼 Coding Plan</a><ul>
-<li>200 RMB 每月: 固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次</li>
+<li>200 RMB 每月：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次</li>
 <li>一次用户提问可能触发多次模型调用，每次模型调用均计入一次额度消耗。典型场景下的额度消耗如下：</li>
 <li>简单问答或代码生成：通常触发 5-10 次模型调用</li>
 <li>代码重构或复杂任务：可能触发 10-30 次或更多模型调用</li>
@@ -4735,7 +4735,24 @@
 <li>Flash Max（699 RMB 每月）：5 小时限额 5000 次 Prompt（~75000 次模型调用），周限额 20000 次 Prompt（~300000 次模型调用）</li>
 </ul>
 </li>
-<li><a href="https://platform.stepfun.ai/docs/en/step-plan/overview">阶越星辰国际版 Coding Plan</a></li>
+<li>
+<p><a href="https://platform.xiaomimimo.com/#/docs/tokenplan/subscription">小米 MiMo Token Plan</a></p>
+<ul>
+<li>Lite（39 RMB 或 6 USD 每月）：6000 万 Credits 每月</li>
+<li>Standard（99 RMB 或 16 USD 每月）：2 亿 Credits 每月</li>
+<li>Pro（329 RMB 或 50 USD 每月）：7 亿 Credits 每月</li>
+<li>Max（659 RMB 或 100 USD 每月）：16 亿 Credits 每月</li>
+<li>支持模型：各套餐均支持 MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS</li>
+<li>额度消耗：按 Token 数扣除 Credit 额度，Pro 和 Omni 的额度按 1:2 比例并行消耗，不是独立消耗。MiMo-V2-TTS 限时免费，不消耗套餐 Token。例如，您订购了 Standard 套餐，可单独或混合调用 MiMo-V2-Pro/Omni/TTS 模型，当您使用了 10M MiMo-V2-Pro 的 Token 额度后，相当于消耗了 20 M Credits，仍可享受 40M MiMo-V2-Omni 的 Token 额度（相当于 40 M Credits）。可在 订阅管理 查看当前套餐的额度及用量。</li>
+<li>MiMo-V2-Omni 上下文 &lt; 256k：1x（等同于原始 Token 消耗速度）</li>
+<li>MiMo-V2-Pro 上下文 &lt; 256k：2x（等同于 2 倍 Token 消耗速度）</li>
+<li>MiMo-V2-Pro 上下文 256k~1M：4x（等同于 4 倍 token 消耗速度）</li>
+<li>MiMo-V2-TTS：0x（限时免费，不消耗 Credit）</li>
+</ul>
+</li>
+<li>
+<p><a href="https://platform.stepfun.ai/docs/en/step-plan/overview">阶越星辰国际版 Coding Plan</a></p>
+</li>
 <li><a href="https://maas.ai-yuanjing.com/doc/pages/216556920/">联通元景 GLM-5 Coding Plan</a></li>
 <li><a href="https://code.mthreads.com/">摩尔线程 AI Coding Plan</a></li>
 <li><a href="https://www.streamlake.com/marketing/coding-plan">KwaiKAT Coding Plan</a></li>
@@ -4824,6 +4841,7 @@
 </table>
 <h2 id="_5">更新历史</h2>
 <ul>
+<li>2026/04/03：添加了小米 MiMo Token Plan</li>
 <li>2026/04/03：添加了京东云 Coding Plan</li>
 <li>2026/04/03：添加了阶跃星辰 Coding Plan</li>
 <li>2026/03/27：GLM-5.1 上线 GLM Coding Plan</li>
@@ -4941,7 +4959,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月3日 02:31:48 UTC">2026年4月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月3日 07:39:34 UTC">2026年4月3日</span>
   </span>
 
     
