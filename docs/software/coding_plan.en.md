@@ -137,6 +137,18 @@
     - Flash Plus (99 RMB/month): 400 prompts per 5 hours (~6,000 model calls), 1,600 prompts per week (~24,000 model calls)
     - Flash Pro (199 RMB/month): 1,500 prompts per 5 hours (~22,500 model calls), 6,000 prompts per week (~90,000 model calls)
     - Flash Max (699 RMB/month): 5,000 prompts per 5 hours (~75,000 model calls), 20,000 prompts per week (~300,000 model calls)
+- [Xiaomi MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
+    - Lite (39 RMB or 6 USD/month): 60M Credits per month
+    - Standard (99 RMB or 16 USD/month): 200M Credits per month
+    - Pro (329 RMB or 50 USD/month): 700M Credits per month
+    - Max (659 RMB or 100 USD/month): 1.6B Credits per month
+    - Supported models: All plans support MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2-TTS
+    - Credit consumption: Credits are deducted based on token count. Pro and Omni quotas are consumed in parallel at a 1:2 ratio, not independently. MiMo-V2-TTS is free for a limited time and does not consume plan tokens. For example, if you subscribe to the Standard plan and use 10M MiMo-V2-Pro tokens, that consumes 20M Credits, and you can still enjoy 40M MiMo-V2-Omni tokens (equivalent to 40M Credits). You can check your current plan's quota and usage in Subscription Management.
+    - MiMo-V2-Omni context < 256k: 1x (equivalent to base token consumption rate)
+    - MiMo-V2-Pro context < 256k: 2x (equivalent to 2x token consumption rate)
+    - MiMo-V2-Pro context 256k–1M: 4x (equivalent to 4x token consumption rate)
+    - MiMo-V2-TTS: 0x (free for a limited time, no Credit consumption)
+
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
@@ -177,6 +189,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/03: Added Xiaomi MiMo Token Plan
 - 2026/04/03: Added JD Cloud Coding Plan
 - 2026/04/03: Added StepFun Coding Plan
 - 2026/03/27: GLM-5.1 launched in GLM Coding Plan
