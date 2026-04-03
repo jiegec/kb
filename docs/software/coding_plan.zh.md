@@ -114,6 +114,10 @@
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
     - 支持模型：Kimi-K2.5、DeepSeek-V3.2、GLM-5、MiniMax-M2.5、GLM-4.7、MiniMax-M2.1
+- [京东云 Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
+    - Lite 套餐（新用户首月 7.9 RMB）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
+    - Pro 套餐（新用户首月 39.9 RMB）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
+    - 支持模型：DeepSeek-V3.2、GLM-5、GLM-4.7、MiniMax-M2.5、Kimi-K2.5、Kimi-K2-Turbo、Qwen3-Coder
 - [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
     - 首月版：
         - 入门版（3.9 RMB 每月首购，19 RMB 每月叠加）：每日 2000 万 tokens，支持 DeepSeek-V3.2 和 GLM-4.7-Flash 模型，QPS=20
@@ -173,6 +177,7 @@
 
 ## 更新历史
 
+- 2026/04/03：添加了京东云 Coding Plan
 - 2026/04/03：添加了阶跃星辰 Coding Plan
 - 2026/03/27：GLM-5.1 上线 GLM Coding Plan
 - 2026/03/27：添加了腾讯云大模型 Token Plan，相比 Coding Plan，用 Token 计限额而不是请求数

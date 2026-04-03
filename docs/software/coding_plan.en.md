@@ -114,6 +114,10 @@
     - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
     - Supported models: Kimi-K2.5, DeepSeek-V3.2, GLM-5, MiniMax-M2.5, GLM-4.7, MiniMax-M2.1
+- [JD Cloud Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
+    - Lite Plan (7.9 RMB first month for new users): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
+    - Pro Plan (39.9 RMB first month for new users): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
+    - Supported models: DeepSeek-V3.2, GLM-5, GLM-4.7, MiniMax-M2.5, Kimi-K2.5, Kimi-K2-Turbo, Qwen3-Coder
 - [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
     - First Month Edition:
         - Starter (3.9 RMB first purchase/month, 19 RMB add-on/month): 20M tokens daily, supports DeepSeek-V3.2 and GLM-4.7-Flash models, QPS=20
@@ -173,6 +177,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/03: Added JD Cloud Coding Plan
 - 2026/04/03: Added StepFun Coding Plan
 - 2026/03/27: GLM-5.1 launched in GLM Coding Plan
 - 2026/03/27: Added Tencent Cloud LLM Token Plan, which uses token-based limits instead of request counts compared to the Coding Plan
