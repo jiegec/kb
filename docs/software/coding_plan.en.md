@@ -113,7 +113,7 @@
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
-    - Supported models: Kimi-K2.5, DeepSeek-V3.2, GLM-5, MiniMax-M2.5
+    - Supported models: Kimi-K2.5, DeepSeek-V3.2, GLM-5, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402
 - [JD Cloud Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
     - Lite Plan (7.9 RMB first month for new users): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (39.9 RMB first month for new users): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
@@ -189,7 +189,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
-- 2026/04/07: Baidu Cloud Coding Plan removed GLM-4.7 and MiniMax-M2.1
+- 2026/04/07: Baidu Qianfan Coding Plan removed GLM-4.7 and MiniMax-M2.1, added ERNIE-4.5-Turbo-20260402
 - 2026/04/03: Added Xiaomi MiMo Token Plan
 - 2026/04/03: Added JD Cloud Coding Plan
 - 2026/04/03: Added StepFun Coding Plan

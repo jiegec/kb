@@ -113,7 +113,7 @@
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
-    - 支持模型：Kimi-K2.5、DeepSeek-V3.2、GLM-5、MiniMax-M2.5
+    - 支持模型：Kimi-K2.5、DeepSeek-V3.2、GLM-5、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402
 - [京东云 Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
     - Lite 套餐（新用户首月 7.9 RMB）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（新用户首月 39.9 RMB）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
@@ -189,7 +189,7 @@
 
 ## 更新历史
 
-- 2026/04/07：百度云 Coding Plan 下线了 GLM-4.7 和 MiniMax-M2.1
+- 2026/04/07：百度千帆 Coding Plan 下线了 GLM-4.7 和 MiniMax-M2.1，新增 ERNIE-4.5-Turbo-20260402
 - 2026/04/03：添加了小米 MiMo Token Plan
 - 2026/04/03：添加了京东云 Coding Plan
 - 2026/04/03：添加了阶跃星辰 Coding Plan
