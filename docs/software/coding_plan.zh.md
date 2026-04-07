@@ -66,10 +66,10 @@
     - 输入未命中缓存 5/7 RMB 每 1M tokens
     - 输出 22/26 RMB 每 1M tokens
     - 200K 上下文
-- [GLM-5 API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 1/1.5 RMB 每 1M tokens
-    - 输入未命中缓存 4/6 RMB 每 1M tokens
-    - 输出 18/22 RMB 每 1M tokens
+- [GLM-5.1 API 价格](https://bigmodel.cn/pricing)：
+    - 输入命中缓存 1.3/2 RMB 每 1M tokens
+    - 输入未命中缓存 6/8 RMB 每 1M tokens
+    - 输出 24/28 RMB 每 1M tokens
     - 200K 上下文
 - [GLM-4.7 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 0.4/0.6/0.8 RMB 每 1M tokens

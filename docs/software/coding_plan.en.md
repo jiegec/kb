@@ -66,10 +66,10 @@
     - Uncached input: 5/7 RMB per 1M tokens
     - Output: 22/26 RMB per 1M tokens
     - 200K context
-- [GLM-5 API Pricing](https://bigmodel.cn/pricing):
-    - Cached input: 1/1.5 RMB per 1M tokens
-    - Uncached input: 4/6 RMB per 1M tokens
-    - Output: 18/22 RMB per 1M tokens
+- [GLM-5.1 API Pricing](https://bigmodel.cn/pricing):
+    - Cached input: 1.3/1.2 RMB per 1M tokens
+    - Uncached input: 6/8 RMB per 1M tokens
+    - Output: 24/28 RMB per 1M tokens
     - 200K context
 - [GLM-4.7 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 0.4/0.6/0.8 RMB per 1M tokens
