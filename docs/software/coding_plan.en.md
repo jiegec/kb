@@ -180,7 +180,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 | Name                                                               | Parameters | Active | Vision |
 |--------------------------------------------------------------------|------------|--------|--------|
 | [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T         | 32B    | Y      |
-| [GLM-5](https://huggingface.co/zai-org/GLM-5)                      | 744B       | 40B    | N      |
+| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                  | 744B       | 40B    | N      |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B       | 32B    | N      |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B        | 3B     | N      |
 | [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5)      | 230B       | 10B    | N      |

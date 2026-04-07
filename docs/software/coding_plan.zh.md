@@ -180,7 +180,7 @@
 | 模型名称                                                           | 参数量 | 激活量 | 视觉 |
 |--------------------------------------------------------------------|--------|--------|------|
 | [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T     | 32B    | 是   |
-| [GLM-5](https://huggingface.co/zai-org/GLM-5)                      | 744B   | 40B    | 否   |
+| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                  | 744B   | 40B    | 否   |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B   | 32B    | 否   |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B    | 3B     | 否   |
 | [MiniMax-M2.5](https://huggingface.co/MiniMaxAI/MiniMax-M2.5)      | 230B   | 10B    | 否   |
