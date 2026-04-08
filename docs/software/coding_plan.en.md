@@ -84,7 +84,7 @@
 - [Volcano Engine Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-2.5, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2
+    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-2.5, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - 200 RMB/month: Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
     - One user question may trigger multiple model calls; each model call counts as one quota consumption. Typical quota consumption scenarios:

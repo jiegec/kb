@@ -84,7 +84,7 @@
 - [方舟 Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-2.5、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2
+    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-2.5、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - 200 RMB 每月：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
     - 一次用户提问可能触发多次模型调用，每次模型调用均计入一次额度消耗。典型场景下的额度消耗如下：
