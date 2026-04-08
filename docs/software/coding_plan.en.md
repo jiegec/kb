@@ -119,12 +119,14 @@
     - Pro Plan (39.9 RMB first month for new users): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
     - Supported models: DeepSeek-V3.2, GLM-5, GLM-4.7, MiniMax-M2.5, Kimi-K2.5, Kimi-K2-Turbo, Qwen3-Coder
 - [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
-    - First Month Edition:
-        - Starter (3.9 RMB first purchase/month, 19 RMB add-on/month): 20M tokens daily, supports DeepSeek-V3.2 and GLM-4.7-Flash models, QPS=20
-        - Professional (7.9 RMB first purchase/month, 39 RMB add-on/month): 10M tokens daily, supports DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=5
-        - Efficient (39.9 RMB first purchase/month, 199 RMB add-on/month): 50M tokens daily, supports DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=20
-    - Subsequent Month Edition:
-        - Has 5-hour, weekly, and monthly limits based on request count; limits not yet published
+    - First Month Edition (launched March 9, 2026, no longer available for purchase from April 9):
+        - Starter (3.9 RMB first purchase/month, 19 RMB add-on/month): 20M tokens daily, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash models, QPS=20
+        - Professional (7.9 RMB first purchase/month, 39 RMB add-on/month): 10M tokens daily, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=5
+        - Efficient (39.9 RMB first purchase/month, 199 RMB add-on/month): 50M tokens daily, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=20
+    - Updated Edition (launched April 9, 2026):
+        - Worry-Free (3.9 RMB first purchase/month, 19 RMB repeat purchase/month): Unlimited requests, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash models
+        - Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5, Spark X2 models
+        - Efficient (199 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5, Spark X2 models
 
 ### Others
 
@@ -189,6 +191,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/08: iFlytek Astron Coding Plan launched new Updated Edition plans; old First Month Edition plans retired
 - 2026/04/07: Baidu Qianfan Coding Plan removed GLM-4.7 and MiniMax-M2.1, added ERNIE-4.5-Turbo-20260402
 - 2026/04/03: Added Xiaomi MiMo Token Plan
 - 2026/04/03: Added JD Cloud Coding Plan

@@ -119,12 +119,14 @@
     - Pro 套餐（新用户首月 39.9 RMB）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
     - 支持模型：DeepSeek-V3.2、GLM-5、GLM-4.7、MiniMax-M2.5、Kimi-K2.5、Kimi-K2-Turbo、Qwen3-Coder
 - [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
-    - 首月版：
-        - 入门版（3.9 RMB 每月首购，19 RMB 每月叠加）：每日 2000 万 tokens，支持 DeepSeek-V3.2 和 GLM-4.7-Flash 模型，QPS=20
-        - 专业版（7.9 RMB 每月首购，39 RMB 每月叠加）：每日 1000 万 tokens，支持 DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5 模型，QPS=5
-        - 高效版（39.9 RMB 每月首购，199 RMB 每月叠加）：每日 5000 万 tokens，支持 DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5 模型，QPS=20
-    - 次月迭代版：
-        - 有 5 小时、每周和每月限额，按请求次数，限额尚未发布
+    - 首月版（2026 年 3 月 9 日上线，4 月 9 日起不再支持购买）：
+        - 入门版（3.9 RMB 每月首购，19 RMB 每月叠加）：每日 2000 万 tokens，支持 Qwen3.5-35B-A3B、DeepSeek-V3.2、GLM-4.7-Flash 模型，QPS=20
+        - 专业版（7.9 RMB 每月首购，39 RMB 每月叠加）：每日 1000 万 tokens，支持 Qwen3.5-35B-A3B、DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5 模型，QPS=5
+        - 高效版（39.9 RMB 每月首购，199 RMB 每月叠加）：每日 5000 万 tokens，支持 Qwen3.5-35B-A3B、DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5 模型，QPS=20
+    - 焕新版（2026 年 4 月 9 日上线）
+        - 无忧版（3.9 RMB 每月首购，19 RMB 每月重复购买）：请求次数不限，支持 Qwen3.5-35B-A3B、DeepSeek-V3.2、GLM-4.7-Flash 模型
+        - 专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Qwen3.5-35B-A3B、DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5、Spark X2 模型
+        - 高效版（199 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Qwen3.5-35B-A3B、DeepSeek-V3.2、GLM-4.7-Flash、GLM-5、MiniMax-M2.5、Kimi-K2.5、Spark X2 模型
 
 ### 其他
 
@@ -189,6 +191,7 @@
 
 ## 更新历史
 
+- 2026/04/08：讯飞 Astron Coding Plan 上线了新的焕新版套餐，旧首月版套餐下线
 - 2026/04/07：百度千帆 Coding Plan 下线了 GLM-4.7 和 MiniMax-M2.1，新增 ERNIE-4.5-Turbo-20260402
 - 2026/04/03：添加了小米 MiMo Token Plan
 - 2026/04/03：添加了京东云 Coding Plan
