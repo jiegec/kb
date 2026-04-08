@@ -36,83 +36,7 @@ uv pip install mlx-lm
 
 ## 部署模型
 
-### GLM-4.7-Flash
-
-[zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
-
-SGLang:
-
-```shell
-# setup venv in $PWD/.venv
-uv venv
-# if system python too old: uv venv --python 3.10
-
-# https://github.com/sgl-project/sglang/pull/17247
-# released in sglang 0.5.8
-uv pip install sglang==0.5.8
-# https://github.com/huggingface/transformers/pull/43031
-# https://github.com/sgl-project/sglang/pull/17381
-uv pip install git+https://github.com/huggingface/transformers.git@76732b4e7120808ff989edbd16401f61fa6a0afa
-
-uv run python3 -m sglang.launch_server \
-  --model-path zai-org/GLM-4.7-Flash \
-  --tp-size 4 \
-  --tool-call-parser glm47 \
-  --reasoning-parser glm45 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --mem-fraction-static 0.8 \
-  --served-model-name glm-4.7-flash \
-  --host 127.0.0.1 \
-  --port 8000
-
-# without speculative decoding
-uv run python3 -m sglang.launch_server \
-  --model-path zai-org/GLM-4.7-Flash \
-  --tp-size 4 \
-  --tool-call-parser glm47 \
-  --reasoning-parser glm45 \
-  --mem-fraction-static 0.8 \
-  --served-model-name glm-4.7-flash \
-  --host 127.0.0.1 \
-  --port 8000
-```
-
-LM Studio:
-
-```shell
-$ ~/.lmstudio/bin/lms get
-
-✔ Select a model to download zai-org/glm-4.7-flash
-   ↓ To download: model zai-org/glm-4.7-flash - 14.72 KB
-   └─ ↓ To download: GLM 4.7 Flash Q4_K_M [GGUF] - 18.13 GB
-$ ~/.lmstudio/bin/lms server start
-$ ~/.lmstudio/bin/lms load glm-4.7-flash [--context-length=1-N]
-$ ~/.lmstudio/bin/lms ps
-$ ~/.lmstudio/bin/lms log stream
-```
-
-llama.cpp:
-
-```shell
-# follow https://unsloth.ai/docs/models/glm-4.7-flash
-# download gguf from hf
-uv run hf download \
-    --local-dir unsloth/GLM-4.7-Flash-GGUF \
-    unsloth/GLM-4.7-Flash-GGUF \
-    --include "*UD-Q2_K_XL*"
-# serve
-./llama.cpp/llama-server \
-    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf \
-    --jinja --ctx-size 202752 \
-    --temp 0.7 --top-p 1.0 --min-p 0.01 --fit on
-./llama.cpp/llama-bench \
-    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf
-```
-
-### Qwen3.5 series
+### Qwen3.5
 
 llama.cpp:
 
@@ -210,6 +134,82 @@ uv pip install -U vllm \
 uv run vllm serve Qwen/Qwen3.5-4B \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 1}' \
   --reasoning-parser qwen3
+```
+
+### GLM-4.7-Flash
+
+[zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
+
+SGLang:
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+# if system python too old: uv venv --python 3.10
+
+# https://github.com/sgl-project/sglang/pull/17247
+# released in sglang 0.5.8
+uv pip install sglang==0.5.8
+# https://github.com/huggingface/transformers/pull/43031
+# https://github.com/sgl-project/sglang/pull/17381
+uv pip install git+https://github.com/huggingface/transformers.git@76732b4e7120808ff989edbd16401f61fa6a0afa
+
+uv run python3 -m sglang.launch_server \
+  --model-path zai-org/GLM-4.7-Flash \
+  --tp-size 4 \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 3 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 4 \
+  --mem-fraction-static 0.8 \
+  --served-model-name glm-4.7-flash \
+  --host 127.0.0.1 \
+  --port 8000
+
+# without speculative decoding
+uv run python3 -m sglang.launch_server \
+  --model-path zai-org/GLM-4.7-Flash \
+  --tp-size 4 \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.8 \
+  --served-model-name glm-4.7-flash \
+  --host 127.0.0.1 \
+  --port 8000
+```
+
+LM Studio:
+
+```shell
+$ ~/.lmstudio/bin/lms get
+
+✔ Select a model to download zai-org/glm-4.7-flash
+   ↓ To download: model zai-org/glm-4.7-flash - 14.72 KB
+   └─ ↓ To download: GLM 4.7 Flash Q4_K_M [GGUF] - 18.13 GB
+$ ~/.lmstudio/bin/lms server start
+$ ~/.lmstudio/bin/lms load glm-4.7-flash [--context-length=1-N]
+$ ~/.lmstudio/bin/lms ps
+$ ~/.lmstudio/bin/lms log stream
+```
+
+llama.cpp:
+
+```shell
+# follow https://unsloth.ai/docs/models/glm-4.7-flash
+# download gguf from hf
+uv run hf download \
+    --local-dir unsloth/GLM-4.7-Flash-GGUF \
+    unsloth/GLM-4.7-Flash-GGUF \
+    --include "*UD-Q2_K_XL*"
+# serve
+./llama.cpp/llama-server \
+    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf \
+    --jinja --ctx-size 202752 \
+    --temp 0.7 --top-p 1.0 --min-p 0.01 --fit on
+./llama.cpp/llama-bench \
+    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf
 ```
 
 ### 常见环境变量
