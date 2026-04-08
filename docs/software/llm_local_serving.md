@@ -358,6 +358,21 @@ $ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:30000/v1 --no-cache --mode
 | Qwen/Qwen3.5-4B |   tg32 @ d32768 |      45.98 ± 0.20 | 51.13 ± 0.45 |                 |                 |                 |
 
 # vllm 0.19.0
+# w/o mtp
+$ uv run vllm serve Qwen/Qwen3.5-4B \
+  --reasoning-parser qwen3
+$ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:8000/v1 --no-cache --model Qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
+| model           |            test |               t/s |      peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
+|:----------------|----------------:|------------------:|--------------:|----------------:|----------------:|----------------:|
+| Qwen/Qwen3.5-4B |          pp2048 | 9718.83 ± 3620.94 |               | 301.31 ± 237.11 | 297.99 ± 237.11 | 301.41 ± 237.13 |
+| Qwen/Qwen3.5-4B |            tg32 |      99.01 ± 0.30 | 102.26 ± 0.31 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |  pp2048 @ d8192 | 13664.97 ± 231.99 |               |  752.98 ± 12.83 |  749.67 ± 12.83 |  753.09 ± 12.83 |
+| Qwen/Qwen3.5-4B |    tg32 @ d8192 |     100.95 ± 0.33 | 104.28 ± 0.34 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d16384 |  13727.61 ± 86.88 |               |  1346.09 ± 8.50 |  1342.78 ± 8.50 |  1346.21 ± 8.49 |
+| Qwen/Qwen3.5-4B |   tg32 @ d16384 |      99.42 ± 0.72 | 102.83 ± 0.79 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d32768 |  12749.47 ± 43.07 |               |  2734.23 ± 9.21 |  2730.92 ± 9.21 |  2734.35 ± 9.20 |
+| Qwen/Qwen3.5-4B |   tg32 @ d32768 |      93.94 ± 0.90 |  97.36 ± 0.93 |                 |                 |                 |
+# w/ mtp
 $ uv run vllm serve Qwen/Qwen3.5-4B \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 1}' \
   --reasoning-parser qwen3
