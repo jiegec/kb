@@ -91,7 +91,8 @@
     - 简单问答或代码生成：通常触发 5-10 次模型调用
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
-    - 支持模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7、glm-5、kimi-k2.5、minimax-m2.5
+    - 推荐模型：qwen3.6-plus、kimi-k2.5、glm-5、minimax-m2.5。更多模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7
+    - 注：qwen3.6-plus 仅在 Pro 套餐中提供
     - [Qwen3.6-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
         - 输入 2/8 RMB 每 1M tokens
         - 输出 12/48 RMB 每 1M tokens
@@ -192,6 +193,7 @@
 ## 更新历史
 
 - 2026/04/08：讯飞 Astron Coding Plan 上线了新的焕新版套餐，旧首月版套餐下线
+- 2026/04/08：阿里云百炼 Coding Plan 新增推荐模型 qwen3.6-plus（支持图片理解），仅 Pro 套餐可用，qwen3.5-plus 从推荐模型降级为更多模型
 - 2026/04/07：百度千帆 Coding Plan 下线了 GLM-4.7 和 MiniMax-M2.1，新增 ERNIE-4.5-Turbo-20260402
 - 2026/04/03：添加了小米 MiMo Token Plan
 - 2026/04/03：添加了京东云 Coding Plan

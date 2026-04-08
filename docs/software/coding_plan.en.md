@@ -91,7 +91,8 @@
     - Simple Q&A or code generation: usually triggers 5-10 model calls
     - Code refactoring or complex tasks: may trigger 10-30 or more model calls
     - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
-    - Supported models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7, glm-5, kimi-k2.5, minimax-m2.5
+    - Recommended models: qwen3.6-plus, kimi-k2.5, glm-5, minimax-m2.5. More models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7
+    - Note: qwen3.6-plus is only available on the Pro plan
     - [Qwen3.6-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
         - Input: 2/8 RMB per 1M tokens
         - Output: 12/48 RMB per 1M tokens
@@ -192,6 +193,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 ## Update History
 
 - 2026/04/08: iFlytek Astron Coding Plan launched new Updated Edition plans; old First Month Edition plans retired
+- 2026/04/08: Alibaba Cloud Bailian Coding Plan added recommended model qwen3.6-plus (with image understanding), available only on the Pro plan. qwen3.5-plus was moved from recommended to more models
 - 2026/04/07: Baidu Qianfan Coding Plan removed GLM-4.7 and MiniMax-M2.1, added ERNIE-4.5-Turbo-20260402
 - 2026/04/03: Added Xiaomi MiMo Token Plan
 - 2026/04/03: Added JD Cloud Coding Plan
