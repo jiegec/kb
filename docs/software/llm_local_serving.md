@@ -98,14 +98,14 @@ SGLang:
 # setup venv in $PWD/.venv
 uv venv
 
-# released in sglang 0.5.9, but latest main branch is required
-uv pip install 'git+https://github.com/sgl-project/sglang.git#subdirectory=python'
+# first released in sglang 0.5.9, but 0.5.10 is required
+uv pip install -U sglang>=0.5.10 --prerelease=allow
 # fix pytorch 2.9.1 & cudnn 9.10 incompat
 uv pip install nvidia-cudnn-cu12==9.16.0.29
 
 # Qwen3.5-4B
 # some additional args may be required
-uv run python -m sglang.launch_server \
+uv run sglang serve \
   --model Qwen/Qwen3.5-4B \
   --reasoning-parser qwen3 \
   --tool-call-parser qwen3_coder \
@@ -131,6 +131,10 @@ uv pip install -U vllm \
     --extra-index-url https://wheels.vllm.ai/nightly 
 
 # Qwen3.5-4B
+# w/o mtp
+uv run vllm serve Qwen/Qwen3.5-4B \
+  --reasoning-parser qwen3
+# w/ mtp
 uv run vllm serve Qwen/Qwen3.5-4B \
   --speculative-config '{"method": "mtp", "num_speculative_tokens": 1}' \
   --reasoning-parser qwen3
@@ -331,11 +335,30 @@ $ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:8080 --no-cache --model Qw
 | Qwen/Qwen3.5-4B | pp2048 @ d32768 | 8379.69 ± 413.69 |               | 4165.87 ± 191.72 | 4164.41 ± 191.72 | 4165.99 ± 191.70 |
 | Qwen/Qwen3.5-4B |   tg32 @ d32768 |    114.95 ± 0.58 | 119.65 ± 0.45 |                  |                  |                  |
 
-# sglang commit 7f99319c
-# Add --mamba-scheduler-strategy extra_buffer to fix error: 
+# sglang 0.5.10
+# w/o mtp
+$ uv run sglang serve \
+  --model-path Qwen/Qwen3.5-4B \
+  --reasoning-parser qwen3 \
+  --tool-call-parser qwen3_coder \
+  --enable-flashinfer-allreduce-fusion \
+  --mem-fraction-static 0.8
+$ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:30000/v1 --no-cache --model Qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
+| model           |            test |               t/s |     peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
+|:----------------|----------------:|------------------:|-------------:|----------------:|----------------:|----------------:|
+| Qwen/Qwen3.5-4B |          pp2048 | 9296.18 ± 2671.79 |              | 261.84 ± 130.02 | 257.83 ± 130.02 | 261.95 ± 130.03 |
+| Qwen/Qwen3.5-4B |            tg32 |      92.16 ± 0.14 | 95.22 ± 0.14 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |  pp2048 @ d8192 | 13406.82 ± 299.83 |              |  768.24 ± 16.66 |  764.24 ± 16.66 |  768.36 ± 16.64 |
+| Qwen/Qwen3.5-4B |    tg32 @ d8192 |      90.15 ± 0.05 | 93.12 ± 0.05 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d16384 | 13279.58 ± 102.18 |              | 1392.14 ± 10.63 | 1388.14 ± 10.63 | 1392.26 ± 10.63 |
+| Qwen/Qwen3.5-4B |   tg32 @ d16384 |      87.97 ± 0.10 | 90.88 ± 0.11 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d32768 |  12285.20 ± 24.03 |              |  2838.07 ± 5.55 |  2834.07 ± 5.55 |  2838.20 ± 5.55 |
+| Qwen/Qwen3.5-4B |   tg32 @ d32768 |      83.11 ± 0.07 | 85.85 ± 0.07 |                 |                 |                 |
+# w/ mtp
+# Add --mamba-scheduler-strategy extra_buffer and set SGLANG_ENABLE_SPEC_V2=1 to fix error: 
 # ValueError: Speculative decoding for Qwen3_5ForConditionalGeneration is not compatible with radix cache when using --mamba-scheduler-strategy no_buffer. To use radix cache with speculative decoding, please use --mamba-scheduler-strategy extra_buffer and set SGLANG_ENABLE_SPEC_V2=1.
-$ SGLANG_ENABLE_SPEC_V2=1 uv run python -m sglang.launch_server \
-  --model Qwen/Qwen3.5-4B \
+$ SGLANG_ENABLE_SPEC_V2=1 uv run sglang serve \
+  --model-path Qwen/Qwen3.5-4B \
   --reasoning-parser qwen3 \
   --tool-call-parser qwen3_coder \
   --speculative-algorithm EAGLE \
@@ -348,14 +371,15 @@ $ SGLANG_ENABLE_SPEC_V2=1 uv run python -m sglang.launch_server \
 $ uvx llama-benchy@v0.3.5 --base-url http://127.0.0.1:30000/v1 --no-cache --model Qwen/Qwen3.5-4B --depth 0 8192 16384 32768 --runs 5
 | model           |            test |               t/s |     peak t/s |       ttfr (ms) |    est_ppt (ms) |   e2e_ttft (ms) |
 |:----------------|----------------:|------------------:|-------------:|----------------:|----------------:|----------------:|
-| Qwen/Qwen3.5-4B |          pp2048 |  8768.36 ± 886.82 |              |  239.95 ± 21.02 |  235.78 ± 21.02 |  240.08 ± 21.03 |
-| Qwen/Qwen3.5-4B |            tg32 |      49.87 ± 0.22 | 55.22 ± 0.68 |                 |                 |                 |
-| Qwen/Qwen3.5-4B |  pp2048 @ d8192 | 11567.46 ± 226.15 |              |  889.81 ± 16.91 |  885.64 ± 16.91 |  889.93 ± 16.91 |
-| Qwen/Qwen3.5-4B |    tg32 @ d8192 |      49.00 ± 0.06 | 53.82 ± 0.75 |                 |                 |                 |
-| Qwen/Qwen3.5-4B | pp2048 @ d16384 | 11502.00 ± 381.09 |              | 1608.61 ± 55.36 | 1604.44 ± 55.36 | 1608.72 ± 55.35 |
-| Qwen/Qwen3.5-4B |   tg32 @ d16384 |      47.91 ± 0.14 | 53.12 ± 0.42 |                 |                 |                 |
-| Qwen/Qwen3.5-4B | pp2048 @ d32768 |  11019.27 ± 76.24 |              | 3163.95 ± 21.94 | 3159.78 ± 21.94 | 3164.07 ± 21.93 |
-| Qwen/Qwen3.5-4B |   tg32 @ d32768 |      45.98 ± 0.20 | 51.13 ± 0.45 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |          pp2048 | 7835.05 ± 2950.85 |              | 374.17 ± 295.34 | 370.40 ± 295.34 | 374.29 ± 295.36 |
+| Qwen/Qwen3.5-4B |            tg32 |      53.04 ± 0.09 | 58.26 ± 0.36 |                 |                 |                 |
+| Qwen/Qwen3.5-4B |  pp2048 @ d8192 | 11527.59 ± 271.35 |              |  892.61 ± 20.69 |  888.84 ± 20.69 |  892.74 ± 20.69 |
+| Qwen/Qwen3.5-4B |    tg32 @ d8192 |      51.45 ± 0.75 | 56.62 ± 0.95 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d16384 |  11610.54 ± 13.01 |              |  1591.40 ± 1.80 |  1587.63 ± 1.80 |  1591.52 ± 1.82 |
+| Qwen/Qwen3.5-4B |   tg32 @ d16384 |      50.78 ± 0.14 | 56.39 ± 0.12 |                 |                 |                 |
+| Qwen/Qwen3.5-4B | pp2048 @ d32768 |  10953.04 ± 47.04 |              | 3182.57 ± 13.66 | 3178.79 ± 13.66 | 3182.68 ± 13.66 |
+| Qwen/Qwen3.5-4B |   tg32 @ d32768 |      48.48 ± 0.06 | 53.67 ± 0.51 |                 |                 |                 |
+
 
 # vllm 0.19.0
 # w/o mtp
