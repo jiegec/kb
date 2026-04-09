@@ -57,8 +57,8 @@
 - Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
 - One prompt refers to one query. Each prompt is estimated to invoke the model 15–20 times. The monthly available quota is converted based on API pricing, equivalent to approximately 15–30× the monthly subscription fee (weekly caps already factored in).
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, and GLM-4.5-Air. The Max and Pro plans now support GLM-5.
-- Note: GLM-5.1, GLM-5 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April.
+- Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
+- Note: GLM-5.1 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April.
 - Note: For users who subscribed and enabled auto-renewal before February 12 (UTC+8), the original quota will remain in effect throughout the subscription validity period, and no weekly usage limits will apply.
 - Note: For users who enabled auto-renewal before February 12, both the renewal price and the usage quota will remain unchanged and will continue to follow the limits shown at the time of your original subscription.
 - [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
@@ -192,6 +192,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/09: Zhipu Coding Plan removed GLM-5, GLM-4.6, GLM-4.5 models
+GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air
 - 2026/04/08: iFlytek Astron Coding Plan launched new Updated Edition plans; old First Month Edition plans retired
 - 2026/04/08: Alibaba Cloud Bailian Coding Plan added recommended model qwen3.6-plus (with image understanding), available only on the Pro plan. qwen3.5-plus was moved from recommended to more models
 - 2026/04/07: Baidu Qianfan Coding Plan removed GLM-4.7 and MiniMax-M2.1, added ERNIE-4.5-Turbo-20260402
