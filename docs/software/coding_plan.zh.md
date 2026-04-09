@@ -134,7 +134,7 @@
 - [无问芯穹 Infini Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
     - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
     - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
-    - 支持模型：DeepSeek-v3.2、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、MiniMax-M2.7、GLM-4.7、GLM-5
+    - 支持模型：DeepSeek-v3.2、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、MiniMax-M2.7、GLM-4.7、GLM-5、GLM-5.1
 - [阶越星辰 Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
     - Flash Mini（49 RMB 每月）：5 小时限额 100 次 Prompt（~1500 次模型调用），周限额 400 次 Prompt（~6000 次模型调用）
     - Flash Plus（99 RMB 每月）：5 小时限额 400 次 Prompt（~6000 次模型调用），周限额 1600 次 Prompt（~24000 次模型调用）
@@ -192,7 +192,8 @@
 
 ## 更新历史
 
-- 2026/04/09：智谱 Coding Plan 下线了 GLM-5、GLM-4.6、GLM-4.5 模型 GLM-4.5-Air
+- 2026/04/09：无问芯穹 Infini Coding Plan 新增支持 glm-5.1 模型
+- 2026/04/09：智谱 Coding Plan 下线了 GLM-5、GLM-4.6、GLM-4.5 模型
 - 2026/04/08：讯飞 Astron Coding Plan 上线了新的焕新版套餐，旧首月版套餐下线
 - 2026/04/08：阿里云百炼 Coding Plan 新增推荐模型 qwen3.6-plus（支持图片理解），仅 Pro 套餐可用，qwen3.5-plus 从推荐模型降级为更多模型
 - 2026/04/07：百度千帆 Coding Plan 下线了 GLM-4.7 和 MiniMax-M2.1，新增 ERNIE-4.5-Turbo-20260402

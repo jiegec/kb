@@ -134,7 +134,7 @@
 - [Infini-AI Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
     - Lite (40 RMB/month): Fixed monthly fee, 12,000 requests per month, 6,000 per week, 1,000 per 5 hours
     - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
-    - Supported models: DeepSeek-v3.2, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, MiniMax-M2.7, GLM-4.7, GLM-5
+    - Supported models: DeepSeek-v3.2, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, MiniMax-M2.7, GLM-4.7, GLM-5, GLM-5.1
 - [StepFun Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
     - Flash Mini (49 RMB/month): 100 prompts per 5 hours (~1,500 model calls), 400 prompts per week (~6,000 model calls)
     - Flash Plus (99 RMB/month): 400 prompts per 5 hours (~6,000 model calls), 1,600 prompts per week (~24,000 model calls)
@@ -192,8 +192,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/09: Infini-AI Coding Plan added support for glm-5.1 model
 - 2026/04/09: Zhipu Coding Plan removed GLM-5, GLM-4.6, GLM-4.5 models
-GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air
 - 2026/04/08: iFlytek Astron Coding Plan launched new Updated Edition plans; old First Month Edition plans retired
 - 2026/04/08: Alibaba Cloud Bailian Coding Plan added recommended model qwen3.6-plus (with image understanding), available only on the Pro plan. qwen3.5-plus was moved from recommended to more models
 - 2026/04/07: Baidu Qianfan Coding Plan removed GLM-4.7 and MiniMax-M2.1, added ERNIE-4.5-Turbo-20260402
