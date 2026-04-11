@@ -86,13 +86,14 @@
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
     - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-2.5, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
-    - 200 RMB/month: Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
+    - Pro Plan (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
+    - Lite Plan was suspended from new purchases on March 19, 2026, and will stop accepting renewals and upgrades from April 13, 2026. Existing users can continue using it until expiration. See [announcement](https://www.aliyun.com/notice/118175)
     - One user question may trigger multiple model calls; each model call counts as one quota consumption. Typical quota consumption scenarios:
     - Simple Q&A or code generation: usually triggers 5-10 model calls
     - Code refactoring or complex tasks: may trigger 10-30 or more model calls
     - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
     - Recommended models: qwen3.6-plus, kimi-k2.5, glm-5, minimax-m2.5. More models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7
-    - Note: qwen3.6-plus is only available on the Pro plan
+    - Note: qwen3.6-plus is exclusive to the Pro plan
     - [Qwen3.6-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
         - Input: 2/8 RMB per 1M tokens
         - Output: 12/48 RMB per 1M tokens
@@ -197,6 +198,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/11: Alibaba Cloud Bailian Coding Plan Lite Plan will stop accepting renewals and upgrades from April 13, 2026. New purchases were already suspended on March 19, 2026
 - 2026/04/11: Added CTCloud Coding Plan
 - 2026/04/09: Infini-AI Coding Plan added support for glm-5.1 model
 - 2026/04/09: Zhipu Coding Plan removed GLM-5, GLM-4.6, GLM-4.5 models

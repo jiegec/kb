@@ -86,13 +86,14 @@
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
     - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-2.5、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
-    - 200 RMB 每月：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
+    - Pro 套餐（200 RMB 每月）：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
+    - Lite 基础套餐已于 2026 年 3 月 19 日停止新购，于 2026 年 4 月 13 日起停止续费和升级，已购用户可继续使用至服务到期，详见[公告](https://www.aliyun.com/notice/118175)
     - 一次用户提问可能触发多次模型调用，每次模型调用均计入一次额度消耗。典型场景下的额度消耗如下：
     - 简单问答或代码生成：通常触发 5-10 次模型调用
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
     - 推荐模型：qwen3.6-plus、kimi-k2.5、glm-5、minimax-m2.5。更多模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7
-    - 注：qwen3.6-plus 仅在 Pro 套餐中提供
+    - 注：qwen3.6-plus 为 Pro 套餐专属权益
     - [Qwen3.6-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
         - 输入 2/8 RMB 每 1M tokens
         - 输出 12/48 RMB 每 1M tokens
@@ -197,6 +198,7 @@
 
 ## 更新历史
 
+- 2026/04/11：阿里云百炼 Coding Plan Lite 基础套餐于 2026 年 4 月 13 日起停止续费和升级，此前已于 2026 年 3 月 19 日停止新购
 - 2026/04/11：添加了天翼云 Coding Plan
 - 2026/04/09：无问芯穹 Infini Coding Plan 新增支持 glm-5.1 模型
 - 2026/04/09：智谱 Coding Plan 下线了 GLM-5、GLM-4.6、GLM-4.5 模型
