@@ -198,6 +198,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/12: Zhipu International GLM Coding Plan starting price increased from 10 USD/month to 18 USD/month
 - 2026/04/11: Alibaba Cloud Bailian Coding Plan Lite Plan will stop accepting renewals and upgrades from April 13, 2026. New purchases were already suspended on March 19, 2026
 - 2026/04/11: Added CTCloud Coding Plan
 - 2026/04/09: Infini-AI Coding Plan added support for glm-5.1 model
