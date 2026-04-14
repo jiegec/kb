@@ -287,21 +287,6 @@ ggml_cuda_init: found 1 CUDA devices (Total VRAM: 24210 MiB):
 | qwen35moe 35B.A3B Q4_K - Medium |  20.70 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d32768 |        124.07 ± 1.73 |
 
 build: d12cc3d1c (8720)
-$ llama-bench -p 1024 -n 64 -d 0,8192,16384,32768 --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-MXFP4_MOE.gguf
-ggml_cuda_init: found 1 CUDA devices (Total VRAM: 24210 MiB):
-  Device 0: NVIDIA GeForce RTX 4090, compute capability 8.9, VMM: yes, VRAM: 24210 MiB
-| model                          |       size |     params | backend    | ngl |            test |                  t/s |
-| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 |          pp1024 |      6352.44 ± 19.01 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 |            tg64 |        158.58 ± 2.73 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 |  pp1024 @ d8192 |      5190.20 ± 18.31 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 |    tg64 @ d8192 |        153.61 ± 3.00 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d16384 |       4277.08 ± 6.52 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d16384 |        143.02 ± 2.28 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 | pp1024 @ d32768 |       3224.85 ± 5.37 |
-| qwen35moe 35B.A3B Q4_K - Medium |  20.09 GiB |    34.66 B | CUDA       |  99 |   tg64 @ d32768 |        124.68 ± 1.53 |
-
-build: d12cc3d1c (8720)
 # llama-server + llama-benchy
 # llama-server version: 8720 (d12cc3d1c)
 $ llama-server \
