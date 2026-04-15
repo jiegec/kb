@@ -58,6 +58,9 @@ plugins:
         - "*.md"
 
 extra:
+  social:
+    - icon: fontawesome/solid/robot
+      link: /kb/llms.txt
   analytics:
     provider: custom
 copyright: Copyright &copy; 2023-2025 Jiajie Chen
@@ -92,4 +95,3 @@ extra_javascript:
 
 extra_css:
   - stylesheets/extra.css
-
