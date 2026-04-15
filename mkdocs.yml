@@ -52,6 +52,11 @@ plugins:
   - offline
   - wavedrom:
       pymdownx: true
+  - llmstxt:
+      sections:
+        Knowledge Base:
+        - "*.md"
+
 extra:
   analytics:
     provider: custom

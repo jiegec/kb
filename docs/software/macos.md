@@ -43,7 +43,7 @@ Configs:
 
 Danger Zone:
 
-- [Disabling and Enabling System Integrity Protection](developer.apple.com/documentation/security/disabling-and-enabling-system-integrity-protection)
+- [Disabling and Enabling System Integrity Protection](https://developer.apple.com/documentation/security/disabling-and-enabling-system-integrity-protection)
 - [Generating a Non-Maskable Interrupt](https://developer.apple.com/documentation/kernel/generating_a_non-maskable_interrupt)
 - [Kernel Core Dumps](https://developer.apple.com/library/archive/technotes/tn2004/tn2118.html)
 - Trigger kernel panic: `sudo dtrace -w -n "BEGIN{ panic();}"`, it will reboot automatically
