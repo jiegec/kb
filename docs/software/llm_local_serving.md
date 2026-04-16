@@ -66,11 +66,12 @@ llama.cpp:
 
 ```shell
 # download gguf from hf
-# Qwen3.6-35B-A3B
 uv run hf download \
     --local-dir unsloth/Qwen3.6-35B-A3B-GGUF \
     unsloth/Qwen3.6-35B-A3B-GGUF \
     Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf
+
+# serving
 ./llama.cpp/llama-server \
     --model unsloth/Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf \
     --jinja --ctx-size 262144 \
@@ -87,27 +88,14 @@ llama.cpp:
 # follow https://unsloth.ai/docs/models/qwen3.5
 
 # download gguf from hf
-# Qwen3.5-27B
 uv run hf download \
     --local-dir unsloth/Qwen3.5-27B-GGUF \
     unsloth/Qwen3.5-27B-GGUF \
     Qwen3.5-27B-UD-Q4_K_XL.gguf
-./llama.cpp/llama-server \
-    --model unsloth/Qwen3.5-27B-GGUF/Qwen3.5-27B-UD-Q4_K_XL.gguf \
-    --jinja --ctx-size 262144 \
-    --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
-
-# Qwen3.5-35B-A3B
 uv run hf download \
     --local-dir unsloth/Qwen3.5-35B-A3B-GGUF \
     unsloth/Qwen3.5-35B-A3B-GGUF \
     Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf
-./llama.cpp/llama-server \
-    --model unsloth/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q3_K_XL.gguf \
-    --jinja --ctx-size 262144 \
-    --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
-
-# Qwen3.5-9B
 uv run hf download \
     --local-dir unsloth/Qwen3.5-9B-GGUF \
     unsloth/Qwen3.5-9B-GGUF \
@@ -116,22 +104,26 @@ uv run hf download \
     --local-dir unsloth/Qwen3.5-9B-GGUF \
     unsloth/Qwen3.5-9B-GGUF \
     Qwen3.5-9B-UD-Q4_K_XL.gguf
-
-# Qwen3.5-4B
 uv run hf download \
     --local-dir unsloth/Qwen3.5-4B-GGUF \
     unsloth/Qwen3.5-4B-GGUF \
     Qwen3.5-4B-UD-Q4_K_XL.gguf
+
+# serving
+./llama.cpp/llama-server \
+    --model unsloth/Qwen3.5-27B-GGUF/Qwen3.5-27B-UD-Q4_K_XL.gguf \
+    --jinja --ctx-size 262144 \
+    --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
 ```
 
 MLX-LM:
 
 ```shell
-# Qwen3.5-4B
 # for MLX on Apple Silicon
 uv run hf download \
     --local-dir mlx-community/Qwen3.5-4B-MLX-4bit \
     mlx-community/Qwen3.5-4B-MLX-4bit 
+# serving
 uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --log-level DEBUG
 ```
 
