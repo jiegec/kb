@@ -34,6 +34,30 @@ uv venv
 uv pip install mlx-lm
 ```
 
+### 安装 SGLang
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+
+# install latest stable sglang
+uv pip install -U sglang
+```
+
+### 安装 vLLM
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+
+# install latest stable vllm
+uv pip install -U vllm --torch-backend=auto
+# or nightly vllm
+uv pip install -U vllm \
+    --torch-backend=auto \
+    --extra-index-url https://wheels.vllm.ai/nightly 
+```
+
 ## Qwen3.6
 
 ### 部署模型
@@ -114,9 +138,6 @@ uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --lo
 SGLang:
 
 ```shell
-# setup venv in $PWD/.venv
-uv venv
-
 # first released in sglang 0.5.9, but 0.5.10 is required
 uv pip install -U sglang>=0.5.10 --prerelease=allow
 # fix pytorch 2.9.1 & cudnn 9.10 incompat
@@ -139,16 +160,6 @@ uv run sglang serve \
 vLLM:
 
 ```shell
-# setup venv in $PWD/.venv
-uv venv
-
-# install latest stable vllm
-uv pip install -U vllm --torch-backend=auto
-# or nightly vllm
-uv pip install -U vllm \
-    --torch-backend=auto \
-    --extra-index-url https://wheels.vllm.ai/nightly 
-
 # Qwen3.5-4B
 # w/o mtp
 uv run vllm serve Qwen/Qwen3.5-4B \
