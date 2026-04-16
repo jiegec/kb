@@ -34,6 +34,30 @@ uv venv
 uv pip install mlx-lm
 ```
 
+### 安装 SGLang
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+
+# install latest stable sglang
+uv pip install -U sglang
+```
+
+### 安装 vLLM
+
+```shell
+# setup venv in $PWD/.venv
+uv venv
+
+# install latest stable vllm
+uv pip install -U vllm --torch-backend=auto
+# or nightly vllm
+uv pip install -U vllm \
+    --torch-backend=auto \
+    --extra-index-url https://wheels.vllm.ai/nightly
+```
+
 ## Qwen3.6
 
 ### 部署模型
@@ -114,9 +138,6 @@ uv run python3 -m mlx_lm server --model ./mlx-community/Qwen3.5-4B-MLX-4bit --lo
 SGLang:
 
 ```shell
-# setup venv in $PWD/.venv
-uv venv
-
 # first released in sglang 0.5.9, but 0.5.10 is required
 uv pip install -U sglang>=0.5.10 --prerelease=allow
 # fix pytorch 2.9.1 & cudnn 9.10 incompat
@@ -139,16 +160,6 @@ uv run sglang serve \
 vLLM:
 
 ```shell
-# setup venv in $PWD/.venv
-uv venv
-
-# install latest stable vllm
-uv pip install -U vllm --torch-backend=auto
-# or nightly vllm
-uv pip install -U vllm \
-    --torch-backend=auto \
-    --extra-index-url https://wheels.vllm.ai/nightly 
-
 # Qwen3.5-4B
 # w/o mtp
 uv run vllm serve Qwen/Qwen3.5-4B \
@@ -365,82 +376,6 @@ Trial 3:  prompt_tps=356.888, generation_tps=39.224, peak_memory=3.503
 Trial 4:  prompt_tps=359.941, generation_tps=38.759, peak_memory=3.504
 Trial 5:  prompt_tps=359.376, generation_tps=38.754, peak_memory=3.504
 Averages: prompt_tps=359.188, generation_tps=39.023, peak_memory=3.503
-```
-
-## GLM-4.7-Flash
-
-[zai-org/GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)
-
-SGLang:
-
-```shell
-# setup venv in $PWD/.venv
-uv venv
-# if system python too old: uv venv --python 3.10
-
-# https://github.com/sgl-project/sglang/pull/17247
-# released in sglang 0.5.8
-uv pip install sglang==0.5.8
-# https://github.com/huggingface/transformers/pull/43031
-# https://github.com/sgl-project/sglang/pull/17381
-uv pip install git+https://github.com/huggingface/transformers.git@76732b4e7120808ff989edbd16401f61fa6a0afa
-
-uv run python3 -m sglang.launch_server \
-  --model-path zai-org/GLM-4.7-Flash \
-  --tp-size 4 \
-  --tool-call-parser glm47 \
-  --reasoning-parser glm45 \
-  --speculative-algorithm EAGLE \
-  --speculative-num-steps 3 \
-  --speculative-eagle-topk 1 \
-  --speculative-num-draft-tokens 4 \
-  --mem-fraction-static 0.8 \
-  --served-model-name glm-4.7-flash \
-  --host 127.0.0.1 \
-  --port 8000
-
-# without speculative decoding
-uv run python3 -m sglang.launch_server \
-  --model-path zai-org/GLM-4.7-Flash \
-  --tp-size 4 \
-  --tool-call-parser glm47 \
-  --reasoning-parser glm45 \
-  --mem-fraction-static 0.8 \
-  --served-model-name glm-4.7-flash \
-  --host 127.0.0.1 \
-  --port 8000
-```
-
-LM Studio:
-
-```shell
-$ ~/.lmstudio/bin/lms get
-
-✔ Select a model to download zai-org/glm-4.7-flash
-   ↓ To download: model zai-org/glm-4.7-flash - 14.72 KB
-   └─ ↓ To download: GLM 4.7 Flash Q4_K_M [GGUF] - 18.13 GB
-$ ~/.lmstudio/bin/lms server start
-$ ~/.lmstudio/bin/lms load glm-4.7-flash [--context-length=1-N]
-$ ~/.lmstudio/bin/lms ps
-$ ~/.lmstudio/bin/lms log stream
-```
-
-llama.cpp:
-
-```shell
-# follow https://unsloth.ai/docs/models/glm-4.7-flash
-# download gguf from hf
-uv run hf download \
-    --local-dir unsloth/GLM-4.7-Flash-GGUF \
-    unsloth/GLM-4.7-Flash-GGUF \
-    --include "*UD-Q2_K_XL*"
-# serve
-./llama.cpp/llama-server \
-    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf \
-    --jinja --ctx-size 202752 \
-    --temp 0.7 --top-p 1.0 --min-p 0.01 --fit on
-./llama.cpp/llama-bench \
-    --model unsloth/GLM-4.7-Flash-GGUF/GLM-4.7-Flash-UD-Q2_K_XL.gguf
 ```
 
 ## 常见环境变量
