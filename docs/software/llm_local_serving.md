@@ -36,6 +36,23 @@ uv pip install mlx-lm
 
 ## 部署模型
 
+### Qwen3.6
+
+llama.cpp:
+
+```shell
+# download gguf from hf
+# Qwen3.6-35B-A3B
+uv run hf download \
+    --local-dir unsloth/Qwen3.6-35B-A3B-GGUF \
+    unsloth/Qwen3.6-35B-A3B-GGUF \
+    Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf
+./llama.cpp/llama-server \
+    --model unsloth/Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf \
+    --jinja --ctx-size 262144 \
+    --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.00
+```
+
 ### Qwen3.5
 
 llama.cpp:
