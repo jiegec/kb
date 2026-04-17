@@ -65,6 +65,8 @@ uv pip install -U vllm \
 llama.cpp:
 
 ```shell
+# follow https://unsloth.ai/docs/models/qwen3.6
+
 # download gguf from hf
 uv run hf download \
     --local-dir unsloth/Qwen3.6-35B-A3B-GGUF \
@@ -119,6 +121,7 @@ uv run hf download \
 MLX-LM:
 
 ```shell
+# Qwen3.5-4B
 # for MLX on Apple Silicon
 uv run hf download \
     --local-dir mlx-community/Qwen3.5-4B-MLX-4bit \
