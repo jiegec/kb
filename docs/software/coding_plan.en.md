@@ -11,10 +11,10 @@
 - Allegretto (199 RMB/month): 20x Kimi Code quota
 - Allegro (699 RMB/month): 60x Kimi Code quota
 - Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week
-- [K2.5 API Pricing](https://platform.moonshot.cn/docs/pricing/chat):
-    - Cached input: 0.7 RMB per 1M tokens
-    - Uncached input: 4 RMB per 1M tokens
-    - Output: 21 RMB per 1M tokens
+- [K2.6 API Pricing](https://platform.moonshot.cn/docs/pricing/chat):
+    - Cached input: 1.1 RMB per 1M tokens
+    - Uncached input: 6.5 RMB per 1M tokens
+    - Output: 27 RMB per 1M tokens
     - 256K context
 
 ### MiniMax
@@ -188,7 +188,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 | Name                                                               | Parameters | Active | Vision |
 |--------------------------------------------------------------------|------------|--------|--------|
-| [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T         | 32B    | Y      |
+| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)           | 1T         | 32B    | Y      |
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                  | 744B       | 40B    | N      |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B       | 32B    | N      |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B        | 3B     | N      |
@@ -198,6 +198,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/21: Kimi officially released Kimi-K2.6 model
 - 2026/04/14: Kimi Code launched K2.6-code-preview model
 - 2026/04/12: Zhipu International GLM Coding Plan starting price increased from 10 USD/month to 18 USD/month
 - 2026/04/11: Alibaba Cloud Bailian Coding Plan Lite Plan will stop accepting renewals and upgrades from April 13, 2026. New purchases were already suspended on March 19, 2026
