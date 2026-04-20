@@ -11,10 +11,10 @@
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
 - 通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens
-- [K2.5 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
-  - 输入命中缓存 0.7 RMB 每 1M tokens
-  - 输入未命中缓存 4 RMB 每 1M tokens
-  - 输出 21 RMB 每 1M tokens
+- [K2.6 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
+  - 输入命中缓存 1.1 RMB 每 1M tokens
+  - 输入未命中缓存 6.5 RMB 每 1M tokens
+  - 输出 27 RMB 每 1M tokens
   - 256K 上下文
 
 ### MiniMax
@@ -196,7 +196,7 @@
 
 | 模型名称                                                           | 参数量 | 激活量 | 视觉 |
 | ------------------------------------------------------------------ | ------ | ------ | ---- |
-| [Kimi-K2.5](https://huggingface.co/moonshotai/Kimi-K2.5)           | 1T     | 32B    | 是   |
+| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)           | 1T     | 32B    | 是   |
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                  | 744B   | 40B    | 否   |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                  | 355B   | 32B    | 否   |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)      | 30B    | 3B     | 否   |
@@ -205,6 +205,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B   | 17B    | 是   |
 
 ## 更新历史
+
+- 2026/04/21：Kimi 正式发布 Kimi-K2.6 模型
 
 - 2026/04/14：Kimi Code 上线 K2.6-code-preview 模型
 
