@@ -102,6 +102,15 @@
     - 输入 2.5/4/7 RMB 每 1M tokens
     - 输出 10/16/28 RMB 每 1M tokens
     - 256K 上下文
+- [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
+  - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
+  - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
+  - 尊享坐席（¥1,398/坐席/月）：250,000 Credits/坐席/月
+  - 共享用量包（¥5,000/个）：625,000 Credits/个
+  - 单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。
+  - 支持的模型：
+    - 文本生成：qwen3.6-plus、glm-5、MiniMax-M2.5、deepseek-v3.2
+    - 图像生成：qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro
 - [腾讯云大模型 Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
   - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求，每周：最多约 9,000 次请求，每订阅月：最多约 18,000 次请求
   - Pro 套餐（200 RMB 每月）：每 5 小时：最多约 6,000 次请求，每周：最多约 45,000 次请求，每订阅月：最多约 90,000 次请求
@@ -205,6 +214,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B   | 17B    | 是   |
 
 ## 更新历史
+
+- 2026/04/21：阿里云百炼 Token Plan 团队版上线
 
 - 2026/04/21：Kimi 正式发布 Kimi-K2.6 模型
 

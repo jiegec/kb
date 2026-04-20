@@ -102,6 +102,15 @@
     - Input: 2.5/4/7 RMB per 1M tokens
     - Output: 10/16/28 RMB per 1M tokens
     - 256K context
+- [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
+  - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
+  - Advanced Seat (¥698/seat/month): 100,000 Credits/seat/month
+  - Premium Seat (¥1,398/seat/month): 250,000 Credits/seat/month
+  - Shared Usage Pack (¥5,000/pack): 625,000 Credits/pack
+  - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
+  - Supported models:
+    - Text generation: qwen3.6-plus, glm-5, MiniMax-M2.5, deepseek-v3.2
+    - Image generation: qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro
 - [Tencent Cloud LLM Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests
   - Pro Plan (200 RMB/month): Per 5 hours: maximum ~6,000 requests. Per week: maximum ~45,000 requests. Per subscription month: maximum ~90,000 requests
@@ -205,6 +214,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/04/21: Alibaba Cloud Bailian Token Plan (Team Edition) launched
 
 - 2026/04/21: Kimi officially released Kimi-K2.6 model
 
