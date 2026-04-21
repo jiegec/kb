@@ -107,7 +107,9 @@
   - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
   - 尊享坐席（¥1,398/坐席/月）：250,000 Credits/坐席/月
   - 共享用量包（¥5,000/个）：625,000 Credits/个
-  - 单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 25000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
+  - 单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。
+  - 以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 25000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
+  - 如果按 256K 以内的上下文算，一个 Credit 对应的 API 价格（隐式缓存）是 0.01 元，按 256K-1M 的上下文，一个 Credit 对应 0.04 元
   - 支持的模型：
     - 文本生成：qwen3.6-plus、glm-5、MiniMax-M2.5、deepseek-v3.2
     - 图像生成：qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro
