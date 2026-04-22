@@ -84,7 +84,7 @@
 - [方舟 Coding Plan](https://www.volcengine.com/activity/codingplan)
   - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
   - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-  - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-2.5、Kimi-K2.5、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
+  - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-M2.7、MiniMax-2.5、Kimi-K2.6、Kimi-K2.5、GLM-5.1、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
   - Pro 套餐（200 RMB 每月）：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
   - Lite 基础套餐已于 2026 年 3 月 19 日停止新购，于 2026 年 4 月 13 日起停止续费和升级，已购用户可继续使用至服务到期，详见[公告](https://www.aliyun.com/notice/118175)
@@ -216,6 +216,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B   | 17B    | 是   |
 
 ## 更新历史
+
+- 2026/04/22：方舟 Coding Plan 上线 MiniMax-M2.7、Kimi-K2.6、GLM-5.1
 
 - 2026/04/21：阿里云百炼 Token Plan 团队版上线
 

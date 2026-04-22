@@ -84,7 +84,7 @@
 - [Volcano Engine Coding Plan](https://www.volcengine.com/activity/codingplan)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
   - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-2.5, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
+  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
   - Pro Plan (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
   - Lite Plan was suspended from new purchases on March 19, 2026, and will stop accepting renewals and upgrades from April 13, 2026. Existing users can continue using it until expiration. See [announcement](https://www.aliyun.com/notice/118175)
@@ -216,6 +216,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/04/22: Volcano Engine Coding Plan added MiniMax-M2.7, Kimi-K2.6, GLM-5.1
 
 - 2026/04/21: Alibaba Cloud Bailian Token Plan (Team Edition) launched
 
