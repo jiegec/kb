@@ -93,7 +93,6 @@
     - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
     - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
     - 推荐模型：qwen3.6-plus、kimi-k2.5、glm-5、minimax-m2.5。更多模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7
-    - 注：qwen3.6-plus 为 Pro 套餐专属权益
     - [Qwen3.6-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
         - 输入 2/8 RMB 每 1M tokens
         - 输出 12/48 RMB 每 1M tokens
@@ -157,6 +156,7 @@
     - Flash Plus（99 RMB 每月）：5 小时限额 400 次 Prompt（~6000 次模型调用），周限额 1600 次 Prompt（~24000 次模型调用）
     - Flash Pro（199 RMB 每月）：5 小时限额 1500 次 Prompt（~22500 次模型调用），周限额 6000 次 Prompt（~90000 次模型调用）
     - Flash Max（699 RMB 每月）：5 小时限额 5000 次 Prompt（~75000 次模型调用），周限额 20000 次 Prompt（~300000 次模型调用）
+    - 支持模型：step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-tts、stepaudio-2.5-asr
 - [小米 MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：6000 万 Credits 每月
     - Standard（99 RMB 或 16 USD 每月）：2 亿 Credits 每月
@@ -209,6 +209,7 @@
 
 ## 更新历史
 
+- 2026/04/23：阶跃星辰 Coding Plan 新增支持 stepaudio-2.5-asr 模型
 - 2026/04/21：阿里云百炼 Token Plan 团队版上线
 - 2026/04/21：Kimi 正式发布 Kimi-K2.6 模型
 - 2026/04/14：Kimi Code 上线 K2.6-code-preview 模型

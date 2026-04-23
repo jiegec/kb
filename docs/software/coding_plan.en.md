@@ -93,7 +93,6 @@
     - Code refactoring or complex tasks: may trigger 10-30 or more model calls
     - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
     - Recommended models: qwen3.6-plus, kimi-k2.5, glm-5, minimax-m2.5. More models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7
-    - Note: qwen3.6-plus is exclusive to the Pro plan
     - [Qwen3.6-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
         - Input: 2/8 RMB per 1M tokens
         - Output: 12/48 RMB per 1M tokens
@@ -157,6 +156,7 @@
     - Flash Plus (99 RMB/month): 400 prompts per 5 hours (~6,000 model calls), 1,600 prompts per week (~24,000 model calls)
     - Flash Pro (199 RMB/month): 1,500 prompts per 5 hours (~22,500 model calls), 6,000 prompts per week (~90,000 model calls)
     - Flash Max (699 RMB/month): 5,000 prompts per 5 hours (~75,000 model calls), 20,000 prompts per week (~300,000 model calls)
+    - Supported models: step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-tts, stepaudio-2.5-asr
 - [Xiaomi MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite (39 RMB or 6 USD/month): 60M Credits per month
     - Standard (99 RMB or 16 USD/month): 200M Credits per month
@@ -209,6 +209,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/23: StepFun Coding Plan added support for stepaudio-2.5-asr model
 - 2026/04/21: Alibaba Cloud Bailian Token Plan (Team Edition) launched
 - 2026/04/21: Kimi officially released Kimi-K2.6 model
 - 2026/04/14: Kimi Code launched K2.6-code-preview model
