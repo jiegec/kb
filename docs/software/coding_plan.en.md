@@ -59,8 +59,6 @@
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
 - Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
 - Note: GLM-5.1 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April.
-- Note: For users who subscribed and enabled auto-renewal before February 12 (UTC+8), the original quota will remain in effect throughout the subscription validity period, and no weekly usage limits will apply.
-- Note: For users who enabled auto-renewal before February 12, both the renewal price and the usage quota will remain unchanged and will continue to follow the limits shown at the time of your original subscription.
 - [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 1.2/1.8 RMB per 1M tokens
     - Uncached input: 5/7 RMB per 1M tokens
@@ -84,7 +82,7 @@
 - [Volcano Engine Coding Plan](https://www.volcengine.com/activity/codingplan)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-2.5, Kimi-K2.5, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
+    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Pro Plan (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
     - Lite Plan was suspended from new purchases on March 19, 2026, and will stop accepting renewals and upgrades from April 13, 2026. Existing users can continue using it until expiration. See [announcement](https://www.aliyun.com/notice/118175)
@@ -210,6 +208,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 ## Update History
 
 - 2026/04/23: StepFun Coding Plan added support for stepaudio-2.5-asr model
+- 2026/04/23: GLM Coding Plan will uniformly disable auto-renewal for legacy plans (no weekly limit version) on April 30, 2026. Current active billing cycles are not affected. Meanwhile, the system will automatically gift affected users 2 months of equivalent new plan, which will take effect after the current plan expires, with no manual claim required. See [Legacy Plan Migration and Compensation Notice](https://docs.bigmodel.cn/cn/coding-plan/transition).
+- 2026/04/22: Volcano Engine Coding Plan added MiniMax-M2.7, Kimi-K2.6, GLM-5.1
 - 2026/04/21: Alibaba Cloud Bailian Token Plan (Team Edition) launched
 - 2026/04/21: Kimi officially released Kimi-K2.6 model
 - 2026/04/14: Kimi Code launched K2.6-code-preview model
