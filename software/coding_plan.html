@@ -4685,8 +4685,8 @@
 <li>尊享坐席（¥1,398/坐席/月）：250,000 Credits/坐席/月</li>
 <li>共享用量包（¥5,000/个）：625,000 Credits/个</li>
 <li>单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。</li>
-<li>以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 25000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit</li>
-<li>如果按 256K 以内的上下文算，一个 Credit 对应的 API 价格（隐式缓存）是 0.01 元，按 256K-1M 的上下文，一个 Credit 对应 0.04 元</li>
+<li>以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit</li>
+<li>如果按 256K 以内的上下文算，一个 Credit 对应的 API 价格（隐式缓存）是 0.01-0.02 元，按 256K-1M 的上下文，一个 Credit 对应 0.04-0.08 元</li>
 <li>支持的模型：<ul>
 <li>文本生成：qwen3.6-plus、glm-5、MiniMax-M2.5、deepseek-v3.2</li>
 <li>图像生成：qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro</li>
@@ -4877,6 +4877,7 @@
 </table>
 <h2 id="_5">更新历史</h2>
 <ul>
+<li>2026/04/24：阿里云百炼 Token Plan 输入命中缓存 token 对应的 Credit 数减半</li>
 <li>2026/04/23：阶跃星辰 Coding Plan 新增支持 stepaudio-2.5-asr 模型</li>
 <li>2026/04/23：GLM Coding Plan 将于 2026 年 4 月 30 日统一关闭老套餐（无周限额版本）的自动续订，当前已生效周期不受影响；同时，系统会自动为受影响用户赠送 2 个月同等级新套餐，在当前套餐到期后顺延生效，无需手动领取。详见<a href="https://docs.bigmodel.cn/cn/coding-plan/transition">《老套餐迁移与补偿说明》</a>。</li>
 <li>2026/04/22：方舟 Coding Plan 上线 MiniMax-M2.7、Kimi-K2.6、GLM-5.1</li>
@@ -5009,7 +5010,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月24日 03:49:46 UTC">2026年4月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月24日 06:42:30 UTC">2026年4月24日</span>
   </span>
 
     

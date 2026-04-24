@@ -105,8 +105,8 @@
   - Premium Seat (¥1,398/seat/month): 250,000 Credits/seat/month
   - Shared Usage Pack (¥5,000/pack): 625,000 Credits/pack
   - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
-  - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 25,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
-  - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04 RMB
+  - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 50,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
+  - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01–0.02 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04–0.08 RMB
   - Supported models:
     - Text generation: qwen3.6-plus, glm-5, MiniMax-M2.5, deepseek-v3.2
     - Image generation: qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro
@@ -216,6 +216,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/04/24: Alibaba Cloud Bailian Token Plan halved the Credits required for cached input tokens
 
 - 2026/04/23: StepFun Coding Plan added support for stepaudio-2.5-asr model
 
