@@ -105,8 +105,8 @@
     - Premium Seat (¥1,398/seat/month): 250,000 Credits/seat/month
     - Shared Usage Pack (¥5,000/pack): 625,000 Credits/pack
     - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
-    - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 25,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
-    - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04 RMB
+    - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 50,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
+    - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01–0.02 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04–0.08 RMB
     - Supported models:
         - Text generation: qwen3.6-plus, glm-5, MiniMax-M2.5, deepseek-v3.2
         - Image generation: qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro
@@ -209,6 +209,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/24: Alibaba Cloud Bailian Token Plan halved the Credits required for cached input tokens
 - 2026/04/23: StepFun Coding Plan added support for stepaudio-2.5-asr model
 - 2026/04/23: GLM Coding Plan will uniformly disable auto-renewal for legacy plans (no weekly limit version) on April 30, 2026. Current active billing cycles are not affected. Meanwhile, the system will automatically gift affected users 2 months of equivalent new plan, which will take effect after the current plan expires, with no manual claim required. See [Legacy Plan Migration and Compensation Notice](https://docs.bigmodel.cn/cn/coding-plan/transition).
 - 2026/04/22: Volcano Engine Coding Plan added MiniMax-M2.7, Kimi-K2.6, GLM-5.1
