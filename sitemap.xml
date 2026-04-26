@@ -512,6 +512,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/agentic_chat.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/software/asan.html</loc>
+        <lastmod>2026-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/asan.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/asan.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/software/atomic_instructions.html</loc>
         <lastmod>2026-04-26</lastmod>
         <changefreq>daily</changefreq>
@@ -1315,6 +1322,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/agentic_chat.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/agentic_chat.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/software/asan.html</loc>
+        <lastmod>2026-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/asan.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/asan.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/atomic_instructions.html</loc>

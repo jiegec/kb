@@ -77,6 +77,7 @@
 - [2FA/MFA 多因素认证](https://jia.je/kb/software/2fa.md)
 - [ABI (Application Binary Interface) 分析](https://jia.je/kb/software/abi.md)
 - [Agentic Chat](https://jia.je/kb/software/agentic_chat.md)
+- [ASan 不同选项下的行为](https://jia.je/kb/software/asan.md)
 - [原子指令](https://jia.je/kb/software/atomic_instructions.md)
 - [AWS Pricing](https://jia.je/kb/software/aws_pricing.md)
 - [Control Flow Integrity 控制流完整性](https://jia.je/kb/software/cfi.md)
