@@ -165,11 +165,13 @@
   - Standard（99 RMB 或 16 USD 每月）：2 亿 Credits 每月
   - Pro（329 RMB 或 50 USD 每月）：7 亿 Credits 每月
   - Max（659 RMB 或 100 USD 每月）：16 亿 Credits 每月
-  - 支持模型：各套餐均支持 MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS
-  - 额度消耗：按 Token 数扣除 Credit 额度，Pro 和 Omni 的额度按 1:2 比例并行消耗，不是独立消耗。MiMo-V2-TTS 限时免费，不消耗套餐 Token。例如，您订购了 Standard 套餐，可单独或混合调用 MiMo-V2-Pro/Omni/TTS 模型，当您使用了 10M MiMo-V2-Pro 的 Token 额度后，相当于消耗了 20 M Credits，仍可享受 40M MiMo-V2-Omni 的 Token 额度（相当于 40 M Credits）。可在 订阅管理 查看当前套餐的额度及用量。
-  - MiMo-V2-Omni 上下文 < 256k：1x（等同于原始 Token 消耗速度）
-  - MiMo-V2-Pro 上下文 < 256k：2x（等同于 2 倍 Token 消耗速度）
-  - MiMo-V2-Pro 上下文 256k~1M：4x（等同于 4 倍 token 消耗速度）
+  - 支持模型： 各套餐均支持 MiMo-V2. 5-Pro、MiMo-V2. 5、MiMo-V2. 5-TTS-VoiceClone、 MiMo-V2. 5-TTS-VoiceDesign、MiMo-V2. 5-TTS、MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 共 8 款模型。
+  - 额度消耗：按 Token 数扣除 Credit 额度，Pro 和 Omni 的额度按 1:2 比例并行消耗，不是独立消耗。TTS 系列模型限时免费，不消耗套餐 Token。例如，您订购了 Standard 套餐，可单独或混合调用 MiMo-V2.5 系列模型，当您使用了 10M MiMo-V2.5-Pro 的 Token 额度后，相当于消耗了 20 M Credits，仍可享受 40M MiMo-V2.5 的 Token 额度（相当于 40 Credits）。可在 订阅管理 查看当前套餐的额度及用量。
+  - MiMo-V2.5 ：1x（等同于原始 Token 消耗速度）
+  - MiMo-V2.5-Pro： 2x（等同于 2 倍 Token 消耗速度）
+  - MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS：0x（限时免费，不消耗 Credit）
+  - MiMo-V2-Omni：1x（等同于原始 Token 消耗速度）
+  - MiMo-V2-Pro： 2x（等同于 2 倍 Token 消耗速度）
   - MiMo-V2-TTS：0x（限时免费，不消耗 Credit）
 
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
@@ -221,6 +223,8 @@
 - 2026/04/28：阶越星辰 Coding Plan 新增了 deepseek-v4-pro 和 step-router-v1 模型
 
 - 2026/04/24：阿里云百炼 Token Plan 输入命中缓存 token 对应的 Credit 数减半
+
+- 2026/04/23：MiMo-V2.5 系列模型上线
 
 - 2026/04/23：阶跃星辰 Coding Plan 新增支持 stepaudio-2.5-asr 模型
 

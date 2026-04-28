@@ -165,11 +165,13 @@
   - Standard (99 RMB or 16 USD/month): 200M Credits per month
   - Pro (329 RMB or 50 USD/month): 700M Credits per month
   - Max (659 RMB or 100 USD/month): 1.6B Credits per month
-  - Supported models: All plans support MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2-TTS
-  - Credit consumption: Credits are deducted based on token count. Pro and Omni quotas are consumed in parallel at a 1:2 ratio, not independently. MiMo-V2-TTS is free for a limited time and does not consume plan tokens. For example, if you subscribe to the Standard plan and use 10M MiMo-V2-Pro tokens, that consumes 20M Credits, and you can still enjoy 40M MiMo-V2-Omni tokens (equivalent to 40M Credits). You can check your current plan's quota and usage in Subscription Management.
-  - MiMo-V2-Omni context < 256k: 1x (equivalent to base token consumption rate)
-  - MiMo-V2-Pro context < 256k: 2x (equivalent to 2x token consumption rate)
-  - MiMo-V2-Pro context 256k–1M: 4x (equivalent to 4x token consumption rate)
+  - Supported models: All plans support MiMo-V2.5-Pro, MiMo-V2.5, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2-TTS (8 models total)
+  - Credit consumption: Credits are deducted based on token count. Pro and Omni quotas are consumed in parallel at a 1:2 ratio, not independently. TTS series models are free for a limited time and do not consume plan tokens. For example, if you subscribe to the Standard plan and use 10M MiMo-V2.5-Pro tokens, that consumes 20M Credits, and you can still enjoy 40M MiMo-V2.5 tokens (equivalent to 40M Credits). You can check your current plan's quota and usage in Subscription Management.
+  - MiMo-V2.5: 1x (equivalent to base token consumption rate)
+  - MiMo-V2.5-Pro: 2x (equivalent to 2x token consumption rate)
+  - MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS: 0x (free for a limited time, no Credit consumption)
+  - MiMo-V2-Omni: 1x (equivalent to base token consumption rate)
+  - MiMo-V2-Pro: 2x (equivalent to 2x token consumption rate)
   - MiMo-V2-TTS: 0x (free for a limited time, no Credit consumption)
 
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
@@ -221,6 +223,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 - 2026/04/28: StepFun Coding Plan added deepseek-v4-pro and step-router-v1 models
 
 - 2026/04/24: Alibaba Cloud Bailian Token Plan halved the Credits required for cached input tokens
+
+- 2026/04/23: MiMo-V2.5 series models launched
 
 - 2026/04/23: StepFun Coding Plan added support for stepaudio-2.5-asr model
 
