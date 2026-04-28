@@ -6,7 +6,7 @@
 
 [Kimi 登月计划](https://www.kimi.com/membership/pricing)
 
-- Andante（49 RMB 每月）：每 5 小时的 Tokens 总量可支持约 300-1200 次 API 请求，最高并发上限达 30，确保复杂项目不间断
+- Andante（49 RMB 每月）：最高输出速度可达 100 Tokens/s，每 5 小时支持约 300–1200 次请求，最高并发 30
 - Moderato（99 RMB 每月）：Kimi Code 4 倍额度
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
@@ -58,7 +58,7 @@
 - 一次 prompt 指一次提问，每次 prompt 预计可调用模型 15-20 次。每月可用额度按 API 定价折算，相当于月订阅费用的 15–30 倍（已计入周限额影响）。
 - 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
 - 注：所有套餐均支持 GLM-5.1、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。
-- 注：GLM-5.1、GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.1、GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 4 月底）注：高峰期为每日的 14:00～18:00（UTC+8）
+- 注：GLM-5.1、GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.1、GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 6 月底）注：高峰期为每日的 14:00～18:00（UTC+8）
 - [GLM-5-Turbo API 价格](https://bigmodel.cn/pricing)：
   - 输入命中缓存 1.2/1.8 RMB 每 1M tokens
   - 输入未命中缓存 5/7 RMB 每 1M tokens
@@ -85,19 +85,16 @@
   - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-M2.7、MiniMax-2.5、Kimi-K2.6、Kimi-K2.5、GLM-5.1、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
   - Pro 套餐（200 RMB 每月）：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
-  - Lite 基础套餐已于 2026 年 3 月 19 日停止新购，于 2026 年 4 月 13 日起停止续费和升级，已购用户可继续使用至服务到期，详见[公告](https://www.aliyun.com/notice/118175)
-  - 一次用户提问可能触发多次模型调用，每次模型调用均计入一次额度消耗。典型场景下的额度消耗如下：
-  - 简单问答或代码生成：通常触发 5-10 次模型调用
-  - 代码重构或复杂任务：可能触发 10-30 次或更多模型调用
-  - 实际额度消耗取决于任务的复杂度、上下文大小、工具调用次数等多种因素。具体消耗以实际使用情况为准，您可以在 Coding Plan 控制台查看套餐额度消耗情况。
+  - Lite 套餐自 2026 年 3 月 20 日 00:00:00（UTC+08:00）起停止新购（详见公告）；4 月 13 日 18:00:00（UTC+08:00）起停止续费与升级（详见公告）。
+  - 单次提问将按实际“模型调用次数”扣除额度。简单任务约消耗 5-10 次，复杂任务约 10-30+ 次，实际消耗受任务难度、上下文及工具使用影响。在Coding Plan 页面可以查看用量。
   - 推荐模型：qwen3.6-plus、kimi-k2.5、glm-5、minimax-m2.5。更多模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7
   - [Qwen3.6-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
     - 输入 2/8 RMB 每 1M tokens
     - 输出 12/48 RMB 每 1M tokens
     - 1M 上下文
-  - [Qwen3-Max API 价格](https://help.aliyun.com/zh/model-studio/models)：
-    - 输入 2.5/4/7 RMB 每 1M tokens
-    - 输出 10/16/28 RMB 每 1M tokens
+  - [Qwen3.6-Max-Preview API 价格](https://help.aliyun.com/zh/model-studio/models)：
+    - 输入 9/15 RMB 每 1M tokens
+    - 输出 54/90 RMB 每 1M tokens
     - 256K 上下文
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
   - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
@@ -110,16 +107,19 @@
   - 支持的模型：
     - 文本生成：qwen3.6-plus、glm-5、MiniMax-M2.5、deepseek-v3.2
     - 图像生成：qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro
-- [腾讯云大模型 Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
-  - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求，每周：最多约 9,000 次请求，每订阅月：最多约 18,000 次请求
-  - Pro 套餐（200 RMB 每月）：每 5 小时：最多约 6,000 次请求，每周：最多约 45,000 次请求，每订阅月：最多约 90,000 次请求
-  - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
-  - Lite 套餐（39 RMB 每月）：每订阅月 3500 万 Token
-  - Standard 套餐（99 RMB 每月）：每订阅月 1 亿 Token
-  - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
-  - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
-  - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
+  - Hy Token Plan:
+    - Lite 套餐（28 RMB 每月）：每订阅月 3500 万 Token
+    - Standard 套餐（78 RMB 每月）：每订阅月 1 亿 Token
+    - Pro 套餐（238 RMB 每月）：每订阅月 3.2 亿 Token
+    - Max 套餐（468 RMB 每月）：每订阅月 6.5 亿 Token
+    - 支持模型：Hy3 preview
+  - 通用 Token Plan:
+    - Lite 套餐（39 RMB 每月）：每订阅月 3500 万 Token
+    - Standard 套餐（99 RMB 每月）：每订阅月 1 亿 Token
+    - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
+    - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
+    - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
   - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
   - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
