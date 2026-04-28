@@ -6,7 +6,7 @@
 
 [Kimi Membership](https://www.kimi.com/membership/pricing)
 
-- Andante (49 RMB/month): A 5-hour token quota supports approximately 300–1,200 API calls, with a maximum concurrency of 30, ensuring uninterrupted operation for complex workloads
+- Andante (49 RMB/month): Maximum output speed up to 100 Tokens/s, supports approximately 300–1,200 requests per 5 hours, with a maximum concurrency of 30
 - Moderato (99 RMB/month): 4x Kimi Code quota
 - Allegretto (199 RMB/month): 20x Kimi Code quota
 - Allegro (699 RMB/month): 60x Kimi Code quota
@@ -58,7 +58,7 @@
 - One prompt refers to one query. Each prompt is estimated to invoke the model 15–20 times. The monthly available quota is converted based on API pricing, equivalent to approximately 15–30× the monthly subscription fee (weekly caps already factored in).
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
 - Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
-- Note: GLM-5.1 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April.
+- Note: GLM-5.1 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
 - [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 1.2/1.8 RMB per 1M tokens
     - Uncached input: 5/7 RMB per 1M tokens
@@ -85,19 +85,16 @@
     - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Pro Plan (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
-    - Lite Plan was suspended from new purchases on March 19, 2026, and will stop accepting renewals and upgrades from April 13, 2026. Existing users can continue using it until expiration. See [announcement](https://www.aliyun.com/notice/118175)
-    - One user question may trigger multiple model calls; each model call counts as one quota consumption. Typical quota consumption scenarios:
-    - Simple Q&A or code generation: usually triggers 5-10 model calls
-    - Code refactoring or complex tasks: may trigger 10-30 or more model calls
-    - Actual quota consumption depends on task complexity, context size, number of tool calls, and other factors. Specific consumption is based on actual usage; you can view plan quota consumption in the Coding Plan console.
+    - Lite Plan suspended new purchases from March 20, 2026 00:00:00 (UTC+08:00) (see announcement); renewals and upgrades stopped from April 13, 2026 18:00:00 (UTC+08:00) (see announcement).
+    - Each question deducts quota based on actual "model call count". Simple tasks consume approximately 5-10 calls, complex tasks approximately 10-30+ calls. Actual consumption depends on task difficulty, context, and tool usage. You can view usage on the Coding Plan page.
     - Recommended models: qwen3.6-plus, kimi-k2.5, glm-5, minimax-m2.5. More models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7
     - [Qwen3.6-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
         - Input: 2/8 RMB per 1M tokens
         - Output: 12/48 RMB per 1M tokens
         - 1M context
-    - [Qwen3-Max API Pricing](https://help.aliyun.com/zh/model-studio/models)：
-        - Input: 2.5/4/7 RMB per 1M tokens
-        - Output: 10/16/28 RMB per 1M tokens
+    - [Qwen3.6-Max-Preview API Pricing](https://help.aliyun.com/zh/model-studio/models)：
+        - Input: 9/15 RMB per 1M tokens
+        - Output: 54/90 RMB per 1M tokens
         - 256K context
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
@@ -110,16 +107,19 @@
     - Supported models:
         - Text generation: qwen3.6-plus, glm-5, MiniMax-M2.5, deepseek-v3.2
         - Image generation: qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro
-- [Tencent Cloud LLM Coding Plan](https://cloud.tencent.com/act/pro/codingplan)
-    - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests
-    - Pro Plan (200 RMB/month): Per 5 hours: maximum ~6,000 requests. Per week: maximum ~45,000 requests. Per subscription month: maximum ~90,000 requests
-    - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
-    - Lite Plan (39 RMB/month): 35M tokens per subscription month
-    - Standard Plan (99 RMB/month): 100M tokens per subscription month
-    - Pro Plan (299 RMB/month): 320M tokens per subscription month
-    - Max Plan (599 RMB/month): 650M tokens per subscription month
-    - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
+    - Hy Token Plan:
+        - Lite Plan (28 RMB/month): 35M tokens per subscription month
+        - Standard Plan (78 RMB/month): 100M tokens per subscription month
+        - Pro Plan (238 RMB/month): 320M tokens per subscription month
+        - Max Plan (468 RMB/month): 650M tokens per subscription month
+        - Supported models: Hy3 preview
+    - Universal Token Plan:
+        - Lite Plan (39 RMB/month): 35M tokens per subscription month
+        - Standard Plan (99 RMB/month): 100M tokens per subscription month
+        - Pro Plan (299 RMB/month): 320M tokens per subscription month
+        - Max Plan (599 RMB/month): 650M tokens per subscription month
+        - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
