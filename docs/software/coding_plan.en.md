@@ -154,7 +154,7 @@
     - Flash Plus (99 RMB/month): 400 prompts per 5 hours (~6,000 model calls), 1,600 prompts per week (~24,000 model calls)
     - Flash Pro (199 RMB/month): 1,500 prompts per 5 hours (~22,500 model calls), 6,000 prompts per week (~90,000 model calls)
     - Flash Max (699 RMB/month): 5,000 prompts per 5 hours (~75,000 model calls), 20,000 prompts per week (~300,000 model calls)
-    - Supported models: step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-tts, stepaudio-2.5-asr, deepseek-v4-pro, step-router-v1, step-image-edit-2
+    - Supported models: step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash), step-image-edit-2
 - [Xiaomi MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite (39 RMB or 6 USD/month): 60M Credits per month
     - Standard (99 RMB or 16 USD/month): 200M Credits per month
@@ -212,6 +212,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/30: StepFun Coding Plan removed deepseek-v4-pro model, must access indirectly through step-router-v1 model
 - 2026/04/28: StepFun Coding Plan added deepseek-v4-pro and step-router-v1 models
 - 2026/04/24: Alibaba Cloud Bailian Token Plan halved the Credits required for cached input tokens
 - 2026/04/23: MiMo-V2.5 series models launched
