@@ -1967,7 +1967,14 @@ flowchart TD
 
 ## 后续版本更新
 
-接下来记录 glibc 2.31 后续版本对分配器的更新。
+接下来记录 glibc 2.31 后续版本对分配器的更新。主要发行版各版本的 glibc 版本如下：
+
+- Debian Bullseye: 2.31
+- Debian Bookworm: 2.36
+- Debian Trixie: 2.41
+- Ubuntu 22.04: glibc 2.35
+- Ubuntu 24.04: glibc 2.39
+- Ubuntu 26.04: glibc 2.43
 
 ### glibc 2.32
 
