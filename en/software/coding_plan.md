@@ -141,7 +141,7 @@
   - GLM Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week, maximum ~1,600 prompts per subscription month. Supports GLM-5.1, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
   - GLM Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2,000 prompts per week, maximum ~8,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
   - GLM Max Plan (469 RMB/month): Maximum ~1,600 prompts per 5 hours, maximum ~8,000 prompts per week, maximum ~32,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
-  - Note: GLM-5.1, GLM-5, and GLM-5-Turbo are advanced models designed to rival Claude Opus. Their usage will be deducted at 3× during peak hours and 2× during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of April. Peak hours are 14:00–18:00 (UTC+8).
+  - Note: GLM-5.1, GLM-5, and GLM-5-Turbo are advanced models designed to rival Claude Opus. Their usage will be deducted at 3× during peak hours and 2× during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June. Peak hours are 14:00–18:00 (UTC+8).
 
 ### Others
 
@@ -223,6 +223,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 - 2026/04/30: StepFun Coding Plan removed deepseek-v4-pro model, must access indirectly through step-router-v1 model
 
 - 2026/04/28: StepFun Coding Plan added deepseek-v4-pro and step-router-v1 models
+
+- 2026/04/27: GLM Coding Plan extended the limited-time discount benefit deadline from end of April to end of June
 
 - 2026/04/24: Alibaba Cloud Bailian Token Plan halved the Credits required for cached input tokens
 
