@@ -1,0 +1,593 @@
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index fd8b52bfac..e2f1a615a4 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -271,7 +271,7 @@
+   is fairly extensive, and will slow down execution
+   noticeably. Calling malloc_stats or mallinfo with MALLOC_DEBUG set
+   will attempt to check every non-mmapped allocated and free chunk in
+-  the course of computing the summmaries. (By nature, mmapped regions
++  the course of computing the summaries. (By nature, mmapped regions
+   cannot be checked very much automatically.)
+ 
+   Setting MALLOC_DEBUG may also be helpful if you are trying to modify
+@@ -672,7 +672,7 @@ void*  __libc_valloc(size_t);
+   arena:     current total non-mmapped bytes allocated from system
+   ordblks:   the number of free chunks
+   smblks:    the number of fastbin blocks (i.e., small chunks that
+-	       have been freed but not use resused or consolidated)
++	       have been freed but not reused or consolidated)
+   hblks:     current number of mmapped regions
+   hblkhd:    total bytes held in mmapped regions
+   usmblks:   always 0
+@@ -1017,7 +1017,7 @@ libc_hidden_proto (__libc_mallopt)
+ 
+   In 2001, the kernel had a maximum size for brk() which was about 800
+   megabytes on 32 bit x86, at that point brk() would hit the first
+-  mmaped shared libaries and couldn't expand anymore. With current 2.6
++  mmaped shared libraries and couldn't expand anymore. With current 2.6
+   kernels, the VA space layout is different and brk() and mmap
+   both can span the entire heap at will.
+ 
+@@ -1486,7 +1486,7 @@ tag_new_usable (void *ptr)
+     and consolidated sets of chunks, which is what these bins hold, so
+     they can be found quickly.  All procedures maintain the invariant
+     that no consolidated chunk physically borders another one, so each
+-    chunk in a list is known to be preceeded and followed by either
++    chunk in a list is known to be preceded and followed by either
+     inuse chunks or the ends of memory.
+ 
+     Chunks in bins are kept in size order, with ties going to the
+@@ -1856,14 +1856,12 @@ struct malloc_par
+   INTERNAL_SIZE_T arena_test;
+   INTERNAL_SIZE_T arena_max;
+ 
+-#if HAVE_TUNABLES
+   /* Transparent Large Page support.  */
+   INTERNAL_SIZE_T thp_pagesize;
+   /* A value different than 0 means to align mmap allocation to hp_pagesize
+      add hp_flags on flags.  */
+   INTERNAL_SIZE_T hp_pagesize;
+   int hp_flags;
+-#endif
+ 
+   /* Memory map support */
+   int n_mmaps;
+@@ -1998,7 +1996,7 @@ free_perturb (char *p, size_t n)
+ static inline void
+ madvise_thp (void *p, INTERNAL_SIZE_T size)
+ {
+-#if HAVE_TUNABLES && defined (MADV_HUGEPAGE)
++#ifdef MADV_HUGEPAGE
+   /* Do not consider areas smaller than a huge page or if the tunable is
+      not active.  */
+   if (mp_.thp_pagesize == 0 || size < mp_.thp_pagesize)
+@@ -2477,7 +2475,7 @@ sysmalloc_mmap (INTERNAL_SIZE_T nb, size_t pagesize, int extra_flags, mstate av)
+ /*
+    Allocate memory using mmap() based on S and NB requested size, aligning to
+    PAGESIZE if required.  The EXTRA_FLAGS is used on mmap() call.  If the call
+-   succeedes S is updated with the allocated size.  This is used as a fallback
++   succeeds S is updated with the allocated size.  This is used as a fallback
+    if MORECORE fails.
+  */
+ static void *
+@@ -2557,16 +2555,14 @@ sysmalloc (INTERNAL_SIZE_T nb, mstate av)
+ 	  && (mp_.n_mmaps < mp_.n_mmaps_max)))
+     {
+       char *mm;
+-#if HAVE_TUNABLES
+       if (mp_.hp_pagesize > 0 && nb >= mp_.hp_pagesize)
+ 	{
+-	  /* There is no need to isse the THP madvise call if Huge Pages are
++	  /* There is no need to issue the THP madvise call if Huge Pages are
+ 	     used directly.  */
+ 	  mm = sysmalloc_mmap (nb, mp_.hp_pagesize, mp_.hp_flags, av);
+ 	  if (mm != MAP_FAILED)
+ 	    return mm;
+ 	}
+-#endif
+       mm = sysmalloc_mmap (nb, pagesize, 0, av);
+       if (mm != MAP_FAILED)
+ 	return mm;
+@@ -2679,7 +2675,7 @@ sysmalloc (INTERNAL_SIZE_T nb, mstate av)
+          previous calls. Otherwise, we correct to page-align below.
+        */
+ 
+-#if HAVE_TUNABLES && defined (MADV_HUGEPAGE)
++#ifdef MADV_HUGEPAGE
+       /* Defined in brk.c.  */
+       extern void *__curbrk;
+       if (__glibc_unlikely (mp_.thp_pagesize != 0))
+@@ -2718,15 +2714,13 @@ sysmalloc (INTERNAL_SIZE_T nb, mstate av)
+            */
+ 
+ 	  char *mbrk = MAP_FAILED;
+-#if HAVE_TUNABLES
+ 	  if (mp_.hp_pagesize > 0)
+ 	    mbrk = sysmalloc_mmap_fallback (&size, nb, old_size,
+ 					    mp_.hp_pagesize, mp_.hp_pagesize,
+ 					    mp_.hp_flags, av);
+-#endif
+ 	  if (mbrk == MAP_FAILED)
+-	    mbrk = sysmalloc_mmap_fallback (&size, nb, old_size, pagesize,
+-					    MMAP_AS_MORECORE_SIZE, 0, av);
++	    mbrk = sysmalloc_mmap_fallback (&size, nb, old_size, MMAP_AS_MORECORE_SIZE,
++					    pagesize, 0, av);
+ 	  if (mbrk != MAP_FAILED)
+ 	    {
+ 	      /* We do not need, and cannot use, another sbrk call to find end */
+@@ -2966,7 +2960,7 @@ systrim (size_t pad, mstate av)
+     return 0;
+ 
+   /* Release in pagesize units and round down to the nearest page.  */
+-#if HAVE_TUNABLES && defined (MADV_HUGEPAGE)
++#ifdef MADV_HUGEPAGE
+   if (__glibc_unlikely (mp_.thp_pagesize != 0))
+     extra = ALIGN_DOWN (top_area - pad, mp_.thp_pagesize);
+   else
+@@ -3162,19 +3156,44 @@ tcache_put (mchunkptr chunk, size_t tc_idx)
+ }
+ 
+ /* Caller must ensure that we know tc_idx is valid and there's
+-   available chunks to remove.  */
++   available chunks to remove.  Removes chunk from the middle of the
++   list.  */
+ static __always_inline void *
+-tcache_get (size_t tc_idx)
++tcache_get_n (size_t tc_idx, tcache_entry **ep)
+ {
+-  tcache_entry *e = tcache->entries[tc_idx];
++  tcache_entry *e;
++  if (ep == &(tcache->entries[tc_idx]))
++    e = *ep;
++  else
++    e = REVEAL_PTR (*ep);
++
+   if (__glibc_unlikely (!aligned_OK (e)))
+     malloc_printerr ("malloc(): unaligned tcache chunk detected");
+-  tcache->entries[tc_idx] = REVEAL_PTR (e->next);
++
++  if (ep == &(tcache->entries[tc_idx]))
++      *ep = REVEAL_PTR (e->next);
++  else
++    *ep = PROTECT_PTR (ep, REVEAL_PTR (e->next));
++
+   --(tcache->counts[tc_idx]);
+   e->key = 0;
+   return (void *) e;
+ }
+ 
++/* Like the above, but removes from the head of the list.  */
++static __always_inline void *
++tcache_get (size_t tc_idx)
++{
++  return tcache_get_n (tc_idx, & tcache->entries[tc_idx]);
++}
++
++/* Iterates through the tcache linked list.  */
++static __always_inline tcache_entry *
++tcache_next (tcache_entry *e)
++{
++  return (tcache_entry *) REVEAL_PTR (e->next);
++}
++
+ static void
+ tcache_thread_shutdown (void)
+ {
+@@ -3283,7 +3302,7 @@ __libc_malloc (size_t bytes)
+ 
+   DIAG_PUSH_NEEDS_COMMENT;
+   if (tc_idx < mp_.tcache_bins
+-      && tcache
++      && tcache != NULL
+       && tcache->counts[tc_idx] > 0)
+     {
+       victim = tcache_get (tc_idx);
+@@ -3398,16 +3417,23 @@ __libc_realloc (void *oldmem, size_t bytes)
+   if (__glibc_unlikely (mtag_enabled))
+     *(volatile char*) oldmem;
+ 
+-  /* Return the chunk as is whenever possible, i.e. there's enough usable space
+-     but not so much that we end up fragmenting the block.  We use the trim
+-     threshold as the heuristic to decide the latter.  */
+-  size_t usable = musable (oldmem);
+-  if (bytes <= usable
+-      && (unsigned long) (usable - bytes) <= mp_.trim_threshold)
+-    return oldmem;
+-
+   /* chunk corresponding to oldmem */
+   const mchunkptr oldp = mem2chunk (oldmem);
++
++  /* Return the chunk as is if the request grows within usable bytes, typically
++     into the alignment padding.  We want to avoid reusing the block for
++     shrinkages because it ends up unnecessarily fragmenting the address space.
++     This is also why the heuristic misses alignment padding for THP for
++     now.  */
++  size_t usable = musable (oldmem);
++  if (bytes <= usable)
++    {
++      size_t difference = usable - bytes;
++      if ((unsigned long) difference < 2 * sizeof (INTERNAL_SIZE_T)
++	  || (chunk_is_mmapped (oldp) && difference <= GLRO (dl_pagesize)))
++	return oldmem;
++    }
++
+   /* its size */
+   const INTERNAL_SIZE_T oldsize = chunksize (oldp);
+ 
+@@ -3420,7 +3446,7 @@ __libc_realloc (void *oldmem, size_t bytes)
+     }
+ 
+   /* Little security check which won't hurt performance: the allocator
+-     never wrapps around at the end of the address space.  Therefore
++     never wraps around at the end of the address space.  Therefore
+      we can exclude some size values which might appear here by
+      accident or by "design" from some intruder.  */
+   if ((__builtin_expect ((uintptr_t) oldp > (uintptr_t) -oldsize, 0)
+@@ -3509,6 +3535,29 @@ __libc_memalign (size_t alignment, size_t bytes)
+   void *address = RETURN_ADDRESS (0);
+   return _mid_memalign (alignment, bytes, address);
+ }
++libc_hidden_def (__libc_memalign)
++
++/* For ISO C17.  */
++void *
++weak_function
++aligned_alloc (size_t alignment, size_t bytes)
++{
++  if (!__malloc_initialized)
++    ptmalloc_init ();
++
++/* Similar to memalign, but starting with ISO C17 the standard
++   requires an error for alignments that are not supported by the
++   implementation.  Valid alignments for the current implementation
++   are non-negative powers of two.  */
++  if (!powerof2 (alignment) || alignment == 0)
++    {
++      __set_errno (EINVAL);
++      return 0;
++    }
++
++  void *address = RETURN_ADDRESS (0);
++  return _mid_memalign (alignment, bytes, address);
++}
+ 
+ static void *
+ _mid_memalign (size_t alignment, size_t bytes, void *address)
+@@ -3542,6 +3591,38 @@ _mid_memalign (size_t alignment, size_t bytes, void *address)
+       alignment = a;
+     }
+ 
++#if USE_TCACHE
++  {
++    size_t tbytes;
++    tbytes = checked_request2size (bytes);
++    if (tbytes == 0)
++      {
++	__set_errno (ENOMEM);
++	return NULL;
++      }
++    size_t tc_idx = csize2tidx (tbytes);
++
++    if (tc_idx < mp_.tcache_bins
++	&& tcache != NULL
++	&& tcache->counts[tc_idx] > 0)
++      {
++	/* The tcache itself isn't encoded, but the chain is.  */
++	tcache_entry **tep = & tcache->entries[tc_idx];
++	tcache_entry *te = *tep;
++	while (te != NULL && !PTR_IS_ALIGNED (te, alignment))
++	  {
++	    tep = & (te->next);
++	    te = tcache_next (te);
++	  }
++	if (te != NULL)
++	  {
++	    void *victim = tcache_get_n (tc_idx, tep);
++	    return tag_new_usable (victim);
++	  }
++      }
++  }
++#endif
++
+   if (SINGLE_THREAD_P)
+     {
+       p = _int_memalign (&main_arena, alignment, bytes);
+@@ -3567,9 +3648,6 @@ _mid_memalign (size_t alignment, size_t bytes, void *address)
+           ar_ptr == arena_for_chunk (mem2chunk (p)));
+   return tag_new_usable (p);
+ }
+-/* For ISO C11.  */
+-weak_alias (__libc_memalign, aligned_alloc)
+-libc_hidden_def (__libc_memalign)
+ 
+ void *
+ __libc_valloc (size_t bytes)
+@@ -3847,7 +3925,7 @@ _int_malloc (mstate av, size_t bytes)
+ 	      /* While we're here, if we see other chunks of the same size,
+ 		 stash them in the tcache.  */
+ 	      size_t tc_idx = csize2tidx (nb);
+-	      if (tcache && tc_idx < mp_.tcache_bins)
++	      if (tcache != NULL && tc_idx < mp_.tcache_bins)
+ 		{
+ 		  mchunkptr tc_victim;
+ 
+@@ -3905,7 +3983,7 @@ _int_malloc (mstate av, size_t bytes)
+ 	  /* While we're here, if we see other chunks of the same size,
+ 	     stash them in the tcache.  */
+ 	  size_t tc_idx = csize2tidx (nb);
+-	  if (tcache && tc_idx < mp_.tcache_bins)
++	  if (tcache != NULL && tc_idx < mp_.tcache_bins)
+ 	    {
+ 	      mchunkptr tc_victim;
+ 
+@@ -3967,7 +4045,7 @@ _int_malloc (mstate av, size_t bytes)
+ #if USE_TCACHE
+   INTERNAL_SIZE_T tcache_nb = 0;
+   size_t tc_idx = csize2tidx (nb);
+-  if (tcache && tc_idx < mp_.tcache_bins)
++  if (tcache != NULL && tc_idx < mp_.tcache_bins)
+     tcache_nb = nb;
+   int return_cached = 0;
+ 
+@@ -4034,8 +4112,6 @@ _int_malloc (mstate av, size_t bytes)
+             }
+ 
+           /* remove from unsorted list */
+-          if (__glibc_unlikely (bck->fd != victim))
+-            malloc_printerr ("malloc(): corrupted unsorted chunks 3");
+           unsorted_chunks (av)->bk = bck;
+           bck->fd = unsorted_chunks (av);
+ 
+@@ -4049,7 +4125,7 @@ _int_malloc (mstate av, size_t bytes)
+ #if USE_TCACHE
+ 	      /* Fill cache first, return to user only if cache fills.
+ 		 We may return one of these chunks later.  */
+-	      if (tcache_nb
++	      if (tcache_nb > 0
+ 		  && tcache->counts[tc_idx] < mp_.tcache_count)
+ 		{
+ 		  tcache_put (victim, tc_idx);
+@@ -4417,7 +4493,7 @@ _int_free (mstate av, mchunkptr p, int have_lock)
+   size = chunksize (p);
+ 
+   /* Little security check which won't hurt performance: the
+-     allocator never wrapps around at the end of the address space.
++     allocator never wraps around at the end of the address space.
+      Therefore we can exclude some size values which might appear
+      here by accident or by "design" from some intruder.  */
+   if (__builtin_expect ((uintptr_t) p > (uintptr_t) -size, 0)
+@@ -4923,6 +4999,43 @@ _int_realloc (mstate av, mchunkptr oldp, INTERNAL_SIZE_T oldsize,
+    ------------------------------ memalign ------------------------------
+  */
+ 
++/* Returns 0 if the chunk is not and does not contain the requested
++   aligned sub-chunk, else returns the amount of "waste" from
++   trimming.  NB is the *chunk* byte size, not the user byte
++   size.  */
++static size_t
++chunk_ok_for_memalign (mchunkptr p, size_t alignment, size_t nb)
++{
++  void *m = chunk2mem (p);
++  INTERNAL_SIZE_T size = chunksize (p);
++  void *aligned_m = m;
++
++  if (__glibc_unlikely (misaligned_chunk (p)))
++    malloc_printerr ("_int_memalign(): unaligned chunk detected");
++
++  aligned_m = PTR_ALIGN_UP (m, alignment);
++
++  INTERNAL_SIZE_T front_extra = (intptr_t) aligned_m - (intptr_t) m;
++
++  /* We can't trim off the front as it's too small.  */
++  if (front_extra > 0 && front_extra < MINSIZE)
++    return 0;
++
++  /* If it's a perfect fit, it's an exception to the return value rule
++     (we would return zero waste, which looks like "not usable"), so
++     handle it here by returning a small non-zero value instead.  */
++  if (size == nb && front_extra == 0)
++    return 1;
++
++  /* If the block we need fits in the chunk, calculate total waste.  */
++  if (size > nb + front_extra)
++    return size - nb;
++
++  /* Can't use this chunk.  */
++  return 0;
++}
++
++/* BYTES is user requested bytes, not requested chunksize bytes.  */
+ static void *
+ _int_memalign (mstate av, size_t alignment, size_t bytes)
+ {
+@@ -4936,8 +5049,7 @@ _int_memalign (mstate av, size_t alignment, size_t bytes)
+   mchunkptr remainder;            /* spare room at end to split off */
+   unsigned long remainder_size;   /* its size */
+   INTERNAL_SIZE_T size;
+-
+-
++  mchunkptr victim;
+ 
+   nb = checked_request2size (bytes);
+   if (nb == 0)
+@@ -4946,29 +5058,147 @@ _int_memalign (mstate av, size_t alignment, size_t bytes)
+       return NULL;
+     }
+ 
+-  /*
+-     Strategy: find a spot within that chunk that meets the alignment
++  /* We can't check tcache here because we hold the arena lock, which
++     tcache doesn't expect.  We expect it has been checked
++     earlier.  */
++
++  /* Strategy: search the bins looking for an existing block that
++     meets our needs.  We scan a range of bins from "exact size" to
++     "just under 2x", spanning the small/large barrier if needed.  If
++     we don't find anything in those bins, the common malloc code will
++     scan starting at 2x.  */
++
++  /* This will be set if we found a candidate chunk.  */
++  victim = NULL;
++
++  /* Fast bins are singly-linked, hard to remove a chunk from the middle
++     and unlikely to meet our alignment requirements.  We have not done
++     any experimentation with searching for aligned fastbins.  */
++
++  if (av != NULL)
++    {
++      int first_bin_index;
++      int first_largebin_index;
++      int last_bin_index;
++
++      if (in_smallbin_range (nb))
++	first_bin_index = smallbin_index (nb);
++      else
++	first_bin_index = largebin_index (nb);
++
++      if (in_smallbin_range (nb * 2))
++	last_bin_index = smallbin_index (nb * 2);
++      else
++	last_bin_index = largebin_index (nb * 2);
++
++      first_largebin_index = largebin_index (MIN_LARGE_SIZE);
++
++      int victim_index;                 /* its bin index */
++
++      for (victim_index = first_bin_index;
++	   victim_index < last_bin_index;
++	   victim_index ++)
++	{
++	  victim = NULL;
++
++	  if (victim_index < first_largebin_index)
++	    {
++	      /* Check small bins.  Small bin chunks are doubly-linked despite
++		 being the same size.  */
++
++	      mchunkptr fwd;                    /* misc temp for linking */
++	      mchunkptr bck;                    /* misc temp for linking */
++
++	      bck = bin_at (av, victim_index);
++	      fwd = bck->fd;
++	      while (fwd != bck)
++		{
++		  if (chunk_ok_for_memalign (fwd, alignment, nb) > 0)
++		    {
++		      victim = fwd;
++
++		      /* Unlink it */
++		      victim->fd->bk = victim->bk;
++		      victim->bk->fd = victim->fd;
++		      break;
++		    }
++
++		  fwd = fwd->fd;
++		}
++	    }
++	  else
++	    {
++	      /* Check large bins.  */
++	      mchunkptr fwd;                    /* misc temp for linking */
++	      mchunkptr bck;                    /* misc temp for linking */
++	      mchunkptr best = NULL;
++	      size_t best_size = 0;
++
++	      bck = bin_at (av, victim_index);
++	      fwd = bck->fd;
++
++	      while (fwd != bck)
++		{
++		  int extra;
++
++		  if (chunksize (fwd) < nb)
++		    break;
++		  extra = chunk_ok_for_memalign (fwd, alignment, nb);
++		  if (extra > 0
++		      && (extra <= best_size || best == NULL))
++		    {
++		      best = fwd;
++		      best_size = extra;
++		    }
++
++		  fwd = fwd->fd;
++		}
++	      victim = best;
++
++	      if (victim != NULL)
++		{
++		  unlink_chunk (av, victim);
++		  break;
++		}
++	    }
++
++	  if (victim != NULL)
++	    break;
++	}
++    }
++
++  /* Strategy: find a spot within that chunk that meets the alignment
+      request, and then possibly free the leading and trailing space.
+-   */
++     This strategy is incredibly costly and can lead to external
++     fragmentation if header and footer chunks are unused.  */
+ 
+-  /* Call malloc with worst case padding to hit alignment. */
++  if (victim != NULL)
++    {
++      p = victim;
++      m = chunk2mem (p);
++      set_inuse (p);
++      if (av != &main_arena)
++	set_non_main_arena (p);
++    }
++  else
++    {
++      /* Call malloc with worst case padding to hit alignment. */
+ 
+-  m = (char *) (_int_malloc (av, nb + alignment + MINSIZE));
++      m = (char *) (_int_malloc (av, nb + alignment + MINSIZE));
+ 
+-  if (m == 0)
+-    return 0;           /* propagate failure */
++      if (m == 0)
++	return 0;           /* propagate failure */
+ 
+-  p = mem2chunk (m);
++      p = mem2chunk (m);
++    }
+ 
+   if ((((unsigned long) (m)) % alignment) != 0)   /* misaligned */
+-
+-    { /*
+-                Find an aligned spot inside chunk.  Since we need to give back
+-                leading space in a chunk of at least MINSIZE, if the first
+-                calculation places us at a spot with less than MINSIZE leader,
+-                we can move to the next aligned spot -- we've allocated enough
+-                total room so that this is always possible.
+-                 */
++    {
++      /* Find an aligned spot inside chunk.  Since we need to give back
++         leading space in a chunk of at least MINSIZE, if the first
++         calculation places us at a spot with less than MINSIZE leader,
++         we can move to the next aligned spot -- we've allocated enough
++         total room so that this is always possible.  */
+       brk = (char *) mem2chunk (((unsigned long) (m + alignment - 1)) &
+                                 - ((signed long) alignment));
+       if ((unsigned long) (brk - (char *) (p)) < MINSIZE)
+@@ -5412,7 +5642,6 @@ do_set_mxfast (size_t value)
+   return 0;
+ }
+ 
+-#if HAVE_TUNABLES
+ static __always_inline int
+ do_set_hugetlb (size_t value)
+ {
+@@ -5431,7 +5660,6 @@ do_set_hugetlb (size_t value)
+ 			      &mp_.hp_flags);
+   return 0;
+ }
+-#endif
+ 
+ int
+ __libc_mallopt (int param_number, int value)

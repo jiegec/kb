@@ -1,0 +1,158 @@
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index bd3c76ed31..fd8b52bfac 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -1,5 +1,5 @@
+ /* Malloc implementation for multiple threads without lock contention.
+-   Copyright (C) 1996-2022 Free Software Foundation, Inc.
++   Copyright (C) 1996-2023 Free Software Foundation, Inc.
+    Copyright The GNU Toolchain Authors.
+    This file is part of the GNU C Library.
+ 
+@@ -254,6 +254,7 @@
+ /* For tcache double-free check.  */
+ #include <random-bits.h>
+ #include <sys/random.h>
++#include <not-cancel.h>
+ 
+ /*
+   Debugging:
+@@ -287,23 +288,6 @@
+ #define MALLOC_DEBUG 0
+ #endif
+ 
+-#if IS_IN (libc)
+-#ifndef NDEBUG
+-# define __assert_fail(assertion, file, line, function)			\
+-	 __malloc_assert(assertion, file, line, function)
+-
+-_Noreturn static void
+-__malloc_assert (const char *assertion, const char *file, unsigned int line,
+-		 const char *function)
+-{
+-  __libc_message (do_abort, "\
+-Fatal glibc error: malloc assertion failure in %s: %s\n",
+-		  function, assertion);
+-  __builtin_unreachable ();
+-}
+-#endif
+-#endif
+-
+ #if USE_TCACHE
+ /* We want 64 entries.  This is an arbitrary limit, which tunables can reduce.  */
+ # define TCACHE_MAX_BINS		64
+@@ -1116,6 +1100,8 @@ static void munmap_chunk(mchunkptr p);
+ static mchunkptr mremap_chunk(mchunkptr p, size_t new_size);
+ #endif
+ 
++static size_t musable (void *mem);
++
+ /* ------------------ MMAP support ------------------  */
+ 
+ 
+@@ -1126,10 +1112,6 @@ static mchunkptr mremap_chunk(mchunkptr p, size_t new_size);
+ # define MAP_ANONYMOUS MAP_ANON
+ #endif
+ 
+-#ifndef MAP_NORESERVE
+-# define MAP_NORESERVE 0
+-#endif
+-
+ #define MMAP(addr, size, prot, flags) \
+  __mmap((addr), (size), (prot), (flags)|MAP_ANONYMOUS|MAP_PRIVATE, -1, 0)
+ 
+@@ -1777,7 +1759,7 @@ typedef struct malloc_chunk *mfastbinptr;
+ #define set_contiguous(M)      ((M)->flags &= ~NONCONTIGUOUS_BIT)
+ 
+ /* Maximum size of memory handled in fastbins.  */
+-static INTERNAL_SIZE_T global_max_fast;
++static uint8_t global_max_fast;
+ 
+ /*
+    Set value of max_fast.
+@@ -2480,11 +2462,11 @@ sysmalloc_mmap (INTERNAL_SIZE_T nb, size_t pagesize, int extra_flags, mstate av)
+     }
+ 
+   /* update statistics */
+-  int new = atomic_exchange_and_add (&mp_.n_mmaps, 1) + 1;
++  int new = atomic_fetch_add_relaxed (&mp_.n_mmaps, 1) + 1;
+   atomic_max (&mp_.max_n_mmaps, new);
+ 
+   unsigned long sum;
+-  sum = atomic_exchange_and_add (&mp_.mmapped_mem, size) + size;
++  sum = atomic_fetch_add_relaxed (&mp_.mmapped_mem, size) + size;
+   atomic_max (&mp_.max_mmapped_mem, sum);
+ 
+   check_chunk (av, p);
+@@ -3053,8 +3035,8 @@ munmap_chunk (mchunkptr p)
+       || __glibc_unlikely (!powerof2 (mem & (pagesize - 1))))
+     malloc_printerr ("munmap_chunk(): invalid pointer");
+ 
+-  atomic_decrement (&mp_.n_mmaps);
+-  atomic_add (&mp_.mmapped_mem, -total_size);
++  atomic_fetch_add_relaxed (&mp_.n_mmaps, -1);
++  atomic_fetch_add_relaxed (&mp_.mmapped_mem, -total_size);
+ 
+   /* If munmap failed the process virtual memory address space is in a
+      bad shape.  Just leave the block hanging around, the process will
+@@ -3104,7 +3086,7 @@ mremap_chunk (mchunkptr p, size_t new_size)
+   set_head (p, (new_size - offset) | IS_MMAPPED);
+ 
+   INTERNAL_SIZE_T new;
+-  new = atomic_exchange_and_add (&mp_.mmapped_mem, new_size - size - offset)
++  new = atomic_fetch_add_relaxed (&mp_.mmapped_mem, new_size - size - offset)
+         + new_size - size - offset;
+   atomic_max (&mp_.max_mmapped_mem, new);
+   return p;
+@@ -3153,7 +3135,7 @@ static uintptr_t tcache_key;
+ static void
+ tcache_key_initialize (void)
+ {
+-  if (__getrandom (&tcache_key, sizeof(tcache_key), GRND_NONBLOCK)
++  if (__getrandom_nocancel (&tcache_key, sizeof(tcache_key), GRND_NONBLOCK)
+       != sizeof (tcache_key))
+     {
+       tcache_key = random_bits ();
+@@ -3416,6 +3398,14 @@ __libc_realloc (void *oldmem, size_t bytes)
+   if (__glibc_unlikely (mtag_enabled))
+     *(volatile char*) oldmem;
+ 
++  /* Return the chunk as is whenever possible, i.e. there's enough usable space
++     but not so much that we end up fragmenting the block.  We use the trim
++     threshold as the heuristic to decide the latter.  */
++  size_t usable = musable (oldmem);
++  if (bytes <= usable
++      && (unsigned long) (usable - bytes) <= mp_.trim_threshold)
++    return oldmem;
++
+   /* chunk corresponding to oldmem */
+   const mchunkptr oldp = mem2chunk (oldmem);
+   /* its size */
+@@ -4738,7 +4728,7 @@ static void malloc_consolidate(mstate av)
+   maxfb = &fastbin (av, NFASTBINS - 1);
+   fb = &fastbin (av, 0);
+   do {
+-    p = atomic_exchange_acq (fb, NULL);
++    p = atomic_exchange_acquire (fb, NULL);
+     if (p != 0) {
+       do {
+ 	{
+@@ -4823,7 +4813,8 @@ _int_realloc (mstate av, mchunkptr oldp, INTERNAL_SIZE_T oldsize,
+ 
+   /* oldmem size */
+   if (__builtin_expect (chunksize_nomask (oldp) <= CHUNK_HDR_SZ, 0)
+-      || __builtin_expect (oldsize >= av->system_mem, 0))
++      || __builtin_expect (oldsize >= av->system_mem, 0)
++      || __builtin_expect (oldsize != chunksize (oldp), 0))
+     malloc_printerr ("realloc(): invalid old size");
+ 
+   check_inuse_chunk (av, oldp);
+@@ -5657,7 +5648,7 @@ static void
+ malloc_printerr (const char *str)
+ {
+ #if IS_IN (libc)
+-  __libc_message (do_abort, "%s\n", str);
++  __libc_message ("%s\n", str);
+ #else
+   __libc_fatal (str);
+ #endif
