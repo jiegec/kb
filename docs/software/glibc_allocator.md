@@ -1,5 +1,7 @@
 # glibc 内存分配器
 
+本文从 glibc 2.31 起，介绍 glibc 内存分配器的设计。然后介绍 glibc 2.32 起各个版本的修改。
+
 ## glibc 2.31
 
 glibc 2.31 是 ubuntu 20.04 所使用的 libc 版本，首先来分析它的实现，源码可以从 [glibc-2.31 tag](https://github.com/bminor/glibc/tree/glibc-2.31) 中找到。
@@ -1978,7 +1980,7 @@ flowchart TD
 
 ### glibc 2.32
 
-glibc 2.32 在 2.31 的基础上有如下的修改：
+glibc 2.32 在 2.31 的基础上有如下的[修改](./glibc/glibc-2.32.diff)：
 
 ```shell
 $ git diff glibc-2.31 glibc-2.32 -- malloc/malloc.c
@@ -2220,11 +2222,11 @@ void dump_tcache(tcache_perthread_struct *tcache) {
 
 ### glibc 2.33
 
-glibc 2.33 的主要修改是添加了 memory tagging 的支持，通过 memory tagging 把用户指针和分配器内部的指针区分开，从而避免指针的误用。在不支持 memory tagging 的平台上，则没有变化。
+glibc 2.33 的主要[修改](./glibc/glibc-2.33.diff)是添加了 memory tagging 的支持，通过 memory tagging 把用户指针和分配器内部的指针区分开，从而避免指针的误用。在不支持 memory tagging 的平台上，则没有变化。
 
 ### glibc 2.34
 
-glibc 2.34 除了改进 memory tagging 支持以外，针对分配器的变化主要是 tcache 的 key 的使用。在 glibc 2.31 版本，tcache 的 key 指向的是 tcache 本身，用于检测是否出现了 double free。但是这也可能导致 tcache 地址的泄露，所以在 glibc 2.34 版本中，改成了用一个随机数来判断 tcache entry 是否已经被 free 了：
+glibc 2.34 除了改进 memory tagging 支持以外，针对分配器的[变化](./glibc/glibc-2.34.diff)主要是 tcache 的 key 的使用。在 glibc 2.31 版本，tcache 的 key 指向的是 tcache 本身，用于检测是否出现了 double free。但是这也可能导致 tcache 地址的泄露，所以在 glibc 2.34 版本中，改成了用一个随机数来判断 tcache entry 是否已经被 free 了：
 
 ```diff
 diff --git a/malloc/malloc.c b/malloc/malloc.c
@@ -2352,37 +2354,37 @@ printf("tcache is at %p\n", tcache);
 
 ### glibc 2.35
 
-glibc 2.35 主要是改进了分配器对 Transparent Huge Page 的支持，其余没有什么变化。
+glibc 2.35 主要是[改进](./glibc/glibc-2.35.diff)了分配器对 Transparent Huge Page 的支持，其余没有什么变化。
 
 ### glibc 2.36
 
-glibc 2.36 的分配器有少量的代码重构，没有什么实质的变化。
+glibc 2.36 的分配器有少量的[代码重构](./glibc/glibc-2.36.diff)，没有什么实质的变化。
 
 ### glibc 2.37
 
-glibc 2.37 的分配器对 realloc 的实现有少量的修改，但目前本文还没有分析 realloc，其余的部分没有什么变化。
+glibc 2.37 的分配器对 realloc 的实现有少量的[修改](./glibc/glibc-2.37.diff)，但目前本文还没有分析 realloc，其余的部分没有什么变化。
 
 ### glibc 2.38
 
-glibc 2.38 的分配器添加了 C17 aligned_alloc 的支持，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。
+glibc 2.38 的分配器添加了 C17 aligned_alloc 的[支持](./glibc/glibc-2.38.diff)，允许分配特定对齐的内存。给 tcache 添加了从中间删除结点的功能，但仅用于 memalign，对已有的其他部分没有影响。
 
 ### glibc 2.39
 
-glibc 2.39 的分配器针对 free 和 memalign 进行了一些代码重构，没有什么实质的变化。
+glibc 2.39 的分配器针对 free 和 memalign 进行了一些代码[重构](./glibc/glibc-2.39.diff)，没有什么实质的变化。
 
 ### glibc 2.40
 
-glibc 2.40 的分配器没有修改。
+glibc 2.40 的分配器没有[修改](./glibc/glibc-2.40.diff)。
 
 ### glibc 2.41
 
-glibc 2.41 针对 tcache 进行了一些重构，并且此时 calloc 也会使用 tcache 了（commit [malloc: Add tcache path for calloc](https://github.com/bminor/glibc/commit/226e3b0a413673c0d6691a0ae6dd001fe05d21cd)），之前的版本是不会的。
+glibc 2.41 针对 tcache 进行了一些[重构](./glibc/glibc-2.41.diff)，并且此时 calloc 也会使用 tcache 了（commit [malloc: Add tcache path for calloc](https://github.com/bminor/glibc/commit/226e3b0a413673c0d6691a0ae6dd001fe05d21cd)），之前的版本是不会的。
 
 此外对 free 的逻辑有一定的修改（commit [malloc: send freed small chunks to smallbin](https://github.com/bminor/glibc/commit/e2436d6f5aa47ce8da80c2ba0f59dfb9ffde08f3)）：之前版本 chunk 被 free 以后无论 small 还是 large 都可能会被放到 unsorted bin 里，而 glibc 2.41 改成，如果被释放的块的大小对应 small bin，则直接放到对应的 small bin 当中，而对应 large bin 的块才放到 unsorted bin 里。
 
 ### glibc 2.42
 
-glibc 2.42 针对 tcache 进行了比较大的改动。它的 release notes 中是这么写的：
+glibc 2.42 针对 tcache 进行了比较大的[改动](./glibc/glibc-2.42.diff)。它的 release notes 中是这么写的：
 
 > The thread-local cache in malloc (tcache) now supports caching of
 > large blocks.  This feature can be enabled by setting the tunable
@@ -2463,7 +2465,7 @@ if (__glibc_unlikely (tc_idx != victim_tc_idx))
 
 ### glibc 2.43
 
-glibc 2.43 一个很大的改动是，fast bin [整个机制删掉了](https://sourceware.org/pipermail/libc-alpha/2025-December/173279.html)，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
+glibc 2.43 一个很大的[改动](./glibc/glibc-2.43.diff)是，fast bin [整个机制删掉了](https://sourceware.org/pipermail/libc-alpha/2025-December/173279.html)，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
 
 感谢 [F0xm1ao](https://bbs.kanxue.com/homepage-1060264.htm) 的投稿，glibc 2.43 的 tcache 维护方式也发生了一个变化：此前的 tcache，用非 NULL 指针代表已经分配，且在首次 malloc/calloc 调用中被初始化，因此通常也是第一个被分配的 chunk；而 glibc 2.43 做了更改，它维护了 `__tcache_dummy` 结构体，进而保证 tcache 指针永远非 NULL，只能指向 inactive、disabled 或实际分配的 tcache_perthread_struct 结构体：
 
