@@ -141,7 +141,7 @@
     - GLM Lite 套餐（49 RMB/月）：每 5 小时最多约 80 次 prompts，每周最多约 400 次 prompts，每月最多约 1,600 次 prompts，支持 GLM-5.1、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型
     - GLM Pro 套餐（149 RMB/月）：每 5 小时最多约 400 次 prompts，每周最多约 2,000 次 prompts，每月最多约 8,000 次 prompts，支持 GLM-5.1、GLM-5、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型
     - GLM Max 套餐（469 RMB/月）：每 5 小时最多约 1,600 次 prompts，每周最多约 8,000 次 prompts，每月最多约 32,000 次 prompts，支持 GLM-5.1、GLM-5、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型
-    - GLM-5.1、GLM-5、GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.1、GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 4 月底）注：高峰期为每日的 14:00～18:00 
+    - GLM-5.1、GLM-5、GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.1、GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 6 月底）注：高峰期为每日的 14:00～18:00
 
 ### 其他
 
@@ -214,6 +214,7 @@
 
 - 2026/04/30：阶越星辰 Coding Plan 删除了 deepseek-v4-pro 模型，必须通过 step-router-v1 模型间接访问
 - 2026/04/28：阶越星辰 Coding Plan 新增了 deepseek-v4-pro 和 step-router-v1 模型
+- 2026/04/27：GLM Coding Plan 的限额折扣限时福利截止时间从 4 月底延期到 6 月底
 - 2026/04/24：阿里云百炼 Token Plan 输入命中缓存 token 对应的 Credit 数减半
 - 2026/04/23：MiMo-V2.5 系列模型上线
 - 2026/04/23：阶跃星辰 Coding Plan 新增支持 stepaudio-2.5-asr 模型
