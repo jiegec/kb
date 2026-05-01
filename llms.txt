@@ -80,6 +80,7 @@
 - [ASan 不同选项下的行为](https://jia.je/kb/software/asan.md)
 - [原子指令](https://jia.je/kb/software/atomic_instructions.md)
 - [AWS Pricing](https://jia.je/kb/software/aws_pricing.md)
+- [BIND9 Cookbook](https://jia.je/kb/software/bind9.md)
 - [Control Flow Integrity 控制流完整性](https://jia.je/kb/software/cfi.md)
 - [计算机图形学](https://jia.je/kb/software/cg.md)
 - [AI Coding Plan](https://jia.je/kb/software/coding_plan.md)
