@@ -119,7 +119,7 @@
         - Standard Plan (99 RMB/month): 100M tokens per subscription month
         - Pro Plan (299 RMB/month): 320M tokens per subscription month
         - Max Plan (599 RMB/month): 650M tokens per subscription month
-        - Supported models: Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, Kimi-K2.5, GLM-5
+        - Supported models (image, video, and other multimodal capabilities temporarily not supported): Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, MiniMax-M2.7, Kimi-K2.5, GLM-5, GLM-5.1
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
@@ -212,6 +212,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/04/30: Tencent Cloud Token Plan (Personal Edition) added support for GLM-5.1 and MiniMax-M2.7 models
 - 2026/04/30: StepFun Coding Plan removed deepseek-v4-pro model, must access indirectly through step-router-v1 model
 - 2026/04/28: StepFun Coding Plan added deepseek-v4-pro and step-router-v1 models
 - 2026/04/27: GLM Coding Plan extended the limited-time discount benefit deadline from end of April to end of June

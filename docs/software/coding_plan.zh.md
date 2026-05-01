@@ -119,7 +119,7 @@
         - Standard 套餐（99 RMB 每月）：每订阅月 1 亿 Token
         - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
         - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
-        - 支持模型：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、Kimi-K2.5、GLM-5
+        - 支持模型（暂不支持图片、视频等多模态能力）：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、MiniMax-M2.7、Kimi-K2.5、GLM-5、GLM-5.1
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
@@ -212,6 +212,7 @@
 
 ## 更新历史
 
+- 2026/04/30：腾讯云 Token Plan 个人版新增支持 GLM-5.1 和 MiniMax-M2.7 模型
 - 2026/04/30：阶越星辰 Coding Plan 删除了 deepseek-v4-pro 模型，必须通过 step-router-v1 模型间接访问
 - 2026/04/28：阶越星辰 Coding Plan 新增了 deepseek-v4-pro 和 step-router-v1 模型
 - 2026/04/27：GLM Coding Plan 的限额折扣限时福利截止时间从 4 月底延期到 6 月底
