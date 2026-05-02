@@ -31,6 +31,17 @@
 - [HiSilicon Kirin 9010](https://www.notebookcheck.net/HiSilicon-Kirin-9010-Processor-Benchmarks-and-Specs.855471.0.html)
 - [Huawei’s Kirin 9010 Is a Reality Check for China’s Semiconductor Ambitions](https://zh.ifixit.com/News/95646/huaweis-kirin-9010-is-a-reality-check-for-chinas-semiconductor-ambitions)
 
+### 麒麟 9010s
+
+— Pura 80
+
+- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
+- Maleoon 920C
+
+来源：
+
+- [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
+
 ### 麒麟 9020
 
 - 首发：Mate 70
@@ -48,16 +59,37 @@
 - [HUAWEI PLA-AL10](https://browser.geekbench.com/v6/cpu/9233574)
 - [nova 14 ultra 的 cpu 信息](https://www.coolapk.com/feed/64975023)
 
-### 麒麟 9020 on Pura X
-
-- 丝印 Hi36C0 GFCV111
+Pura X 版本：丝印 Hi36C0 GFCV111
 
 来源：
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
-### 麒麟 X90 on MateBook Pro
+### 麒麟 9030
 
+- Mate 80/Mate X7
+- 1x 大核（带 SMT，2.75 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
+- Maleoon 935
+
+来源：
+
+- [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
+- [酷安](https://www.coolapk.com/feed/68880017)
+
+### 麒麟 9030Pro
+
+- Mate 80/Mate X7
+- 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
+- Maleoon 935
+
+来源：
+
+- [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
+- [酷安](https://www.coolapk.com/feed/68880017)
+
+### 麒麟 X90
+
+- MateBook Pro
 - 20 threads
 - part id 0xd03（8 threads，4 核，同麒麟 9010 大核）, 0xd43（8 threads，4 核）, 0xd42（4 threads，2 核，同麒麟 9010 中核），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
@@ -68,29 +100,6 @@
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
 - [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
-
-### 麒麟 9010S
-
-— Pura 80
-
-- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
-- Maleoon 920C
-
-来源：
-
-- [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
-
-### 麒麟 9030/9030Pro
-
-- Mate 80/Mate X7
-- Kirin 9030: 1x 大核（带 SMT，2.75 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
-- Kirin 9030 Pro: 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
-- Maleoon 935
-
-来源：
-
-- [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
-- [酷安](https://www.coolapk.com/feed/68880017)
 
 ## hip
 
