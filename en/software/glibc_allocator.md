@@ -847,8 +847,8 @@ if (in_smallbin_range (nb))
 它的过程如下：
 
 1. 使用 `in_smallbin_range (nb)` 检查块的大小是否应该放到 small bin 当中
-1. 使用 `smallbin_index (nb)` 根据块的大小计算出 small bin 的 index，然后 `bin_at (av, idx)` 对应 small bin 的链表尾部的哨兵，这个双向链表有且只有一个哨兵，这个哨兵就放在 small bin 数组当中
-1. 找到哨兵结点的前驱结点 `last (bin)`，如果链表为空，那么哨兵的前驱结点就是它自己；如果链表非空，那么哨兵的前驱结点就是链表里的最后一个结点，把它赋值给 `victim`
+1. 使用 `smallbin_index (nb)` 根据块的大小计算出 small bin 的 index，然后 `bin_at (av, idx)` 对应 small bin 的链表尾部的哨兵，这个双向循环链表有且只有一个哨兵，这个哨兵就放在 small bin 数组当中
+1. 找到哨兵结点的前驱结点 `last (bin)`，如果链表为空，那么哨兵的前驱结点就是它自己，这是循环链表的特性；如果链表非空，那么哨兵的前驱结点就是链表里的最后一个结点，把它赋值给 `victim`；结合后面的代码，可知 small bin 是一个用双向循环链表实现的队列，从哨兵的前驱删除结点，向哨兵的后继插入结点
 1. 把这个空闲块标记为正在使用：`set_inuse_bit_at_offset (victim, nb)`
 1. 把 `victim` 从链表里删除：`bck = victim->bk; bin->bk = bck; bck->fd = bin;`，典型的双向链表的结点删除过程，维护 `victim` 前驱结点的后继指针，维护哨兵 `bin` 的前驱指针
 1. 进行一系列的安全检查：`check_malloced_chunk`
