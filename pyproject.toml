@@ -14,11 +14,11 @@ cairosvg = "^2.9.0"
 mkdocs-git-revision-date-localized-plugin = "^1.2.0"
 mkdocs-static-i18n = "^1.0"
 mkdocs-glightbox = "^0.5.0"
-mkdocs-wavedrom-plugin = {git = "https://github.com/jiegec/mkdocs-wavedrom-plugin.git"}
 mkdocs-rss-plugin = "^1.6.0"
 jieba = "^0.42.1"
 pymdown-extensions = "10.21.2"
 mkdocs-llmstxt = "^0.5.0"
+zensical-wavedrom-plugin = "^0.1.1"
 
 
 [build-system]

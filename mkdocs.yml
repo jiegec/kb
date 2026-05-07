@@ -50,8 +50,6 @@ plugins:
         font_family: Noto Sans SC
   - tags
   - offline
-  - wavedrom:
-      pymdownx: true
   - llmstxt:
       sections:
         Knowledge Base:
@@ -81,10 +79,11 @@ markdown_extensions:
       custom_fences:
         - name: wavedrom
           class: wavedrom
-          format: !!python/name:markdownwavedrom.plugin.fence_wavedrom_format
+          format: !!python/name:zensical_wavedrom_plugin.extension.fence_wavedrom_format
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - wavedrom
 extra_javascript:
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
