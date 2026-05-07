@@ -34,7 +34,7 @@ echo "L2:0=ffc00;" > /sys/fs/resctrl/p0/schemata
 
 下面是在 [Intel Xeon Platinum 8358P](https://www.intel.com/content/www/us/en/products/sku/212308/intel-xeon-platinum-8358p-processor-48m-cache-2-60-ghz/specifications.html) (48KB L1D, 1280KB L2, 48MB L3) 上测量通过 resctrl 限制不同比例 L3 下的[随机访存延迟](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/src/memory_latency.cpp)：
 
-是在 AMD EPYC 7H12 (32KB L1D, 512KB L2, 16MB L3 per CCX) 上测量通过 resctrl 限制不同比例 L3 下的[随机访存延迟](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/src/memory_latency.cpp)：
+在 AMD EPYC 7H12 (32KB L1D, 512KB L2, 16MB L3 per CCX) 上测量通过 resctrl 限制不同比例 L3 下的[随机访存延迟](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/src/memory_latency.cpp)：
 
 参考：
 
