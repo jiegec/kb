@@ -79,10 +79,20 @@
 
 ### 云厂商
 
-- [方舟 Coding Plan](https://www.volcengine.com/activity/codingplan)
+- [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
     - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-M2.7、MiniMax-2.5、Kimi-K2.6、Kimi-K2.5、GLM-5.1、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
+- [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
+    - Agent 燃料值（Agent Fuel Point，简称 AFP）是 Agent Plan 套餐的统一用量计费单位，用于量化智能体（Agent）资源的消耗。
+        - 语言模型、生视频模型：消耗 AFP = 消耗的原始 Tokens / 10,000 * 抵扣系数
+        - 生图模型：消耗 AFP = 成功生成的图片张数 * 抵扣系数
+    - Small 套餐（40 RMB 每月）：每 5 小时：2000 AFP。每周：7000 AFP。每月：20000 AFP。视觉模型每日：10000 AFP。
+    - Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。视觉模型每日：50000 AFP。
+    - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。视觉模型每日：125000 AFP。
+    - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。视觉模型每日：250000 AFP。
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、doubao-embedding-vision、doubao-seed-2.0-code、doubao-seed-2.0-pro、deepseek-v3.2、minimax-m2.7、glm-5.1、kimi-k2.6、doubao-seedream-5.0-lite
+    - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast
 - [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
     - Pro 套餐（200 RMB 每月）：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
     - Lite 套餐自 2026 年 3 月 20 日 00:00:00（UTC+08:00）起停止新购（详见公告）；4 月 13 日 18:00:00（UTC+08:00）起停止续费与升级（详见公告）。
@@ -212,6 +222,7 @@
 
 ## 更新历史
 
+- 2026/05/07：火山方舟 Agent Plan 个人版上线
 - 2026/04/30：腾讯云 Token Plan 个人版新增支持 GLM-5.1 和 MiniMax-M2.7 模型
 - 2026/04/30：阶越星辰 Coding Plan 删除了 deepseek-v4-pro 模型，必须通过 step-router-v1 模型间接访问
 - 2026/04/28：阶越星辰 Coding Plan 新增了 deepseek-v4-pro 和 step-router-v1 模型
