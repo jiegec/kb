@@ -35,7 +35,7 @@ echo "L2:0=ffc00;" > /sys/fs/resctrl/p0/schemata
 参考：
 
 - [Performance tuning at the edge using Cache Allocation Technology](https://www.redhat.com/en/blog/performance-tuning-at-the-edge)
-- [User Interface for Resource Control feature](https://docs.kernel.org/arch/x86/resctrl.html)
+- [User Interface for Resource Control feature](https://docs.kernel.org/filesystems/resctrl.html)
 - [Configuring MPAM via resctrl file-system](https://developer.arm.com/documentation/108032/0100/A-closer-look-at-MPAM-software/Linux-MPAM-overview/Configuring-MPAM-via-resctrl-file-system)
 - [Use Intel® Resource Director Technology to Allocate Last Level Cache (LLC)](https://www.intel.com/content/www/us/en/developer/articles/technical/use-intel-resource-director-technology-to-allocate-last-level-cache-llc.html)
 - [resctrl](https://github.com/intel/intel-cmt-cat/wiki/resctrl)
