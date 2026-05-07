@@ -79,10 +79,20 @@
 
 ### Cloud Providers
 
-- [Volcano Engine Coding Plan](https://www.volcengine.com/activity/codingplan)
+- [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
   - Pro Plan (200 RMB/month): 5x the Lite Plan quota
   - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
+- [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
+  - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
+    - Language models, video generation models: AFP consumed = raw tokens consumed / 10,000 * deduction coefficient
+    - Image generation models: AFP consumed = number of successfully generated images * deduction coefficient
+  - Small Plan (40 RMB/month): Per 5 hours: 2,000 AFP. Per week: 7,000 AFP. Per month: 20,000 AFP. Vision models daily: 10,000 AFP.
+  - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Vision models daily: 50,000 AFP.
+  - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Vision models daily: 125,000 AFP.
+  - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Vision models daily: 250,000 AFP.
+  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, doubao-embedding-vision, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, glm-5.1, kimi-k2.6, doubao-seedream-5.0-lite
+  - Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast
 - [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
   - Pro Plan (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
   - Lite Plan suspended new purchases from March 20, 2026 00:00:00 (UTC+08:00) (see announcement); renewals and upgrades stopped from April 13, 2026 18:00:00 (UTC+08:00) (see announcement).
@@ -219,6 +229,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/05/07: Volcano Engine Agent Plan (Personal Edition) launched
 
 - 2026/04/30: Tencent Cloud Token Plan (Personal Edition) added support for GLM-5.1 and MiniMax-M2.7 models
 
