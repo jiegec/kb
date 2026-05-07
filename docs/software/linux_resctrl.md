@@ -36,7 +36,7 @@ echo "L2:0=ffc00;" > /sys/fs/resctrl/p0/schemata
 
 ![](linux_resctrl_8358p.png)
 
-是在 AMD EPYC 7H12 (32KB L1D, 512KB L2, 16MB L3 per CCX) 上测量通过 resctrl 限制不同比例 L3 下的[随机访存延迟](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/src/memory_latency.cpp)：
+在 AMD EPYC 7H12 (32KB L1D, 512KB L2, 16MB L3 per CCX) 上测量通过 resctrl 限制不同比例 L3 下的[随机访存延迟](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/src/memory_latency.cpp)：
 
 ![](linux_resctrl_7h12.png)
 
