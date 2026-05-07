@@ -4798,7 +4798,8 @@
 <li><code>a</code> 周期：master 请求读地址 0x01，slave 接收读请求（<code>STALL_O=0</code>）</li>
 <li><code>b</code> 周期：slave 返回读请求结果 0x12，并设置 <code>ACK_I=1</code>；同时 master 请求读地址 0x02，slave 接收读请求（<code>STALL_O=0</code>）</li>
 <li><code>c</code> 周期：slave 返回读请求结果 0x34，并设置 <code>ACK_I=1</code>；master 不再发起请求，设置 <code>STB_O=0</code></li>
-<li><code>d</code> 周期：所有请求完成，master 设置 <code>CYC_O=0</code></li>
+<li><code>d</code> 周期：所有请求完成，master 设置 <code>CYC_O=0
+<script>window.addEventListener("load", function() {WaveDrom.ProcessAll();});</script></code></li>
 </ul>
 <p>这样就利用 Wishbone Classic Pipelined 协议实现了一个每周期进行一次读操作的 slave。</p>
 <h2 id="axi">AXI</h2>
@@ -5092,4 +5093,4 @@
   
 <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
-</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body></html>
+</script></body></html>

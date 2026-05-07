@@ -5068,7 +5068,8 @@
 <p>总结一下 Write Leveling 的算法：</p>
 <ol>
 <li>设置 SDRAM 进入 Write Leveling 模式，此时 SDRAM 会使用 DQS 对 CK 采用，把结果输出到 DQ</li>
-<li>控制器枚举 DQS 的延迟，读取出每个 DQS 延迟下的 DQ 结果，得到一个 0-1 串，例如：<code>001111111111111111110000</code>，即随着延迟增大，先采样到 0，再采样到 1，最后又采样到 0</li>
+<li>控制器枚举 DQS 的延迟，读取出每个 DQS 延迟下的 DQ 结果，得到一个 0-1 串，例如：<code>001111111111111111110000
+<script>window.addEventListener("load", function() {WaveDrom.ProcessAll();});</script></code>，即随着延迟增大，先采样到 0，再采样到 1，最后又采样到 0</li>
 <li>找到一个 DQS 延迟，使得 DQ 出现一个从 0 到 1 的变化，那么按照这个延迟输出，DQS 就会与 CK 同步</li>
 <li>设置 SDRAM 结束 Write Leveling 模式</li>
 </ol>
@@ -5558,4 +5559,4 @@
   
 <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
-</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body></html>
+</script></body></html>

@@ -4601,6 +4601,7 @@
       { name: "i2c", wave: "34.5.....|6.7....", data: ["idle", "start", "data", "ack", "stop"]},
     ]
 }</script>
+<script>window.addEventListener("load", function() {WaveDrom.ProcessAll();});</script>
 <ol>
 <li>idle 阶段，scl 和 sda 都是 1</li>
 <li>start 阶段，首先是 sda 变成 0，之后是 scl 变成 0</li>
@@ -4846,4 +4847,4 @@
   
 <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
-</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body></html>
+</script></body></html>

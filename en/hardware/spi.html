@@ -4842,7 +4842,8 @@
 <ol>
 <li>从 FPGA 输出的时钟 CCLK 到 SPI Flash 的时钟有延迟 <span class="arithmatex">\(t_{clk}\)</span>，下图 <code>a -&gt; b</code></li>
 <li>从 SPI Flash 的时钟到数据输出有延迟 <span class="arithmatex">\(t_{co}\)</span>，下图 <code>b -&gt; c</code></li>
-<li>从 SPI Flash 的数据到 FPGA 的数据输入有延迟 <span class="arithmatex">\(t_{data}\)</span>，下图 <code>c -&gt; d</code></li>
+<li>从 SPI Flash 的数据到 FPGA 的数据输入有延迟 <span class="arithmatex">\(t_{data}\)</span>，下图 <code>c -&gt; d
+<script>window.addEventListener("load", function() {WaveDrom.ProcessAll();});</script></code></li>
 </ol>
 <script type="WaveDrom">{
   signal:
@@ -5153,4 +5154,4 @@ t_0 - t_{data} &lt; -t_{clk} - t_h
   
 <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(()=>{ lightbox.reload(); });
-</script><script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body></html>
+</script></body></html>
