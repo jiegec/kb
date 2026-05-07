@@ -32,6 +32,8 @@ echo "L2:0=ffc00;" > /sys/fs/resctrl/p0/schemata
 
 这样处理完，在核心 0-1 上运行的程序，就只会用到 L2 的由 0xffc00 指定的那部分缓存容量。
 
+下面是在 [Intel Xeon Platinum 8358P](https://www.intel.com/content/www/us/en/products/sku/212308/intel-xeon-platinum-8358p-processor-48m-cache-2-60-ghz/specifications.html) (48KB L1D, 1280KB L2, 48MB L3) 上测量通过 resctrl 限制不同比例 L3 下的[随机访存延迟](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/src/memory_latency.cpp)：
+
 参考：
 
 - [Performance tuning at the edge using Cache Allocation Technology](https://www.redhat.com/en/blog/performance-tuning-at-the-edge)
