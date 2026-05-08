@@ -2450,6 +2450,22 @@ if (__glibc_unlikely (tc_idx != victim_tc_idx))
 
 glibc 2.43 一个很大的改动是，fast bin [整个机制删掉了](https://sourceware.org/pipermail/libc-alpha/2025-December/173279.html)，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
 
+感谢 F0xm1ao 的投稿，glibc 2.43 的 tcache 维护方式也发生了一个变化：此前的 tcache，用非 NULL 指针代表已经分配，且在首次 malloc/calloc 调用后会初始化，因此通常也是第一个被分配的 chunk；而 glibc 2.43 做了更改，它维护了 `__tcache_dummy` 结构体，进而保证 tcache 指针永远非 NULL，只能指向 inactive、disabled 或实际分配的 tcache_perthread_struct 结构体：
+
+```c
+static const union
+{
+  struct tcache_perthread_struct inactive;
+  struct
+  {
+    char pad;
+    struct tcache_perthread_struct disabled;
+  };
+} __tcache_dummy;
+```
+
+同时，glibc 2.43 的 tcache 初始化被延后，只有到第一次用 tcache 时才会初始化，这意味着 tcache 大概率不是第一个被分配的 chunk。
+
 ### 小结
 
 总结一下从 glibc 2.31 之后内存分配器行为的几个大的变化：
