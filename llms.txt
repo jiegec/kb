@@ -89,6 +89,7 @@
 - [CTF 常用信息](https://jia.je/kb/software/ctf.md)
 - [CUDA 相关](https://jia.je/kb/software/cuda.md)
 - [Dijkstra 算法](https://jia.je/kb/software/dijkstra.md)
+- [Dirty Frag](https://jia.je/kb/software/dirty_frag.md)
 - [DNS over HTTPS (DoH) 协议分析](https://jia.je/kb/software/doh.md)
 - [Garbage Collection 垃圾回收](https://jia.je/kb/software/gc.md)
 - [GCC 内部实现](https://jia.je/kb/software/gcc.md)
