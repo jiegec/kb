@@ -84,6 +84,7 @@
 - [Control Flow Integrity 控制流完整性](https://jia.je/kb/software/cfi.md)
 - [计算机图形学](https://jia.je/kb/software/cg.md)
 - [AI Coding Plan](https://jia.je/kb/software/coding_plan.md)
+- [Copy Fail](https://jia.je/kb/software/copy_fail.md)
 - [cpio 文件格式](https://jia.je/kb/software/cpio.md)
 - [CTF 常用信息](https://jia.je/kb/software/ctf.md)
 - [CUDA 相关](https://jia.je/kb/software/cuda.md)
