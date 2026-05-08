@@ -2489,7 +2489,7 @@ static const union
 2. glibc 2.34 开始，tcache 的 key 不再指向 tcache 自己，而是设置为一个随机数
 3. glibc 2.41 开始，calloc 也会使用 tcache
 4. glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin
-5. glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16
+5. glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16，同时 tcache 从在第一次 malloc/calloc 初始化变为惰性初始化
 
 ## CTF
 
