@@ -7355,7 +7355,7 @@ also significantly faster for small sizes.</p>
 <p>通过拆分，使得在通过 tcache 分配时，不需要进行栈帧的初始化，提升了性能。</p>
 <h3 id="glibc-243">glibc 2.43</h3>
 <p>glibc 2.43 一个很大的改动是，fast bin <a href="https://sourceware.org/pipermail/libc-alpha/2025-December/173279.html">整个机制删掉了</a>，包括前面提到过的 <code>malloc_consolidate</code> 调用。与此同时，tcache 每个 bin 的默认大小（<code>TCACHE_FILL_COUNT</code>）从 7 改成了 16。</p>
-<p>感谢 <a href="https://bbs.kanxue.com/homepage-1060264.htm">F0xm1ao</a> 的投稿，glibc 2.43 的 tcache 维护方式也发生了一个变化：此前的 tcache，用非 NULL 指针代表已经分配，且在首次 malloc/calloc 调用后会初始化，因此通常也是第一个被分配的 chunk；而 glibc 2.43 做了更改，它维护了 <code>__tcache_dummy</code> 结构体，进而保证 tcache 指针永远非 NULL，只能指向 inactive、disabled 或实际分配的 tcache_perthread_struct 结构体：</p>
+<p>感谢 <a href="https://bbs.kanxue.com/homepage-1060264.htm">F0xm1ao</a> 的投稿，glibc 2.43 的 tcache 维护方式也发生了一个变化：此前的 tcache，用非 NULL 指针代表已经分配，且在首次 malloc/calloc 调用中被初始化，因此通常也是第一个被分配的 chunk；而 glibc 2.43 做了更改，它维护了 <code>__tcache_dummy</code> 结构体，进而保证 tcache 指针永远非 NULL，只能指向 inactive、disabled 或实际分配的 tcache_perthread_struct 结构体：</p>
 <div class="language-c highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">union</span>
 </span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="p">{</span>
 </span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">tcache_perthread_struct</span><span class="w"> </span><span class="n">inactive</span><span class="p">;</span>
@@ -7374,7 +7374,7 @@ also significantly faster for small sizes.</p>
 <li>glibc 2.34 开始，tcache 的 key 不再指向 tcache 自己，而是设置为一个随机数</li>
 <li>glibc 2.41 开始，calloc 也会使用 tcache</li>
 <li>glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin</li>
-<li>glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16，同时 tcache 从在第一次 malloc/calloc 初始化变为惰性初始化</li>
+<li>glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16，同时 tcache 从先前在第一次 malloc/calloc 调用中被初始化，变为惰性初始化</li>
 </ol>
 <h2 id="ctf">CTF</h2>
 <h3 id="tcache-poisoning">tcache poisoning</h3>
@@ -7645,7 +7645,7 @@ also significantly faster for small sizes.</p>
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 08:08:27 UTC">2026年5月8日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月8日 08:11:40 UTC">2026年5月8日</span>
   </span>
 
     

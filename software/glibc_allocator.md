@@ -2450,7 +2450,7 @@ if (__glibc_unlikely (tc_idx != victim_tc_idx))
 
 glibc 2.43 一个很大的改动是，fast bin [整个机制删掉了](https://sourceware.org/pipermail/libc-alpha/2025-December/173279.html)，包括前面提到过的 `malloc_consolidate` 调用。与此同时，tcache 每个 bin 的默认大小（`TCACHE_FILL_COUNT`）从 7 改成了 16。
 
-感谢 [F0xm1ao](https://bbs.kanxue.com/homepage-1060264.htm) 的投稿，glibc 2.43 的 tcache 维护方式也发生了一个变化：此前的 tcache，用非 NULL 指针代表已经分配，且在首次 malloc/calloc 调用后会初始化，因此通常也是第一个被分配的 chunk；而 glibc 2.43 做了更改，它维护了 `__tcache_dummy` 结构体，进而保证 tcache 指针永远非 NULL，只能指向 inactive、disabled 或实际分配的 tcache_perthread_struct 结构体：
+感谢 [F0xm1ao](https://bbs.kanxue.com/homepage-1060264.htm) 的投稿，glibc 2.43 的 tcache 维护方式也发生了一个变化：此前的 tcache，用非 NULL 指针代表已经分配，且在首次 malloc/calloc 调用中被初始化，因此通常也是第一个被分配的 chunk；而 glibc 2.43 做了更改，它维护了 `__tcache_dummy` 结构体，进而保证 tcache 指针永远非 NULL，只能指向 inactive、disabled 或实际分配的 tcache_perthread_struct 结构体：
 
 ```c
 static const union
@@ -2474,7 +2474,7 @@ static const union
 1. glibc 2.34 开始，tcache 的 key 不再指向 tcache 自己，而是设置为一个随机数
 1. glibc 2.41 开始，calloc 也会使用 tcache
 1. glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin
-1. glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16，同时 tcache 从在第一次 malloc/calloc 初始化变为惰性初始化
+1. glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16，同时 tcache 从先前在第一次 malloc/calloc 调用中被初始化，变为惰性初始化
 
 ## CTF
 
