@@ -7,3 +7,7 @@
 CVE: CVE-2026-43284 (xfrm) 和 CVE-2026-43500 (RxRPC)
 
 相关：[copy fail 2: electric boogaloo](https://afflicted.sh/blog/posts/copy-fail-2.html)
+
+发行版修复方式：
+
+- Debian：通过内核更新修复，<https://security-tracker.debian.org/tracker/CVE-2026-43284> 和 <https://security-tracker.debian.org/tracker/CVE-2026-43500>
