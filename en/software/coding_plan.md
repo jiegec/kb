@@ -133,7 +133,7 @@
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
   - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
-  - Supported models: Kimi-K2.5, DeepSeek-V3.2, GLM-5, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402
+  - Supported models: Kimi-K2.5, DeepSeek-V3.2, DeepSeek-V4-Flash, GLM-5, GLM-5.1, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402
 - [JD Cloud Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
   - Lite Plan (7.9 RMB first month for new users): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
   - Pro Plan (39.9 RMB first month for new users): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
@@ -229,6 +229,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/05/08: Baidu Qianfan Coding Plan added support for DeepSeek-V4-Flash and GLM-5.1 models
 
 - 2026/05/07: Volcano Engine Agent Plan (Personal Edition) launched
 
