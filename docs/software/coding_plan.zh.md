@@ -133,7 +133,7 @@
 - [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
-    - 支持模型：Kimi-K2.5、DeepSeek-V3.2、GLM-5、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402
+    - 支持模型：Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Flash、GLM-5、GLM-5.1、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402
 - [京东云 Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
     - Lite 套餐（新用户首月 7.9 RMB）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（新用户首月 39.9 RMB）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
@@ -222,6 +222,7 @@
 
 ## 更新历史
 
+- 2026/05/08：百度千帆 Coding Plan 新增支持 DeepSeek-V4-Flash、GLM-5.1 模型
 - 2026/05/07：火山方舟 Agent Plan 个人版上线
 - 2026/04/30：腾讯云 Token Plan 个人版新增支持 GLM-5.1 和 MiniMax-M2.7 模型
 - 2026/04/30：阶越星辰 Coding Plan 删除了 deepseek-v4-pro 模型，必须通过 step-router-v1 模型间接访问
