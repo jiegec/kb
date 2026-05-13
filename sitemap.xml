@@ -498,13 +498,6 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/2fa.html"/>
     </url>
     <url>
-        <loc>https://jia.je/kb/software/Fragnesia.html</loc>
-        <lastmod>2026-05-13</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/Fragnesia.html"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/Fragnesia.html"/>
-    </url>
-    <url>
         <loc>https://jia.je/kb/software/abi.html</loc>
         <lastmod>2026-05-13</lastmod>
         <changefreq>daily</changefreq>
@@ -615,6 +608,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/doh.html"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/doh.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/software/fragnesia.html</loc>
+        <lastmod>2026-05-13</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/fragnesia.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/fragnesia.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/software/gc.html</loc>
@@ -1338,13 +1338,6 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/2fa.html"/>
     </url>
     <url>
-        <loc>https://jia.je/kb/en/software/Fragnesia.html</loc>
-        <lastmod>2026-05-13</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/Fragnesia.html"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/Fragnesia.html"/>
-    </url>
-    <url>
         <loc>https://jia.je/kb/en/software/abi.html</loc>
         <lastmod>2026-05-13</lastmod>
         <changefreq>daily</changefreq>
@@ -1455,6 +1448,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/doh.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/doh.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/software/fragnesia.html</loc>
+        <lastmod>2026-05-13</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/fragnesia.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/fragnesia.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/software/gc.html</loc>
