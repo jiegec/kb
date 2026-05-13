@@ -11,4 +11,4 @@ CVE: CVE-2026-43284 (xfrm) 和 CVE-2026-43500 (RxRPC)
 发行版修复方式：
 
 - Debian：通过内核更新修复，<https://security-tracker.debian.org/tracker/CVE-2026-43284> 和 <https://security-tracker.debian.org/tracker/CVE-2026-43500>
-- Ubuntu：见 <https://ubuntu.com/security/CVE-2026-43284>, <https://ubuntu.com/blog/dirty-frag-linux-vulnerability-fixes-available>
+- Ubuntu：尚未修复，见 <https://ubuntu.com/security/CVE-2026-43284>, <https://ubuntu.com/blog/dirty-frag-linux-vulnerability-fixes-available>
