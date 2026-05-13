@@ -75,6 +75,7 @@
 - [VLAN](https://jia.je/kb/networking/vlan.md)
 - [WLAN](https://jia.je/kb/networking/wlan.md)
 - [2FA/MFA 多因素认证](https://jia.je/kb/software/2fa.md)
+- [Fragnesia](https://jia.je/kb/software/Fragnesia.md)
 - [ABI (Application Binary Interface) 分析](https://jia.je/kb/software/abi.md)
 - [Agentic Chat](https://jia.je/kb/software/agentic_chat.md)
 - [ASan 不同选项下的行为](https://jia.je/kb/software/asan.md)
