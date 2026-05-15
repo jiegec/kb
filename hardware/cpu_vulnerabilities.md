@@ -284,10 +284,12 @@
         // load from array at index specified by M[15:0]
   ```
 
-  - 缓解措施：
+- 缓解措施：
+
   - 添加 LFENCE 以阻止推测执行
   - 设置 Speculative Store Bypass Disable (SSBD)
-  - `/sys/devices/system/cpu/vulnerabilities/spec_store_bypass`
+
+- `/sys/devices/system/cpu/vulnerabilities/spec_store_bypass`
 
 ### Zenbleed
 
