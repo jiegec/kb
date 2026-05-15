@@ -243,6 +243,7 @@
 	Y = Array[*X & 0xFFFF]; // Dereferences address of M which is in pointer X in order to
           // load from array at index specified by M[15:0]
 	```
+
 - 缓解措施：
 	- 添加 LFENCE 以阻止推测执行
 	- 设置 Speculative Store Bypass Disable (SSBD)
