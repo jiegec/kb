@@ -40,3 +40,13 @@ CVE：CVE-2026-46300
 
 - Debian：见 <https://security-tracker.debian.org/tracker/CVE-2026-46300>
 - Ubuntu：见 <https://ubuntu.com/security/CVE-2026-46300>
+
+## ssh-keysign-pwn
+
+官网：[0xdeadbeefnetwork/ssh-keysign-pwn](https://github.com/0xdeadbeefnetwork/ssh-keysign-pwn)
+
+CVE：CVE-2026-46333
+
+发行版修复方式：
+
+- Debian：通过内核更新修复，见 <https://security-tracker.debian.org/tracker/CVE-2026-46333>
