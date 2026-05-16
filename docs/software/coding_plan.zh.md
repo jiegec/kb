@@ -82,7 +82,7 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-M2.7、MiniMax-2.5、Kimi-K2.6、Kimi-K2.5、GLM-5.1、GLM-4.7、DeepSeek-v3.2、Doubao-Embedding-Vision
+    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-M2.7、MiniMax-2.5、Kimi-K2.6、Kimi-K2.5、GLM-5.1、GLM-4.7、DeepSeek-v3.2、DeepSeek-V4-Flash-Beta、DeepSeek-V4-Pro-Beta
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
     - Agent 燃料值（Agent Fuel Point，简称 AFP）是 Agent Plan 套餐的统一用量计费单位，用于量化智能体（Agent）资源的消耗。
         - 语言模型、生视频模型：消耗 AFP = 消耗的原始 Tokens / 10,000 * 抵扣系数
@@ -91,21 +91,8 @@
     - Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。视觉模型每日：50000 AFP。
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。视觉模型每日：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。视觉模型每日：250000 AFP。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、doubao-embedding-vision、doubao-seed-2.0-code、doubao-seed-2.0-pro、deepseek-v3.2、minimax-m2.7、glm-5.1、kimi-k2.6、doubao-seedream-5.0-lite
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash-beta、doubao-seed-2.0-code、doubao-seed-2.0-pro、deepseek-v3.2、minimax-m2.7、glm-5.1、kimi-k2.6、deepseek-v4-pro-beta、doubao-embedding-vision、doubao-seedream-5.0-lite
     - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast
-- [阿里云百炼 Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
-    - Pro 套餐（200 RMB 每月）：固定月费，每月 90000 次请求，每周 45000 次，每 5 小时 6000 次
-    - Lite 套餐自 2026 年 3 月 20 日 00:00:00（UTC+08:00）起停止新购（详见公告）；4 月 13 日 18:00:00（UTC+08:00）起停止续费与升级（详见公告）。
-    - 单次提问将按实际“模型调用次数”扣除额度。简单任务约消耗 5-10 次，复杂任务约 10-30+ 次，实际消耗受任务难度、上下文及工具使用影响。在Coding Plan 页面可以查看用量。
-    - 推荐模型：qwen3.6-plus、kimi-k2.5、glm-5、minimax-m2.5。更多模型：qwen3.5-plus、qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7
-    - [Qwen3.6-Plus API 价格](https://help.aliyun.com/zh/model-studio/models)：
-        - 输入 2/8 RMB 每 1M tokens
-        - 输出 12/48 RMB 每 1M tokens
-        - 1M 上下文
-    - [Qwen3.6-Max-Preview API 价格](https://help.aliyun.com/zh/model-studio/models)：
-        - 输入 9/15 RMB 每 1M tokens
-        - 输出 54/90 RMB 每 1M tokens
-        - 256K 上下文
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -114,9 +101,7 @@
     - 单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。
     - 以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
     - 如果按 256K 以内的上下文算，一个 Credit 对应的 API 价格（隐式缓存）是 0.01-0.02 元，按 256K-1M 的上下文，一个 Credit 对应 0.04-0.08 元
-    - 支持的模型：
-        - 文本生成：qwen3.6-plus、glm-5、MiniMax-M2.5、deepseek-v3.2
-        - 图像生成：qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro
+    - 支持模型：qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseek-v4-flash、deepseek-v3.2、kimi-k2.6、kimi-k2.5、glm-5.1、glm-5、minimax-m2.5
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Hy Token Plan:
         - Lite 套餐（28 RMB 每月）：每订阅月 3500 万 Token
