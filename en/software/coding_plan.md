@@ -82,7 +82,7 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
   - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, Doubao-Embedding-Vision
+  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, DeepSeek-V4-Flash-Beta, DeepSeek-V4-Pro-Beta
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
   - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
     - Language models, video generation models: AFP consumed = raw tokens consumed / 10,000 * deduction coefficient
@@ -91,21 +91,8 @@
   - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Vision models daily: 50,000 AFP.
   - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Vision models daily: 125,000 AFP.
   - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Vision models daily: 250,000 AFP.
-  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, doubao-embedding-vision, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, glm-5.1, kimi-k2.6, doubao-seedream-5.0-lite
+  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash-beta, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, glm-5.1, kimi-k2.6, deepseek-v4-pro-beta, doubao-embedding-vision, doubao-seedream-5.0-lite
   - Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast
-- [Alibaba Bailian Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan)
-  - Pro Plan (200 RMB/month): Fixed monthly fee, 90,000 requests per month, 45,000 per week, 6,000 per 5 hours
-  - Lite Plan suspended new purchases from March 20, 2026 00:00:00 (UTC+08:00) (see announcement); renewals and upgrades stopped from April 13, 2026 18:00:00 (UTC+08:00) (see announcement).
-  - Each question deducts quota based on actual "model call count". Simple tasks consume approximately 5-10 calls, complex tasks approximately 10-30+ calls. Actual consumption depends on task difficulty, context, and tool usage. You can view usage on the Coding Plan page.
-  - Recommended models: qwen3.6-plus, kimi-k2.5, glm-5, minimax-m2.5. More models: qwen3.5-plus, qwen3-max-2026-01-23, qwen3-coder-next, qwen3-coder-plus, glm-4.7
-  - [Qwen3.6-Plus API Pricing](https://help.aliyun.com/zh/model-studio/models)：
-    - Input: 2/8 RMB per 1M tokens
-    - Output: 12/48 RMB per 1M tokens
-    - 1M context
-  - [Qwen3.6-Max-Preview API Pricing](https://help.aliyun.com/zh/model-studio/models)：
-    - Input: 9/15 RMB per 1M tokens
-    - Output: 54/90 RMB per 1M tokens
-    - 256K context
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
   - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
   - Advanced Seat (¥698/seat/month): 100,000 Credits/seat/month
@@ -114,9 +101,7 @@
   - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
   - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 50,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
   - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01–0.02 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04–0.08 RMB
-  - Supported models:
-    - Text generation: qwen3.6-plus, glm-5, MiniMax-M2.5, deepseek-v3.2
-    - Image generation: qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro
+  - Supported models: qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-flash, deepseek-v3.2, kimi-k2.6, kimi-k2.5, glm-5.1, glm-5, minimax-m2.5
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
   - Hy Token Plan:
     - Lite Plan (28 RMB/month): 35M tokens per subscription month
