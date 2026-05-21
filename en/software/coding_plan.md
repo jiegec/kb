@@ -30,7 +30,6 @@
 - The Token Plan usage quota is calculated per model:
   - M2.7 / M2.7-highspeed: Measured by requests, with a 5-hour rolling reset.
   - Other models (speech, video, music, image): Measured by daily quotas, resetting daily.
-- All plans include the latest MiniMax M2.7 model, with M2.7-highspeed availability based on resource load. High-Speed subscriptions offer dedicated M2.7-highspeed support for even faster inference.
 - Weekly Usage Quota: The current weekly usage quota is 10 times the “5-hour quota” (industry common range is 5–8 times)
 - [M2.7 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
   - Cached input: 0.42 RMB per 1M tokens
@@ -55,19 +54,20 @@
 - Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week
 - Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2000 prompts per week
 - Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
-- One prompt refers to one query. Each prompt is estimated to invoke the model 15–20 times. The monthly available quota is converted based on API pricing, equivalent to approximately 15–30× the monthly subscription fee (weekly caps already factored in).
+- Generally, one Prompt (i.e., one query) may trigger approximately 15–20 model calls during task execution. The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
 - Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
 - Note: GLM-5.1 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
+- Note: Peak hours are 14:00–18:00 (UTC+8) daily.
+- [GLM-5.1 API Pricing](https://bigmodel.cn/pricing):
+  - Cached input: 1.3/2 RMB per 1M tokens
+  - Uncached input: 6/8 RMB per 1M tokens
+  - Output: 24/28 RMB per 1M tokens
+  - 200K context
 - [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
   - Cached input: 1.2/1.8 RMB per 1M tokens
   - Uncached input: 5/7 RMB per 1M tokens
   - Output: 22/26 RMB per 1M tokens
-  - 200K context
-- [GLM-5.1 API Pricing](https://bigmodel.cn/pricing):
-  - Cached input: 1.3/1.2 RMB per 1M tokens
-  - Uncached input: 6/8 RMB per 1M tokens
-  - Output: 24/28 RMB per 1M tokens
   - 200K context
 - [GLM-4.7 API Pricing](https://bigmodel.cn/pricing):
   - Cached input: 0.4/0.6/0.8 RMB per 1M tokens
@@ -82,16 +82,17 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
   - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, DeepSeek-V4-Flash-Beta, DeepSeek-V4-Pro-Beta
+  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, DeepSeek-V4-Flash, DeepSeek-V4-Pro
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
   - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
-    - Language models, video generation models: AFP consumed = raw tokens consumed / 10,000 * deduction coefficient
-    - Image generation models: AFP consumed = number of successfully generated images * deduction coefficient
+    - Text generation models, embedding models: (input token * input deduction coefficient + output token * output deduction coefficient) / 10,000
+    - Video generation models: tokens consumed / 10,000 * deduction coefficient
+    - Image generation models: number of successfully generated images * deduction coefficient
   - Small Plan (40 RMB/month): Per 5 hours: 2,000 AFP. Per week: 7,000 AFP. Per month: 20,000 AFP. Vision models daily: 10,000 AFP.
   - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Vision models daily: 50,000 AFP.
   - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Vision models daily: 125,000 AFP.
   - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Vision models daily: 250,000 AFP.
-  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash-beta, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, glm-5.1, kimi-k2.6, deepseek-v4-pro-beta, doubao-embedding-vision, doubao-seedream-5.0-lite
+  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, glm-5.1, kimi-k2.6, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite
   - Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
   - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
@@ -101,7 +102,7 @@
   - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
   - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 50,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
   - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01–0.02 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04–0.08 RMB
-  - Supported models: qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-flash, deepseek-v3.2, kimi-k2.6, kimi-k2.5, glm-5.1, glm-5, minimax-m2.5
+  - Supported models: qwen3.7-max, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-flash, deepseek-v3.2, kimi-k2.6, kimi-k2.5, glm-5.1, glm-5, minimax-m2.5
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
   - Hy Token Plan:
     - Lite Plan (28 RMB/month): 35M tokens per subscription month
@@ -118,25 +119,22 @@
 - [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
   - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
-  - Supported models: Kimi-K2.5, DeepSeek-V3.2, DeepSeek-V4-Flash, GLM-5, GLM-5.1, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402
+  - Supported models: Kimi-K2.5, DeepSeek-V3.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash, GLM-5, GLM-5.1, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402
 - [JD Cloud Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
-  - Lite Plan (7.9 RMB first month for new users): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
-  - Pro Plan (39.9 RMB first month for new users): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
+  - Lite Plan (19.9 RMB first purchase/month, 40 RMB renewal/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
+  - Pro Plan (99.9 RMB first purchase/month, 200 RMB renewal/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
   - Supported models: DeepSeek-V3.2, GLM-5, GLM-4.7, MiniMax-M2.5, Kimi-K2.5, Kimi-K2-Turbo, Qwen3-Coder
 - [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html)
-  - First Month Edition (launched March 9, 2026, no longer available for purchase from April 9):
-    - Starter (3.9 RMB first purchase/month, 19 RMB add-on/month): 20M tokens daily, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash models, QPS=20
-    - Professional (7.9 RMB first purchase/month, 39 RMB add-on/month): 10M tokens daily, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=5
-    - Efficient (39.9 RMB first purchase/month, 199 RMB add-on/month): 50M tokens daily, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5 models, QPS=20
   - Updated Edition (launched April 9, 2026):
-    - Worry-Free (3.9 RMB first purchase/month, 19 RMB repeat purchase/month): Unlimited requests, supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash models
-    - Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5, Spark X2 models
-    - Efficient (199 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Qwen3.5-35B-A3B, DeepSeek-V3.2, GLM-4.7-Flash, GLM-5, MiniMax-M2.5, Kimi-K2.5, Spark X2 models
+    - Worry-Free (3.9 RMB first purchase/month, 19 RMB repeat purchase/month): Unlimited requests, supports Spark-X2-Flash, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash models
+    - Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2, GLM-5, GLM-5.1, MiniMax-M2.5, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
+    - Efficient (199 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2, GLM-5, GLM-5.1, MiniMax-M2.5, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
 - [CTCloud Coding Plan](https://www.ctyun.cn/document/11061839/11092368)
   - GLM Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week, maximum ~1,600 prompts per subscription month. Supports GLM-5.1, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
   - GLM Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2,000 prompts per week, maximum ~8,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
   - GLM Max Plan (469 RMB/month): Maximum ~1,600 prompts per 5 hours, maximum ~8,000 prompts per week, maximum ~32,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
-  - Note: GLM-5.1, GLM-5, and GLM-5-Turbo are advanced models designed to rival Claude Opus. Their usage will be deducted at 3× during peak hours and 2× during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June. Peak hours are 14:00–18:00 (UTC+8).
+  - GLM-5.1, GLM-5, and GLM-5-Turbo are advanced models designed to rival Claude Opus. Their usage will be deducted at 3× during peak hours and 2× during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
+  - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
 
 ### Others
 
@@ -144,7 +142,7 @@
 
   - Lite (40 RMB/month): Fixed monthly fee, 12,000 requests per month, 6,000 per week, 1,000 per 5 hours
   - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
-  - Supported models: DeepSeek-v3.2, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, MiniMax-M2.7, GLM-4.7, GLM-5, GLM-5.1
+  - Supported models: DeepSeek-v3.2, DeepSeek-v3.2-Thinking, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, MiniMax-M2.7, GLM-4.7, GLM-5, GLM-5.1
 
 - [StepFun Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
 
@@ -152,7 +150,7 @@
   - Flash Plus (99 RMB/month): 400 prompts per 5 hours (~6,000 model calls), 1,600 prompts per week (~24,000 model calls)
   - Flash Pro (199 RMB/month): 1,500 prompts per 5 hours (~22,500 model calls), 6,000 prompts per week (~90,000 model calls)
   - Flash Max (699 RMB/month): 5,000 prompts per 5 hours (~75,000 model calls), 20,000 prompts per week (~300,000 model calls)
-  - Supported models: step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash), step-image-edit-2
+  - Supported models: step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-realtime, stepaudio-2.5-chat, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash), step-image-edit-2
 
 - [Xiaomi MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
 
@@ -161,7 +159,7 @@
   - Pro (329 RMB or 50 USD/month): 700M Credits per month
   - Max (659 RMB or 100 USD/month): 1.6B Credits per month
   - Supported models: All plans support MiMo-V2.5-Pro, MiMo-V2.5, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2-TTS (8 models total)
-  - Credit consumption: Credits are deducted based on token count. Pro and Omni quotas are consumed in parallel at a 1:2 ratio, not independently. TTS series models are free for a limited time and do not consume plan tokens. For example, if you subscribe to the Standard plan and use 10M MiMo-V2.5-Pro tokens, that consumes 20M Credits, and you can still enjoy 40M MiMo-V2.5 tokens (equivalent to 40M Credits). You can check your current plan's quota and usage in Subscription Management.
+  - Credit consumption: Credits are deducted based on token count. Pro and Omni quotas are consumed in parallel at a 1:2 ratio, not independently. TTS series models are free for a limited time and do not consume plan tokens. For example, if you subscribe to the Lite plan and use 10M MiMo-V2.5-Pro tokens, that consumes 20M Credits, and you can still enjoy 40M MiMo-V2.5 tokens (equivalent to 40M Credits). You can check your current plan's quota and usage in Subscription Management.
   - MiMo-V2.5: 1x (equivalent to base token consumption rate)
   - MiMo-V2.5-Pro: 2x (equivalent to 2x token consumption rate)
   - MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS: 0x (free for a limited time, no Credit consumption)
@@ -214,6 +212,10 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/05/22: Baidu Qianfan Coding Plan added support for DeepSeek-V4-Pro model
+
+- 2026/05/22: Alibaba Cloud Token Plan added support for qwen3.7-max model
 
 - 2026/05/08: Baidu Qianfan Coding Plan added support for DeepSeek-V4-Flash and GLM-5.1 models
 
