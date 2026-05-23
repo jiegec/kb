@@ -4676,10 +4676,117 @@
 
 
 <!-- https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/ -->
+
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+  <button onclick="openBibtexModal()" class="md-button">
+    Cite This
+  </button>
+</div>
+<style>
+.bibtex-modal-copy {
+    background-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: opacity 0.2s;
+}
+.bibtex-modal-copy:hover {
+    opacity: 0.85;
+}
+.bibtex-modal-close {
+    background: none;
+    border: 1px solid var(--md-typeset-color);
+    color: var(--md-typeset-color);
+    border-radius: 4px;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+.bibtex-modal-close:hover {
+    background: var(--md-code-bg-color);
+}
+</style>
+<script>
+const BIBTEX_TITLE = "CMOS (Complementary Metal Oxide Semiconductor)";
+const BIBTEX_DATE = "2024-12-04";
+const BIBTEX_URL = "https://jia.je/kb/en/hardware/cmos.html";
+const LOCALE = "en";
+
+function generateBibtex() {
+  var author = "Jiajie Chen";
+  var year = BIBTEX_DATE ? BIBTEX_DATE.substring(0, 4) : '';
+  var slug = BIBTEX_TITLE.toLowerCase().replace(/[^a-z0-9]+/g, '').replace(/^(.{40}).*$/, '$1');
+  var key = "chen" + year + slug;
+  return "@misc{" + key + ",\n  author = {" + author + "},\n  title  = {" + BIBTEX_TITLE + "},\n  year   = {" + year + "},\n  url    = {" + BIBTEX_URL + "},\n}";
+}
+function openBibtexModal() {
+  var existing = document.getElementById('bibtex-modal');
+  if (existing) document.body.removeChild(existing);
+
+  var overlay = document.createElement('div');
+  overlay.id = 'bibtex-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4)';
+
+  var box = document.createElement('div');
+  box.style.cssText = 'background:var(--md-default-bg-color,#fff);border-radius:8px;padding:24px;max-width:640px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.2);max-height:80vh;display:flex;flex-direction:column';
+
+  var header = document.createElement('div');
+  header.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:12px';
+  header.innerHTML = '<span style="font-weight:700;font-size:1.1rem">' + (LOCALE === 'zh' ? 'BibTeX 引用' : 'BibTeX') + '</span>';
+
+  var closeBtn = document.createElement('button');
+  closeBtn.textContent = '✕';
+  closeBtn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--md-typeset-color)';
+  closeBtn.onclick = function () { document.body.removeChild(overlay); };
+  header.appendChild(closeBtn);
+  box.appendChild(header);
+
+  var pre = document.createElement('pre');
+  pre.style.cssText = 'background:var(--md-code-bg-color,#f5f5f5);border-radius:4px;padding:16px;overflow:auto;font-size:0.85rem;line-height:1.4;margin:0;flex:1';
+  var code = document.createElement('code');
+  code.textContent = generateBibtex();
+  pre.appendChild(code);
+  box.appendChild(pre);
+
+  var actions = document.createElement('div');
+  actions.style.cssText = 'display:flex;justify-content:flex-end;gap:8px;margin-top:12px';
+
+  var copyBtn = document.createElement('button');
+  copyBtn.className = 'bibtex-modal-copy';
+  copyBtn.textContent = LOCALE === 'zh' ? '复制' : 'Copy';
+  copyBtn.onclick = function () {
+    navigator.clipboard.writeText(generateBibtex()).then(function () {
+      var orig = copyBtn.textContent;
+      copyBtn.textContent = LOCALE === 'zh' ? '已复制' : 'Copied';
+      setTimeout(function () { copyBtn.textContent = orig; }, 2000);
+    });
+  };
+  actions.appendChild(copyBtn);
+
+  var closeActionBtn = document.createElement('button');
+  closeActionBtn.className = 'bibtex-modal-close';
+  closeActionBtn.textContent = LOCALE === 'zh' ? '关闭' : 'Close';
+  closeActionBtn.onclick = function () { document.body.removeChild(overlay); };
+  actions.appendChild(closeActionBtn);
+
+  box.appendChild(actions);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) document.body.removeChild(overlay);
+  });
+}
+</script>
+
 <h2 id="__comments">Comments</h2>
 <!-- Insert generated snippet here -->
 
-<script src="https://giscus.app/client.js" data-repo="jiegec/kb" data-repo-id="R_kgDOJZwffg" data-category="General" data-category-id="DIC_kwDOJZwffs4CV-wv" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async>
+<script src="https://giscus.app/client.js" data-repo="jiegec/kb" data-repo-id="R_kgDOJZwffg" data-category="General" data-category-id="DIC_kwDOJZwffs4CV-wv" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
 </script>
                 
 
