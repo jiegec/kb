@@ -139,40 +139,25 @@
 ### 其他
 
 - [无问芯穹 Infini Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
-
   - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
   - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
   - 支持模型：DeepSeek-v3.2、DeepSeek-v3.2-Thinking、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、MiniMax-M2.7、GLM-4.7、GLM-5、GLM-5.1
-
 - [阶越星辰 Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
-
   - Flash Mini（49 RMB 每月）：5 小时限额 100 次 Prompt（~1500 次模型调用），周限额 400 次 Prompt（~6000 次模型调用）
   - Flash Plus（99 RMB 每月）：5 小时限额 400 次 Prompt（~6000 次模型调用），周限额 1600 次 Prompt（~24000 次模型调用）
   - Flash Pro（199 RMB 每月）：5 小时限额 1500 次 Prompt（~22500 次模型调用），周限额 6000 次 Prompt（~90000 次模型调用）
   - Flash Max（699 RMB 每月）：5 小时限额 5000 次 Prompt（~75000 次模型调用），周限额 20000 次 Prompt（~300000 次模型调用）
   - 支持模型：step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）、step-image-edit-2
-
 - [小米 MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
-
-  - Lite（39 RMB 或 6 USD 每月）：6000 万 Credits 每月
-  - Standard（99 RMB 或 16 USD 每月）：2 亿 Credits 每月
-  - Pro（329 RMB 或 50 USD 每月）：7 亿 Credits 每月
-  - Max（659 RMB 或 100 USD 每月）：16 亿 Credits 每月
+  - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月
+  - Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月
+  - Pro（329 RMB 或 50 USD 每月）：380 亿 Credits 每月
+  - Max（659 RMB 或 100 USD 每月）：820 亿 Credits 每月
   - 支持模型：各套餐均支持 MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-TTS-VoiceClone、 MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS、MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 共 8 款模型。
-  - 额度消耗：按 Token 数扣除 Credit 额度，Pro 和 Omni 的额度按 1:2 比例并行消耗，不是独立消耗。TTS 系列模型限时免费，不消耗套餐 Token。例如，您订购了 Lite 套餐，可单独或混合调用 MiMo-V2.5 系列模型，当您使用了 10M MiMo-V2.5-Pro 的 Token 额度后，相当于消耗了 20 M Credits，仍可享受 40M MiMo-V2.5 的 Token 额度（相当于 40 Credits）。可在 订阅管理 查看当前套餐的额度及用量。
-  - MiMo-V2.5：1x（等同于原始 Token 消耗速度）
-  - MiMo-V2.5-Pro：2x（等同于 2 倍 Token 消耗速度）
-  - MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS：0x（限时免费，不消耗 Credit）
-  - MiMo-V2-Omni：1x（等同于原始 Token 消耗速度）
-  - MiMo-V2-Pro：2x（等同于 2 倍 Token 消耗速度）
-  - MiMo-V2-TTS：0x（限时免费，不消耗 Credit）
-
+  - 额度消耗：按 Token 数扣除 Credit 额度，套餐中的可用模型按不同比例并行消耗，不是独立消耗，TTS 系列模型限时免费，不消耗套餐 Token。
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
-
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
-
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
-
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 
 ## prompt、请求和 token
@@ -212,6 +197,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B   | 17B    | 是   |
 
 ## 更新历史
+
+- 2026/05/27：小米 MiMo Token Plan 限额巨额上调
 
 - 2026/05/22：百度千帆 Coding Plan 新增支持 DeepSeek-V4-Pro 模型
 
