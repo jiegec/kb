@@ -38,7 +38,7 @@ CVE：CVE-2026-46300
 
 发行版修复方式：
 
-- Debian：见 <https://security-tracker.debian.org/tracker/CVE-2026-46300>
+- Debian：见 通过内核更新修复，<https://security-tracker.debian.org/tracker/CVE-2026-46300>
 - Ubuntu：见 <https://ubuntu.com/security/CVE-2026-46300>
 
 ## ssh-keysign-pwn
