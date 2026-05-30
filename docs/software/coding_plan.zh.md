@@ -147,7 +147,7 @@
     - Flash Plus（99 RMB 每月）：5 小时限额 400 次 Prompt（~6000 次模型调用），周限额 1600 次 Prompt（~24000 次模型调用）
     - Flash Pro（199 RMB 每月）：5 小时限额 1500 次 Prompt（~22500 次模型调用），周限额 6000 次 Prompt（~90000 次模型调用）
     - Flash Max（699 RMB 每月）：5 小时限额 5000 次 Prompt（~75000 次模型调用），周限额 20000 次 Prompt（~300000 次模型调用）
-    - 支持模型：step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）、step-image-edit-2
+    - 支持模型：step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）、step-image-edit-2
 - [小米 MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月
     - Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月
@@ -198,6 +198,7 @@
 
 ## 更新历史
 
+- 2026/05/29：阶越星辰 Coding Plan 新增支持 step-3.7-flash 模型
 - 2026/05/27：小米 MiMo Token Plan 限额巨额上调
 - 2026/05/22：百度千帆 Coding Plan 新增支持 DeepSeek-V4-Pro 模型
 - 2026/05/22：阿里云 Token Plan 新增支持 qwen3.7-max 模型
