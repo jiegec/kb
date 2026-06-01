@@ -21,31 +21,25 @@
 
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan)
 
-- Starter (29 RMB/month): 600 requests / per 5 hours
-- Plus (49 RMB/month): 1,500 requests / per 5 hours
-- Max (119 RMB/month): 4,500 requests / per 5 hours
-- Plus-Highspeed (98 RMB/month): 1,500 requests / per 5 hours
-- Max-Highspeed (199 RMB/month): 4,500 requests / per 5 hours
-- Ultra-Highspeed (899 RMB/month): 30,000 requests / per 5 hours
-- The Token Plan usage quota is calculated per model:
-  - M2.7 / M2.7-highspeed: Measured by requests, with a 5-hour rolling reset.
-  - Other models (speech, video, music, image): Measured by daily quotas, resetting daily.
-- Weekly Usage Quota: The current weekly usage quota is 10 times the “5-hour quota” (industry common range is 5–8 times)
-- [M2.7 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
-  - Cached input: 0.42 RMB per 1M tokens
-  - Uncached input: 2.1 RMB per 1M tokens
-  - Cache write input: 2.625 RMB per 1M tokens
-  - Output: 8.4 RMB per 1M tokens
-  - 200K context
+- Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+
+- Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+
+- Ultra (469 RMB/month): Monthly M3 Token usage approx. 5.5B+
+- [MiniMax M3 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
+  - \<= 512K input tokens:
+
+    - Cached input: 0.84 RMB per 1M tokens
+    - Uncached input: 4.2 RMB per 1M tokens
+    - Output: 16.80 RMB per 1M tokens
+
+  - > 512K input tokens:
+
+    - Cached input: 1.68 RMB per 1M tokens
+    - Uncached input: 8.4 RMB per 1M tokens
+    - Output: 33.60 RMB per 1M tokens
+
+  - 1M context
 
 [MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
-
-- Starter (10 USD/month): 1,500 requests / per 5 hours
-- Plus (20 USD/month): 4,500 requests / per 5 hours
-- Max (50 USD/month): 15,000 requests / per 5 hours
-- Plus-High-Speed (40 USD/month): 4,500 requests / per 5 hours
-- Max-High-Speed (80 USD/month): 15,000 requests / per 5 hours
-- Ultra-High-Speed (150 USD/month): 30,000 requests / per 5 hours
 
 ### Zhipu (GLM, Z.ai)
 
@@ -206,6 +200,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/06/01: MiniMax M3 released
 
 - 2026/05/29: StepFun Coding Plan added support for step-3.7-flash model
 
