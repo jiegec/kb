@@ -21,31 +21,21 @@
 
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan)
 
-- Starter（29 RMB 每月）: 600 请求 / 每 5 小时
-- Plus（49 RMB 每月）: 1500 请求 / 每 5 小时
-- Max（119 RMB 每月）: 4500 请求 / 每 5 小时
-- Plus-极速版（98 RMB 每月）：1500 请求 / 每 5 小时
-- Max-极速版（199 RMB 每月）：4500 请求 / 每 5 小时
-- Ultra-极速版（899 RMB 每月）：30000 请求 / 每 5 小时
-- Token Plan 的用量额度按模型分别计算：
-    - M2.7 / M2.7-highspeed：按请求（request）计算，每 5 小时滚动重置。
-    - 其他模型（语音、视频、音乐、图像）：按每日配额计算，每日重置。
-- 周使用额度：当前每周可使用额度为「5 小时额度」的 10 倍（行业常见为 5–8 倍）
-- [M2.7 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
-    - 输入命中缓存 0.42 RMB 每 1M tokens
-    - 输入未命中缓存 2.1 RMB 每 1M tokens
-    - 输入写入缓存 2.625 RMB 每 1M tokens
-    - 输出 8.4 RMB 每 1M tokens
-    - 200K 上下文
+- Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+
+- Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
+- Ultra（469 RMB 每月）: 月度 M3 Token 用量约 55 亿+
+- [MiniMax M3 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
+    - <= 512K 输入 token：
+        - 输入命中缓存 0.84 RMB 每 1M tokens
+        - 输入未命中缓存 4.2 RMB 每 1M tokens
+        - 输出 16.80 RMB 每 1M tokens
+    - > 512K 输入 token：
+        - 输入命中缓存 1.68 RMB 每 1M tokens
+        - 输入未命中缓存 8.4 RMB 每 1M tokens
+        - 输出 33.60 RMB 每 1M tokens
+    - 1M 上下文
 
 [MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)
-
-- Starter（10 USD 每月）: 1500 请求 / 每 5 小时
-- Plus（20 USD 每月）: 4500 请求 / 每 5 小时
-- Max（50 USD 每月）: 15000 请求 / 每 5 小时
-- Plus-极速版（40 USD 每月）：4500 请求 / 每 5 小时
-- Max-极速版（80 USD 每月）：15000 请求 / 每 5 小时
-- Ultra-极速版（150 USD 每月）：30000 请求 / 每 5 小时
 
 ### 智谱
 
@@ -198,6 +188,7 @@
 
 ## 更新历史
 
+- 2026/06/01：MiniMax M3 发布
 - 2026/05/29：阶越星辰 Coding Plan 新增支持 step-3.7-flash 模型
 - 2026/05/27：小米 MiMo Token Plan 限额巨额上调
 - 2026/05/22：百度千帆 Coding Plan 新增支持 DeepSeek-V4-Pro 模型
