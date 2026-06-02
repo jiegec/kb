@@ -529,8 +529,11 @@ DRAM 的数据存储在电容中。典型的 1T DRAM Cell 内部构造如下：
 - UDIMM(Unbuffered DIMM): 没有额外的寄存器打拍
 - RDIMM(Registered DIMM): 对地址、命令和时钟信号加寄存器打拍，数据信号不加寄存器
 - LRDIMM(Load Reduced DIMM): 在 RDIMM 的基础上，给数据信号也加上寄存器
+- CUDIMM(Clock Unbuferred DIMM): 在 DIMM 上添加 clock driver (CKD)，目标是更高的频率
+- SODIMM(Small Outline DIMM): 一般用于笔记本，面积小
+- CSODIMM(Clocked Small Outline DIMM): 在 SODIMM 上添加 clock driver (CKD)，频率更高
 
-随着寄存器的增加，延迟增加，但是也能达到更高的频率，更大的容量。
+随着寄存器的增加，延迟增加，但是也能达到更高的频率，更大的容量。为了进一步实现更高的频率，就要引入 CKD，保证高频率下时钟信号的质量。
 
 ## DDR5 DFE
 

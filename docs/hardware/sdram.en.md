@@ -528,8 +528,11 @@ Specifically for DIMMs, there are different types:
 - UDIMM (Unbuffered DIMM): No additional register buffering
 - RDIMM (Registered DIMM): Register buffering for address, command, and clock signals, but not for data signals
 - LRDIMM (Load Reduced DIMM): Based on RDIMM, it also adds register buffering for data signals
+- CUDIMM (Clock Unbuffered DIMM): Adds a clock driver (CKD) on the DIMM, targeting higher frequencies
+- SODIMM (Small Outline DIMM): Commonly used in laptops, smaller footprint
+- CSODIMM (Clocked Small Outline DIMM): Adds a clock driver (CKD) on SODIMM, for higher frequencies
 
-As the number of registers increases, latency also increases, but it allows for higher frequencies and greater capacity.
+As the number of registers increases, latency also increases, but it allows for higher frequencies and greater capacity. To achieve even higher frequencies, a CKD must be introduced to ensure the quality of the clock signal at high frequencies.
 
 ## DDR5 DFE
 
