@@ -19,7 +19,7 @@
 
 ## 补丁
 
-打补丁方法：下载官网上的 zip 文件，解压到 `/opt/Vivado/2023.2/patches/ARxxxxx` 路径。以 `AR000035293_vivado_2023_2_preliminary_rev1` 为例，最终应该得到：`/opt/Xilinx/Vivado/2023.2/patches/AR000035293_vivado_2023_2_preliminary_rev1/vivado/patch_readme/AR000035293_vivado_2023_2_preliminary_rev1.txt` 这个文件。打好了以后，启动 Vivado 可以看到版本号变成了 `2023.2_AR000035293`。
+打补丁方法：下载官网上的 zip 文件，解压到 `/opt/Vivado/2023.2/patches/ARxxxxx` 路径。以 [`AR000035293_vivado_2023_2_preliminary_rev1`](https://adaptivesupport.amd.com/s/article/Vivado-2023-1-and-2023-2-incremental-crash-ubuntu-20-04-and-22-04) 为例，最终应该得到：`/opt/Xilinx/Vivado/2023.2/patches/AR000035293_vivado_2023_2_preliminary_rev1/vivado/patch_readme/AR000035293_vivado_2023_2_preliminary_rev1.txt` 这个文件。打好了以后，启动 Vivado 可以看到版本号变成了 `2023.2_AR000035293`。
 
 常用补丁列表：
 
