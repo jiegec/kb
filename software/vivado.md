@@ -29,5 +29,6 @@
 - [Export IP Invalid Argument / Revision Number Overflow Issue (Y2K22)](https://adaptivesupport.amd.com/s/article/76960?language=en_US)
 - [2022.1 Vivado Design Suite Tactical Patch - Changes made to current project modify files in original project the current project was copied from](https://adaptivesupport.amd.com/s/article/000034002?language=en_US)
 - [76616 - Vivado/Vitis installation - Install hangs on Ubuntu 20.04](https://adaptivesupport.amd.com/s/article/76616?language=en_US)
+- [000034450 - Vivado 2022.x - Batch mode execution fails in Linux docker running under Windows/Linux host](https://adaptivesupport.amd.com/s/article/000034450?language=en_US)
 
 如何打补丁：[53821 - Vivado - How do I use the MYVIVADO environment variable to apply tactical patches?](https://adaptivesupport.amd.com/s/article/53821?language=en_US)
