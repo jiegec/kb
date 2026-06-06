@@ -125,6 +125,12 @@
     - GLM Max 套餐（469 RMB/月）：每 5 小时最多约 1,600 次 prompts，每周最多约 8,000 次 prompts，每月最多约 32,000 次 prompts，支持 GLM-5.1、GLM-5、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型
     - GLM-5.1、GLM-5、GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.1、GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 6 月底）
     - 注：高峰期为每日的 14:00～18:00
+- [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
+    - Lite（59 RMB 每月）：每订阅月 5000 万 tokens
+    - Standard（149 RMB 每月）：每订阅月 1.3 亿 tokens
+    - Pro（399 RMB 每月）：每订阅月 3.8 亿 tokens
+    - Max（799 RMB 每月）：每订阅月 8.8 亿 tokens
+    - 支持模型：GLM-5、GLM-5.1、Kimi-K2.6、DeepSeek-V3.2、DeepSeek-V4-Flash
 
 ### 其他
 
@@ -188,6 +194,7 @@
 
 ## 更新历史
 
+- 2026/06/05：华为云 MaaS Token Plan 上线
 - 2026/06/01：MiniMax M3 发布
 - 2026/05/29：阶越星辰 Coding Plan 新增支持 step-3.7-flash 模型
 - 2026/05/27：小米 MiMo Token Plan 限额巨额上调
