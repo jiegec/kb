@@ -129,6 +129,12 @@
   - GLM Max Plan (469 RMB/month): Maximum ~1,600 prompts per 5 hours, maximum ~8,000 prompts per week, maximum ~32,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models
   - GLM-5.1, GLM-5, and GLM-5-Turbo are advanced models designed to rival Claude Opus. Their usage will be deducted at 3× during peak hours and 2× during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
   - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
+- [Huawei Cloud MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
+  - Lite (59 RMB/month): 50M tokens per subscription month
+  - Standard (149 RMB/month): 130M tokens per subscription month
+  - Pro (399 RMB/month): 380M tokens per subscription month
+  - Max (799 RMB/month): 880M tokens per subscription month
+  - Supported models: GLM-5, GLM-5.1, Kimi-K2.6, DeepSeek-V3.2, DeepSeek-V4-Flash
 
 ### Others
 
@@ -200,6 +206,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/06/05: Huawei Cloud MaaS Token Plan launched
 
 - 2026/06/01: MiniMax M3 released
 
