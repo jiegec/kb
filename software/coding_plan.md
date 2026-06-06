@@ -25,18 +25,14 @@
 - Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
 - Ultra（469 RMB 每月）: 月度 M3 Token 用量约 55 亿+
 - [MiniMax M3 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
-  - \<= 512K 输入 token：
-
+  - `<=` 512K 输入 token：
     - 输入命中缓存 0.84 RMB 每 1M tokens
     - 输入未命中缓存 4.2 RMB 每 1M tokens
     - 输出 16.80 RMB 每 1M tokens
-
-  - > 512K 输入 token：
-
+  - `>` 512K 输入 token：
     - 输入命中缓存 1.68 RMB 每 1M tokens
     - 输入未命中缓存 8.4 RMB 每 1M tokens
     - 输出 33.60 RMB 每 1M tokens
-
   - 1M 上下文
 
 [MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)

@@ -25,18 +25,14 @@
 - Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+
 - Ultra (469 RMB/month): Monthly M3 Token usage approx. 5.5B+
 - [MiniMax M3 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
-  - \<= 512K input tokens:
-
+  - `<=` 512K input tokens:
     - Cached input: 0.84 RMB per 1M tokens
     - Uncached input: 4.2 RMB per 1M tokens
     - Output: 16.80 RMB per 1M tokens
-
-  - > 512K input tokens:
-
+  - `>` 512K input tokens:
     - Cached input: 1.68 RMB per 1M tokens
     - Uncached input: 8.4 RMB per 1M tokens
     - Output: 33.60 RMB per 1M tokens
-
   - 1M context
 
 [MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
