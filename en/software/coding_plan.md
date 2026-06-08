@@ -72,7 +72,7 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan)
   - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
   - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, DeepSeek-V4-Flash, DeepSeek-V4-Pro
+  - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-M3, MiniMax-2.5, Kimi-K2.6, Kimi-K2.5, GLM-5.1, GLM-4.7, DeepSeek-v3.2, DeepSeek-V4-Flash, DeepSeek-V4-Pro
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
   - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
     - Text generation models, embedding models: (input token * input deduction coefficient + output token * output deduction coefficient) / 10,000
@@ -82,7 +82,7 @@
   - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Vision models daily: 50,000 AFP.
   - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Vision models daily: 125,000 AFP.
   - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Vision models daily: 250,000 AFP.
-  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, glm-5.1, kimi-k2.6, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite
+  - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, minimax-m3, glm-5.1, kimi-k2.6, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite
   - Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
   - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
@@ -202,6 +202,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/06/08: Volcano Engine Coding Plan and Agent Plan added MiniMax-M3
 
 - 2026/06/08: MiniMax M3 API price permanently halved
 
