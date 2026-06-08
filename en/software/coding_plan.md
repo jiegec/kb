@@ -26,13 +26,13 @@
 - Ultra (469 RMB/month): Monthly M3 Token usage approx. 5.5B+
 - [MiniMax M3 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
   - `<=` 512K input tokens:
-    - Cached input: 0.84 RMB per 1M tokens
-    - Uncached input: 4.2 RMB per 1M tokens
-    - Output: 16.80 RMB per 1M tokens
+    - Cached input: 0.42 RMB per 1M tokens
+    - Uncached input: 2.10 RMB per 1M tokens
+    - Output: 8.40 RMB per 1M tokens
   - `>` 512K input tokens:
-    - Cached input: 1.68 RMB per 1M tokens
-    - Uncached input: 8.4 RMB per 1M tokens
-    - Output: 33.60 RMB per 1M tokens
+    - Cached input: 0.84 RMB per 1M tokens
+    - Uncached input: 4.20 RMB per 1M tokens
+    - Output: 16.80 RMB per 1M tokens
   - 1M context
 
 [MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
@@ -202,6 +202,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/06/08: MiniMax M3 API price permanently halved
 
 - 2026/06/05: Huawei Cloud MaaS Token Plan launched
 
