@@ -92,7 +92,7 @@
     - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
     - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 50,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
     - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01–0.02 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04–0.08 RMB
-    - Supported models: qwen3.7-max, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-flash, deepseek-v3.2, kimi-k2.6, kimi-k2.5, glm-5.1, glm-5, minimax-m2.5
+    - Supported models: qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-flash, deepseek-v3.2, kimi-k2.6, kimi-k2.5, glm-5.1, glm-5, minimax-m2.5
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Hy Token Plan:
         - Lite Plan (28 RMB/month): 35M tokens per subscription month
@@ -196,6 +196,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 ## Update History
 
 - 2026/06/08: MiniMax M3 API price permanently halved
+- 2026/06/07: Alibaba Cloud Bailian Coding Plan added qwen3.7-plus model
 - 2026/06/05: Huawei Cloud MaaS Token Plan launched
 - 2026/06/01: MiniMax M3 released
 - 2026/05/29: StepFun Coding Plan added support for step-3.7-flash model

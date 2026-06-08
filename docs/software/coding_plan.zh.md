@@ -92,7 +92,7 @@
     - 单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。
     - 以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
     - 如果按 256K 以内的上下文算，一个 Credit 对应的 API 价格（隐式缓存）是 0.01-0.02 元，按 256K-1M 的上下文，一个 Credit 对应 0.04-0.08 元
-    - 支持模型：qwen3.7-max、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseek-v4-flash、deepseek-v3.2、kimi-k2.6、kimi-k2.5、glm-5.1、glm-5、minimax-m2.5
+    - 支持模型：qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseek-v4-flash、deepseek-v3.2、kimi-k2.6、kimi-k2.5、glm-5.1、glm-5、minimax-m2.5
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Hy Token Plan:
         - Lite 套餐（28 RMB 每月）：每订阅月 3500 万 Token
@@ -195,6 +195,7 @@
 ## 更新历史
 
 - 2026/06/08：MiniMax M3 API 价格永久五折
+- 2026/06/07：阿里云百炼 Coding Plan 新增模型 qwen3.7-plus
 - 2026/06/05：华为云 MaaS Token Plan 上线
 - 2026/06/01：MiniMax M3 发布
 - 2026/05/29：阶越星辰 Coding Plan 新增支持 step-3.7-flash 模型
