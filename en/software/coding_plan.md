@@ -10,7 +10,7 @@
 - Moderato (99 RMB/month): 4x Kimi Code quota
 - Allegretto (199 RMB/month): 20x Kimi Code quota
 - Allegro (699 RMB/month): 60x Kimi Code quota
-- Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week
+- (Data from February 2026) Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week
 - [K2.6 API Pricing](https://platform.moonshot.cn/docs/pricing/chat):
   - Cached input: 1.1 RMB per 1M tokens
   - Uncached input: 6.5 RMB per 1M tokens
@@ -64,6 +64,15 @@
   - Uncached input: 2/3/4 RMB per 1M tokens
   - Output: 8/14/16 RMB per 1M tokens
   - 200K context
+
+[Zhipu GLM Coding Plan Team Edition](https://docs.bigmodel.cn/cn/coding-plan/team)
+
+- Team Standard (598 RMB/month): Maximum 60M tokens per seat per 5 hours, maximum 300M tokens per seat per week
+- Team Advanced (1198 RMB/month): Maximum 160M tokens per seat per 5 hours, maximum 800M tokens per seat per week
+- "Maximum" refers to the total tokens that can be actually consumed at a 1× consumption coefficient. Current model consumption rules are as follows:
+  - GLM-4.7, GLM-4.5-Air: Consume quota at 1× coefficient throughout the day
+  - GLM-5.1, GLM-5-Turbo: As advanced models, consume quota at 3× during peak hours and 2× during off-peak hours. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
+  - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
 
 [Zhipu International GLM Coding Plan](https://z.ai/subscribe)
 
@@ -202,6 +211,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/06/10: GLM Coding Plan Team Edition launched
 
 - 2026/06/08: Volcano Engine Coding Plan and Agent Plan added MiniMax-M3
 

@@ -10,7 +10,7 @@
 - Moderato（99 RMB 每月）：Kimi Code 4 倍额度
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
-- 通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens
+- （2026 年 2 月数据）通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens
 - [K2.6 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
   - 输入命中缓存 1.1 RMB 每 1M tokens
   - 输入未命中缓存 6.5 RMB 每 1M tokens
@@ -64,6 +64,15 @@
   - 输入未命中缓存 2/3/4 RMB 每 1M tokens
   - 输出 8/14/16 RMB 每 1M tokens
   - 200K 上下文
+
+[智谱 GLM Coding Plan 团队版](https://docs.bigmodel.cn/cn/coding-plan/team)
+
+- 团队标准版（598 RMB 每月）：每 5 小时最多 0.6 亿 tokens 每席位，每周最多 3 亿 tokens 每席位
+- 团队高级版（1198 RMB 每月）：每 5 小时最多 1.6 亿 tokens 每席位，每周最多 8 亿 tokens 每席位
+- “最多”指在 1 倍消耗系数 下，可实际消耗的 Tokens 总量。当前各模型的额度消耗规则如下：
+  - GLM-4.7、GLM-4.5-Air： 全天按 1 倍系数 消耗额度
+  - GLM-5.1、GLM-5-Turbo： 作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍” 系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.1 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。
+  - 注：高峰期时间为每日 14:00～18:00（UTC+8）。
 
 [智谱国际版 GLM Coding Plan](https://z.ai/subscribe)
 
@@ -193,6 +202,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B   | 17B    | 是   |
 
 ## 更新历史
+
+- 2026/06/10：GLM Coding Plan 团队版上线
 
 - 2026/06/08：方舟 Coding Plan 和 Agent Plan 上线 MiniMax-M3
 
