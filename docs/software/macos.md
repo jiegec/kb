@@ -51,4 +51,12 @@ Danger Zone:
 - Find panic log under `/Library/Logs/DiagnosticReports/panic-full-*.panic`
 - Allow loading custom kernel module: long-press power button to enter boot menu, enter `Options`, enter recovery of the macOS in use, `Utilities -> Startup Security Utility`, unlock disk, `Security Policy... -> Permissive Security -> Allow user management of kernel extensions from identified developers -> OK`.
 
+[Container](https://github.com/apple/container) Machine:
+
+```shell
+container system start
+container machine create debian:stable --name dev
+container machine run -n dev
+```
+
 Also see: [新 Mac 到手一定要改的 42 个设置！不改真的难用](https://www.bilibili.com/video/BV1r2RWB6EQN/)
