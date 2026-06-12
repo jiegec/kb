@@ -11,6 +11,11 @@
 - Allegretto (199 RMB/month): 20x Kimi Code quota
 - Allegro (699 RMB/month): 60x Kimi Code quota
 - (Data from February 2026) Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week
+- [K2.7-Code API Pricing](https://platform.moonshot.cn/docs/pricing/chat):
+    - Cached input: 1.3 RMB per 1M tokens
+    - Uncached input: 6.5 RMB per 1M tokens
+    - Output: 27 RMB per 1M tokens
+    - 256K context
 - [K2.6 API Pricing](https://platform.moonshot.cn/docs/pricing/chat):
     - Cached input: 1.1 RMB per 1M tokens
     - Uncached input: 6.5 RMB per 1M tokens
@@ -204,6 +209,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/06/12: Kimi K2.7-Code model released
 - 2026/06/10: GLM Coding Plan Team Edition launched
 - 2026/06/08: Volcano Engine Coding Plan and Agent Plan added MiniMax-M3
 - 2026/06/08: MiniMax M3 API price permanently halved

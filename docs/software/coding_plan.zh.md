@@ -11,6 +11,11 @@
 - Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
 - Allegro（699 RMB 每月）：Kimi Code 60 倍额度
 - （2026 年 2 月数据）通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens
+- [K2.7-Code API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
+    - 输入命中缓存 1.3 RMB 每 1M tokens
+    - 输入未命中缓存 6.5 RMB 每 1M tokens
+    - 输出 27 RMB 每 1M tokens
+    - 256K 上下文
 - [K2.6 API 价格](https://platform.moonshot.cn/docs/pricing/chat)：
     - 输入命中缓存 1.1 RMB 每 1M tokens
     - 输入未命中缓存 6.5 RMB 每 1M tokens
@@ -203,6 +208,7 @@
 
 ## 更新历史
 
+- 2026/06/12：Kimi K2.7-Code 模型发布
 - 2026/06/10：GLM Coding Plan 团队版上线
 - 2026/06/08：方舟 Coding Plan 和 Agent Plan 上线 MiniMax-M3
 - 2026/06/08：MiniMax M3 API 价格永久五折
