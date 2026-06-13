@@ -51,8 +51,8 @@
 - Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
 - Generally, one Prompt (i.e., one query) may trigger approximately 15–20 model calls during task execution. The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: All plans support GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
-- Note: GLM-5.1 and GLM-5-Turbo are advanced models designed to rival Claude Opus model. Its usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
+- Note: All plans support GLM-5.2, GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
+- Note: GLM-5.2/GLM-5.1/GLM-5-Turbo are advanced models designed to rival Claude Opus model. Their usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.2/GLM-5.1/GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of September.
 - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
 - [GLM-5.1 API Pricing](https://bigmodel.cn/pricing):
   - Cached input: 1.3/2 RMB per 1M tokens
@@ -216,6 +216,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
 ## Update History
+
+- 2026/06/13: GLM-5.2 model released
 
 - 2026/06/12: Kimi K2.7-Code model released
 
