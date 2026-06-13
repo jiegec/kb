@@ -204,6 +204,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                         | 744B       | 40B    | N      |
 | [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                 | 295B       | 21B    | N      |
 | [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                  | 1T         | 32B    | Y      |
+| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                 | 428B       | 23B    | Y      |
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)             | 230B       | 10B    | N      |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
 
