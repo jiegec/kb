@@ -54,6 +54,11 @@
 - Note: All plans support GLM-5.2, GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.
 - Note: GLM-5.2/GLM-5.1/GLM-5-Turbo are advanced models designed to rival Claude Opus model. Their usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.2/GLM-5.1/GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of September.
 - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
+- [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
+    - Cached input: 2 RMB per 1M tokens
+    - Uncached input: 8 RMB per 1M tokens
+    - Output: 28 RMB per 1M tokens
+    - 1M context
 - [GLM-5.1 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 1.3/2 RMB per 1M tokens
     - Uncached input: 6/8 RMB per 1M tokens
@@ -201,6 +206,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)     | 1.6T       | 49B    | N      |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)             | 30B        | 3B     | N      |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                         | 355B       | 32B    | N      |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                         | 744B       | 40B    | N      |
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                         | 744B       | 40B    | N      |
 | [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                 | 295B       | 21B    | N      |
 | [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                  | 1T         | 32B    | Y      |

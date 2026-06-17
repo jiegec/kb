@@ -54,6 +54,11 @@
 - 注：所有套餐均支持 GLM-5.2、GLM-5.1、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。
 - 注：GLM-5.2/GLM-5.1/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照 “高峰期 3 倍，非高峰期 2 倍” 系数消耗额度； 我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.2/GLM-5.1/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）
 - 注：高峰期为每日的 14:00～18:00 （UTC+8）
+- [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
+    - 输入命中缓存 2 RMB 每 1M tokens
+    - 输入未命中缓存 8 RMB 每 1M tokens
+    - 输出 28 RMB 每 1M tokens
+    - 1M 上下文
 - [GLM-5.1 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 1.3/2 RMB 每 1M tokens
     - 输入未命中缓存 6/8 RMB 每 1M tokens
@@ -200,6 +205,7 @@
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)     | 1.6T   | 49B    | 否   |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)             | 30B    | 3B     | 否   |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                         | 355B   | 32B    | 否   |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                         | 744B   | 40B    | 否   |
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                         | 744B   | 40B    | 否   |
 | [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                 | 295B   | 21B    | 否   |
 | [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                  | 1T     | 32B    | 是   |
