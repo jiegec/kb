@@ -98,6 +98,7 @@
 - [Linux 图形软件栈](https://jia.je/kb/software/linux_graphics.md)
 - [Linux Kernel Memory Barriers 总结](https://jia.je/kb/software/linux_kernel_memory_barriers.md)
 - [Linux 内存管理（Memory Management）](https://jia.je/kb/software/linux_mm.md)
+- [Linux Quota](https://jia.je/kb/software/linux_quota.md)
 - [Linux 资源控制（Resource Control）](https://jia.je/kb/software/linux_resctrl.md)
 - [Linux Scheduler 分析](https://jia.je/kb/software/linux_scheduler.md)
 - [Linux Soft RAID](https://jia.je/kb/software/linux_soft_raid.md)
