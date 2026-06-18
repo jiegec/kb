@@ -4694,14 +4694,21 @@
 <li>Allegretto (199 RMB/month): 20x Kimi Code quota</li>
 <li>Allegro (699 RMB/month): 60x Kimi Code quota</li>
 <li>(Data from February 2026) Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week</li>
-<li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.7-Code API Pricing</a>:<ul>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k27-code">K2.7-Code API Pricing</a>:<ul>
 <li>Cached input: 1.3 RMB per 1M tokens</li>
 <li>Uncached input: 6.5 RMB per 1M tokens</li>
 <li>Output: 27 RMB per 1M tokens</li>
 <li>256K context</li>
 </ul>
 </li>
-<li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.6 API Pricing</a>:<ul>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k27-code">K2.7-Code-HighSpeed API Pricing</a>:<ul>
+<li>Cached input: 2.6 RMB per 1M tokens</li>
+<li>Uncached input: 13.0 RMB per 1M tokens</li>
+<li>Output: 54 RMB per 1M tokens</li>
+<li>256K context</li>
+</ul>
+</li>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k26">K2.6 API Pricing</a>:<ul>
 <li>Cached input: 1.1 RMB per 1M tokens</li>
 <li>Uncached input: 6.5 RMB per 1M tokens</li>
 <li>Output: 27 RMB per 1M tokens</li>
@@ -4710,11 +4717,11 @@
 </li>
 </ul>
 <h3 id="minimax">MiniMax</h3>
-<p><a href="https://platform.minimaxi.com/docs/token-plan/intro">MiniMax Token Plan</a> <a href="https://platform.minimaxi.com/docs/guides/pricing-token-plan">Pricing</a></p>
+<p><a href="https://platform.minimaxi.com/docs/token-plan/intro">MiniMax Token Plan</a> <a href="https://platform.minimaxi.com/docs/guides/pricing-token-plan">Pricing</a> <a href="https://platform.minimaxi.com/subscribe/token-plan">Subscription</a></p>
 <ul>
 <li>Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+</li>
 <li>Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+</li>
-<li>Ultra (469 RMB/month): Monthly M3 Token usage approx. 5.5B+</li>
+<li>Ultra (469 RMB/month): Monthly M3 Token usage approx. 7.1B+</li>
 <li><a href="https://platform.minimaxi.com/docs/guides/pricing-paygo">MiniMax M3 API Pricing</a>:<ul>
 <li><code>&lt;=</code> 512K input tokens:<ul>
 <li>Cached input: 0.42 RMB per 1M tokens</li>
@@ -4741,7 +4748,7 @@
 <li>Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week</li>
 <li>Generally, one Prompt (i.e., one query) may trigger approximately 15–20 model calls during task execution. The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.</li>
 <li>Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.</li>
-<li>Note: All plans support GLM-5.2, GLM-5.1, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air.</li>
+<li>Note: All plans support GLM-5.2, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air. Calling legacy models GLM-5.1/GLM-5 will automatically switch to GLM-5.2.</li>
 <li>Note: GLM-5.2/GLM-5.1/GLM-5-Turbo are advanced models designed to rival Claude Opus model. Their usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.2/GLM-5.1/GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of September.</li>
 <li>Note: Peak hours are 14:00–18:00 (UTC+8) daily.</li>
 <li><a href="https://bigmodel.cn/pricing">GLM-5.2 API Pricing</a>:<ul>
@@ -4779,7 +4786,7 @@
 <li>Team Advanced (1198 RMB/month): Maximum 160M tokens per seat per 5 hours, maximum 800M tokens per seat per week</li>
 <li>"Maximum" refers to the total tokens that can be actually consumed at a 1× consumption coefficient. Current model consumption rules are as follows:<ul>
 <li>GLM-4.7, GLM-4.5-Air: Consume quota at 1× coefficient throughout the day</li>
-<li>GLM-5.1, GLM-5-Turbo: As advanced models, consume quota at 3× during peak hours and 2× during off-peak hours. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.</li>
+<li>GLM-5.2, GLM-5-Turbo: As advanced models, consume quota at 3× during peak hours and 2× during off-peak hours. As a limited-time benefit, GLM-5.2 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.</li>
 <li>Note: Peak hours are 14:00–18:00 (UTC+8) daily.</li>
 </ul>
 </li>
@@ -4804,7 +4811,7 @@
 <li>Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Vision models daily: 50,000 AFP.</li>
 <li>Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Vision models daily: 125,000 AFP.</li>
 <li>Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Vision models daily: 250,000 AFP.</li>
-<li>All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, minimax-m3, glm-5.1, kimi-k2.6, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite</li>
+<li>All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, minimax-m3, glm-5.2, glm-5.1, kimi-k2.6, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite</li>
 <li>Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast</li>
 </ul>
 </li>
@@ -4820,6 +4827,12 @@
 </ul>
 </li>
 <li><a href="https://cloud.tencent.com/act/pro/tokenplan">Tencent Cloud LLM Token Plan</a><ul>
+<li>Token Plan Enterprise Edition:<ul>
+<li>Professional Plan: 1 RMB/100 Credits per month</li>
+<li>Light Enjoyment Plan: 2 RMB/million tokens per month</li>
+</ul>
+</li>
+<li>Token Plan Personal Edition:<ul>
 <li>Hy Token Plan:<ul>
 <li>Lite Plan (28 RMB/month): 35M tokens per subscription month</li>
 <li>Standard Plan (78 RMB/month): 100M tokens per subscription month</li>
@@ -4838,7 +4851,9 @@
 </li>
 </ul>
 </li>
-<li><a href="https://cloud.baidu.com/product/codingplan.html">Baidu Qianfan Coding Plan</a><ul>
+</ul>
+</li>
+<li><a href="https://cloud.baidu.com/product/codingplan.html">Baidu Qianfan Coding Plan</a> <a href="https://cloud.baidu.com/doc/qianfan/s/imlg0beiu">Documentation</a><ul>
 <li>Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests</li>
 <li>Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests</li>
 <li>Supported models: Kimi-K2.5, DeepSeek-V3.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash, GLM-5, GLM-5.1, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402</li>
@@ -4850,21 +4865,26 @@
 <li>Supported models: DeepSeek-V3.2, GLM-5, GLM-4.7, MiniMax-M2.5, Kimi-K2.5, Kimi-K2-Turbo, Qwen3-Coder</li>
 </ul>
 </li>
+<li><a href="https://www.xfyun.cn/doc/spark/TokenPlan.html">iFlytek Astron Token Plan Team Edition</a><ul>
+<li>Standard Member (200 RMB/seat/month): 20000 Credits, 2M TPM</li>
+<li>Advanced Member (600 RMB/seat/month): 60000 Credits, 3M TPM</li>
+<li>Premium Member (1200 RMB/seat/month): 200000 Credits, 5M TPM</li>
+<li>Supported models: Spark-X2, Spark-X2-Flash, GLM-5.1, GLM-5, DeepSeek-V4-Pro, DeepSeek-V4-Flash, DeepSeek-V3.2, Kimi-K2.6, Kimi-K2.7, MiniMax-M2.5, Qwen3.5-397B-A17B, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash</li>
+</ul>
+</li>
 <li><a href="https://www.xfyun.cn/doc/spark/CodingPlan.html">iFlytek Astron Coding Plan</a><ul>
-<li>Updated Edition (launched April 9, 2026):<ul>
-<li>Worry-Free (3.9 RMB first purchase/month, 19 RMB repeat purchase/month): Unlimited requests, supports Spark-X2-Flash, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash models</li>
-<li>Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2, GLM-5, GLM-5.1, MiniMax-M2.5, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models</li>
-<li>Efficient (199 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2, GLM-5, GLM-5.1, MiniMax-M2.5, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models</li>
+<li>Worry-Free (19 RMB/month): Unlimited requests, supports Spark-X2-Flash, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash models</li>
+<li>Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2, GLM-5, GLM-5.1, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models</li>
+<li>Efficient (199 RMB/month): Per 5 hours: maximum ~6,000 requests; per week: maximum ~45,000 requests; per subscription month: maximum ~90,000 requests. Supports Spark-X2, GLM-5, GLM-5.1, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="https://www.ctyun.cn/document/11061839/11092368">CTCloud Coding Plan</a><ul>
-<li>GLM Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week, maximum ~1,600 prompts per subscription month. Supports GLM-5.1, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models</li>
-<li>GLM Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2,000 prompts per week, maximum ~8,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models</li>
-<li>GLM Max Plan (469 RMB/month): Maximum ~1,600 prompts per 5 hours, maximum ~8,000 prompts per week, maximum ~32,000 prompts per subscription month. Supports GLM-5.1, GLM-5, GLM-5-Turbo, GLM-4.7, GLM-4.6, GLM-4.5, GLM-4.5-Air models</li>
-<li>GLM-5.1, GLM-5, and GLM-5-Turbo are advanced models designed to rival Claude Opus. Their usage will be deducted at 3× during peak hours and 2× during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.1 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.</li>
-<li>Note: Peak hours are 14:00–18:00 (UTC+8) daily.</li>
+<li><a href="https://www.ctyun.cn/document/11061839/11092368">CTCloud Token Plan</a><ul>
+<li>29 RMB/month: 25M tokens</li>
+<li>89 RMB/month: 80M tokens</li>
+<li>199 RMB/month: 180M tokens</li>
+<li>399 RMB/month: 380M tokens</li>
+<li>699 RMB/month: 680M tokens</li>
+<li>Supported models: GLM-5, DeepSeek-V3.2</li>
 </ul>
 </li>
 <li><a href="https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html">Huawei Cloud MaaS Token Plan</a><ul>
@@ -4885,10 +4905,10 @@
 </ul>
 </li>
 <li><a href="https://platform.stepfun.com/docs/zh/step-plan/overview">StepFun Coding Plan</a><ul>
-<li>Flash Mini (49 RMB/month): 100 prompts per 5 hours (~1,500 model calls), 400 prompts per week (~6,000 model calls)</li>
-<li>Flash Plus (99 RMB/month): 400 prompts per 5 hours (~6,000 model calls), 1,600 prompts per week (~24,000 model calls)</li>
-<li>Flash Pro (199 RMB/month): 1,500 prompts per 5 hours (~22,500 model calls), 6,000 prompts per week (~90,000 model calls)</li>
-<li>Flash Max (699 RMB/month): 5,000 prompts per 5 hours (~75,000 model calls), 20,000 prompts per week (~300,000 model calls)</li>
+<li>Flash Mini (49 RMB/month): 400M Credits</li>
+<li>Flash Plus (99 RMB/month): 1600M Credits</li>
+<li>Flash Pro (199 RMB/month): 8000M Credits</li>
+<li>Flash Max (699 RMB/month): 40000M Credits</li>
 <li>Supported models: step-3.7-flash, step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-realtime, stepaudio-2.5-chat, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash), step-image-edit-2</li>
 </ul>
 </li>
@@ -4899,7 +4919,7 @@
 <li>Standard (99 RMB or 16 USD/month): 11B Credits per month</li>
 <li>Pro (329 RMB or 50 USD/month): 38B Credits per month</li>
 <li>Max (659 RMB or 100 USD/month): 82B Credits per month</li>
-<li>Supported models: All plans support MiMo-V2.5-Pro, MiMo-V2.5, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2-TTS (8 models total)</li>
+<li>Supported models: All plans support MiMo-V2.5-Pro, MiMo-V2.5, MiMo-V2.5-ASR, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2-TTS (9 models total)</li>
 <li>Credit consumption: Credits are deducted based on token count. Available models in the plan consume Credits at different ratios in parallel, not independently. TTS series models are free for a limited time and do not consume plan tokens.</li>
 </ul>
 </li>
@@ -5173,7 +5193,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2026 02:09:25 UTC">June 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 18, 2026 09:38:29 UTC">June 18, 2026</span>
   </span>
 
     
@@ -5233,7 +5253,7 @@
 </style>
 <script>
 const BIBTEX_TITLE = "AI Coding Plan";
-const BIBTEX_DATE = "2026-06-17";
+const BIBTEX_DATE = "2026-06-18";
 const BIBTEX_URL = "https://jia.je/kb/en/software/coding_plan.html";
 const LOCALE = "en";
 

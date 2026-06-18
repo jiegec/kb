@@ -4694,14 +4694,21 @@
 <li>Allegretto（199 RMB 每月）：Kimi Code 20 倍额度</li>
 <li>Allegro（699 RMB 每月）：Kimi Code 60 倍额度</li>
 <li>（2026 年 2 月数据）通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens</li>
-<li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.7-Code API 价格</a>：<ul>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k27-code">K2.7-Code API 价格</a>：<ul>
 <li>输入命中缓存 1.3 RMB 每 1M tokens</li>
 <li>输入未命中缓存 6.5 RMB 每 1M tokens</li>
 <li>输出 27 RMB 每 1M tokens</li>
 <li>256K 上下文</li>
 </ul>
 </li>
-<li><a href="https://platform.moonshot.cn/docs/pricing/chat">K2.6 API 价格</a>：<ul>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k27-code">K2.7-Code-HighSpeed API 价格</a>：<ul>
+<li>输入命中缓存 2.6 RMB 每 1M tokens</li>
+<li>输入未命中缓存 13.0 RMB 每 1M tokens</li>
+<li>输出 54 RMB 每 1M tokens</li>
+<li>256K 上下文</li>
+</ul>
+</li>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k26">K2.6 API 价格</a>：<ul>
 <li>输入命中缓存 1.1 RMB 每 1M tokens</li>
 <li>输入未命中缓存 6.5 RMB 每 1M tokens</li>
 <li>输出 27 RMB 每 1M tokens</li>
@@ -4710,11 +4717,11 @@
 </li>
 </ul>
 <h3 id="minimax">MiniMax</h3>
-<p><a href="https://platform.minimaxi.com/docs/token-plan/intro">MiniMax Token Plan</a> <a href="https://platform.minimaxi.com/docs/guides/pricing-token-plan">产品定价</a></p>
+<p><a href="https://platform.minimaxi.com/docs/token-plan/intro">MiniMax Token Plan</a> <a href="https://platform.minimaxi.com/docs/guides/pricing-token-plan">产品定价</a> <a href="https://platform.minimaxi.com/subscribe/token-plan">订阅</a></p>
 <ul>
 <li>Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+</li>
 <li>Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+</li>
-<li>Ultra（469 RMB 每月）: 月度 M3 Token 用量约 55 亿+</li>
+<li>Ultra（469 RMB 每月）: 月度 M3 Token 用量约 71 亿+</li>
 <li><a href="https://platform.minimaxi.com/docs/guides/pricing-paygo">MiniMax M3 API 价格</a>：<ul>
 <li><code>&lt;=</code> 512K 输入 token：<ul>
 <li>输入命中缓存 0.42 RMB 每 1M tokens</li>
@@ -4741,9 +4748,9 @@
 <li>Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 8000 次 prompts</li>
 <li>一般情况下，一次 Prompt（即一次提问）在任务执行过程中可能触发约 15–20 次模型调用。上述次数均为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。</li>
 <li>注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。</li>
-<li>注：所有套餐均支持 GLM-5.2、GLM-5.1、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。</li>
+<li>注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。</li>
 <li>注：GLM-5.2/GLM-5.1/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照 “高峰期 3 倍，非高峰期 2 倍” 系数消耗额度； 我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.2/GLM-5.1/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）</li>
-<li>注：高峰期为每日的 14:00～18:00 （UTC+8）</li>
+<li>注：高峰期为每日的 14:00～18:00（UTC+8）</li>
 <li><a href="https://bigmodel.cn/pricing">GLM-5.2 API 价格</a>：<ul>
 <li>输入命中缓存 2 RMB 每 1M tokens</li>
 <li>输入未命中缓存 8 RMB 每 1M tokens</li>
@@ -4778,8 +4785,8 @@
 <li>团队标准版（598 RMB 每月）：每 5 小时最多 0.6 亿 tokens 每席位，每周最多 3 亿 tokens 每席位</li>
 <li>团队高级版（1198 RMB 每月）：每 5 小时最多 1.6 亿 tokens 每席位，每周最多 8 亿 tokens 每席位</li>
 <li>“最多”指在 1 倍消耗系数 下，可实际消耗的 Tokens 总量。当前各模型的额度消耗规则如下：<ul>
-<li>GLM-4.7、GLM-4.5-Air： 全天按 1 倍系数 消耗额度</li>
-<li>GLM-5.1、GLM-5-Turbo： 作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍” 系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.1 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。</li>
+<li>GLM-4.7、GLM-4.5-Air：全天按 1 倍系数 消耗额度</li>
+<li>GLM-5.2、GLM-5-Turbo：作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍” 系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.2 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。</li>
 <li>注：高峰期时间为每日 14:00～18:00（UTC+8）。</li>
 </ul>
 </li>
@@ -4804,7 +4811,7 @@
 <li>Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。视觉模型每日：50000 AFP。</li>
 <li>Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。视觉模型每日：125000 AFP。</li>
 <li>Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。视觉模型每日：250000 AFP。</li>
-<li>全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、doubao-seed-2.0-code、doubao-seed-2.0-pro、deepseek-v3.2、minimax-m2.7、minimax-m3、glm-5.1、kimi-k2.6、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite</li>
+<li>全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、doubao-seed-2.0-code、doubao-seed-2.0-pro、deepseek-v3.2、minimax-m2.7、minimax-m3、glm-5.2、glm-5.1、kimi-k2.6、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite</li>
 <li>Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast</li>
 </ul>
 </li>
@@ -4820,6 +4827,12 @@
 </ul>
 </li>
 <li><a href="https://cloud.tencent.com/act/pro/tokenplan">腾讯云大模型 Token Plan</a><ul>
+<li>Token Plan 企业版：<ul>
+<li>专业套餐：每月 1 元/100积分</li>
+<li>轻享套餐：每月 2 元/百万 tokens</li>
+</ul>
+</li>
+<li>Token Plan 个人版：<ul>
 <li>Hy Token Plan:<ul>
 <li>Lite 套餐（28 RMB 每月）：每订阅月 3500 万 Token</li>
 <li>Standard 套餐（78 RMB 每月）：每订阅月 1 亿 Token</li>
@@ -4838,7 +4851,9 @@
 </li>
 </ul>
 </li>
-<li><a href="https://cloud.baidu.com/product/codingplan.html">百度千帆 Coding Plan</a><ul>
+</ul>
+</li>
+<li><a href="https://cloud.baidu.com/product/codingplan.html">百度千帆 Coding Plan</a> <a href="https://cloud.baidu.com/doc/qianfan/s/imlg0beiu">文档</a><ul>
 <li>Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求</li>
 <li>Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求</li>
 <li>支持模型：Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5、GLM-5.1、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402</li>
@@ -4850,21 +4865,26 @@
 <li>支持模型：DeepSeek-V3.2、GLM-5、GLM-4.7、MiniMax-M2.5、Kimi-K2.5、Kimi-K2-Turbo、Qwen3-Coder</li>
 </ul>
 </li>
+<li><a href="https://www.xfyun.cn/doc/spark/TokenPlan.html">讯飞星辰 Astron Token Plan 团队版</a><ul>
+<li>标准成员（200 RMB/席/月）：20000 Credits，200 万 TPM</li>
+<li>高级成员（600 RMB/席/月）：60000 Credits，300 万 TPM</li>
+<li>尊享成员（1200 RMB/席/月）：200000 Credits，500 万 TPM</li>
+<li>支持模型：Spark-X2、Spark-X2-Flash、GLM-5.1、GLM-5、DeepSeek-V4-Pro、DeepSeek-V4-Flash、DeepSeek-V3.2、Kimi-K2.6、Kimi-K2.7、MiniMax-M2.5、Qwen3.5-397B-A17B、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash</li>
+</ul>
+</li>
 <li><a href="https://www.xfyun.cn/doc/spark/CodingPlan.html">讯飞星辰 Astron Coding Plan</a><ul>
-<li>焕新版（2026 年 4 月 9 日上线）<ul>
-<li>无忧版（3.9 RMB 每月首购，19 RMB 每月重复购买）：请求次数不限，支持 Spark-X2-Flash、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash 模型</li>
-<li>专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2、GLM-5、GLM-5.1、MiniMax-M2.5、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
-<li>高效版（199 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2、GLM-5、GLM-5.1、MiniMax-M2.5、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
+<li>无忧版（19 RMB 每月）：请求次数不限，支持 Spark-X2-Flash、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash 模型</li>
+<li>专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2、GLM-5、GLM-5.1、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
+<li>高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2、GLM-5、GLM-5.1、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="https://www.ctyun.cn/document/11061839/11092368">天翼云 Coding Plan</a><ul>
-<li>GLM Lite 套餐（49 RMB/月）：每 5 小时最多约 80 次 prompts，每周最多约 400 次 prompts，每月最多约 1,600 次 prompts，支持 GLM-5.1、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型</li>
-<li>GLM Pro 套餐（149 RMB/月）：每 5 小时最多约 400 次 prompts，每周最多约 2,000 次 prompts，每月最多约 8,000 次 prompts，支持 GLM-5.1、GLM-5、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型</li>
-<li>GLM Max 套餐（469 RMB/月）：每 5 小时最多约 1,600 次 prompts，每周最多约 8,000 次 prompts，每月最多约 32,000 次 prompts，支持 GLM-5.1、GLM-5、GLM-5-Turbo、GLM-4.7、GLM-4.6、GLM-4.5、GLM-4.5-Air 模型</li>
-<li>GLM-5.1、GLM-5、GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.1、GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 6 月底）</li>
-<li>注：高峰期为每日的 14:00～18:00</li>
+<li><a href="https://www.ctyun.cn/document/11061839/11092368">天翼云 Token Plan</a><ul>
+<li>29 RMB 每月：2500 万 tokens</li>
+<li>89 RMB 每月：8000 万 tokens</li>
+<li>199 RMB 每月：18000 万 tokens</li>
+<li>399 RMB 每月：38000 万 tokens</li>
+<li>699 RMB 每月：68000 万 tokens</li>
+<li>支持模型：GLM-5、DeepSeek-V3.2</li>
 </ul>
 </li>
 <li><a href="https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html">华为云 MaaS Token Plan</a><ul>
@@ -4885,10 +4905,10 @@
 </ul>
 </li>
 <li><a href="https://platform.stepfun.com/docs/zh/step-plan/overview">阶越星辰 Coding Plan</a><ul>
-<li>Flash Mini（49 RMB 每月）：5 小时限额 100 次 Prompt（~1500 次模型调用），周限额 400 次 Prompt（~6000 次模型调用）</li>
-<li>Flash Plus（99 RMB 每月）：5 小时限额 400 次 Prompt（~6000 次模型调用），周限额 1600 次 Prompt（~24000 次模型调用）</li>
-<li>Flash Pro（199 RMB 每月）：5 小时限额 1500 次 Prompt（~22500 次模型调用），周限额 6000 次 Prompt（~90000 次模型调用）</li>
-<li>Flash Max（699 RMB 每月）：5 小时限额 5000 次 Prompt（~75000 次模型调用），周限额 20000 次 Prompt（~300000 次模型调用）</li>
+<li>Flash Mini（49 RMB 每月）：400M Credit</li>
+<li>Flash Plus（99 RMB 每月）：1600M Credit</li>
+<li>Flash Pro（199 RMB 每月）：8000M Credit</li>
+<li>Flash Max（699 RMB 每月）：40000M Credit</li>
 <li>支持模型：step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）、step-image-edit-2</li>
 </ul>
 </li>
@@ -4897,7 +4917,7 @@
 <li>Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月</li>
 <li>Pro（329 RMB 或 50 USD 每月）：380 亿 Credits 每月</li>
 <li>Max（659 RMB 或 100 USD 每月）：820 亿 Credits 每月</li>
-<li>支持模型：各套餐均支持 MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-TTS-VoiceClone、 MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS、MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 共 8 款模型。</li>
+<li>支持模型：各套餐均支持 MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS、MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 共 9 款模型。</li>
 <li>额度消耗：按 Token 数扣除 Credit 额度，套餐中的可用模型按不同比例并行消耗，不是独立消耗，TTS 系列模型限时免费，不消耗套餐 Token。</li>
 </ul>
 </li>
@@ -5172,7 +5192,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月17日 02:09:25 UTC">2026年6月17日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月18日 09:38:29 UTC">2026年6月18日</span>
   </span>
 
     
@@ -5232,7 +5252,7 @@
 </style>
 <script>
 const BIBTEX_TITLE = "AI Coding Plan";
-const BIBTEX_DATE = "2026-06-17";
+const BIBTEX_DATE = "2026-06-18";
 const BIBTEX_URL = "https://jia.je/kb/software/coding_plan.html";
 const LOCALE = "zh";
 
