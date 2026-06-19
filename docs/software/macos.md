@@ -84,5 +84,11 @@ audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] Invalidating
 audiomxd: (MediaExperience) [com.apple.coremedia:] -MXSessionManager- -[MXSessionManager audioAccessoryServerDiedCallback:]_block_invoke: Syncing with AudioAccessoryServices as they just recovered.
 ```
 
+Workaround if audio is not required:
+
+```shell
+sudo killall -STOP audiomxd
+```
+
 Appear when user logged in and then logged out. Disappear when the user logged in again.
 
