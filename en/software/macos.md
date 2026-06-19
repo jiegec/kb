@@ -60,3 +60,28 @@ container machine run -n dev
 ```
 
 Also see: [新 Mac 到手一定要改的 42 个设置！不改真的难用](https://www.bilibili.com/video/BV1r2RWB6EQN/)
+
+audiomxd taking high cpu usage:
+
+```shell
+$ log stream
+audiomxd: (MediaExperience) [com.apple.coremedia:] -MXSessionManager- -[MXSessionManager audioAccessoryServerDiedCallback:]_block_invoke: Syncing with AudioAccessoryServices as they just recovered.
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] UpdateAudioState CID 0x484619B7 audioState Stop apps {}
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] TargetUserSession loginwindow 0
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] ### TargetUserSession, but no console user?
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] ### UpdateAudioState failed to start XPC: kUnexpectedErr (No user logged in)
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] ### audioaccessoryd died
+audiomxd: (MediaExperience) [com.apple.coremedia:] -MXAudioAccessoryServices- -[MXAudioAccessoryServices handleServerDeath]: audioaccessoryd died :(
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] Invalidating
+audiomxd: (MediaExperience) [com.apple.coremedia:] -MXSessionManager- -[MXSessionManager audioAccessoryServerDiedCallback:]_block_invoke: Syncing with AudioAccessoryServices as they just recovered.
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] UpdateAudioState CID 0x484619B8 audioState Stop apps {}
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] TargetUserSession loginwindow 0
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] ### TargetUserSession, but no console user?
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] ### UpdateAudioState failed to start XPC: kUnexpectedErr (No user logged in)
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] ### audioaccessoryd died
+audiomxd: (MediaExperience) [com.apple.coremedia:] -MXAudioAccessoryServices- -[MXAudioAccessoryServices handleServerDeath]: audioaccessoryd died :(
+audiomxd: (CoreUtils) [com.apple.bluetooth:BTAudioRoutingRequest] Invalidating
+audiomxd: (MediaExperience) [com.apple.coremedia:] -MXSessionManager- -[MXSessionManager audioAccessoryServerDiedCallback:]_block_invoke: Syncing with AudioAccessoryServices as they just recovered.
+```
+
+Appear when user logged in and then logged out. Disappear when the user logged in again.
