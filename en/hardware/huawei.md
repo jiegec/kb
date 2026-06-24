@@ -286,3 +286,21 @@ part id:
 - 0xd45(3397): hip10c
 - 0xd46(3398): Kirin 9020/Kirin 9010s
 - 0xd47(3399): Kirin 9030Pro
+
+## LX2
+
+- 每个节点是 2 socket
+- 每个 socket 是 2 die，每个 die 上有 152 core，包括 4 cluster，每个 cluster 38 核
+- 每个节点有 `2 * 2 * 4 * 38 = 608` 核
+- 每个核有 32KB 的 L1I 和 L1D，每个 cluster 有 28.5MB L2
+- 每个 socket 有 32GB 带宽 4TB/s 的 HBM 和 256GB 的 DDR
+- SDMA 引擎负责 HBM \<-> DDR 传输
+- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOPS(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
+- 1.55 GHz, 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合
+
+来源：
+
+- <https://arxiv.org/html/2605.08633>
+- <https://arxiv.org/html/2604.15821>
+- <https://arxiv.org/html/2605.24896>
+- <https://www.top500.org/system/180490/>
