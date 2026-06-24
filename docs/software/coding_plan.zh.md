@@ -57,7 +57,7 @@
 - 一般情况下，一次 Prompt（即一次提问）在任务执行过程中可能触发约 15–20 次模型调用。上述次数均为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
 - 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
 - 注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。
-- 注：GLM-5.2/GLM-5.1/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照 “高峰期 3 倍，非高峰期 2 倍” 系数消耗额度； 我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.2/GLM-5.1/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）
+- 注：GLM-5.2/GLM-5.1/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.2/GLM-5.1/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）
 - 注：高峰期为每日的 14:00～18:00（UTC+8）
 - [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
@@ -86,7 +86,7 @@
 - 团队高级版（1198 RMB 每月）：每 5 小时最多 1.6 亿 tokens 每席位，每周最多 8 亿 tokens 每席位
 - “最多”指在 1 倍消耗系数 下，可实际消耗的 Tokens 总量。当前各模型的额度消耗规则如下：
     - GLM-4.7、GLM-4.5-Air：全天按 1 倍系数 消耗额度
-    - GLM-5.2、GLM-5-Turbo：作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍” 系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.2 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。
+    - GLM-5.2、GLM-5-Turbo：作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍”系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.2 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。
     - 注：高峰期时间为每日 14:00～18:00（UTC+8）。
 
 [智谱国际版 GLM Coding Plan](https://z.ai/subscribe)
@@ -119,7 +119,7 @@
     - 支持模型：qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseek-v4-flash、deepseek-v3.2、kimi-k2.6、kimi-k2.5、glm-5.1、glm-5、minimax-m2.5
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100积分
+        - 专业套餐：每月 1 元/100 积分
         - 轻享套餐：每月 2 元/百万 tokens
     - Token Plan 个人版：
         - Hy Token Plan:
