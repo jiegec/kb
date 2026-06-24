@@ -4994,6 +4994,9 @@
 <li>kunpeng 930</li>
 <li>Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng bti ecv</li>
 <li>64KB L1 Cache, 512KB L2 Cache</li>
+<li>6-issue, 2 BR + 6 ALU + 4 FP + 2 LD + 2 ST from LLVM</li>
+<li>88-entry reorder buffer from LLVM</li>
+<li>16-entry instruction queue from LLVM</li>
 </ul>
 <p>来源：</p>
 <ul>
@@ -5002,6 +5005,7 @@
 <li><a href="https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2">[SME] Recover hip09 and hip11 in aarch64-cores.def</a></li>
 <li><a href="https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2174">SVE_256</a></li>
 <li><a href="https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L1746">hip09_prefetch_tune</a></li>
+<li><a href="https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP09.td">AArch64SchedHIP09.td</a></li>
 </ul>
 <h3 id="hip09a">hip09a</h3>
 <p>来源：</p>
@@ -5038,12 +5042,16 @@
 <li>SVE (256 bits)</li>
 <li>part id 0xd45</li>
 <li>96KB L1 Cache, 1MB L2 Cache</li>
+<li>12-issue, 2 BR + 6 ALU + 2 FP + 2 LD + 2 ST from LLVM</li>
+<li>320-entry reorder buffer from LLVM</li>
+<li>16-entry instruction queue from LLVM</li>
 </ul>
 <p>来源：</p>
 <ul>
 <li><a href="https://github.com/openeuler-mirror/gcc/commit/d3a8c59e7eaf99bff77447e08e15898530af8a9e">Add hip10c machine discription</a> part id 0xddd</li>
 <li><a href="https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b">Add hip10a machine discription</a> part id changes from 0xddd to 0xd45</li>
 <li><a href="https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240">SVE_256</a></li>
+<li><a href="https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP10C.td">AArch64SchedHIP10C.td</a></li>
 </ul>
 <h3 id="hip11">hip11</h3>
 <ul>
@@ -5051,12 +5059,17 @@
 <li>SVE + SVE2 (512 bits)</li>
 <li>part id 0xd22</li>
 <li>64KB L1 Cache, 512KB L2 Cache</li>
+<li>HasSMEI16I64 from LLVM</li>
+<li>4-issue, 1 ALU + 2 (ALU + BR) + 1 MDU + 2 FP + 1 LDST + 1LD from LLVM</li>
+<li>88-entry reorder buffer from LLVM</li>
+<li>40-entry instruction queue from LLVM</li>
 </ul>
 <p>来源：</p>
 <ul>
 <li><a href="https://github.com/openeuler-mirror/gcc/commit/824fccdab1d3c5e87fb88b31f0eeb7abd1b35c1f">Add hip11 CPU pipeline scheduling</a></li>
 <li><a href="https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2">[SME] Recover hip09 and hip11 in aarch64-cores.def</a></li>
 <li><a href="https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274">SVE_512</a></li>
+<li><a href="https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP11.td">AArch64SchedHIP11.td</a></li>
 </ul>
 <h3 id="hip12">hip12</h3>
 <ul>
@@ -5065,6 +5078,9 @@
 <li>part id 0xd06</li>
 <li>128KB L1 Cache, 1MB L2 Cache</li>
 <li>kunpeng 950</li>
+<li>16-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM</li>
+<li>320-entry reorder buffer from LLVM</li>
+<li>16-entry instruction queue from LLVM</li>
 </ul>
 <p>来源：</p>
 <ul>
@@ -5073,6 +5089,7 @@
 <li><a href="https://gitee.com/openeuler/gcc/commit/d63119daeb54cd0c387c1b24981c47d795e5a672">Add hip12 instructions pipeline</a></li>
 <li><a href="https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2308">SVE_256</a></li>
 <li><a href="https://patchwork.sourceware.org/project/gcc/patch/97a7d78ec85d4a05891366b3d39028ca@huawei.com/">Add support for Hisilicon's hip12 core</a></li>
+<li><a href="https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP12.td">AArch64SchedHIP12.td</a></li>
 </ul>
 <h2 id="kunpeng-920b">Kunpeng 920B</h2>
 <ul>
@@ -5175,7 +5192,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月24日 06:49:45 UTC">2026年6月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月24日 17:01:32 UTC">2026年6月24日</span>
   </span>
 
     
