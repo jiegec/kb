@@ -144,6 +144,9 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - kunpeng 930
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng bti ecv
 - 64KB L1 Cache, 512KB L2 Cache
+- 6-issue, 2 BR + 6 ALU + 4 FP + 2 LD + 2 ST from LLVM
+- 88-entry reorder buffer from LLVM
+- 16-entry instruction queue from LLVM
 
 来源：
 
@@ -152,6 +155,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2174)
 - [hip09_prefetch_tune](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L1746)
+- [AArch64SchedHIP09.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP09.td)
 
 ### hip09a
 
@@ -189,12 +193,16 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - SVE (256 bits)
 - part id 0xd45
 - 96KB L1 Cache, 1MB L2 Cache
+- 12-issue, 2 BR + 6 ALU + 2 FP + 2 LD + 2 ST from LLVM
+- 320-entry reorder buffer from LLVM
+- 16-entry instruction queue from LLVM
 
 来源：
 
 - [Add hip10c machine discription](https://github.com/openeuler-mirror/gcc/commit/d3a8c59e7eaf99bff77447e08e15898530af8a9e) part id 0xddd
 - [Add hip10a machine discription](https://github.com/openeuler-mirror/gcc/commit/2eea7cfbd7128906034e3d3c5a0fe7d05860ba6b) part id changes from 0xddd to 0xd45
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240)
+- [AArch64SchedHIP10C.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP10C.td)
 
 ### hip11
 
@@ -202,12 +210,17 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - SVE + SVE2 (512 bits)
 - part id 0xd22
 - 64KB L1 Cache, 512KB L2 Cache
+- HasSMEI16I64 from LLVM
+- 4-issue, 1 ALU + 2 (ALU + BR) + 1 MDU + 2 FP + 1 LDST + 1LD from LLVM
+- 88-entry reorder buffer from LLVM
+- 40-entry instruction queue from LLVM
 
 来源：
 
 - [Add hip11 CPU pipeline scheduling](https://github.com/openeuler-mirror/gcc/commit/824fccdab1d3c5e87fb88b31f0eeb7abd1b35c1f)
 - [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
 - [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
+- [AArch64SchedHIP11.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP11.td)
 
 ### hip12
 
@@ -216,6 +229,9 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - part id 0xd06
 - 128KB L1 Cache, 1MB L2 Cache
 - kunpeng 950
+- 16-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
+- 320-entry reorder buffer from LLVM
+- 16-entry instruction queue from LLVM
 
 来源：
 
@@ -224,6 +240,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [Add hip12 instructions pipeline](https://gitee.com/openeuler/gcc/commit/d63119daeb54cd0c387c1b24981c47d795e5a672)
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2308)
 - [Add support for Hisilicon's hip12 core](https://patchwork.sourceware.org/project/gcc/patch/97a7d78ec85d4a05891366b3d39028ca@huawei.com/)
+- [AArch64SchedHIP12.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP12.td)
 
 ## Kunpeng 920B
 
