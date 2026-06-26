@@ -91,6 +91,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - Pura 90 Pro Max
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.15 GHz，0xd47），4x 小核（无 SMT，1.62 GHz，0xd24），共 8 核 12 线程
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - Maleoon 935F
 
 ### 麒麟 X90
