@@ -68,8 +68,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 ### 麒麟 9030
 
 - Mate 80/Mate X7
-- 1x 大核（带 SMT，2.75 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
-- Maleoon 935
+- 1x 大核（带 SMT，2.695 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
+- Maleoon 935A
 
 来源：
 
