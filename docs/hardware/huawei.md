@@ -2,7 +2,7 @@
 
 ## 麒麟
 
-### 麒麟 9000s
+### 麒麟 9000S
 
 - 首发：Mate 60
 - 1x 大核（带 SMT，0xd02），3x 中核（带 SMT，0xd42），4x 小核 Cortex-A510（无 SMT）
@@ -31,7 +31,7 @@
 - [HiSilicon Kirin 9010](https://www.notebookcheck.net/HiSilicon-Kirin-9010-Processor-Benchmarks-and-Specs.855471.0.html)
 - [Huawei’s Kirin 9010 Is a Reality Check for China’s Semiconductor Ambitions](https://zh.ifixit.com/News/95646/huaweis-kirin-9010-is-a-reality-check-for-chinas-semiconductor-ambitions)
 
-### 麒麟 9010s
+### 麒麟 9010S
 
 — Pura 80
 - 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
@@ -298,18 +298,18 @@ implementer 0x48
 part id:
 
 - 0xd01(3329): hip08
-- 0xd02(3330): Kirin 9000s/hip09
+- 0xd02(3330): Kirin 9000S/hip09
 - 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin x90
-- 0xd05(3333): Kirin 9020/Kirin 9010s
-- 0xd06(3334): hip12/Kirin 9030Pro
+- 0xd05(3333): Kirin 9020/Kirin 9010S
+- 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S
 - 0xd22(3362): hip11
-- 0xd23(3363): Kirin 9020/Kirin 9010s
-- 0xd24(3364): Kirin 9030Pro
-- 0xd42(3394): Kirin 9000s/Kirin 9010/Kirin x90
-- 0xd43(3395): Kirin x90
+- 0xd23(3363): Kirin 9020/Kirin 9010S
+- 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd42(3394): Kirin 9000S/Kirin 9010/Kirin X90
+- 0xd43(3395): Kirin X90
 - 0xd45(3397): hip10c
-- 0xd46(3398): Kirin 9020/Kirin 9010s
-- 0xd47(3399): Kirin 9030Pro
+- 0xd46(3398): Kirin 9020/Kirin 9010S
+- 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S
 
 ## LX2
 
