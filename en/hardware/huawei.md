@@ -233,7 +233,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
-- part id 0xd06
+- part id 0xd06，与 Kirin 9030 系列大核相同
 - 128KB L1 Cache, 1MB L2 Cache
 - kunpeng 950
 - 16-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
