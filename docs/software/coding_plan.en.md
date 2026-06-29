@@ -167,10 +167,6 @@
 
 ### Others
 
-- [Infini-AI Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
-    - Lite (40 RMB/month): Fixed monthly fee, 12,000 requests per month, 6,000 per week, 1,000 per 5 hours
-    - Pro (200 RMB/month): Fixed monthly fee, 60,000 requests per month, 30,000 per week, 5,000 per 5 hours
-    - Supported models: DeepSeek-v3.2, DeepSeek-v3.2-Thinking, Kimi-K2.5, MiniMax-M2.1, MiniMax-M2.5, MiniMax-M2.7, GLM-4.7, GLM-5, GLM-5.1
 - [StepFun Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
     - Flash Mini (49 RMB/month): 400M Credits
     - Flash Plus (99 RMB/month): 1600M Credits
@@ -230,6 +226,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/06/27: Infini Coding Plan discontinued
 - 2026/06/13: GLM-5.2 model released
 - 2026/06/12: Kimi K2.7-Code model released
 - 2026/06/10: GLM Coding Plan Team Edition launched
