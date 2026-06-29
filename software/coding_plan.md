@@ -167,10 +167,6 @@
 
 ### 其他
 
-- [无问芯穹 Infini Coding Plan](https://docs.infini-ai.com/gen-studio/coding-plan/)
-  - Lite（40 RMB 每月）: 固定月费，每月 12000 次请求，每周 6000 次，每 5 小时 1000 次
-  - Pro（200 RMB 每月）: 固定月费，每月 60000 次请求，每周 30000 次，每 5 小时 5000 次
-  - 支持模型：DeepSeek-v3.2、DeepSeek-v3.2-Thinking、Kimi-K2.5、MiniMax-M2.1、MiniMax-M2.5、MiniMax-M2.7、GLM-4.7、GLM-5、GLM-5.1
 - [阶越星辰 Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
   - Flash Mini（49 RMB 每月）：400M Credit
   - Flash Plus（99 RMB 每月）：1600M Credit
@@ -228,6 +224,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B   | 17B    | 是   |
 
 ## 更新历史
+
+- 2026/06/27：Infini Coding Plan 下线
 
 - 2026/06/13：GLM-5.2 模型发布
 
