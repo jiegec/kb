@@ -4717,13 +4717,22 @@
 <h1 id="ai-coding-plan">AI Coding Plan</h1>
 <h2 id="coding-plan">Coding Plan</h2>
 <h3 id="kimi">Kimi</h3>
-<p><a href="https://www.kimi.com/membership/pricing">Kimi 登月计划</a></p>
+<p><a href="https://www.kimi.com/membership/pricing">Kimi 登月计划</a> <a href="https://www.kimi.com/code">Kimi Code</a></p>
 <ul>
-<li>Andante（49 RMB 每月）：最高输出速度可达 100 Tokens/s，每 5 小时支持约 300–1200 次请求，最高并发 30</li>
-<li>Moderato（99 RMB 每月）：Kimi Code 4 倍额度</li>
-<li>Allegretto（199 RMB 每月）：Kimi Code 20 倍额度</li>
-<li>Allegro（699 RMB 每月）：Kimi Code 60 倍额度</li>
-<li>（2026 年 2 月数据）通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens</li>
+<li><a href="https://www.kimi.com/code">Kimi Code</a>:<ul>
+<li>Starter（99 RMB 每月）</li>
+<li>Explorer（299 RMB 每月）：4 倍 Starter 额度</li>
+<li>Expert（699 RMB 每月）：10 倍 Starter 额度</li>
+<li>Master（1399 RMB 每月）：25 倍 Starter 额度</li>
+</ul>
+</li>
+<li><a href="https://platform.kimi.com/docs/pricing/chat-k3">K3 API 价格</a>：<ul>
+<li>输入命中缓存 2 RMB 每 1M tokens</li>
+<li>输入未命中缓存 20 RMB 每 1M tokens</li>
+<li>输出 100 RMB 每 1M tokens</li>
+<li>1M 上下文</li>
+</ul>
+</li>
 <li><a href="https://platform.kimi.com/docs/pricing/chat-k27-code">K2.7-Code API 价格</a>：<ul>
 <li>输入命中缓存 1.3 RMB 每 1M tokens</li>
 <li>输入未命中缓存 6.5 RMB 每 1M tokens</li>
@@ -4735,13 +4744,6 @@
 <li>输入命中缓存 2.6 RMB 每 1M tokens</li>
 <li>输入未命中缓存 13.0 RMB 每 1M tokens</li>
 <li>输出 54 RMB 每 1M tokens</li>
-<li>256K 上下文</li>
-</ul>
-</li>
-<li><a href="https://platform.kimi.com/docs/pricing/chat-k26">K2.6 API 价格</a>：<ul>
-<li>输入命中缓存 1.1 RMB 每 1M tokens</li>
-<li>输入未命中缓存 6.5 RMB 每 1M tokens</li>
-<li>输出 27 RMB 每 1M tokens</li>
 <li>256K 上下文</li>
 </ul>
 </li>
@@ -4778,8 +4780,8 @@
 <li>Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 8000 次 prompts</li>
 <li>一般情况下，一次 Prompt（即一次提问）在任务执行过程中可能触发约 15–20 次模型调用。上述次数均为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。</li>
 <li>注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。</li>
-<li>注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。</li>
-<li>注：GLM-5.2/GLM-5.1/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.2/GLM-5.1/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）</li>
+<li>注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。</li>
+<li>注：GLM-5.2/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度（作为限时福利，GLM-5.2/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）</li>
 <li>注：高峰期为每日的 14:00～18:00（UTC+8）</li>
 <li><a href="https://bigmodel.cn/pricing">GLM-5.2 API 价格</a>：<ul>
 <li>输入命中缓存 2 RMB 每 1M tokens</li>
@@ -4883,10 +4885,12 @@
 </li>
 </ul>
 </li>
-<li><a href="https://cloud.baidu.com/product/codingplan.html">百度千帆 Coding Plan</a> <a href="https://cloud.baidu.com/doc/qianfan/s/imlg0beiu">文档</a><ul>
-<li>Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求</li>
-<li>Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求</li>
-<li>支持模型：Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5、GLM-5.1、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402</li>
+<li><a href="https://cloud.baidu.com/product/codingplan.html">百度千帆 Token Plan 个人版</a> <a href="https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6">个人版文档</a> <a href="https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2">企业版文档</a><ul>
+<li>Mini 套餐（9.9 RMB 每月）：1000 万 token 每月</li>
+<li>Lite 套餐（40 RMB 每月）：4200 万 token 每月</li>
+<li>Pro 套餐（200 RMB 每月）：2.3 亿 token 每月</li>
+<li>Max 套餐（600 RMB 每月）：7 亿 token 每月</li>
+<li>支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5.2、GLM-5.1、Kimi-K2.6、ERNIE 5.1</li>
 </ul>
 </li>
 <li><a href="https://docs.jdcloud.com/cn/jdaip/PackageOverview">京东云 Coding Plan</a><ul>
@@ -4903,12 +4907,11 @@
 </ul>
 </li>
 <li><a href="https://www.xfyun.cn/doc/spark/CodingPlan.html">讯飞星辰 Astron Coding Plan</a> <a href="https://maas.xfyun.cn/packageSubscription">订阅</a><ul>
-<li>无忧版（19 RMB 每月）：请求次数不限，支持 Spark-X2-Flash、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash 模型</li>
-<li>专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2、GLM-5、GLM-5.1、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
-<li>高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2、GLM-5、GLM-5.2、GLM-5.1、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
+<li>专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5.1、GLM-5、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
+<li>高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5、GLM-5.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型</li>
 </ul>
 </li>
-<li><a href="https://www.ctyun.cn/document/11061839/11092368">天翼云 Token Plan</a><ul>
+<li><a href="https://www.ctyun.cn/document/11061839/11092368">天翼云编程 Token Plan</a><ul>
 <li>29 RMB 每月：2500 万 tokens</li>
 <li>89 RMB 每月：8000 万 tokens</li>
 <li>199 RMB 每月：18000 万 tokens</li>
@@ -4928,7 +4931,7 @@
 </ul>
 <h3 id="_3">其他</h3>
 <ul>
-<li><a href="https://platform.stepfun.com/docs/zh/step-plan/overview">阶越星辰 Coding Plan</a><ul>
+<li><a href="https://platform.stepfun.com/docs/zh/step-plan/overview">阶越星辰 Step Plan</a><ul>
 <li>Flash Mini（49 RMB 每月）：400M Credit</li>
 <li>Flash Plus（99 RMB 每月）：1600M Credit</li>
 <li>Flash Pro（199 RMB 每月）：8000M Credit</li>
@@ -5064,6 +5067,9 @@
 </table>
 <h2 id="_5">更新历史</h2>
 <ul>
+<li>2026/07/20：Kimi Code 权益从 Kimi 会员套餐中独立，由专属的新版 Kimi Code 套餐订阅提供</li>
+<li>2026/07/16：Kimi-K3 模型发布</li>
+<li>2026/07/13：百度千帆 Token Plan 个人版上线</li>
 <li>2026/06/27：Infini Coding Plan 下线</li>
 <li>2026/06/13：GLM-5.2 模型发布</li>
 <li>2026/06/12：Kimi K2.7-Code 模型发布</li>
@@ -5217,7 +5223,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月7日 03:55:19 UTC">2026年7月7日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 16:51:21 UTC">2026年7月19日</span>
   </span>
 
     
@@ -5277,7 +5283,7 @@
 </style>
 <script>
 const BIBTEX_TITLE = "AI Coding Plan";
-const BIBTEX_DATE = "2026-07-07";
+const BIBTEX_DATE = "2026-07-19";
 const BIBTEX_URL = "https://jia.je/kb/software/coding_plan.html";
 const LOCALE = "zh";
 
