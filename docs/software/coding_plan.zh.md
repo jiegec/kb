@@ -4,13 +4,18 @@
 
 ### Kimi
 
-[Kimi 登月计划](https://www.kimi.com/membership/pricing)
+[Kimi 登月计划](https://www.kimi.com/membership/pricing) [Kimi Code](https://www.kimi.com/code)
 
-- Andante（49 RMB 每月）：最高输出速度可达 100 Tokens/s，每 5 小时支持约 300–1200 次请求，最高并发 30
-- Moderato（99 RMB 每月）：Kimi Code 4 倍额度
-- Allegretto（199 RMB 每月）：Kimi Code 20 倍额度
-- Allegro（699 RMB 每月）：Kimi Code 60 倍额度
-- （2026 年 2 月数据）通过实际测试，认为 Andante 是所有请求的 uncached input + output tokens 总和每 5 小时不超过 1M tokens，即不考虑命中缓存的输入 tokens；每周的限额是 4M uncached input + output tokens
+- [Kimi Code](https://www.kimi.com/code):
+    - Starter（99 RMB 每月）
+    - Explorer（299 RMB 每月）：4 倍 Starter 额度
+    - Expert（699 RMB 每月）：10 倍 Starter 额度
+    - Master（1399 RMB 每月）：25 倍 Starter 额度
+- [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
+    - 输入命中缓存 2 RMB 每 1M tokens
+    - 输入未命中缓存 20 RMB 每 1M tokens
+    - 输出 100 RMB 每 1M tokens
+    - 1M 上下文
 - [K2.7-Code API 价格](https://platform.kimi.com/docs/pricing/chat-k27-code)：
     - 输入命中缓存 1.3 RMB 每 1M tokens
     - 输入未命中缓存 6.5 RMB 每 1M tokens
@@ -20,11 +25,6 @@
     - 输入命中缓存 2.6 RMB 每 1M tokens
     - 输入未命中缓存 13.0 RMB 每 1M tokens
     - 输出 54 RMB 每 1M tokens
-    - 256K 上下文
-- [K2.6 API 价格](https://platform.kimi.com/docs/pricing/chat-k26)：
-    - 输入命中缓存 1.1 RMB 每 1M tokens
-    - 输入未命中缓存 6.5 RMB 每 1M tokens
-    - 输出 27 RMB 每 1M tokens
     - 256K 上下文
 
 ### MiniMax
@@ -56,8 +56,8 @@
 - Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 8000 次 prompts
 - 一般情况下，一次 Prompt（即一次提问）在任务执行过程中可能触发约 15–20 次模型调用。上述次数均为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
 - 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
-- 注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7、GLM-4.5-Air。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。
-- 注：GLM-5.2/GLM-5.1/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度；我们推荐您在复杂任务上切换至 GLM-5.1 处理，普通任务上继续使用 GLM-4.7，以避免套餐用量额度消耗过快。（作为限时福利，GLM-5.2/GLM-5.1/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）
+- 注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。
+- 注：GLM-5.2/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度（作为限时福利，GLM-5.2/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）
 - 注：高峰期为每日的 14:00～18:00（UTC+8）
 - [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
@@ -134,10 +134,12 @@
             - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
             - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
             - 支持模型（暂不支持图片、视频等多模态能力）：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、MiniMax-M2.7、Kimi-K2.5、GLM-5、GLM-5.1
-- [百度千帆 Coding Plan](https://cloud.baidu.com/product/codingplan.html) [文档](https://cloud.baidu.com/doc/qianfan/s/imlg0beiu)
-    - Lite 套餐（40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
-    - Pro 套餐（200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
-    - 支持模型：Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5、GLM-5.1、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402
+- [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
+    - Mini 套餐（9.9 RMB 每月）：1000 万 token 每月
+    - Lite 套餐（40 RMB 每月）：4200 万 token 每月
+    - Pro 套餐（200 RMB 每月）：2.3 亿 token 每月
+    - Max 套餐（600 RMB 每月）：7 亿 token 每月
+    - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5.2、GLM-5.1、Kimi-K2.6、ERNIE 5.1
 - [京东云 Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
     - Lite 套餐（首购 19.9 RMB 每月，续费 40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
     - Pro 套餐（首购 99.9 RMB 每月，续费 200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
@@ -148,10 +150,9 @@
     - 尊享成员（1200 RMB/席/月）：200000 Credits，500 万 TPM
     - 支持模型：Spark-X2、Spark-X2-Flash、GLM-5.2、GLM-5.1、GLM-5、DeepSeek-V4-Pro、DeepSeek-V4-Flash、DeepSeek-V3.2、Kimi-K2.6、Kimi-K2.5、MiniMax-M2.5、Qwen3.5-397B-A17B、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash
 - [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) [订阅](https://maas.xfyun.cn/packageSubscription)
-    - 无忧版（19 RMB 每月）：请求次数不限，支持 Spark-X2-Flash、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash 模型
-    - 专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2、GLM-5、GLM-5.1、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
-    - 高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2、GLM-5、GLM-5.2、GLM-5.1、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
-- [天翼云 Token Plan](https://www.ctyun.cn/document/11061839/11092368)
+    - 专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5.1、GLM-5、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
+    - 高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5、GLM-5.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
+- [天翼云编程 Token Plan](https://www.ctyun.cn/document/11061839/11092368)
     - 29 RMB 每月：2500 万 tokens
     - 89 RMB 每月：8000 万 tokens
     - 199 RMB 每月：18000 万 tokens
@@ -167,7 +168,7 @@
 
 ### 其他
 
-- [阶越星辰 Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
+- [阶越星辰 Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
     - Flash Mini（49 RMB 每月）：400M Credit
     - Flash Plus（99 RMB 每月）：1600M Credit
     - Flash Pro（199 RMB 每月）：8000M Credit
@@ -225,6 +226,9 @@
 
 ## 更新历史
 
+- 2026/07/20：Kimi Code 权益从 Kimi 会员套餐中独立，由专属的新版 Kimi Code 套餐订阅提供
+- 2026/07/16：Kimi-K3 模型发布
+- 2026/07/13：百度千帆 Token Plan 个人版上线
 - 2026/06/27：Infini Coding Plan 下线
 - 2026/06/13：GLM-5.2 模型发布
 - 2026/06/12：Kimi K2.7-Code 模型发布

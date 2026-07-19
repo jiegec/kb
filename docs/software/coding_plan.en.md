@@ -4,13 +4,18 @@
 
 ### Kimi
 
-[Kimi Membership](https://www.kimi.com/membership/pricing)
+[Kimi Membership](https://www.kimi.com/membership/pricing) [Kimi Code](https://www.kimi.com/code)
 
-- Andante (49 RMB/month): Maximum output speed up to 100 Tokens/s, supports approximately 300–1,200 requests per 5 hours, with a maximum concurrency of 30
-- Moderato (99 RMB/month): 4x Kimi Code quota
-- Allegretto (199 RMB/month): 20x Kimi Code quota
-- Allegro (699 RMB/month): 60x Kimi Code quota
-- (Data from February 2026) Based on actual testing, Andante limits total uncached input + output tokens to 1M per 5 hours (i.e. not counting cached input tokens), 4M per week
+- [Kimi Code](https://www.kimi.com/code):
+    - Starter (99 RMB/month)
+    - Explorer (299 RMB/month): 4x Starter quota
+    - Expert (699 RMB/month): 10x Starter quota
+    - Master (1399 RMB/month): 25x Starter quota
+- [K3 API Pricing](https://platform.kimi.com/docs/pricing/chat-k3):
+    - Cached input: 2 RMB per 1M tokens
+    - Uncached input: 20 RMB per 1M tokens
+    - Output: 100 RMB per 1M tokens
+    - 1M context
 - [K2.7-Code API Pricing](https://platform.kimi.com/docs/pricing/chat-k27-code):
     - Cached input: 1.3 RMB per 1M tokens
     - Uncached input: 6.5 RMB per 1M tokens
@@ -20,11 +25,6 @@
     - Cached input: 2.6 RMB per 1M tokens
     - Uncached input: 13.0 RMB per 1M tokens
     - Output: 54 RMB per 1M tokens
-    - 256K context
-- [K2.6 API Pricing](https://platform.kimi.com/docs/pricing/chat-k26):
-    - Cached input: 1.1 RMB per 1M tokens
-    - Uncached input: 6.5 RMB per 1M tokens
-    - Output: 27 RMB per 1M tokens
     - 256K context
 
 ### MiniMax
@@ -56,8 +56,8 @@
 - Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
 - Generally, one Prompt (i.e., one query) may trigger approximately 15–20 model calls during task execution. The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
 - Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: All plans support GLM-5.2, GLM-5-Turbo, GLM-4.7 and GLM-4.5-Air. Calling legacy models GLM-5.1/GLM-5 will automatically switch to GLM-5.2.
-- Note: GLM-5.2/GLM-5.1/GLM-5-Turbo are advanced models designed to rival Claude Opus model. Their usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. We recommend switching to GLM-5.1 for complex tasks and continuing to use GLM-4.7 for routine tasks to avoid rapid quota consumption. As a limited-time benefit, GLM-5.2/GLM-5.1/GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of September.
+- Note: All plans support GLM-5.2, GLM-5-Turbo, GLM-4.7. Calling legacy models GLM-5.1/GLM-5 will automatically switch to GLM-5.2.
+- Note: GLM-5.2/GLM-5-Turbo are advanced models designed to rival Claude Opus model. Their usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. As a limited-time benefit, GLM-5.2/GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of September.
 - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
 - [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
@@ -134,10 +134,12 @@
             - Pro Plan (299 RMB/month): 320M tokens per subscription month
             - Max Plan (599 RMB/month): 650M tokens per subscription month
             - Supported models (image, video, and other multimodal capabilities temporarily not supported): Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, MiniMax-M2.7, Kimi-K2.5, GLM-5, GLM-5.1
-- [Baidu Qianfan Coding Plan](https://cloud.baidu.com/product/codingplan.html) [Documentation](https://cloud.baidu.com/doc/qianfan/s/imlg0beiu)
-    - Lite Plan (40 RMB/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
-    - Pro Plan (200 RMB/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
-    - Supported models: Kimi-K2.5, DeepSeek-V3.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash, GLM-5, GLM-5.1, MiniMax-M2.5, ERNIE-4.5-Turbo-20260402
+- [Baidu Qianfan Token Plan (Personal Edition)](https://cloud.baidu.com/product/codingplan.html) [Personal Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [Enterprise Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
+    - Mini Plan (9.9 RMB/month): 10M tokens per month
+    - Lite Plan (40 RMB/month): 42M tokens per month
+    - Pro Plan (200 RMB/month): 230M tokens per month
+    - Max Plan (600 RMB/month): 700M tokens per month
+    - Supported models: DeepSeek-V4-Pro, DeepSeek-V4-Flash, GLM-5.2, GLM-5.1, Kimi-K2.6, ERNIE 5.1
 - [JD Cloud Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
     - Lite Plan (19.9 RMB first purchase/month, 40 RMB renewal/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
     - Pro Plan (99.9 RMB first purchase/month, 200 RMB renewal/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
@@ -148,10 +150,9 @@
     - Premium Member (1200 RMB/seat/month): 200000 Credits, 5M TPM
     - Supported models: Spark-X2, Spark-X2-Flash, GLM-5.2, GLM-5.1, GLM-5, DeepSeek-V4-Pro, DeepSeek-V4-Flash, DeepSeek-V3.2, Kimi-K2.6, Kimi-K2.5, MiniMax-M2.5, Qwen3.5-397B-A17B, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash
 - [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) [Subscription](https://maas.xfyun.cn/packageSubscription)
-    - Worry-Free (19 RMB/month): Unlimited requests, supports Spark-X2-Flash, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash models
-    - Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2, GLM-5, GLM-5.2, GLM-5.1, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
-    - Efficient (199 RMB/month): Per 5 hours: maximum ~6,000 requests; per week: maximum ~45,000 requests; per subscription month: maximum ~90,000 requests. Supports Spark-X2, GLM-5, GLM-5.2, GLM-5.1, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
-- [CTCloud Token Plan](https://www.ctyun.cn/document/11061839/11092368)
+    - Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2-Agent, Spark-X2, Auto, GLM-5.1, GLM-5, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
+    - Efficient (199 RMB/month): Per 5 hours: maximum ~6,000 requests; per week: maximum ~45,000 requests; per subscription month: maximum ~90,000 requests. Supports Spark-X2-Agent, Spark-X2, Auto, GLM-5, GLM-5.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
+- [CTCloud Programming Token Plan](https://www.ctyun.cn/document/11061839/11092368)
     - 29 RMB/month: 25M tokens
     - 89 RMB/month: 80M tokens
     - 199 RMB/month: 180M tokens
@@ -167,7 +168,7 @@
 
 ### Others
 
-- [StepFun Coding Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
+- [StepFun Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
     - Flash Mini (49 RMB/month): 400M Credits
     - Flash Plus (99 RMB/month): 1600M Credits
     - Flash Pro (199 RMB/month): 8000M Credits
@@ -226,6 +227,9 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/07/20: Kimi Code separated from Kimi membership, now available as a dedicated new Kimi Code subscription
+- 2026/07/16: Kimi-K3 model released
+- 2026/07/13: Baidu Qianfan Token Plan (Personal Edition) launched
 - 2026/06/27: Infini Coding Plan discontinued
 - 2026/06/13: GLM-5.2 model released
 - 2026/06/12: Kimi K2.7-Code model released
