@@ -395,6 +395,10 @@ Datasheet: [NVIDIA Blackwell Datasheet](https://resources.nvidia.com/en-us-black
 
 Datasheet: [NVIDIA DGX B200 Datasheet](https://resources.nvidia.com/en-us-dgx-systems/dgx-b200-datasheet)
 
+## NVIDIA Rubin
+
+Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](https://developer.nvidia.com/blog/inside-nvidia-rubin-gpu-architecture-powering-the-era-of-agentic-ai/)
+
 ## SM 发展历史
 
 下面列出了各架构的 SM 发展历程，发射数表示方法为 Warp 数量（W）乘以每个 Warp 的发射指令数（I）：
