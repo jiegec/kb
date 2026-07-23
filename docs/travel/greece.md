@@ -44,7 +44,7 @@
 3. Meteora
     1. 悬崖上的 Monastery 有意思，不过爬起来也挺累
 4. Santorini
-    1. 海景+蓝白房子，好看
+    1. 海景 + 蓝白房子，好看
     2. Bus 总站在 Fira，可坐 [KTEL 巴士](https://ktel-santorini.gr/) 到 Oia 等地
 
 建议控制每天在交通上花费的时间（如汽车，巴士，支线飞机，渡轮），否则会累人。
