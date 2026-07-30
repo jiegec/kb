@@ -97,8 +97,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 ### 麒麟 X90
 
 - MateBook Pro
-- 20 threads
-- 4+4+2
+- 4+4+2, 20 threads
 - part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.32 GHz）, 0xd43（8 threads，4 核，2.05 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.05 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
 - Charlotte Pro
@@ -109,6 +108,12 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
 - [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
+
+### 麒麟 X90A
+
+- MatePad Edge
+- 3+3+2, 16 threads, 2.07 GHz/1.85 GHz/1.81 GHz
+- Maleoon 916B
 
 ### 麒麟 XE90
 
@@ -312,7 +317,7 @@ part id:
 
 - 0xd01(3329): hip08
 - 0xd02(3330): Kirin 9000S/hip09
-- 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin x90
+- 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90
 - 0xd05(3333): Kirin 9020/Kirin 9010S
 - 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S
 - 0xd22(3362): hip11
