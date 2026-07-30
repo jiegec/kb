@@ -115,6 +115,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - MateBook Pro S
 - 1+4+4
 - Maleoon 935
+- 与麒麟 9030Pro 规格一致
 
 ### 麒麟 X90 Plus
 
