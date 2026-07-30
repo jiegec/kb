@@ -98,6 +98,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - MateBook Pro
 - 20 threads
+- 4+4+2
 - part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.32 GHz）, 0xd43（8 threads，4 核，2.05 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.05 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
 - Charlotte Pro
@@ -112,6 +113,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 ### 麒麟 XE90
 
 - MateBook Pro S
+- 1+4+4
+- Maleoon 935
 
 ### 麒麟 X90 Plus
 
