@@ -65,6 +65,12 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
+### 麒麟 8020
+
+- 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
+- 大核中核有超线程，共 12 线程
+- Maleoon 920C
+
 ### 麒麟 9030
 
 - Mate 80/Mate X7
