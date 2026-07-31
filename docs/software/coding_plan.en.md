@@ -6,11 +6,10 @@
 
 [Kimi Membership](https://www.kimi.com/membership/pricing) [Kimi Code](https://www.kimi.com/code)
 
-- [Kimi Code](https://www.kimi.com/code):
-    - Starter (99 RMB/month)
-    - Explorer (299 RMB/month): 4x Starter quota
-    - Expert (699 RMB/month): 10x Starter quota
-    - Master (1399 RMB/month): 25x Starter quota
+- Andante (49 RMB/month)
+- Moderato (99 RMB/month)
+- Allegretto (199 RMB/month)
+- Allegro (699 RMB/month)
 - [K3 API Pricing](https://platform.kimi.com/docs/pricing/chat-k3):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 20 RMB per 1M tokens
@@ -51,14 +50,22 @@
 
 [Zhipu GLM Coding Plan](https://docs.bigmodel.cn/cn/coding-plan/overview)
 
-- Lite Plan (49 RMB/month): Maximum ~80 prompts per 5 hours, maximum ~400 prompts per week
-- Pro Plan (149 RMB/month): Maximum ~400 prompts per 5 hours, maximum ~2000 prompts per week
-- Max Plan (469 RMB/month): Maximum ~1600 prompts per 5 hours, maximum ~8000 prompts per week
-- Generally, one Prompt (i.e., one query) may trigger approximately 15–20 model calls during task execution. The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: The above figures are estimates. Actual available usage may vary depending on project complexity, repository size, and whether auto-accept is enabled.
-- Note: All plans support GLM-5.2, GLM-5-Turbo, GLM-4.7. Calling legacy models GLM-5.1/GLM-5 will automatically switch to GLM-5.2.
-- Note: GLM-5.2/GLM-5-Turbo are advanced models designed to rival Claude Opus model. Their usage will be deducted at 3 × during peak hours and 2 × during off-peak hours. As a limited-time benefit, GLM-5.2/GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of September.
-- Note: Peak hours are 14:00–18:00 (UTC+8) daily.
+- Lite Plan (118 RMB/month): 2,000 points per 5 hours, 10,000 points per week
+- Pro Plan (538 RMB/month): 12,000 points per 5 hours, 60,000 points per week
+- Max Plan (1078 RMB/month): 28,000 points per 5 hours, 140,000 points per week
+- Model points consumed = (input tokens × Input coefficient + cached input tokens × Cached Input coefficient + output tokens × Output coefficient) / 10,000
+- MCP points consumed = number of calls × Output coefficient
+- All plans support GLM-5.2, GLM-5-Turbo, GLM-4.7.
+- During off-peak hours, model calls consume points at 50% of the base rate. Peak hours: 14:00–18:00 (UTC+8) on weekdays.
+- GLM-5.2: Input coefficient 6.9, Cached Input coefficient 1.7, Output coefficient 24
+- Using only GLM-5.2 as an example, with a cache hit rate of 90.9% (average for coding scenarios), the weekly token quota range for each tier is approximately:
+    - Lite: 43M–87M tokens/week
+    - Pro: 263M–526M tokens/week
+    - Max: 613M–1,226M tokens/week
+- Range explanation
+    - Maximum tokens: all during off-peak hours, consuming points at 0.5×
+    - Minimum tokens: all during peak hours, consuming points at 1×
+- When fully utilizing the off-peak discount, compared to pay-as-you-go calls to the GLM-5.2 standard API, you can save up to 92% in cost
 - [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 8 RMB per 1M tokens
@@ -227,6 +234,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/07/31: GLM Coding Plan switched to credit-based limits
 - 2026/07/20: Kimi Code separated from Kimi membership, now available as a dedicated new Kimi Code subscription
 - 2026/07/16: Kimi-K3 model released
 - 2026/07/13: Baidu Qianfan Token Plan (Personal Edition) launched

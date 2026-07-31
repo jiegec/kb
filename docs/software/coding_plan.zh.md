@@ -6,11 +6,10 @@
 
 [Kimi 登月计划](https://www.kimi.com/membership/pricing) [Kimi Code](https://www.kimi.com/code)
 
-- [Kimi Code](https://www.kimi.com/code):
-    - Starter（99 RMB 每月）
-    - Explorer（299 RMB 每月）：4 倍 Starter 额度
-    - Expert（699 RMB 每月）：10 倍 Starter 额度
-    - Master（1399 RMB 每月）：25 倍 Starter 额度
+- Andante（49 RMB 每月）
+- Moderato（99 RMB 每月）
+- Allegretto（199 RMB 每月）
+- Allegro（699 RMB 每月）
 - [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 20 RMB 每 1M tokens
@@ -51,14 +50,22 @@
 
 [智谱 GLM Coding Plan](https://docs.bigmodel.cn/cn/coding-plan/overview)
 
-- Lite 套餐（49 RMB 每月）：每 5 小时最多约 80 次 prompts，每周最多约 400 次 prompts
-- Pro 套餐（149 RMB 每月）：每 5 小时最多约 400 次 prompts，每周最多约 2000 次 prompts
-- Max 套餐（469 RMB 每月）：每 5 小时最多约 1600 次 prompts，每周最多约 8000 次 prompts
-- 一般情况下，一次 Prompt（即一次提问）在任务执行过程中可能触发约 15–20 次模型调用。上述次数均为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
-- 注：上述次数为预估值，实际可用量会因项目复杂度、代码库大小以及是否启用自动接受等因素而有所不同。
-- 注：所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7。调用历史模型 GLM-5.1/GLM-5 都将自动切换至 GLM-5.2。
-- 注：GLM-5.2/GLM-5-Turbo 作为高阶模型，对标 Claude Opus，调用时将按照“高峰期 3 倍，非高峰期 2 倍”系数消耗额度（作为限时福利，GLM-5.2/GLM-5-Turbo 将在非高峰期仅作为 1 倍抵扣，持续到 9 月底）
-- 注：高峰期为每日的 14:00～18:00（UTC+8）
+- Lite 套餐（118 RMB 每月）：每 5 小时 2000 积分，每周 10000 积分
+- Pro 套餐（538 RMB 每月）：每 5 小时 12000 积分，每周 60000 积分
+- Max 套餐（1078 RMB 每月）：每 5 小时 28000 积分，每周 140000 积分
+- 模型消耗积分数=（输入 Token × Input 抵扣系数 + 缓存命中 Token × Cached Input 抵扣系数 + 输出 Token × Output 抵扣系数）/ 10000
+- MCP 消耗积分数=调用次数 × Output 抵扣系数
+- 所有套餐均支持 GLM-5.2、GLM-5-Turbo、GLM-4.7。
+- 非高峰时段内，模型调用按基础积分消耗的 50% 抵扣。高峰时段：每周一至周五的 14:00～18:00 （UTC+8）。
+- GLM-5.2：Input 抵扣系数 6.9，Cached Input 抵扣系数 1.7，Output 抵扣系数 24
+- 以全部使用 GLM-5.2 模型为例，当缓存命中率在 90.9% （编程场景平均水平）时，不同档位套餐每周可用 Token 额度区间大约如下：
+    - Lite：0.43～0.87 亿 Tokens/周
+    - Pro：2.63～5.26 亿 Tokens/周
+    - Max：6.13～12.26 亿 Tokens/周
+- 区间说明
+    - 最多 Tokens：全部在非高峰时段，按 0.5 倍积分消耗
+    - 最少 Tokens：全部在高峰时段，按 1 倍积分消耗
+- 当充分利用非高峰时段优惠时，相较于按量调用 GLM-5.2 标准 API，最高可节省 92% 成本
 - [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 8 RMB 每 1M tokens
@@ -226,6 +233,7 @@
 
 ## 更新历史
 
+- 2026/07/31：GLM Coding Plan 改为基于积分的限额
 - 2026/07/20：Kimi Code 权益从 Kimi 会员套餐中独立，由专属的新版 Kimi Code 套餐订阅提供
 - 2026/07/16：Kimi-K3 模型发布
 - 2026/07/13：百度千帆 Token Plan 个人版上线
