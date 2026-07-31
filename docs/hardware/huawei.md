@@ -7,7 +7,7 @@
 - 首发：Mate 60
 - 1x 大核（带 SMT，0xd02），3x 中核（带 SMT，0xd42），4x 小核 Cortex-A510（无 SMT）
 - 大核中核有超线程，共 12 线程
-- 马良 910
+- Maleoon 910
 - 丝印 Hi36A0 GFCV120
 
 来源：
@@ -22,7 +22,7 @@
 - 2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
-- 马良 910
+- Maleoon 910
 - 丝印 Hi36A0 GFCV121
 
 来源：
@@ -47,7 +47,7 @@
 - 首发：Mate 70
 - 1x 大核（0xd05，带 SMT），3x 中核（0xd46，带 SMT），4x 小核（0xd23，无 SMT）
 - 大核中核有超线程，共 12 线程
-- 马良 920
+- Maleoon 920
 - 丝印 Hi36C0 GFCV110
 
 来源：
