@@ -217,20 +217,21 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Model Parameters Comparison
 
-| Name                                                                      | Parameters | Active | Vision |
-|---------------------------------------------------------------------------|------------|--------|--------|
-| [DeepSeek-V3.2](https://huggingface.co/deepseek-ai/DeepSeek-V3.2)         | 671B       | 37B    | N      |
-| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | 284B       | 13B    | N      |
-| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)     | 1.6T       | 49B    | N      |
-| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)             | 30B        | 3B     | N      |
-| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                         | 355B       | 32B    | N      |
-| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                         | 744B       | 40B    | N      |
-| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                         | 744B       | 40B    | N      |
-| [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                 | 295B       | 21B    | N      |
-| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                  | 1T         | 32B    | Y      |
-| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                 | 428B       | 23B    | Y      |
-| [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)             | 230B       | 10B    | N      |
-| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)        | 397B       | 17B    | Y      |
+| Name                                                                                | Parameters | Active | Vision |
+|-------------------------------------------------------------------------------------|------------|--------|--------|
+| [DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) | 284B       | 13B    | N      |
+| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B       | 13B    | N      |
+| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T       | 49B    | N      |
+| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B        | 3B     | N      |
+| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B       | 32B    | N      |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B       | 40B    | N      |
+| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                                   | 744B       | 40B    | N      |
+| [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                           | 295B       | 21B    | N      |
+| [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3)                                | 2.8T       | 104B   | Y      |
+| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T         | 32B    | Y      |
+| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B       | 23B    | Y      |
+| [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B       | 10B    | N      |
+| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B    | Y      |
 
 ## Update History
 
