@@ -34,6 +34,7 @@
 - [Pohlig-Hellman 算法](https://jia.je/kb/cryptography/pohlig_hellman.md)
 - [RSA 非对称加密](https://jia.je/kb/cryptography/rsa.md)
 - [zk-SNARK](https://jia.je/kb/cryptography/zk_snark.md)
+- [华为昇腾 NPU](https://jia.je/kb/hardware/ascend-npu.md)
 - [异步 SRAM](https://jia.je/kb/hardware/async_sram.md)
 - [总线协议](https://jia.je/kb/hardware/bus_protocol.md)
 - [缓存一致性协议](https://jia.je/kb/hardware/cache_coherence_protocol.md)
