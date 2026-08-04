@@ -142,4 +142,4 @@ __simd_vf__ inline void VectorFunctionAdd(
 
 NPU 的编程模式，虽然也是用 C 代码，但确实和 NVIDIA 很不一样。NVIDIA 的 SIMT 可以把看起来是标量的代码向量化执行，不过 NPU 上，目前还是需要显式地通过特定的 Ascend 函数来执行向量指令，更类似 CPU，就是默认写的都是标量代码，需要向量的时候再用 intrinsics。SIMD 的部分，就和 SVE/RVV 类似，循环里面，计算 mask，然后一系列的向量 intrinsics。
 
-但是 NPU 比较麻烦的是，它的向量部分，不能直接访问 GM，只能访问 UB，其实就相当于在 NVIDIA 上只能访问 Shared Memory。所以要向量加速，得先通过 MTE2 从 GM 搬数据到 UB，向量计算完以后，再通过 MTE3 把数据从 UB 搬到 GM。矩阵那边，还有 L0A、L0B 和 L0C，矩阵的输入也必须在特定的片上存储里，这一点比较像 NVIDIA 的 [`tcgen05`](https://gau-nernst.github.io/tcgen05/)，额外搞了一个 Tensor Memory，再配合 Tensor Memory Accelerator 来负责搬运数据。总之在矩阵运算来看，NVIDIA 和华为的设计是趋同了，主要还是向量的部分不一样。
+但是 NPU 比较麻烦的是，它的向量部分，不能直接访问 GM，只能访问 UB，其实就相当于在 NVIDIA 上只能访问 Shared Memory。所以要向量加速，得先通过 MTE2 从 GM 搬数据到 UB，向量计算完以后，再通过 MTE3 把数据从 UB 搬到 GM。矩阵那边，还有 L0A、L0B 和 L0C，矩阵的输入也必须在特定的片上存储里，这一点比较像 NVIDIA 的 [`tcgen05`](https://gau-nernst.github.io/tcgen05/)，额外搞了一个 Tensor Memory，即矩阵乘法的输入在 Shared Memory，输出在 Tensor Memory，再配合 Tensor Memory Accelerator 来负责从 GM 搬运数据到 Shared Memory。总之在矩阵运算来看，NVIDIA 和华为的设计是趋同了，主要还是向量的部分不一样。
