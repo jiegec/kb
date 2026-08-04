@@ -138,6 +138,12 @@ __simd_vf__ inline void VectorFunctionAdd(
 
 取 mask，load，add 再 store，这和写 RVV/SVE 的 intrinsics 也没什么区别。这种写法叫 RegBase，中间计算结果可以保留在向量寄存器里，不用频繁读写 UB。不过，vector function 还是只能访问 UB，外面的 scalar 部分还是要负责 GM 和 UB 之间的数据搬运。与之相对的老 API 叫 MemBase，就是上面那种 `AscendC::Mul`，参数都是 `AscendC::LocalTensor` 类型，对应的是 UB 上保存的数据，输入和输出都在 UB 上。
 
+### simt 样例
+
+`cann/cann-samples/Samples/1_Features/hardware_features/simt` 下面有 SIMT 的样例，其编程模型就和 NVIDIA 十分接近了，很多概念也直接映射过去。UB 就变成了 Shared Memory，然后 UB 还划分出了一部分空间用于 SIMD DCache，这和 NVIDIA 的 L1 和 Shared Memory 共享一篇空间，大小可调是类似的。SIMT 模式下还能访问 GM，比上面的向量编程会方便很多，不用强制走一遍 UB。
+
+这个时候的编程就和 NVIDIA 没啥区别了。可以当 GPGPU 来编程？
+
 ### 小结
 
 NPU 的编程模式，虽然也是用 C 代码，但确实和 NVIDIA 很不一样。NVIDIA 的 SIMT 可以把看起来是标量的代码向量化执行，不过 NPU 上，目前还是需要显式地通过特定的 Ascend 函数来执行向量指令，更类似 CPU，就是默认写的都是标量代码，需要向量的时候再用 intrinsics。SIMD 的部分，就和 SVE/RVV 类似，循环里面，计算 mask，然后一系列的向量 intrinsics。
@@ -145,3 +151,5 @@ NPU 的编程模式，虽然也是用 C 代码，但确实和 NVIDIA 很不一�
 矩阵部分，也是用 MTE 做异步数据传输，从 GM 到 L1，再从 L1 到 L0A 和 L0B，矩阵运算从 L0A 和 L0B 取数据，结果保存在 L0C 里面，最后再把数据从 L0C 拷贝到 GM。
 
 但是 NPU 比较麻烦的是，它的向量部分，不能直接访问 GM，只能访问 UB，其实就相当于在 NVIDIA 上只能访问 Shared Memory。所以要向量加速，得先通过 MTE2 从 GM 搬数据到 UB，向量计算完以后，再通过 MTE3 把数据从 UB 搬到 GM。矩阵那边，还有 L0A、L0B 和 L0C，矩阵乘法的输入输出也必须在特定的片上存储里，这一点比较像 NVIDIA 的 [`tcgen05`](https://gau-nernst.github.io/tcgen05/)，额外搞了一个 Tensor Memory，即矩阵乘法的输入在 Shared Memory，输出在 Tensor Memory，再配合 Tensor Memory Accelerator 来负责从 GM 搬运数据到 Shared Memory。总之在矩阵运算来看，NVIDIA 和华为的设计是趋同了，主要还是向量的部分不一样。
+
+有了 SIMT 模式以后，在 SIMT 模式下的编程就和 NVIDIA 基本一样了，从样例代码能看出来，很多语法也是复用了。编程易用性上肯定有一定的提升，但性能就不好说了。
