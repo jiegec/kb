@@ -41,9 +41,23 @@ RUN chmod +x /tmp/Ascend-cann-950-ops_9.1.0_linux-x86_64.run \
     && /tmp/Ascend-cann-950-ops_9.1.0_linux-x86_64.run --quiet --install --install-for-all
 ```
 
+## CANN 样例代码分析
+
 ### vector_add 样例
 
-vector_add 样例来自 [`cann/cann-samples`](https://gitcode.com/cann/cann-samples) 的 [`Samples/0_Introduction/vector_add`](https://gitcode.com/cann/cann-samples/blob/master/Samples/0_Introduction/vector_add/README.md) 路径，下面构建并用 cannsim 跑样例：
+vector_add 样例来自 [`cann/cann-samples`](https://gitcode.com/cann/cann-samples) 的 [`Samples/0_Introduction/vector_add`](https://gitcode.com/cann/cann-samples/blob/master/Samples/0_Introduction/vector_add/README.md) 路径，核心代码：
+
+```c++
+xLocal = inQueueX.DeQue<T>();
+yLocal = inQueueY.DeQue<T>();
+AscendC::LocalTensor<T> zLocal = outQueueZ.AllocTensor<T>();
+AscendC::Add(zLocal, xLocal, yLocal, tileElementNum);
+outQueueZ.EnQue(zLocal);
+inQueueX.FreeTensor(xLocal);
+inQueueY.FreeTensor(yLocal);
+```
+
+下面构建并用 cannsim 跑样例：
 
 ```shell
 source /usr/local/Ascend/cann-9.1.0/set_env.sh
@@ -122,5 +136,8 @@ __simd_vf__ inline void VectorFunctionAdd(
 }
 ```
 
-取 mask，load，add 再 store，这和写 RVV/SVE 的 intrinsics 也没什么区别。这种写法叫 RegBase，中间计算结果可以保留在向量寄存器里，不用频繁读写 UB。不过，vector function 还是只能访问 UB，外面的 scalar 部分还是要负责 GM 和 UB 之间的数据搬运。
+取 mask，load，add 再 store，这和写 RVV/SVE 的 intrinsics 也没什么区别。这种写法叫 RegBase，中间计算结果可以保留在向量寄存器里，不用频繁读写 UB。不过，vector function 还是只能访问 UB，外面的 scalar 部分还是要负责 GM 和 UB 之间的数据搬运。与之相对的老 API 叫 MemBase，就是上面那种 `AscendC::Mul`，参数都是 `AscendC::LocalTensor` 类型，对应的是 UB 上保存的数据，输入和输出都在 UB 上。
 
+### 小结
+
+NPU 的编程模式，虽然也是用 C 代码，但确实和 NVIDIA 很不一样。NVIDIA 的 SIMT 可以把看起来是标量的代码向量化执行，不过 NPU 上，目前还是需要显式地通过特定的 Ascend 函数来执行向量指令，更类似 CPU，就是默认写的都是标量代码，需要向量的时候再用 intrinsics。SIMD 的部分，就和 SVE/RVV 类似，循环里面，计算 mask，然后一系列的向量 intrinsics。
