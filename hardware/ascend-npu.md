@@ -73,4 +73,53 @@ cannsim report -e ./sim_out/npusim_TIMESTAMP_vector_add
 
 ### custom_kernel_launch 样例
 
-在 [`cann/runtime`](https://gitcode.com/cann/runtime) 的 `example/0_quickstart/4_custom_kernel_launch` 下面，也有一个 [`vector_add_kernel.cpp`](https://gitcode.com/cann/runtime/blob/master/example/0_quickstart/4_custom_kernel_launch/vector_add_kernel.cpp) 样例，但它其实采用的是标量单元实现向量乘加，看到的计算都是在 AIV0_SCALAR 里进行的：先是 `LD_XD_XN_IMM` 指令，应该是从 GM 读取数据到寄存器，然后用 `MADD` 指令计算向量乘加 `srcA[idx] + alpha * srcB[idx]`，最后用 `ST_XD_XN_IMM` 指令把数据写到 GM。
+在 [`cann/runtime`](https://gitcode.com/cann/runtime) 的 `example/0_quickstart/4_custom_kernel_launch` 下面，也有一个 [`vector_add_kernel.cpp`](https://gitcode.com/cann/runtime/blob/master/example/0_quickstart/4_custom_kernel_launch/vector_add_kernel.cpp) 样例，但它其实采用的是标量单元实现向量乘加，看到的计算都是在 AIV0_SCALAR 里进行的：先是 `LD_XD_XN_IMM` 指令，应该是从 GM 读取数据到寄存器，然后用 `MADD` 指令计算向量乘加 `srcA[idx] + alpha * srcB[idx]`，最后用 `ST_XD_XN_IMM` 指令把数据写到 GM。代码：
+
+```c++
+extern "C" __global__ __aicore__ void VectorAddKernel(
+    __gm__ float* srcA, __gm__ float* srcB, __gm__ float* dst, float alpha, uint32_t elementCount)
+{
+    for (uint32_t idx = 0; idx < elementCount; ++idx) {
+        dst[idx] = srcA[idx] + alpha * srcB[idx];
+    }
+
+    // A5 编译时，生成器会在 kernel tail 中追加 dci()。关闭自动 DCCI 后，scalar store 产生的脏数据
+    // 尚未回写到 GM 就被 dci() 失效，导致输出全为 0，因此需要显式调用 dcci() 将数据回写到 GM。
+#if __NPU_ARCH__ == 3510
+    dcci(reinterpret_cast<__gm__ int64_t*>(dst),
+        cache_line_t::ENTIRE_DATA_CACHE,
+        dcci_dst_t::CACHELINE_OUT);
+#endif
+}
+```
+
+这一点和 NVIDIA 就很不一样：NVIDIA 是 SIMT，写标量代码，实际上也是向量化执行。而 NPU 就要像前一个例子那样，调用 `AscendC::Add` 来主动让 Vector 单元进行向量计算。这可能就是为啥大家觉得 NPU 编程比较复杂？涉及到向量计算的时候，写起来就是很多的函数调用，比较麻烦。
+
+### vector_function_add 样例
+
+cann-samples 里还有一个 [`vector_function_add`](https://gitcode.com/cann/cann-samples/blob/master/Samples/0_Introduction/vector_function_add/README.md) 样例，换了一种方式来表达向量计算，写法上就非常接近 SIMD Intrinsics 的写法：
+
+```c++
+template <typename T>
+__simd_vf__ inline void VectorFunctionAdd(
+    __ubuf__ T* xAddr, __ubuf__ T* yAddr, __ubuf__ T* zAddr, uint32_t total, uint16_t loopNum)
+{
+    constexpr uint32_t vectorLength = AscendC::VECTOR_REG_WIDTH / sizeof(T);
+    AscendC::Reg::RegTensor<T> xReg, yReg, zReg;
+    AscendC::Reg::MaskReg mask;
+    uint32_t remain = total;
+
+    for (uint16_t i = 0; i < loopNum; ++i) {
+        mask = AscendC::Reg::UpdateMask<T>(remain);
+        AscendC::Reg::LoadAlign<T, AscendC::Reg::LoadDist::DIST_NORM>(
+            xReg, xAddr + i * vectorLength);
+        AscendC::Reg::LoadAlign<T, AscendC::Reg::LoadDist::DIST_NORM>(
+            yReg, yAddr + i * vectorLength);
+        AscendC::Reg::Add(zReg, xReg, yReg, mask);
+        AscendC::Reg::StoreAlign<T, AscendC::Reg::StoreDist::DIST_NORM>(
+            zAddr + i * vectorLength, zReg, mask);
+    }
+}
+```
+
+取 mask，load，add 再 store，这和写 RVV/SVE 的 intrinsics 也没什么区别。这种写法叫 RegBase，中间计算结果可以保留在向量寄存器里，不用频繁读写 UB。不过，vector function 还是只能访问 UB，外面的 scalar 部分还是要负责 GM 和 UB 之间的数据搬运。
