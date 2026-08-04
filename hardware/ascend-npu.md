@@ -70,3 +70,7 @@ cannsim report -e ./sim_out/npusim_TIMESTAMP_vector_add
 1. AIV0_MTE2 执行两个 MOV_SRC_TO_DST_ALIGNv2 指令，从 GM 拷贝两个向量的数据到 UB 上
 1. AIV0_RVECLD 执行 RV_VLD 指令，应该是把 UB 的数据读取到寄存器里；AIV0_RVECEX 单元执行 RV_PLT 和 RV_VADD，不确定 PLT 代表啥，VADD 进行的是实际的向量求和；最后 AIV0_RVECST 单元执行 RV_VST 指令把数据从寄存器写到 UB 里
 1. 最后 AIV0_MTE3 执行 MOV_SRC_TO_DST_ALIGNv2 指令，从 UB 拷贝输出向量的值到 GM
+
+### custom_kernel_launch 样例
+
+在 [`cann/runtime`](https://gitcode.com/cann/runtime) 的 `example/0_quickstart/4_custom_kernel_launch` 下面，也有一个 `vector_add_kernel.cpp` 样例，但它其实采用的是标量单元实现向量乘加，看到的计算都是在 AIV0_SCALAR 里进行的：先是 `LD_XD_XN_IMM` 指令，应该是从 GM 读取数据到寄存器，然后用 `MADD` 指令计算向量乘加 `srcA[idx] + alpha * srcB[idx]`，最后用 `ST_XD_XN_IMM` 指令把数据写到 GM。
