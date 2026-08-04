@@ -59,5 +59,5 @@ cannsim report -e ./sim_out/npusim_TIMESTAMP_vector_add
 
 在 `./sim_out/npusim_TIMESTAMP_vector_add` 目录下得到结果：
 
-- `record/instr.bin`：执行的指令历史，二进制格式，可以用 cannsim 解析
+- `record/instr.bin`：执行的指令历史，二进制格式，可以用 cannsim 解析，源码在 `/usr/local/Ascend/cann-9.1.0/python/site-packages/cannsim/prof/src/backend/calog_handlers/instr_calog_bin_reader_simple.py`，内部是多个 `<QIIQ200s200s` 结构体，对应的字段是 tick、core、sub、pc、dec、exe。
 - `report/results/kernel_0_reports/core_0/trace_core0.json`：Chrome trace 格式，可以看到 NPU 各部分在做什么事情，可以在 `chrome://tracing` 页面里加载
