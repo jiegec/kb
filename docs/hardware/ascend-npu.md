@@ -43,7 +43,7 @@ RUN chmod +x /tmp/Ascend-cann-950-ops_9.1.0_linux-x86_64.run \
 
 ### vector_add 样例
 
-构建并用 cannsim 跑样例：
+vector_add 样例来自 [`cann/cann-samples`](https://gitcode.com/cann/cann-samples) 的 [`Samples/0_Introduction/vector_add`](https://gitcode.com/cann/cann-samples/blob/master/Samples/0_Introduction/vector_add/README.md) 路径，下面构建并用 cannsim 跑样例：
 
 ```shell
 source /usr/local/Ascend/cann-9.1.0/set_env.sh
@@ -73,4 +73,4 @@ cannsim report -e ./sim_out/npusim_TIMESTAMP_vector_add
 
 ### custom_kernel_launch 样例
 
-在 [`cann/runtime`](https://gitcode.com/cann/runtime) 的 `example/0_quickstart/4_custom_kernel_launch` 下面，也有一个 `vector_add_kernel.cpp` 样例，但它其实采用的是标量单元实现向量乘加，看到的计算都是在 AIV0_SCALAR 里进行的：先是 `LD_XD_XN_IMM` 指令，应该是从 GM 读取数据到寄存器，然后用 `MADD` 指令计算向量乘加 `srcA[idx] + alpha * srcB[idx]`，最后用 `ST_XD_XN_IMM` 指令把数据写到 GM。
+在 [`cann/runtime`](https://gitcode.com/cann/runtime) 的 `example/0_quickstart/4_custom_kernel_launch` 下面，也有一个 [`vector_add_kernel.cpp`](https://gitcode.com/cann/runtime/blob/master/example/0_quickstart/4_custom_kernel_launch/vector_add_kernel.cpp) 样例，但它其实采用的是标量单元实现向量乘加，看到的计算都是在 AIV0_SCALAR 里进行的：先是 `LD_XD_XN_IMM` 指令，应该是从 GM 读取数据到寄存器，然后用 `MADD` 指令计算向量乘加 `srcA[idx] + alpha * srcB[idx]`，最后用 `ST_XD_XN_IMM` 指令把数据写到 GM。
