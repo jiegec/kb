@@ -78,7 +78,7 @@ cannsim report -e ./sim_out/npusim_TIMESTAMP_vector_add
 - `record/instr.bin`：执行的指令历史，二进制格式，可以用 cannsim 解析，源码在 `/usr/local/Ascend/cann-9.1.0/python/site-packages/cannsim/prof/src/backend/calog_handlers/instr_calog_bin_reader_simple.py`，内部是多个 `<QIIQ200s200s` 结构体，对应的字段是 tick、core、sub、pc、dec、exe；日志样例：`(PC: 0x9000d0d000) SCALAR   : (Binary: 0x02004880) (ID: 000000) MOV_XD_SPR`，猜测是从特殊寄存器（SPR）移动（MOV）数据到通用寄存器（XD）
 - `report/results/kernel_0_reports/core_0/trace_core0.json`：Chrome trace 格式，可以看到 NPU 各部分在做什么事情，可以在 `chrome://tracing` 页面里加载
 
-这个样例主要做的事情是，从 GM 拷贝数据到 UB，在 UB 上读取数据，向量求和后，写入 UB，再从 UB 拷贝数据到 GM，类似 CUDA 上，先把数据从 GM 拷贝到 SM，在 SM 上进行向量求和，写入 SM 后，再从 SM 拷贝数据到 GM。不过这里实际上是有多个单元在协作，从 Chrome tracing 来看：
+这个样例主要做的事情是，从 GM (Global Memory) 拷贝数据到 UB (Unified Buffer)，在 UB 上读取数据，向量求和后，写入 UB，再从 UB 拷贝数据到 GM，类似 CUDA 上，先把数据从 GM 拷贝到 Shared Memory，在 Shared Memory 上进行向量求和，写入 Shared Memory 后，再从 Shared Memory 拷贝数据到 GM。不过这里实际上是有多个单元在协作，从 Chrome tracing 来看：
 
 1. 标量单元 AIV0_SCALAR 执行一些未知的初始化指令
 2. AIV0_MTE2 执行两个 MOV_SRC_TO_DST_ALIGNv2 指令，从 GM 拷贝两个向量的数据到 UB 上
@@ -141,3 +141,5 @@ __simd_vf__ inline void VectorFunctionAdd(
 ### 小结
 
 NPU 的编程模式，虽然也是用 C 代码，但确实和 NVIDIA 很不一样。NVIDIA 的 SIMT 可以把看起来是标量的代码向量化执行，不过 NPU 上，目前还是需要显式地通过特定的 Ascend 函数来执行向量指令，更类似 CPU，就是默认写的都是标量代码，需要向量的时候再用 intrinsics。SIMD 的部分，就和 SVE/RVV 类似，循环里面，计算 mask，然后一系列的向量 intrinsics。
+
+但是 NPU 比较麻烦的是，它的向量部分，不能直接访问 GM，只能访问 UB，其实就相当于在 NVIDIA 上只能访问 Shared Memory。所以要向量加速，得先通过 MTE2 从 GM 搬数据到 UB，向量计算完以后，再通过 MTE3 把数据从 UB 搬到 GM。矩阵那边，还有 L0A、L0B 和 L0C，矩阵的输入也必须在特定的片上存储里，这一点比较像 NVIDIA 的 [`tcgen05`](https://gau-nernst.github.io/tcgen05/)，额外搞了一个 Tensor Memory，再配合 Tensor Memory Accelerator 来负责搬运数据。总之在矩阵运算来看，NVIDIA 和华为的设计是趋同了，主要还是向量的部分不一样。
