@@ -8,7 +8,7 @@
     - A330-343(X): A330-300 系列，40 代表罗罗引擎
     - A330-323(X): A330-300 系列，20 代表普惠引擎
     - A330-243: A330-200 系列，40 代表罗罗引擎
-- A320: A319/A320/A321 代表长度，十位数 10(CFM)/30(IAE)/50(CFM NEO)/70(普惠 NEO) 代表引擎厂商，(N)/(NX) 里的 N 代表 NEO(New Engine Option)，旧的就叫 CEO(Current Engine Option)，个位数代表具体引擎型号，(SL) 代表 Sharklet（鲨鱼鳍/翼尖小翼），(ACF)/(X)/(NX) 里的 X 代表 Airbus Cabin Flex，修改了客舱布局；
+- A320: A319/A320/A321 代表长度，十位数 10(CFM)/30(IAE)/50(CFM NEO)/70(普惠 NEO) 代表引擎厂商，(N)/(NX) 里的 N 代表 NEO(New Engine Option)，旧的就叫 CEO(Current Engine Option)，个位数代表具体引擎型号，(SL) 代表 Sharklet（鲨鱼鳍/翼尖小翼），(ACF)/(X)/(NX) 里的 X 代表 Airbus Cabin Flex，修改了客舱布局
     - A321-271(N)(ACF): A321-200 系列，70 代表普惠 NEO PW1133G-JM 引擎
     - A321-271(N)(X): A321-200 系列，70 代表普惠 NEO PW1133G-JM 引擎
     - A321-251(NX): A321-200 系列，50 代表 CFM NEO LEAP-1A32 引擎
