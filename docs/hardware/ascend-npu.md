@@ -4,11 +4,11 @@
 
 基本架构：<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/latest/programug/Ascendcopdevg/docs/guide/%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.md>
 
-Atlas A2 训练系列产品/Atlas A2 推理系列产品的架构图：
+Atlas A2 训练系列产品/Atlas A2 推理系列产品的架构图，来自 cann/asc-devkit：
 
 ![](https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E5%88%86%E7%A6%BB%E6%9E%B6%E6%9E%84.png)
 
-NPU 架构版本 3510(950) 的架构图：
+NPU 架构版本 3510(950) 的架构图，来自 cann/asc-devkit：
 
 ![](https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84.png)
 
