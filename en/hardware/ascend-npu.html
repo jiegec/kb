@@ -1697,6 +1697,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        架构分析
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cann" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1764,7 +1775,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         小结
@@ -4712,6 +4723,12 @@
 
 
 <h1 id="npu">华为昇腾 NPU</h1>
+<h2 id="_1">架构分析</h2>
+<p>基本架构：<a href="https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/latest/programug/Ascendcopdevg/docs/guide/%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.md">https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/latest/programug/Ascendcopdevg/docs/guide/%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.md</a></p>
+<p>Atlas A2 训练系列产品/Atlas A2 推理系列产品的架构图：</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E5%88%86%E7%A6%BB%E6%9E%B6%E6%9E%84.png" data-desc-position="bottom"><img alt="" src="https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E5%88%86%E7%A6%BB%E6%9E%B6%E6%9E%84.png"></a></p>
+<p>NPU 架构版本 3510(950) 的架构图：</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84.png" data-desc-position="bottom"><img alt="" src="https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84.png"></a></p>
 <h2 id="cann">CANN 安装</h2>
 <p><a href="https://www.hiascend.com/cann/download">https://www.hiascend.com/cann/download</a></p>
 <p>CANN 9.1.0 下载：</p>
@@ -4857,7 +4874,7 @@
 </span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>这个时候的编程就和 NVIDIA 没啥区别了。可以当 GPGPU 来编程？不过目前还是主推 SIMD，SIMT 还是辅助，填补一些可编程性以及 SIMD 用 Mask 处理起来比较麻烦的运算。</p>
-<h3 id="_1">小结</h3>
+<h3 id="_2">小结</h3>
 <p>NPU 的编程模式，虽然也是用 C 代码，但确实和 NVIDIA 很不一样。NVIDIA 的 SIMT 可以把看起来是标量的代码向量化执行，不过 NPU 上，目前还是需要显式地通过特定的 Ascend 函数来执行向量指令，更类似 CPU，就是默认写的都是标量代码，需要向量的时候再用 intrinsics。SIMD 的部分，就和 SVE/RVV 类似，循环里面，计算 mask，然后一系列的向量 intrinsics。</p>
 <p>矩阵部分，也是用 MTE 做异步数据传输，从 GM 到 L1，再从 L1 到 L0A 和 L0B，矩阵运算从 L0A 和 L0B 取数据，结果保存在 L0C 里面，最后再把数据从 L0C 拷贝到 GM。</p>
 <p>但是 NPU 比较麻烦的是，它的向量部分，不能直接访问 GM，只能访问 UB，其实就相当于在 NVIDIA 上只能访问 Shared Memory。所以要向量加速，得先通过 MTE2 从 GM 搬数据到 UB，向量计算完以后，再通过 MTE3 把数据从 UB 搬到 GM。矩阵那边，还有 L0A、L0B 和 L0C，矩阵乘法的输入输出也必须在特定的片上存储里，这一点比较像 NVIDIA 的 <a href="https://gau-nernst.github.io/tcgen05/"><code>tcgen05</code></a>，额外搞了一个 Tensor Memory，即矩阵乘法的输入在 Shared Memory，输出在 Tensor Memory，再配合 Tensor Memory Accelerator 来负责从 GM 搬运数据到 Shared Memory。总之在矩阵运算来看，NVIDIA 和华为的设计是趋同了，主要还是向量的部分不一样。</p>
@@ -4884,7 +4901,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月5日 02:33:22 UTC">2026年8月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月5日 03:02:50 UTC">2026年8月5日</span>
   </span>
 
     
