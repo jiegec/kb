@@ -116,7 +116,7 @@ cannsim report -e ./sim_out/npusim_TIMESTAMP_vector_add
 
 1. 标量单元 AIV0_SCALAR 执行一些未知的初始化指令
 2. AIV0_MTE2 执行两个 MOV_SRC_TO_DST_ALIGNv2 指令，从 GM 拷贝两个向量的数据到 UB 上
-3. AIV0_RVECLD 执行 RV_VLD 指令，应该是把 UB 的数据读取到寄存器里；AIV0_RVECEX 单元执行 RV_PLT 和 RV_VADD，不确定 PLT 代表啥，VADD 进行的是实际的向量求和；最后 AIV0_RVECST 单元执行 RV_VST 指令把数据从寄存器写到 UB 里
+3. AIV0_RVECLD 执行 RV_VLD 指令，应该是把 UB 的数据读取到寄存器里；AIV0_RVECEX 单元执行 RV_PLT 和 RV_VADD，PLT 应该是 predicate less than 的意思，根据循环的进展计算 mask，VADD 进行的是实际的向量求和；最后 AIV0_RVECST 单元执行 RV_VST 指令把数据从寄存器写到 UB 里
 4. 最后 AIV0_MTE3 执行 MOV_SRC_TO_DST_ALIGNv2 指令，从 UB 拷贝输出向量的值到 GM
 
 ### custom_kernel_launch 样例
@@ -219,6 +219,32 @@ __simd_vf__ inline void VectorFunctionAdd(
 ```
 
 取 mask，load，add 再 store，这和写 RVV/SVE 的 intrinsics 也没什么区别。这种写法叫 RegBase，中间计算结果可以保留在向量寄存器里，不用频繁读写 UB。不过，vector function 还是只能访问 UB，外面的 scalar 部分还是要负责 GM 和 UB 之间的数据搬运。与之相对的老 API 叫 MemBase，就是上面那种 `AscendC::Mul`，参数都是 `AscendC::LocalTensor` 类型，对应的是 UB 上保存的数据，输入和输出都在 UB 上。
+
+循环体对应的 LLVM IR：
+
+```llvm
+7:                                                ; preds = %5, %7
+  %8 = phi i16 [ %22, %7 ], [ 0, %5 ]
+  %9 = phi i32 [ %13, %7 ], [ %3, %5 ]
+  %10 = zext i16 %8 to i64, !dbg !294
+  %11 = tail call { <256 x i1>, i32 } @llvm.hivm.plt.b32.v300(i32 %9), !dbg !295
+  %12 = extractvalue { <256 x i1>, i32 } %11, 0, !dbg !295
+  %13 = extractvalue { <256 x i1>, i32 } %11, 1, !dbg !295
+  %14 = shl nuw nsw i64 %10, 6, !dbg !305
+  %15 = getelementptr inbounds float, ptr addrspace(6) %0, i64 %14, !dbg !306
+  %16 = tail call <64 x float> @llvm.hivm.vldsx1.v64f32(ptr addrspace(6) %15, i32 0, i32 0, i32 0), !dbg !307
+  %17 = getelementptr inbounds float, ptr addrspace(6) %1, i64 %14, !dbg !316
+  %18 = tail call <64 x float> @llvm.hivm.vldsx1.v64f32(ptr addrspace(6) %17, i32 0, i32 0, i32 0), !dbg !317
+  %19 = tail call <64 x float> @llvm.hivm.vadd.s.x.v64f32(<64 x float> %16, <64 x float> %18, <256 x i1> %12), !dbg !321
+  %20 = bitcast <64 x float> %19 to <64 x i32>, !dbg !321
+  %21 = getelementptr inbounds float, ptr addrspace(6) %2, i64 %14, !dbg !332
+  tail call void @llvm.hivm.vstsx1.v64i32(<64 x i32> %20, ptr addrspace(6) %21, i32 0, i32 2, i32 0, <256 x i1> %12), !dbg !333
+  %22 = add nuw i16 %8, 1, !dbg !341
+  %23 = icmp eq i16 %22, %4, !dbg !292
+  br i1 %23, label %24, label %7, !dbg !293, !llvm.loop !342
+```
+
+这里出现的 llvm.hivm 的 intrinsic 应该就对应到指令上了。
 
 ### simt 样例
 
