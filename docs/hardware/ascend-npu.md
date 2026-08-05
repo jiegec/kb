@@ -12,6 +12,16 @@ NPU 架构版本 3510(950) 的架构图，来自 cann/asc-devkit：
 
 ![](https://raw.gitcode.com/cann/asc-devkit/raw/9.1.0/docs/guide/figures/%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84.png)
 
+不同架构版本：
+
+| 产品            | NPU  | DAV  |
+|-----------------|------|------|
+| Ascend 910      | 1001 | C100 |
+| Ascend 310P/610 | 2002 | M200 |
+| Ascend 910B1    | 2201 | C220 |
+| Ascend 310B1    | 3002 | M300 |
+| Ascend 950      | 3510 | C310 |
+
 ## CANN 安装
 
 <https://www.hiascend.com/cann/download>
@@ -132,6 +142,54 @@ extern "C" __global__ __aicore__ void VectorAddKernel(
 ```
 
 这一点和 NVIDIA 就很不一样：NVIDIA 是 SIMT，写标量代码，实际上也是向量化执行。而 NPU 就要像前一个例子那样，调用 `AscendC::Add` 来主动让 Vector 单元进行向量计算。这可能就是为啥大家觉得 NPU 编程比较复杂？涉及到向量计算的时候，写起来就是很多的函数调用，比较麻烦。
+
+只保留 kernel 部分，生成 LLVM IR：
+
+```shell
+$ cat kernel.cpp
+extern "C" __global__ __aicore__ void VectorAddKernel(
+    __gm__ float* srcA, __gm__ float* srcB, __gm__ float* dst, float alpha, uint32_t elementCount)
+{
+    for (uint32_t idx = 0; idx < elementCount; ++idx) {
+        dst[idx] = srcA[idx] + alpha * srcB[idx];
+    }
+}
+$ ccec -O3 -std=c++17 --cce-aicore-lang --cce-aicore-arch=dav-c310-vec --cce-aicore-only -c -emit-llvm
+$ llvm-dis vector_add_kernel-cce-hiipu64-hisilicon-cce-dav-c310-vec.bc
+```
+
+在生成的 `vector_add_kernel-cce-hiipu64-hisilicon-cce-dav-c310-vec.ll` 里可以看到熟悉的 LLVM IR：
+
+```ir
+; Function Attrs: nofree nosync nounwind memory(argmem: readwrite)
+define dso_local cc73 void @VectorAddKernel(ptr addrspace(1) nocapture noundef readonly %0, ptr addrspace(1) nocapture noundef readonly %1, ptr addrspace(1) nocapture noundef writeonly %2, float noundef %3, i32 noundef %4) local_unnamed_addr #0 !dbg !7 {
+  %6 = zext i32 %4 to i64, !dbg !10
+  %7 = icmp eq i32 %4, 0, !dbg !10, !loop.guard !11
+  br i1 %7, label %20, label %8, !dbg !12, !loop.guard !11
+
+8:                                                ; preds = %5
+  br label %9, !dbg !12
+
+9:                                                ; preds = %8, %9
+  %10 = phi i64 [ %17, %9 ], [ 0, %8 ]
+  %11 = getelementptr inbounds float, ptr addrspace(1) %0, i64 %10, !dbg !13
+  %12 = load float, ptr addrspace(1) %11, align 4, !dbg !13, !tbaa !14
+  %13 = getelementptr inbounds float, ptr addrspace(1) %1, i64 %10, !dbg !18
+  %14 = load float, ptr addrspace(1) %13, align 4, !dbg !18, !tbaa !14
+  %15 = tail call float @llvm.fmuladd.f32(float %3, float %14, float %12), !dbg !19
+  %16 = getelementptr inbounds float, ptr addrspace(1) %2, i64 %10, !dbg !20
+  store float %15, ptr addrspace(1) %16, align 4, !dbg !21, !tbaa !14
+  %17 = add nuw nsw i64 %10, 1, !dbg !22
+  %18 = icmp eq i64 %17, %6, !dbg !10
+  br i1 %18, label %19, label %9, !dbg !12, !llvm.loop !23
+
+19:                                               ; preds = %9
+  br label %20, !dbg !26
+
+20:                                               ; preds = %19, %5
+  ret void, !dbg !26
+}
+```
 
 ### vector_function_add 样例
 
