@@ -48,13 +48,25 @@ RUN chmod +x /tmp/Ascend-cann-950-ops_9.1.0_linux-x86_64.run \
 vector_add 样例来自 [`cann/cann-samples`](https://gitcode.com/cann/cann-samples) 的 [`Samples/0_Introduction/vector_add`](https://gitcode.com/cann/cann-samples/blob/master/Samples/0_Introduction/vector_add/README.md) 路径，核心代码：
 
 ```c++
-xLocal = inQueueX.DeQue<T>();
-yLocal = inQueueY.DeQue<T>();
-AscendC::LocalTensor<T> zLocal = outQueueZ.AllocTensor<T>();
-AscendC::Add(zLocal, xLocal, yLocal, tileElementNum);
-outQueueZ.EnQue(zLocal);
-inQueueX.FreeTensor(xLocal);
-inQueueY.FreeTensor(yLocal);
+template <typename T>
+__global__ __aicore__ __vector__ void add_kernel(
+    GM_ADDR x, GM_ADDR y, GM_ADDR z, int64_t totalLength, int64_t blockLength, uint32_t tileSize)
+{
+    // setup double buffering omitted
+    // loop over tiles
+    for (int64_t i = 0; i < tileNum; ++i) {
+        // copy from gm to ub omitted
+        // compute
+        xLocal = inQueueX.DeQue<T>();
+        yLocal = inQueueY.DeQue<T>();
+        AscendC::LocalTensor<T> zLocal = outQueueZ.AllocTensor<T>();
+        AscendC::Add(zLocal, xLocal, yLocal, tileElementNum);
+        outQueueZ.EnQue(zLocal);
+        inQueueX.FreeTensor(xLocal);
+        inQueueY.FreeTensor(yLocal);
+        // copy from ub to gm omitted
+    }
+}
 ```
 
 下面构建并用 cannsim 跑样例：
@@ -140,9 +152,29 @@ __simd_vf__ inline void VectorFunctionAdd(
 
 ### simt 样例
 
-`cann/cann-samples/Samples/1_Features/hardware_features/simt` 下面有 SIMT 的样例，其编程模型就和 NVIDIA 十分接近了，很多概念也直接映射过去。UB 就变成了 Shared Memory，然后 UB 还划分出了一部分空间用于 SIMD DCache，这和 NVIDIA 的 L1 和 Shared Memory 共享一篇空间，大小可调是类似的。SIMT 模式下还能访问 GM，比上面的向量编程会方便很多，不用强制走一遍 UB。
+`cann/cann-samples/Samples/1_Features/hardware_features/simt` 下面有 SIMT 的样例，其编程模型就和 NVIDIA 十分接近了，很多概念也直接映射过去。UB 就变成了 Shared Memory，然后 UB 还划分出了一部分空间用于 SIMD DCache，这和 NVIDIA 的 L1 和 Shared Memory 共享一篇空间，大小可调是类似的。SIMT 模式下还能访问 GM，比上面的向量编程会方便很多，不用强制走一遍 UB。样例代码：
 
-这个时候的编程就和 NVIDIA 没啥区别了。可以当 GPGPU 来编程？
+```c++
+template <uint32_t MAX_THREADNUM, typename DATA_TYPE, typename INDICES_TYPE, typename INDEX_SIZE_TYPE>
+inline __simt_vf__ __aicore__ __launch_bounds__(MAX_THREADNUM) void gather_function(__gm__ DATA_TYPE *x, __gm__ INDICES_TYPE *indices, __gm__ DATA_TYPE *y, 
+    INDEX_SIZE_TYPE gatherDimSize, INDEX_SIZE_TYPE indicesDimSize, INDEX_SIZE_TYPE innerDimSize, INDEX_SIZE_TYPE outNum) {
+    for (INDEX_SIZE_TYPE idx = threadIdx.x + blockIdx.x * blockDim.x; idx < outNum; 
+        idx += block_num * blockDim.x) {
+        INDEX_SIZE_TYPE outerI = idx / (gatherDimSize * innerDimSize);
+        INDEX_SIZE_TYPE tmpI = idx - outerI * (gatherDimSize * innerDimSize);
+        INDEX_SIZE_TYPE gatherI = tmpI / innerDimSize;
+        INDEX_SIZE_TYPE innerI = tmpI - gatherI * innerDimSize;
+        INDICES_TYPE indicesValue = indices[gatherI];
+        INDEX_SIZE_TYPE indicesValueI = static_cast<INDEX_SIZE_TYPE>(indicesValue);
+        INDEX_SIZE_TYPE xIndex = outerI * gatherDimSize * innerDimSize + indicesValueI * innerDimSize + innerI;
+        // indices overflow
+        bool indexOutOfBound = indicesValue < 0 || indicesValue >= gatherDimSize;
+        y[idx] = indexOutOfBound ? 0 : x[xIndex];
+    }
+}
+```
+
+这个时候的编程就和 NVIDIA 没啥区别了。可以当 GPGPU 来编程？不过目前还是主推 SIMD，SIMT 还是辅助，填补一些可编程性以及 SIMD 用 Mask 处理起来比较麻烦的运算。
 
 ### 小结
 
