@@ -799,6 +799,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/vivado.html"/>
     </url>
     <url>
+        <loc>https://jia.je/kb/travel/airplane.html</loc>
+        <lastmod>2026-08-05</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/airplane.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/airplane.html"/>
+    </url>
+    <url>
         <loc>https://jia.je/kb/travel/greece.html</loc>
         <lastmod>2026-08-05</lastmod>
         <changefreq>daily</changefreq>
@@ -1644,6 +1651,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/software/vivado.html"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/software/vivado.html"/>
+    </url>
+    <url>
+        <loc>https://jia.je/kb/en/travel/airplane.html</loc>
+        <lastmod>2026-08-05</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jia.je/kb/en/travel/airplane.html"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://jia.je/kb/travel/airplane.html"/>
     </url>
     <url>
         <loc>https://jia.je/kb/en/travel/greece.html</loc>
