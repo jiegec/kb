@@ -13,10 +13,12 @@ NPU 架构版本 3510(950) 的架构图，来自 cann/asc-devkit：
 | 产品            | NPU  | DAV  |
 | --------------- | ---- | ---- |
 | Ascend 910      | 1001 | C100 |
-| Ascend 310P/610 | 2002 | M200 |
-| Ascend 910B1    | 2201 | C220 |
-| Ascend 310B1    | 3002 | M300 |
+| Ascend 910B     | 2201 | C220 |
 | Ascend 950      | 3510 | C310 |
+| Ascend 310P/610 | 2002 | M200 |
+| Ascend 310B     | 3002 | M300 |
+| Kirin X90       | 3003 | L300 |
+| Kirin 9030      | 3113 | L311 |
 
 ## CANN 安装
 
