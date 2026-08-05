@@ -130,6 +130,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 X90 Plus
 
+- MateBook Fold 非凡大师
+
 ## hip
 
 ### hip07

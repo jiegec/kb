@@ -193,6 +193,28 @@ define dso_local cc73 void @VectorAddKernel(ptr addrspace(1) nocapture noundef r
 }
 ```
 
+观察它执行的指令历史，猜测是执行了这样的一个标量循环：
+
+```asm
+1:
+    # load srcA[idx], with writeback (r5 += 4)
+    LD_XD_XN_IMM r7, r5, 4
+    # loop count
+    SUB_IMM r0, r0, 1
+    CMP r0, r1
+    # load srcB[idx], with writeback (r4 += 4)
+    LD_XD_XN_IMM r8, r4, 4
+    # compute srcA[idx] + alpha * srcB[idx]
+    # r7 = r7 + r3 * r8
+    MADD r7, r3, r8
+    # store dst[idx], with writeback (r6 += 4)
+    ST_XD_XN_IMM r7, r6, 4
+    # loop if not finished
+    JUMPC 1b
+```
+
+这部分标量指令和 CPU 还是很类似的。
+
 ### vector_function_add 样例
 
 cann-samples 里还有一个 [`vector_function_add`](https://gitcode.com/cann/cann-samples/blob/master/Samples/0_Introduction/vector_function_add/README.md) 样例，换了一种方式来表达向量计算，写法上就非常接近 SIMD Intrinsics 的写法：
