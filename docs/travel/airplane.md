@@ -47,3 +47,18 @@
 ## ATR
 
 - [ATR72-600](https://www.atr-aircraft.com/regional-mobility/regional-aircraft/atr-72-600/)
+
+## ICAO DOC 8643
+
+- A359: A350-900
+- A333: A330-300
+- A332: A330-200
+- A21N: A321NEO
+- A20N: A320NEO
+- B789: B787-9
+- B77W: B777-300ER
+- B748: B747-800
+- B744: B747-400
+- B739: B737-900
+- B738: B737-800
+- AT76: ATR72-600
