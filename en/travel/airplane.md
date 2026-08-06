@@ -48,6 +48,10 @@
 
 - [ATR72-600](https://www.atr-aircraft.com/regional-mobility/regional-aircraft/atr-72-600/)
 
+## de Havilland Canada
+
+- DHC-6-300 Twin Otter aka DHC6
+
 ## ICAO DOC 8643
 
 - A359: A350-900
