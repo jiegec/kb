@@ -281,7 +281,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - part id 0xd06，与 Kirin 9030 系列大核相同
 - 128KB L1 Cache, 1MB L2 Cache
 - kunpeng 950
-- 16-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
+- 16(?)/8-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
+- 128bit FP datapath from LLVM
 - 320-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
 
@@ -295,6 +296,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [AArch64SchedHIP12.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP12.td)
 - [Add initial support for Hisilicon's hip12 core](https://github.com/llvm/llvm-project/pull/203446/changes)
 - [Add hip12 to release notes](https://github.com/llvm/llvm-project/pull/205899/changes)
+- [[AArch64] Add initial sched model for hip12 - #212935](https://github.com/llvm/llvm-project/pull/212935)
 
 ## Kunpeng 920B
 
@@ -368,6 +370,7 @@ part id:
 - SDMA 引擎负责 HBM \<-> DDR 传输
 - 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOPS(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
 - 1.55 GHz, 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合
+- 应该对应 hip11
 
 来源：
 
