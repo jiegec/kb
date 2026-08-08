@@ -369,6 +369,7 @@ part id:
 - SDMA 引擎负责 HBM <-> DDR 传输
 - 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOPS(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
 - 1.55 GHz, 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合
+- 应该对应 hip11
 
 来源：
 
