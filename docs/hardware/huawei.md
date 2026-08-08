@@ -41,13 +41,38 @@
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
 
+### 麒麟 X90
+
+- MateBook Pro
+- 4+4+2, 20 threads
+- part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.316 GHz）, 0xd43（8 threads，4 核，2.050 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.050 GHz），都带 SMT
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
+- Charlotte Pro
+- Maleoon 916
+
+来源：
+
+- [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
+- [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
+- [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
+
+### 麒麟 X90 Plus
+
+- MateBook Fold 非凡大师 2026
+
+### 麒麟 X90A
+
+- MatePad Edge
+- 3+3+2, 16 threads, 2.07 GHz/1.85 GHz/1.81 GHz
+- Maleoon 916B
+- 麒麟 X90 低配版
 
 ### 麒麟 9020
 
 - 首发：Mate 70
 - 1x 大核（0xd05，带 SMT），3x 中核（0xd46，带 SMT），4x 小核（0xd23，无 SMT）
 - 大核中核有超线程，共 12 线程
-- Maleoon 920
+- Maleoon 920, 4CU, 1024 ALU
 - 丝印 Hi36C0 GFCV110
 
 来源：
@@ -65,6 +90,10 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
+### 麒麟 9020A
+
+### 麒麟 9020B
+
 ### 麒麟 8020
 
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
@@ -75,7 +104,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - Mate 80/Mate X7
 - 1x 大核（带 SMT，2.695 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
-- Maleoon 935A
+- Maleoon 935A, 5CU, 1800 ALU
 
 来源：
 
@@ -86,7 +115,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - Mate 80/Mate X7
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
-- Maleoon 935
+- Maleoon 935, 6CU, 2160 ALU
 
 来源：
 
@@ -100,27 +129,6 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - Maleoon 935F
 
-### 麒麟 X90
-
-- MateBook Pro
-- 4+4+2, 20 threads
-- part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.316 GHz）, 0xd43（8 threads，4 核，2.050 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.050 GHz），都带 SMT
-- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
-- Charlotte Pro
-- Maleoon 916
-
-来源：
-
-- [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
-- [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
-- [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
-
-### 麒麟 X90A
-
-- MatePad Edge
-- 3+3+2, 16 threads, 2.07 GHz/1.85 GHz/1.81 GHz
-- Maleoon 916B
-
 ### 麒麟 XE90
 
 - MateBook Pro S
@@ -133,10 +141,6 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 9C14T
 - Maleoon 935
 - 与麒麟 9030Pro 规格一致
-
-### 麒麟 X90 Plus
-
-- MateBook Fold 非凡大师 2026
 
 ## hip
 
