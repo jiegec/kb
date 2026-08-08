@@ -5,9 +5,9 @@
 ### 麒麟 9000S
 
 - 首发：Mate 60
-- 1x 大核（带 SMT，0xd02），3x 中核（带 SMT，0xd42），4x 小核 Cortex-A510（无 SMT）
-- 大核中核有超线程，共 12 线程
-- Maleoon 910
+- 1x 大核（2.62 GHz, 带 SMT，0xd02），3x 中核（2.15 GHz, 带 SMT，0xd42），4x 小核 Cortex-A510（1.5 GHz, 无 SMT）
+- 大核中核有超线程，共 8 核 12 线程
+- Maleoon 910, 4CU, 1024 ALU
 - 丝印 Hi36A0 GFCV120
 
 来源：
@@ -19,10 +19,10 @@
 
 - 首发：Pura 70
 - 1x 大核（0xd03，最大 2.3 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
-- 2+6+4=12 线程
+- 8 核，2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
-- Maleoon 910
+- Maleoon 910, 4CU
 - 丝印 Hi36A0 GFCV121
 
 来源：
@@ -71,8 +71,8 @@
 ### 麒麟 9020
 
 - 首发：Mate 70
-- 1x 大核（0xd05，带 SMT），3x 中核（0xd46，带 SMT），4x 小核（0xd23，无 SMT）
-- 大核中核有超线程，共 12 线程
+- 1x 大核（0xd05，带 SMT, 2.5 GHz），3x 中核（0xd46，带 SMT, 2.15 GHz），4x 小核（0xd23，无 SMT, 1.6 GHz）
+- 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
 - 丝印 Hi36C0 GFCV110
 
