@@ -71,7 +71,7 @@
 ### 麒麟 9020
 
 - 首发：Mate 70
-- 1x 大核（0xd05，带 SMT, 2.5 GHz），3x 中核（0xd46，带 SMT, 2.15 GHz），4x 小核（0xd23，无 SMT, 1.6 GHz）
+- 1x 大核（0xd05，带 SMT, 2.50 GHz），3x 中核（0xd46，带 SMT, 2.15 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
 - 丝印 Hi36C0 GFCV110
@@ -91,7 +91,17 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 
+### 麒麟 T92
+
+- 8C12T
+- Maleoon 920
+- 与麒麟 9020 规格一致
+
 ### 麒麟 9020A
+
+- 1x 大核（0xd05，带 SMT, 2.40 GHz），3x 中核（0xd46，带 SMT, 2.00 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
+- 大核中核有超线程，共 8 核 12 线程
+- Maleoon 920
 
 ### 麒麟 9020B
 
