@@ -280,7 +280,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - part id 0xd06，与 Kirin 9030 系列大核相同
 - 128KB L1 Cache, 1MB L2 Cache
 - kunpeng 950
-- 16-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
+- 16(?)/8-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
+- 128bit FP datapath from LLVM
 - 320-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
 
@@ -294,6 +295,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [AArch64SchedHIP12.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP12.td)
 - [Add initial support for Hisilicon's hip12 core](https://github.com/llvm/llvm-project/pull/203446/changes)
 - [Add hip12 to release notes](https://github.com/llvm/llvm-project/pull/205899/changes)
+- [[AArch64] Add initial sched model for hip12 - #212935](https://github.com/llvm/llvm-project/pull/212935)
 
 ## Kunpeng 920B
 
