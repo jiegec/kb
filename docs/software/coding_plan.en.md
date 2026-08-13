@@ -194,6 +194,15 @@
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
+- [DeepSeek API Pricing](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/):
+    - Starting 2026-08-17 00:00, peak-valley pricing applies; off-peak price is half of peak price, with overall prices significantly increased compared to before
+    - Peak hours: 9:00-12:00, 14:00-18:00 Beijing time (the rest are off-peak hours)
+    - deepseek-v4-flash (DeepSeek-V4-Flash-0731, 1M context):
+        - Off-peak: cached input 0.05 RMB / uncached input 1.5 RMB / output 4.5 RMB per 1M tokens
+        - Peak: cached input 0.10 RMB / uncached input 3.0 RMB / output 9.0 RMB per 1M tokens
+    - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context):
+        - Off-peak: cached input 0.15 RMB / uncached input 4.5 RMB / output 13.5 RMB per 1M tokens
+        - Peak: cached input 0.30 RMB / uncached input 9.0 RMB / output 27.0 RMB per 1M tokens
 
 ## Prompts, Requests, and Tokens
 
@@ -237,6 +246,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/13: DeepSeek API will adopt peak-valley pricing starting 2026-08-17 00:00: peak hours (9:00-12:00, 14:00-18:00 Beijing time) are charged at 2x the off-peak price, with overall prices significantly increased (e.g., deepseek-v4-pro output price rises from 6 RMB to 27 RMB peak / 13.5 RMB off-peak per 1M tokens)
 - 2026/07/31: GLM Coding Plan switched to credit-based limits
 - 2026/07/20: Kimi Code separated from Kimi membership, now available as a dedicated new Kimi Code subscription
 - 2026/07/16: Kimi-K3 model released
