@@ -10,6 +10,7 @@
 - Moderato（99 RMB 每月）
 - Allegretto（199 RMB 每月）
 - Allegro（699 RMB 每月）
+- 订阅续购规则调整：因算力资源紧张，将优先保障订阅中用户的使用体验，你可于 2026-08-20 00:00 前续订，逾期将无法直接购买
 - [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 20 RMB 每 1M tokens
@@ -230,6 +231,7 @@
 | [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T     | 32B    | 是   |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B   | 23B    | 是   |
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B   | 10B    | 否   |
+| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T   | 95B    | 是   |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B   | 17B    | 是   |
 
 ## 更新历史

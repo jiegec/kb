@@ -10,6 +10,7 @@
 - Moderato (99 RMB/month)
 - Allegretto (199 RMB/month)
 - Allegro (699 RMB/month)
+- Subscription renewal rule adjustment: Due to tight compute resources, priority will be given to ensuring the experience of currently subscribed users. You can renew before 2026-08-20 00:00; after that, direct purchase will no longer be available.
 - [K3 API Pricing](https://platform.kimi.com/docs/pricing/chat-k3):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 20 RMB per 1M tokens
@@ -231,6 +232,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T         | 32B    | Y      |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B       | 23B    | Y      |
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B       | 10B    | N      |
+| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T       | 95B    | Y      |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B    | Y      |
 
 ## Update History
