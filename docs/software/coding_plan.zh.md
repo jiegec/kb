@@ -230,6 +230,7 @@
 |-------------------------------------------------------------------------------------|--------|--------|------|
 | [DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) | 284B   | 13B    | 否   |
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B   | 13B    | 否   |
+| [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T   | 49B    | 否   |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T   | 49B    | 否   |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B    | 3B     | 否   |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B   | 32B    | 否   |
