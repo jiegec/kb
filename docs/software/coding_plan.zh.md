@@ -193,6 +193,15 @@
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
+- [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
+    - 自 2026-08-17 00:00 起采用峰谷定价，空闲时段价格为高峰时段的一半，较此前价格整体大幅上调
+    - 高峰时段：北京时间 9:00-12:00、14:00-18:00（其余为空闲时段）
+    - deepseek-v4-flash（DeepSeek-V4-Flash-0731，1M 上下文）：
+        - 空闲时段：输入命中缓存 0.05 RMB / 输入未命中缓存 1.5 RMB / 输出 4.5 RMB 每 1M tokens
+        - 高峰时段：输入命中缓存 0.10 RMB / 输入未命中缓存 3.0 RMB / 输出 9.0 RMB 每 1M tokens
+    - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文）：
+        - 空闲时段：输入命中缓存 0.15 RMB / 输入未命中缓存 4.5 RMB / 输出 13.5 RMB 每 1M tokens
+        - 高峰时段：输入命中缓存 0.30 RMB / 输入未命中缓存 9.0 RMB / 输出 27.0 RMB 每 1M tokens
 
 ## prompt、请求和 token
 
@@ -236,6 +245,7 @@
 
 ## 更新历史
 
+- 2026/08/13：DeepSeek API 将于 2026-08-17 00:00 起采用峰谷定价：高峰时段（北京时间 9:00-12:00、14:00-18:00）价格为空闲时段的两倍，整体价格较此前大幅上调（如 deepseek-v4-pro 输出价格从 6 元涨至高峰 27 元/空闲 13.5 元每百万 tokens）
 - 2026/07/31：GLM Coding Plan 改为基于积分的限额
 - 2026/07/20：Kimi Code 权益从 Kimi 会员套餐中独立，由专属的新版 Kimi Code 套餐订阅提供
 - 2026/07/16：Kimi-K3 模型发布
