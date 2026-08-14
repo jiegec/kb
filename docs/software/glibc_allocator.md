@@ -1623,7 +1623,7 @@ calloc 的实现在 `__libc_calloc` 当中，它的语义相比 malloc 多了一
 前面讨论了各种 chunk 在内存分配器内部流转的情况，但并没有讨论这些空间是怎么从操作系统分配而来的，又是怎么维护的。glibc 内存分配器实际上设计了两个层次：
 
 1. arena 层次：对应锁的粒度，一个 arena 可以对应多个 heap，有一个特殊的 arena 是 main_arena；arena 的数量有限制，在 64 位系统下默认的数量限制是处理器核心数的 8 倍，避免出现太多的内存碎片
-2. heap 层次：每个 heap 大小有上限：`1024 * 1024` 字节，也就是 1MB；当 arena 需要更多空间的时候，可以分配新的 heap；arena 自身就保存在 arena 的第一个 heap 内部的空间，同一个 arena 的多个 heap 之间通单向链表连接起来；arena 的 top chunk 指向最后一个创建的 heap 的顶部的空闲块
+2. heap 层次：每个 heap 大小有上限，默认值 `HEAP_MAX_SIZE = 2 * DEFAULT_MMAP_THRESHOLD_MAX` 在 64 位下是 64MB，在 32 位下是 1MB；当 arena 需要更多空间的时候，可以分配新的 heap；arena 自身就保存在 arena 的第一个 heap 内部的空间，同一个 arena 的多个 heap 之间通单向链表连接起来；arena 的 top chunk 指向最后一个创建的 heap 的顶部的空闲块
 
 arena 的结构就是前面看到的 `malloc_state`，包括如下字段：
 
@@ -1926,7 +1926,7 @@ flowchart TD
 8. 根据 chunk size 找到对应的 tcache bin，如果它还没有满，则把空闲块放到 tcache 当中，然后返回
 9. 判断 chunk size 大小，如果对应 fast bin 的块大小，把空闲块放到对应的 fast bin 的单向链表中，然后返回；注意此时没有获取 arena 的锁，所以 fast bin 的操作会用到原子指令，同理 malloc 中对 fast bin 的操作也要用到原子指令，即使 malloc 持有了 arena 的锁
 10. 获取 arena 的锁，尝试把空闲块和在内存中相邻的前后空闲块进行合并，合并后的空闲块放入 unsorted bin；合并时，如果被合并的空闲块已经在 small bin 或者 large bin 当中，利用双向链表的特性，把它从双向链表中删除；如果和 top chunk 相邻，则可以直接合并到 top chunk 上，然后返回
-11. 如果释放的块比较大，超过了阈值，则触发一次 malloc_consolidate
+11. 如果释放的块比较大，超过了 `FASTBIN_CONSOLIDATION_THRESHOLD`（64KB），并且 fast bin 中还有空闲块，则触发一次 malloc_consolidate；随后还会尝试把部分内存归还给操作系统
 
 ### 各种常量的默认值
 
@@ -1953,7 +1953,7 @@ flowchart TD
 1. tcache: 块大小不超过 1040 字节，对应 `malloc(1032)` 或更小
 2. fast bin: 块大小不超过 128 字节，对应 `malloc(120)` 或更小
 3. small bin: 块大小不超过 1008 字节，对应 `malloc(1000)` 或更小
-4. large bin: 块大小不小于 1024 字节，不超过 131056 字节，对应 `malloc(1001)` 到 `malloc(131048)` 的范围，更大的内存分配会直接走 mmap
+4. large bin: 块大小不小于 1024 字节，不超过 131056 字节，对应 `malloc(1001)` 到 `malloc(131048)` 的范围，更大的内存在 `sysmalloc` 中通过 mmap 分配
 
 ### 性能优化
 
@@ -2428,6 +2428,8 @@ large_csize2tidx(size_t nb)
 1048584-2097144: bin 74
 2097160-4194288: bin 75
 ```
+
+可以看到，bin 的分界在 2 的整数次幂上：bin 64 对应块大小 `[1056, 2048)`，bin 65 对应 `[2048, 4096)`，依此类推，直到 bin 75 对应 `[2097152, 4194304)`。
 
 超过 4MB（4194304 bytes）的块不会进入 tcache large bin 当中。
 
