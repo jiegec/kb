@@ -2485,6 +2485,10 @@ static const union
 
 同时，glibc 2.43 的 tcache 初始化被延后，只有到第一次用 tcache 时才会初始化，这意味着 tcache 大概率不是第一个被分配的 chunk。
 
+### glibc 2.44
+
+glibc 2.44 对 malloc 流程的[改动](./glibc/glibc-2.44.diff)主要是：此前的版本里，malloc 在遍历 unsorted bin 时，如果遇到大小正好匹配的空闲块，会先把它挪到 tcache 里，然后继续遍历，后续才会把块取出来返回给调用者。这正是前面“性能优化”一节的第 5 条优化。而 glibc 2.44 改成了：遇到大小正好匹配的空闲块就直接分配并返回，不再经过 tcache。
+
 ### 小结
 
 总结一下从 glibc 2.31 之后内存分配器行为的几个大的变化：
@@ -2494,6 +2498,7 @@ static const union
 3. glibc 2.41 开始，calloc 也会使用 tcache
 4. glibc 2.41 开始，free 面对比较小的 chunk，会直接放到 small bin 而不是 unsorted bin
 5. glibc 2.43 开始，fast bin 被删除了，tcache 每个 bin 的默认大小从 7 改成了 16，同时 tcache 从先前在第一次 malloc/calloc 调用中被初始化，变为惰性初始化
+6. glibc 2.44 开始，malloc 遍历 unsorted bin 时遇到大小匹配的块会直接分配，不再经过 tcache
 
 ## CTF
 
