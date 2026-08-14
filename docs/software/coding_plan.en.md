@@ -56,17 +56,17 @@
 - Max Plan (1078 RMB/month): 28,000 points per 5 hours, 140,000 points per week
 - Model points consumed = (input tokens × Input coefficient + cached input tokens × Cached Input coefficient + output tokens × Output coefficient) / 10,000
 - MCP points consumed = number of calls × Output coefficient
-- All plans support GLM-5.2, GLM-5-Turbo, GLM-4.7.
+- All plans support GLM-5.3, GLM-5-Turbo, GLM-4.7.
+- Requests for previous models (GLM-5.2/GLM-5.1) will be automatically routed to GLM-5.3.
 - During off-peak hours, model calls consume points at 50% of the base rate. Peak hours: 14:00–18:00 (UTC+8) on weekdays.
-- GLM-5.2: Input coefficient 6.9, Cached Input coefficient 1.7, Output coefficient 24
-- Using only GLM-5.2 as an example, with a cache hit rate of 90.9% (average for coding scenarios), the weekly token quota range for each tier is approximately:
+- GLM-5.3: Input coefficient 6.9, Cached Input coefficient 1.7, Output coefficient 24
+- Using only GLM-5.3 as an example, with a cache hit rate of 90.9% (average for coding scenarios), the weekly token quota range for each tier is approximately:
     - Lite: 43M–87M tokens/week
     - Pro: 263M–526M tokens/week
     - Max: 613M–1,226M tokens/week
 - Range explanation
     - Maximum tokens: all during off-peak hours, consuming points at 0.5×
     - Minimum tokens: all during peak hours, consuming points at 1×
-- When fully utilizing the off-peak discount, compared to pay-as-you-go calls to the GLM-5.2 standard API, you can save up to 92% in cost
 - [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 8 RMB per 1M tokens
@@ -247,6 +247,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/14: Zhipu GLM Coding Plan flagship model upgraded from GLM-5.2 to GLM-5.3: all plans support GLM-5.3, GLM-5-Turbo and GLM-4.7; requests for previous models (GLM-5.2/GLM-5.1) are automatically routed to GLM-5.3; model deduction coefficients unchanged (Input 6.9 / Cached Input 1.7 / Output 24); the official docs also removed the "save up to 92%" claim; the international edition (Z.ai DevPack) was upgraded to GLM-5.3 accordingly
 - 2026/08/13: DeepSeek API will adopt peak-valley pricing starting 2026-08-17 00:00: peak hours (9:00-12:00, 14:00-18:00 Beijing time) are charged at 2x the off-peak price, with overall prices significantly increased (e.g., deepseek-v4-pro output price rises from 6 RMB to 27 RMB peak / 13.5 RMB off-peak per 1M tokens)
 - 2026/07/31: GLM Coding Plan switched to credit-based limits
 - 2026/07/20: Kimi Code separated from Kimi membership, now available as a dedicated new Kimi Code subscription
