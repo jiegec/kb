@@ -4,18 +4,32 @@ on:
     branches:
       - main
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # for git history
+          fetch-depth: 0 # for git history (git-revision-date-localized plugin)
+      - uses: actions/configure-pages@v5
       - uses: actions/cache@v4
         with:
           key: ${{ github.ref }}
           path: .cache
       - uses: Gr1N/setup-poetry@v9
       - run: poetry install
-      - run: poetry run mkdocs gh-deploy --force
+      - run: poetry run mkdocs build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
