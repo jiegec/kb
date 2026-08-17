@@ -104,7 +104,7 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-2.0-lite、Doubao-Seed-Code、MiniMax-M2.7、MiniMax-M3、MiniMax-2.5、Kimi-K2.6、Kimi-K2.7-Code、GLM-5.2、GLM-5.3、DeepSeek-V4-Flash、DeepSeek-V4-Pro
+    - 支持模型：Doubao-Seed-2.0-lite、MiniMax-M2.7、MiniMax-M3、MiniMax-2.5、Kimi-K2.6、Kimi-K2.7-Code、GLM-5.2（即将下线）、GLM-5.3、DeepSeek-V4-Flash、DeepSeek-V4-Pro
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
     - Agent 燃料值（Agent Fuel Point，简称 AFP）是 Agent Plan 套餐的统一用量计费单位，用于量化智能体（Agent）资源的消耗。
         - 文本生成模型、向量化模型：(输入 token * 输入抵扣系数 + 输出 token * 输出抵扣系数) / 10,000
@@ -114,7 +114,7 @@
     - Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。视觉模型每日：50000 AFP。
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。视觉模型每日：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。视觉模型每日：250000 AFP。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、doubao-seed-2.0-code、doubao-seed-2.0-pro、deepseek-v3.2、minimax-m2.7、minimax-m3、glm-5.2、glm-5.3、kimi-k2.6、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m2.7、minimax-m3、glm-5.2（即将下线）、glm-5.3、kimi-k2.6、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite 套餐（60 RMB 每月）：2500 Credits 每 7 天
@@ -252,6 +252,7 @@
 
 ## 更新历史
 
+- 2026/08/17：方舟 Coding Plan 个人版和 Agent Plan 移除了 Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-Code 模型（此前标记为即将下线），GLM-5.2 标记为即将下线，GLM-5.3 替代 GLM-5.2 成为 glm-latest 默认指向
 - 2026/08/14：方舟 Coding Plan 个人版和 Agent Plan 新增支持 GLM-5.3 模型（1M 上下文窗口，1024k 上下文 / 128k 最大输出，默认开启思考且不支持关闭，抵扣系数与 GLM-5.2 一致）
 - 2026/08/14：智谱 GLM Coding Plan 旗舰模型从 GLM-5.2 升级为 GLM-5.3：所有套餐支持 GLM-5.3、GLM-5-Turbo、GLM-4.7，调用历史模型 GLM-5.2/GLM-5.1 将自动切换至 GLM-5.3，模型抵扣系数不变（Input 6.9 / Cached Input 1.7 / Output 24）；官方文档同时移除了"最高可节省 92% 成本"表述；智谱国际版（Z.ai DevPack）同步升级至 GLM-5.3
 - 2026/08/13：DeepSeek API 将于 2026-08-17 00:00 起采用峰谷定价：高峰时段（北京时间 9:00-12:00、14:00-18:00）价格为空闲时段的两倍，整体价格较此前大幅上调（如 deepseek-v4-pro 输出价格从 6 元涨至高峰 27 元/空闲 13.5 元每百万 tokens）

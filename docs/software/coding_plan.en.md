@@ -104,7 +104,7 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan) [Documentation](https://www.volcengine.com/docs/82379/1925114)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-2.0-lite, Doubao-Seed-Code, MiniMax-M2.7, MiniMax-M3, MiniMax-2.5, Kimi-K2.6, Kimi-K2.7-Code, GLM-5.2, GLM-5.3, DeepSeek-V4-Flash, DeepSeek-V4-Pro
+    - Supported models: Doubao-Seed-2.0-lite, MiniMax-M2.7, MiniMax-M3, MiniMax-2.5, Kimi-K2.6, Kimi-K2.7-Code, GLM-5.2 (phasing out), GLM-5.3, DeepSeek-V4-Flash, DeepSeek-V4-Pro
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
     - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
         - Text generation models, embedding models: (input token * input deduction coefficient + output token * output deduction coefficient) / 10,000
@@ -114,7 +114,7 @@
     - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Vision models daily: 50,000 AFP.
     - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Vision models daily: 125,000 AFP.
     - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Vision models daily: 250,000 AFP.
-    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, doubao-seed-2.0-code, doubao-seed-2.0-pro, deepseek-v3.2, minimax-m2.7, minimax-m3, glm-5.2, glm-5.3, kimi-k2.6, kimi-k2.7-code, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seed-tts-2.0, doubao-seed-asr-2.0
+    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m2.7, minimax-m3, glm-5.2 (phasing out), glm-5.3, kimi-k2.6, kimi-k2.7-code, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seed-tts-2.0, doubao-seed-asr-2.0
     - Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast, doubao-seedance-2.0-mini
 - [Alibaba Cloud Bailian Token Plan (Personal Edition)](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite Plan (60 RMB/month): 2,500 Credits every 7 days
@@ -253,6 +253,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/17: Volcano Engine Coding Plan (Personal Edition) and Agent Plan removed Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-Code models (previously marked as phasing out); GLM-5.2 marked as phasing out; GLM-5.3 replaced GLM-5.2 as the default glm-latest target
 - 2026/08/14: Volcano Engine Coding Plan (Personal Edition) and Agent Plan added support for the GLM-5.3 model (1M context window, 1024K context / 128K max output, thinking enabled by default and cannot be disabled, deduction coefficient same as GLM-5.2)
 - 2026/08/14: Zhipu GLM Coding Plan flagship model upgraded from GLM-5.2 to GLM-5.3: all plans support GLM-5.3, GLM-5-Turbo and GLM-4.7; requests for previous models (GLM-5.2/GLM-5.1) are automatically routed to GLM-5.3; model deduction coefficients unchanged (Input 6.9 / Cached Input 1.7 / Output 24); the official docs also removed the "save up to 92%" claim; the international edition (Z.ai DevPack) was upgraded to GLM-5.3 accordingly
 - 2026/08/13: DeepSeek API will adopt peak-valley pricing starting 2026-08-17 00:00: peak hours (9:00-12:00, 14:00-18:00 Beijing time) are charged at 2x the off-peak price, with overall prices significantly increased (e.g., deepseek-v4-pro output price rises from 6 RMB to 27 RMB peak / 13.5 RMB off-peak per 1M tokens)
