@@ -60,13 +60,21 @@
 - 调用历史模型 GLM-5.2/GLM-5.1 都将自动切换至 GLM-5.3。
 - 非高峰时段内，模型调用按基础积分消耗的 50% 抵扣。高峰时段：每周一至周五的 14:00～18:00（UTC+8）。
 - GLM-5.3：Input 抵扣系数 6.9，Cached Input 抵扣系数 1.7，Output 抵扣系数 24
-- 以全部使用 GLM-5.3 模型为例，当缓存命中率在 90.9% （编程场景平均水平）时，不同档位套餐每周可用 Token 额度区间大约如下：
-    - Lite：0.43～0.87 亿 Tokens/周
-    - Pro：2.63～5.26 亿 Tokens/周
-    - Max：6.13～12.26 亿 Tokens/周
+- 以全部使用 GLM-5.3 模型为例，套餐的 Token 用量会因缓存命中率而有所不同，具体如下：
+
+| 套餐 | 缓存命中率 90.9% | 缓存命中率 95% | 缓存命中率 98% |
+| --- | --- | --- | --- |
+| Lite | 0.43～0.87 亿 Tokens/周 | 0.48～0.97 亿 Tokens/周 | 0.52～1.05 亿 Tokens/周 |
+| Pro | 2.63～5.26 亿 Tokens/周 | 2.9～5.8 亿 Tokens/周 | 3.13～6.27 亿 Tokens/周 |
+| Max | 6.13～12.26 亿 Tokens/周 | 6.76～13.52 亿 Tokens/周 | 7.31～14.63 亿 Tokens/周 |
 - 区间说明
     - 最多 Tokens：全部在非高峰时段，按 0.5 倍积分消耗
     - 最少 Tokens：全部在高峰时段，按 1 倍积分消耗
+- [GLM-5.3 API 价格](https://bigmodel.cn/pricing)：
+    - 输入命中缓存 2 RMB 每 1M tokens
+    - 输入未命中缓存 8 RMB 每 1M tokens
+    - 输出 28 RMB 每 1M tokens
+    - 1M 上下文
 - [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 8 RMB 每 1M tokens
@@ -252,6 +260,7 @@
 
 ## 更新历史
 
+- 2026/08/19：智谱发布 GLM-5.3 模型，编程能力较 GLM-5.2 提升 50%，网络安全能力持平 Mythos 5；GLM Coding Plan 可用额度参考更新为按不同缓存命中率（90.9%、95%、98%）展示；GLM-5.3 API 定价与 GLM-5.2 一致
 - 2026/08/18：方舟 Coding Plan 个人版和 Agent Plan 移除了 MiniMax-M2.7 和 Kimi-K2.6 模型（此前标记为即将下线）
 - 2026/08/17：方舟 Coding Plan 个人版和 Agent Plan 移除了 Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-Code 模型（此前标记为即将下线），GLM-5.2 标记为即将下线，GLM-5.3 替代 GLM-5.2 成为 glm-latest 默认指向
 - 2026/08/14：方舟 Coding Plan 个人版和 Agent Plan 新增支持 GLM-5.3 模型（1M 上下文窗口，1024k 上下文 / 128k 最大输出，默认开启思考且不支持关闭，抵扣系数与 GLM-5.2 一致）

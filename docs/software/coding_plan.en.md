@@ -60,13 +60,21 @@
 - Requests for previous models (GLM-5.2/GLM-5.1) will be automatically routed to GLM-5.3.
 - During off-peak hours, model calls consume points at 50% of the base rate. Peak hours: 14:00–18:00 (UTC+8) on weekdays.
 - GLM-5.3: Input coefficient 6.9, Cached Input coefficient 1.7, Output coefficient 24
-- Using only GLM-5.3 as an example, with a cache hit rate of 90.9% (average for coding scenarios), the weekly token quota range for each tier is approximately:
-    - Lite: 43M–87M tokens/week
-    - Pro: 263M–526M tokens/week
-    - Max: 613M–1,226M tokens/week
+- Using only GLM-5.3 as an example, the plan's token usage will vary depending on the cache hit rate, as shown below:
+
+| Plan | 90.9% Cache Hit Rate | 95% Cache Hit Rate | 98% Cache Hit Rate |
+| --- | --- | --- | --- |
+| Lite | 43M–87M tokens/week | 48M–97M tokens/week | 52M–105M tokens/week |
+| Pro | 263M–526M tokens/week | 290M–580M tokens/week | 313M–627M tokens/week |
+| Max | 613M–1,226M tokens/week | 676M–1,352M tokens/week | 731M–1,463M tokens/week |
 - Range explanation
     - Maximum tokens: all during off-peak hours, consuming points at 0.5×
     - Minimum tokens: all during peak hours, consuming points at 1×
+- [GLM-5.3 API Pricing](https://bigmodel.cn/pricing):
+    - Cached input: 2 RMB per 1M tokens
+    - Uncached input: 8 RMB per 1M tokens
+    - Output: 28 RMB per 1M tokens
+    - 1M context
 - [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 8 RMB per 1M tokens
@@ -253,6 +261,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/19: Zhipu released GLM-5.3 model with 50% coding improvement over GLM-5.2 and cybersecurity capabilities matching Mythos 5; GLM Coding Plan token allowance estimates updated to show multiple cache hit rates (90.9%, 95%, 98%); GLM-5.3 API pricing matches GLM-5.2
 - 2026/08/18: Volcano Engine Coding Plan (Personal Edition) and Agent Plan removed MiniMax-M2.7 and Kimi-K2.6 models (previously marked as phasing out)
 - 2026/08/17: Volcano Engine Coding Plan (Personal Edition) and Agent Plan removed Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-Code models (previously marked as phasing out); GLM-5.2 marked as phasing out; GLM-5.3 replaced GLM-5.2 as the default glm-latest target
 - 2026/08/14: Volcano Engine Coding Plan (Personal Edition) and Agent Plan added support for the GLM-5.3 model (1M context window, 1024K context / 128K max output, thinking enabled by default and cannot be disabled, deduction coefficient same as GLM-5.2)
