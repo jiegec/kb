@@ -31,6 +31,7 @@
 
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [Subscription](https://platform.minimaxi.com/subscribe/token-plan)
 
+- Token Plan coverage has been narrowed from "all models" to "flagship models"; music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) have been discontinued and are no longer included in Token Plan quota
 - Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+
 - Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+
 - Ultra (469 RMB/month): Monthly M3 Token usage approx. 7.1B+
@@ -262,10 +263,12 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B       | 23B    | Y      |
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B       | 10B    | N      |
 | [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T       | 95B    | Y      |
+| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B        | -      | Y      |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B    | Y      |
 
 ## Update History
 
+- 2026/08/19: Alibaba Cloud Bailian added open-source model qwen3.8-27b, priced at Input 3 RMB / Output 12 RMB per 1M tokens (context cache discount available), international pricing Input 3.646 RMB / Output 21.875 RMB per 1M tokens; Tencent Cloud Token Plan (Personal Edition) and Enterprise Professional Plan renamed DeepSeek-V4-Pro 原厂直供 to DeepSeek-V4-Pro 正式版 原厂直供, added model IDs deepseek/deepseek-v4-pro-0813 and deepseek/deepseek-v4-pro; MiniMax Token Plan coverage narrowed from "all models" to "flagship models", music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) discontinued and removed from Token Plan quota
 - 2026/08/19: Zhipu released GLM-5.3 model with 50% coding improvement over GLM-5.2 and cybersecurity capabilities matching Mythos 5; GLM Coding Plan token allowance estimates updated to show multiple cache hit rates (90.9%, 95%, 98%); GLM-5.3 API pricing matches GLM-5.2
 - 2026/08/18: Volcano Engine Coding Plan (Personal Edition) and Agent Plan removed MiniMax-M2.7 and Kimi-K2.6 models (previously marked as phasing out)
 - 2026/08/17: Volcano Engine Coding Plan (Personal Edition) and Agent Plan removed Doubao-Seed-2.0-Code, Doubao-Seed-2.0-pro, Doubao-Seed-Code models (previously marked as phasing out); GLM-5.2 marked as phasing out; GLM-5.3 replaced GLM-5.2 as the default glm-latest target

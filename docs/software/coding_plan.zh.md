@@ -31,6 +31,7 @@
 
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [订阅](https://platform.minimaxi.com/subscribe/token-plan)
 
+- Token Plan 支持范围已从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
 - Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+
 - Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
 - Ultra（469 RMB 每月）: 月度 M3 Token 用量约 71 亿+
@@ -261,10 +262,12 @@
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B   | 23B    | 是   |
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B   | 10B    | 否   |
 | [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T   | 95B    | 是   |
+| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B    | -      | 是   |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B   | 17B    | 是   |
 
 ## 更新历史
 
+- 2026/08/19：阿里云百炼新增开源模型 qwen3.8-27b，定价 Input 3 RMB / Output 12 RMB 每百万 tokens（支持上下文缓存折扣），国际版定价 Input 3.646 RMB / Output 21.875 RMB 每百万 tokens；腾讯云 Token Plan 个人版和企业版专业套餐 DeepSeek-V4-Pro 原厂直供更名为 DeepSeek-V4-Pro 正式版 原厂直供，新增模型 ID deepseek/deepseek-v4-pro-0813 和 deepseek/deepseek-v4-pro；MiniMax Token Plan 支持范围从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
 - 2026/08/19：智谱发布 GLM-5.3 模型，编程能力较 GLM-5.2 提升 50%，网络安全能力持平 Mythos 5；GLM Coding Plan 可用额度参考更新为按不同缓存命中率（90.9%、95%、98%）展示；GLM-5.3 API 定价与 GLM-5.2 一致
 - 2026/08/18：方舟 Coding Plan 个人版和 Agent Plan 移除了 MiniMax-M2.7 和 Kimi-K2.6 模型（此前标记为即将下线）
 - 2026/08/17：方舟 Coding Plan 个人版和 Agent Plan 移除了 Doubao-Seed-2.0-Code、Doubao-Seed-2.0-pro、Doubao-Seed-Code 模型（此前标记为即将下线），GLM-5.2 标记为即将下线，GLM-5.3 替代 GLM-5.2 成为 glm-latest 默认指向
