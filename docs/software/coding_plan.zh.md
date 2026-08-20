@@ -208,7 +208,7 @@
     - 首月 5 美元，之后每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
     - 支持模型：Grok 4.5、GLM-5.3/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash、Hy3
-    - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）
+    - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
