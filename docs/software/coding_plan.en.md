@@ -181,7 +181,7 @@
     - 199 RMB/month: 180M tokens
     - 399 RMB/month: 380M tokens
     - 699 RMB/month: 680M tokens
-    - Supported models: GLM-5, DeepSeek-V3.2
+    - Supported models: GLM-5.0 (Official), DeepSeek-V3.2 (Flagship), GLM-5.1, DeepSeek-V4-Flash-0731
 - [Huawei Cloud MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite (59 RMB/month): 50M tokens per subscription month
     - Standard (149 RMB/month): 130M tokens per subscription month
@@ -309,6 +309,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 - 2026/04/12: Zhipu International GLM Coding Plan starting price increased from 10 USD/month to 18 USD/month
 - 2026/04/11: Alibaba Cloud Bailian Coding Plan Lite Plan will stop accepting renewals and upgrades from April 13, 2026. New purchases were already suspended on March 19, 2026
 - 2026/04/11: Added CTCloud Coding Plan
+- 2026/08/20: CTCloud Programming Token Plan updated supported models: added GLM-5.1, DeepSeek-V4-Flash-0731; renamed GLM-5 to GLM-5.0 (Official); DeepSeek-V3.2 labeled as Flagship
 - 2026/04/09: Infini-AI Coding Plan added support for glm-5.1 model
 - 2026/04/09: Zhipu Coding Plan removed GLM-5, GLM-4.6, GLM-4.5 models
 - 2026/04/08: iFlytek Astron Coding Plan launched new Updated Edition plans; old First Month Edition plans retired

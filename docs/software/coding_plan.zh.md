@@ -181,7 +181,7 @@
     - 199 RMB 每月：18000 万 tokens
     - 399 RMB 每月：38000 万 tokens
     - 699 RMB 每月：68000 万 tokens
-    - 支持模型：GLM-5、DeepSeek-V3.2
+    - 支持模型：GLM-5.0（正式版）、DeepSeek-V3.2（旗舰版）、GLM-5.1、DeepSeek-V4-Flash-0731
 - [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite（59 RMB 每月）：每订阅月 5000 万 tokens
     - Standard（149 RMB 每月）：每订阅月 1.3 亿 tokens
@@ -308,6 +308,7 @@
 - 2026/04/12：智谱国际版 GLM Coding Plan 起步价从 10 USD 每月涨至 18 USD 每月
 - 2026/04/11：阿里云百炼 Coding Plan Lite 基础套餐于 2026 年 4 月 13 日起停止续费和升级，此前已于 2026 年 3 月 19 日停止新购
 - 2026/04/11：添加了天翼云 Coding Plan
+- 2026/08/20：天翼云编程 Token Plan 支持模型更新：新增 GLM-5.1、DeepSeek-V4-Flash-0731，GLM-5 更名为 GLM-5.0（正式版），DeepSeek-V3.2 标注为旗舰版
 - 2026/04/09：无问芯穹 Infini Coding Plan 新增支持 glm-5.1 模型
 - 2026/04/09：智谱 Coding Plan 下线了 GLM-5、GLM-4.6、GLM-4.5 模型
 - 2026/04/08：讯飞 Astron Coding Plan 上线了新的焕新版套餐，旧首月版套餐下线
