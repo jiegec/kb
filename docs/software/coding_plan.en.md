@@ -113,7 +113,7 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan) [Documentation](https://www.volcengine.com/docs/82379/1925114)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.0-lite, MiniMax-M3, Kimi-K2.7-Code, GLM-5.2 (phasing out), GLM-5.3, DeepSeek-V4-Flash, DeepSeek-V4-Pro
+    - Supported models: Doubao-Seed-2.1-turbo, Doubao-Seed-Evolving (new), Doubao-Seed-2.0-lite, MiniMax-M3, Kimi-K2.7-Code, GLM-5.2 (phasing out), GLM-5.3, DeepSeek-V4-Flash, DeepSeek-V4-Pro
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
     - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
         - Text generation models, embedding models: (input token * input deduction coefficient + output token * output deduction coefficient) / 10,000
@@ -157,7 +157,7 @@
             - Standard Plan (99 RMB/month): 100M tokens per subscription month
             - Pro Plan (299 RMB/month): 320M tokens per subscription month
             - Max Plan (599 RMB/month): 650M tokens per subscription month
-            - Supported models (image, video, and other multimodal capabilities temporarily not supported): Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5, MiniMax-M2.7, Kimi-K2.5, GLM-5, GLM-5.1
+            - Supported models (image, video, and other multimodal capabilities temporarily not supported): MiniMax-M2.7, Kimi-K2.5, GLM-5, GLM-5.1
             - Token Plan Enterprise Professional Plan has removed MiniMax-M2.5 model (discontinued on August 7, 2026)
 - [Baidu Qianfan Token Plan (Personal Edition)](https://cloud.baidu.com/product/codingplan.html) [Personal Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [Enterprise Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
     - Mini Plan (9.9 RMB/month): 10M tokens per month
@@ -210,7 +210,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $5 first month, then $10/month
     - Usage limits: $12 per 5 hours, $30 per week, $60 per month
-    - Supported models: Grok 4.5, GLM-5.3/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash, Hy3, **Ox Alpha Free** (limited-time free)
+    - Supported models: Grok 4.5, GLM-5.3/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3, **Ox Alpha Free** (limited-time free)
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -274,6 +274,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/21: Volcano Engine Coding Plan (Personal Edition) added support for Doubao-Seed-Evolving model (for Coding & Agent scenarios, weekly upgrades, 1M context window, 256K max output); OpenCode Go added support for DeepSeek V4 Flash Vision Exp model (pricing Off-Peak $0.22/$0.66, Peak $0.44/$1.32 per 1M tokens, images converted to tokens based on size); Tencent Cloud Token Plan (Personal Edition) Universal Plan removed discontinued models (Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5)
 - 2026/08/21: DeepSeek added new vision model deepseek-v4-flash-vision-exp (experimental), priced same as deepseek-v4-flash, FIM completion not supported, concurrency limit 2500, images converted to tokens based on size; Tencent Cloud Token Plan Enterprise Professional Plan removed MiniMax-M2.5 model; Volcano Engine Agent Plan (Personal Edition) updated quota rules: image/video generation models, voice models, and Harness merged into a single daily quota category (no longer separated as "vision models" and "voice models"), daily quota uniformly set to half of monthly plan quota; OpenCode Go added Ox Alpha Free model (limited-time free)
 - 2026/08/19: Alibaba Cloud Bailian added open-source model qwen3.8-27b, priced at Input 3 RMB / Output 12 RMB per 1M tokens (context cache discount available), international pricing Input 3.646 RMB / Output 21.875 RMB per 1M tokens; Tencent Cloud Token Plan (Personal Edition) and Enterprise Professional Plan renamed DeepSeek-V4-Pro 原厂直供 to DeepSeek-V4-Pro 正式版 原厂直供, added model IDs deepseek/deepseek-v4-pro-0813 and deepseek/deepseek-v4-pro; MiniMax Token Plan coverage narrowed from "all models" to "flagship models", music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) discontinued and removed from Token Plan quota
 - 2026/08/19: Zhipu released GLM-5.3 model with 50% coding improvement over GLM-5.2 and cybersecurity capabilities matching Mythos 5; GLM Coding Plan token allowance estimates updated to show multiple cache hit rates (90.9%, 95%, 98%); GLM-5.3 API pricing matches GLM-5.2
