@@ -119,10 +119,11 @@
         - 文本生成模型、向量化模型：(输入 token * 输入抵扣系数 + 输出 token * 输出抵扣系数) / 10,000
         - 视频生成模型：消耗的 token / 10,000 * 抵扣系数
         - 图片生成模型：成功生成的图片张数 * 抵扣系数
-    - Small 套餐（40 RMB 每月）：每 5 小时：2000 AFP。每周：7000 AFP。每月：20000 AFP。视觉模型每日：10000 AFP。
-    - Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。视觉模型每日：50000 AFP。
-    - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。视觉模型每日：125000 AFP。
-    - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。视觉模型每日：250000 AFP。
+    - Small 套餐（40 RMB 每月）：每 5 小时：2000 AFP。每周：7000 AFP。每月：20000 AFP。日额度：10000 AFP。
+    - Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。日额度：50000 AFP。
+    - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
+    - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
+    - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
     - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.2（即将下线）、glm-5.3、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
@@ -157,6 +158,7 @@
             - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
             - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
             - 支持模型（暂不支持图片、视频等多模态能力）：Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5、MiniMax-M2.7、Kimi-K2.5、GLM-5、GLM-5.1
+            - Token Plan 企业版专业套餐已移除 MiniMax-M2.5 模型（2026年8月7日下线）
 - [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
     - Mini 套餐（9.9 RMB 每月）：1000 万 token 每月
     - Lite 套餐（40 RMB 每月）：4200 万 token 每月
@@ -207,7 +209,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 首月 5 美元，之后每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.5、GLM-5.3/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash、Hy3
+    - 支持模型：Grok 4.5、GLM-5.3/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash、Hy3、**Ox Alpha Free**（限时免费）
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -222,6 +224,10 @@
     - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文）：
         - 空闲时段：输入命中缓存 0.15 RMB / 输入未命中缓存 4.5 RMB / 输出 13.5 RMB 每 1M tokens
         - 高峰时段：输入命中缓存 0.30 RMB / 输入未命中缓存 9.0 RMB / 输出 27.0 RMB 每 1M tokens
+    - deepseek-v4-flash-vision-exp（DeepSeek-V4-Flash-Vision-Exp，视觉模型实验版）：
+        - 价格与 deepseek-v4-flash 一致（空闲时段 / 高峰时段）
+        - 不支持 FIM 补全，并发限制 2500
+        - 图片按尺寸换算成 token 与文本 token 一并计费
 
 ## prompt、请求和 token
 
@@ -267,6 +273,7 @@
 
 ## 更新历史
 
+- 2026/08/21：DeepSeek 新增视觉模型 deepseek-v4-flash-vision-exp（实验版），价格与 deepseek-v4-flash 一致，不支持 FIM 补全，并发限制 2500，图片按尺寸换算成 token 计费；腾讯云 Token Plan 企业版专业套餐移除 MiniMax-M2.5 模型；火山方舟 Agent Plan 个人版更新额度规则：图片/视频生成模型、语音模型、Harness 合并为同一日额度类别（不再区分"视觉模型"和"语音模型"），日额度统一为套餐月额度的一半；OpenCode Go 新增 Ox Alpha Free 模型（限时免费）
 - 2026/08/19：阿里云百炼新增开源模型 qwen3.8-27b，定价 Input 3 RMB / Output 12 RMB 每百万 tokens（支持上下文缓存折扣），国际版定价 Input 3.646 RMB / Output 21.875 RMB 每百万 tokens；腾讯云 Token Plan 个人版和企业版专业套餐 DeepSeek-V4-Pro 原厂直供更名为 DeepSeek-V4-Pro 正式版 原厂直供，新增模型 ID deepseek/deepseek-v4-pro-0813 和 deepseek/deepseek-v4-pro；MiniMax Token Plan 支持范围从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
 - 2026/08/19：智谱发布 GLM-5.3 模型，编程能力较 GLM-5.2 提升 50%，网络安全能力持平 Mythos 5；GLM Coding Plan 可用额度参考更新为按不同缓存命中率（90.9%、95%、98%）展示；GLM-5.3 API 定价与 GLM-5.2 一致
 - 2026/08/18：方舟 Coding Plan 个人版和 Agent Plan 移除了 MiniMax-M2.7 和 Kimi-K2.6 模型（此前标记为即将下线）
