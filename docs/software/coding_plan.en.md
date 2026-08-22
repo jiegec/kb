@@ -219,6 +219,7 @@
 - [DeepSeek API Pricing](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/):
     - Starting 2026-08-17 00:00, peak-valley pricing applies; off-peak price is half of peak price, with overall prices significantly increased compared to before
     - Peak hours: 9:00-12:00, 14:00-18:00 Beijing time (the rest are off-peak hours)
+    - Starting 2026-08-23 (Sunday) 00:00 Beijing time, weekends (Saturday and Sunday) will no longer distinguish peak/off-peak — all day will be charged at off-peak rates
     - deepseek-v4-flash (DeepSeek-V4-Flash-0731, 1M context):
         - Off-peak: cached input 0.05 RMB / uncached input 1.5 RMB / output 4.5 RMB per 1M tokens
         - Peak: cached input 0.10 RMB / uncached input 3.0 RMB / output 9.0 RMB per 1M tokens
@@ -274,6 +275,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/22: DeepSeek API peak-valley pricing rule adjustment: starting 2026-08-23 (Sunday) 00:00 Beijing time, weekends (Saturday and Sunday) will no longer distinguish peak/off-peak — all day will be charged at off-peak rates (previously weekends still followed peak/off-peak schedule)
 - 2026/08/21: Volcano Engine Coding Plan (Personal Edition) added support for Doubao-Seed-Evolving model (for Coding & Agent scenarios, weekly upgrades, 1M context window, 256K max output); OpenCode Go added support for DeepSeek V4 Flash Vision Exp model (pricing Off-Peak $0.22/$0.66, Peak $0.44/$1.32 per 1M tokens, images converted to tokens based on size); Tencent Cloud Token Plan (Personal Edition) Universal Plan removed discontinued models (Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5)
 - 2026/08/21: DeepSeek added new vision model deepseek-v4-flash-vision-exp (experimental), priced same as deepseek-v4-flash, FIM completion not supported, concurrency limit 2500, images converted to tokens based on size; Tencent Cloud Token Plan Enterprise Professional Plan removed MiniMax-M2.5 model; Volcano Engine Agent Plan (Personal Edition) updated quota rules: image/video generation models, voice models, and Harness merged into a single daily quota category (no longer separated as "vision models" and "voice models"), daily quota uniformly set to half of monthly plan quota; OpenCode Go added Ox Alpha Free model (limited-time free)
 - 2026/08/19: Alibaba Cloud Bailian added open-source model qwen3.8-27b, priced at Input 3 RMB / Output 12 RMB per 1M tokens (context cache discount available), international pricing Input 3.646 RMB / Output 21.875 RMB per 1M tokens; Tencent Cloud Token Plan (Personal Edition) and Enterprise Professional Plan renamed DeepSeek-V4-Pro 原厂直供 to DeepSeek-V4-Pro 正式版 原厂直供, added model IDs deepseek/deepseek-v4-pro-0813 and deepseek/deepseek-v4-pro; MiniMax Token Plan coverage narrowed from "all models" to "flagship models", music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) discontinued and removed from Token Plan quota
