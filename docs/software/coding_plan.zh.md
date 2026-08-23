@@ -217,8 +217,7 @@
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
     - 自 2026-08-17 00:00 起采用峰谷定价，空闲时段价格为高峰时段的一半，较此前价格整体大幅上调
-    - 高峰时段：北京时间 9:00-12:00、14:00-18:00（其余为空闲时段）
-    - 自 2026-08-23（周日）00:00 起，周末（周六、周日）全天不再区分峰谷时段，统一按照低谷时段价格收取调用费用
+    - 高峰时段：北京时间周一至周五 9:00-12:00、14:00-18:00（其余为空闲时段）
     - deepseek-v4-flash（DeepSeek-V4-Flash-0731，1M 上下文）：
         - 空闲时段：输入命中缓存 0.05 RMB / 输入未命中缓存 1.5 RMB / 输出 4.5 RMB 每 1M tokens
         - 高峰时段：输入命中缓存 0.10 RMB / 输入未命中缓存 3.0 RMB / 输出 9.0 RMB 每 1M tokens
@@ -274,6 +273,7 @@
 
 ## 更新历史
 
+- 2026/08/23：DeepSeek API 峰谷定价周末规则正式生效：高峰时段现明确为北京时间周一至周五 9:00-12:00、14:00-18:00，周末全天按空闲时段价格计费
 - 2026/08/22：DeepSeek API 峰谷定价规则调整：自 2026-08-23（周日）00:00 起，周末（周六、周日）全天不再区分峰谷时段，统一按照低谷时段价格收取调用费用（此前周末仍按峰谷时段收费）
 - 2026/08/21：方舟 Coding Plan 个人版新增支持 Doubao-Seed-Evolving 模型（面向 Coding 与 Agent 场景，持续周级升级，1M 上下文窗口，256K 最大输出）；OpenCode Go 新增支持 DeepSeek V4 Flash Vision Exp 模型（定价 Off-Peak $0.22/$0.66、Peak $0.44/$1.32 每百万 tokens，图片按尺寸换算为 token 计费）；腾讯云 Token Plan 个人版通用套餐移除已下线模型（Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5）
 - 2026/08/21：DeepSeek 新增视觉模型 deepseek-v4-flash-vision-exp（实验版），价格与 deepseek-v4-flash 一致，不支持 FIM 补全，并发限制 2500，图片按尺寸换算成 token 计费；腾讯云 Token Plan 企业版专业套餐移除 MiniMax-M2.5 模型；火山方舟 Agent Plan 个人版更新额度规则：图片/视频生成模型、语音模型、Harness 合并为同一日额度类别（不再区分"视觉模型"和"语音模型"），日额度统一为套餐月额度的一半；OpenCode Go 新增 Ox Alpha Free 模型（限时免费）
