@@ -367,8 +367,13 @@ part id:
 - 每个核有 32KB 的 L1I 和 L1D，每个 cluster 有 28.5MB L2，无 L3
 - 每个 socket 有 32GB 容量 4TB/s 带宽 8-stack 的 HBM 和 256GB 的 DDR
 - SDMA 引擎负责 HBM <-> DDR 传输
-- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOPS(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
-- 1.55 GHz, 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合
+- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOP/s(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
+- 1.55 GHz 主频
+- 峰值性能验算：
+    - 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合，每周期执行一条 FP64 1-way FMOPA 指令
+    - 每核每周期执行一条 INT8 4-way SMOPA 指令，执行 16x4x16 的矩阵乘累加到 16x16 的 INT32，对应峰值算力 `16 * 4 * 16 * 2 * 304 * 1.55 GHz = 965 TOP/s`，是 FP64 的 16 倍
+    - 每核每周期执行一条 FP16 2-way FMOPA 指令，执行 16x2x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 2 * 16 * 2 * 304 * 1.55 GHz = 483 TFOP/s`，实际只有 240 TFLOPS/s，意味着 IPC 只有 0.5
+    - 每核每周期执行一条 FP32 1-way FMOPA 指令，执行 16x1x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 1 * 16 * 2 * 304 * 1.55 GHz = 241 TOP/s`，实际只有 120.6 TFLOPS，意味着 IPC 只有 0.5
 - 应该对应 hip11
 
 来源：
