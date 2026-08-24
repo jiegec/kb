@@ -374,6 +374,7 @@ part id:
     - 每核每周期执行一条 INT8 4-way SMOPA 指令，执行 16x4x16 的矩阵乘累加到 16x16 的 INT32，对应峰值算力 `16 * 4 * 16 * 2 * 304 * 1.55 GHz = 965 TOP/s`，是 FP64 的 16 倍
     - 每核每周期执行一条 FP16 2-way FMOPA 指令，执行 16x2x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 2 * 16 * 2 * 304 * 1.55 GHz = 483 TFOP/s`，实际只有 240 TFLOPS/s，意味着 IPC 只有 0.5
     - 每核每周期执行一条 FP32 1-way FMOPA 指令，执行 16x1x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 1 * 16 * 2 * 304 * 1.55 GHz = 241 TOP/s`，实际只有 120.6 TFLOPS，意味着 IPC 只有 0.5
+    - 即：128 FP64 FLOP/cycle, 256 FP32 FLOP/cycle, 512 FP16 FLOP/cycle, 2048 INT8 OP/cycle
 - 应该对应 hip11
 
 来源：
