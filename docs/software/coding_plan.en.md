@@ -210,7 +210,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $10/month
     - Usage limits: $12 per 5 hours, $30 per week, $60 per month
-    - Supported models: Grok 4.5, GLM-5.3/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3, **Ox Alpha Free** (limited-time free)
+    - Supported models: Grok 4.5, GLM-5.3/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3, **Ox Alpha Free** (limited-time free)
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -274,6 +274,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/25: OpenCode Go added support for LongCat-2.0 model (input $0.30/1M, output $1.20/1M, cache read $0.006/1M)
 - 2026/08/24: OpenCode Go removed first-month discount, pricing changed from "$5 first month, then $10/month" to a flat $10/month
 - 2026/08/23: DeepSeek API peak-valley weekend rule now in effect: peak hours are explicitly Monday to Friday 9:00-12:00, 14:00-18:00 Beijing time; weekends are now charged at off-peak rates all day
 - 2026/08/22: DeepSeek API peak-valley pricing rule adjustment: starting 2026-08-23 (Sunday) 00:00 Beijing time, weekends (Saturday and Sunday) will no longer distinguish peak/off-peak — all day will be charged at off-peak rates (previously weekends still followed peak/off-peak schedule)
