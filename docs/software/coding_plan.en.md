@@ -208,7 +208,7 @@
     - Credit consumption: Credits are deducted based on token count. Available models in the plan consume Credits at different ratios in parallel, not independently. TTS series models are free for a limited time and do not consume plan tokens.
 
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
-    - $5 first month, then $10/month
+    - $10/month
     - Usage limits: $12 per 5 hours, $30 per week, $60 per month
     - Supported models: Grok 4.5, GLM-5.3/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3, **Ox Alpha Free** (limited-time free)
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
@@ -274,6 +274,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/24: OpenCode Go removed first-month discount, pricing changed from "$5 first month, then $10/month" to a flat $10/month
 - 2026/08/23: DeepSeek API peak-valley weekend rule now in effect: peak hours are explicitly Monday to Friday 9:00-12:00, 14:00-18:00 Beijing time; weekends are now charged at off-peak rates all day
 - 2026/08/22: DeepSeek API peak-valley pricing rule adjustment: starting 2026-08-23 (Sunday) 00:00 Beijing time, weekends (Saturday and Sunday) will no longer distinguish peak/off-peak — all day will be charged at off-peak rates (previously weekends still followed peak/off-peak schedule)
 - 2026/08/21: Volcano Engine Coding Plan (Personal Edition) added support for Doubao-Seed-Evolving model (for Coding & Agent scenarios, weekly upgrades, 1M context window, 256K max output); OpenCode Go added support for DeepSeek V4 Flash Vision Exp model (pricing Off-Peak $0.22/$0.66, Peak $0.44/$1.32 per 1M tokens, images converted to tokens based on size); Tencent Cloud Token Plan (Personal Edition) Universal Plan removed discontinued models (Tencent HY 2.0 Instruct, Tencent HY 2.0 Think, Hunyuan-T1, Hunyuan-TurboS, MiniMax-M2.5)
