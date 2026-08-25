@@ -143,7 +143,7 @@
     - 支持模型：qwen3.8-max、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseekv4-pro-0813、deepseek-v4-flash、deepseek-v4-flash-0731、deepseek-v3.2、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.2、glm-5.1、glm-5、minimax-m2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100 积分
+        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；支持 DeepSeek-V4-Flash 0731 正式版和 DeepSeek-V4-Pro 0813 正式版（峰谷定价，价格与原厂直供版本一致）
         - 轻享套餐：每月 2 元/百万 tokens
     - Token Plan 个人版：
         - Hy Token Plan:
@@ -273,6 +273,7 @@
 
 ## 更新历史
 
+- 2026/08/25：腾讯云 Token Plan 企业版专业套餐最低购买额度从 10 万积分降至 5 万积分，新增 DeepSeek-V4-Flash 0731 正式版和 DeepSeek-V4-Pro 0813 正式版（峰谷定价，空闲时段价格与原厂直供版本一致）
 - 2026/08/25：OpenCode Go 新增支持 LongCat-2.0 模型（input $0.30/1M、output $1.20/1M、cache read $0.006/1M）
 - 2026/08/24：OpenCode Go 取消首月优惠，定价从"首月 5 美元、之后每月 10 美元"调整为统一每月 10 美元
 - 2026/08/23：DeepSeek API 峰谷定价周末规则正式生效：高峰时段现明确为北京时间周一至周五 9:00-12:00、14:00-18:00，周末全天按空闲时段价格计费

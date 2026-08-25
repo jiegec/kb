@@ -143,7 +143,7 @@
     - Supported models: qwen3.8-max, qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseekv4-pro-0813, deepseek-v4-flash, deepseek-v4-flash-0731, deepseek-v3.2, kimi-k2.7-code, kimi-k2.6, kimi-k2.5, glm-5.2, glm-5.1, glm-5, minimax-m2.5, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan Enterprise Edition:
-        - Professional Plan: 1 RMB/100 Credits per month
+        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); supports DeepSeek-V4-Flash 0731 Official and DeepSeek-V4-Pro 0813 Official (peak-valley pricing, same rates as direct-supply versions)
         - Light Enjoyment Plan: 2 RMB/million tokens per month
     - Token Plan Personal Edition:
         - Hy Token Plan:
@@ -274,6 +274,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/25: Tencent Cloud Token Plan Enterprise Professional Plan lowered minimum purchase from 100K to 50K Credits, added DeepSeek-V4-Flash 0731 Official and DeepSeek-V4-Pro 0813 Official models (peak-valley pricing, off-peak rates same as direct-supply versions)
 - 2026/08/25: OpenCode Go added support for LongCat-2.0 model (input $0.30/1M, output $1.20/1M, cache read $0.006/1M)
 - 2026/08/24: OpenCode Go removed first-month discount, pricing changed from "$5 first month, then $10/month" to a flat $10/month
 - 2026/08/23: DeepSeek API peak-valley weekend rule now in effect: peak hours are explicitly Monday to Friday 9:00-12:00, 14:00-18:00 Beijing time; weekends are now charged at off-peak rates all day
