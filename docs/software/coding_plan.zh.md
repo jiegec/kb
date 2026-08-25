@@ -209,7 +209,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.5、GLM-5.3/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3、**Ox Alpha Free**（限时免费）
+    - 支持模型：Grok 4.6、GLM-5.3/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3、**Ox Alpha Free**（限时免费）
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -273,6 +273,7 @@
 
 ## 更新历史
 
+- 2026/08/26：OpenCode Go Grok 模型从 4.5 升级至 4.6：请求限额提升（169/5hr、423/周、845/月，原 120/300/600），定价改为分档（≤200K tokens: input $2.00、output $6.00、cache $0.50；>200K tokens: input $4.00、output $12.00、cache $1.00，原统一 $2.00/$6.00/$0.30），模型 ID 从 grok-4.5 改为 grok-4.6
 - 2026/08/25：腾讯云 Token Plan 企业版专业套餐最低购买额度从 10 万积分降至 5 万积分，新增 DeepSeek-V4-Flash 0731 正式版和 DeepSeek-V4-Pro 0813 正式版（峰谷定价，空闲时段价格与原厂直供版本一致）
 - 2026/08/25：OpenCode Go 新增支持 LongCat-2.0 模型（input $0.30/1M、output $1.20/1M、cache read $0.006/1M）
 - 2026/08/24：OpenCode Go 取消首月优惠，定价从"首月 5 美元、之后每月 10 美元"调整为统一每月 10 美元
