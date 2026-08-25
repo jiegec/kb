@@ -26,7 +26,7 @@
 
 - 首发小米 MIX Fold 5
 - TSMC N3P
-- 138.3 mm^2
+- 138.3 mm^2 (133 mm^2 ?)
 - CPU:
     - 2x C1-Ultra @ 4.35 GHz
     - 4x C1-Premium @ 3.6 GHz
