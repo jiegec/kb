@@ -62,20 +62,26 @@
 - Max Plan (1078 RMB/month): 28,000 points per 5 hours, 140,000 points per week
 - Model points consumed = (input tokens × Input coefficient + cached input tokens × Cached Input coefficient + output tokens × Output coefficient) / 10,000
 - MCP points consumed = number of calls × Output coefficient
-- All plans support GLM-5.3, GLM-5-Turbo, GLM-4.7.
-- Requests for previous models (GLM-5.2/GLM-5.1) will be automatically routed to GLM-5.3.
+- All plans support **GLM-5.3**, **GLM-5.3-Flash**.
+- Requests for previous models (GLM-5.2/GLM-5.1) will be automatically routed to GLM-5.3, requests for GLM-5-Turbo/GLM-4.7 will automatically be routed to GLM-5.3-Flash.
 - During off-peak hours, model calls consume points at 50% of the base rate. Peak hours: 14:00–18:00 (UTC+8) on weekdays.
 - GLM-5.3: Input coefficient 6.9, Cached Input coefficient 1.7, Output coefficient 24
-- Using only GLM-5.3 as an example, the plan's token usage will vary depending on the cache hit rate, as shown below:
+- GLM-5.3-Flash (Including MCP for visual understanding): Input coefficient 2.3, Cached Input coefficient 0.56, Output coefficient 8
+- Token usage varies depending on the cache hit rate, as shown below:
 
-| Plan | 90.9% Cache Hit Rate | 95% Cache Hit Rate | 98% Cache Hit Rate |
-| --- | --- | --- | --- |
-| Lite | 43M–87M tokens/week | 48M–97M tokens/week | 52M–105M tokens/week |
-| Pro | 263M–526M tokens/week | 290M–580M tokens/week | 313M–627M tokens/week |
-| Max | 613M–1,226M tokens/week | 676M–1,352M tokens/week | 731M–1,463M tokens/week |
+| Cache Hit Rate | Model | Lite (M Tokens/week) | Pro (M Tokens/week) | Max (M Tokens/week) |
+| --- | --- | --- | --- | --- |
+| 95% | GLM-5.3 | 0.48～0.97 | 2.90～5.80 | 6.76～13.52 |
+| 95% | GLM-5.3-Flash | 1.46～2.92 | 8.77～17.55 | 20.47～40.95 |
+| 96% | GLM-5.3 | 0.50～0.99 | 2.97～5.95 | 6.94～13.87 |
+| 96% | GLM-5.3-Flash | 1.50～3.00 | 9.00～18.01 | 21.01～42.02 |
+| 98% | GLM-5.3 | 0.52～1.04 | 3.13～6.27 | 7.31～14.63 |
+| 98% | GLM-5.3-Flash | 1.58～3.17 | 9.50～19.00 | 22.17～44.33 |
+
 - Range explanation
     - Maximum tokens: all during off-peak hours, consuming points at 0.5×
     - Minimum tokens: all during peak hours, consuming points at 1×
+- By fully utilizing the off-peak discounts, you can save up to 92% compared with pay-as-you-go calls to the GLM-5.3 standard API
 - [GLM-5.3 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 8 RMB per 1M tokens
@@ -215,7 +221,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $10/month
     - Usage limits: $12 per 5 hours, $30 per week, $60 per month
-    - Supported models: Grok 4.6, GLM-5.3/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3, **Ox Alpha Free** (limited-time free)
+    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -281,6 +287,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/26: Zhipu GLM Coding Plan supported models changed from {GLM-5.3, GLM-5-Turbo, GLM-4.7} to {GLM-5.3, GLM-5.3-Flash}; GLM-5.3-Flash (320B total params / 18B active, hybrid linear+sparse attention, native vision) launched for Coding Plan with deduction coefficients Input 2.3 / Cached Input 0.56 / Output 8 (including visual understanding MCP); GLM-5-Turbo/GLM-4.7 requests auto-routed to GLM-5.3-Flash; token allowance reference table restructured to show per-model breakdowns at 95%/96%/98% cache hit rates; "save up to 92%" claim restored
+- 2026/08/26: OpenCode Go added GLM-5.3-Flash model, removed Ox Alpha Free model (limited-time free ended)
 - 2026/08/27: Qwen3.8-Flash-Next and GLM-5.3-Flash released
 - 2026/08/26: MiniMax Token Plan price adjustment: International edition Plus/Max/Ultra plans increased from $20/$50/$120/month to $22/$55/$132/month; Chinese edition prepaid credits packages adjusted — ¥30 for 4,489 credits (was 4,285), ¥150 for 22,460 credits (was 21,430), ¥500 for 74,900 credits (was 71,435); Chinese subscription plan prices unchanged
 - 2026/08/26: OpenCode Go upgraded Grok model from 4.5 to 4.6: rate limits increased (169/5hr, 423/week, 845/month, previously 120/300/600), pricing changed to tiered (≤200K tokens: input $2.00, output $6.00, cache $0.50; >200K tokens: input $4.00, output $12.00, cache $1.00, previously flat $2.00/$6.00/$0.30), model ID changed from grok-4.5 to grok-4.6

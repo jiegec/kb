@@ -62,20 +62,26 @@
 - Max 套餐（1078 RMB 每月）：每 5 小时 28000 积分，每周 140000 积分
 - 模型消耗积分数=（输入 Token × Input 抵扣系数 + 缓存命中 Token × Cached Input 抵扣系数 + 输出 Token × Output 抵扣系数）/ 10000
 - MCP 消耗积分数=调用次数 × Output 抵扣系数
-- 所有套餐均支持 GLM-5.3、GLM-5-Turbo、GLM-4.7。
-- 调用历史模型 GLM-5.2/GLM-5.1 都将自动切换至 GLM-5.3。
+- 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**。
+- 调用历史模型 GLM-5.2、GLM-5.1 都将自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 将自动切换至 GLM-5.3-Flash。
 - 非高峰时段内，模型调用按基础积分消耗的 50% 抵扣。高峰时段：每周一至周五的 14:00～18:00（UTC+8）。
 - GLM-5.3：Input 抵扣系数 6.9，Cached Input 抵扣系数 1.7，Output 抵扣系数 24
-- 以全部使用 GLM-5.3 模型为例，套餐的 Token 用量会因缓存命中率而有所不同，具体如下：
+- GLM-5.3-Flash（含视觉理解 MCP）：Input 抵扣系数 2.3，Cached Input 抵扣系数 0.56，Output 抵扣系数 8
+- 套餐的 Token 用量会因缓存命中率而有所不同，具体如下：
 
-| 套餐 | 缓存命中率 90.9% | 缓存命中率 95% | 缓存命中率 98% |
-| --- | --- | --- | --- |
-| Lite | 0.43～0.87 亿 Tokens/周 | 0.48～0.97 亿 Tokens/周 | 0.52～1.05 亿 Tokens/周 |
-| Pro | 2.63～5.26 亿 Tokens/周 | 2.9～5.8 亿 Tokens/周 | 3.13～6.27 亿 Tokens/周 |
-| Max | 6.13～12.26 亿 Tokens/周 | 6.76～13.52 亿 Tokens/周 | 7.31～14.63 亿 Tokens/周 |
+| 缓存命中率 | 模型 | Lite（亿 Tokens/周） | Pro（亿 Tokens/周） | Max（亿 Tokens/周） |
+| --- | --- | --- | --- | --- |
+| 95% | GLM-5.3 | 0.48～0.97 | 2.90～5.80 | 6.76～13.52 |
+| 95% | GLM-5.3-Flash | 1.46～2.92 | 8.77～17.55 | 20.47～40.95 |
+| 96% | GLM-5.3 | 0.50～0.99 | 2.97～5.95 | 6.94～13.87 |
+| 96% | GLM-5.3-Flash | 1.50～3.00 | 9.00～18.01 | 21.01～42.02 |
+| 98% | GLM-5.3 | 0.52～1.04 | 3.13～6.27 | 7.31～14.63 |
+| 98% | GLM-5.3-Flash | 1.58～3.17 | 9.50～19.00 | 22.17～44.33 |
+
 - 区间说明
     - 最多 Tokens：全部在非高峰时段，按 0.5 倍积分消耗
     - 最少 Tokens：全部在高峰时段，按 1 倍积分消耗
+- 当充分利用非高峰时段优惠时，相较于按量调用 GLM-5.3 标准 API，最高可节省 92% 成本
 - [GLM-5.3 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 8 RMB 每 1M tokens
@@ -214,7 +220,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.6、GLM-5.3/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3、**Ox Alpha Free**（限时免费）
+    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -280,6 +286,8 @@
 
 ## 更新历史
 
+- 2026/08/26：智谱 GLM Coding Plan 可用模型从 {GLM-5.3, GLM-5-Turbo, GLM-4.7} 变为 {GLM-5.3, GLM-5.3-Flash}；GLM-5.3-Flash（320B 总参/18B 激活，混合线性+稀疏注意力，原生视觉）上线 Coding Plan，抵扣系数 Input 2.3 / Cached Input 0.56 / Output 8（含视觉理解 MCP）；GLM-5-Turbo/GLM-4.7 调用自动切换至 GLM-5.3-Flash；额度参考表改为按模型分列（95%/96%/98% 缓存命中率）；恢复"最高可节省 92% 成本"表述
+- 2026/08/26：OpenCode Go 新增 GLM-5.3-Flash 模型，移除 Ox Alpha Free 模型（限时免费结束）
 - 2026/08/27：Qwen3.8-Flash-Next 和 GLM-5.3-Flash 发布
 - 2026/08/26：MiniMax Token Plan 价格调整：国际版 Plus/Max/Ultra 套餐从 $20/$50/$120 每月涨至 $22/$55/$132 每月；中文版预付积分包调整——¥30 获 4489 积分（原 4285）、¥150 获 22460 积分（原 21430）、¥500 获 74900 积分（原 71435），中文版订阅套餐价格不变
 - 2026/08/26：OpenCode Go Grok 模型从 4.5 升级至 4.6：请求限额提升（169/5hr、423/周、845/月，原 120/300/600），定价改为分档（≤200K tokens: input $2.00、output $6.00、cache $0.50；>200K tokens: input $4.00、output $12.00、cache $1.00，原统一 $2.00/$6.00/$0.30），模型 ID 从 grok-4.5 改为 grok-4.6
