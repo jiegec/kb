@@ -160,7 +160,8 @@
     - Supported models: qwen3.8-max, qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseekv4-pro-0813, deepseek-v4-flash, deepseek-v4-flash-0731, deepseek-v3.2, kimi-k2.7-code, kimi-k2.6, kimi-k2.5, glm-5.2, glm-5.1, glm-5, minimax-m2.5, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan Enterprise Edition:
-        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); supports DeepSeek-V4-Flash 0731 Official and DeepSeek-V4-Pro 0813 Official (peak-valley pricing, same rates as direct-supply versions)
+        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); available model library (varies slightly by region, Guangzhou more complete, Singapore fewer): Auto, GLM-5.3, GLM-5.2, GLM-5, GLM-5.1, GLM-5-Turbo, Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi-K2.5 (discontinued 2026-08-31), Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply
+        - DeepSeek-V4 Official (direct-supply) uses peak-valley pricing: off-peak rates are 50% of peak, peak hours 9:00-12:00 and 14:00-18:00 (Beijing time)
         - Light Enjoyment Plan: 2 RMB/million tokens per month
     - Token Plan Personal Edition:
         - Hy Token Plan:
@@ -293,6 +294,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/27: Tencent Cloud Token Plan Enterprise Professional Plan expanded with full available model library: Auto, GLM-5.3/5.2/5/5.1, GLM-5-Turbo, Kimi K2.7 Code/HighSpeed, Kimi-K2.5 (discontinued 2026-08-31), Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash/Pro and 0731/0813 Official, DeepSeek Official direct-supply (varies slightly by region, Guangzhou vs Singapore)
 - 2026/08/26: Zhipu added GLM-5.3-Flash API pricing (bigmodel.cn): cached input 0.115/0.23 RMB, uncached input 0.4/0.8 RMB, output 1.4/2.8 RMB per 1M tokens, 1M context, currently 50% off for two weeks
 - 2026/08/26: Zhipu GLM Coding Plan supported models changed from {GLM-5.3, GLM-5-Turbo, GLM-4.7} to {GLM-5.3, GLM-5.3-Flash}; GLM-5.3-Flash (320B total params / 18B active, hybrid linear+sparse attention, native vision) launched for Coding Plan with deduction coefficients Input 2.3 / Cached Input 0.56 / Output 8 (including visual understanding MCP); GLM-5-Turbo/GLM-4.7 requests auto-routed to GLM-5.3-Flash; token allowance reference table restructured to show per-model breakdowns at 95%/96%/98% cache hit rates; "save up to 92%" claim restored
 - 2026/08/26: OpenCode Go added GLM-5.3-Flash model, removed Ox Alpha Free model (limited-time free ended)
