@@ -35,6 +35,7 @@
 - Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+
 - Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+
 - Ultra (469 RMB/month): Monthly M3 Token usage approx. 7.1B+
+- Prepaid credits packages: ¥30 for 4,489 credits, ¥150 for 22,460 credits, ¥500 for 74,900 credits, valid for 365 days
 - [MiniMax M3 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
     - `<=` 512K input tokens:
         - Cached input: 0.42 RMB per 1M tokens
@@ -47,6 +48,10 @@
     - 1M context
 
 [MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
+
+- Plus ($22/month): Personal projects and prototyping
+- Max ($55/month): Daily coding with agents and multimodal work
+- Ultra ($132/month): Heavy Agent workflows and extended sessions
 
 ### Zhipu (GLM, Z.ai)
 
@@ -274,6 +279,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/26: MiniMax Token Plan price adjustment: International edition Plus/Max/Ultra plans increased from $20/$50/$120/month to $22/$55/$132/month; Chinese edition prepaid credits packages adjusted — ¥30 for 4,489 credits (was 4,285), ¥150 for 22,460 credits (was 21,430), ¥500 for 74,900 credits (was 71,435); Chinese subscription plan prices unchanged
 - 2026/08/26: OpenCode Go upgraded Grok model from 4.5 to 4.6: rate limits increased (169/5hr, 423/week, 845/month, previously 120/300/600), pricing changed to tiered (≤200K tokens: input $2.00, output $6.00, cache $0.50; >200K tokens: input $4.00, output $12.00, cache $1.00, previously flat $2.00/$6.00/$0.30), model ID changed from grok-4.5 to grok-4.6
 - 2026/08/25: Tencent Cloud Token Plan Enterprise Professional Plan lowered minimum purchase from 100K to 50K Credits, added DeepSeek-V4-Flash 0731 Official and DeepSeek-V4-Pro 0813 Official models (peak-valley pricing, off-peak rates same as direct-supply versions)
 - 2026/08/25: OpenCode Go added support for LongCat-2.0 model (input $0.30/1M, output $1.20/1M, cache read $0.006/1M)

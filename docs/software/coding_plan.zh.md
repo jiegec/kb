@@ -35,6 +35,7 @@
 - Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+
 - Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
 - Ultra（469 RMB 每月）: 月度 M3 Token 用量约 71 亿+
+- 预付积分包：¥30 获 4489 积分、¥150 获 22460 积分、¥500 获 74900 积分，有效期 365 天
 - [MiniMax M3 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
     - `<=` 512K 输入 token：
         - 输入命中缓存 0.42 RMB 每 1M tokens
@@ -46,7 +47,11 @@
         - 输出 16.80 RMB 每 1M tokens
     - 1M 上下文
 
-[MiniMax 国际版 Coding Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)
+[MiniMax 国际版 Token Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)
+
+- Plus（$22 每月）: 个人项目与原型开发
+- Max（$55 每月）: 日常编程 Agent 与多模态调用
+- Ultra（$132 每月）: 重度 Agent 工作流与长时使用
 
 ### 智谱
 
@@ -273,6 +278,7 @@
 
 ## 更新历史
 
+- 2026/08/26：MiniMax Token Plan 价格调整：国际版 Plus/Max/Ultra 套餐从 $20/$50/$120 每月涨至 $22/$55/$132 每月；中文版预付积分包调整——¥30 获 4489 积分（原 4285）、¥150 获 22460 积分（原 21430）、¥500 获 74900 积分（原 71435），中文版订阅套餐价格不变
 - 2026/08/26：OpenCode Go Grok 模型从 4.5 升级至 4.6：请求限额提升（169/5hr、423/周、845/月，原 120/300/600），定价改为分档（≤200K tokens: input $2.00、output $6.00、cache $0.50；>200K tokens: input $4.00、output $12.00、cache $1.00，原统一 $2.00/$6.00/$0.30），模型 ID 从 grok-4.5 改为 grok-4.6
 - 2026/08/25：腾讯云 Token Plan 企业版专业套餐最低购买额度从 10 万积分降至 5 万积分，新增 DeepSeek-V4-Flash 0731 正式版和 DeepSeek-V4-Pro 0813 正式版（峰谷定价，空闲时段价格与原厂直供版本一致）
 - 2026/08/25：OpenCode Go 新增支持 LongCat-2.0 模型（input $0.30/1M、output $1.20/1M、cache read $0.006/1M）
