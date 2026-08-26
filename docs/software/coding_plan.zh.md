@@ -288,7 +288,7 @@
 
 - 2026/08/26：智谱 GLM Coding Plan 可用模型从 {GLM-5.3, GLM-5-Turbo, GLM-4.7} 变为 {GLM-5.3, GLM-5.3-Flash}；GLM-5.3-Flash（320B 总参/18B 激活，混合线性+稀疏注意力，原生视觉）上线 Coding Plan，抵扣系数 Input 2.3 / Cached Input 0.56 / Output 8（含视觉理解 MCP）；GLM-5-Turbo/GLM-4.7 调用自动切换至 GLM-5.3-Flash；额度参考表改为按模型分列（95%/96%/98% 缓存命中率）；恢复"最高可节省 92% 成本"表述
 - 2026/08/26：OpenCode Go 新增 GLM-5.3-Flash 模型，移除 Ox Alpha Free 模型（限时免费结束）
-- 2026/08/27：Qwen3.8-Flash-Next 和 GLM-5.3-Flash 发布
+- 2026/08/26：Qwen3.8-Flash-Next 和 GLM-5.3-Flash 发布
 - 2026/08/26：MiniMax Token Plan 价格调整：国际版 Plus/Max/Ultra 套餐从 $20/$50/$120 每月涨至 $22/$55/$132 每月；中文版预付积分包调整——¥30 获 4489 积分（原 4285）、¥150 获 22460 积分（原 21430）、¥500 获 74900 积分（原 71435），中文版订阅套餐价格不变
 - 2026/08/26：OpenCode Go Grok 模型从 4.5 升级至 4.6：请求限额提升（169/5hr、423/周、845/月，原 120/300/600），定价改为分档（≤200K tokens: input $2.00、output $6.00、cache $0.50；>200K tokens: input $4.00、output $12.00、cache $1.00，原统一 $2.00/$6.00/$0.30），模型 ID 从 grok-4.5 改为 grok-4.6
 - 2026/08/25：腾讯云 Token Plan 企业版专业套餐最低购买额度从 10 万积分降至 5 万积分，新增 DeepSeek-V4-Flash 0731 正式版和 DeepSeek-V4-Pro 0813 正式版（峰谷定价，空闲时段价格与原厂直供版本一致）
