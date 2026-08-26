@@ -264,6 +264,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B       | 13B    | N      |
 | [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T       | 49B    | N      |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T       | 49B    | N      |
+| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-flash)                       | 320B       | 18B    | Y      |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B        | 3B     | N      |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B       | 32B    | N      |
 | [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B       | 40B    | N      |
@@ -275,10 +276,12 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B       | 10B    | N      |
 | [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T       | 95B    | Y      |
 | [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B        | -      | Y      |
+| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next)                | 180B       | 6B     | Y      |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B    | Y      |
 
 ## Update History
 
+- 2026/08/27: Qwen3.8-Flash-Next and GLM-5.3-Flash released
 - 2026/08/26: MiniMax Token Plan price adjustment: International edition Plus/Max/Ultra plans increased from $20/$50/$120/month to $22/$55/$132/month; Chinese edition prepaid credits packages adjusted — ¥30 for 4,489 credits (was 4,285), ¥150 for 22,460 credits (was 21,430), ¥500 for 74,900 credits (was 71,435); Chinese subscription plan prices unchanged
 - 2026/08/26: OpenCode Go upgraded Grok model from 4.5 to 4.6: rate limits increased (169/5hr, 423/week, 845/month, previously 120/300/600), pricing changed to tiered (≤200K tokens: input $2.00, output $6.00, cache $0.50; >200K tokens: input $4.00, output $12.00, cache $1.00, previously flat $2.00/$6.00/$0.30), model ID changed from grok-4.5 to grok-4.6
 - 2026/08/25: Tencent Cloud Token Plan Enterprise Professional Plan lowered minimum purchase from 100K to 50K Credits, added DeepSeek-V4-Flash 0731 Official and DeepSeek-V4-Pro 0813 Official models (peak-valley pricing, off-peak rates same as direct-supply versions)

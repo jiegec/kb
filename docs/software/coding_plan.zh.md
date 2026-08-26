@@ -263,6 +263,7 @@
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B   | 13B    | 否   |
 | [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T   | 49B    | 否   |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T   | 49B    | 否   |
+| [GLM-5.3-flash](https://huggingface.co/zai-org/GLM-5.3-flash)                           | 320B   | 18B    | 是   |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B    | 3B     | 否   |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B   | 32B    | 否   |
 | [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B   | 40B    | 否   |
@@ -274,10 +275,12 @@
 | [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B   | 10B    | 否   |
 | [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T   | 95B    | 是   |
 | [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B    | -      | 是   |
+| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next)                | 180B   | 6B     | 是   |
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B   | 17B    | 是   |
 
 ## 更新历史
 
+- 2026/08/27：Qwen3.8-Flash-Next 和 GLM-5.3-Flash 发布
 - 2026/08/26：MiniMax Token Plan 价格调整：国际版 Plus/Max/Ultra 套餐从 $20/$50/$120 每月涨至 $22/$55/$132 每月；中文版预付积分包调整——¥30 获 4489 积分（原 4285）、¥150 获 22460 积分（原 21430）、¥500 获 74900 积分（原 71435），中文版订阅套餐价格不变
 - 2026/08/26：OpenCode Go Grok 模型从 4.5 升级至 4.6：请求限额提升（169/5hr、423/周、845/月，原 120/300/600），定价改为分档（≤200K tokens: input $2.00、output $6.00、cache $0.50；>200K tokens: input $4.00、output $12.00、cache $1.00，原统一 $2.00/$6.00/$0.30），模型 ID 从 grok-4.5 改为 grok-4.6
 - 2026/08/25：腾讯云 Token Plan 企业版专业套餐最低购买额度从 10 万积分降至 5 万积分，新增 DeepSeek-V4-Flash 0731 正式版和 DeepSeek-V4-Pro 0813 正式版（峰谷定价，空闲时段价格与原厂直供版本一致）
