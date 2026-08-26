@@ -88,6 +88,11 @@
     - Uncached input: 8 RMB per 1M tokens
     - Output: 28 RMB per 1M tokens
     - 1M context
+- [GLM-5.3-Flash API Pricing](https://bigmodel.cn/pricing):
+    - Cached input: 0.115/0.23 RMB per 1M tokens
+    - Uncached input: 0.4/0.8 RMB per 1M tokens
+    - Output: 1.4/2.8 RMB per 1M tokens
+    - 1M context (50% off for two weeks)
 - [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 8 RMB per 1M tokens
@@ -288,6 +293,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/26: Zhipu added GLM-5.3-Flash API pricing (bigmodel.cn): cached input 0.115/0.23 RMB, uncached input 0.4/0.8 RMB, output 1.4/2.8 RMB per 1M tokens, 1M context, currently 50% off for two weeks
 - 2026/08/26: Zhipu GLM Coding Plan supported models changed from {GLM-5.3, GLM-5-Turbo, GLM-4.7} to {GLM-5.3, GLM-5.3-Flash}; GLM-5.3-Flash (320B total params / 18B active, hybrid linear+sparse attention, native vision) launched for Coding Plan with deduction coefficients Input 2.3 / Cached Input 0.56 / Output 8 (including visual understanding MCP); GLM-5-Turbo/GLM-4.7 requests auto-routed to GLM-5.3-Flash; token allowance reference table restructured to show per-model breakdowns at 95%/96%/98% cache hit rates; "save up to 92%" claim restored
 - 2026/08/26: OpenCode Go added GLM-5.3-Flash model, removed Ox Alpha Free model (limited-time free ended)
 - 2026/08/26: Qwen3.8-Flash-Next and GLM-5.3-Flash released

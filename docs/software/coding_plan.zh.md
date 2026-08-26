@@ -88,6 +88,11 @@
     - 输入未命中缓存 8 RMB 每 1M tokens
     - 输出 28 RMB 每 1M tokens
     - 1M 上下文
+- [GLM-5.3-Flash API 价格](https://bigmodel.cn/pricing)：
+    - 输入命中缓存 0.115/0.23 RMB 每 1M tokens
+    - 输入未命中缓存 0.4/0.8 RMB 每 1M tokens
+    - 输出 1.4/2.8 RMB 每 1M tokens
+    - 1M 上下文（5 折限时两周）
 - [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 8 RMB 每 1M tokens
@@ -287,6 +292,7 @@
 
 ## 更新历史
 
+- 2026/08/26：智谱新增 GLM-5.3-Flash API 定价（bigmodel.cn），输入命中缓存 0.115/0.23 元、输入未命中缓存 0.4/0.8 元、输出 1.4/2.8 元每百万 tokens，1M 上下文，当前为 5 折限时两周
 - 2026/08/26：智谱 GLM Coding Plan 可用模型从 {GLM-5.3, GLM-5-Turbo, GLM-4.7} 变为 {GLM-5.3, GLM-5.3-Flash}；GLM-5.3-Flash（320B 总参/18B 激活，混合线性+稀疏注意力，原生视觉）上线 Coding Plan，抵扣系数 Input 2.3 / Cached Input 0.56 / Output 8（含视觉理解 MCP）；GLM-5-Turbo/GLM-4.7 调用自动切换至 GLM-5.3-Flash；额度参考表改为按模型分列（95%/96%/98% 缓存命中率）；恢复"最高可节省 92% 成本"表述
 - 2026/08/26：OpenCode Go 新增 GLM-5.3-Flash 模型，移除 Ox Alpha Free 模型（限时免费结束）
 - 2026/08/26：Qwen3.8-Flash-Next 和 GLM-5.3-Flash 发布
