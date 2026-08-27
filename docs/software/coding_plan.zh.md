@@ -296,6 +296,8 @@
 
 - 2026/08/27：阿里云百炼 Token Plan 个人版新增模型 qwen3.8-flash
 - 2026/08/27：火山方舟 Coding Plan 个人版与 Agent Plan 的 DeepSeek-V4-Pro 从"尝鲜体验版"转为正式版上线（Agent 能力全面跃升，支持通过 model name 及控制台选择访问）
+- 2026/08/27：阿里云百炼模型调用价格调整：qwen3.8-flash 中国站输入从 1 元降至 0.8 元、输出从 3 元降至 2.7 元（国际版输入从 1.167 元降至 1.094 元，输出不变）；新增 kimi-k3（仅思考模式，全球 20/100 元、国际 21.875/109.376 元每百万 tokens）；tongyi-xiaomi-analysis-flash/pro 新增支持上下文缓存折扣；新增 kling/kling-v3-turbo 视频生成模型（有声视频 720P 0.8 元/秒、1080P 1.0 元/秒）
+- 2026/08/27：阿里云百炼上下文缓存规则调整：隐式缓存最少 Token 数从 256 提升至 1024（与显式缓存一致，但含义不同——达到 1024 仅代表具备命中条件，不保证实际命中）；qwen3.8-flash 加入 cached_token 折扣例外（不再按输入价 20% 计费）；新增 tongyi-xiaomi-analysis-pro/flash 行业模型；新增 DeepSeek（快手万擎部署）缓存定价（vanchin/deepseek-v4-pro 8.33%、vanchin/deepseek-v3.2-think 10% 等）
 - 2026/08/26：智谱新增 GLM-5.3-Flash API 定价（bigmodel.cn），输入命中缓存 0.115/0.23 元、输入未命中缓存 0.4/0.8 元、输出 1.4/2.8 元每百万 tokens，1M 上下文，当前为 5 折限时两周
 - 2026/08/26：智谱 GLM Coding Plan 可用模型从 {GLM-5.3, GLM-5-Turbo, GLM-4.7} 变为 {GLM-5.3, GLM-5.3-Flash}；GLM-5.3-Flash（320B 总参/18B 激活，混合线性+稀疏注意力，原生视觉）上线 Coding Plan，抵扣系数 Input 2.3 / Cached Input 0.56 / Output 8（含视觉理解 MCP）；GLM-5-Turbo/GLM-4.7 调用自动切换至 GLM-5.3-Flash；额度参考表改为按模型分列（95%/96%/98% 缓存命中率）；恢复"最高可节省 92% 成本"表述
 - 2026/08/26：OpenCode Go 新增 GLM-5.3-Flash 模型，移除 Ox Alpha Free 模型（限时免费结束）
