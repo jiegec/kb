@@ -148,7 +148,7 @@
     - Standard Plan (180 RMB/month): 10,000 Credits every 7 days
     - Pro Plan (600 RMB/month): 40,000 Credits every 7 days
     - Usage Pack (100 RMB/month): 20,000 Credits
-    - Supported models: qwen3.8-max, qwen3.7-max, qwen3.7-plus, qwen3.6-flash, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qewn-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, glm-5.2, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
+    - Supported models: qwen3.8-max, qwen3.8-flash, qwen3.7-max, qwen3.7-plus, qwen3.6-flash, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qewn-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, glm-5.2, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
     - Advanced Seat (¥698/seat/month): 100,000 Credits/seat/month
@@ -294,6 +294,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/27: Alibaba Cloud Bailian Token Plan (Personal Edition) added model qwen3.8-flash (reasoning, vision understanding, text generation; context 983616, max output 131072). Added to the personal-edition supported-model list, OpenCode/OpenClaw tool config examples, the Bailian model-page featured slot, and the Qwen Flash series in the context-cache supported list. The Bailian model pricing page only reformatted the "limited-time 50% off / 20% off" wording (bolded) for qwen3.7-max/qwen3.7-plus etc.; prices themselves unchanged.
 - 2026/08/27: Tencent Cloud Token Plan Enterprise Professional Plan expanded with full available model library: Auto, GLM-5.3/5.2/5/5.1, GLM-5-Turbo, Kimi K2.7 Code/HighSpeed, Kimi-K2.5 (discontinued 2026-08-31), Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash/Pro and 0731/0813 Official, DeepSeek Official direct-supply (varies slightly by region, Guangzhou vs Singapore)
 - 2026/08/26: Zhipu added GLM-5.3-Flash API pricing (bigmodel.cn): cached input 0.115/0.23 RMB, uncached input 0.4/0.8 RMB, output 1.4/2.8 RMB per 1M tokens, 1M context, currently 50% off for two weeks
 - 2026/08/26: Zhipu GLM Coding Plan supported models changed from {GLM-5.3, GLM-5-Turbo, GLM-4.7} to {GLM-5.3, GLM-5.3-Flash}; GLM-5.3-Flash (320B total params / 18B active, hybrid linear+sparse attention, native vision) launched for Coding Plan with deduction coefficients Input 2.3 / Cached Input 0.56 / Output 8 (including visual understanding MCP); GLM-5-Turbo/GLM-4.7 requests auto-routed to GLM-5.3-Flash; token allowance reference table restructured to show per-model breakdowns at 95%/96%/98% cache hit rates; "save up to 92%" claim restored
