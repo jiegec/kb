@@ -131,6 +131,7 @@
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
     - 支持模型：Doubao-Seed-2.1-turbo、Doubao-Seed-Evolving（新增）、Doubao-Seed-2.0-lite、MiniMax-M3、Kimi-K2.7-Code、GLM-5.2（即将下线）、GLM-5.3、DeepSeek-V4-Flash、DeepSeek-V4-Pro
+    - DeepSeek-V4-Pro 已转正式版上线（原为尝鲜体验版），Agent 能力全面跃升，支持通过 model name 及控制台选择访问
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
     - Agent 燃料值（Agent Fuel Point，简称 AFP）是 Agent Plan 套餐的统一用量计费单位，用于量化智能体（Agent）资源的消耗。
         - 文本生成模型、向量化模型：(输入 token * 输入抵扣系数 + 输出 token * 输出抵扣系数) / 10,000
@@ -294,6 +295,7 @@
 ## 更新历史
 
 - 2026/08/27：阿里云百炼 Token Plan 个人版新增模型 qwen3.8-flash
+- 2026/08/27：火山方舟 Coding Plan 个人版与 Agent Plan 的 DeepSeek-V4-Pro 从"尝鲜体验版"转为正式版上线（Agent 能力全面跃升，支持通过 model name 及控制台选择访问）
 - 2026/08/26：智谱新增 GLM-5.3-Flash API 定价（bigmodel.cn），输入命中缓存 0.115/0.23 元、输入未命中缓存 0.4/0.8 元、输出 1.4/2.8 元每百万 tokens，1M 上下文，当前为 5 折限时两周
 - 2026/08/26：智谱 GLM Coding Plan 可用模型从 {GLM-5.3, GLM-5-Turbo, GLM-4.7} 变为 {GLM-5.3, GLM-5.3-Flash}；GLM-5.3-Flash（320B 总参/18B 激活，混合线性+稀疏注意力，原生视觉）上线 Coding Plan，抵扣系数 Input 2.3 / Cached Input 0.56 / Output 8（含视觉理解 MCP）；GLM-5-Turbo/GLM-4.7 调用自动切换至 GLM-5.3-Flash；额度参考表改为按模型分列（95%/96%/98% 缓存命中率）；恢复"最高可节省 92% 成本"表述
 - 2026/08/26：OpenCode Go 新增 GLM-5.3-Flash 模型，移除 Ox Alpha Free 模型（限时免费结束）
