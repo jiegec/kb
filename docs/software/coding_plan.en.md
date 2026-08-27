@@ -294,8 +294,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
-- 2026/08/27: Alibaba Cloud Bailian Token Plan (Personal Edition) added model qwen3.8-flash (reasoning, vision understanding, text generation; context 983616, max output 131072). Added to the personal-edition supported-model list, OpenCode/OpenClaw tool config examples, the Bailian model-page featured slot, and the Qwen Flash series in the context-cache supported list. The Bailian model pricing page only reformatted the "limited-time 50% off / 20% off" wording (bolded) for qwen3.7-max/qwen3.7-plus etc.; prices themselves unchanged.
-- 2026/08/27: Tencent Cloud Token Plan Enterprise Professional Plan expanded with full available model library: Auto, GLM-5.3/5.2/5/5.1, GLM-5-Turbo, Kimi K2.7 Code/HighSpeed, Kimi-K2.5 (discontinued 2026-08-31), Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash/Pro and 0731/0813 Official, DeepSeek Official direct-supply (varies slightly by region, Guangzhou vs Singapore)
+- 2026/08/27: Alibaba Cloud Bailian Token Plan (Personal Edition) added model qwen3.8-flash
 - 2026/08/26: Zhipu added GLM-5.3-Flash API pricing (bigmodel.cn): cached input 0.115/0.23 RMB, uncached input 0.4/0.8 RMB, output 1.4/2.8 RMB per 1M tokens, 1M context, currently 50% off for two weeks
 - 2026/08/26: Zhipu GLM Coding Plan supported models changed from {GLM-5.3, GLM-5-Turbo, GLM-4.7} to {GLM-5.3, GLM-5.3-Flash}; GLM-5.3-Flash (320B total params / 18B active, hybrid linear+sparse attention, native vision) launched for Coding Plan with deduction coefficients Input 2.3 / Cached Input 0.56 / Output 8 (including visual understanding MCP); GLM-5-Turbo/GLM-4.7 requests auto-routed to GLM-5.3-Flash; token allowance reference table restructured to show per-model breakdowns at 95%/96%/98% cache hit rates; "save up to 92%" claim restored
 - 2026/08/26: OpenCode Go added GLM-5.3-Flash model, removed Ox Alpha Free model (limited-time free ended)
