@@ -229,8 +229,9 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3
+    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
+    - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -295,6 +296,7 @@
 
 ## 更新历史
 
+- 2026/08/28：OpenCode Go 新增支持 Qwen3.8 Flash 模型（input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M，使用额度 $30；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash）
 - 2026/08/28：无问芯穹 Infini GenStudio 更新日志：2026-08-28 一批模型下线（deepseek-r1、deepseek-v3 系列、deepseek-v3.2/v3.2-thinking、glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v、minimax-m2.1/m2.5、kimi-k2.5），建议迁移至 deepseek-v4-flash/v4-pro、glm-5.2、kimi-k2.6、minimax-m2.7；2026-08-18 上线 DeepSeek V4 系列（deepseek-v4-flash-0731、deepseek-v4-pro-0813）
 - 2026/08/27：阿里云百炼 Token Plan 个人版新增模型 qwen3.8-flash
 - 2026/08/27：火山方舟 Coding Plan 个人版与 Agent Plan 的 DeepSeek-V4-Pro 从"尝鲜体验版"转为正式版上线（Agent 能力全面跃升，支持通过 model name 及控制台选择访问）

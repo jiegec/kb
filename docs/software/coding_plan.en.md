@@ -230,8 +230,9 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $10/month
     - Usage limits: $12 per 5 hours, $30 per week, $60 per month
-    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3
+    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
+    - Qwen3.8 Flash is a new model: input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M (usage limit $30); request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
@@ -296,6 +297,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/28: OpenCode Go added support for Qwen3.8 Flash model (input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M, usage limit $30; request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash)
 - 2026/08/28: Infini-AI GenStudio changelog: a batch of models were discontinued on 2026-08-28 (deepseek-r1, deepseek-v3 series, deepseek-v3.2/v3.2-thinking, glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v, minimax-m2.1/m2.5, kimi-k2.5), recommended migration to deepseek-v4-flash/v4-pro, glm-5.2, kimi-k2.6, minimax-m2.7; DeepSeek V4 series (deepseek-v4-flash-0731, deepseek-v4-pro-0813) launched on 2026-08-18
 - 2026/08/27: Alibaba Cloud Bailian Token Plan (Personal Edition) added model qwen3.8-flash
 - 2026/08/27: Volcano Engine Coding Plan (Personal Edition) and Agent Plan DeepSeek-V4-Pro changed from "early-access preview" to officially released (significantly enhanced Agent capabilities, accessible via model name and console selection)
