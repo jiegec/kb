@@ -130,7 +130,8 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan) [Documentation](https://www.volcengine.com/docs/82379/1925114)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.1-turbo, Doubao-Seed-Evolving (new), Doubao-Seed-2.0-lite, MiniMax-M3, Kimi-K2.7-Code, GLM-5.2 (phasing out), GLM-5.3, DeepSeek-V4-Flash, DeepSeek-V4-Pro
+    - Supported models: Doubao-Seed-2.1-turbo, Doubao-Seed-Evolving, Doubao-Seed-2.0-lite, MiniMax-M3, Kimi-K2.7-Code, GLM-5.2 (phasing out), GLM-5.3, GLM-5.3-Flash (new), DeepSeek-V4-Flash, DeepSeek-V4-Pro
+    - GLM-5.3-Flash is a new model: Zhipu's first natively multimodal model, 320B total params / 18B active, supports image input, 1M context / 128K max output; first two weeks deduction coefficient at 50% off, promotion ends 2026-09-11 23:59:59
     - DeepSeek-V4-Pro is now officially released (was an early-access preview), with significantly enhanced Agent capabilities, accessible via model name and console selection
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
     - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
@@ -142,7 +143,8 @@
     - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Daily quota: 125,000 AFP.
     - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Daily quota: 250,000 AFP.
     - Image generation models, video generation models, voice models, and Harness have no 5-hour or weekly quota limits; they are only subject to daily quota and monthly plan quota. Daily quota is uniformly half of the monthly plan quota.
-    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.2 (phasing out), glm-5.3, kimi-k2.7-code, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seed-tts-2.0, doubao-seed-asr-2.0
+    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.2 (phasing out), glm-5.3, glm-5.3-flash (new), kimi-k2.7-code, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seed-tts-2.0, doubao-seed-asr-2.0
+    - Agent Evolution: first 50 files free (previously limited/charged)
     - Medium and above plans additionally support: doubao-seedance-1.5-pro, doubao-seedance-2.0, doubao-seedance-2.0-fast, doubao-seedance-2.0-mini
 - [Alibaba Cloud Bailian Token Plan (Personal Edition)](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite Plan (60 RMB/month): 2,500 Credits every 7 days
@@ -297,6 +299,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/29: Volcano Engine Coding Plan (Personal Edition) and Agent Plan (Personal Edition) added the glm-5.3-flash model (Zhipu's first natively multimodal model, 320B total params / 18B active, supports image input, 1M context / 128K max output; first two weeks deduction coefficient at 50% off, promotion ends 2026-09-11 23:59:59); Agent Plan's Agent Evolution changed to first 50 files free
 - 2026/08/28: Zhipu International (Z.ai DevPack) GLM Coding Plan model change: all plans now support {GLM-5.3, GLM-5.3-Flash} (was {GLM-5.3, GLM-5-Flash}); requests for GLM-5.2/GLM-5.1 auto-routed to GLM-5.3, GLM-4.7 auto-routed to GLM-5.3-Flash (GLM-5-Turbo no longer a routing target); release notes removed the GLM-5V-Turbo and GLM-5-Turbo model entries
 - 2026/08/28: OpenCode Go added support for Qwen3.8 Flash model (input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M, usage limit $30; request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash)
 - 2026/08/28: Infini-AI GenStudio changelog: a batch of models were discontinued on 2026-08-28 (deepseek-r1, deepseek-v3 series, deepseek-v3.2/v3.2-thinking, glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v, minimax-m2.1/m2.5, kimi-k2.5), recommended migration to deepseek-v4-flash/v4-pro, glm-5.2, kimi-k2.6, minimax-m2.7; DeepSeek V4 series (deepseek-v4-flash-0731, deepseek-v4-pro-0813) launched on 2026-08-18
