@@ -295,6 +295,7 @@
 
 ## 更新历史
 
+- 2026/08/28：无问芯穹 Infini GenStudio 更新日志：2026-08-28 一批模型下线（deepseek-r1、deepseek-v3 系列、deepseek-v3.2/v3.2-thinking、glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v、minimax-m2.1/m2.5、kimi-k2.5），建议迁移至 deepseek-v4-flash/v4-pro、glm-5.2、kimi-k2.6、minimax-m2.7；2026-08-18 上线 DeepSeek V4 系列（deepseek-v4-flash-0731、deepseek-v4-pro-0813）
 - 2026/08/27：阿里云百炼 Token Plan 个人版新增模型 qwen3.8-flash
 - 2026/08/27：火山方舟 Coding Plan 个人版与 Agent Plan 的 DeepSeek-V4-Pro 从"尝鲜体验版"转为正式版上线（Agent 能力全面跃升，支持通过 model name 及控制台选择访问）
 - 2026/08/27：阿里云百炼模型调用价格调整：qwen3.8-flash 中国站输入从 1 元降至 0.8 元、输出从 3 元降至 2.7 元（国际版输入从 1.167 元降至 1.094 元，输出不变）；新增 kimi-k3（仅思考模式，全球 20/100 元、国际 21.875/109.376 元每百万 tokens）；tongyi-xiaomi-analysis-flash/pro 新增支持上下文缓存折扣；新增 kling/kling-v3-turbo 视频生成模型（有声视频 720P 0.8 元/秒、1080P 1.0 元/秒）

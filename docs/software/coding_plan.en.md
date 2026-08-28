@@ -296,6 +296,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/28: Infini-AI GenStudio changelog: a batch of models were discontinued on 2026-08-28 (deepseek-r1, deepseek-v3 series, deepseek-v3.2/v3.2-thinking, glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v, minimax-m2.1/m2.5, kimi-k2.5), recommended migration to deepseek-v4-flash/v4-pro, glm-5.2, kimi-k2.6, minimax-m2.7; DeepSeek V4 series (deepseek-v4-flash-0731, deepseek-v4-pro-0813) launched on 2026-08-18
 - 2026/08/27: Alibaba Cloud Bailian Token Plan (Personal Edition) added model qwen3.8-flash
 - 2026/08/27: Volcano Engine Coding Plan (Personal Edition) and Agent Plan DeepSeek-V4-Pro changed from "early-access preview" to officially released (significantly enhanced Agent capabilities, accessible via model name and console selection)
 - 2026/08/27: Alibaba Cloud Bailian model pricing adjustments: qwen3.8-flash China input dropped from 1 to 0.8 RMB and output from 3 to 2.7 RMB (international input dropped from 1.167 to 1.094 RMB, output unchanged); added kimi-k3 (thinking-only mode, global 20/100 RMB, international 21.875/109.376 RMB per 1M tokens); tongyi-xiaomi-analysis-flash/pro now support context cache discounts; added kling/kling-v3-turbo video generation model (audio video 720P 0.8 RMB/sec, 1080P 1.0 RMB/sec)
