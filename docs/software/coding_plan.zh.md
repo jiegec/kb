@@ -123,7 +123,7 @@
     - GLM-5.2、GLM-5-Turbo：作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍”系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.2 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。
     - 注：高峰期时间为每日 14:00～18:00（UTC+8）。
 
-[智谱国际版 GLM Coding Plan](https://z.ai/subscribe)
+[智谱国际版 GLM Coding Plan](https://z.ai/subscribe)：所有套餐均支持 GLM-5.3、GLM-5.3-Flash；调用 GLM-5.2/GLM-5.1 自动路由至 GLM-5.3，GLM-4.7 自动路由至 GLM-5.3-Flash
 
 ### 云厂商
 
@@ -296,6 +296,7 @@
 
 ## 更新历史
 
+- 2026/08/28：智谱国际版（Z.ai DevPack）GLM Coding Plan 模型调整：所有套餐支持模型从 {GLM-5.3, GLM-5-Flash} 变更为 {GLM-5.3, GLM-5.3-Flash}；调用 GLM-5.2/GLM-5.1 自动路由至 GLM-5.3，GLM-4.7 自动路由至 GLM-5.3-Flash（GLM-5-Turbo 不再作为路由目标）；发布日志移除 GLM-5V-Turbo、GLM-5-Turbo 两条模型条目
 - 2026/08/28：OpenCode Go 新增支持 Qwen3.8 Flash 模型（input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M，使用额度 $30；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash）
 - 2026/08/28：无问芯穹 Infini GenStudio 更新日志：2026-08-28 一批模型下线（deepseek-r1、deepseek-v3 系列、deepseek-v3.2/v3.2-thinking、glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v、minimax-m2.1/m2.5、kimi-k2.5），建议迁移至 deepseek-v4-flash/v4-pro、glm-5.2、kimi-k2.6、minimax-m2.7；2026-08-18 上线 DeepSeek V4 系列（deepseek-v4-flash-0731、deepseek-v4-pro-0813）
 - 2026/08/27：阿里云百炼 Token Plan 个人版新增模型 qwen3.8-flash

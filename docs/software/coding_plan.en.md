@@ -123,7 +123,7 @@
     - GLM-5.2, GLM-5-Turbo: As advanced models, consume quota at 3× during peak hours and 2× during off-peak hours. As a limited-time benefit, GLM-5.2 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
     - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
 
-[Zhipu International GLM Coding Plan](https://z.ai/subscribe)
+[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.3 and GLM-5.3-Flash; requests for GLM-5.2/GLM-5.1 auto-route to GLM-5.3, GLM-4.7 auto-routes to GLM-5.3-Flash
 
 ### Cloud Providers
 
@@ -297,6 +297,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/28: Zhipu International (Z.ai DevPack) GLM Coding Plan model change: all plans now support {GLM-5.3, GLM-5.3-Flash} (was {GLM-5.3, GLM-5-Flash}); requests for GLM-5.2/GLM-5.1 auto-routed to GLM-5.3, GLM-4.7 auto-routed to GLM-5.3-Flash (GLM-5-Turbo no longer a routing target); release notes removed the GLM-5V-Turbo and GLM-5-Turbo model entries
 - 2026/08/28: OpenCode Go added support for Qwen3.8 Flash model (input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M, usage limit $30; request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash)
 - 2026/08/28: Infini-AI GenStudio changelog: a batch of models were discontinued on 2026-08-28 (deepseek-r1, deepseek-v3 series, deepseek-v3.2/v3.2-thinking, glm-4.5/4.5-air/4.6/4.7/5/4.5v/4.6v, minimax-m2.1/m2.5, kimi-k2.5), recommended migration to deepseek-v4-flash/v4-pro, glm-5.2, kimi-k2.6, minimax-m2.7; DeepSeek V4 series (deepseek-v4-flash-0731, deepseek-v4-pro-0813) launched on 2026-08-18
 - 2026/08/27: Alibaba Cloud Bailian Token Plan (Personal Edition) added model qwen3.8-flash
