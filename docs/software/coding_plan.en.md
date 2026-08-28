@@ -232,7 +232,8 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $10/month
     - Usage limits: $12 per 5 hours, $30 per week, $60 per month
-    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy3
+    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3
+    - Hy4 preview is a new model: input $0.834/1M, output $2.501/1M, cache read $0.042/1M (usage allowance $30); request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
     - Qwen3.8 Flash is a new model: input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M (usage limit $30); request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
@@ -299,6 +300,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/29: OpenCode Go added the Hy4 preview model (input $0.834/1M, output $2.501/1M, cache read $0.042/1M, usage allowance $30; request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview)
 - 2026/08/29: Volcano Engine Coding Plan (Personal Edition) and Agent Plan (Personal Edition) added the glm-5.3-flash model (Zhipu's first natively multimodal model, 320B total params / 18B active, supports image input, 1M context / 128K max output; first two weeks deduction coefficient at 50% off, promotion ends 2026-09-11 23:59:59); Agent Plan's Agent Evolution changed to first 50 files free
 - 2026/08/28: Zhipu International (Z.ai DevPack) GLM Coding Plan model change: all plans now support {GLM-5.3, GLM-5.3-Flash} (was {GLM-5.3, GLM-5-Flash}); requests for GLM-5.2/GLM-5.1 auto-routed to GLM-5.3, GLM-4.7 auto-routed to GLM-5.3-Flash (GLM-5-Turbo no longer a routing target); release notes removed the GLM-5V-Turbo and GLM-5-Turbo model entries
 - 2026/08/28: OpenCode Go added support for Qwen3.8 Flash model (input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M, usage limit $30; request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash)

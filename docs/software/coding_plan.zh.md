@@ -231,7 +231,8 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy3
+    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3
+    - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
@@ -298,6 +299,7 @@
 
 ## 更新历史
 
+- 2026/08/29：OpenCode Go 新增 Hy4 preview 模型（input $0.834/1M、output $2.501/1M、cache read $0.042/1M，使用额度 $30；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview）
 - 2026/08/29：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 glm-5.3-flash 模型（智谱首个原生多模态模型，320B 总参/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59）；Agent Plan 的 Agent 进化改为前 50 个文件免费
 - 2026/08/28：智谱国际版（Z.ai DevPack）GLM Coding Plan 模型调整：所有套餐支持模型从 {GLM-5.3, GLM-5-Flash} 变更为 {GLM-5.3, GLM-5.3-Flash}；调用 GLM-5.2/GLM-5.1 自动路由至 GLM-5.3，GLM-4.7 自动路由至 GLM-5.3-Flash（GLM-5-Turbo 不再作为路由目标）；发布日志移除 GLM-5V-Turbo、GLM-5-Turbo 两条模型条目
 - 2026/08/28：OpenCode Go 新增支持 Qwen3.8 Flash 模型（input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M，使用额度 $30；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash）
