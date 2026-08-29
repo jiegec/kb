@@ -69,14 +69,14 @@
 - GLM-5.3-Flash（含视觉理解 MCP）：Input 抵扣系数 2.3，Cached Input 抵扣系数 0.56，Output 抵扣系数 8
 - 套餐的 Token 用量会因缓存命中率而有所不同，具体如下：
 
-| 缓存命中率 | 模型 | Lite（亿 Tokens/周） | Pro（亿 Tokens/周） | Max（亿 Tokens/周） |
-| --- | --- | --- | --- | --- |
-| 95% | GLM-5.3 | 0.48～0.97 | 2.90～5.80 | 6.76～13.52 |
-| 95% | GLM-5.3-Flash | 1.46～2.92 | 8.77～17.55 | 20.47～40.95 |
-| 96% | GLM-5.3 | 0.50～0.99 | 2.97～5.95 | 6.94～13.87 |
-| 96% | GLM-5.3-Flash | 1.50～3.00 | 9.00～18.01 | 21.01～42.02 |
-| 98% | GLM-5.3 | 0.52～1.04 | 3.13～6.27 | 7.31～14.63 |
-| 98% | GLM-5.3-Flash | 1.58～3.17 | 9.50～19.00 | 22.17～44.33 |
+| 缓存命中率 | 模型          | Lite（亿 Tokens/周） | Pro（亿 Tokens/周） | Max（亿 Tokens/周） |
+|------------|---------------|--------------------|-------------------|-------------------|
+| 95%        | GLM-5.3       | 0.48～0.97          | 2.90～5.80         | 6.76～13.52        |
+| 95%        | GLM-5.3-Flash | 1.46～2.92          | 8.77～17.55        | 20.47～40.95       |
+| 96%        | GLM-5.3       | 0.50～0.99          | 2.97～5.95         | 6.94～13.87        |
+| 96%        | GLM-5.3-Flash | 1.50～3.00          | 9.00～18.01        | 21.01～42.02       |
+| 98%        | GLM-5.3       | 0.52～1.04          | 3.13～6.27         | 7.31～14.63        |
+| 98%        | GLM-5.3-Flash | 1.58～3.17          | 9.50～19.00        | 22.17～44.33       |
 
 
 - 区间说明
@@ -282,11 +282,12 @@
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B   | 13B    | 否   |
 | [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T   | 49B    | 否   |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T   | 49B    | 否   |
-| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-flash)                       | 320B   | 18B    | 是   |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B    | 3B     | 否   |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B   | 32B    | 否   |
-| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B   | 40B    | 否   |
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                                   | 744B   | 40B    | 否   |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B   | 40B    | 否   |
+| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash)                       | 320B   | 18B    | 是   |
+| [GLM-5.3](https://huggingface.co/zai-org/GLM-5.3)                                   | 744B   | 40B    | 否   |
 | [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                           | 295B   | 21B    | 否   |
 | [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3)                                | 2.8T   | 104B   | 是   |
 | [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T     | 32B    | 是   |
