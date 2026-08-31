@@ -301,6 +301,7 @@
 ## 更新历史
 
 - 2026/08/31：火山方舟 Coding Plan 个人版与 Agent Plan 个人版移除 GLM-5.2 模型（此前标记为"即将下线"），GLM-5.2 不再列入支持模型与 1M 上下文支持列表；GLM-5.3 的抵扣系数描述由"与 GLM-5.2 一致"改为"较高"
+- 2026/08/31：阿里云百炼模型调用价格新增 ZHIPU/GLM-5.3-Flash（仅思考模式，输入 0.8 元、输出 2.8 元每百万 Tokens，支持上下文缓存命中折扣 25%）与 qwen-flash-character（0.25/1.5 元）；qwen3-vl-rerank 价格下调（文本 0.7→0.5 元、图片 1.8→0.5 元）；Token Plan 个人版限时夜间五折新增 deepseek-v4-flash-0731
 - 2026/08/29：OpenCode Go 新增 Hy4 preview 模型（input $0.834/1M、output $2.501/1M、cache read $0.042/1M，使用额度 $30；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview）
 - 2026/08/29：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 glm-5.3-flash 模型（智谱首个原生多模态模型，320B 总参/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59）；Agent Plan 的 Agent 进化改为前 50 个文件免费
 - 2026/08/28：智谱国际版（Z.ai DevPack）GLM Coding Plan 模型调整：所有套餐支持模型从 {GLM-5.3, GLM-5-Flash} 变更为 {GLM-5.3, GLM-5.3-Flash}；调用 GLM-5.2/GLM-5.1 自动路由至 GLM-5.3，GLM-4.7 自动路由至 GLM-5.3-Flash（GLM-5-Turbo 不再作为路由目标）；发布日志移除 GLM-5V-Turbo、GLM-5-Turbo 两条模型条目
