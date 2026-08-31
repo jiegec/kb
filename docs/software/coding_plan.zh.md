@@ -130,7 +130,7 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.1-turbo、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite、MiniMax-M3、Kimi-K2.7-Code、GLM-5.2（即将下线）、GLM-5.3、GLM-5.3-Flash（新增）、DeepSeek-V4-Flash、DeepSeek-V4-Pro
+    - 支持模型：Doubao-Seed-2.1-turbo、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite、MiniMax-M3、Kimi-K2.7-Code、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro
     - GLM-5.3-Flash 为新增模型：智谱首个原生多模态模型，320B 总参数/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59
     - DeepSeek-V4-Pro 已转正式版上线（原为尝鲜体验版），Agent 能力全面跃升，支持通过 model name 及控制台选择访问
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
@@ -143,7 +143,7 @@
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
     - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.2（即将下线）、glm-5.3、glm-5.3-flash（新增）、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Agent 进化：前 50 个文件免费（此前为限制/收费项）
     - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
@@ -300,6 +300,7 @@
 
 ## 更新历史
 
+- 2026/08/31：火山方舟 Coding Plan 个人版与 Agent Plan 个人版移除 GLM-5.2 模型（此前标记为"即将下线"），GLM-5.2 不再列入支持模型与 1M 上下文支持列表；GLM-5.3 的抵扣系数描述由"与 GLM-5.2 一致"改为"较高"
 - 2026/08/29：OpenCode Go 新增 Hy4 preview 模型（input $0.834/1M、output $2.501/1M、cache read $0.042/1M，使用额度 $30；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview）
 - 2026/08/29：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 glm-5.3-flash 模型（智谱首个原生多模态模型，320B 总参/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59）；Agent Plan 的 Agent 进化改为前 50 个文件免费
 - 2026/08/28：智谱国际版（Z.ai DevPack）GLM Coding Plan 模型调整：所有套餐支持模型从 {GLM-5.3, GLM-5-Flash} 变更为 {GLM-5.3, GLM-5.3-Flash}；调用 GLM-5.2/GLM-5.1 自动路由至 GLM-5.3，GLM-4.7 自动路由至 GLM-5.3-Flash（GLM-5-Turbo 不再作为路由目标）；发布日志移除 GLM-5V-Turbo、GLM-5-Turbo 两条模型条目
