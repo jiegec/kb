@@ -163,23 +163,23 @@
     - Supported models: qwen3.8-max, qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseekv4-pro-0813, deepseek-v4-flash, deepseek-v4-flash-0731, deepseek-v3.2, kimi-k2.7-code, kimi-k2.6, kimi-k2.5, glm-5.2, glm-5.1, glm-5, minimax-m2.5, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan Enterprise Edition:
-        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); available model library (varies slightly by region, Guangzhou more complete, Singapore fewer): Auto, GLM-5.3, GLM-5.2, GLM-5, GLM-5.1, GLM-5-Turbo, Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi-K2.5 (discontinued 2026-08-31), Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply
-        - DeepSeek-V4 Official (direct-supply) uses peak-valley pricing: off-peak rates are 50% of peak, peak hours 9:00-12:00 and 14:00-18:00 (Beijing time)
+        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); available model library (varies slightly by region, Guangzhou more complete, Singapore fewer): Auto, GLM-5.3, GLM-5.2, GLM-5, GLM-5.1, GLM-5-Turbo, Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply, DeepSeek-V4-Flash-Vision-Exp Official direct-supply (text capability on par with V4-Flash Official, with greatly enhanced visual understanding, multimodal Agent performance approaching Claude Opus-4.8; Kimi-K2.5 discontinued 2026-08-31)
+        - Peak-valley billing (adjusted from 2026-08-29): DeepSeek V4 [Official direct-supply] continues peak-valley on weekdays (Mon-Fri, peak hours 9:00–12:00 and 14:00–18:00); weekends (Sat-Sun) are all billed at off-peak rates. DeepSeek V4 Official: peak hours are Mon–Sun 9:00–12:00 and 14:00–18:00. The billing window is determined by when the platform server receives the request (Beijing time)
         - Light Enjoyment Plan: 2 RMB/million tokens per month
-    - Token Plan Personal Edition:
+    - Token Plan Personal Edition (switched to credit-based deduction effective 2026-08-31 17:00):
         - Hy Token Plan:
-            - Lite Plan (28 RMB/month): 35M tokens per subscription month
-            - Standard Plan (78 RMB/month): 100M tokens per subscription month
-            - Pro Plan (238 RMB/month): 320M tokens per subscription month
-            - Max Plan (468 RMB/month): 650M tokens per subscription month
-            - Supported models: Hy3 preview
+            - Lite Plan (28 RMB/month): 560 credits per subscription month
+            - Standard Plan (78 RMB/month): 1,560 credits per subscription month
+            - Pro Plan (238 RMB/month): 1,560 credits per subscription month (as shown in the source doc; likely a typo)
+            - Max Plan (468 RMB/month): 9,360 credits per subscription month
+            - Supported models (image, video, and other multimodal capabilities temporarily not supported): Hy3, Hy4 preview (Hy3 preview calls auto-route to Hy3)
         - Universal Token Plan:
-            - Lite Plan (39 RMB/month): 35M tokens per subscription month
-            - Standard Plan (99 RMB/month): 100M tokens per subscription month
-            - Pro Plan (299 RMB/month): 320M tokens per subscription month
-            - Max Plan (599 RMB/month): 650M tokens per subscription month
-            - Supported models (image, video, and other multimodal capabilities temporarily not supported): MiniMax-M2.7, Kimi-K2.5, GLM-5, GLM-5.1
-            - Kimi-K2.5 will be discontinued on 2026-08-31; DeepSeek-V4-Flash/DeepSeek-V4-Pro Official direct-supply added model aliases deepseek/deepseek-v4-flash-0731, deepseek/deepseek-v4-flash, deepseek/deepseek-v4-pro-0813, deepseek/deepseek-v4-pro
+            - Lite Plan (39 RMB/month): 780 credits per subscription month
+            - Standard Plan (99 RMB/month): 1,980 credits per subscription month
+            - Pro Plan (299 RMB/month): 5,980 credits per subscription month
+            - Max Plan (599 RMB/month): 11,980 credits per subscription month
+            - Supported models: Auto, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply, MiniMax-M2.7, MiniMax-M3, GLM-5, GLM-5.1, GLM-5.2, GLM-5.3, Kimi K2.7 Code, Hy4 preview (Kimi-K2.5 discontinued)
+            - DeepSeek-V4-Flash/DeepSeek-V4-Pro Official direct-supply model aliases deepseek/deepseek-v4-flash-0731, deepseek/deepseek-v4-flash, deepseek/deepseek-v4-pro-0813, deepseek/deepseek-v4-pro
             - Token Plan Enterprise Professional Plan has removed MiniMax-M2.5 model (discontinued on August 7, 2026)
 - [Baidu Qianfan Token Plan (Personal Edition)](https://cloud.baidu.com/product/codingplan.html) [Personal Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [Enterprise Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
     - Mini Plan (9.9 RMB/month): 10M tokens per month
@@ -301,6 +301,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/08/31: Tencent Cloud LLM Token Plan switched to credit-based deduction: the Personal Edition changed from token quotas to credits effective 2026-08-31 17:00 (Universal Token Plan Lite/Standard/Pro/Max = 39/99/299/599 RMB/month, 780/1,980/5,980/11,980 credits/month; Hy Token Plan Lite/Standard/Pro/Max = 28/78/238/468 RMB/month, 560/1,560/1,560 (as-is in source doc, likely a typo)/9,360 credits/month); Universal Token Plan supported models updated to Auto, DeepSeek-V4-Flash/Pro Official direct-supply, MiniMax-M2.7, MiniMax-M3, GLM-5/5.1/5.2/5.3, Kimi K2.7 Code, Hy4 preview (Kimi-K2.5 discontinued), Hy Token Plan supports Hy3 and Hy4 preview (Hy3 preview auto-routes to Hy3); Enterprise Professional Plan added DeepSeek-V4-Flash-Vision-Exp Official direct-supply (multimodal/visual understanding, text capability on par with V4-Flash Official, multimodal Agent performance approaching Claude Opus-4.8) and removed Kimi-K2.5; DeepSeek V4 Official direct-supply peak-valley billing adjusted from 2026-08-29 to weekdays only (weekends all off-peak), DeepSeek V4 Official peak hours are Mon–Sun 9:00–12:00 and 14:00–18:00
 - 2026/08/31: Volcano Engine Coding Plan (Personal Edition) and Agent Plan (Personal Edition) removed the GLM-5.2 model (previously marked as "phasing out"); GLM-5.2 is no longer listed among supported models or in the 1M-context supported list; the GLM-5.3 deduction coefficient description changed from "same as GLM-5.2" to "high"
 - 2026/08/31: Alibaba Cloud Bailian model pricing added ZHIPU/GLM-5.3-Flash (thinking-only mode, input 0.8 RMB, output 2.8 RMB per 1M tokens, supports context-cache hit discount at 25%) and qwen-flash-character (0.25/1.5 RMB); qwen3-vl-rerank price lowered (text 0.7→0.5 RMB, image 1.8→0.5 RMB); Token Plan (Personal Edition) limited-time night discount added deepseek-v4-flash-0731
 - 2026/08/29: OpenCode Go added the Hy4 preview model (input $0.834/1M, output $2.501/1M, cache read $0.042/1M, usage allowance $30; request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview)

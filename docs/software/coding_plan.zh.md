@@ -163,23 +163,23 @@
     - 支持模型：qwen3.8-max、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseekv4-pro-0813、deepseek-v4-flash、deepseek-v4-flash-0731、deepseek-v3.2、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.2、glm-5.1、glm-5、minimax-m2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.2、GLM-5、GLM-5.1、GLM-5-Turbo、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi-K2.5（即将下线，2026-08-31）、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供
-        - DeepSeek-V4 正式版（原厂直供）采用峰谷定价：空闲时段价格为高峰时段的 50%，高峰时段 9:00-12:00、14:00-18:00（北京时间）
+        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.2、GLM-5、GLM-5.1、GLM-5-Turbo、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
+        - 峰谷计费（2026-08-29 起调整）：DeepSeek V4【原厂直供】工作日（周一至周五）继续峰谷计费（高峰时段 9:00–12:00、14:00–18:00），周末（周六、周日）全天按空闲时段价格计费；DeepSeek V4 正式版高峰时段为周一至周日 9:00–12:00、14:00–18:00；单次请求计费时段以平台服务端接收请求时间（北京时间）为准
         - 轻享套餐：每月 2 元/百万 tokens
-    - Token Plan 个人版：
+    - Token Plan 个人版（自 2026-08-31 17:00 起改为积分抵扣模式）：
         - Hy Token Plan:
-            - Lite 套餐（28 RMB 每月）：每订阅月 3500 万 Token
-            - Standard 套餐（78 RMB 每月）：每订阅月 1 亿 Token
-            - Pro 套餐（238 RMB 每月）：每订阅月 3.2 亿 Token
-            - Max 套餐（468 RMB 每月）：每订阅月 6.5 亿 Token
-            - 支持模型：Hy3 preview
+            - Lite 套餐（28 RMB 每月）：每订阅月 560 积分
+            - Standard 套餐（78 RMB 每月）：每订阅月 1560 积分
+            - Pro 套餐（238 RMB 每月）：每订阅月 1560 积分（原文如此，疑为官方笔误）
+            - Max 套餐（468 RMB 每月）：每订阅月 9360 积分
+            - 支持模型（暂不支持图片、视频等多模态能力）：Hy3、Hy4 preview（Hy3 preview 调用自动路由至 Hy3 模型）
         - 通用 Token Plan:
-            - Lite 套餐（39 RMB 每月）：每订阅月 3500 万 Token
-            - Standard 套餐（99 RMB 每月）：每订阅月 1 亿 Token
-            - Pro 套餐（299 RMB 每月）：每订阅月 3.2 亿 Token
-            - Max 套餐（599 RMB 每月）：每订阅月 6.5 亿 Token
-            - 支持模型（暂不支持图片、视频等多模态能力）：MiniMax-M2.7、Kimi-K2.5、GLM-5、GLM-5.1
-            - Kimi-K2.5 将于 2026-08-31 下线；DeepSeek-V4-Flash/DeepSeek-V4-Pro 正式版原厂直供新增 model 别名 deepseek/deepseek-v4-flash-0731、deepseek/deepseek-v4-flash、deepseek/deepseek-v4-pro-0813、deepseek/deepseek-v4-pro
+            - Lite 套餐（39 RMB 每月）：每订阅月 780 积分
+            - Standard 套餐（99 RMB 每月）：每订阅月 1980 积分
+            - Pro 套餐（299 RMB 每月）：每订阅月 5980 积分
+            - Max 套餐（599 RMB 每月）：每订阅月 11980 积分
+            - 支持模型：Auto、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5、GLM-5.1、GLM-5.2、GLM-5.3、Kimi K2.7 Code、Hy4 preview（Kimi-K2.5 已下线）
+            - DeepSeek-V4-Flash/DeepSeek-V4-Pro 正式版原厂直供 model 别名 deepseek/deepseek-v4-flash-0731、deepseek/deepseek-v4-flash、deepseek/deepseek-v4-pro-0813、deepseek/deepseek-v4-pro
             - Token Plan 企业版专业套餐已移除 MiniMax-M2.5 模型（2026年8月7日下线）
 - [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
     - Mini 套餐（9.9 RMB 每月）：1000 万 token 每月
@@ -300,6 +300,7 @@
 
 ## 更新历史
 
+- 2026/08/31：腾讯云大模型 Token Plan 调整为积分抵扣模式：个人版自 2026-08-31 17:00 起由 Token 定额改为积分（通用 Token Plan Lite/Standard/Pro/Max = 39/99/299/599 元每月，780/1980/5980/11980 积分/月；Hy Token Plan Lite/Standard/Pro/Max = 28/78/238/468 元每月，560/1560/1560（原文如此，疑为官方笔误）/9360 积分/月）；通用 Token Plan 可用模型更新为 Auto、DeepSeek-V4-Flash/Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5/5.1/5.2/5.3、Kimi K2.7 Code、Hy4 preview（Kimi-K2.5 已下线），Hy Token Plan 支持 Hy3、Hy4 preview（Hy3 preview 自动路由至 Hy3）；企业版专业套餐新增 DeepSeek-V4-Flash-Vision-Exp 原厂直供（多模态/视觉理解，纯文本能力与 V4-Flash 正式版持平，多模态 Agent 表现接近 Claude Opus-4.8）、移除 Kimi-K2.5；DeepSeek V4 原厂直供峰谷计费自 2026-08-29 起改为工作日峰谷、周末全天按空闲时段价格，DeepSeek V4 正式版高峰时段为周一至周日 9:00–12:00、14:00–18:00
 - 2026/08/31：火山方舟 Coding Plan 个人版与 Agent Plan 个人版移除 GLM-5.2 模型（此前标记为"即将下线"），GLM-5.2 不再列入支持模型与 1M 上下文支持列表；GLM-5.3 的抵扣系数描述由"与 GLM-5.2 一致"改为"较高"
 - 2026/08/31：阿里云百炼模型调用价格新增 ZHIPU/GLM-5.3-Flash（仅思考模式，输入 0.8 元、输出 2.8 元每百万 Tokens，支持上下文缓存命中折扣 25%）与 qwen-flash-character（0.25/1.5 元）；qwen3-vl-rerank 价格下调（文本 0.7→0.5 元、图片 1.8→0.5 元）；Token Plan 个人版限时夜间五折新增 deepseek-v4-flash-0731
 - 2026/08/29：OpenCode Go 新增 Hy4 preview 模型（input $0.834/1M、output $2.501/1M、cache read $0.042/1M，使用额度 $30；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview）
