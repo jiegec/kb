@@ -138,6 +138,17 @@
         - Text generation models, embedding models: (input token * input deduction coefficient + output token * output deduction coefficient) / 10,000
         - Video generation models: tokens consumed / 10,000 * deduction coefficient
         - Image generation models: number of successfully generated images * deduction coefficient
+        - The input and output deduction coefficients for text-generation/embedding models are now determined solely by the model and no longer vary with input length (previously input coefficient = model coefficient × input segment factor: ×0.67 for ≤32k, ×1 for 32k–128k, ×2 for >128k; the length segmentation has been removed)
+        - Deduction coefficients per model (input/output identical):
+            - doubao-seed-2.0-mini: 0.25
+            - doubao-seed-2.0-lite, deepseek-v4-flash: 0.5
+            - glm-5.3-flash: 0.5 (0.25 for the first two weeks at 50% off)
+            - doubao-seed-2.1-turbo, doubao-seed-evolving, minimax-m3: 2.5
+            - kimi-k2.7-code: 4.5
+            - glm-5.3 (glm-latest): 4.5
+            - deepseek-v4-pro: 5.5
+            - kimi-k3: 10
+            - doubao-embedding-vision: 0.5
     - Small Plan (40 RMB/month): Per 5 hours: 2,000 AFP. Per week: 7,000 AFP. Per month: 20,000 AFP. Daily quota: 10,000 AFP.
     - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Daily quota: 50,000 AFP.
     - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Daily quota: 125,000 AFP.
@@ -301,6 +312,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/01: Volcano Engine Agent Plan (Personal Edition) deduction coefficient rule adjustment: the input and output deduction coefficients for text-generation/embedding models are now determined solely by the model and no longer vary with input length (previously input coefficient = model coefficient × input segment factor: ×0.67 for ≤32k, ×1 for 32k–128k, ×2 for >128k; the length segmentation has been removed). Input/output deduction coefficients per model: doubao-seed-2.0-mini 0.25, doubao-seed-2.0-lite/deepseek-v4-flash 0.5, glm-5.3-flash 0.5 (0.25 for the first two weeks at 50% off), doubao-seed-2.1-turbo/doubao-seed-evolving/minimax-m3 2.5, kimi-k2.7-code 4.5, glm-5.3 (glm-latest) 4.5, deepseek-v4-pro 5.5, kimi-k3 10, doubao-embedding-vision 0.5
 - 2026/08/31: Tencent Cloud LLM Token Plan switched to credit-based deduction: the Personal Edition changed from token quotas to credits effective 2026-08-31 17:00 (Universal Token Plan Lite/Standard/Pro/Max = 39/99/299/599 RMB/month, 780/1,980/5,980/11,980 credits/month; Hy Token Plan Lite/Standard/Pro/Max = 28/78/238/468 RMB/month, 560/1,560/1,560 (as-is in source doc, likely a typo)/9,360 credits/month); Universal Token Plan supported models updated to Auto, DeepSeek-V4-Flash/Pro Official direct-supply, MiniMax-M2.7, MiniMax-M3, GLM-5/5.1/5.2/5.3, Kimi K2.7 Code, Hy4 preview (Kimi-K2.5 discontinued), Hy Token Plan supports Hy3 and Hy4 preview (Hy3 preview auto-routes to Hy3); Enterprise Professional Plan added DeepSeek-V4-Flash-Vision-Exp Official direct-supply (multimodal/visual understanding, text capability on par with V4-Flash Official, multimodal Agent performance approaching Claude Opus-4.8) and removed Kimi-K2.5; DeepSeek V4 Official direct-supply peak-valley billing adjusted from 2026-08-29 to weekdays only (weekends all off-peak), DeepSeek V4 Official peak hours are Mon–Sun 9:00–12:00 and 14:00–18:00
 - 2026/08/31: Volcano Engine Coding Plan (Personal Edition) and Agent Plan (Personal Edition) removed the GLM-5.2 model (previously marked as "phasing out"); GLM-5.2 is no longer listed among supported models or in the 1M-context supported list; the GLM-5.3 deduction coefficient description changed from "same as GLM-5.2" to "high"
 - 2026/08/31: Alibaba Cloud Bailian model pricing added ZHIPU/GLM-5.3-Flash (thinking-only mode, input 0.8 RMB, output 2.8 RMB per 1M tokens, supports context-cache hit discount at 25%) and qwen-flash-character (0.25/1.5 RMB); qwen3-vl-rerank price lowered (text 0.7→0.5 RMB, image 1.8→0.5 RMB); Token Plan (Personal Edition) limited-time night discount added deepseek-v4-flash-0731
