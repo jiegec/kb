@@ -246,6 +246,7 @@
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
+    - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -312,6 +313,7 @@
 ## 更新历史
 
 - 2026/09/01：火山方舟 Agent Plan 个人版抵扣系数规则调整：文本生成/向量化模型的输入抵扣系数与输出抵扣系数改为由模型统一决定、不再随输入长度变化（此前输入抵扣系数 = 模型抵扣系数 × 输入分段系数：≤32k ×0.67、32k–128k ×1、>128k ×2，现已去掉长度分段）。各模型输入/输出抵扣系数：doubao-seed-2.0-mini 0.25、doubao-seed-2.0-lite/deepseek-v4-flash 0.5、glm-5.3-flash 0.5（0.25 限时5折）、doubao-seed-2.1-turbo/doubao-seed-evolving/minimax-m3 2.5、kimi-k2.7-code 4.5、glm-5.3（glm-latest）4.5、deepseek-v4-pro 5.5、kimi-k3 10、doubao-embedding-vision 0.5
+- 2026/09/01：OpenCode Go Qwen3.7 Max 模型额度下调：请求限额由 340/5 小时、840/周、1,690/月 降至 170/5 小时、420/周、840/月，月度使用额度由 $60 降至 $30（定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M 不变）
 - 2026/08/31：腾讯云大模型 Token Plan 调整为积分抵扣模式：个人版自 2026-08-31 17:00 起由 Token 定额改为积分（通用 Token Plan Lite/Standard/Pro/Max = 39/99/299/599 元每月，780/1980/5980/11980 积分/月；Hy Token Plan Lite/Standard/Pro/Max = 28/78/238/468 元每月，560/1560/1560（原文如此，疑为官方笔误）/9360 积分/月）；通用 Token Plan 可用模型更新为 Auto、DeepSeek-V4-Flash/Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5/5.1/5.2/5.3、Kimi K2.7 Code、Hy4 preview（Kimi-K2.5 已下线），Hy Token Plan 支持 Hy3、Hy4 preview（Hy3 preview 自动路由至 Hy3）；企业版专业套餐新增 DeepSeek-V4-Flash-Vision-Exp 原厂直供（多模态/视觉理解，纯文本能力与 V4-Flash 正式版持平，多模态 Agent 表现接近 Claude Opus-4.8）、移除 Kimi-K2.5；DeepSeek V4 原厂直供峰谷计费自 2026-08-29 起改为工作日峰谷、周末全天按空闲时段价格，DeepSeek V4 正式版高峰时段为周一至周日 9:00–12:00、14:00–18:00
 - 2026/08/31：火山方舟 Coding Plan 个人版与 Agent Plan 个人版移除 GLM-5.2 模型（此前标记为"即将下线"），GLM-5.2 不再列入支持模型与 1M 上下文支持列表；GLM-5.3 的抵扣系数描述由"与 GLM-5.2 一致"改为"较高"
 - 2026/08/31：阿里云百炼模型调用价格新增 ZHIPU/GLM-5.3-Flash（仅思考模式，输入 0.8 元、输出 2.8 元每百万 Tokens，支持上下文缓存命中折扣 25%）与 qwen-flash-character（0.25/1.5 元）；qwen3-vl-rerank 价格下调（文本 0.7→0.5 元、图片 1.8→0.5 元）；Token Plan 个人版限时夜间五折新增 deepseek-v4-flash-0731
