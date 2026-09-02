@@ -242,8 +242,9 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3
+    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
+    - Muse Spark 1.3 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60）；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
@@ -312,6 +313,7 @@
 
 ## 更新历史
 
+- 2026/09/03：OpenCode Go 新增支持 Muse Spark 1.3 Contributor 模型（Meta Contributor 体系：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格；input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor；仅在 Meta [地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供）
 - 2026/09/02：腾讯云大模型 Token Plan 个人版 Hy Token Plan 进阶套餐（Pro）每订阅月积分由 1560 更正为 4760 积分（238 元/月价格不变；1560 为官方页面误标笔误，与 238 元 × 20 的档位规律不符）
 - 2026/09/01：火山方舟 Agent Plan 个人版抵扣系数规则调整：文本生成/向量化模型的输入抵扣系数与输出抵扣系数改为由模型统一决定、不再随输入长度变化（此前输入抵扣系数 = 模型抵扣系数 × 输入分段系数：≤32k ×0.67、32k–128k ×1、>128k ×2，现已去掉长度分段）。各模型输入/输出抵扣系数：doubao-seed-2.0-mini 0.25、doubao-seed-2.0-lite/deepseek-v4-flash 0.5、glm-5.3-flash 0.5（0.25 限时5折）、doubao-seed-2.1-turbo/doubao-seed-evolving/minimax-m3 2.5、kimi-k2.7-code 4.5、glm-5.3（glm-latest）4.5、deepseek-v4-pro 5.5、kimi-k3 10、doubao-embedding-vision 0.5
 - 2026/09/01：OpenCode Go Qwen3.7 Max 模型额度下调：请求限额由 340/5 小时、840/周、1,690/月 降至 170/5 小时、420/周、840/月，月度使用额度由 $60 降至 $30（定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M 不变）
