@@ -162,6 +162,7 @@
     - Standard 套餐（180 RMB 每月）：10000 Credits 每 7 天
     - Pro 套餐（600 RMB 每月）：40000 Credits 每 7 天
     - 用量包（100 RMB 每月）：20000 Credits
+    - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
     - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
@@ -313,6 +314,7 @@
 
 ## 更新历史
 
+- 2026/09/03：阿里云百炼 Token Plan 个人版使用规则收紧：官方将使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"改为"仅限本人在单台设备上使用"
 - 2026/09/03：OpenCode Go 新增支持 Muse Spark 1.3 Contributor 模型（Meta Contributor 体系：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格；input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor；仅在 Meta [地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供）
 - 2026/09/02：腾讯云大模型 Token Plan 个人版 Hy Token Plan 进阶套餐（Pro）每订阅月积分由 1560 更正为 4760 积分（238 元/月价格不变；1560 为官方页面误标笔误，与 238 元 × 20 的档位规律不符）
 - 2026/09/01：火山方舟 Agent Plan 个人版抵扣系数规则调整：文本生成/向量化模型的输入抵扣系数与输出抵扣系数改为由模型统一决定、不再随输入长度变化（此前输入抵扣系数 = 模型抵扣系数 × 输入分段系数：≤32k ×0.67、32k–128k ×1、>128k ×2，现已去掉长度分段）。各模型输入/输出抵扣系数：doubao-seed-2.0-mini 0.25、doubao-seed-2.0-lite/deepseek-v4-flash 0.5、glm-5.3-flash 0.5（0.25 限时5折）、doubao-seed-2.1-turbo/doubao-seed-evolving/minimax-m3 2.5、kimi-k2.7-code 4.5、glm-5.3（glm-latest）4.5、deepseek-v4-pro 5.5、kimi-k3 10、doubao-embedding-vision 0.5

@@ -162,6 +162,7 @@
     - Standard Plan (180 RMB/month): 10,000 Credits every 7 days
     - Pro Plan (600 RMB/month): 40,000 Credits every 7 days
     - Usage Pack (100 RMB/month): 20,000 Credits
+    - Device usage note: The Token Plan Personal Edition is for use by the subscriber on a single device only. (The official guide was tightened from "you may configure the same API Key on multiple of your own devices (e.g., home and office computers)" to "for the subscriber's own use on a single device.")
     - Supported models: qwen3.8-max, qwen3.8-flash, qwen3.7-max, qwen3.7-plus, qwen3.6-flash, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qewn-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, glm-5.2, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
@@ -314,6 +315,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/03: Alibaba Cloud Bailian Token Plan (Personal Edition) usage policy tightened: the official guide changed from "you may configure the same API Key on multiple of your own devices (e.g., home and office computers)" to "for the subscriber's own use on a single device."
 - 2026/09/03: OpenCode Go added support for the Muse Spark 1.3 Contributor model (Meta Contributor tier: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing; input $0.10/1M, output $0.20/1M, cache read $0.002/1M, usage allowance $60; request limits 45,300 per 5 hours, 113,300 per week, 226,600 per month; model ID muse-spark-1.3-contributor; only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy))
 - 2026/09/02: Tencent Cloud LLM Token Plan Personal Edition Hy Token Plan Pro Plan corrected its credits per subscription month from 1,560 to 4,760 (238 RMB/month price unchanged; 1,560 was a mislabel/typo in the official page and inconsistent with the price × 20 pattern of the other tiers)
 - 2026/09/01: Volcano Engine Agent Plan (Personal Edition) deduction coefficient rule adjustment: the input and output deduction coefficients for text-generation/embedding models are now determined solely by the model and no longer vary with input length (previously input coefficient = model coefficient × input segment factor: ×0.67 for ≤32k, ×1 for 32k–128k, ×2 for >128k; the length segmentation has been removed). Input/output deduction coefficients per model: doubao-seed-2.0-mini 0.25, doubao-seed-2.0-lite/deepseek-v4-flash 0.5, glm-5.3-flash 0.5 (0.25 for the first two weeks at 50% off), doubao-seed-2.1-turbo/doubao-seed-evolving/minimax-m3 2.5, kimi-k2.7-code 4.5, glm-5.3 (glm-latest) 4.5, deepseek-v4-pro 5.5, kimi-k3 10, doubao-embedding-vision 0.5
