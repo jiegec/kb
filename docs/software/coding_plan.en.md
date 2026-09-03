@@ -11,6 +11,7 @@
 - Allegretto (199 RMB/month)
 - Allegro (699 RMB/month)
 - Subscription renewal rule adjustment: Due to tight compute resources, priority will be given to ensuring the experience of currently subscribed users. You can renew before 2026-08-20 00:00; after that, direct purchase will no longer be available.
+- Kimi Code is now powered by the flagship K3 model (~2.8 trillion parameters), available with the K2.7 Code in two modes (standard / High Speed), with a maximum inference speed of 260 Tokens/s and a 1M Token context window; it is fully compatible with mainstream agent tools including Kimi Code CLI, Claude Code, and VS Code
 - [K3 API Pricing](https://platform.kimi.com/docs/pricing/chat-k3):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 20 RMB per 1M tokens
@@ -315,6 +316,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/03: Kimi Code page's "Core Advantages" section was revised: it now explicitly states the plan is powered by the flagship K3 model (~2.8 trillion parameters) with the K2.7 Code in two modes (standard / High Speed), with a maximum inference speed of 260 Tokens/s (previously described as 100 Tokens/s) and a 1M Token context window; it removed the statements "High Speed version is 5–6x the standard version" and "approx. 300–1200 requests per 5 hours, max concurrency 30"
 - 2026/09/03: Alibaba Cloud Bailian Token Plan (Personal Edition) usage policy tightened: the official guide changed from "you may configure the same API Key on multiple of your own devices (e.g., home and office computers)" to "for the subscriber's own use on a single device."
 - 2026/09/03: OpenCode Go added support for the Muse Spark 1.3 Contributor model (Meta Contributor tier: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing; input $0.10/1M, output $0.20/1M, cache read $0.002/1M, usage allowance $60; request limits 45,300 per 5 hours, 113,300 per week, 226,600 per month; model ID muse-spark-1.3-contributor; only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy))
 - 2026/09/02: Tencent Cloud LLM Token Plan Personal Edition Hy Token Plan Pro Plan corrected its credits per subscription month from 1,560 to 4,760 (238 RMB/month price unchanged; 1,560 was a mislabel/typo in the official page and inconsistent with the price × 20 pattern of the other tiers)

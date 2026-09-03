@@ -11,6 +11,7 @@
 - Allegretto（199 RMB 每月）
 - Allegro（699 RMB 每月）
 - 订阅续购规则调整：因算力资源紧张，将优先保障订阅中用户的使用体验，你可于 2026-08-20 00:00 前续订，逾期将无法直接购买
+- Kimi Code 当前基于旗舰 K3 模型（参数规模约 2.8 万亿），并搭载 K2.7 Code 普速版与 High Speed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；全面兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
 - [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 20 RMB 每 1M tokens
@@ -314,6 +315,7 @@
 
 ## 更新历史
 
+- 2026/09/03：Kimi Code 页面「核心优势」改版：明确当前基于旗舰 K3 模型（参数规模约 2.8 万亿）与 K2.7 Code 双模式（普速版 / High Speed 高速版），最高推理速度 260 Tokens/s（此前描述为 100 Tokens/s），支持 1M Tokens 超长上下文；移除「高速版为普通版 5–6 倍」及「每 5 小时约 300–1200 次请求、最高并发 30」的表述
 - 2026/09/03：阿里云百炼 Token Plan 个人版使用规则收紧：官方将使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"改为"仅限本人在单台设备上使用"
 - 2026/09/03：OpenCode Go 新增支持 Muse Spark 1.3 Contributor 模型（Meta Contributor 体系：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格；input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor；仅在 Meta [地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供）
 - 2026/09/02：腾讯云大模型 Token Plan 个人版 Hy Token Plan 进阶套餐（Pro）每订阅月积分由 1560 更正为 4760 积分（238 元/月价格不变；1560 为官方页面误标笔误，与 238 元 × 20 的档位规律不符）
