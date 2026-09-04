@@ -234,6 +234,7 @@
     - Flash Pro (199 RMB/month): 8000M Credits
     - Flash Max (699 RMB/month): 40000M Credits
     - Supported models: step-3.7-flash, step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-realtime, stepaudio-2.5-chat, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash), step-image-edit-2
+    - step-image-edit-2 will be retired on 2026-10-10, at which point the Step Plan text-to-image and image editing APIs will stop serving requests (see the [image model retirement notice](https://platform.stepfun.ai/docs/en/guides/image-offline-notice))
 - [Xiaomi MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite (39 RMB or 6 USD/month): 4.1B Credits per month
     - Standard (99 RMB or 16 USD/month): 11B Credits per month
@@ -317,6 +318,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/04: StepFun Step Plan announced that the step-image-edit-2 model will be retired on 2026-10-10, and the Step Plan text-to-image and image editing APIs will stop serving requests simultaneously
 - 2026/09/04: OpenCode Go added support for the Omen Alpha model (input $0.20/1M, output $0.66/1M, cache read $0.04/1M, usage allowance $100/month; request limits 11,600 per 5 hours, 29,000 per week, 57,900 per month; model ID omen-alpha)
 - 2026/09/04: Tencent Cloud LLM Token Plan expanded its model library: both the Universal Token Plan (Personal Edition) and the Enterprise Professional Plan added the GLM-5.3-Flash and Kimi K3 models; the Enterprise Professional Plan also published the credit prices for these two models (Guangzhou GLM-5.3-Flash 23/80/280, Kimi K3 200/2000/10000; Singapore GLM-5.3-Flash 21.5898/107.949/359.83, credits per 1M tokens)
 - 2026/09/03: Kimi Code page's "Core Advantages" section was revised: it now explicitly states the plan is powered by the flagship K3 model (~2.8 trillion parameters) with the K2.7 Code in two modes (standard / High Speed), with a maximum inference speed of 260 Tokens/s (previously described as 100 Tokens/s) and a 1M Token context window; it removed the statements "High Speed version is 5–6x the standard version" and "approx. 300–1200 requests per 5 hours, max concurrency 30"

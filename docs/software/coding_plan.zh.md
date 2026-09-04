@@ -234,6 +234,7 @@
     - Flash Pro（199 RMB 每月）：8000M Credit
     - Flash Max（699 RMB 每月）：40000M Credit
     - 支持模型：step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）、step-image-edit-2
+    - step-image-edit-2 将于 2026-10-10 下线，Step Plan 的文生图与图像编辑接口将同步停止服务（见[图像模型下线公告](https://platform.stepfun.com/docs/zh/guides/image-offline-notice)）
 - [小米 MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月
     - Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月
@@ -316,6 +317,7 @@
 
 ## 更新历史
 
+- 2026/09/04：阶越星辰 Step Plan 宣布 step-image-edit-2 模型将于 2026-10-10 下线，Step Plan 文生图与图像编辑接口同步停止服务
 - 2026/09/04：OpenCode Go 新增支持 Omen Alpha 模型（input $0.20/1M、output $0.66/1M、cache read $0.04/1M，使用额度 $100/月；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha）
 - 2026/09/04：腾讯云大模型 Token Plan 模型库新增：通用 Token Plan（个人版）与企业版专业套餐均新增 GLM-5.3-Flash、Kimi K3 模型；企业版专业套餐同步公布两模型的积分抵扣价（广州 GLM-5.3-Flash 23/80/280、Kimi K3 200/2000/10000；新加坡 GLM-5.3-Flash 21.5898/107.949/359.83，单位积分/百万 tokens）
 - 2026/09/03：Kimi Code 页面「核心优势」改版：明确当前基于旗舰 K3 模型（参数规模约 2.8 万亿）与 K2.7 Code 双模式（普速版 / High Speed 高速版），最高推理速度 260 Tokens/s（此前描述为 100 Tokens/s），支持 1M Tokens 超长上下文；移除「高速版为普通版 5–6 倍」及「每 5 小时约 300–1200 次请求、最高并发 30」的表述
