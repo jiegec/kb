@@ -244,8 +244,9 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：5 小时 $12、每周 $30、每月 $60
-    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3
+    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
+    - Omen Alpha 为新增模型：input $0.20/1M、output $0.66/1M、cache read $0.04/1M（使用额度 $100/月）；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha
     - Muse Spark 1.3 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60）；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
@@ -315,6 +316,7 @@
 
 ## 更新历史
 
+- 2026/09/04：OpenCode Go 新增支持 Omen Alpha 模型（input $0.20/1M、output $0.66/1M、cache read $0.04/1M，使用额度 $100/月；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha）
 - 2026/09/04：腾讯云大模型 Token Plan 模型库新增：通用 Token Plan（个人版）与企业版专业套餐均新增 GLM-5.3-Flash、Kimi K3 模型；企业版专业套餐同步公布两模型的积分抵扣价（广州 GLM-5.3-Flash 23/80/280、Kimi K3 200/2000/10000；新加坡 GLM-5.3-Flash 21.5898/107.949/359.83，单位积分/百万 tokens）
 - 2026/09/03：Kimi Code 页面「核心优势」改版：明确当前基于旗舰 K3 模型（参数规模约 2.8 万亿）与 K2.7 Code 双模式（普速版 / High Speed 高速版），最高推理速度 260 Tokens/s（此前描述为 100 Tokens/s），支持 1M Tokens 超长上下文；移除「高速版为普通版 5–6 倍」及「每 5 小时约 300–1200 次请求、最高并发 30」的表述
 - 2026/09/03：阿里云百炼 Token Plan 个人版使用规则收紧：官方将使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"改为"仅限本人在单台设备上使用"
