@@ -176,7 +176,7 @@
     - 支持模型：qwen3.8-max、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseekv4-pro-0813、deepseek-v4-flash、deepseek-v4-flash-0731、deepseek-v3.2、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.2、glm-5.1、glm-5、minimax-m2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.2、GLM-5、GLM-5.1、GLM-5-Turbo、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
+        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5、GLM-5.1、GLM-5-Turbo、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
         - 峰谷计费（2026-08-29 起调整）：DeepSeek V4【原厂直供】工作日（周一至周五）继续峰谷计费（高峰时段 9:00–12:00、14:00–18:00），周末（周六、周日）全天按空闲时段价格计费；DeepSeek V4 正式版高峰时段为周一至周日 9:00–12:00、14:00–18:00；单次请求计费时段以平台服务端接收请求时间（北京时间）为准
         - 轻享套餐：每月 2 元/百万 tokens
     - Token Plan 个人版（自 2026-08-31 17:00 起改为积分抵扣模式）：
@@ -191,7 +191,7 @@
             - Standard 套餐（99 RMB 每月）：每订阅月 1980 积分
             - Pro 套餐（299 RMB 每月）：每订阅月 5980 积分
             - Max 套餐（599 RMB 每月）：每订阅月 11980 积分
-            - 支持模型：Auto、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5、GLM-5.1、GLM-5.2、GLM-5.3、Kimi K2.7 Code、Hy4 preview（Kimi-K2.5 已下线）
+            - 支持模型：Auto、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5、GLM-5.1、GLM-5.2、GLM-5.3、GLM-5.3-Flash、Kimi K2.7 Code、Kimi K3、Hy4 preview（Kimi-K2.5 已下线）
             - DeepSeek-V4-Flash/DeepSeek-V4-Pro 正式版原厂直供 model 别名 deepseek/deepseek-v4-flash-0731、deepseek/deepseek-v4-flash、deepseek/deepseek-v4-pro-0813、deepseek/deepseek-v4-pro
             - Token Plan 企业版专业套餐已移除 MiniMax-M2.5 模型（2026年8月7日下线）
 - [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
@@ -315,6 +315,7 @@
 
 ## 更新历史
 
+- 2026/09/04：腾讯云大模型 Token Plan 模型库新增：通用 Token Plan（个人版）与企业版专业套餐均新增 GLM-5.3-Flash、Kimi K3 模型；企业版专业套餐同步公布两模型的积分抵扣价（广州 GLM-5.3-Flash 23/80/280、Kimi K3 200/2000/10000；新加坡 GLM-5.3-Flash 21.5898/107.949/359.83，单位积分/百万 tokens）
 - 2026/09/03：Kimi Code 页面「核心优势」改版：明确当前基于旗舰 K3 模型（参数规模约 2.8 万亿）与 K2.7 Code 双模式（普速版 / High Speed 高速版），最高推理速度 260 Tokens/s（此前描述为 100 Tokens/s），支持 1M Tokens 超长上下文；移除「高速版为普通版 5–6 倍」及「每 5 小时约 300–1200 次请求、最高并发 30」的表述
 - 2026/09/03：阿里云百炼 Token Plan 个人版使用规则收紧：官方将使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"改为"仅限本人在单台设备上使用"
 - 2026/09/03：OpenCode Go 新增支持 Muse Spark 1.3 Contributor 模型（Meta Contributor 体系：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格；input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor；仅在 Meta [地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供）
