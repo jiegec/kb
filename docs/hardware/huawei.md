@@ -163,7 +163,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 ### 麒麟 9050 Pro
 
 - 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
-- 1(3.1 GHz)+2(2.7 GHz)+4(2.2 GHz)+2(1.75 GHz) 核
+- 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，16 线程
 - Maleoon 955 6CU
 
 来源：
@@ -173,18 +173,19 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟芯片对比
 
-| 时间 | 芯片          | 核心簇 1                | 核心簇 2                | 核心簇 3                 | 核心簇 4 | 核心线程数 | GPU          |
-|------|---------------|-------------------------|-------------------------|--------------------------|----------|------------|--------------|
-| 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A      | 8C12T      | Maleoon 910  |
-| 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A      | 8C12T      | Maleoon 910  |
-| 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A      | 10C20T     | Maleoon 916  |
-| 2025 | 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920C |
-| 2024 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920  |
-| 2025 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920  |
-| 2026 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920C |
-| 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A      | 8C12T      | Maleoon 935A |
-| 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A      | 9C14T      | Maleoon 935  |
-| 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A      | 8C12T      | Maleoon 935F |
+| 时间 | 芯片          | 核心簇 1                | 核心簇 2                | 核心簇 3                 | 核心簇 4           | 核心线程数 | GPU          |
+|------|---------------|-------------------------|-------------------------|--------------------------|--------------------|------------|--------------|
+| 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
+| 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
+| 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 916  |
+| 2025 | 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2024 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2025 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2026 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
+| 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
+| 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
+| 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
 
 ## hip
 
@@ -388,11 +389,13 @@ part id:
 - 0xd22(3362): hip11
 - 0xd23(3363): Kirin 9020/Kirin 9010S
 - 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd25(3365): Kirin 9050Pro
 - 0xd42(3394): Kirin 9000S/Kirin 9010/Kirin X90
 - 0xd43(3395): Kirin X90
 - 0xd45(3397): hip10c
 - 0xd46(3398): Kirin 9020/Kirin 9010S
 - 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd48(3400): Kirin 9050Pro
 
 ## LX2
 
