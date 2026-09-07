@@ -156,6 +156,11 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - 首发 Mate XT2 ULTIMATE DESIGN
 - 1+2+4+2 核
+- Maleoon 955 6CU
+
+  来源：
+
+- [HUAWEI LAP-AL10](https://browser.geekbench.com/v6/compute/6868350)
 
 ## hip
 
