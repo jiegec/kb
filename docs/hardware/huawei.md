@@ -152,6 +152,11 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - Maleoon 935
 - 与麒麟 9030Pro 规格一致
 
+### 麒麟 9050 Pro
+
+- 首发 Mate XT2 ULTIMATE DESIGN
+- 1+2+4+2 核
+
 ## hip
 
 ### hip07
