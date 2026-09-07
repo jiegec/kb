@@ -170,6 +170,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [HUAWEI LAP-AL10 Geekbench 6](https://browser.geekbench.com/v6/compute/6868350)
 - [HUAWEI LAP-AL10 Geekbench 7](https://browser.geekbench.com/v7/cpu/291822)
+- [酷安](https://www.coolapk.com/feed/73629560)
 
 ### 麒麟芯片对比
 
