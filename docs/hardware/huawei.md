@@ -56,6 +56,7 @@
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
 - [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
+- [HUAWEI HPR-W72](https://browser.geekbench.com/v6/cpu/16545330)
 
 ### 麒麟 X90 Plus
 
@@ -176,8 +177,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 |---------------|-------------------------|-------------------------|--------------------------|----------|------------|--------------|
 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A      | 8C12T      | Maleoon 910  |
 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A      | 8C12T      | Maleoon 910  |
-| 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920C |
 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A      | 10C20T     | Maleoon 916  |
+| 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920C |
 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920  |
 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920  |
 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      | 8C12T      | Maleoon 920C |
