@@ -34,12 +34,13 @@
 ### 麒麟 9010S
 
 — Pura 80
-- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
-- Maleoon 920C
+- 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
+- Maleoon 920C, 2CU
 
 来源：
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
+- [HUAWEI HED-LX9](https://browser.geekbench.com/v6/compute/6784045)
 
 ### 麒麟 X90
 
@@ -121,9 +122,9 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
 - [酷安](https://www.coolapk.com/feed/68880017)
 
-### 麒麟 9030Pro
+### 麒麟 9030 Pro
 
-- Mate 80/Mate X7
+- Mate 80 Pro Max(SGT-AL10)/Mate X7
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 
@@ -154,7 +155,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 9050 Pro
 
-- 首发 Mate XT2 ULTIMATE DESIGN
+- 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
 - 1(3.1 GHz)+2(2.7 GHz)+4(2.2 GHz)+2(1.75 GHz) 核
 - Maleoon 955 6CU
 
