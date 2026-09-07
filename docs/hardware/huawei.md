@@ -155,12 +155,13 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 ### 麒麟 9050 Pro
 
 - 首发 Mate XT2 ULTIMATE DESIGN
-- 1+2+4+2 核
+- 1(3.1 GHz)+2(2.7 GHz)+4(2.2 GHz)+2(1.75 GHz) 核
 - Maleoon 955 6CU
 
-  来源：
+来源：
 
-- [HUAWEI LAP-AL10](https://browser.geekbench.com/v6/compute/6868350)
+- [HUAWEI LAP-AL10 Geekbench 6](https://browser.geekbench.com/v6/compute/6868350)
+- [HUAWEI LAP-AL10 Geekbench 7](https://browser.geekbench.com/v7/cpu/291822)
 
 ## hip
 
@@ -360,6 +361,7 @@ part id:
 - 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90
 - 0xd05(3333): Kirin 9020/Kirin 9010S
 - 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd07(3335): Kirin 9050Pro
 - 0xd22(3362): hip11
 - 0xd23(3363): Kirin 9020/Kirin 9010S
 - 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S
