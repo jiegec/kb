@@ -164,6 +164,21 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [HUAWEI LAP-AL10 Geekbench 6](https://browser.geekbench.com/v6/compute/6868350)
 - [HUAWEI LAP-AL10 Geekbench 7](https://browser.geekbench.com/v7/cpu/291822)
 
+### 麒麟芯片对比
+
+| 芯片          | 核心簇 1                | 核心簇 2                | 核心簇 3                 | 核心簇 4 |
+|---------------|-------------------------|-------------------------|--------------------------|----------|
+| 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.50 GHz, Cortex-A510 | N/A      |
+| 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A      |
+| 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A      |
+| 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.05 GHz, SMT, 0xd42  | N/A      |
+| 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      |
+| 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      |
+| 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A      |
+| 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A      |
+| 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A      |
+| 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A      |
+
 ## hip
 
 ### hip07
