@@ -24,7 +24,7 @@
 
 ## 玄戒 O3
 
-- 首发小米 MIX Fold 5
+- 首发小米 18 Fold
 - TSMC N3P
 - 138.3 mm^2 (133 mm^2 ?)
 - CPU:

@@ -5,7 +5,7 @@
 ### 麒麟 9000S
 
 - 首发：Mate 60
-- 1x 大核（2.62 GHz, 带 SMT，0xd02），3x 中核（2.15 GHz, 带 SMT，0xd42），4x 小核 Cortex-A510（1.5 GHz, 无 SMT）
+- 1x 大核（2.62 GHz, 带 SMT，0xd02），3x 中核（2.15 GHz, 带 SMT，0xd42），4x 小核 Cortex-A510（1.53 GHz, 无 SMT）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 910, 4CU, 1024 ALU
 - 丝印 Hi36A0 GFCV120
@@ -34,18 +34,19 @@
 ### 麒麟 9010S
 
 — Pura 80
-- 1x 大核（0xd05），3x 中核（0xd46），4x 小核（0xd23）
-- Maleoon 920C
+- 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
+- Maleoon 920C, 2CU
 
 来源：
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
+- [HUAWEI HED-LX9](https://browser.geekbench.com/v6/compute/6784045)
 
 ### 麒麟 X90
 
 - MateBook Pro
 - 4+4+2, 20 threads
-- part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.316 GHz）, 0xd43（8 threads，4 核，2.050 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.050 GHz），都带 SMT
+- part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.316 GHz）, 0xd43（8 threads，4 核，2.050 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.010 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
 - Charlotte Pro
 - Maleoon 916
@@ -55,10 +56,17 @@
 - [【老戴】继续来折腾鸿蒙电脑！有你们最关心的 CPU 信息，设备树长啥样，包管理能不能用...](https://www.bilibili.com/video/BV1UY5VzMEj9/)
 - [如何看待在 5 月 8 日鸿蒙电脑技术与生态沟通会上亮相的首款鸿蒙电脑，有哪些信息值得关注？ - 雷燚音的回答 - 知乎](https://www.zhihu.com/question/1903763170587304858/answer/1903943055951794515)
 - [Huawei's Kirin X90 may be the company's 'Apple Silicon' moment — Matebook Pro 2025 features in-house hardware and software](https://www.tomshardware.com/pc-components/cpus/huaweis-kirin-x90-may-be-the-companys-apple-silicon-moment-matebook-pro-2025-features-in-house-hardware-and-software)
+- [HUAWEI HPR-W72](https://browser.geekbench.com/v6/cpu/16545330)
 
 ### 麒麟 X90 Plus
 
 - MateBook Fold 非凡大师 2026
+- 4(2.45 GHz)+4(2.05 GHz)+2(2.01 GHz), 20 threads
+- Maleoon 910?
+
+来源：
+
+- [HUAWEI SLM-W24](https://browser.geekbench.com/v7/gpu/120510)
 
 ### 麒麟 X90A
 
@@ -121,9 +129,9 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
 - [酷安](https://www.coolapk.com/feed/68880017)
 
-### 麒麟 9030Pro
+### 麒麟 9030 Pro
 
-- Mate 80/Mate X7
+- Mate 80 Pro Max(SGT-AL10)/Mate X7
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 
@@ -151,6 +159,34 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 9C14T
 - Maleoon 935
 - 与麒麟 9030Pro 规格一致
+
+### 麒麟 9050 Pro
+
+- 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
+- 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，16 线程
+- Maleoon 955 6CU
+
+来源：
+
+- [HUAWEI LAP-AL10 Geekbench 6](https://browser.geekbench.com/v6/compute/6868350)
+- [HUAWEI LAP-AL10 Geekbench 7](https://browser.geekbench.com/v7/cpu/291822)
+- [酷安](https://www.coolapk.com/feed/73629560)
+
+### 麒麟芯片对比
+
+| 时间 | 芯片          | 核心簇 1                | 核心簇 2                | 核心簇 3                 | 核心簇 4           | 核心线程数 | GPU          |
+|------|---------------|-------------------------|-------------------------|--------------------------|--------------------|------------|--------------|
+| 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
+| 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
+| 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 916  |
+| 2025 | 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2024 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2025 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2026 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
+| 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
+| 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
+| 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
 
 ## hip
 
@@ -350,14 +386,17 @@ part id:
 - 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90
 - 0xd05(3333): Kirin 9020/Kirin 9010S
 - 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd07(3335): Kirin 9050Pro
 - 0xd22(3362): hip11
 - 0xd23(3363): Kirin 9020/Kirin 9010S
 - 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd25(3365): Kirin 9050Pro
 - 0xd42(3394): Kirin 9000S/Kirin 9010/Kirin X90
 - 0xd43(3395): Kirin X90
 - 0xd45(3397): hip10c
 - 0xd46(3398): Kirin 9020/Kirin 9010S
 - 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd48(3400): Kirin 9050Pro
 
 ## LX2
 
