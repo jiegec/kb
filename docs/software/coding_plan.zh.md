@@ -316,10 +316,10 @@
 
 ## 更新历史
 
+- 2026/09/09：火山方舟 Coding Plan 个人版新增 Kimi-K3 模型（1M 上下文/128K 最大输出，原生视觉理解，抵扣系数高，仅建议 Pro 套餐用户）；讯飞星辰 Astron Token Plan 团队版新增 Spark-X2.5 模型（256K，输入 320/缓存 48/输出 1200/思考 1200 积分每百万 Token），Spark-X2、Spark-X2-Agent 下线
 - 2026/09/04：阶越星辰 Step Plan 宣布 step-image-edit-2 模型将于 2026-10-10 下线，Step Plan 文生图与图像编辑接口同步停止服务
 - 2026/09/04：OpenCode Go 新增支持 Omen Alpha 模型（input $0.20/1M、output $0.66/1M、cache read $0.04/1M，使用额度 $100/月；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha）
 - 2026/09/04：腾讯云大模型 Token Plan 模型库新增：通用 Token Plan（个人版）与企业版专业套餐均新增 GLM-5.3-Flash、Kimi K3 模型；企业版专业套餐同步公布两模型的积分抵扣价（广州 GLM-5.3-Flash 23/80/280、Kimi K3 200/2000/10000；新加坡 GLM-5.3-Flash 21.5898/107.949/359.83，单位积分/百万 tokens）
-- 2026/09/09：火山方舟 Coding Plan 个人版新增 Kimi-K3 模型（1M 上下文/128K 最大输出，原生视觉理解，抵扣系数高，仅建议 Pro 套餐用户）；讯飞星辰 Astron Token Plan 团队版新增 Spark-X2.5 模型（256K，输入 320/缓存 48/输出 1200/思考 1200 积分每百万 Token），Spark-X2、Spark-X2-Agent 下线
 - 2026/09/03：Kimi Code 页面「核心优势」改版：明确当前基于旗舰 K3 模型（参数规模约 2.8 万亿）与 K2.7 Code 双模式（普速版 / High Speed 高速版），最高推理速度 260 Tokens/s（此前描述为 100 Tokens/s），支持 1M Tokens 超长上下文；移除「高速版为普通版 5–6 倍」及「每 5 小时约 300–1200 次请求、最高并发 30」的表述
 - 2026/09/03：阿里云百炼 Token Plan 个人版使用规则收紧：官方将使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"改为"仅限本人在单台设备上使用"
 - 2026/09/03：OpenCode Go 新增支持 Muse Spark 1.3 Contributor 模型（Meta Contributor 体系：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格；input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor；仅在 Meta [地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供）
@@ -352,6 +352,7 @@
 - 2026/08/22：DeepSeek API 峰谷定价规则调整：自 2026-08-23（周日）00:00 起，周末（周六、周日）全天不再区分峰谷时段，统一按照低谷时段价格收取调用费用（此前周末仍按峰谷时段收费）
 - 2026/08/21：方舟 Coding Plan 个人版新增支持 Doubao-Seed-Evolving 模型（面向 Coding 与 Agent 场景，持续周级升级，1M 上下文窗口，256K 最大输出）；OpenCode Go 新增支持 DeepSeek V4 Flash Vision Exp 模型（定价 Off-Peak $0.22/$0.66、Peak $0.44/$1.32 每百万 tokens，图片按尺寸换算为 token 计费）；腾讯云 Token Plan 个人版通用套餐移除已下线模型（Tencent HY 2.0 Instruct、Tencent HY 2.0 Think、Hunyuan-T1、Hunyuan-TurboS、MiniMax-M2.5）
 - 2026/08/21：DeepSeek 新增视觉模型 deepseek-v4-flash-vision-exp（实验版），价格与 deepseek-v4-flash 一致，不支持 FIM 补全，并发限制 2500，图片按尺寸换算成 token 计费；腾讯云 Token Plan 企业版专业套餐移除 MiniMax-M2.5 模型；火山方舟 Agent Plan 个人版更新额度规则：图片/视频生成模型、语音模型、Harness 合并为同一日额度类别（不再区分"视觉模型"和"语音模型"），日额度统一为套餐月额度的一半；OpenCode Go 新增 Ox Alpha Free 模型（限时免费）
+- 2026/08/20：天翼云编程 Token Plan 支持模型更新：新增 GLM-5.1、DeepSeek-V4-Flash-0731，GLM-5 更名为 GLM-5.0（正式版），DeepSeek-V3.2 标注为旗舰版
 - 2026/08/19：阿里云百炼新增开源模型 qwen3.8-27b，定价 Input 3 RMB / Output 12 RMB 每百万 tokens（支持上下文缓存折扣），国际版定价 Input 3.646 RMB / Output 21.875 RMB 每百万 tokens；腾讯云 Token Plan 个人版和企业版专业套餐 DeepSeek-V4-Pro 原厂直供更名为 DeepSeek-V4-Pro 正式版 原厂直供，新增模型 ID deepseek/deepseek-v4-pro-0813 和 deepseek/deepseek-v4-pro；MiniMax Token Plan 支持范围从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
 - 2026/08/19：智谱发布 GLM-5.3 模型，编程能力较 GLM-5.2 提升 50%，网络安全能力持平 Mythos 5；GLM Coding Plan 可用额度参考更新为按不同缓存命中率（90.9%、95%、98%）展示；GLM-5.3 API 定价与 GLM-5.2 一致
 - 2026/08/18：方舟 Coding Plan 个人版和 Agent Plan 移除了 MiniMax-M2.7 和 Kimi-K2.6 模型（此前标记为即将下线）
@@ -393,7 +394,6 @@
 - 2026/04/12：智谱国际版 GLM Coding Plan 起步价从 10 USD 每月涨至 18 USD 每月
 - 2026/04/11：阿里云百炼 Coding Plan Lite 基础套餐于 2026 年 4 月 13 日起停止续费和升级，此前已于 2026 年 3 月 19 日停止新购
 - 2026/04/11：添加了天翼云 Coding Plan
-- 2026/08/20：天翼云编程 Token Plan 支持模型更新：新增 GLM-5.1、DeepSeek-V4-Flash-0731，GLM-5 更名为 GLM-5.0（正式版），DeepSeek-V3.2 标注为旗舰版
 - 2026/04/09：无问芯穹 Infini Coding Plan 新增支持 glm-5.1 模型
 - 2026/04/09：智谱 Coding Plan 下线了 GLM-5、GLM-4.6、GLM-4.5 模型
 - 2026/04/08：讯飞 Astron Coding Plan 上线了新的焕新版套餐，旧首月版套餐下线
