@@ -90,9 +90,8 @@
     - 输出 28 RMB 每 1M tokens
     - 1M 上下文
 - [GLM-5.3-Flash API 价格](https://bigmodel.cn/pricing)：
-    - 标准价：输入命中缓存 0.23、输入未命中缓存 0.8、输出 2.8 RMB 每 1M tokens
-    - 限时五折：缓存命中 0.115、输入未命中 0.4、输出 1.4 RMB 每 1M tokens
-    - 1M 上下文（限时五折）
+    - 输入命中缓存 0.23、输入未命中缓存 0.8、输出 2.8 RMB 每 1M tokens
+    - 1M 上下文（限时五折活动已结束，现按上述标准价计费）
 - [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 8 RMB 每 1M tokens
@@ -175,7 +174,7 @@
     - 支持模型：qwen3.8-max、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseekv4-pro-0813、deepseek-v4-flash、deepseek-v4-flash-0731、deepseek-v3.2、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.2、glm-5.1、glm-5、minimax-m2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5、GLM-5.1、GLM-5-Turbo、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
+        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5（将于 2026-10-09 下线）、GLM-5.1（将于 2026-10-09 下线）、GLM-5-Turbo（将于 2026-10-09 下线）、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
         - 峰谷计费（2026-08-29 起调整）：DeepSeek V4【原厂直供】工作日（周一至周五）继续峰谷计费（高峰时段 9:00–12:00、14:00–18:00），周末（周六、周日）全天按空闲时段价格计费；DeepSeek V4 正式版高峰时段为周一至周日 9:00–12:00、14:00–18:00；单次请求计费时段以平台服务端接收请求时间（北京时间）为准
         - 轻享套餐：每月 2 元/百万 tokens
     - Token Plan 个人版（自 2026-08-31 17:00 起改为积分抵扣模式）：
@@ -243,7 +242,7 @@
     - 额度消耗：按 Token 数扣除 Credit 额度，套餐中的可用模型按不同比例并行消耗，不是独立消耗，TTS 系列模型限时免费，不消耗套餐 Token。
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
-    - 使用限制：5 小时 $12、每周 $30、每月 $60
+    - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
     - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
     - Omen Alpha 为新增模型：input $0.20/1M、output $0.66/1M、cache read $0.04/1M（使用额度 $100/月）；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha
@@ -316,6 +315,7 @@
 
 ## 更新历史
 
+- 2026/09/10：智谱 GLM-5.3-Flash 限时五折结束、恢复标准价（输入未命中缓存 0.8、输出 2.8、缓存命中 0.23 元/百万 tokens），阿里云百炼同一模型也移除了「限时5折」标注；腾讯云 Token Plan（个人版通用套餐与企业版专业套餐）GLM-5、GLM-5.1、GLM-5-Turbo 标记将于 2026-10-09 下线；OpenCode Go 计费限制改为按各模型每月额度定义（5 小时 = 月限 20%、每周 = 50%、每月 = 100%），各模型月限不同（如 GLM-5.3 $15、GLM-5.3-Flash $60）
 - 2026/09/09：火山方舟 Coding Plan 个人版新增 Kimi-K3 模型（1M 上下文/128K 最大输出，原生视觉理解，抵扣系数高，仅建议 Pro 套餐用户）；讯飞星辰 Astron Token Plan 团队版新增 Spark-X2.5 模型（256K，输入 320/缓存 48/输出 1200/思考 1200 积分每百万 Token），Spark-X2、Spark-X2-Agent 下线
 - 2026/09/04：阶越星辰 Step Plan 宣布 step-image-edit-2 模型将于 2026-10-10 下线，Step Plan 文生图与图像编辑接口同步停止服务
 - 2026/09/04：OpenCode Go 新增支持 Omen Alpha 模型（input $0.20/1M、output $0.66/1M、cache read $0.04/1M，使用额度 $100/月；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha）

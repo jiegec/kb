@@ -90,9 +90,8 @@
     - Output: 28 RMB per 1M tokens
     - 1M context
 - [GLM-5.3-Flash API Pricing](https://bigmodel.cn/pricing):
-    - Standard: cached input 0.23, uncached input 0.8, output 2.8 RMB per 1M tokens
-    - Limited-time 50% off: cached 0.115, uncached 0.4, output 1.4 RMB per 1M tokens
-    - 1M context (limited-time 50% off)
+    - Cached input 0.23, uncached input 0.8, output 2.8 RMB per 1M tokens
+    - 1M context (the limited-time 50% off promotion has ended; billed at the standard price above)
 - [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 8 RMB per 1M tokens
@@ -175,7 +174,7 @@
     - Supported models: qwen3.8-max, qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseekv4-pro-0813, deepseek-v4-flash, deepseek-v4-flash-0731, deepseek-v3.2, kimi-k2.7-code, kimi-k2.6, kimi-k2.5, glm-5.2, glm-5.1, glm-5, minimax-m2.5, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan Enterprise Edition:
-        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); available model library (varies slightly by region, Guangzhou more complete, Singapore fewer): Auto, GLM-5.3, GLM-5.3-Flash, GLM-5.2, GLM-5, GLM-5.1, GLM-5-Turbo, Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi K3, Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply, DeepSeek-V4-Flash-Vision-Exp Official direct-supply (text capability on par with V4-Flash Official, with greatly enhanced visual understanding, multimodal Agent performance approaching Claude Opus-4.8; Kimi-K2.5 discontinued 2026-08-31)
+        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); available model library (varies slightly by region, Guangzhou more complete, Singapore fewer): Auto, GLM-5.3, GLM-5.3-Flash, GLM-5.2, GLM-5 (discontinued 2026-10-09), GLM-5.1 (discontinued 2026-10-09), GLM-5-Turbo (discontinued 2026-10-09), Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi K3, Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Flash, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply, DeepSeek-V4-Flash-Vision-Exp Official direct-supply (text capability on par with V4-Flash Official, with greatly enhanced visual understanding, multimodal Agent performance approaching Claude Opus-4.8; Kimi-K2.5 discontinued 2026-08-31)
         - Peak-valley billing (adjusted from 2026-08-29): DeepSeek V4 [Official direct-supply] continues peak-valley on weekdays (Mon-Fri, peak hours 9:00–12:00 and 14:00–18:00); weekends (Sat-Sun) are all billed at off-peak rates. DeepSeek V4 Official: peak hours are Mon–Sun 9:00–12:00 and 14:00–18:00. The billing window is determined by when the platform server receives the request (Beijing time)
         - Light Enjoyment Plan: 2 RMB/million tokens per month
     - Token Plan Personal Edition (switched to credit-based deduction effective 2026-08-31 17:00):
@@ -244,7 +243,7 @@
 
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $10/month
-    - Usage limits: $12 per 5 hours, $30 per week, $60 per month
+    - Usage limits: defined per model as a monthly amount; 5 hours = 20% of the monthly limit, week = 50%, month = 100% (monthly limits differ per model, e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
     - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.3 Contributor**, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3, **Omen Alpha**
     - Hy4 preview is a new model: input $0.834/1M, output $2.501/1M, cache read $0.042/1M (usage allowance $30); request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview
     - Omen Alpha is a new model: input $0.20/1M, output $0.66/1M, cache read $0.04/1M (usage allowance $100/month); request limits 11,600 per 5 hours, 29,000 per week, 57,900 per month; model ID omen-alpha
@@ -317,6 +316,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/10: Zhipu GLM-5.3-Flash limited-time 50% off promotion ended, reverting to standard pricing (uncached input 0.8, output 2.8, cached input 0.23 RMB per 1M tokens); Alibaba Cloud Bailian also removed the "50% off (limited time)" label for the same model; Tencent Cloud Token Plan (Personal Edition Universal Plan and Enterprise Professional Plan) marked GLM-5, GLM-5.1 and GLM-5-Turbo for discontinuation on 2026-10-09; OpenCode Go billing limits redefined as per-model monthly amounts (5 hours = 20% of monthly, week = 50%, month = 100%), with differing monthly limits per model (e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
 - 2026/09/09: Volcano Engine Coding Plan (Personal Edition) added the Kimi-K3 model (1M context / 128K max output, native visual understanding, high deduction coefficient, recommended only for Pro plan users); iFlytek Astron Token Plan Team Edition added the Spark-X2.5 model (256K, input 320 / cache 48 / output 1200 / thinking 1200 credits per 1M tokens), Spark-X2 and Spark-X2-Agent discontinued
 - 2026/09/04: StepFun Step Plan announced that the step-image-edit-2 model will be retired on 2026-10-10, and the Step Plan text-to-image and image editing APIs will stop serving requests simultaneously
 - 2026/09/04: OpenCode Go added support for the Omen Alpha model (input $0.20/1M, output $0.66/1M, cache read $0.04/1M, usage allowance $100/month; request limits 11,600 per 5 hours, 29,000 per week, 57,900 per month; model ID omen-alpha)
