@@ -256,18 +256,15 @@
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 - [DeepSeek API Pricing](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/):
-    - Starting 2026-08-17 00:00, peak-valley pricing applies; off-peak price is half of peak price, with overall prices significantly increased compared to before
-    - Peak hours: Monday to Friday 9:00-12:00, 14:00-18:00 Beijing time (the rest are off-peak hours)
-    - deepseek-v4-flash (DeepSeek-V4-Flash-0731, 1M context):
-        - Off-peak: cached input 0.05 RMB / uncached input 1.5 RMB / output 4.5 RMB per 1M tokens
-        - Peak: cached input 0.10 RMB / uncached input 3.0 RMB / output 9.0 RMB per 1M tokens
-    - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context):
+    - Peak-valley pricing: off-peak price is half of peak; peak hours are Monday to Friday 9:00-12:00, 14:00-18:00 Beijing time (the rest are off-peak)
+    - deepseek-flash (DeepSeek-V4.1-Flash, 1M context, supports image understanding; the official model name to use):
+        - Off-peak: cached input 0.02 RMB / uncached input 1 RMB / output 4 RMB per 1M tokens
+        - Peak: cached input 0.04 RMB / uncached input 2 RMB / output 8 RMB per 1M tokens
+        - Old model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are discontinued; calls still work but are served by DeepSeek-V4.1-Flash and billed at Flash pricing
+    - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context, no image understanding):
         - Off-peak: cached input 0.15 RMB / uncached input 4.5 RMB / output 13.5 RMB per 1M tokens
         - Peak: cached input 0.30 RMB / uncached input 9.0 RMB / output 27.0 RMB per 1M tokens
-    - deepseek-v4-flash-vision-exp (DeepSeek-V4-Flash-Vision-Exp, experimental vision model):
-        - Pricing same as deepseek-v4-flash (off-peak / peak)
-        - FIM completion not supported, concurrency limit 2500
-        - Images are converted to tokens based on size and billed together with text tokens
+        - V4 Pro is planned for orderly retirement: after 2026-09-14 12:00 Beijing time and before V4.1 Pro launches, all deepseek-v4-pro requests will be routed to V4.1 Flash and billed at V4.1 Flash pricing
 
 ## Prompts, Requests, and Tokens
 
@@ -316,6 +313,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/10: DeepSeek released DeepSeek-V4.1-Flash (new model name deepseek-flash, 1M context, supports image understanding) with significantly lower pricing (off-peak: cached 0.02, uncached 1, output 4 RMB; peak 0.04/2/8 RMB per 1M tokens); old model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are discontinued (requests served by V4.1-Flash at Flash pricing); V4 Pro is planned for orderly retirement — after 2026-09-14 12:00 all deepseek-v4-pro requests route to V4.1 Flash at Flash pricing (note: this change was previously missed by the archiver and added after manual verification)
 - 2026/09/10: Zhipu GLM-5.3-Flash limited-time 50% off promotion ended, reverting to standard pricing (uncached input 0.8, output 2.8, cached input 0.23 RMB per 1M tokens); Alibaba Cloud Bailian also removed the "50% off (limited time)" label for the same model; Tencent Cloud Token Plan (Personal Edition Universal Plan and Enterprise Professional Plan) marked GLM-5, GLM-5.1 and GLM-5-Turbo for discontinuation on 2026-10-09; OpenCode Go billing limits redefined as per-model monthly amounts (5 hours = 20% of monthly, week = 50%, month = 100%), with differing monthly limits per model (e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
 - 2026/09/09: Volcano Engine Coding Plan (Personal Edition) added the Kimi-K3 model (1M context / 128K max output, native visual understanding, high deduction coefficient, recommended only for Pro plan users); iFlytek Astron Token Plan Team Edition added the Spark-X2.5 model (256K, input 320 / cache 48 / output 1200 / thinking 1200 credits per 1M tokens), Spark-X2 and Spark-X2-Agent discontinued
 - 2026/09/04: StepFun Step Plan announced that the step-image-edit-2 model will be retired on 2026-10-10, and the Step Plan text-to-image and image editing APIs will stop serving requests simultaneously

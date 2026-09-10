@@ -255,18 +255,15 @@
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
-    - 自 2026-08-17 00:00 起采用峰谷定价，空闲时段价格为高峰时段的一半，较此前价格整体大幅上调
-    - 高峰时段：北京时间周一至周五 9:00-12:00、14:00-18:00（其余为空闲时段）
-    - deepseek-v4-flash（DeepSeek-V4-Flash-0731，1M 上下文）：
-        - 空闲时段：输入命中缓存 0.05 RMB / 输入未命中缓存 1.5 RMB / 输出 4.5 RMB 每 1M tokens
-        - 高峰时段：输入命中缓存 0.10 RMB / 输入未命中缓存 3.0 RMB / 输出 9.0 RMB 每 1M tokens
-    - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文）：
+    - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00（其余为空闲时段）
+    - deepseek-flash（DeepSeek-V4.1-Flash，1M 上下文，支持图像理解；官方要求使用此模型名）：
+        - 空闲时段：输入命中缓存 0.02 RMB / 输入未命中缓存 1 RMB / 输出 4 RMB 每 1M tokens
+        - 高峰时段：输入命中缓存 0.04 RMB / 输入未命中缓存 2 RMB / 输出 8 RMB 每 1M tokens
+        - 旧模型名 deepseek-v4-flash、deepseek-v4-flash-vision-exp 已下线，仍可调用但请求由 DeepSeek-V4.1-Flash 提供服务，并按 Flash 价格计费
+    - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：
         - 空闲时段：输入命中缓存 0.15 RMB / 输入未命中缓存 4.5 RMB / 输出 13.5 RMB 每 1M tokens
         - 高峰时段：输入命中缓存 0.30 RMB / 输入未命中缓存 9.0 RMB / 输出 27.0 RMB 每 1M tokens
-    - deepseek-v4-flash-vision-exp（DeepSeek-V4-Flash-Vision-Exp，视觉模型实验版）：
-        - 价格与 deepseek-v4-flash 一致（空闲时段 / 高峰时段）
-        - 不支持 FIM 补全，并发限制 2500
-        - 图片按尺寸换算成 token 与文本 token 一并计费
+        - 官方计划有序下线 V4 Pro：北京时间 2026-09-14 12:00 之后、V4.1 Pro 上线之前，访问 deepseek-v4-pro 的请求将全部路由到 V4.1 Flash，并按 V4.1 Flash 价格计费
 
 ## prompt、请求和 token
 
@@ -315,6 +312,7 @@
 
 ## 更新历史
 
+- 2026/09/10：DeepSeek 发布 DeepSeek-V4.1-Flash（新模型名 deepseek-flash，1M 上下文，支持图像理解），价格大幅下调（空闲时段：缓存命中 0.02、未命中 1、输出 4 元；高峰时段 0.04/2/8 元每百万 tokens）；旧模型名 deepseek-v4-flash、deepseek-v4-flash-vision-exp 已下线（请求由 V4.1-Flash 提供服务并按 Flash 价计费）；官方计划有序下线 V4 Pro，2026-09-14 12:00 后 deepseek-v4-pro 请求将全部路由到 V4.1 Flash 并按 Flash 价计费（注：此变化此前被归档工具漏抓，本次手动核实补充）
 - 2026/09/10：智谱 GLM-5.3-Flash 限时五折结束、恢复标准价（输入未命中缓存 0.8、输出 2.8、缓存命中 0.23 元/百万 tokens），阿里云百炼同一模型也移除了「限时5折」标注；腾讯云 Token Plan（个人版通用套餐与企业版专业套餐）GLM-5、GLM-5.1、GLM-5-Turbo 标记将于 2026-10-09 下线；OpenCode Go 计费限制改为按各模型每月额度定义（5 小时 = 月限 20%、每周 = 50%、每月 = 100%），各模型月限不同（如 GLM-5.3 $15、GLM-5.3-Flash $60）
 - 2026/09/09：火山方舟 Coding Plan 个人版新增 Kimi-K3 模型（1M 上下文/128K 最大输出，原生视觉理解，抵扣系数高，仅建议 Pro 套餐用户）；讯飞星辰 Astron Token Plan 团队版新增 Spark-X2.5 模型（256K，输入 320/缓存 48/输出 1200/思考 1200 积分每百万 Token），Spark-X2、Spark-X2-Agent 下线
 - 2026/09/04：阶越星辰 Step Plan 宣布 step-image-edit-2 模型将于 2026-10-10 下线，Step Plan 文生图与图像编辑接口同步停止服务
