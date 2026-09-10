@@ -289,30 +289,32 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Model Parameters Comparison
 
-| Name                                                                                | Parameters | Active | Vision |
-|-------------------------------------------------------------------------------------|------------|--------|--------|
-| [DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) | 284B       | 13B    | N      |
-| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B       | 13B    | N      |
-| [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T       | 49B    | N      |
-| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T       | 49B    | N      |
-| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B        | 3B     | N      |
-| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B       | 32B    | N      |
-| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                                   | 744B       | 40B    | N      |
-| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B       | 40B    | N      |
-| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash)                       | 320B       | 18B    | Y      |
-| [GLM-5.3](https://huggingface.co/zai-org/GLM-5.3)                       | 744B       | 40B    | N      |
-| [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                           | 295B       | 21B    | N      |
-| [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3)                                | 2.8T       | 104B   | Y      |
-| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T         | 32B    | Y      |
-| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B       | 23B    | Y      |
-| [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B       | 10B    | N      |
-| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T       | 95B    | Y      |
-| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B        | -      | Y      |
-| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next)                | 180B       | 6B     | Y      |
-| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B    | Y      |
+| Name                                                                                | Parameters | Active                | Vision |
+|-------------------------------------------------------------------------------------|------------|-----------------------|--------|
+| [DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) | 284B       | 13B                   | N      |
+| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B       | 13B                   | N      |
+| [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T       | 49B                   | N      |
+| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T       | 49B                   | N      |
+| [DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash)       | 552B       | 8B input / 16B output | Y      |
+| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B        | 3B                    | N      |
+| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B       | 32B                   | N      |
+| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                                   | 744B       | 40B                   | N      |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B       | 40B                   | N      |
+| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash)                       | 320B       | 18B                   | Y      |
+| [GLM-5.3](https://huggingface.co/zai-org/GLM-5.3)                                   | 744B       | 40B                   | N      |
+| [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                           | 295B       | 21B                   | N      |
+| [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3)                                | 2.8T       | 104B                  | Y      |
+| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T         | 32B                   | Y      |
+| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B       | 23B                   | Y      |
+| [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B       | 10B                   | N      |
+| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T       | 95B                   | Y      |
+| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B        | -                     | Y      |
+| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next)                | 180B       | 6B                    | Y      |
+| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
 
+- 2026/09/10: Added DeepSeek-V4.1-Flash to the model parameters comparison table (552B total parameters, 8B input / 16B output activation, multimodal support)
 - 2026/09/10: DeepSeek released DeepSeek-V4.1-Flash (new model name deepseek-flash, 1M context, supports image understanding) with significantly lower pricing (off-peak: cached 0.02, uncached 1, output 4 RMB; peak 0.04/2/8 RMB per 1M tokens); old model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are discontinued (requests served by V4.1-Flash at Flash pricing); V4 Pro is planned for orderly retirement — after 2026-09-14 12:00 all deepseek-v4-pro requests route to V4.1 Flash at Flash pricing (note: this change was previously missed by the archiver and added after manual verification)
 - 2026/09/10: Zhipu GLM-5.3-Flash limited-time 50% off promotion ended, reverting to standard pricing (uncached input 0.8, output 2.8, cached input 0.23 RMB per 1M tokens); Alibaba Cloud Bailian also removed the "50% off (limited time)" label for the same model; Tencent Cloud Token Plan (Personal Edition Universal Plan and Enterprise Professional Plan) marked GLM-5, GLM-5.1 and GLM-5-Turbo for discontinuation on 2026-10-09; OpenCode Go billing limits redefined as per-model monthly amounts (5 hours = 20% of monthly, week = 50%, month = 100%), with differing monthly limits per model (e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
 - 2026/09/09: Volcano Engine Coding Plan (Personal Edition) added the Kimi-K3 model (1M context / 128K max output, native visual understanding, high deduction coefficient, recommended only for Pro plan users); iFlytek Astron Token Plan Team Edition added the Spark-X2.5 model (256K, input 320 / cache 48 / output 1200 / thinking 1200 credits per 1M tokens), Spark-X2 and Spark-X2-Agent discontinued

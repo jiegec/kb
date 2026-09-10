@@ -288,30 +288,32 @@
 
 ## 模型参数比较
 
-| 模型名称                                                                            | 参数量 | 激活量 | 视觉 |
-|-------------------------------------------------------------------------------------|--------|--------|------|
-| [DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) | 284B   | 13B    | 否   |
-| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B   | 13B    | 否   |
-| [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T   | 49B    | 否   |
-| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T   | 49B    | 否   |
-| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B    | 3B     | 否   |
-| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B   | 32B    | 否   |
-| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                                   | 744B   | 40B    | 否   |
-| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B   | 40B    | 否   |
-| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash)                       | 320B   | 18B    | 是   |
-| [GLM-5.3](https://huggingface.co/zai-org/GLM-5.3)                                   | 744B   | 40B    | 否   |
-| [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                           | 295B   | 21B    | 否   |
-| [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3)                                | 2.8T   | 104B   | 是   |
-| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T     | 32B    | 是   |
-| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B   | 23B    | 是   |
-| [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B   | 10B    | 否   |
-| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T   | 95B    | 是   |
-| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B    | -      | 是   |
-| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next)                | 180B   | 6B     | 是   |
-| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B   | 17B    | 是   |
+| 模型名称                                                                                | 参数量  | 激活量            | 视觉 |
+|-------------------------------------------------------------------------------------|------|----------------|----|
+| [DeepSeek-V4-Flash-0731](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731) | 284B | 13B            | 否  |
+| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash)           | 284B | 13B            | 否  |
+| [DeepSeek-V4-Pro-0813](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813)     | 1.6T | 49B            | 否  |
+| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)               | 1.6T | 49B            | 否  |
+| [DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash)       | 552B | 输入 8B / 输出 16B | 是  |
+| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash)                       | 30B  | 3B             | 否  |
+| [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7)                                   | 355B | 32B            | 否  |
+| [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1)                                   | 744B | 40B            | 否  |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)                                   | 744B | 40B            | 否  |
+| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash)                       | 320B | 18B            | 是  |
+| [GLM-5.3](https://huggingface.co/zai-org/GLM-5.3)                                   | 744B | 40B            | 否  |
+| [Hy3-preview](https://huggingface.co/tencent/Hy3-preview)                           | 295B | 21B            | 否  |
+| [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3)                                | 2.8T | 104B           | 是  |
+| [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6)                            | 1T   | 32B            | 是  |
+| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3)                           | 428B | 23B            | 是  |
+| [MiniMax-M2.7](https://huggingface.co/MiniMaxAI/MiniMax-M2.7)                       | 230B | 10B            | 否  |
+| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B)                  | 2.4T | 95B            | 是  |
+| [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B)                              | 27B  | -              | 是  |
+| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next)                | 180B | 6B             | 是  |
+| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
 
+- 2026/09/10：模型参数比较表新增 DeepSeek-V4.1-Flash（总参数 552B，输入激活 8B / 输出激活 16B，支持多模态）
 - 2026/09/10：DeepSeek 发布 DeepSeek-V4.1-Flash（新模型名 deepseek-flash，1M 上下文，支持图像理解），价格大幅下调（空闲时段：缓存命中 0.02、未命中 1、输出 4 元；高峰时段 0.04/2/8 元每百万 tokens）；旧模型名 deepseek-v4-flash、deepseek-v4-flash-vision-exp 已下线（请求由 V4.1-Flash 提供服务并按 Flash 价计费）；官方计划有序下线 V4 Pro，2026-09-14 12:00 后 deepseek-v4-pro 请求将全部路由到 V4.1 Flash 并按 Flash 价计费（注：此变化此前被归档工具漏抓，本次手动核实补充）
 - 2026/09/10：智谱 GLM-5.3-Flash 限时五折结束、恢复标准价（输入未命中缓存 0.8、输出 2.8、缓存命中 0.23 元/百万 tokens），阿里云百炼同一模型也移除了「限时5折」标注；腾讯云 Token Plan（个人版通用套餐与企业版专业套餐）GLM-5、GLM-5.1、GLM-5-Turbo 标记将于 2026-10-09 下线；OpenCode Go 计费限制改为按各模型每月额度定义（5 小时 = 月限 20%、每周 = 50%、每月 = 100%），各模型月限不同（如 GLM-5.3 $15、GLM-5.3-Flash $60）
 - 2026/09/09：火山方舟 Coding Plan 个人版新增 Kimi-K3 模型（1M 上下文/128K 最大输出，原生视觉理解，抵扣系数高，仅建议 Pro 套餐用户）；讯飞星辰 Astron Token Plan 团队版新增 Spark-X2.5 模型（256K，输入 320/缓存 48/输出 1200/思考 1200 积分每百万 Token），Spark-X2、Spark-X2-Agent 下线
