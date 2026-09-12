@@ -314,9 +314,9 @@
 
 ## 更新历史
 
-- 2026/09/10：OpenCode Go 将 DeepSeek V4.1 Flash 的 model ID 由 deepseek-flash 更名为 deepseek-v4.1-flash
-- 2026/09/10：Kimi Code 普速版模型由 K2.7 Code 更新为 K2.8 Preview（model 名 kimi-for-coding 现指向 K2.8 Preview，支持最高 1M 上下文与 low/high/max 三档思考强度）；高速版仍为 K2.7 Code HighSpeed
-- 2026/09/10：DeepSeek 撤回 V4 Pro 下线计划：官方称应广大用户需求，2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变
+- 2026/09/12：OpenCode Go 将 DeepSeek V4.1 Flash 的 model ID 由 deepseek-flash 更名为 deepseek-v4.1-flash
+- 2026/09/12：Kimi Code 普速版模型由 K2.7 Code 更新为 K2.8 Preview（model 名 kimi-for-coding 现指向 K2.8 Preview，支持最高 1M 上下文与 low/high/max 三档思考强度）；高速版仍为 K2.7 Code HighSpeed
+- 2026/09/12：DeepSeek 撤回 V4 Pro 下线计划：官方称应广大用户需求，2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变
 - 2026/09/10：模型参数比较表新增 DeepSeek-V4.1-Flash（总参数 552B，输入激活 8B / 输出激活 16B，支持多模态）
 - 2026/09/10：DeepSeek 发布 DeepSeek-V4.1-Flash（新模型名 deepseek-flash，1M 上下文，支持图像理解），价格大幅下调（空闲时段：缓存命中 0.02、未命中 1、输出 4 元；高峰时段 0.04/2/8 元每百万 tokens）；旧模型名 deepseek-v4-flash、deepseek-v4-flash-vision-exp 已下线（请求由 V4.1-Flash 提供服务并按 Flash 价计费）；官方计划有序下线 V4 Pro，2026-09-14 12:00 后 deepseek-v4-pro 请求将全部路由到 V4.1 Flash 并按 Flash 价计费（注：此变化此前被归档工具漏抓，本次手动核实补充）
 - 2026/09/10：智谱 GLM-5.3-Flash 限时五折结束、恢复标准价（输入未命中缓存 0.8、输出 2.8、缓存命中 0.23 元/百万 tokens），阿里云百炼同一模型也移除了「限时5折」标注；腾讯云 Token Plan（个人版通用套餐与企业版专业套餐）GLM-5、GLM-5.1、GLM-5-Turbo 标记将于 2026-10-09 下线；OpenCode Go 计费限制改为按各模型每月额度定义（5 小时 = 月限 20%、每周 = 50%、每月 = 100%），各模型月限不同（如 GLM-5.3 $15、GLM-5.3-Flash $60）
