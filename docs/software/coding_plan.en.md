@@ -245,6 +245,7 @@
     - $10/month
     - Usage limits: defined per model as a monthly amount; 5 hours = 20% of the monthly limit, week = 50%, month = 100% (monthly limits differ per model, e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
     - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.3 Contributor**, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3, **Omen Alpha**
+    - The DeepSeek V4.1 Flash model ID was renamed from deepseek-flash to deepseek-v4.1-flash (endpoint https://opencode.ai/zen/go/v1/chat/completions)
     - Hy4 preview is a new model: input $0.834/1M, output $2.501/1M, cache read $0.042/1M (usage allowance $30); request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview
     - Omen Alpha is a new model: input $0.20/1M, output $0.66/1M, cache read $0.04/1M (usage allowance $100/month); request limits 11,600 per 5 hours, 29,000 per week, 57,900 per month; model ID omen-alpha
     - Muse Spark 1.3 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M, usage allowance $60); request limits 45,300 per 5 hours, 113,300 per week, 226,600 per month; model ID muse-spark-1.3-contributor. Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
@@ -314,6 +315,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/10: OpenCode Go renamed the DeepSeek V4.1 Flash model ID from deepseek-flash to deepseek-v4.1-flash
 - 2026/09/10: Kimi Code's standard tier moved from K2.7 Code to K2.8 Preview (model name kimi-for-coding now maps to K2.8 Preview, supporting up to 1M context and low/high/max thinking levels); the High Speed tier remains K2.7 Code HighSpeed
 - 2026/09/10: DeepSeek reversed its V4 Pro retirement plan: the vendor will keep providing the DeepSeek V4 Pro API service after 2026-09-14 with unchanged billing
 - 2026/09/10: Added DeepSeek-V4.1-Flash to the model parameters comparison table (552B total parameters, 8B input / 16B output activation, multimodal support)

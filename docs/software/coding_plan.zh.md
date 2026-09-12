@@ -244,6 +244,7 @@
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
     - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
+    - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
     - Omen Alpha 为新增模型：input $0.20/1M、output $0.66/1M、cache read $0.04/1M（使用额度 $100/月）；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha
     - Muse Spark 1.3 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60）；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
@@ -313,6 +314,7 @@
 
 ## 更新历史
 
+- 2026/09/10：OpenCode Go 将 DeepSeek V4.1 Flash 的 model ID 由 deepseek-flash 更名为 deepseek-v4.1-flash
 - 2026/09/10：Kimi Code 普速版模型由 K2.7 Code 更新为 K2.8 Preview（model 名 kimi-for-coding 现指向 K2.8 Preview，支持最高 1M 上下文与 low/high/max 三档思考强度）；高速版仍为 K2.7 Code HighSpeed
 - 2026/09/10：DeepSeek 撤回 V4 Pro 下线计划：官方称应广大用户需求，2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变
 - 2026/09/10：模型参数比较表新增 DeepSeek-V4.1-Flash（总参数 552B，输入激活 8B / 输出激活 16B，支持多模态）
