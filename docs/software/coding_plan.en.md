@@ -30,7 +30,7 @@
 
 ### MiniMax
 
-[MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [Subscription](https://platform.minimaxi.com/subscribe/token-plan)
+[MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [Subscription](https://platform.minimax.cn/subscribe/token-plan)
 
 - Token Plan coverage has been narrowed from "all models" to "flagship models"; music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) have been discontinued and are no longer included in Token Plan quota
 - Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+
