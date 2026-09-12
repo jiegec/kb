@@ -11,7 +11,7 @@
 - Allegretto (199 RMB/month)
 - Allegro (699 RMB/month)
 - Subscription renewal rule adjustment: Due to tight compute resources, priority will be given to ensuring the experience of currently subscribed users. You can renew before 2026-08-20 00:00; after that, direct purchase will no longer be available.
-- Kimi Code is now powered by the flagship K3 model (~2.8 trillion parameters), available with the K2.7 Code in two modes (standard / High Speed), with a maximum inference speed of 260 Tokens/s and a 1M Token context window; it is fully compatible with mainstream agent tools including Kimi Code CLI, Claude Code, and VS Code
+- Kimi Code is now powered by the flagship K3 model (~2.8 trillion parameters), available with the K2.8 Preview in two modes (standard / K2.7 Code HighSpeed), with a maximum inference speed of 260 Tokens/s and a 1M Token context window; it is fully compatible with mainstream agent tools including Kimi Code CLI, Claude Code, and VS Code
 - [K3 API Pricing](https://platform.kimi.com/docs/pricing/chat-k3):
     - Cached input: 2 RMB per 1M tokens
     - Uncached input: 20 RMB per 1M tokens
@@ -314,6 +314,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/10: Kimi Code's standard tier moved from K2.7 Code to K2.8 Preview (model name kimi-for-coding now maps to K2.8 Preview, supporting up to 1M context and low/high/max thinking levels); the High Speed tier remains K2.7 Code HighSpeed
 - 2026/09/10: DeepSeek reversed its V4 Pro retirement plan: the vendor will keep providing the DeepSeek V4 Pro API service after 2026-09-14 with unchanged billing
 - 2026/09/10: Added DeepSeek-V4.1-Flash to the model parameters comparison table (552B total parameters, 8B input / 16B output activation, multimodal support)
 - 2026/09/10: DeepSeek released DeepSeek-V4.1-Flash (new model name deepseek-flash, 1M context, supports image understanding) with significantly lower pricing (off-peak: cached 0.02, uncached 1, output 4 RMB; peak 0.04/2/8 RMB per 1M tokens); old model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are discontinued (requests served by V4.1-Flash at Flash pricing); V4 Pro is planned for orderly retirement — after 2026-09-14 12:00 all deepseek-v4-pro requests route to V4.1 Flash at Flash pricing (note: this change was previously missed by the archiver and added after manual verification)

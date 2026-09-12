@@ -11,7 +11,7 @@
 - Allegretto（199 RMB 每月）
 - Allegro（699 RMB 每月）
 - 订阅续购规则调整：因算力资源紧张，将优先保障订阅中用户的使用体验，你可于 2026-08-20 00:00 前续订，逾期将无法直接购买
-- Kimi Code 当前基于旗舰 K3 模型（参数规模约 2.8 万亿），并搭载 K2.7 Code 普速版与 High Speed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；全面兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
+- Kimi Code 当前基于旗舰 K3 模型（参数规模约 2.8 万亿），并搭载 K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；全面兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
 - [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 20 RMB 每 1M tokens
@@ -313,6 +313,7 @@
 
 ## 更新历史
 
+- 2026/09/10：Kimi Code 普速版模型由 K2.7 Code 更新为 K2.8 Preview（model 名 kimi-for-coding 现指向 K2.8 Preview，支持最高 1M 上下文与 low/high/max 三档思考强度）；高速版仍为 K2.7 Code HighSpeed
 - 2026/09/10：DeepSeek 撤回 V4 Pro 下线计划：官方称应广大用户需求，2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变
 - 2026/09/10：模型参数比较表新增 DeepSeek-V4.1-Flash（总参数 552B，输入激活 8B / 输出激活 16B，支持多模态）
 - 2026/09/10：DeepSeek 发布 DeepSeek-V4.1-Flash（新模型名 deepseek-flash，1M 上下文，支持图像理解），价格大幅下调（空闲时段：缓存命中 0.02、未命中 1、输出 4 元；高峰时段 0.04/2/8 元每百万 tokens）；旧模型名 deepseek-v4-flash、deepseek-v4-flash-vision-exp 已下线（请求由 V4.1-Flash 提供服务并按 Flash 价计费）；官方计划有序下线 V4 Pro，2026-09-14 12:00 后 deepseek-v4-pro 请求将全部路由到 V4.1 Flash 并按 Flash 价计费（注：此变化此前被归档工具漏抓，本次手动核实补充）
