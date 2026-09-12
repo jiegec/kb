@@ -264,7 +264,7 @@
     - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context, no image understanding):
         - Off-peak: cached input 0.15 RMB / uncached input 4.5 RMB / output 13.5 RMB per 1M tokens
         - Peak: cached input 0.30 RMB / uncached input 9.0 RMB / output 27.0 RMB per 1M tokens
-        - V4 Pro is planned for orderly retirement: after 2026-09-14 12:00 Beijing time and before V4.1 Pro launches, all deepseek-v4-pro requests will be routed to V4.1 Flash and billed at V4.1 Flash pricing
+        - V4 Pro retirement was announced but has been reversed: DeepSeek will keep serving the DeepSeek V4 Pro API after 2026-09-14 with unchanged billing (the earlier notice said all requests would be routed to V4.1 Flash and billed at Flash pricing)
 
 ## Prompts, Requests, and Tokens
 
@@ -314,6 +314,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/10: DeepSeek reversed its V4 Pro retirement plan: the vendor will keep providing the DeepSeek V4 Pro API service after 2026-09-14 with unchanged billing
 - 2026/09/10: Added DeepSeek-V4.1-Flash to the model parameters comparison table (552B total parameters, 8B input / 16B output activation, multimodal support)
 - 2026/09/10: DeepSeek released DeepSeek-V4.1-Flash (new model name deepseek-flash, 1M context, supports image understanding) with significantly lower pricing (off-peak: cached 0.02, uncached 1, output 4 RMB; peak 0.04/2/8 RMB per 1M tokens); old model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are discontinued (requests served by V4.1-Flash at Flash pricing); V4 Pro is planned for orderly retirement — after 2026-09-14 12:00 all deepseek-v4-pro requests route to V4.1 Flash at Flash pricing (note: this change was previously missed by the archiver and added after manual verification)
 - 2026/09/10: Zhipu GLM-5.3-Flash limited-time 50% off promotion ended, reverting to standard pricing (uncached input 0.8, output 2.8, cached input 0.23 RMB per 1M tokens); Alibaba Cloud Bailian also removed the "50% off (limited time)" label for the same model; Tencent Cloud Token Plan (Personal Edition Universal Plan and Enterprise Professional Plan) marked GLM-5, GLM-5.1 and GLM-5-Turbo for discontinuation on 2026-10-09; OpenCode Go billing limits redefined as per-model monthly amounts (5 hours = 20% of monthly, week = 50%, month = 100%), with differing monthly limits per model (e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
