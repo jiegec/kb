@@ -252,6 +252,7 @@
     - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
     - Qwen3.8 Flash is a new model: input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M (usage limit $30); request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash
     - Qwen3.7 Max: request limits 170 per 5 hours, 420 per week, 840 per month, usage allowance $30/month; pricing input $2.50/1M, output $7.50/1M, cache read $0.50/1M, cache write $3.125/1M (from 2026-09-01 the request limits were halved from 340/840/1,690 and the monthly usage allowance was reduced from $60 to $30)
+    - DeepSeek V4.1 Flash limits temporarily boosted 4x: monthly usage allowance raised from $15 to $60 (limited-time promotion ending 2026-09-20), with request limits raised to 26,000 per 5 hours, 65,000 per week, 130,000 per month (previously 6,500/16,250/32,500); token pricing unchanged (off-peak input $0.15/1M, output $0.60/1M, cache read $0.003/1M; peak pricing is double)
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
@@ -315,6 +316,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/14: OpenCode Go temporarily boosted the DeepSeek V4.1 Flash limits 4x: monthly usage allowance raised from $15 to $60 (promotion ends 2026-09-20), request limits raised from 6,500 per 5 hours / 16,250 per week / 32,500 per month to 26,000 per 5 hours / 65,000 per week / 130,000 per month; token pricing unchanged
 - 2026/09/12: OpenCode Go renamed the DeepSeek V4.1 Flash model ID from deepseek-flash to deepseek-v4.1-flash
 - 2026/09/12: Kimi Code's standard tier moved from K2.7 Code to K2.8 Preview (model name kimi-for-coding now maps to K2.8 Preview, supporting up to 1M context and low/high/max thinking levels); the High Speed tier remains K2.7 Code HighSpeed
 - 2026/09/12: DeepSeek reversed its V4 Pro retirement plan: the vendor will keep providing the DeepSeek V4 Pro API service after 2026-09-14 with unchanged billing

@@ -251,6 +251,7 @@
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
+    - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，2026-09-20 结束），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -314,6 +315,7 @@
 
 ## 更新历史
 
+- 2026/09/14：OpenCode Go 将 DeepSeek V4.1 Flash 的额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（活动 2026-09-20 结束），请求限额同步由 6,500/5 小时、16,250/周、32,500/月 提高到 26,000/5 小时、65,000/周、130,000/月；token 价格不变
 - 2026/09/12：OpenCode Go 将 DeepSeek V4.1 Flash 的 model ID 由 deepseek-flash 更名为 deepseek-v4.1-flash
 - 2026/09/12：Kimi Code 普速版模型由 K2.7 Code 更新为 K2.8 Preview（model 名 kimi-for-coding 现指向 K2.8 Preview，支持最高 1M 上下文与 low/high/max 三档思考强度）；高速版仍为 K2.7 Code HighSpeed
 - 2026/09/12：DeepSeek 撤回 V4 Pro 下线计划：官方称应广大用户需求，2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变
