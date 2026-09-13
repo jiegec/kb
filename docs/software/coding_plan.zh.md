@@ -316,6 +316,7 @@
 ## 更新历史
 
 - 2026/09/14：OpenCode Go 将 DeepSeek V4.1 Flash 的额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（活动 2026-09-20 结束），请求限额同步由 6,500/5 小时、16,250/周、32,500/月 提高到 26,000/5 小时、65,000/周、130,000/月；token 价格不变
+- 2026/09/14：阿里云百炼模型库新增 deepseek-v4.1-flash：华北2（北京）/全球价 忙时输入 2 元、闲时 1 元，忙时输出 8 元、闲时 4 元（每百万 tokens，送 100 万 tokens 免费额度）；国际站 忙时 2.188/8.75 元、闲时 1.094/4.375 元。上下文缓存命中单价为输入单价的 10%（忙时 0.2 元、闲时 0.1 元），优于百炼其他模型的 20%，但仍高于 DeepSeek 官方 API 的缓存命中价（0.04/0.02 元）。「选择模型」页推荐位同时由 deepseek-v4-flash-0731 换为该模型；该模型暂未列入百炼 Token Plan（个人版/团队版）支持模型
 - 2026/09/12：OpenCode Go 将 DeepSeek V4.1 Flash 的 model ID 由 deepseek-flash 更名为 deepseek-v4.1-flash
 - 2026/09/12：Kimi Code 普速版模型由 K2.7 Code 更新为 K2.8 Preview（model 名 kimi-for-coding 现指向 K2.8 Preview，支持最高 1M 上下文与 low/high/max 三档思考强度）；高速版仍为 K2.7 Code HighSpeed
 - 2026/09/12：DeepSeek 撤回 V4 Pro 下线计划：官方称应广大用户需求，2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变
