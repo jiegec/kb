@@ -164,7 +164,7 @@
     - Pro 套餐（600 RMB 每月）：40000 Credits 每 7 天
     - 用量包（100 RMB 每月）：20000 Credits
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
-    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -318,6 +318,7 @@
 
 ## 更新历史
 
+- 2026/09/14：阿里云百炼 Token Plan 个人版支持模型列表中 deepseek-v4.1-flash 的能力标注由「推理模型、文本生成」更新为「推理模型、视觉理解、文本生成」；官方接入文档（OpenClaw）中该模型配置的 input 也由 `["text"]` 改为 `["text", "image"]`，即确认 Token Plan 内该模型可直接接收图片输入
 - 2026/09/14：火山方舟 Agent Plan 个人版新增两个多模态模型：doubao-seedream-5-0-pro（图片生成，全套餐支持；输入图第一张免费、第二张起 10 AFP/张，输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景 75/150）与 doubao-seedance-2.5（视频生成，Large/Max；480p/720p 输入含视频 210、不含视频 350，1080p 输入含视频 230、不含视频 385，单位为 token）；doubao-seedance-1.5-pro 标记为即将下线
 - 2026/09/14：阿里云百炼 Token Plan 个人版支持模型新增 deepseek-v4.1-flash（此前仅上线百炼模型库、未列入 Token Plan），同时该模型加入个人版限时夜间五折（每晚 22:00–次日 08:00 Credits 消耗 5 折）名单，名单现为 qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash
 - 2026/09/14：腾讯云 Token Plan 企业版专业套餐（广州/新加坡）模型库新增 DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）；同时原厂直供 Flash 系积分抵扣价统一下调——DeepSeek-V4-Flash 0731 正式版 原厂直供（原空闲 约 39 / 高峰 约 77 积分每百万 tokens）与 DeepSeek-V4-Flash-Vision-Exp 原厂直供（原 约 35 / 约 70）均降至与新模型一致（缓存命中 2 / 未命中 100 / 输出 400 空闲时段、4/200/800 高峰时段，综合单价预估 约 26 / 约 51），即跟随 DeepSeek 原厂把旧模型名统一切换到 V4.1-Flash 计费；同一页面移除了已于 2026-09-10 到期的 GLM-5.3-Flash 积分价 5 折限时优惠活动章节
