@@ -87,7 +87,7 @@ $$
 
 $$
 \begin{align}
-s_{nij}\log(P_{nij1}) + (1-s_{nij})\log(P_{nij0}) \\
+& s_{nij}\log(P_{nij1}) + (1-s_{nij})\log(P_{nij0}) \\
 &= s_{nij}\log(e^{L_{nij}}P_{nij0}) + (1-s_{nij})\log(P_{nij0}) \\
 &= s_{nij}(L_{nij}+\log(P_{nij0})) + (1-s_{nij})\log(P_{nij0}) \\
 &= s_{nij}L_{nij}+\log(P_{nij0}) \\
@@ -101,7 +101,7 @@ $$
 
 $$
 \begin{align}
-\frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial B_n} \\
+& \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial B_n} \\
 &= s_{nij}-\frac{e^{L_{nij}}}{1+e^{L_{nij}}} \\
 &= s_{nij}-P_{nij1}
 \end{align}
@@ -111,7 +111,7 @@ $$
 
 $$
 \begin{align}
-\frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial D_i} \\
+& \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial D_i} \\
 &= \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial C_j} \\
 &= -(s_{nij}-P_{nij1})
 \end{align}
