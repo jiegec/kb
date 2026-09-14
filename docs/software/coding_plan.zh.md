@@ -153,9 +153,11 @@
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
     - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Agent 进化：前 50 个文件免费（此前为限制/收费项）
-    - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini
+    - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro（即将下线）、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
+    - 新增 doubao-seedream-5-0-pro（图片生成，全套餐）：输入图抵扣系数第一张免费、第二张起 10 AFP/张；输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景分别为 75 / 150 AFP/张
+    - 新增 doubao-seedance-2.5（视频生成，Large/Max）：抵扣系数以 token 为单位，480p/720p 输入含视频 210、不含视频 350；1080p 输入含视频 230、不含视频 385
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite 套餐（60 RMB 每月）：2500 Credits 每 7 天
     - Standard 套餐（180 RMB 每月）：10000 Credits 每 7 天
@@ -316,6 +318,7 @@
 
 ## 更新历史
 
+- 2026/09/14：火山方舟 Agent Plan 个人版新增两个多模态模型：doubao-seedream-5-0-pro（图片生成，全套餐支持；输入图第一张免费、第二张起 10 AFP/张，输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景 75/150）与 doubao-seedance-2.5（视频生成，Large/Max；480p/720p 输入含视频 210、不含视频 350，1080p 输入含视频 230、不含视频 385，单位为 token）；doubao-seedance-1.5-pro 标记为即将下线
 - 2026/09/14：阿里云百炼 Token Plan 个人版支持模型新增 deepseek-v4.1-flash（此前仅上线百炼模型库、未列入 Token Plan），同时该模型加入个人版限时夜间五折（每晚 22:00–次日 08:00 Credits 消耗 5 折）名单，名单现为 qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash
 - 2026/09/14：腾讯云 Token Plan 企业版专业套餐（广州/新加坡）模型库新增 DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）；同时原厂直供 Flash 系积分抵扣价统一下调——DeepSeek-V4-Flash 0731 正式版 原厂直供（原空闲 约 39 / 高峰 约 77 积分每百万 tokens）与 DeepSeek-V4-Flash-Vision-Exp 原厂直供（原 约 35 / 约 70）均降至与新模型一致（缓存命中 2 / 未命中 100 / 输出 400 空闲时段、4/200/800 高峰时段，综合单价预估 约 26 / 约 51），即跟随 DeepSeek 原厂把旧模型名统一切换到 V4.1-Flash 计费；同一页面移除了已于 2026-09-10 到期的 GLM-5.3-Flash 积分价 5 折限时优惠活动章节
 - 2026/09/14：OpenCode Go 将 DeepSeek V4.1 Flash 的额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（活动 2026-09-20 结束），请求限额同步由 6,500/5 小时、16,250/周、32,500/月 提高到 26,000/5 小时、65,000/周、130,000/月；token 价格不变
