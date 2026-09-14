@@ -143,6 +143,7 @@
             - doubao-seed-2.0-lite、deepseek-v4-flash：0.5
             - glm-5.3-flash：0.5（0.25 限时5折）
             - doubao-seed-2.1-turbo、doubao-seed-evolving、minimax-m3：2.5
+            - deepseek-v4.1-flash：2.5（1.25 限时5折，2026-09-15 00:00 至 2026-09-28 23:59）
             - kimi-k2.7-code：4.5
             - glm-5.3（glm-latest）：4.5
             - deepseek-v4-pro：5.5
@@ -153,11 +154,12 @@
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
     - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、deepseek-v4-pro、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Agent 进化：前 50 个文件免费（此前为限制/收费项）
     - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro（即将下线）、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
     - 新增 doubao-seedream-5-0-pro（图片生成，全套餐）：输入图抵扣系数第一张免费、第二张起 10 AFP/张；输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景分别为 75 / 150 AFP/张
     - 新增 doubao-seedance-2.5（视频生成，Large/Max）：抵扣系数以 token 为单位，480p/720p 输入含视频 210、不含视频 350；1080p 输入含视频 230、不含视频 385
+    - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite 套餐（60 RMB 每月）：2500 Credits 每 7 天
     - Standard 套餐（180 RMB 每月）：10000 Credits 每 7 天
@@ -318,6 +320,7 @@
 
 ## 更新历史
 
+- 2026/09/15：火山方舟 Agent Plan 个人版新增 deepseek-v4.1-flash 模型（全套餐支持；1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力），抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（折后 1.25）；该模型同时加入 1M 上下文支持名单（现为 glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
 - 2026/09/14：阿里云百炼 Token Plan 个人版支持模型列表中 deepseek-v4.1-flash 的能力标注由「推理模型、文本生成」更新为「推理模型、视觉理解、文本生成」；官方接入文档（OpenClaw）中该模型配置的 input 也由 `["text"]` 改为 `["text", "image"]`，即确认 Token Plan 内该模型可直接接收图片输入
 - 2026/09/14：火山方舟 Agent Plan 个人版新增两个多模态模型：doubao-seedream-5-0-pro（图片生成，全套餐支持；输入图第一张免费、第二张起 10 AFP/张，输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景 75/150）与 doubao-seedance-2.5（视频生成，Large/Max；480p/720p 输入含视频 210、不含视频 350，1080p 输入含视频 230、不含视频 385，单位为 token）；doubao-seedance-1.5-pro 标记为即将下线
 - 2026/09/14：阿里云百炼 Token Plan 个人版支持模型新增 deepseek-v4.1-flash（此前仅上线百炼模型库、未列入 Token Plan），同时该模型加入个人版限时夜间五折（每晚 22:00–次日 08:00 Credits 消耗 5 折）名单，名单现为 qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash

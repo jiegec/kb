@@ -143,6 +143,7 @@
             - doubao-seed-2.0-lite, deepseek-v4-flash: 0.5
             - glm-5.3-flash: 0.5 (0.25 for the first two weeks at 50% off)
             - doubao-seed-2.1-turbo, doubao-seed-evolving, minimax-m3: 2.5
+            - deepseek-v4.1-flash: 2.5 (1.25 during the limited-time 50% off, 2026-09-15 00:00 to 2026-09-28 23:59)
             - kimi-k2.7-code: 4.5
             - glm-5.3 (glm-latest): 4.5
             - deepseek-v4-pro: 5.5
@@ -153,11 +154,12 @@
     - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Daily quota: 125,000 AFP.
     - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Daily quota: 250,000 AFP.
     - Image generation models, video generation models, voice models, and Harness have no 5-hour or weekly quota limits; they are only subject to daily quota and monthly plan quota. Daily quota is uniformly half of the monthly plan quota.
-    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.3, glm-5.3-flash, kimi-k2.7-code, deepseek-v4-pro, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seedream-5-0-pro, doubao-seed-tts-2.0, doubao-seed-asr-2.0
+    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.3, glm-5.3-flash, kimi-k2.7-code, deepseek-v4-pro, deepseek-v4.1-flash, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seedream-5-0-pro, doubao-seed-tts-2.0, doubao-seed-asr-2.0
     - Agent Evolution: first 50 files free (previously limited/charged)
     - Medium and above plans additionally support: doubao-seedance-1.5-pro (being retired), doubao-seedance-2.0, doubao-seedance-2.0-fast, doubao-seedance-2.0-mini, doubao-seedance-2.5
     - New doubao-seedream-5-0-pro (image generation, all plans): input-image deduction coefficient is free for the first image and 10 AFP per image from the second onward; output images cost 150 AFP (single-image generation, ≤2.61M pixels) or 300 AFP (>2.61M pixels), and 75 / 150 AFP for the layer-separation scenario
     - New doubao-seedance-2.5 (video generation, Large/Max): deduction coefficient per token is 210 when the input contains video and 350 when it does not (480p/720p output), and 230 / 385 for 1080p output
+    - New deepseek-v4.1-flash (text generation (advanced), all plans): 1M context window / 384K max output, natively capable of multimodal vision understanding; deduction coefficient 2.5, at 50% off (1.25) from 2026-09-15 00:00 to 2026-09-28 23:59. The model also joins the 1M-context supported list (glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3)
 - [Alibaba Cloud Bailian Token Plan (Personal Edition)](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite Plan (60 RMB/month): 2,500 Credits every 7 days
     - Standard Plan (180 RMB/month): 10,000 Credits every 7 days
@@ -319,6 +321,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/15: Volcano Engine Agent Plan (Personal Edition) added the deepseek-v4.1-flash model (supported by all plans; 1M context window / 384K max output, natively capable of multimodal vision understanding) with a deduction coefficient of 2.5, at 50% off (1.25) from 2026-09-15 00:00 to 2026-09-28 23:59; the model also joins the 1M-context supported list (now glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3)
 - 2026/09/14: In the Alibaba Cloud Bailian Token Plan (Personal Edition) supported-model list, deepseek-v4.1-flash's capability label changed from "reasoning, text generation" to "reasoning, vision understanding, text generation"; the official integration doc (OpenClaw) also changed that model's config `input` from `["text"]` to `["text", "image"]`, confirming the model accepts image input directly within the Token Plan
 - 2026/09/14: Volcano Engine Agent Plan (Personal Edition) added two multimodal models: doubao-seedream-5-0-pro (image generation, all plans; input images are free for the first image and 10 AFP per image thereafter, output images cost 150 AFP for ≤2.61M pixels and 300 AFP above that for single-image generation, and 75/150 AFP for layer separation) and doubao-seedance-2.5 (video generation, Large/Max; 210 per token when the input contains video and 350 when it does not for 480p/720p, 230/385 for 1080p); doubao-seedance-1.5-pro is marked as being retired
 - 2026/09/14: Alibaba Cloud Bailian Token Plan (Personal Edition) added deepseek-v4.1-flash to its supported models (it had previously only been added to the Bailian model library, not to the Token Plan); the model also joined the Personal Edition limited-time night discount (50% off Credits from 22:00 to 08:00), whose list is now qwen3.8-max, deepseek-v4-pro-0813, deepseek-v4-flash-0731, deepseek-v4.1-flash
