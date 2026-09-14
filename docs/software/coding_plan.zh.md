@@ -162,7 +162,7 @@
     - Pro 套餐（600 RMB 每月）：40000 Credits 每 7 天
     - 用量包（100 RMB 每月）：20000 Credits
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
-    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -316,6 +316,7 @@
 
 ## 更新历史
 
+- 2026/09/14：阿里云百炼 Token Plan 个人版支持模型新增 deepseek-v4.1-flash（此前仅上线百炼模型库、未列入 Token Plan），同时该模型加入个人版限时夜间五折（每晚 22:00–次日 08:00 Credits 消耗 5 折）名单，名单现为 qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash
 - 2026/09/14：腾讯云 Token Plan 企业版专业套餐（广州/新加坡）模型库新增 DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）；同时原厂直供 Flash 系积分抵扣价统一下调——DeepSeek-V4-Flash 0731 正式版 原厂直供（原空闲 约 39 / 高峰 约 77 积分每百万 tokens）与 DeepSeek-V4-Flash-Vision-Exp 原厂直供（原 约 35 / 约 70）均降至与新模型一致（缓存命中 2 / 未命中 100 / 输出 400 空闲时段、4/200/800 高峰时段，综合单价预估 约 26 / 约 51），即跟随 DeepSeek 原厂把旧模型名统一切换到 V4.1-Flash 计费；同一页面移除了已于 2026-09-10 到期的 GLM-5.3-Flash 积分价 5 折限时优惠活动章节
 - 2026/09/14：OpenCode Go 将 DeepSeek V4.1 Flash 的额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（活动 2026-09-20 结束），请求限额同步由 6,500/5 小时、16,250/周、32,500/月 提高到 26,000/5 小时、65,000/周、130,000/月；token 价格不变
 - 2026/09/14：阿里云百炼模型库新增 deepseek-v4.1-flash：华北2（北京）/全球价 忙时输入 2 元、闲时 1 元，忙时输出 8 元、闲时 4 元（每百万 tokens，送 100 万 tokens 免费额度）；国际站 忙时 2.188/8.75 元、闲时 1.094/4.375 元。上下文缓存命中单价为输入单价的 10%（忙时 0.2 元、闲时 0.1 元），优于百炼其他模型的 20%，但仍高于 DeepSeek 官方 API 的缓存命中价（0.04/0.02 元）。「选择模型」页推荐位同时由 deepseek-v4-flash-0731 换为该模型；该模型暂未列入百炼 Token Plan（个人版/团队版）支持模型
