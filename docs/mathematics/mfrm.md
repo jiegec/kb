@@ -22,16 +22,20 @@ JMLE 求解算法：初始化各参数，得到一系列的 $P_{nijk}$，根据�
 先考虑简单情形：K=1，此时打分只有 0 和 1 两种情况。此时：
 
 $$
-\log(\frac{P_{nij1}}{P_{nij0}}) = B_n - D_i - C_j - F_1 \\
-P_{nij0} + P_{nij1} = 1
+\begin{align}
+\log(\frac{P_{nij1}}{P_{nij0}}) &= B_n - D_i - C_j - F_1 \\
+P_{nij0} + P_{nij1} &= 1
+\end{align}
 $$
 
 所以：
 
 $$
-P_{nij1} = P_{nij0}e^{B_n - D_i - C_j - F_1} \\
-P_{nij0} = \frac{1}{1+e^{B_n - D_i - C_j - F_1}} \\
-P_{nij1} = \frac{e^{B_n - D_i - C_j - F_1}}{1+e^{B_n - D_i - C_j - F_1}} \\
+\begin{align}
+P_{nij1} &= P_{nij0}e^{B_n - D_i - C_j - F_1} \\
+P_{nij0} &= \frac{1}{1+e^{B_n - D_i - C_j - F_1}} \\
+P_{nij1} &= \frac{e^{B_n - D_i - C_j - F_1}}{1+e^{B_n - D_i - C_j - F_1}} \\
+\end{align}
 $$
 
 假如实际上有两个考生，两个考官，两个题目，已知得分情况如下：
@@ -58,15 +62,19 @@ $$
 已知：
 
 $$
-P_{nij0} = \frac{1}{1+e^{B_n - D_i - C_j - F_1}} \\
-P_{nij1} = \frac{e^{B_n - D_i - C_j - F_1}}{1+e^{B_n - D_i - C_j - F_1}} \\
+\begin{align}
+P_{nij0} &= \frac{1}{1+e^{B_n - D_i - C_j - F_1}} \\
+P_{nij1} &= \frac{e^{B_n - D_i - C_j - F_1}}{1+e^{B_n - D_i - C_j - F_1}} \\
+\end{align}
 $$
 
 设 $L_{nij}=B_n - D_i - C_j - F_1 = B_n - D_i - C_j$，那么：
 
 $$
-P_{nij0} = \frac{1}{1+e^{L_{nij}}} \\
-P_{nij1} = \frac{e^{L_{nij}}}{1+e^{L_{nij}}} \\
+\begin{align}
+P_{nij0} &= \frac{1}{1+e^{L_{nij}}} \\
+P_{nij1} &= \frac{e^{L_{nij}}}{1+e^{L_{nij}}} \\
+\end{align}
 $$
 
 设 $s_{nij} \in \{0,1\}$ 即考生 n 在题目 i 被考官 j 打的实际得分，那么极大化目标里，每一项的表达式就是：
@@ -78,11 +86,13 @@ $$
 即 $s_{nij}=0$ 时等于 $\log(P_{nij0})$，$s_{nij}=1$ 时等于 $\log(P_{nij1})$。上式可以化简：
 
 $$
+\begin{align}
 s_{nij}\log(P_{nij1}) + (1-s_{nij})\log(P_{nij0}) \\
-= s_{nij}\log(e^{L_{nij}}P_{nij0}) + (1-s_{nij})\log(P_{nij0}) \\
-= s_{nij}(L_{nij}+\log(P_{nij0})) + (1-s_{nij})\log(P_{nij0}) \\
-= s_{nij}L_{nij}+\log(P_{nij0}) \\
-= s_{nij}L_{nij}-\log(1+e^{L_{nij}}) \\
+&= s_{nij}\log(e^{L_{nij}}P_{nij0}) + (1-s_{nij})\log(P_{nij0}) \\
+&= s_{nij}(L_{nij}+\log(P_{nij0})) + (1-s_{nij})\log(P_{nij0}) \\
+&= s_{nij}L_{nij}+\log(P_{nij0}) \\
+&= s_{nij}L_{nij}-\log(1+e^{L_{nij}}) \\
+\end{align}
 $$
 
 有了这个优化目标以后，就可以对 $B_n, D_i, C_j$ 求偏导，通过多次迭代来最大化对数极大似然。
@@ -90,17 +100,21 @@ $$
 比如每一项对 $B_n$ 求导：
 
 $$
+\begin{align}
 \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial B_n} \\
-= s_{nij}-\frac{e^{L_{nij}}}{1+e^{L_{nij}}} \\
-= s_{nij}-P_{nij1}
+&= s_{nij}-\frac{e^{L_{nij}}}{1+e^{L_{nij}}} \\
+&= s_{nij}-P_{nij1}
+\end{align}
 $$
 
 类似地，每一项对 $D_i$ 或 $C_j$ 求导：
 
 $$
+\begin{align}
 \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial D_i} \\
-= \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial C_j} \\
-= -(s_{nij}-P_{nij1})
+&= \frac{\partial(s_{nij}L_{nij}-\log(1+e^{L_{nij}}))}{\partial C_j} \\
+&= -(s_{nij}-P_{nij1})
+\end{align}
 $$
 
 上述数据，迭代出来的结果是：
