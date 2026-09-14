@@ -174,8 +174,9 @@
     - 支持模型：qwen3.8-max、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseekv4-pro-0813、deepseek-v4-flash、deepseek-v4-flash-0731、deepseek-v3.2、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.2、glm-5.1、glm-5、minimax-m2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5（将于 2026-10-09 下线）、GLM-5.1（将于 2026-10-09 下线）、GLM-5-Turbo（将于 2026-10-09 下线）、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
+        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异）：Auto、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5（将于 2026-10-09 下线）、GLM-5.1（将于 2026-10-09 下线）、GLM-5-Turbo（将于 2026-10-09 下线）、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8；Kimi-K2.5 已于 2026-08-31 下线）
         - 峰谷计费（2026-08-29 起调整）：DeepSeek V4【原厂直供】工作日（周一至周五）继续峰谷计费（高峰时段 9:00–12:00、14:00–18:00），周末（周六、周日）全天按空闲时段价格计费；DeepSeek V4 正式版高峰时段为周一至周日 9:00–12:00、14:00–18:00；单次请求计费时段以平台服务端接收请求时间（北京时间）为准
+        - DeepSeek【原厂直供】Flash 系积分价下调（2026-09-14）：DeepSeek-V4-Flash 0731 正式版 原厂直供（原空闲 约 39 / 高峰 约 77 积分每百万 tokens）与 DeepSeek-V4-Flash-Vision-Exp 原厂直供（原 约 35 / 约 70）均降至与新增的 DeepSeek-V4.1-Flash 一致——缓存命中 2 / 未命中 100 / 输出 400（空闲时段）、4 / 200 / 800（高峰时段）积分每百万 tokens，综合单价预估 约 26 / 约 51 积分每百万 tokens；即跟随 DeepSeek 原厂把旧模型名统一切换到 V4.1-Flash 计费
         - 轻享套餐：每月 2 元/百万 tokens
     - Token Plan 个人版（自 2026-08-31 17:00 起改为积分抵扣模式）：
         - Hy Token Plan:
@@ -315,6 +316,7 @@
 
 ## 更新历史
 
+- 2026/09/14：腾讯云 Token Plan 企业版专业套餐（广州/新加坡）模型库新增 DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）；同时原厂直供 Flash 系积分抵扣价统一下调——DeepSeek-V4-Flash 0731 正式版 原厂直供（原空闲 约 39 / 高峰 约 77 积分每百万 tokens）与 DeepSeek-V4-Flash-Vision-Exp 原厂直供（原 约 35 / 约 70）均降至与新模型一致（缓存命中 2 / 未命中 100 / 输出 400 空闲时段、4/200/800 高峰时段，综合单价预估 约 26 / 约 51），即跟随 DeepSeek 原厂把旧模型名统一切换到 V4.1-Flash 计费；同一页面移除了已于 2026-09-10 到期的 GLM-5.3-Flash 积分价 5 折限时优惠活动章节
 - 2026/09/14：OpenCode Go 将 DeepSeek V4.1 Flash 的额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（活动 2026-09-20 结束），请求限额同步由 6,500/5 小时、16,250/周、32,500/月 提高到 26,000/5 小时、65,000/周、130,000/月；token 价格不变
 - 2026/09/14：阿里云百炼模型库新增 deepseek-v4.1-flash：华北2（北京）/全球价 忙时输入 2 元、闲时 1 元，忙时输出 8 元、闲时 4 元（每百万 tokens，送 100 万 tokens 免费额度）；国际站 忙时 2.188/8.75 元、闲时 1.094/4.375 元。上下文缓存命中单价为输入单价的 10%（忙时 0.2 元、闲时 0.1 元），优于百炼其他模型的 20%，但仍高于 DeepSeek 官方 API 的缓存命中价（0.04/0.02 元）。「选择模型」页推荐位同时由 deepseek-v4-flash-0731 换为该模型；该模型暂未列入百炼 Token Plan（个人版/团队版）支持模型
 - 2026/09/12：OpenCode Go 将 DeepSeek V4.1 Flash 的 model ID 由 deepseek-flash 更名为 deepseek-v4.1-flash
