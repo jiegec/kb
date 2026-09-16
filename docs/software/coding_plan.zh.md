@@ -166,7 +166,7 @@
     - Pro 套餐（600 RMB 每月）：40000 Credits 每 7 天
     - 用量包（100 RMB 每月）：20000 Credits
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
-    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -320,6 +320,7 @@
 
 ## 更新历史
 
+- 2026/09/16：阿里云百炼 Token Plan 个人版「支持的模型」新增 glm-5.3（智谱 AI，能力标注「推理模型、文本生成」，与 glm-5.2 并存；glm-5.3 已于 2026-09-15 上线百炼模型库，但当时未列入 Token Plan）；官方接入文档同步加入该模型配置——OpenClaw 中 contextWindow 1,000,000、maxTokens 16,384、reasoning false，OpenCode 中 thinking 开启（budgetTokens 8192）；个人版限时夜间五折名单不变（qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash）
 - 2026/09/15：快手万擎（StreamLake/Vanchin，KwaiKAT Coding Plan 所在平台）模型列表新增 GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Pro-0813 三款模型（模型列表页更新时间 2026-09-15 21:15）；该页是万擎按量计费的模型目录，未说明这些模型是否计入 KwaiKAT Coding Plan 套餐额度
 - 2026/09/15：阿里云百炼模型调用价格新增 GLM 系列 glm-5.3（非思考和思考模式，不区分 Token 阶梯，输入 8 元、输出 28 元每百万 Tokens，华北2（北京）等中国站地域与「全球」部署同价；国际站 10.208/32.084 元，赠送 100 万 Tokens 免费额度）；上下文缓存支持的 GLM（阿里云百炼部署）模型名单同步加入 glm-5.3（缓存命中折扣 25%，与 glm-5.2、glm-5.2-fast-preview 同档）；同时「GLM-智谱」部署的 ZHIPU/GLM-5.3 模式由「非思考和思考模式」修正为「仅思考模式」（价格不变，输入 8 元、输出 28 元，无免费额度）
 - 2026/09/15：火山方舟 Agent Plan 个人版新增 deepseek-v4.1-flash 模型（全套餐支持；1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力），抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（折后 1.25）；该模型同时加入 1M 上下文支持名单（现为 glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
