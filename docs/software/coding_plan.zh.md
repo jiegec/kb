@@ -253,7 +253,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
-    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Union Alpha Free**（限时）
+    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
     - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
     - Omen Alpha 为新增模型：input $0.20/1M、output $0.66/1M、cache read $0.04/1M（使用额度 $100/月）；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha
@@ -262,7 +262,6 @@
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
     - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，2026-09-20 结束），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
-    - Union Alpha Free 为新增模型（限时）：input/output/cache read 均为 Free，请求与额度均不限（限时）；model ID union-alpha，接入点 https://opencode.ai/zen/go/v1/messages（Anthropic 兼容）
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -326,6 +325,7 @@
 
 ## 更新历史
 
+- 2026/09/18：OpenCode Go 移除 Union Alpha Free 模型（限时免费结束）——支持模型列表、token 价格表、请求限额表与接入点表同步移除该模型（model ID union-alpha）
 - 2026/09/18：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 kimi-k2.8-preview 模型（综合性能接近 K3、思考效率更高，支持文本和图片输入；1M 上下文窗口/1M 最大输出，全套餐支持）；Agent Plan 抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）；Coding Plan 中该模型在 2026-09-18 00:00 至 2026-09-30 23:59 活动期间的可用量与 Agent Plan 6 折抵扣活动期间相当；模型同时加入 1M 上下文支持名单（现为 glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
 - 2026/09/18：阿里云百炼 Token Plan 个人版新增 Essential 档，个人版档位由 Lite/Standard/Pro 三档变为四档：原价 120 元/月、限时 79 元/月，每 7 天 5,625 Credits（Lite 的 2.25 倍），可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益；官方页面同时把用量包（100 元/个/月、20,000 Credits，需先订阅有效套餐后购买、最多同时持有 5 个、不受 7 天窗口限额约束）从套餐表格行改为脚注说明
 - 2026/09/17：OpenCode Go 新增 Union Alpha Free 模型（限时）：input/output/cache read 均为 Free，请求与额度不限（限时）；model ID union-alpha，接入点 https://opencode.ai/zen/go/v1/messages（Anthropic 兼容）

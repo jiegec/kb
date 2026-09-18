@@ -254,7 +254,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
     - $10/month
     - Usage limits: defined per model as a monthly amount; 5 hours = 20% of the monthly limit, week = 50%, month = 100% (monthly limits differ per model, e.g. GLM-5.3 $15, GLM-5.3-Flash $60)
-    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.3 Contributor**, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3, **Omen Alpha**, **Union Alpha Free** (limited time)
+    - Supported models: Grok 4.6, GLM-5.3/5.3-Flash/5.2/5.1, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.5/V2.5-Pro, MiniMax M3/M2.7/M2.5, **Muse Spark 1.3 Contributor**, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3, **Omen Alpha**
     - The DeepSeek V4.1 Flash model ID was renamed from deepseek-flash to deepseek-v4.1-flash (endpoint https://opencode.ai/zen/go/v1/chat/completions)
     - Hy4 preview is a new model: input $0.834/1M, output $2.501/1M, cache read $0.042/1M (usage allowance $30); request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview
     - Omen Alpha is a new model: input $0.20/1M, output $0.66/1M, cache read $0.04/1M (usage allowance $100/month); request limits 11,600 per 5 hours, 29,000 per week, 57,900 per month; model ID omen-alpha
@@ -263,7 +263,6 @@
     - Qwen3.8 Flash is a new model: input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M (usage limit $30); request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash
     - Qwen3.7 Max: request limits 170 per 5 hours, 420 per week, 840 per month, usage allowance $30/month; pricing input $2.50/1M, output $7.50/1M, cache read $0.50/1M, cache write $3.125/1M (from 2026-09-01 the request limits were halved from 340/840/1,690 and the monthly usage allowance was reduced from $60 to $30)
     - DeepSeek V4.1 Flash limits temporarily boosted 4x: monthly usage allowance raised from $15 to $60 (limited-time promotion ending 2026-09-20), with request limits raised to 26,000 per 5 hours, 65,000 per week, 130,000 per month (previously 6,500/16,250/32,500); token pricing unchanged (off-peak input $0.15/1M, output $0.60/1M, cache read $0.003/1M; peak pricing is double)
-    - Union Alpha Free is a new model (limited time): input/output/cache read are all Free, with unlimited requests and quota (limited time); model ID union-alpha, endpoint https://opencode.ai/zen/go/v1/messages (Anthropic-compatible)
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
@@ -327,6 +326,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/18: OpenCode Go removed the Union Alpha Free model (limited-time free period ended) — the model (model ID union-alpha) was removed from the supported model list, the token price table, the request limit table and the endpoint table
 - 2026/09/18: Volcano Engine Coding Plan (Personal Edition) and Agent Plan (Personal Edition) added the kimi-k2.8-preview model (overall performance close to K3 with higher thinking efficiency, supports text and image input; 1M context window / 1M max output, supported by all plans); Agent Plan deduction coefficient 8, at 40% off (4.8) from 2026-09-17 00:00 to 2026-09-30 23:59; during the promotion from 2026-09-18 00:00 to 2026-09-30 23:59 the available quota of this model in the Coding Plan is comparable to that during the Agent Plan 40%-off deduction promotion; the model also joins the 1M-context supported list (now glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3, kimi-k2.8-preview)
 - 2026/09/18: Alibaba Cloud Bailian Token Plan Personal Edition added the Essential tier, expanding the personal tiers from three (Lite/Standard/Pro) to four: list price 120 RMB/month, 79 RMB/month for a limited time, 5,625 Credits every 7 days (2.25x Lite), supports 2-3 concurrent Agents, and its benefits are all Lite benefits; the official page also moved the Usage Pack (100 RMB each/month, 20,000 Credits; requires an active subscription, up to 5 held at a time, not subject to the 7-day window limit) from a table row to a footnote
 - 2026/09/17: OpenCode Go added the Union Alpha Free model (limited time): input/output/cache read are all Free, with unlimited requests and quota (limited time); model ID union-alpha, endpoint https://opencode.ai/zen/go/v1/messages (Anthropic-compatible)
