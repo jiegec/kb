@@ -129,7 +129,8 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.1-turbo、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite、MiniMax-M3、Kimi-K2.7-Code、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro
+    - 支持模型：Doubao-Seed-2.1-turbo、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite、MiniMax-M3、Kimi-K2.7-Code、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro
+    - 新增 Kimi-K2.8-Preview 模型：综合性能接近 K3，思考效率更高，擅长代码补全与常规开发任务，支持文本和图片输入；1M 上下文窗口/1M 最大输出。2026-09-18 00:00 至 2026-09-30 23:59 活动期间，Coding Plan 中 Kimi-K2.8-Preview 的可用量与 Agent Plan 6 折抵扣活动期间相当
     - GLM-5.3-Flash 为新增模型：智谱首个原生多模态模型，320B 总参数/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59
     - DeepSeek-V4-Pro 已转正式版上线（原为尝鲜体验版），Agent 能力全面跃升，支持通过 model name 及控制台选择访问
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
@@ -145,6 +146,7 @@
             - doubao-seed-2.1-turbo、doubao-seed-evolving、minimax-m3：2.5
             - deepseek-v4.1-flash：2.5（1.25 限时5折，2026-09-15 00:00 至 2026-09-28 23:59）
             - kimi-k2.7-code：4.5
+            - kimi-k2.8-preview：8（4.8 限时6折，2026-09-17 00:00 至 2026-09-30 23:59）
             - glm-5.3（glm-latest）：4.5
             - deepseek-v4-pro：5.5
             - kimi-k3：10
@@ -154,12 +156,13 @@
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
     - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Agent 进化：前 50 个文件免费（此前为限制/收费项）
     - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro（即将下线）、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
     - 新增 doubao-seedream-5-0-pro（图片生成，全套餐）：输入图抵扣系数第一张免费、第二张起 10 AFP/张；输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景分别为 75 / 150 AFP/张
     - 新增 doubao-seedance-2.5（视频生成，Large/Max）：抵扣系数以 token 为单位，480p/720p 输入含视频 210、不含视频 350；1080p 输入含视频 230、不含视频 385
     - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
+    - 新增 kimi-k2.8-preview（文本生成（进阶），全套餐）：1M 上下文窗口/1M 最大输出，支持文本和图片输入，综合性能接近 K3、思考效率更高、擅长代码补全与常规开发任务；抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite 套餐（60 RMB 每月）：2500 Credits 每 7 天
     - Essential 套餐（120 RMB 每月，限时 79 RMB 每月）：5625 Credits 每 7 天
@@ -323,6 +326,7 @@
 
 ## 更新历史
 
+- 2026/09/18：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 kimi-k2.8-preview 模型（综合性能接近 K3、思考效率更高，支持文本和图片输入；1M 上下文窗口/1M 最大输出，全套餐支持）；Agent Plan 抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）；Coding Plan 中该模型在 2026-09-18 00:00 至 2026-09-30 23:59 活动期间的可用量与 Agent Plan 6 折抵扣活动期间相当；模型同时加入 1M 上下文支持名单（现为 glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
 - 2026/09/18：阿里云百炼 Token Plan 个人版新增 Essential 档，个人版档位由 Lite/Standard/Pro 三档变为四档：原价 120 元/月、限时 79 元/月，每 7 天 5,625 Credits（Lite 的 2.25 倍），可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益；官方页面同时把用量包（100 元/个/月、20,000 Credits，需先订阅有效套餐后购买、最多同时持有 5 个、不受 7 天窗口限额约束）从套餐表格行改为脚注说明
 - 2026/09/17：OpenCode Go 新增 Union Alpha Free 模型（限时）：input/output/cache read 均为 Free，请求与额度不限（限时）；model ID union-alpha，接入点 https://opencode.ai/zen/go/v1/messages（Anthropic 兼容）
 - 2026/09/16：阿里云百炼 Token Plan 个人版「支持的模型」新增 glm-5.3（智谱 AI，能力标注「推理模型、文本生成」，与 glm-5.2 并存；glm-5.3 已于 2026-09-15 上线百炼模型库，但当时未列入 Token Plan）；官方接入文档同步加入该模型配置——OpenClaw 中 contextWindow 1,000,000、maxTokens 16,384、reasoning false，OpenCode 中 thinking 开启（budgetTokens 8192）；个人版限时夜间五折名单不变（qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash）

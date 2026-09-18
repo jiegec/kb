@@ -129,7 +129,8 @@
 - [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan) [Documentation](https://www.volcengine.com/docs/82379/1925114)
     - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
-    - Supported models: Doubao-Seed-2.1-turbo, Doubao-Seed-Evolving, Doubao-Seed-2.0-lite, MiniMax-M3, Kimi-K2.7-Code, Kimi-K3 (high deduction coefficient, recommended only for Pro plan users), GLM-5.3, GLM-5.3-Flash, DeepSeek-V4-Flash, DeepSeek-V4-Pro
+    - Supported models: Doubao-Seed-2.1-turbo, Doubao-Seed-Evolving, Doubao-Seed-2.0-lite, MiniMax-M3, Kimi-K2.7-Code, Kimi-K2.8-Preview, Kimi-K3 (high deduction coefficient, recommended only for Pro plan users), GLM-5.3, GLM-5.3-Flash, DeepSeek-V4-Flash, DeepSeek-V4-Pro
+    - New Kimi-K2.8-Preview model: overall performance close to K3 with higher thinking efficiency, strong at code completion and routine development tasks, supports text and image input; 1M context window / 1M max output. During the promotion from 2026-09-18 00:00 to 2026-09-30 23:59, the available quota of Kimi-K2.8-Preview in the Coding Plan is comparable to that during the Agent Plan 40%-off deduction promotion
     - GLM-5.3-Flash is a new model: Zhipu's first natively multimodal model, 320B total params / 18B active, supports image input, 1M context / 128K max output; first two weeks deduction coefficient at 50% off, promotion ends 2026-09-11 23:59:59
     - DeepSeek-V4-Pro is now officially released (was an early-access preview), with significantly enhanced Agent capabilities, accessible via model name and console selection
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
@@ -145,6 +146,7 @@
             - doubao-seed-2.1-turbo, doubao-seed-evolving, minimax-m3: 2.5
             - deepseek-v4.1-flash: 2.5 (1.25 during the limited-time 50% off, 2026-09-15 00:00 to 2026-09-28 23:59)
             - kimi-k2.7-code: 4.5
+            - kimi-k2.8-preview: 8 (4.8 during the limited-time 40% off, 2026-09-17 00:00 to 2026-09-30 23:59)
             - glm-5.3 (glm-latest): 4.5
             - deepseek-v4-pro: 5.5
             - kimi-k3: 10
@@ -154,12 +156,13 @@
     - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Daily quota: 125,000 AFP.
     - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Daily quota: 250,000 AFP.
     - Image generation models, video generation models, voice models, and Harness have no 5-hour or weekly quota limits; they are only subject to daily quota and monthly plan quota. Daily quota is uniformly half of the monthly plan quota.
-    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.3, glm-5.3-flash, kimi-k2.7-code, deepseek-v4-pro, deepseek-v4.1-flash, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seedream-5-0-pro, doubao-seed-tts-2.0, doubao-seed-asr-2.0
+    - All plans support: doubao-seed-2.0-mini, doubao-seed-2.0-lite, deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.3, glm-5.3-flash, kimi-k2.7-code, kimi-k2.8-preview, deepseek-v4-pro, deepseek-v4.1-flash, doubao-embedding-vision, doubao-seedream-5.0-lite, doubao-seedream-5-0-pro, doubao-seed-tts-2.0, doubao-seed-asr-2.0
     - Agent Evolution: first 50 files free (previously limited/charged)
     - Medium and above plans additionally support: doubao-seedance-1.5-pro (being retired), doubao-seedance-2.0, doubao-seedance-2.0-fast, doubao-seedance-2.0-mini, doubao-seedance-2.5
     - New doubao-seedream-5-0-pro (image generation, all plans): input-image deduction coefficient is free for the first image and 10 AFP per image from the second onward; output images cost 150 AFP (single-image generation, ≤2.61M pixels) or 300 AFP (>2.61M pixels), and 75 / 150 AFP for the layer-separation scenario
     - New doubao-seedance-2.5 (video generation, Large/Max): deduction coefficient per token is 210 when the input contains video and 350 when it does not (480p/720p output), and 230 / 385 for 1080p output
     - New deepseek-v4.1-flash (text generation (advanced), all plans): 1M context window / 384K max output, natively capable of multimodal vision understanding; deduction coefficient 2.5, at 50% off (1.25) from 2026-09-15 00:00 to 2026-09-28 23:59. The model also joins the 1M-context supported list (glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3)
+    - New kimi-k2.8-preview (text generation (advanced), all plans): 1M context window / 1M max output, supports text and image input, overall performance close to K3 with higher thinking efficiency and strong at code completion and routine development tasks; deduction coefficient 8, at 40% off (4.8) from 2026-09-17 00:00 to 2026-09-30 23:59. The model also joins the 1M-context supported list (glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3, kimi-k2.8-preview)
 - [Alibaba Cloud Bailian Token Plan (Personal Edition)](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite Plan (60 RMB/month): 2,500 Credits every 7 days
     - Essential Plan (120 RMB/month, 79 RMB/month for a limited time): 5,625 Credits every 7 days
@@ -324,6 +327,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/18: Volcano Engine Coding Plan (Personal Edition) and Agent Plan (Personal Edition) added the kimi-k2.8-preview model (overall performance close to K3 with higher thinking efficiency, supports text and image input; 1M context window / 1M max output, supported by all plans); Agent Plan deduction coefficient 8, at 40% off (4.8) from 2026-09-17 00:00 to 2026-09-30 23:59; during the promotion from 2026-09-18 00:00 to 2026-09-30 23:59 the available quota of this model in the Coding Plan is comparable to that during the Agent Plan 40%-off deduction promotion; the model also joins the 1M-context supported list (now glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3, kimi-k2.8-preview)
 - 2026/09/18: Alibaba Cloud Bailian Token Plan Personal Edition added the Essential tier, expanding the personal tiers from three (Lite/Standard/Pro) to four: list price 120 RMB/month, 79 RMB/month for a limited time, 5,625 Credits every 7 days (2.25x Lite), supports 2-3 concurrent Agents, and its benefits are all Lite benefits; the official page also moved the Usage Pack (100 RMB each/month, 20,000 Credits; requires an active subscription, up to 5 held at a time, not subject to the 7-day window limit) from a table row to a footnote
 - 2026/09/17: OpenCode Go added the Union Alpha Free model (limited time): input/output/cache read are all Free, with unlimited requests and quota (limited time); model ID union-alpha, endpoint https://opencode.ai/zen/go/v1/messages (Anthropic-compatible)
 - 2026/09/16: Alibaba Cloud Bailian Token Plan (Personal Edition) added glm-5.3 to its "Supported models" list (Zhipu AI, capability label "reasoning, text generation", coexisting with glm-5.2; glm-5.3 had already been added to the Bailian model catalog on 2026-09-15 but was not part of the Token Plan at that time); the official integration docs added the corresponding model config — OpenClaw with contextWindow 1,000,000, maxTokens 16,384, reasoning false, and OpenCode with thinking enabled (budgetTokens 8192); the Personal Edition limited-time night 50%-off list is unchanged (qwen3.8-max, deepseek-v4-pro-0813, deepseek-v4-flash-0731, deepseek-v4.1-flash)
