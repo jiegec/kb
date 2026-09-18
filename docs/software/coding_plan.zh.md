@@ -162,9 +162,11 @@
     - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite 套餐（60 RMB 每月）：2500 Credits 每 7 天
+    - Essential 套餐（120 RMB 每月，限时 79 RMB 每月）：5625 Credits 每 7 天
     - Standard 套餐（180 RMB 每月）：10000 Credits 每 7 天
     - Pro 套餐（600 RMB 每月）：40000 Credits 每 7 天
     - 用量包（100 RMB 每月）：20000 Credits
+    - Essential 为新增档位：可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益 + 2.25x Lite 套餐用量
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
     - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
@@ -321,6 +323,7 @@
 
 ## 更新历史
 
+- 2026/09/18：阿里云百炼 Token Plan 个人版新增 Essential 档，个人版档位由 Lite/Standard/Pro 三档变为四档：原价 120 元/月、限时 79 元/月，每 7 天 5,625 Credits（Lite 的 2.25 倍），可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益；官方页面同时把用量包（100 元/个/月、20,000 Credits，需先订阅有效套餐后购买、最多同时持有 5 个、不受 7 天窗口限额约束）从套餐表格行改为脚注说明
 - 2026/09/17：OpenCode Go 新增 Union Alpha Free 模型（限时）：input/output/cache read 均为 Free，请求与额度不限（限时）；model ID union-alpha，接入点 https://opencode.ai/zen/go/v1/messages（Anthropic 兼容）
 - 2026/09/16：阿里云百炼 Token Plan 个人版「支持的模型」新增 glm-5.3（智谱 AI，能力标注「推理模型、文本生成」，与 glm-5.2 并存；glm-5.3 已于 2026-09-15 上线百炼模型库，但当时未列入 Token Plan）；官方接入文档同步加入该模型配置——OpenClaw 中 contextWindow 1,000,000、maxTokens 16,384、reasoning false，OpenCode 中 thinking 开启（budgetTokens 8192）；个人版限时夜间五折名单不变（qwen3.8-max、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash）
 - 2026/09/15：快手万擎（StreamLake/Vanchin，KwaiKAT Coding Plan 所在平台）模型列表新增 GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Pro-0813 三款模型（模型列表页更新时间 2026-09-15 21:15）；该页是万擎按量计费的模型目录，未说明这些模型是否计入 KwaiKAT Coding Plan 套餐额度

@@ -162,9 +162,11 @@
     - New deepseek-v4.1-flash (text generation (advanced), all plans): 1M context window / 384K max output, natively capable of multimodal vision understanding; deduction coefficient 2.5, at 50% off (1.25) from 2026-09-15 00:00 to 2026-09-28 23:59. The model also joins the 1M-context supported list (glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3)
 - [Alibaba Cloud Bailian Token Plan (Personal Edition)](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite Plan (60 RMB/month): 2,500 Credits every 7 days
+    - Essential Plan (120 RMB/month, 79 RMB/month for a limited time): 5,625 Credits every 7 days
     - Standard Plan (180 RMB/month): 10,000 Credits every 7 days
     - Pro Plan (600 RMB/month): 40,000 Credits every 7 days
     - Usage Pack (100 RMB/month): 20,000 Credits
+    - Essential is a newly added tier: supports 2-3 concurrent Agents, and its benefits are all Lite benefits plus 2.25x the Lite plan quota
     - Device usage note: The Token Plan Personal Edition is for use by the subscriber on a single device only. (The official guide was tightened from "you may configure the same API Key on multiple of your own devices (e.g., home and office computers)" to "for the subscriber's own use on a single device.")
     - Supported models: qwen3.8-max, qwen3.8-flash, qwen3.7-max, qwen3.7-plus, qwen3.6-flash, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qewn-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4.1-flash (capability label now includes "vision understanding"), deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, glm-5.3, glm-5.2, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
@@ -322,6 +324,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/09/18: Alibaba Cloud Bailian Token Plan Personal Edition added the Essential tier, expanding the personal tiers from three (Lite/Standard/Pro) to four: list price 120 RMB/month, 79 RMB/month for a limited time, 5,625 Credits every 7 days (2.25x Lite), supports 2-3 concurrent Agents, and its benefits are all Lite benefits; the official page also moved the Usage Pack (100 RMB each/month, 20,000 Credits; requires an active subscription, up to 5 held at a time, not subject to the 7-day window limit) from a table row to a footnote
 - 2026/09/17: OpenCode Go added the Union Alpha Free model (limited time): input/output/cache read are all Free, with unlimited requests and quota (limited time); model ID union-alpha, endpoint https://opencode.ai/zen/go/v1/messages (Anthropic-compatible)
 - 2026/09/16: Alibaba Cloud Bailian Token Plan (Personal Edition) added glm-5.3 to its "Supported models" list (Zhipu AI, capability label "reasoning, text generation", coexisting with glm-5.2; glm-5.3 had already been added to the Bailian model catalog on 2026-09-15 but was not part of the Token Plan at that time); the official integration docs added the corresponding model config — OpenClaw with contextWindow 1,000,000, maxTokens 16,384, reasoning false, and OpenCode with thinking enabled (budgetTokens 8192); the Personal Edition limited-time night 50%-off list is unchanged (qwen3.8-max, deepseek-v4-pro-0813, deepseek-v4-flash-0731, deepseek-v4.1-flash)
 - 2026/09/15: Kuaishou Wanqing (StreamLake/Vanchin, the platform behind the KwaiKAT Coding Plan) model list added three models — GLM-5.3, GLM-5.3-Flash and DeepSeek-V4-Pro-0813 (model list page updated 2026-09-15 21:15); this page is Wanqing's pay-as-you-go model catalog and does not state whether these models are covered by the KwaiKAT Coding Plan quota
