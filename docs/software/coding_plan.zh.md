@@ -12,6 +12,8 @@
 - Allegro（699 RMB 每月）
 - 订阅续购规则调整：因算力资源紧张，将优先保障订阅中用户的使用体验，你可于 2026-08-20 00:00 前续订，逾期将无法直接购买
 - Kimi Code 当前基于旗舰 K3 模型（参数规模约 2.8 万亿），并搭载 K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；全面兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
+- 模型 ID 与会员档位要求（2026-09-18 文档补充）：`k3`、`k3-256k` 需 Moderato / Plus 及以上会员，其中 1M 上下文需 Allegretto / Pro 及以上会员；`kimi-for-coding`（K2.8 Preview）需 Andante / Plus 及以上会员（此前表述为「所有会员可用」）；`kimi-for-coding-highspeed` 需 Allegretto / Pro 及以上会员。文档首次出现 Plus / Pro 档位命名（Kimi 会员定价页未纳入归档，Plus / Pro 与国内档位的对应关系待确认）
+- API 接入点区分国内/海外：OpenAI 兼容 国内 `https://api.kimi.com/coding/v1`、海外 `https://api.kimi.ai/coding/v1`；Anthropic 兼容 国内 `https://api.kimi.com/coding/`、海外 `https://api.kimi.ai/coding/`；Kimi 开放平台 国内 `https://api.moonshot.cn/v1`、海外 `https://api.moonshot.ai/v1`
 - [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
     - 输入命中缓存 2 RMB 每 1M tokens
     - 输入未命中缓存 20 RMB 每 1M tokens
@@ -325,6 +327,7 @@
 
 ## 更新历史
 
+- 2026/09/18：Kimi Code 文档为各模型 ID 补充会员档位要求，并首次出现 Plus / Pro 档位命名——k3 / k3-256k 需 Moderato / Plus 及以上会员（1M 上下文需 Allegretto / Pro 及以上）；kimi-for-coding 的表述由「所有会员可用」改为「Andante / Plus 及以上会员可用」；kimi-for-coding-highspeed 需 Allegretto / Pro 及以上会员。同一页面为 API 接入点补充海外域名：Kimi Code 海外 OpenAI 兼容 https://api.kimi.ai/coding/v1、Anthropic 兼容 https://api.kimi.ai/coding/，Kimi 开放平台 海外 https://api.moonshot.ai/v1（国内分别为 api.kimi.com/coding、api.moonshot.cn/v1）
 - 2026/09/18：OpenCode Go 移除 Union Alpha Free 模型（限时免费结束）——支持模型列表、token 价格表、请求限额表与接入点表同步移除该模型（model ID union-alpha）
 - 2026/09/18：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 kimi-k2.8-preview 模型（综合性能接近 K3、思考效率更高，支持文本和图片输入；1M 上下文窗口/1M 最大输出，全套餐支持）；Agent Plan 抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）；Coding Plan 中该模型在 2026-09-18 00:00 至 2026-09-30 23:59 活动期间的可用量与 Agent Plan 6 折抵扣活动期间相当；模型同时加入 1M 上下文支持名单（现为 glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
 - 2026/09/18：阿里云百炼 Token Plan 个人版新增 Essential 档，个人版档位由 Lite/Standard/Pro 三档变为四档：原价 120 元/月、限时 79 元/月，每 7 天 5,625 Credits（Lite 的 2.25 倍），可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益；官方页面同时把用量包（100 元/个/月、20,000 Credits，需先订阅有效套餐后购买、最多同时持有 5 个、不受 7 天窗口限额约束）从套餐表格行改为脚注说明
