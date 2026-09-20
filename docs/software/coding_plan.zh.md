@@ -243,8 +243,8 @@
     - Flash Plus（99 RMB 每月）：1600M Credit
     - Flash Pro（199 RMB 每月）：8000M Credit
     - Flash Max（699 RMB 每月）：40000M Credit
-    - 支持模型：step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）、step-image-edit-2
-    - step-image-edit-2 将于 2026-10-10 下线，Step Plan 的文生图与图像编辑接口将同步停止服务（见[图像模型下线公告](https://platform.stepfun.com/docs/zh/guides/image-offline-notice)）
+    - 支持模型：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）
+    - 支持模型列表已移除 step-image-edit-2（文生图与图像编辑模型，原本计划 2026-10-10 下线），官方页面同时删除了图像模型下线公告；套餐改为 Credit 月池计费后的页面已不再包含任何图像生成/编辑模型
 - [小米 MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月
     - Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月
@@ -327,6 +327,7 @@
 
 ## 更新历史
 
+- 2026/09/20：阶越星辰 Step Plan 支持模型新增 step-5-preview（面向真实任务的新一代旗舰基模），同时移除 step-image-edit-2 并删除原有图像模型下线公告，即套餐不再包含文生图与图像编辑模型，官方对模型的描述相应由「旗舰模型，覆盖文本、推理、语音、图像编辑与智能路由」改为「文本、推理、语音与智能路由」；官方文档把 Base URL 说明按工具拆分——Claude Code / Anthropic SDK 使用 `https://api.stepfun.com/step_plan`，OpenAI SDK 的 Chat Completions 调用仍使用 `https://api.stepfun.com/step_plan/v1`，并明确 Step Plan 通道消耗套餐 Credit、与普通 API 通道额度相互独立（FAQ 同步改为按工具选择地址）
 - 2026/09/18：Kimi Code 文档为各模型 ID 补充会员档位要求，并首次出现 Plus / Pro 档位命名——k3 / k3-256k 需 Moderato / Plus 及以上会员（1M 上下文需 Allegretto / Pro 及以上）；kimi-for-coding 的表述由「所有会员可用」改为「Andante / Plus 及以上会员可用」；kimi-for-coding-highspeed 需 Allegretto / Pro 及以上会员。同一页面为 API 接入点补充海外域名：Kimi Code 海外 OpenAI 兼容 https://api.kimi.ai/coding/v1、Anthropic 兼容 https://api.kimi.ai/coding/，Kimi 开放平台 海外 https://api.moonshot.ai/v1（国内分别为 api.kimi.com/coding、api.moonshot.cn/v1）
 - 2026/09/18：OpenCode Go 移除 Union Alpha Free 模型（限时免费结束）——支持模型列表、token 价格表、请求限额表与接入点表同步移除该模型（model ID union-alpha）
 - 2026/09/18：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 kimi-k2.8-preview 模型（综合性能接近 K3、思考效率更高，支持文本和图片输入；1M 上下文窗口/1M 最大输出，全套餐支持）；Agent Plan 抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）；Coding Plan 中该模型在 2026-09-18 00:00 至 2026-09-30 23:59 活动期间的可用量与 Agent Plan 6 折抵扣活动期间相当；模型同时加入 1M 上下文支持名单（现为 glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
