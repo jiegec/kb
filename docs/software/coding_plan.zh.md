@@ -173,7 +173,7 @@
     - 用量包（100 RMB 每月）：20000 Credits
     - Essential 为新增档位：可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益 + 2.25x Lite 套餐用量
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
-    - 支持模型：qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：auto（平台提供的智能模型，按请求内容自动匹配底层模型）、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -327,6 +327,7 @@
 
 ## 更新历史
 
+- 2026/09/21：阿里云百炼 Token Plan 个人版支持模型新增 auto（官方描述为「平台提供的智能模型，按请求内容自动匹配底层模型，兼顾效果与成本」，能力标注「推理模型、文本生成」，在模型表中列于千问品牌首位）；官方 OpenCode / OpenClaw 接入文档同步为个人版与团队版配置加入 auto 条目（OpenCode 中仅声明 input/output 均为 text，无 reasoning 与 limit 字段；OpenClaw 中 contextWindow 1,000,000、maxTokens 393,216、reasoning false），并把 OpenClaw 的默认模型由 `bailian-token-plan/qwen3.8-flash` 改为 `bailian-token-plan/auto`
 - 2026/09/21：OpenCode Go 的 DeepSeek V4.1 Flash 额度限时提升 4 倍活动延长——结束时间由 2026-09-20 改为 2026-09-27（月度使用额度 $60、请求限额 26,000/5 小时、65,000/周、130,000/月与 token 价格均不变）
 - 2026/09/20：阶越星辰 Step Plan 支持模型新增 step-5-preview（面向真实任务的新一代旗舰基模），同时移除 step-image-edit-2 并删除原有图像模型下线公告，即套餐不再包含文生图与图像编辑模型，官方对模型的描述相应由「旗舰模型，覆盖文本、推理、语音、图像编辑与智能路由」改为「文本、推理、语音与智能路由」；官方文档把 Base URL 说明按工具拆分——Claude Code / Anthropic SDK 使用 `https://api.stepfun.com/step_plan`，OpenAI SDK 的 Chat Completions 调用仍使用 `https://api.stepfun.com/step_plan/v1`，并明确 Step Plan 通道消耗套餐 Credit、与普通 API 通道额度相互独立（FAQ 同步改为按工具选择地址）
 - 2026/09/18：Kimi Code 文档为各模型 ID 补充会员档位要求，并首次出现 Plus / Pro 档位命名——k3 / k3-256k 需 Moderato / Plus 及以上会员（1M 上下文需 Allegretto / Pro 及以上）；kimi-for-coding 的表述由「所有会员可用」改为「Andante / Plus 及以上会员可用」；kimi-for-coding-highspeed 需 Allegretto / Pro 及以上会员。同一页面为 API 接入点补充海外域名：Kimi Code 海外 OpenAI 兼容 https://api.kimi.ai/coding/v1、Anthropic 兼容 https://api.kimi.ai/coding/，Kimi 开放平台 海外 https://api.moonshot.ai/v1（国内分别为 api.kimi.com/coding、api.moonshot.cn/v1）
