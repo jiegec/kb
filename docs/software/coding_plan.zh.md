@@ -174,6 +174,7 @@
     - Essential 为新增档位：可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益 + 2.25x Lite 套餐用量
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
     - 支持模型：auto（平台提供的智能模型，按请求内容自动匹配底层模型）、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 限时夜间折扣（每晚 22:00 - 次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗享 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 享 5 折（2026-09-22 页面更新：qwen3.8-max 由 5 折降为 4 折，并新增 qwen3.8-flash 同为 4 折）
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -332,6 +333,7 @@
 
 ## 更新历史
 
+- 2026/09/22：阿里云百炼 Token Plan 个人版限时夜间折扣调整：qwen3.8-max 的折扣由 5 折改为 4 折，并新增 qwen3.8-flash 同为 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 维持 5 折（均为每晚 22:00 - 次日 08:00 的 Credits 消耗优惠）
 - 2026/09/22：OpenCode Go 新增 Grok 4.7、MiMo-V2.6-Flash、MiMo-V2.6-Pro 三款模型——Grok 4.7 的定价与请求限额与 Grok 4.6 相同（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens $4.00/$12.00/$1.00 每 1M tokens；额度 $15/月；请求限额 169/5 小时、423/周、845/月；model ID grok-4.7）；MiMo-V2.6-Flash/V2.6-Pro 与其上一代 MiMo-V2.5/V2.5-Pro 的定价与请求限额完全一致（$0.14/$0.28/$0.0028 额度 $60 与 $0.435/$0.87/$0.003625 额度 $15）
 - 2026/09/22：小米 MiMo Token Plan 页面改版为「个人版」，支持模型由 9 款改为 8 款——新增 mimo-v2.6-pro、mimo-v2.6-flash（Credit 折算与上一代同档：V2.6-Pro 命中缓存 2.5/未命中 300/输出 600、V2.6-Flash 2/100/200 Credits 每 Token），同时从支持模型与额度消耗表中移除 MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS；页面顶部新增公告「mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线」；套餐价格与额度不变（39/99/329/659 元或 6/16/50/100 美元每月，41/110/380/820 亿 Credits 每月）；折扣说明收敛为「首购 88 折、连续包年 88 折、夜间 0.8 倍消耗」三项，此前页面上的 Token Plan 升级「Credits 用量焕新重置」活动（2026-05-27 生效）已删除，套餐购买说明同时改为「仅支持同时购买 1 个个人版套餐」
 - 2026/09/21：阿里云百炼 Token Plan 个人版支持模型新增 auto（官方描述为「平台提供的智能模型，按请求内容自动匹配底层模型，兼顾效果与成本」，能力标注「推理模型、文本生成」，在模型表中列于千问品牌首位）；官方 OpenCode / OpenClaw 接入文档同步为个人版与团队版配置加入 auto 条目（OpenCode 中仅声明 input/output 均为 text，无 reasoning 与 limit 字段；OpenClaw 中 contextWindow 1,000,000、maxTokens 393,216、reasoning false），并把 OpenClaw 的默认模型由 `bailian-token-plan/qwen3.8-flash` 改为 `bailian-token-plan/auto`
