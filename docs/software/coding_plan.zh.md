@@ -258,7 +258,9 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
-    - 支持模型：Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
+    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
+    - Grok 4.7 为新增模型：定价与请求限额与 Grok 4.6 一致（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens 输入 $4.00/输出 $12.00/缓存读取 $1.00 每 1M tokens；月度使用额度 $15；请求限额 169/5 小时、423/周、845/月）；model ID grok-4.7，接入点 https://opencode.ai/zen/go/v1/responses
+    - MiMo-V2.6-Flash、MiMo-V2.6-Pro 为新增模型：定价与请求限额与对应的上一代完全相同——V2.6-Flash 输入 $0.14/输出 $0.28/缓存读取 $0.0028（额度 $60，请求限额 30,100/5 小时、75,200/周、150,400/月，model ID mimo-v2.6-flash）；V2.6-Pro 输入 $0.435/输出 $0.87/缓存读取 $0.003625（额度 $15，请求限额 3,250/5 小时、8,150/周、16,300/月，model ID mimo-v2.6-pro）
     - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
     - Omen Alpha 为新增模型：input $0.20/1M、output $0.66/1M、cache read $0.04/1M（使用额度 $100/月）；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha
@@ -330,6 +332,7 @@
 
 ## 更新历史
 
+- 2026/09/22：OpenCode Go 新增 Grok 4.7、MiMo-V2.6-Flash、MiMo-V2.6-Pro 三款模型——Grok 4.7 的定价与请求限额与 Grok 4.6 相同（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens $4.00/$12.00/$1.00 每 1M tokens；额度 $15/月；请求限额 169/5 小时、423/周、845/月；model ID grok-4.7）；MiMo-V2.6-Flash/V2.6-Pro 与其上一代 MiMo-V2.5/V2.5-Pro 的定价与请求限额完全一致（$0.14/$0.28/$0.0028 额度 $60 与 $0.435/$0.87/$0.003625 额度 $15）
 - 2026/09/22：小米 MiMo Token Plan 页面改版为「个人版」，支持模型由 9 款改为 8 款——新增 mimo-v2.6-pro、mimo-v2.6-flash（Credit 折算与上一代同档：V2.6-Pro 命中缓存 2.5/未命中 300/输出 600、V2.6-Flash 2/100/200 Credits 每 Token），同时从支持模型与额度消耗表中移除 MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS；页面顶部新增公告「mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线」；套餐价格与额度不变（39/99/329/659 元或 6/16/50/100 美元每月，41/110/380/820 亿 Credits 每月）；折扣说明收敛为「首购 88 折、连续包年 88 折、夜间 0.8 倍消耗」三项，此前页面上的 Token Plan 升级「Credits 用量焕新重置」活动（2026-05-27 生效）已删除，套餐购买说明同时改为「仅支持同时购买 1 个个人版套餐」
 - 2026/09/21：阿里云百炼 Token Plan 个人版支持模型新增 auto（官方描述为「平台提供的智能模型，按请求内容自动匹配底层模型，兼顾效果与成本」，能力标注「推理模型、文本生成」，在模型表中列于千问品牌首位）；官方 OpenCode / OpenClaw 接入文档同步为个人版与团队版配置加入 auto 条目（OpenCode 中仅声明 input/output 均为 text，无 reasoning 与 limit 字段；OpenClaw 中 contextWindow 1,000,000、maxTokens 393,216、reasoning false），并把 OpenClaw 的默认模型由 `bailian-token-plan/qwen3.8-flash` 改为 `bailian-token-plan/auto`
 - 2026/09/21：阿里云百炼模型调用价格与上下文缓存支持的模型名单新增两款——智谱部署的 ZHIPU/GLM-5.3-FlashX（仅思考模式，输入 2 元、输出 7 元每百万 Tokens，无免费额度；缓存命中折扣 28.5%，高于同系列 ZHIPU/GLM-5.3-Flash 等 5 款模型的 25%）与快手万擎部署的 vanchin/deepseek-v4.1-flash（输入 2 元、输出 8 元每百万 Tokens；缓存命中折扣 2%，低于 vanchin/deepseek-v4-pro 的 8.33%）
