@@ -245,13 +245,16 @@
     - Flash Max（699 RMB 每月）：40000M Credit
     - 支持模型：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）
     - 支持模型列表已移除 step-image-edit-2（文生图与图像编辑模型，原本计划 2026-10-10 下线），官方页面同时删除了图像模型下线公告；套餐改为 Credit 月池计费后的页面已不再包含任何图像生成/编辑模型
-- [小米 MiMo Token Plan](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
+- [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)（官方页面标题由「订阅说明」改为「个人版」，套餐购买说明相应改为「仅支持同时购买 1 个个人版套餐」）
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月
     - Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月
     - Pro（329 RMB 或 50 USD 每月）：380 亿 Credits 每月
     - Max（659 RMB 或 100 USD 每月）：820 亿 Credits 每月
-    - 支持模型：各套餐均支持 MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS、MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 共 9 款模型。
-    - 额度消耗：按 Token 数扣除 Credit 额度，套餐中的可用模型按不同比例并行消耗，不是独立消耗，TTS 系列模型限时免费，不消耗套餐 Token。
+    - 支持模型：各套餐均支持 MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS 共 8 款模型（MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 已从列表与额度表中移除）
+    - MiMo-V2.6-Pro、MiMo-V2.6-Flash 为新增模型，Credit 折算与上一代同档：V2.6-Pro 命中缓存 2.5、未命中 300、输出 600 Credits 每 Token；V2.6-Flash 命中缓存 2、未命中 100、输出 200 Credits 每 Token（V2.5-Pro/V2.5 相同，ASR 仍为 30M Credits 每小时）
+    - **mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线，官方建议尽快切换至新版模型。**
+    - 额度消耗：语言模型按 Token 数扣除 Credit 额度，ASR 按输入音频时长扣除，TTS 系列模型限时免费、不消耗套餐 Credit
+    - 折扣现仅剩「套餐首购 88 折、连续包年享 88 折、夜间（0:00-8:00）0.8 倍消耗」三项，此前页面上的 Token Plan 升级「Credits 用量焕新重置」活动（2026-05-27 生效）已删除
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
@@ -327,6 +330,7 @@
 
 ## 更新历史
 
+- 2026/09/22：小米 MiMo Token Plan 页面改版为「个人版」，支持模型由 9 款改为 8 款——新增 mimo-v2.6-pro、mimo-v2.6-flash（Credit 折算与上一代同档：V2.6-Pro 命中缓存 2.5/未命中 300/输出 600、V2.6-Flash 2/100/200 Credits 每 Token），同时从支持模型与额度消耗表中移除 MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS；页面顶部新增公告「mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线」；套餐价格与额度不变（39/99/329/659 元或 6/16/50/100 美元每月，41/110/380/820 亿 Credits 每月）；折扣说明收敛为「首购 88 折、连续包年 88 折、夜间 0.8 倍消耗」三项，此前页面上的 Token Plan 升级「Credits 用量焕新重置」活动（2026-05-27 生效）已删除，套餐购买说明同时改为「仅支持同时购买 1 个个人版套餐」
 - 2026/09/21：阿里云百炼 Token Plan 个人版支持模型新增 auto（官方描述为「平台提供的智能模型，按请求内容自动匹配底层模型，兼顾效果与成本」，能力标注「推理模型、文本生成」，在模型表中列于千问品牌首位）；官方 OpenCode / OpenClaw 接入文档同步为个人版与团队版配置加入 auto 条目（OpenCode 中仅声明 input/output 均为 text，无 reasoning 与 limit 字段；OpenClaw 中 contextWindow 1,000,000、maxTokens 393,216、reasoning false），并把 OpenClaw 的默认模型由 `bailian-token-plan/qwen3.8-flash` 改为 `bailian-token-plan/auto`
 - 2026/09/21：阿里云百炼模型调用价格与上下文缓存支持的模型名单新增两款——智谱部署的 ZHIPU/GLM-5.3-FlashX（仅思考模式，输入 2 元、输出 7 元每百万 Tokens，无免费额度；缓存命中折扣 28.5%，高于同系列 ZHIPU/GLM-5.3-Flash 等 5 款模型的 25%）与快手万擎部署的 vanchin/deepseek-v4.1-flash（输入 2 元、输出 8 元每百万 Tokens；缓存命中折扣 2%，低于 vanchin/deepseek-v4-pro 的 8.33%）
 - 2026/09/21：OpenCode Go 的 DeepSeek V4.1 Flash 额度限时提升 4 倍活动延长——结束时间由 2026-09-20 改为 2026-09-27（月度使用额度 $60、请求限额 26,000/5 小时、65,000/周、130,000/月与 token 价格均不变）
