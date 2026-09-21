@@ -263,7 +263,7 @@
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
-    - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，2026-09-20 结束），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
+    - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，结束时间已由 2026-09-20 延长至 2026-09-27），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -327,6 +327,7 @@
 
 ## 更新历史
 
+- 2026/09/21：OpenCode Go 的 DeepSeek V4.1 Flash 额度限时提升 4 倍活动延长——结束时间由 2026-09-20 改为 2026-09-27（月度使用额度 $60、请求限额 26,000/5 小时、65,000/周、130,000/月与 token 价格均不变）
 - 2026/09/20：阶越星辰 Step Plan 支持模型新增 step-5-preview（面向真实任务的新一代旗舰基模），同时移除 step-image-edit-2 并删除原有图像模型下线公告，即套餐不再包含文生图与图像编辑模型，官方对模型的描述相应由「旗舰模型，覆盖文本、推理、语音、图像编辑与智能路由」改为「文本、推理、语音与智能路由」；官方文档把 Base URL 说明按工具拆分——Claude Code / Anthropic SDK 使用 `https://api.stepfun.com/step_plan`，OpenAI SDK 的 Chat Completions 调用仍使用 `https://api.stepfun.com/step_plan/v1`，并明确 Step Plan 通道消耗套餐 Credit、与普通 API 通道额度相互独立（FAQ 同步改为按工具选择地址）
 - 2026/09/18：Kimi Code 文档为各模型 ID 补充会员档位要求，并首次出现 Plus / Pro 档位命名——k3 / k3-256k 需 Moderato / Plus 及以上会员（1M 上下文需 Allegretto / Pro 及以上）；kimi-for-coding 的表述由「所有会员可用」改为「Andante / Plus 及以上会员可用」；kimi-for-coding-highspeed 需 Allegretto / Pro 及以上会员。同一页面为 API 接入点补充海外域名：Kimi Code 海外 OpenAI 兼容 https://api.kimi.ai/coding/v1、Anthropic 兼容 https://api.kimi.ai/coding/，Kimi 开放平台 海外 https://api.moonshot.ai/v1（国内分别为 api.kimi.com/coding、api.moonshot.cn/v1）
 - 2026/09/18：OpenCode Go 移除 Union Alpha Free 模型（限时免费结束）——支持模型列表、token 价格表、请求限额表与接入点表同步移除该模型（model ID union-alpha）
