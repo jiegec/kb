@@ -168,11 +168,14 @@
     - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
     - 新增 kimi-k2.8-preview（文本生成（进阶），全套餐）：1M 上下文窗口/1M 最大输出，支持文本和图片输入，综合性能接近 K3、思考效率更高、擅长代码补全与常规开发任务；抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
-    - Lite 套餐（60 RMB 每月）：2500 Credits 每 7 天
-    - Essential 套餐（120 RMB 每月，限时 79 RMB 每月）：5625 Credits 每 7 天
-    - Standard 套餐（180 RMB 每月）：10000 Credits 每 7 天
-    - Pro 套餐（600 RMB 每月）：40000 Credits 每 7 天
+    - Lite 套餐（60 RMB 每月，限时 39 RMB 每月）：11500 Credits 每月
+    - Essential 套餐（120 RMB 每月，限时 79 RMB 每月）：25500 Credits 每月
+    - Standard 套餐（180 RMB 每月，限时 139 RMB 每月）：45000 Credits 每月
+    - Pro 套餐（600 RMB 每月，限时 499 RMB 每月）：180000 Credits 每月
     - 用量包（100 RMB 每月）：20000 Credits
+    - 自 2026-09-22 起个人版取消 7 天固定窗口限额，改为按月额度计量：以订阅日为起点每 30 天为一个订阅月，订阅月内累计消耗达到套餐额度即暂停服务，需等下一个订阅月额度重置（按订阅日自动刷新，非固定日历日期）；订阅月内未用完的额度不结转。存量订阅的剩余额度已于 2026-09-22 一次性重置为对应套餐的满月额度，订阅周期与到期时间保持不变；此前的「重置卡 / 额度重置权益」随周限额一并取消
+    - 抵扣顺序：每次调用优先抵扣当前订阅月的套餐额度；套餐月额度用尽后自动抵扣用量包额度（用量包额度不占用、不计入套餐月额度）；两者都用尽或未持有用量包时服务暂停，可升级套餐或等待下一个订阅月重置
+    - 升配（不重置当前订阅周期）：按剩余天数补缴差价 —— 升级补差金额 = (新套餐价格 − 旧套餐价格) × 剩余天数 ÷ 30，升级后当前周期新增额度 = 剩余天数 ÷ 30 × (升级后月额度 − 升级前月额度)，均不满一天按一天计算、额度结果向上取整；自下一个订阅月起按新档位月额度计量
     - Essential 为新增档位：可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益 + 2.25x Lite 套餐用量
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
     - 支持模型：auto（平台提供的智能模型，按请求内容自动匹配底层模型）、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
@@ -335,6 +338,7 @@
 
 ## 更新历史
 
+- 2026/09/23：阿里云百炼 Token Plan 个人版取消周限额、改为订阅月额度（相关页面更新时间 2026-09-22 23:52）：个人版由「每 7 天固定窗口限额」改为月额度——订阅月自订阅当日起算 30 天，订阅月内累计消耗达到套餐额度后暂停服务，需等下一个订阅月额度重置（按订阅日自动刷新，非固定日历日期），未用完额度不结转；各档位额度同步调整为 Lite 11,500 / Essential 25,500 / Standard 45,000 / Pro 180,000 Credits 每月（档位与价格不变，限时价 39/79/139/499 元每月），存量订阅的剩余额度已于 2026-09-22 一次性重置为对应套餐的满月额度、订阅周期与到期时间不变；此前的「重置卡 / 额度重置权益」（页面上的「重置限额」按钮与重置次数说明）整体删除，额度重置改为订阅月自动重置；抵扣顺序改为「每次调用优先抵扣当前订阅月的套餐额度，用尽后自动抵扣用量包额度」，用量包不再表述为「不受 7 天窗口限额约束」，而是「不占用、不计入套餐月额度」；升配规则改为不重置当前订阅周期——按 (新套餐价格 − 旧套餐价格) × 剩余天数 ÷ 30（不满一天按一天计算）补缴差价，并按剩余天数 ÷ 30 × (升级后月额度 − 升级前月额度) 向上取整发放当前周期新增 Credits，自下一个订阅月起按新档位月额度计量；429 错误提示由 `insufficient_quota: Your token-plan 1-week quota has been exhausted.` 改为 `insufficient_quota: Your token-plan quota has been exhausted.`；团队版 FAQ 对比表中的「个人版额度机制」同步改为「月额度，按订阅月自动刷新」，团队版概述表格移除「7 天限额：无限制」行
 - 2026/09/22：商汤 SenseNova API 文档（含 TokenPlan 积分与模型总览）模型库调整：模型总览移除 DeepSeek V4 Pro，新增 DeepSeek V4.1 Flash（model ID `deepseek-flash`，1M 上下文、支持图像输入），DeepSeek V4 Flash（`deepseek-v4-flash`）保留；对应模型章节同步改写，并新增图像输入说明与限制（单图 ≤50 MB、单请求 ≤200 张、总请求体 ≤64 MB、以 URL 传入图片总大小 ≤200 MB，视频输入仅 Chat Completions 接口支持）、`max_tokens` 默认值改为 131072（范围 1–393216，思考超出长度会被截断）、`reasoning_effort` 原生档位为 none/low/high/max 并提供兼容映射、明确不支持显式缓存
 - 2026/09/22：智谱 GLM Coding Plan（国内站 bigmodel.cn 与国际版 z.ai DevPack 页面同步公告）新增两项限时活动：「夜间畅用活动」——2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，套餐用户在 [ZCode](https://zcode.z.ai/cn) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍；「庆双节活动」——2026-09-25 至 2026-10-07 全天按非高峰时段规则消耗额度（即全天按 50% 积分消耗），官方同时提示叠加夜间活动后实际可用额度远高于额度参考表所列数值
 - 2026/09/22：阿里云百炼模型调用价格、模型库与上下文缓存更新：Stepfun-阶跃星辰 部署新增 stepfun/step-5-preview（输入 7 元、输出 20 元每百万 Token，无免费额度，与 stepfun/step-3.7-flash 的 1.35/8.1 元并存）、Unisound-云知声 章节列出 unisound/unisound-u2（1 元输入/2 元输出，该章节在页面中重复出现两次）；新增「音频生成」计费章节（qwen-audio-3.1-tts-next，按输入输出 Token 计费 6/12 元）；语音识别新增 Qwen-Audio-3.1 系列并由按音频秒数计费改为按 Token 计费——qwen-audio-3.1-asr-flash-message 与 qwen-audio-3.1-asr-flash-streaming 为 6/4.5 元（国际站 6.781/5.104 元）、qwen-audio-3.1-asr-flash-filetrans 与 qwen-audio-3.1-asr-flash 为 0.8/2.7 元（国际站 1.094/3.427 元），3.0 系列按秒计费的档次保留；「选择模型」页语音识别推荐位由 qwen-audio-3.0-asr-flash-streaming/-filetrans 换为 3.1 版本；上下文缓存的 Stepfun（阶跃星辰部署）名单新增 stepfun/step-5-preview；qwen3.8-max-prime 的优速模式文档链接由 /fast-mode 改为 /prime-mode；官方 OpenCode / OpenClaw 接入文档中的 Workspace ID 链接由「获取 Workspace ID」改为地域说明页（/zh/model-studio/regions#h2_migrate_domain）
