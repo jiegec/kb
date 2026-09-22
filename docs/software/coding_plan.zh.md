@@ -68,6 +68,8 @@
 - 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**。
 - 调用历史模型 GLM-5.2、GLM-5.1 都将自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 将自动切换至 GLM-5.3-Flash。
 - 非高峰时段内，模型调用按基础积分消耗的 50% 抵扣。高峰时段：每周一至周五的 14:00～18:00（UTC+8）。
+    - 「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00）：套餐用户在 [ZCode](https://zcode.z.ai/cn) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍
+    - 「庆双节活动」（2026-09-25 至 2026-10-07）：全天按非高峰时段规则消耗额度，即全天按 50% 积分消耗
 - GLM-5.3：Input 抵扣系数 6.9，Cached Input 抵扣系数 1.7，Output 抵扣系数 24
 - GLM-5.3-Flash（含视觉理解 MCP）：Input 抵扣系数 2.3，Cached Input 抵扣系数 0.56，Output 抵扣系数 8
 - 套餐的 Token 用量会因缓存命中率而有所不同，具体如下：
@@ -333,6 +335,7 @@
 
 ## 更新历史
 
+- 2026/09/22：智谱 GLM Coding Plan（国内站 bigmodel.cn 与国际版 z.ai DevPack 页面同步公告）新增两项限时活动：「夜间畅用活动」——2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，套餐用户在 [ZCode](https://zcode.z.ai/cn) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍；「庆双节活动」——2026-09-25 至 2026-10-07 全天按非高峰时段规则消耗额度（即全天按 50% 积分消耗），官方同时提示叠加夜间活动后实际可用额度远高于额度参考表所列数值
 - 2026/09/22：阿里云百炼模型调用价格、模型库与上下文缓存更新：Stepfun-阶跃星辰 部署新增 stepfun/step-5-preview（输入 7 元、输出 20 元每百万 Token，无免费额度，与 stepfun/step-3.7-flash 的 1.35/8.1 元并存）、Unisound-云知声 章节列出 unisound/unisound-u2（1 元输入/2 元输出，该章节在页面中重复出现两次）；新增「音频生成」计费章节（qwen-audio-3.1-tts-next，按输入输出 Token 计费 6/12 元）；语音识别新增 Qwen-Audio-3.1 系列并由按音频秒数计费改为按 Token 计费——qwen-audio-3.1-asr-flash-message 与 qwen-audio-3.1-asr-flash-streaming 为 6/4.5 元（国际站 6.781/5.104 元）、qwen-audio-3.1-asr-flash-filetrans 与 qwen-audio-3.1-asr-flash 为 0.8/2.7 元（国际站 1.094/3.427 元），3.0 系列按秒计费的档次保留；「选择模型」页语音识别推荐位由 qwen-audio-3.0-asr-flash-streaming/-filetrans 换为 3.1 版本；上下文缓存的 Stepfun（阶跃星辰部署）名单新增 stepfun/step-5-preview；qwen3.8-max-prime 的优速模式文档链接由 /fast-mode 改为 /prime-mode；官方 OpenCode / OpenClaw 接入文档中的 Workspace ID 链接由「获取 Workspace ID」改为地域说明页（/zh/model-studio/regions#h2_migrate_domain）
 - 2026/09/22：阿里云百炼 Token Plan 个人版限时夜间折扣调整：qwen3.8-max 的折扣由 5 折改为 4 折，并新增 qwen3.8-flash 同为 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 维持 5 折（均为每晚 22:00 - 次日 08:00 的 Credits 消耗优惠）
 - 2026/09/22：OpenCode Go 新增 Grok 4.7、MiMo-V2.6-Flash、MiMo-V2.6-Pro 三款模型——Grok 4.7 的定价与请求限额与 Grok 4.6 相同（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens $4.00/$12.00/$1.00 每 1M tokens；额度 $15/月；请求限额 169/5 小时、423/周、845/月；model ID grok-4.7）；MiMo-V2.6-Flash/V2.6-Pro 与其上一代 MiMo-V2.5/V2.5-Pro 的定价与请求限额完全一致（$0.14/$0.28/$0.0028 额度 $60 与 $0.435/$0.87/$0.003625 额度 $15）
