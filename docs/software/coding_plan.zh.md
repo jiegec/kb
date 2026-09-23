@@ -133,7 +133,9 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
     - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
-    - 支持模型：Doubao-Seed-2.1-turbo、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite、MiniMax-M3、Kimi-K2.7-Code、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro
+    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-2.1-turbo（即将下线）、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite（即将下线）、MiniMax-M3、Kimi-K2.7-Code、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
+    - 2026-09-23 模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出，适合复杂推理、深度分析与长链路任务执行）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出，适合日常编码与常规开发任务）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出，适合简单编码任务与代码补全）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」
+    - 1M 上下文支持名单（2026-09-23）：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
     - 新增 Kimi-K2.8-Preview 模型：综合性能接近 K3，思考效率更高，擅长代码补全与常规开发任务，支持文本和图片输入；1M 上下文窗口/1M 最大输出。2026-09-18 00:00 至 2026-09-30 23:59 活动期间，Coding Plan 中 Kimi-K2.8-Preview 的可用量与 Agent Plan 6 折抵扣活动期间相当
     - GLM-5.3-Flash 为新增模型：智谱首个原生多模态模型，320B 总参数/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59
     - DeepSeek-V4-Pro 已转正式版上线（原为尝鲜体验版），Agent 能力全面跃升，支持通过 model name 及控制台选择访问
@@ -144,10 +146,12 @@
         - 图片生成模型：成功生成的图片张数 * 抵扣系数
         - 文本生成/向量化模型的输入抵扣系数与输出抵扣系数由模型统一决定、不随输入长度变化（此前输入抵扣系数 = 模型抵扣系数 × 输入分段系数：≤32k ×0.67、32k–128k ×1、>128k ×2，现已去掉长度分段）
         - 各模型抵扣系数（输入/输出相同）：
-            - doubao-seed-2.0-mini：0.25
-            - doubao-seed-2.0-lite、deepseek-v4-flash：0.5
+            - doubao-seed-2.0-mini：0.25（输入不含音频）/ 2.5（输入包含音频）
+            - doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash：0.5
+            - doubao-seed-2.1-lite：0.5（输入不含音频）/ 4.5（输入包含音频）
             - glm-5.3-flash：0.5（0.25 限时5折）
-            - doubao-seed-2.1-turbo、doubao-seed-evolving、minimax-m3：2.5
+            - doubao-seed-2.1-turbo（即将下线）、doubao-seed-evolving、minimax-m3：2.5
+            - doubao-seed-2.1-pro：2.5
             - deepseek-v4.1-flash：2.5（1.25 限时5折，2026-09-15 00:00 至 2026-09-28 23:59）
             - kimi-k2.7-code：4.5
             - kimi-k2.8-preview：8（4.8 限时6折，2026-09-17 00:00 至 2026-09-30 23:59）
@@ -160,9 +164,10 @@
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
     - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.0-mini、doubao-seed-2.0-lite、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Agent 进化：前 50 个文件免费（此前为限制/收费项）
-    - Medium 以上套餐额外支持模型：doubao-seedance-1.5-pro（即将下线）、doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
+    - Medium 以上套餐额外支持模型：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
+    - 2026-09-23 模型库更新：新增 doubao-seed-2.1-pro（文本生成（进阶），新一代旗舰级模型、综合能力全面提升，1024k 上下文窗口/256k 输出，抵扣系数 2.5）、doubao-seed-2.1-lite（文本生成（标准），轻量高效，1024k 上下文窗口/256k 输出，抵扣系数 0.5 / 输入包含音频 4.5）与 doubao-seed-2.0-mini（文本生成（极速），256k 上下文窗口/128k 输出，抵扣系数细化为输入不含音频 0.25 / 输入包含音频 2.5）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」；doubao-seedance-1.5-pro 已从模型表移除
     - 新增 doubao-seedream-5-0-pro（图片生成，全套餐）：输入图抵扣系数第一张免费、第二张起 10 AFP/张；输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景分别为 75 / 150 AFP/张
     - 新增 doubao-seedance-2.5（视频生成，Large/Max）：抵扣系数以 token 为单位，480p/720p 输入含视频 210、不含视频 350；1080p 输入含视频 230、不含视频 385
     - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-09-28 23:59 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
@@ -341,6 +346,7 @@
 
 ## 更新历史
 
+- 2026/09/23：火山方舟 Coding Plan 个人版与 Agent Plan 个人版模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出；此前已进入 Agent Plan，本次进入 Coding Plan）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」（官方公告为「模型启动下线」），doubao-seedance-1.5-pro 从 Agent Plan 模型表移除；Agent Plan 抵扣系数相应更新——doubao-seed-2.1-pro 2.5、doubao-seed-2.1-lite 0.5（输入包含音频 4.5）、doubao-seed-2.0-mini 细化为输入不含音频 0.25 / 输入包含音频 2.5；Coding Plan 与 Agent Plan 的 1M 上下文支持名单均加入 deepseek-v4.1-flash（Agent Plan 名单：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro）
 - 2026/09/23：天翼云编程 Token Plan 改版为积分计量并新增「编程Token Plan（积分版）」：套餐档位与价格不变（29/89/199/399/699 元每月），额度由 Token 定额改为 3000/10000/25000/50000/100000 积分每订阅月，支持模型改为 DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3（原 GLM-5.0、DeepSeek-V3.2 移出）；页面新增「积分与模型的兑换关系」表（1 积分相当于多少个 Token，输入/输出——DeepSeek-V4-Pro 1,111/370、DeepSeek-V4-Flash 3,333/1,111、GLM-5.2 1,250/357、GLM-5.1 输入 [0,32k] 1,667（输出 417）与输入 (32k,200k] 1,250（输出 357）、Kimi-K2.6 1,538/370、MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）与输入 (512k,1M] 2,381（输出 595）），并注明模型库为动态更新机制、不承诺永久固定提供任一指定模型；原按 Token 计量套餐标注「老套餐即将下线，仅存量已订阅用户可续订，不支持新购」，其支持模型更新为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.0（2026-10-10 下线）与 DeepSeek-V3.2（页面写作 DeepSeeV3.2，2026-10-10 下线）
 - 2026/09/23：快手万擎（StreamLake/Vanchin，KwaiKAT Coding Plan 所在平台）模型列表新增 DeepSeek-V4.1-Flash（列于多模态章节：深度思考 + 图像理解，1M 上下文 / 384K 最大输出，原生多模态视觉理解，默认限流 RPM 10 / TPM 300000；模型列表页更新时间 2026-09-22 23:11）；该页是万擎按量计费的模型目录，未说明该模型是否计入 KwaiKAT Coding Plan 套餐额度
 - 2026/09/23：阿里云百炼 Token Plan 个人版取消周限额、改为订阅月额度（相关页面更新时间 2026-09-22 23:52）：个人版由「每 7 天固定窗口限额」改为月额度——订阅月自订阅当日起算 30 天，订阅月内累计消耗达到套餐额度后暂停服务，需等下一个订阅月额度重置（按订阅日自动刷新，非固定日历日期），未用完额度不结转；各档位额度同步调整为 Lite 11,500 / Essential 25,500 / Standard 45,000 / Pro 180,000 Credits 每月（档位与价格不变，限时价 39/79/139/499 元每月），存量订阅的剩余额度已于 2026-09-22 一次性重置为对应套餐的满月额度、订阅周期与到期时间不变；此前的「重置卡 / 额度重置权益」（页面上的「重置限额」按钮与重置次数说明）整体删除，额度重置改为订阅月自动重置；抵扣顺序改为「每次调用优先抵扣当前订阅月的套餐额度，用尽后自动抵扣用量包额度」，用量包不再表述为「不受 7 天窗口限额约束」，而是「不占用、不计入套餐月额度」；升配规则改为不重置当前订阅周期——按 (新套餐价格 − 旧套餐价格) × 剩余天数 ÷ 30（不满一天按一天计算）补缴差价，并按剩余天数 ÷ 30 × (升级后月额度 − 升级前月额度) 向上取整发放当前周期新增 Credits，自下一个订阅月起按新档位月额度计量；429 错误提示由 `insufficient_quota: Your token-plan 1-week quota has been exhausted.` 改为 `insufficient_quota: Your token-plan quota has been exhausted.`；团队版 FAQ 对比表中的「个人版额度机制」同步改为「月额度，按订阅月自动刷新」，团队版概述表格移除「7 天限额：无限制」行
