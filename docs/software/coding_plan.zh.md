@@ -273,7 +273,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
-    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Space Bunny Free**（限时免费）
+    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Space Bunny Free**（限时免费）
     - Grok 4.7 为新增模型：定价与请求限额与 Grok 4.6 一致（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens 输入 $4.00/输出 $12.00/缓存读取 $1.00 每 1M tokens；月度使用额度 $15；请求限额 169/5 小时、423/周、845/月）；model ID grok-4.7，接入点 https://opencode.ai/zen/go/v1/responses
     - MiMo-V2.6-Flash、MiMo-V2.6-Pro 为新增模型：定价与请求限额与对应的上一代完全相同——V2.6-Flash 输入 $0.14/输出 $0.28/缓存读取 $0.0028（额度 $60，请求限额 30,100/5 小时、75,200/周、150,400/月，model ID mimo-v2.6-flash）；V2.6-Pro 输入 $0.435/输出 $0.87/缓存读取 $0.003625（额度 $15，请求限额 3,250/5 小时、8,150/周、16,300/月，model ID mimo-v2.6-pro）
     - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
@@ -285,6 +285,7 @@
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
     - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，结束时间已由 2026-09-20 延长至 2026-09-27），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
     - Space Bunny Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID space-bunny-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
+    - GPT 6 Luna 为新增模型：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为输入 $0.20/输出 $0.75/缓存读取 $0.02/缓存写入 $0.25——输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（GPT 5.6 Luna 为 $1.20），GPT 5.6 Luna 仍保留；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID gpt-6-luna，接入点 https://opencode.ai/zen/go/v1/responses
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -348,6 +349,7 @@
 
 ## 更新历史
 
+- 2026/09/24：OpenCode Go 模型列表新增 GPT 6 Luna：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为 $0.20/$0.75/$0.02/$0.25；输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（原 $1.20），GPT 5.6 Luna 保留在列表与定价表中；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID `gpt-6-luna`，接入点 https://opencode.ai/zen/go/v1/responses（数据保留说明同步由「GPT 5.6 Luna」改为「GPT 6 Luna / GPT 5.6 Luna」）
 - 2026/09/23：智谱 GLM Coding Plan「夜间畅用活动」的适用客户端由 ZCode 扩展为 ZCode 与 AutoClaw（[autoclaw.zhipuai.cn](https://autoclaw.zhipuai.cn/)）：套餐用户在两个客户端调用 GLM-5.3-Flash 均无限用量，活动时间与其他条款不变（2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，在其他 Agent 端额度翻倍）
 - 2026/09/23：OpenCode Go 新增限时免费的 Space Bunny Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」；model ID `space-bunny-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（官方未给出该限时活动的结束时间）
 - 2026/09/23：火山方舟 Coding Plan 个人版与 Agent Plan 个人版模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出；此前已进入 Agent Plan，本次进入 Coding Plan）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」（官方公告为「模型启动下线」），doubao-seedance-1.5-pro 从 Agent Plan 模型表移除；Agent Plan 抵扣系数相应更新——doubao-seed-2.1-pro 2.5、doubao-seed-2.1-lite 0.5（输入包含音频 4.5）、doubao-seed-2.0-mini 细化为输入不含音频 0.25 / 输入包含音频 2.5；Coding Plan 与 Agent Plan 的 1M 上下文支持名单均加入 deepseek-v4.1-flash（Agent Plan 名单：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro）
