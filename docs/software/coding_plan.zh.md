@@ -228,13 +228,16 @@
 - [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) [订阅](https://maas.xfyun.cn/packageSubscription)
     - 专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5.1、GLM-5、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
     - 高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5、GLM-5.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
-- [天翼云编程 Token Plan](https://www.ctyun.cn/document/11061839/11092368)
-    - 29 RMB 每月：2500 万 tokens
-    - 89 RMB 每月：8000 万 tokens
-    - 199 RMB 每月：18000 万 tokens
-    - 399 RMB 每月：38000 万 tokens
-    - 699 RMB 每月：68000 万 tokens
-    - 支持模型：GLM-5.0（正式版）、DeepSeek-V3.2（旗舰版）、GLM-5.1、DeepSeek-V4-Flash-0731
+- [天翼云编程 Token Plan](https://www.ctyun.cn/document/11061839/11092368)：计费方式由按 Token 定额改为积分（「编程Token Plan（积分版）」，页面 2026-09-23 更新）
+    - 29 RMB 每月：3000 积分
+    - 89 RMB 每月：10000 积分
+    - 199 RMB 每月：25000 积分
+    - 399 RMB 每月：50000 积分
+    - 699 RMB 每月：100000 积分
+    - 支持模型（积分版）：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
+    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（其输出 417）、输入 (32k,200k] 1,250（其输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（其输出 1,190）、输入 (512k,1M] 2,381（其输出 595）
+    - 官方提示：套餐模型库为动态更新机制，将根据模型性能、稳定性、供应情况对模型进行新增、替换、升级、范围调整或下线，不承诺永久固定提供任一指定模型
+    - 原按 Token 计量套餐即将下线，仅存量已订阅用户可续订、不支持新购；其支持模型更新为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.0（2026-10-10 下线）、DeepSeek-V3.2（页面写作 DeepSeeV3.2，2026-10-10 下线）
 - [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite（59 RMB 每月）：每订阅月 5000 万 tokens
     - Standard（149 RMB 每月）：每订阅月 1.3 亿 tokens
@@ -338,6 +341,7 @@
 
 ## 更新历史
 
+- 2026/09/23：天翼云编程 Token Plan 改版为积分计量并新增「编程Token Plan（积分版）」：套餐档位与价格不变（29/89/199/399/699 元每月），额度由 Token 定额改为 3000/10000/25000/50000/100000 积分每订阅月，支持模型改为 DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3（原 GLM-5.0、DeepSeek-V3.2 移出）；页面新增「积分与模型的兑换关系」表（1 积分相当于多少个 Token，输入/输出——DeepSeek-V4-Pro 1,111/370、DeepSeek-V4-Flash 3,333/1,111、GLM-5.2 1,250/357、GLM-5.1 输入 [0,32k] 1,667（输出 417）与输入 (32k,200k] 1,250（输出 357）、Kimi-K2.6 1,538/370、MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）与输入 (512k,1M] 2,381（输出 595）），并注明模型库为动态更新机制、不承诺永久固定提供任一指定模型；原按 Token 计量套餐标注「老套餐即将下线，仅存量已订阅用户可续订，不支持新购」，其支持模型更新为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.0（2026-10-10 下线）与 DeepSeek-V3.2（页面写作 DeepSeeV3.2，2026-10-10 下线）
 - 2026/09/23：阿里云百炼 Token Plan 个人版取消周限额、改为订阅月额度（相关页面更新时间 2026-09-22 23:52）：个人版由「每 7 天固定窗口限额」改为月额度——订阅月自订阅当日起算 30 天，订阅月内累计消耗达到套餐额度后暂停服务，需等下一个订阅月额度重置（按订阅日自动刷新，非固定日历日期），未用完额度不结转；各档位额度同步调整为 Lite 11,500 / Essential 25,500 / Standard 45,000 / Pro 180,000 Credits 每月（档位与价格不变，限时价 39/79/139/499 元每月），存量订阅的剩余额度已于 2026-09-22 一次性重置为对应套餐的满月额度、订阅周期与到期时间不变；此前的「重置卡 / 额度重置权益」（页面上的「重置限额」按钮与重置次数说明）整体删除，额度重置改为订阅月自动重置；抵扣顺序改为「每次调用优先抵扣当前订阅月的套餐额度，用尽后自动抵扣用量包额度」，用量包不再表述为「不受 7 天窗口限额约束」，而是「不占用、不计入套餐月额度」；升配规则改为不重置当前订阅周期——按 (新套餐价格 − 旧套餐价格) × 剩余天数 ÷ 30（不满一天按一天计算）补缴差价，并按剩余天数 ÷ 30 × (升级后月额度 − 升级前月额度) 向上取整发放当前周期新增 Credits，自下一个订阅月起按新档位月额度计量；429 错误提示由 `insufficient_quota: Your token-plan 1-week quota has been exhausted.` 改为 `insufficient_quota: Your token-plan quota has been exhausted.`；团队版 FAQ 对比表中的「个人版额度机制」同步改为「月额度，按订阅月自动刷新」，团队版概述表格移除「7 天限额：无限制」行
 - 2026/09/22：商汤 SenseNova API 文档（含 TokenPlan 积分与模型总览）模型库调整：模型总览移除 DeepSeek V4 Pro，新增 DeepSeek V4.1 Flash（model ID `deepseek-flash`，1M 上下文、支持图像输入），DeepSeek V4 Flash（`deepseek-v4-flash`）保留；对应模型章节同步改写，并新增图像输入说明与限制（单图 ≤50 MB、单请求 ≤200 张、总请求体 ≤64 MB、以 URL 传入图片总大小 ≤200 MB，视频输入仅 Chat Completions 接口支持）、`max_tokens` 默认值改为 131072（范围 1–393216，思考超出长度会被截断）、`reasoning_effort` 原生档位为 none/low/high/max 并提供兼容映射、明确不支持显式缓存
 - 2026/09/22：智谱 GLM Coding Plan（国内站 bigmodel.cn 与国际版 z.ai DevPack 页面同步公告）新增两项限时活动：「夜间畅用活动」——2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，套餐用户在 [ZCode](https://zcode.z.ai/cn) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍；「庆双节活动」——2026-09-25 至 2026-10-07 全天按非高峰时段规则消耗额度（即全天按 50% 积分消耗），官方同时提示叠加夜间活动后实际可用额度远高于额度参考表所列数值
