@@ -68,7 +68,7 @@
 - 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**。
 - 调用历史模型 GLM-5.2、GLM-5.1 都将自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 将自动切换至 GLM-5.3-Flash。
 - 非高峰时段内，模型调用按基础积分消耗的 50% 抵扣。高峰时段：每周一至周五的 14:00～18:00（UTC+8）。
-    - 「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00）：套餐用户在 [ZCode](https://zcode.z.ai/cn) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍
+    - 「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00）：套餐用户在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍
     - 「庆双节活动」（2026-09-25 至 2026-10-07）：全天按非高峰时段规则消耗额度，即全天按 50% 积分消耗
 - GLM-5.3：Input 抵扣系数 6.9，Cached Input 抵扣系数 1.7，Output 抵扣系数 24
 - GLM-5.3-Flash（含视觉理解 MCP）：Input 抵扣系数 2.3，Cached Input 抵扣系数 0.56，Output 抵扣系数 8
@@ -348,6 +348,7 @@
 
 ## 更新历史
 
+- 2026/09/23：智谱 GLM Coding Plan「夜间畅用活动」的适用客户端由 ZCode 扩展为 ZCode 与 AutoClaw（[autoclaw.zhipuai.cn](https://autoclaw.zhipuai.cn/)）：套餐用户在两个客户端调用 GLM-5.3-Flash 均无限用量，活动时间与其他条款不变（2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，在其他 Agent 端额度翻倍）
 - 2026/09/23：OpenCode Go 新增限时免费的 Space Bunny Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」；model ID `space-bunny-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（官方未给出该限时活动的结束时间）
 - 2026/09/23：火山方舟 Coding Plan 个人版与 Agent Plan 个人版模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出；此前已进入 Agent Plan，本次进入 Coding Plan）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」（官方公告为「模型启动下线」），doubao-seedance-1.5-pro 从 Agent Plan 模型表移除；Agent Plan 抵扣系数相应更新——doubao-seed-2.1-pro 2.5、doubao-seed-2.1-lite 0.5（输入包含音频 4.5）、doubao-seed-2.0-mini 细化为输入不含音频 0.25 / 输入包含音频 2.5；Coding Plan 与 Agent Plan 的 1M 上下文支持名单均加入 deepseek-v4.1-flash（Agent Plan 名单：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro）
 - 2026/09/23：火山方舟 deepseek-v4.1-flash 抵扣系数限时 5 折活动窗口延长并扩展至 Coding Plan：Agent Plan 中该活动的截止时间由 2026-09-28 23:59 延长至 2026-10-30 18:00（起始 2026-09-15 00:00 不变，抵扣系数 2.5 → 1.25）；Coding Plan 同步新增该活动，活动期为 2026-09-23 00:00 至 2026-10-30 18:00
