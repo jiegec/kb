@@ -273,7 +273,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
-    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**
+    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Space Bunny Free**（限时免费）
     - Grok 4.7 为新增模型：定价与请求限额与 Grok 4.6 一致（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens 输入 $4.00/输出 $12.00/缓存读取 $1.00 每 1M tokens；月度使用额度 $15；请求限额 169/5 小时、423/周、845/月）；model ID grok-4.7，接入点 https://opencode.ai/zen/go/v1/responses
     - MiMo-V2.6-Flash、MiMo-V2.6-Pro 为新增模型：定价与请求限额与对应的上一代完全相同——V2.6-Flash 输入 $0.14/输出 $0.28/缓存读取 $0.0028（额度 $60，请求限额 30,100/5 小时、75,200/周、150,400/月，model ID mimo-v2.6-flash）；V2.6-Pro 输入 $0.435/输出 $0.87/缓存读取 $0.003625（额度 $15，请求限额 3,250/5 小时、8,150/周、16,300/月，model ID mimo-v2.6-pro）
     - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
@@ -284,6 +284,7 @@
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
     - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，结束时间已由 2026-09-20 延长至 2026-09-27），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
+    - Space Bunny Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID space-bunny-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
@@ -347,6 +348,7 @@
 
 ## 更新历史
 
+- 2026/09/23：OpenCode Go 新增限时免费的 Space Bunny Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」；model ID `space-bunny-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（官方未给出该限时活动的结束时间）
 - 2026/09/23：火山方舟 Coding Plan 个人版与 Agent Plan 个人版模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出；此前已进入 Agent Plan，本次进入 Coding Plan）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」（官方公告为「模型启动下线」），doubao-seedance-1.5-pro 从 Agent Plan 模型表移除；Agent Plan 抵扣系数相应更新——doubao-seed-2.1-pro 2.5、doubao-seed-2.1-lite 0.5（输入包含音频 4.5）、doubao-seed-2.0-mini 细化为输入不含音频 0.25 / 输入包含音频 2.5；Coding Plan 与 Agent Plan 的 1M 上下文支持名单均加入 deepseek-v4.1-flash（Agent Plan 名单：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro）
 - 2026/09/23：火山方舟 deepseek-v4.1-flash 抵扣系数限时 5 折活动窗口延长并扩展至 Coding Plan：Agent Plan 中该活动的截止时间由 2026-09-28 23:59 延长至 2026-10-30 18:00（起始 2026-09-15 00:00 不变，抵扣系数 2.5 → 1.25）；Coding Plan 同步新增该活动，活动期为 2026-09-23 00:00 至 2026-10-30 18:00
 - 2026/09/23：天翼云编程 Token Plan 改版为积分计量并新增「编程Token Plan（积分版）」：套餐档位与价格不变（29/89/199/399/699 元每月），额度由 Token 定额改为 3000/10000/25000/50000/100000 积分每订阅月，支持模型改为 DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3（原 GLM-5.0、DeepSeek-V3.2 移出）；页面新增「积分与模型的兑换关系」表（1 积分相当于多少个 Token，输入/输出——DeepSeek-V4-Pro 1,111/370、DeepSeek-V4-Flash 3,333/1,111、GLM-5.2 1,250/357、GLM-5.1 输入 [0,32k] 1,667（输出 417）与输入 (32k,200k] 1,250（输出 357）、Kimi-K2.6 1,538/370、MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）与输入 (512k,1M] 2,381（输出 595）），并注明模型库为动态更新机制、不承诺永久固定提供任一指定模型；原按 Token 计量套餐标注「老套餐即将下线，仅存量已订阅用户可续订，不支持新购」，其支持模型更新为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.0（2026-10-10 下线）与 DeepSeek-V3.2（页面写作 DeepSeeV3.2，2026-10-10 下线）
