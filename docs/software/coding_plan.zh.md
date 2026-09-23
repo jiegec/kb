@@ -349,6 +349,7 @@
 
 ## 更新历史
 
+- 2026/09/24：阿里云百炼模型调用价格页 DeepSeek 第三方模型章节补充峰谷时段定义（相关页面更新时间 2026-09-23 23:50）：在 DeepSeek-V4-Flash-0731 峰谷定价说明之后、列有忙时/闲时单价的模型表之前，新增一句「其中，忙时为北京时间 8:00 - 22:00，闲时为北京时间 22:00 - 次日 8:00」；即表中标注忙时/闲时单价的 DeepSeek 模型按每日 8:00–22:00 为忙时、22:00–次日 8:00 为闲时计费（该时段与百炼 Token Plan 个人版夜间折扣时段一致）；价格数字与其他计费规则未变
 - 2026/09/24：OpenCode Go 模型列表新增 GPT 6 Luna：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为 $0.20/$0.75/$0.02/$0.25；输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（原 $1.20），GPT 5.6 Luna 保留在列表与定价表中；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID `gpt-6-luna`，接入点 https://opencode.ai/zen/go/v1/responses（数据保留说明同步由「GPT 5.6 Luna」改为「GPT 6 Luna / GPT 5.6 Luna」）
 - 2026/09/23：智谱 GLM Coding Plan「夜间畅用活动」的适用客户端由 ZCode 扩展为 ZCode 与 AutoClaw（[autoclaw.zhipuai.cn](https://autoclaw.zhipuai.cn/)）：套餐用户在两个客户端调用 GLM-5.3-Flash 均无限用量，活动时间与其他条款不变（2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，在其他 Agent 端额度翻倍）
 - 2026/09/23：OpenCode Go 新增限时免费的 Space Bunny Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」；model ID `space-bunny-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（官方未给出该限时活动的结束时间）
