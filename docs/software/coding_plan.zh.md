@@ -184,8 +184,9 @@
     - 升配（不重置当前订阅周期）：按剩余天数补缴差价 —— 升级补差金额 = (新套餐价格 − 旧套餐价格) × 剩余天数 ÷ 30，升级后当前周期新增额度 = 剩余天数 ÷ 30 × (升级后月额度 − 升级前月额度)，均不满一天按一天计算、额度结果向上取整；自下一个订阅月起按新档位月额度计量
     - Essential 为新增档位：可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益 + 2.25x Lite 套餐用量
     - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
-    - 支持模型：auto（平台提供的智能模型，按请求内容自动匹配底层模型）、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：auto（平台提供的智能模型，按请求内容自动匹配底层模型）、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview（领域模型-决策模型，限时免费、不消耗 Credits）
     - 限时夜间折扣（每晚 22:00 - 次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗享 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 享 5 折（2026-09-22 页面更新：qwen3.8-max 由 5 折降为 4 折，并新增 qwen3.8-flash 同为 4 折）
+    - decision-model-preview（领域模型-决策模型）限时免费：调用不消耗 Credits（接入方法见官方《接入决策模型》文档）。模型定位为「面向高频业务判断的结构化决策模型，一次前向完成分类、是非判断与评分，并返回概率分布与置信度」；该模型同时也进入百炼模型库与模型调用价格页的「决策模型」章节，计费规则为按输入 token 计费、输入单价标注「限时免费」（华北2（北京）与新加坡两地）
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
     - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
@@ -349,6 +350,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/09/25：阿里云百炼新增领域模型 decision-model-preview 并纳入 Token Plan 个人版（相关页面更新时间 2026-09-24）：模型调用价格页新增「决策模型」章节（计费规则为按输入 token 计费，模型 `decision-model-preview` 输入单价标注「限时免费」，覆盖华北2（北京）与新加坡两地），「选择模型」页新增「决策模型」分类，介绍为「面向高频业务判断的结构化决策模型，一次前向完成分类、是非判断与评分，并返回概率分布与置信度」（模型详情页 /zh/model-studio/decision-model-preview）；Token Plan 个人版概述页的权益说明新增「decision-model-preview 限时免费：调用不消耗 Credits，接入方法参见接入决策模型」，支持模型表新增一行「领域模型 / decision-model-preview / 决策模型」
 
 - 2026/09/25：腾讯云 Token Plan 企业版专业套餐（页面更新时间 2026-09-24 20:08）DeepSeek 峰谷计费规则改写并新增非原厂直供的 DeepSeek-V4.1-Flash：注意事项由「原厂直供模型周末全天空闲、正式版高峰时段为周一至周日」统一改为「所有 DeepSeek 模型工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰时段、其余空闲，周末（周六、周日）全天按空闲时段计费」，并新增生效时间说明——原厂直供模型自北京时间 2026-08-29 00:00 起生效，其他 DeepSeek 模型（除不分峰谷、按固定积分价计费的 `deepseek-v4-flash`、`deepseek-v4-pro` 外）自北京时间 2026-09-26 00:00 起生效，即 DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版等平台托管模型自 9 月 26 日起同样享有周末全天空闲价；页面仅更新了广州地域章节的注意事项，新加坡地域章节仍保留旧表述。模型库（广州/新加坡两地）同步新增非原厂直供的 DeepSeek-V4.1-Flash（model ID `deepseek-v4.1-flash`，与原厂直供的 `deepseek/deepseek-flash` 并存），其积分抵扣价与原厂直供完全一致——缓存命中 2 / 未命中 100 / 输出 400（空闲时段）、4 / 200 / 800（高峰时段）积分每百万 tokens，综合单价预估 约 26 / 约 51 积分每百万 tokens
 
