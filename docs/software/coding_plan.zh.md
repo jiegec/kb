@@ -285,7 +285,7 @@
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
-    - DeepSeek V4.1 Flash 额度限时提升 4 倍：月度使用额度由 $15 提高到 $60（限时活动，结束时间已由 2026-09-20 延长至 2026-09-27），请求限额同步提高为 26,000/5 小时、65,000/周、130,000/月（原为 6,500/16,250/32,500）；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
+    - DeepSeek V4.1 Flash 额度提升 4 倍已由限时活动转为常规值（2026-09-26 页面更新）：月度使用额度 **$60**、请求限额 26,000/5 小时、65,000/周、130,000/月 现直接作为该模型的常规额度列示，定价表与请求限额预估表中的「~~$15~~ **$60** 4x · 9 月 27 日结束」标注（限时活动说明、原 $15 基准的删除线与结束时间）已整体移除；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
     - Space Bunny Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID space-bunny-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
     - GPT 6 Luna 为新增模型：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为输入 $0.20/输出 $0.75/缓存读取 $0.02/缓存写入 $0.25——输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（GPT 5.6 Luna 为 $1.20），GPT 5.6 Luna 仍保留；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID gpt-6-luna，接入点 https://opencode.ai/zen/go/v1/responses
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
@@ -350,6 +350,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/09/26：OpenCode Go 的 DeepSeek V4.1 Flash 额度提升 4 倍由限时活动转为常规值：定价表中该模型的月度使用额度由「~~$15~~ **$60** 4x · 9 月 27 日结束」改为直接标注 **$60**，请求限额预估表同步把「~~6,500~~ **26,000**（4x · 9 月 27 日结束）」改为 **26,000/65,000/130,000**——原 $15、6,500/16,250/32,500 的基准值与活动结束时间标注全部移除，即额度提升与提高后的请求限额成为常规额度；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
 
 - 2026/09/25：无问芯穹 Infini GenStudio 更新日志发布「2026-10-09 发布预告」：`deepseek-v4-flash` 将于 2026 年 10 月 9 日 12:00 下架，官方推荐替换模型为 `deepseek-v4.1-flash`，建议提前完成迁移（该平台此前的 Infini Coding Plan 已于 2026-06-27 下线，此变化影响 GenStudio API 调用）
 
