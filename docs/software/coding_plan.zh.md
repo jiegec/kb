@@ -275,7 +275,7 @@
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
     - 每月 10 美元
     - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
-    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Space Bunny Free**（限时免费）
+    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Space Bunny Free**（限时免费）、**LongCat 2.5 Preview Free**（限时免费）
     - Grok 4.7 为新增模型：定价与请求限额与 Grok 4.6 一致（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens 输入 $4.00/输出 $12.00/缓存读取 $1.00 每 1M tokens；月度使用额度 $15；请求限额 169/5 小时、423/周、845/月）；model ID grok-4.7，接入点 https://opencode.ai/zen/go/v1/responses
     - MiMo-V2.6-Flash、MiMo-V2.6-Pro 为新增模型：定价与请求限额与对应的上一代完全相同——V2.6-Flash 输入 $0.14/输出 $0.28/缓存读取 $0.0028（额度 $60，请求限额 30,100/5 小时、75,200/周、150,400/月，model ID mimo-v2.6-flash）；V2.6-Pro 输入 $0.435/输出 $0.87/缓存读取 $0.003625（额度 $15，请求限额 3,250/5 小时、8,150/周、16,300/月，model ID mimo-v2.6-pro）
     - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
@@ -287,6 +287,7 @@
     - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
     - DeepSeek V4.1 Flash 额度提升 4 倍已由限时活动转为常规值（2026-09-26 页面更新）：月度使用额度 **$60**、请求限额 26,000/5 小时、65,000/周、130,000/月 现直接作为该模型的常规额度列示，定价表与请求限额预估表中的「~~$15~~ **$60** 4x · 9 月 27 日结束」标注（限时活动说明、原 $15 基准的删除线与结束时间）已整体移除；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
     - Space Bunny Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID space-bunny-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
+    - LongCat 2.5 Preview Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID longcat-2.5-preview-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
     - GPT 6 Luna 为新增模型：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为输入 $0.20/输出 $0.75/缓存读取 $0.02/缓存写入 $0.25——输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（GPT 5.6 Luna 为 $1.20），GPT 5.6 Luna 仍保留；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID gpt-6-luna，接入点 https://opencode.ai/zen/go/v1/responses
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -350,6 +351,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/09/27：OpenCode Go 新增限时免费的 LongCat 2.5 Preview Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID `longcat-2.5-preview-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（支持模型列表、token 价格表、请求限额表、接入点表与数据保留表同步新增该模型，其余模型的价格与额度无变化）
 
 - 2026/09/26：OpenCode Go 的 DeepSeek V4.1 Flash 额度提升 4 倍由限时活动转为常规值：定价表中该模型的月度使用额度由「~~$15~~ **$60** 4x · 9 月 27 日结束」改为直接标注 **$60**，请求限额预估表同步把「~~6,500~~ **26,000**（4x · 9 月 27 日结束）」改为 **26,000/65,000/130,000**——原 $15、6,500/16,250/32,500 的基准值与活动结束时间标注全部移除，即额度提升与提高后的请求限额成为常规额度；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
 
