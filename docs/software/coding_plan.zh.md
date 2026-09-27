@@ -35,6 +35,7 @@
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [订阅](https://platform.minimax.cn/subscribe/token-plan)
 
 - Token Plan 支持范围已从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
+- 新增语言模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文的 Frontier Coding 模型，思考深度可调）：官方模型概览标注「暂时仅通过 Token Plan 和 MiniMax Code 提供」（2026-09-28 更新，暂未给出单独定价与额度说明）
 - Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+
 - Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
 - Ultra（469 RMB 每月）: 月度 M3 Token 用量约 71 亿+

@@ -35,6 +35,7 @@
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [Subscription](https://platform.minimax.cn/subscribe/token-plan)
 
 - Token Plan coverage has been narrowed from "all models" to "flagship models"; music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) have been discontinued and are no longer included in Token Plan quota
+- New language model MiniMax-M3.1-Flash-Preview (natively multimodal Frontier Coding model with a 1M context window and tunable thinking depth): the official model overview states it is "available only through Token Plan and MiniMax Code for now" (updated 2026-09-28; no separate pricing or quota details published yet)
 - Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+
 - Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+
 - Ultra (469 RMB/month): Monthly M3 Token usage approx. 7.1B+
