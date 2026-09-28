@@ -274,18 +274,20 @@
     - 额度消耗：语言模型按 Token 数扣除 Credit 额度，ASR 按输入音频时长扣除，TTS 系列模型限时免费、不消耗套餐 Credit
     - 折扣现仅剩「套餐首购 88 折、连续包年享 88 折、夜间（0:00-8:00）0.8 倍消耗」三项，此前页面上的 Token Plan 升级「Credits 用量焕新重置」活动（2026-05-27 生效）已删除
 - [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
-    - 每月 10 美元
-    - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 GLM-5.3 $15、GLM-5.3-Flash $60）
-    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2/5.1、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7/M2.5、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Max/Qwen3.7 Plus/Qwen3.6 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Omen Alpha**、**Space Bunny Free**（限时免费）、**LongCat 2.5 Preview Free**（限时免费）
+    - 两种方案：**Go（10 美元每月）**与 **Go Plus（40 美元每月）**，两者 token 价格完全相同，Go Plus 仅各模型的用量限制更高
+    - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 Go 下 GLM-5.3 $15、GLM-5.3-Flash $60；Go Plus 把各模型月额度提升 2–8 倍、多数为 4 倍，如 GLM-5.3 由 $15 升至 $120、GLM-5.3-Flash 由 $60 升至 $180）；跨模型合计额度为 5 小时 / 每周 / 每月——Go $12/$30/$60，Go Plus $48/$120/$240
+    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Space Bunny Free**（限时免费）、**LongCat 2.5 Preview Free**（限时免费）
+    - Go Plus 为 2026-09-28 新增方案：以更高的月费换取各模型更高的用量限制（token 单价不变），订阅入口的名称由 OpenCode Zen 改为 OpenCode Console；每个工作空间仍只能有一名成员订阅 Go 或 Go Plus
+    - 2026-09-28 模型列表更新：从模型列表、token 价格表、请求限额表、接入点表与数据保留表中移除 GLM-5.1、Qwen3.7 Max、Qwen3.6 Plus、MiniMax M2.5 四款模型；Omen Alpha 亦已不在页面任何列表中
     - Grok 4.7 为新增模型：定价与请求限额与 Grok 4.6 一致（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens 输入 $4.00/输出 $12.00/缓存读取 $1.00 每 1M tokens；月度使用额度 $15；请求限额 169/5 小时、423/周、845/月）；model ID grok-4.7，接入点 https://opencode.ai/zen/go/v1/responses
     - MiMo-V2.6-Flash、MiMo-V2.6-Pro 为新增模型：定价与请求限额与对应的上一代完全相同——V2.6-Flash 输入 $0.14/输出 $0.28/缓存读取 $0.0028（额度 $60，请求限额 30,100/5 小时、75,200/周、150,400/月，model ID mimo-v2.6-flash）；V2.6-Pro 输入 $0.435/输出 $0.87/缓存读取 $0.003625（额度 $15，请求限额 3,250/5 小时、8,150/周、16,300/月，model ID mimo-v2.6-pro）
     - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
     - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
-    - Omen Alpha 为新增模型：input $0.20/1M、output $0.66/1M、cache read $0.04/1M（使用额度 $100/月）；请求限额 11,600/5 小时、29,000/周、57,900/月；model ID omen-alpha
+    - Omen Alpha 已不在模型列表、token 价格表、请求限额表与接入点表中（2026-09-28 起 kb 不再将其列为支持模型）
     - Muse Spark 1.3 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60）；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
     - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
-    - Qwen3.7 Max：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M（2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
+    - Qwen3.7 Max 已于 2026-09-28 从支持模型列表中移除（此前为：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M；2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
     - DeepSeek V4.1 Flash 额度提升 4 倍已由限时活动转为常规值（2026-09-26 页面更新）：月度使用额度 **$60**、请求限额 26,000/5 小时、65,000/周、130,000/月 现直接作为该模型的常规额度列示，定价表与请求限额预估表中的「~~$15~~ **$60** 4x · 9 月 27 日结束」标注（限时活动说明、原 $15 基准的删除线与结束时间）已整体移除；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
     - Space Bunny Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID space-bunny-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
     - LongCat 2.5 Preview Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID longcat-2.5-preview-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
@@ -352,6 +354,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/09/28：OpenCode Go 新增 **Go Plus（40 美元每月）** 方案并与 Go（10 美元每月）并列：两个方案 token 价格完全相同，Go Plus 仅提高各模型的用量限制——各模型月额度普遍为 Go 的 2–8 倍（多数为 4 倍，如 GLM-5.3 $15→$120、GLM-5.3-Flash $60→$180、Kimi K2.6 $60→$240、DeepSeek V4 Flash $30→$120），跨模型合计额度 Go 为 5 小时 $12 / 每周 $30 / 每月 $60、Go Plus 为 $48/$120/$240；订阅入口名称由 OpenCode Zen 改为 OpenCode Console，每个工作空间仍限一名成员订阅 Go 或 Go Plus。同一页面更新把 GLM-5.1、Qwen3.7 Max、Qwen3.6 Plus、MiniMax M2.5 从模型列表、token 价格表、请求限额预估表、接入点表与数据保留表中移除（Omen Alpha 亦已不在页面任何列表中，本次同步修正 kb 中仍将其列为支持模型的旧内容）
 
 - 2026/09/27：OpenCode Go 新增限时免费的 LongCat 2.5 Preview Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID `longcat-2.5-preview-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（支持模型列表、token 价格表、请求限额表、接入点表与数据保留表同步新增该模型，其余模型的价格与额度无变化）
 
