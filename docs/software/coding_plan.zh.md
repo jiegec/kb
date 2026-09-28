@@ -170,7 +170,7 @@
     - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
     - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
     - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持模型：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite（即将下线）、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Agent 进化：前 50 个文件免费（此前为限制/收费项）
     - Medium 以上套餐额外支持模型：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
     - 2026-09-23 模型库更新：新增 doubao-seed-2.1-pro（文本生成（进阶），新一代旗舰级模型、综合能力全面提升，1024k 上下文窗口/256k 输出，抵扣系数 2.5）、doubao-seed-2.1-lite（文本生成（标准），轻量高效，1024k 上下文窗口/256k 输出，抵扣系数 0.5 / 输入包含音频 4.5）与 doubao-seed-2.0-mini（文本生成（极速），256k 上下文窗口/128k 输出，抵扣系数细化为输入不含音频 0.25 / 输入包含音频 2.5）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」；doubao-seedance-1.5-pro 已从模型表移除
@@ -358,6 +358,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/09/28：火山方舟 Agent Plan 个人版套餐概览与计费说明（AFP 抵扣规则）把 doubao-seedream-5.0-lite 标记为「即将下线」（模型表中该行、以及 AFP 抵扣示例中的模型名均加上「即将下线」，各档位仍为 √，官方尚未给出具体下线日期）
 
 - 2026/09/28：MiniMax Token Plan FAQ 新增「订阅权益调整说明」与「Token Plan迁移说明」两节，首次以官方文档形式说明档位迁移与补偿规则：Max-极速（199 元每月）、Ultra-极速（899 元每月）停售并转入 Max（119 元每月）/ Ultra（469 元每月），月费分别下调 80/430 元、每月另补发价值约 160/860 元等值积分（年包按月独立补发、每月额度有效期 1 年不滚存）；Starter（29 元）、Plus-极速（98 元）转为老用户专属保留档、不再对新用户售卖；2026-06-05 前订阅用户的老用户权益继续保留，迁移补偿积分有效期由 1 个月自动订正为 1 年；Plus/Max 档价格不变、M2.7 的 5 小时使用次数约 +10%，并新增 M3 使用权限与多模态额度；已购积分可用于开放平台大部分模型（暂不支持 MiniMax H3）且跨模态共享；国际版迁移说明中 Plus/Max 仍写作 $20/$50，与国际版定价页的 $22/$55 不一致
 
