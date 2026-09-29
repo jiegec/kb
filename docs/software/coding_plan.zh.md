@@ -142,7 +142,7 @@
     - 2026-09-23 模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出，适合复杂推理、深度分析与长链路任务执行）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出，适合日常编码与常规开发任务）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出，适合简单编码任务与代码补全）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」
     - 1M 上下文支持名单（2026-09-23）：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
     - deepseek-v4.1-flash 抵扣系数限时 5 折：2026-09-23 00:00 至 2026-10-30 18:00 活动期间，该模型在 Coding Plan 中的抵扣系数在现有基础上享 5 折优惠（同期在 Agent Plan 中同享 5 折，活动起始时间 2026-09-15 00:00）
-    - 新增 Kimi-K2.8-Preview 模型：综合性能接近 K3，思考效率更高，擅长代码补全与常规开发任务，支持文本和图片输入；1M 上下文窗口/1M 最大输出。2026-09-18 00:00 至 2026-09-30 23:59 活动期间，Coding Plan 中 Kimi-K2.8-Preview 的可用量与 Agent Plan 6 折抵扣活动期间相当
+    - 新增 Kimi-K2.8-Preview 模型：综合性能接近 K3，思考效率更高，擅长代码补全与常规开发任务，支持文本和图片输入；1M 上下文窗口/1M 最大输出。2026-09-18 00:00 至 2026-10-14 23:59 活动期间，Coding Plan 中 Kimi-K2.8-Preview 的可用量与 Agent Plan 6 折抵扣活动期间相当
     - GLM-5.3-Flash 为新增模型：智谱首个原生多模态模型，320B 总参数/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59
     - DeepSeek-V4-Pro 已转正式版上线（原为尝鲜体验版），Agent 能力全面跃升，支持通过 model name 及控制台选择访问
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
@@ -160,7 +160,7 @@
             - doubao-seed-2.1-pro：2.5
             - deepseek-v4.1-flash：2.5（1.25 限时5折，2026-09-15 00:00 至 2026-10-30 18:00）
             - kimi-k2.7-code：4.5
-            - kimi-k2.8-preview：8（4.8 限时6折，2026-09-17 00:00 至 2026-09-30 23:59）
+            - kimi-k2.8-preview：8（4.8 限时6折，2026-09-17 00:00 至 2026-10-14 23:59）
             - glm-5.3（glm-latest）：4.5
             - deepseek-v4-pro：5.5
             - kimi-k3：10
@@ -177,7 +177,7 @@
     - 新增 doubao-seedream-5-0-pro（图片生成，全套餐）：输入图抵扣系数第一张免费、第二张起 10 AFP/张；输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景分别为 75 / 150 AFP/张
     - 新增 doubao-seedance-2.5（视频生成，Large/Max）：抵扣系数以 token 为单位，480p/720p 输入含视频 210、不含视频 350；1080p 输入含视频 230、不含视频 385
     - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-10-30 18:00 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
-    - 新增 kimi-k2.8-preview（文本生成（进阶），全套餐）：1M 上下文窗口/1M 最大输出，支持文本和图片输入，综合性能接近 K3、思考效率更高、擅长代码补全与常规开发任务；抵扣系数 8，2026-09-17 00:00 至 2026-09-30 23:59 限时 6 折（4.8）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
+    - 新增 kimi-k2.8-preview（文本生成（进阶），全套餐）：1M 上下文窗口/1M 最大输出，支持文本和图片输入，综合性能接近 K3、思考效率更高、擅长代码补全与常规开发任务；抵扣系数 8，2026-09-17 00:00 至 2026-10-14 23:59 限时 6 折（4.8）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite 套餐（60 RMB 每月，限时 39 RMB 每月）：11500 Credits 每月
     - Essential 套餐（120 RMB 每月，限时 79 RMB 每月）：25500 Credits 每月
@@ -358,6 +358,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/09/29：火山方舟把 kimi-k2.8-preview 的 6 折抵扣活动窗口由 2026-09-30 23:59:59 延长至 2026-10-14 23:59:59：Agent Plan 中该模型抵扣系数 8 的限时 6 折（4.8）活动期（起始 2026-09-17 00:00 不变）随之延后两周；Coding Plan 中该模型可用量「与 Agent Plan 6 折抵扣活动期间相当」的活动期同步由 2026-09-18 00:00 至 2026-09-30 23:59 改为至 2026-10-14 23:59。Agent Plan 个人版计费说明（82379/2516283）、Agent Plan 个人版套餐概览（82379/2366394）与 Coding Plan 个人版套餐概览（82379/1925114）三页于 2026-09-29 15:26 同步更新，套餐价格、档位额度与其余模型的抵扣系数均未变
 
 - 2026/09/29：阿里云百炼 Token Plan 个人版概述页（页面更新时间 2026-09-28 22:20）在升配折算公式下新增一句「实际补差金额以支付页面展示的价格明细为准」——升配补差公式、换算示例与各档价格均未变；同站 FAQ 页本次仅变更「上一篇」导航链接（由「接入 Harness 工具」改为「Harness 权益」），无内容变化；该导航链接已于 2026-09-29 13:38 抓取时改回「接入 Harness 工具」，页面正文内容自始至终未变
 
