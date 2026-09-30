@@ -4,62 +4,34 @@
 
 ### Kimi
 
-[Kimi Membership](https://www.kimi.com/membership/pricing) [Kimi Code](https://www.kimi.com/code)
+[Kimi Membership](https://www.kimi.com/membership/pricing) | [Kimi Code](https://www.kimi.com/code)
 
-- Andante (49 RMB/month)
-- Moderato (99 RMB/month)
-- Allegretto (199 RMB/month)
-- Allegro (699 RMB/month)
-- Subscription renewal rule adjustment: Due to tight compute resources, priority will be given to ensuring the experience of currently subscribed users. You can renew before 2026-08-20 00:00; after that, direct purchase will no longer be available.
-- Kimi Code is now powered by the flagship K3 model (~2.8 trillion parameters), available with the K2.8 Preview in two modes (standard / K2.7 Code HighSpeed), with a maximum inference speed of 260 Tokens/s and a 1M Token context window; it is fully compatible with mainstream agent tools including Kimi Code CLI, Claude Code, and VS Code
-- Per-model ID membership tier requirements (added to the docs on 2026-09-18): `k3` and `k3-256k` require Moderato / Plus or above, with the 1M context requiring Allegretto / Pro or above; `kimi-for-coding` (K2.8 Preview) requires Andante / Plus or above (previously described as "available to all members"); `kimi-for-coding-highspeed` requires Allegretto / Pro or above. This is the first appearance of the Plus / Pro tier names (Kimi's membership pricing page is not crawled, so the mapping between Plus / Pro and the domestic tiers is unconfirmed)
-- API endpoints are now split into domestic and overseas: OpenAI-compatible — domestic `https://api.kimi.com/coding/v1`, overseas `https://api.kimi.ai/coding/v1`; Anthropic-compatible — domestic `https://api.kimi.com/coding/`, overseas `https://api.kimi.ai/coding/`; Kimi Open Platform — domestic `https://api.moonshot.cn/v1`, overseas `https://api.moonshot.ai/v1`
-- [K3 API Pricing](https://platform.kimi.com/docs/pricing/chat-k3):
-    - Cached input: 2 RMB per 1M tokens
-    - Uncached input: 20 RMB per 1M tokens
-    - Output: 100 RMB per 1M tokens
-    - 1M context
-- [K2.7-Code API Pricing](https://platform.kimi.com/docs/pricing/chat-k27-code):
-    - Cached input: 1.3 RMB per 1M tokens
-    - Uncached input: 6.5 RMB per 1M tokens
-    - Output: 27 RMB per 1M tokens
-    - 256K context
-- [K2.7-Code-HighSpeed API Pricing](https://platform.kimi.com/docs/pricing/chat-k27-code):
-    - Cached input: 2.6 RMB per 1M tokens
-    - Uncached input: 13.0 RMB per 1M tokens
-    - Output: 54 RMB per 1M tokens
-    - 256K context
+- Tiers (RMB/month): Andante 49, Moderato 99, Allegretto 199, Allegro 699
+- Kimi Code is powered by the flagship K3 model (~2.8 trillion parameters) and offers the K2.8 Preview standard mode and the K2.7 Code HighSpeed mode, with a maximum inference speed of 260 Tokens/s and a 1M Token context window; it is compatible with mainstream agent tools including Kimi Code CLI, Claude Code and VS Code
+- Model IDs and membership tier requirements: `k3` and `k3-256k` require Moderato / Plus or above, with 1M context requiring Allegretto / Pro or above; `kimi-for-coding` (K2.8 Preview) requires Andante / Plus or above; `kimi-for-coding-highspeed` requires Allegretto / Pro or above
+- API endpoints are split into domestic and overseas: OpenAI-compatible — domestic `https://api.kimi.com/coding/v1`, overseas `https://api.kimi.ai/coding/v1`; Anthropic-compatible — domestic `https://api.kimi.com/coding/`, overseas `https://api.kimi.ai/coding/`; Kimi Open Platform — domestic `https://api.moonshot.cn/v1`, overseas `https://api.moonshot.ai/v1`
+- API pricing (RMB per 1M tokens):
+    - [K3](https://platform.kimi.com/docs/pricing/chat-k3): cached input 2, uncached input 20, output 100, 1M context
+    - [K2.7-Code](https://platform.kimi.com/docs/pricing/chat-k27-code): cached input 1.3, uncached input 6.5, output 27, 256K context
+    - [K2.7-Code-HighSpeed](https://platform.kimi.com/docs/pricing/chat-k27-code): cached input 2.6, uncached input 13.0, output 54, 256K context
 
 ### MiniMax
 
-[MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [Subscription](https://platform.minimax.cn/subscribe/token-plan)
+[MiniMax M Plan](https://platform.minimaxi.com/docs/token-plan/intro) | [Pricing](https://platform.minimaxi.com/docs/guides/pricing-token-plan) | [Subscription](https://platform.minimax.cn/subscribe/token-plan)
 
-- Token Plan coverage has been narrowed from "all models" to "flagship models"; music APIs (Music-3.0, Music-2.6, Lyrics Generation, etc.) have been discontinued and are no longer included in Token Plan quota
-- New language model MiniMax-M3.1-Flash-Preview (natively multimodal Frontier Coding model with a 1M context window and tunable thinking depth): the official model overview states it is "available only through M Plan and MiniMax Code for now" (first stated on 2026-09-28, reworded to "M Plan" with the 2026-09-30 rename; no separate pricing or quota details published yet)
-- Product rename (snapshot of 2026-09-30): the official documentation renamed "Token Plan" to "M Plan" — every "Token Plan" mention on the models overview and pay-as-you-go pricing pages (Chinese and English) has been replaced by "M Plan" (including the "M Plan MCP" plugin wording and the sentence "when API-vlm is called through M Plan, usage deducts from the included M Plan quota according to its pay-as-you-go price"), and the docs site's Pricing menu now lists M Plan (`/docs/m-plan/intro`) while the old Token Plan tab is hidden and the external link points to https://www.minimax.cn/m-plan; the Token Plan FAQ and Token Plan intro pages crawled this round still use the old name (as does the pay-as-you-go page's "resource coverage is the same as Token Plan" sentence and its link to the Token Plan pricing page), so the rename is still in progress. Plan tiers, prices, quotas and the subscription entry point are unchanged
-- Plus (49 RMB/month): Monthly M3 Token usage approx. 600M+
-- Max (119 RMB/month): Monthly M3 Token usage approx. 1.8B+
-- Ultra (469 RMB/month): Monthly M3 Token usage approx. 7.1B+
-- Prepaid credits packages: ¥30 for 4,489 credits, ¥150 for 22,460 credits, ¥500 for 74,900 credits, valid for 365 days
-- [MiniMax M3 API Pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo):
-    - `<=` 512K input tokens:
-        - Cached input: 0.42 RMB per 1M tokens
-        - Uncached input: 2.10 RMB per 1M tokens
-        - Output: 8.40 RMB per 1M tokens
-    - `>` 512K input tokens:
-        - Cached input: 0.84 RMB per 1M tokens
-        - Uncached input: 4.20 RMB per 1M tokens
-        - Output: 16.80 RMB per 1M tokens
+- The product is now called M Plan (formerly Token Plan); coverage has been narrowed to flagship models, and the music APIs (Music-3.0, Music-2.6, lyrics generation, etc.) have been discontinued, so the quota no longer includes music resources
+- Tiers (RMB/month, monthly M3 Token usage): Plus 49 (~600M+), Max 119 (~1.8B+), Ultra 469 (~7.1B+)
+- MiniMax-M3.1-Flash-Preview is a new language model (natively multimodal, 1M context, tunable thinking depth), currently available only through M Plan and MiniMax Code
+- Retired tiers and migration: Max-hs (199 RMB/month) and Ultra-hs (899 RMB/month) are retired and move to Max (119 RMB/month) / Ultra (469 RMB/month) on the next renewal date, with a lower monthly fee and an equivalent monthly credit grant (annual plans receive the grants month by month, each valid for 1 year and non-rolling); Starter (29 RMB/month) and Plus-hs (98 RMB/month) are existing-subscriber-only legacy tiers
+- Entitlement rules: benefits promised to users who subscribed before 2026-06-05 remain in effect; compensation credits are valid for 1 year from the issuance date; entitlement bonuses activate automatically when the subscription takes effect but only remain valid during continuous subscription periods, and are waived when changing tiers or cancelling
+- Ultra includes 5 video generations per day; purchased credits can be used across most models on the MiniMax open platform (MiniMax H3 not supported yet), are deducted in real time at each model's API list price, and are shared across text, image, speech and video
+- Prepaid credit packages: ¥30 for 4,489 credits, ¥150 for 22,460 credits, ¥500 for 74,900 credits, valid for 365 days
+- [MiniMax M3 API pricing](https://platform.minimaxi.com/docs/guides/pricing-paygo) (RMB per 1M tokens):
+    - `<=` 512K input tokens: cached input 0.42, uncached input 2.10, output 8.40
+    - `>` 512K input tokens: cached input 0.84, uncached input 4.20, output 16.80
     - 1M context
 
-[MiniMax International Token Plan](https://platform.minimax.io/docs/token-plan/intro) [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan)
-
-- Plus ($22/month): Personal projects and prototyping
-- Max ($55/month): Daily coding with agents and multimodal work
-- Ultra ($132/month): Heavy Agent workflows and extended sessions
-- Subscription entitlement and migration rules (two new sections — "Subscription Entitlement Adjustment" and "Token Plan Migration Guide" — added to the FAQ documentation on 2026-09-28): legacy-user benefits promised to users who subscribed before 2026-06-05 remain in effect, with the specific benefits, scope and real-time status shown on the console's Entitlement Details page or usage dashboard; the validity of compensation credits issued under the previous migration plan is corrected automatically from 1 month to 1 year from the issuance date (no user action needed); entitlement bonuses activate automatically when the subscription takes effect but only remain valid during continuous subscription periods — actively changing tiers or cancelling the subscription waives them, and they are not reissued on resubscribing
-- Retired tiers and migration path: Max-hs ($80/month) and Ultra-hs ($150/month) are being retired and move to the new tiers on the next renewal date — Max-hs → Max (monthly fee down $30, with roughly $60 of equivalent credits granted each month) and Ultra-hs → Ultra (monthly fee down $30, with roughly $60 of equivalent credits granted each month, including 5 video generations per day); annual plans of the retired tiers receive the difference as monthly credit grants rather than a one-off payment (each grant valid for 1 year, non-rolling, and the annual plan auto-renews at the new tier's annual price). The legacy Starter and Plus-hs tiers keep the same pricing and contract but are available to existing subscribers only and are no longer sold to new users. Plus/Max subscribers keep their contracted price while M2.7 5-hour usage rises by about 8–10%, and M3 access plus multimodal quota (image, speech) are added, sharing the same quota pool
-- The new Ultra tier fills the gap between $80 and $150 for heavy agentic users: roughly 12.5B tokens of monthly capacity and 5 video generations per day. Credits can be used across most models on the MiniMax API Platform (MiniMax H3 is not supported yet), are deducted in real time at each model's pay-as-you-go list price, and are shared across text, image, speech and video (where the tier supports it). Note: the FAQ's migration section still quotes Plus $20 / Max $50 / new Ultra $120, which does not match the $22/$55/$132 on the pricing page (the FAQ text appears not to have been updated)
+[MiniMax International M Plan](https://platform.minimax.io/docs/token-plan/intro) | [Pricing](https://platform.minimax.io/docs/guides/pricing-token-plan): Plus $22/month, Max $55/month, Ultra $132/month
 
 ### Zhipu (GLM, Z.ai)
 
@@ -70,249 +42,126 @@
 - Max Plan (1078 RMB/month): 28,000 points per 5 hours, 140,000 points per week
 - Model points consumed = (input tokens × Input coefficient + cached input tokens × Cached Input coefficient + output tokens × Output coefficient) / 10,000
 - MCP points consumed = number of calls × Output coefficient
-- All plans support **GLM-5.3**, **GLM-5.3-Flash**.
-- Requests for previous models (GLM-5.2/GLM-5.1) will be automatically routed to GLM-5.3, requests for GLM-5-Turbo/GLM-4.7 will automatically be routed to GLM-5.3-Flash.
-- During off-peak hours, model calls consume points at 50% of the base rate. Peak hours: 14:00–18:00 (UTC+8) on weekdays.
-    - "GLM-5.3-Flash Usage Campaign" (2026-09-03 to 2026-10-07, daily 23:00–09:00): plan users get unlimited GLM-5.3-Flash usage via [ZCode](https://zcode.z.ai/cn) and [AutoClaw](https://autoclaw.zhipuai.cn/), plus doubled quota on other agents
-    - "Double Festival" campaign (2026-09-25 to 2026-10-07): all-day usage is charged at the off-peak rate, i.e. 50% points consumption around the clock
-- GLM-5.3: Input coefficient 6.9, Cached Input coefficient 1.7, Output coefficient 24
-- GLM-5.3-Flash (Including MCP for visual understanding): Input coefficient 2.3, Cached Input coefficient 0.56, Output coefficient 8
-- Token usage varies depending on the cache hit rate, as shown below:
+- All plans support **GLM-5.3** and **GLM-5.3-Flash**; requests for the previous models GLM-5.2/GLM-5.1 are automatically routed to GLM-5.3, and requests for GLM-5-Turbo/GLM-4.7 are automatically routed to GLM-5.3-Flash
+- Off-peak hours consume points at 50% of the base rate; peak hours are weekdays 14:00–18:00 (UTC+8)
+- Limited-time campaigns:
+    - "GLM-5.3-Flash Usage Campaign" (2026-09-03 to 2026-10-07, daily 23:00–09:00): unlimited GLM-5.3-Flash usage via [ZCode](https://zcode.z.ai/cn) and [AutoClaw](https://autoclaw.zhipuai.cn/), plus doubled quota on other agents
+    - "Double Festival" campaign (2026-09-25 to 2026-10-07): all-day usage is charged at the off-peak rate
+- Coefficients: GLM-5.3 — Input 6.9 / Cached Input 1.7 / Output 24; GLM-5.3-Flash (including the visual understanding MCP) — Input 2.3 / Cached Input 0.56 / Output 8
+- Token usage varies with the cache hit rate:
 
-| Cache Hit Rate | Model | Lite (M Tokens/week) | Pro (M Tokens/week) | Max (M Tokens/week) |
-| --- | --- | --- | --- | --- |
-| 95% | GLM-5.3 | 0.48～0.97 | 2.90～5.80 | 6.76～13.52 |
-| 95% | GLM-5.3-Flash | 1.46～2.92 | 8.77～17.55 | 20.47～40.95 |
-| 96% | GLM-5.3 | 0.50～0.99 | 2.97～5.95 | 6.94～13.87 |
-| 96% | GLM-5.3-Flash | 1.50～3.00 | 9.00～18.01 | 21.01～42.02 |
-| 98% | GLM-5.3 | 0.52～1.04 | 3.13～6.27 | 7.31～14.63 |
-| 98% | GLM-5.3-Flash | 1.58～3.17 | 9.50～19.00 | 22.17～44.33 |
+| Cache Hit Rate | Model         | Lite (M Tokens/week) | Pro (M Tokens/week) | Max (M Tokens/week) |
+|----------------|---------------|----------------------|---------------------|---------------------|
+| 95%            | GLM-5.3       | 0.48～0.97           | 2.90～5.80          | 6.76～13.52         |
+| 95%            | GLM-5.3-Flash | 1.46～2.92           | 8.77～17.55         | 20.47～40.95        |
+| 96%            | GLM-5.3       | 0.50～0.99           | 2.97～5.95          | 6.94～13.87         |
+| 96%            | GLM-5.3-Flash | 1.50～3.00           | 9.00～18.01         | 21.01～42.02        |
+| 98%            | GLM-5.3       | 0.52～1.04           | 3.13～6.27          | 7.31～14.63         |
+| 98%            | GLM-5.3-Flash | 1.58～3.17           | 9.50～19.00         | 22.17～44.33        |
 
-
-- Range explanation
-    - Maximum tokens: all during off-peak hours, consuming points at 0.5×
-    - Minimum tokens: all during peak hours, consuming points at 1×
-- By fully utilizing the off-peak discounts, you can save up to 92% compared with pay-as-you-go calls to the GLM-5.3 standard API
-- [GLM-5.3 API Pricing](https://bigmodel.cn/pricing):
-    - Cached input: 2 RMB per 1M tokens
-    - Uncached input: 8 RMB per 1M tokens
-    - Output: 28 RMB per 1M tokens
-    - 1M context
-- [GLM-5.3-Flash API Pricing](https://bigmodel.cn/pricing):
-    - Cached input 0.23, uncached input 0.8, output 2.8 RMB per 1M tokens
-    - 1M context (the limited-time 50% off promotion has ended; billed at the standard price above)
-- [GLM-5.2 API Pricing](https://bigmodel.cn/pricing):
-    - Cached input: 2 RMB per 1M tokens
-    - Uncached input: 8 RMB per 1M tokens
-    - Output: 28 RMB per 1M tokens
-    - 1M context
-- [GLM-5.1 API Pricing](https://bigmodel.cn/pricing):
-    - Cached input: 1.3/2 RMB per 1M tokens
-    - Uncached input: 6/8 RMB per 1M tokens
-    - Output: 24/28 RMB per 1M tokens
-    - 200K context
-- [GLM-5-Turbo API Pricing](https://bigmodel.cn/pricing):
-    - Cached input: 1.2/1.8 RMB per 1M tokens
-    - Uncached input: 5/7 RMB per 1M tokens
-    - Output: 22/26 RMB per 1M tokens
-    - 200K context
-- [GLM-4.7 API Pricing](https://bigmodel.cn/pricing):
-    - Cached input: 0.4/0.6/0.8 RMB per 1M tokens
-    - Uncached input: 2/3/4 RMB per 1M tokens
-    - Output: 8/14/16 RMB per 1M tokens
-    - 200K context
+Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× points; minimum tokens assumes all usage in peak hours at 1×. By fully utilizing the off-peak discount, you can save up to 92% compared with pay-as-you-go calls to the GLM-5.3 standard API
+- API pricing (RMB per 1M tokens):
+    - [GLM-5.3](https://bigmodel.cn/pricing): cached input 2, uncached input 8, output 28, 1M context
+    - [GLM-5.3-Flash](https://bigmodel.cn/pricing): cached input 0.23, uncached input 0.8, output 2.8, 1M context
+    - [GLM-5.2](https://bigmodel.cn/pricing): cached input 2, uncached input 8, output 28, 1M context
+    - [GLM-5.1](https://bigmodel.cn/pricing): cached input 1.3/2, uncached input 6/8, output 24/28, 200K context
+    - [GLM-5-Turbo](https://bigmodel.cn/pricing): cached input 1.2/1.8, uncached input 5/7, output 22/26, 200K context
+    - [GLM-4.7](https://bigmodel.cn/pricing): cached input 0.4/0.6/0.8, uncached input 2/3/4, output 8/14/16, 200K context
 
 [Zhipu GLM Coding Plan Team Edition](https://docs.bigmodel.cn/cn/coding-plan/team)
 
-- Team Standard (598 RMB/month): Maximum 60M tokens per seat per 5 hours, maximum 300M tokens per seat per week
-- Team Advanced (1198 RMB/month): Maximum 160M tokens per seat per 5 hours, maximum 800M tokens per seat per week
-- "Maximum" refers to the total tokens that can be actually consumed at a 1× consumption coefficient. Current model consumption rules are as follows:
-    - GLM-4.7, GLM-4.5-Air: Consume quota at 1× coefficient throughout the day
-    - GLM-5.2, GLM-5-Turbo: As advanced models, consume quota at 3× during peak hours and 2× during off-peak hours. As a limited-time benefit, GLM-5.2 and GLM-5-Turbo will only consume 1× quota during off-peak hours, valid through the end of June.
-    - Note: Peak hours are 14:00–18:00 (UTC+8) daily.
+- Team Standard (598 RMB/month): maximum 60M tokens per seat per 5 hours, maximum 300M tokens per seat per week
+- Team Advanced (1198 RMB/month): maximum 160M tokens per seat per 5 hours, maximum 800M tokens per seat per week
+- "Maximum" refers to the total tokens that can actually be consumed at a 1× consumption coefficient; current per-model consumption rules:
+    - GLM-4.7, GLM-4.5-Air: consume at 1× all day
+    - GLM-5.2, GLM-5-Turbo: 3× during peak hours and 2× during off-peak hours; as a limited-time benefit, off-peak hours consume only 1×
+    - Peak hours are 14:00–18:00 (UTC+8) daily
 
-[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.3 and GLM-5.3-Flash; requests for GLM-5.2/GLM-5.1 auto-route to GLM-5.3, GLM-4.7 auto-routes to GLM-5.3-Flash
+[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.3 and GLM-5.3-Flash; requests for GLM-5.2/GLM-5.1 auto-route to GLM-5.3, and GLM-4.7 auto-routes to GLM-5.3-Flash
 
 ### Cloud Providers
 
-- [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan) [Documentation](https://www.volcengine.com/docs/82379/1925114)
-    - Lite Plan (40 RMB/month): Per 5 hours: maximum ~1,200 requests. Per week: maximum ~9,000 requests. Per subscription month: maximum ~18,000 requests.
+- [Volcano Engine Coding Plan (Personal Edition)](https://www.volcengine.com/activity/codingplan) | [Documentation](https://www.volcengine.com/docs/82379/1925114)
+    - Lite Plan (40 RMB/month): maximum ~1,200 requests per 5 hours, ~9,000 per week, ~18,000 per subscription month
     - Pro Plan (200 RMB/month): 5x the Lite Plan quota
     - Supported models: Doubao-Seed-2.1-pro, Doubao-Seed-2.1-lite, Doubao-Seed-2.0-mini, Doubao-Seed-2.1-turbo (being retired), Doubao-Seed-Evolving, Doubao-Seed-2.0-lite (being retired), MiniMax-M3, Kimi-K2.7-Code, Kimi-K2.8-Preview, Kimi-K3 (high deduction coefficient, recommended only for Pro plan users), GLM-5.3, GLM-5.3-Flash, DeepSeek-V4-Flash, DeepSeek-V4-Pro, DeepSeek-V4.1-Flash
-    - 2026-09-23 model library update: added doubao-seed-2.1-pro (new-generation flagship model with all-round capability gains, 1024k context window / 256k output, suited to complex reasoning, in-depth analysis and long-chain task execution), doubao-seed-2.1-lite (lightweight and efficient, 1024k context window / 256k output, suited to everyday coding and routine development tasks), doubao-seed-2.0-mini (ultra-fast responses, 256k context window / 128k output, suited to simple coding tasks and code completion) and deepseek-v4.1-flash (the lightweight flagship of DeepSeek's new-architecture series, 552B total-parameter MoE, natively capable of multimodal vision understanding, 1024k context window / 384k max output); doubao-seed-2.1-turbo and doubao-seed-2.0-lite are marked "being retired"
-    - 1M-context supported list (2026-09-23): doubao-seed-evolving, glm-5.3, glm-5.3-flash, kimi-k3, kimi-k2.8-preview, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro
-    - deepseek-v4.1-flash deduction coefficient at a limited-time 50% off: from 2026-09-23 00:00 to 2026-10-30 18:00 the model's deduction coefficient in the Coding Plan is discounted by 50% on top of the existing coefficient (the same 50% off applies in the Agent Plan during the same window, which started 2026-09-15 00:00)
-    - New Kimi-K2.8-Preview model: overall performance close to K3 with higher thinking efficiency, strong at code completion and routine development tasks, supports text and image input; 1M context window / 1M max output. During the promotion from 2026-09-18 00:00 to 2026-10-14 23:59, the available quota of Kimi-K2.8-Preview in the Coding Plan is comparable to that during the Agent Plan 40%-off deduction promotion
-    - GLM-5.3-Flash is a new model: Zhipu's first natively multimodal model, 320B total params / 18B active, supports image input, 1M context / 128K max output; first two weeks deduction coefficient at 50% off, promotion ends 2026-09-11 23:59:59
-    - DeepSeek-V4-Pro is now officially released (was an early-access preview), with significantly enhanced Agent capabilities, accessible via model name and console selection
+    - 1M-context support: doubao-seed-evolving, glm-5.3, glm-5.3-flash, kimi-k3, kimi-k2.8-preview, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro
+    - Limited-time promotions: deepseek-v4.1-flash deduction coefficient at 50% off (2026-09-23 00:00 to 2026-10-30 18:00); Kimi-K2.8-Preview quota campaign (2026-09-18 00:00 to 2026-10-14 23:59, comparable to the Agent Plan 40%-off promotion period)
+    - Key model specs: Doubao-Seed-2.1-pro (new-generation flagship, 1024k context / 256k output), Doubao-Seed-2.1-lite (lightweight and efficient, 1024k/256k), Doubao-Seed-2.0-mini (fast responses, 256k/128k), DeepSeek-V4.1-Flash (552B total-parameter MoE, native multimodal vision understanding, 1024k/384k), Kimi-K2.8-Preview (close to K3 with higher thinking efficiency, 1M/1M, text and image input), GLM-5.3-Flash (Zhipu's first natively multimodal model, 320B total params / 18B active, 1M/128K)
 - [Volcano Engine Agent Plan (Personal Edition)](https://www.volcengine.com/docs/82379/2366394)
-    - Agent Fuel Points (AFP) are the unified billing unit for Agent Plan subscriptions, used to quantify Agent resource consumption.
-        - Text generation models, embedding models: (input token * input deduction coefficient + output token * output deduction coefficient) / 10,000
-        - Video generation models: tokens consumed / 10,000 * deduction coefficient
-        - Image generation models: number of successfully generated images * deduction coefficient
-        - The input and output deduction coefficients for text-generation/embedding models are now determined solely by the model and no longer vary with input length (previously input coefficient = model coefficient × input segment factor: ×0.67 for ≤32k, ×1 for 32k–128k, ×2 for >128k; the length segmentation has been removed)
-        - Deduction coefficients per model (input/output identical):
-            - doubao-seed-2.0-mini: 0.25 (without audio input) / 2.5 (with audio input)
-            - doubao-seed-2.0-lite (being retired), deepseek-v4-flash: 0.5
-            - doubao-seed-2.1-lite: 0.5 (without audio input) / 4.5 (with audio input)
-            - glm-5.3-flash: 0.5 (0.25 for the first two weeks at 50% off)
-            - doubao-seed-2.1-turbo (being retired), doubao-seed-evolving, minimax-m3: 2.5
-            - doubao-seed-2.1-pro: 2.5
-            - deepseek-v4.1-flash: 2.5 (1.25 during the limited-time 50% off, 2026-09-15 00:00 to 2026-10-30 18:00)
-            - kimi-k2.7-code: 4.5
-            - kimi-k2.8-preview: 8 (4.8 during the limited-time 40% off, 2026-09-17 00:00 to 2026-10-14 23:59)
-            - glm-5.3 (glm-latest): 4.5
-            - deepseek-v4-pro: 5.5
-            - kimi-k3: 10
-            - doubao-embedding-vision: 0.5
-    - Small Plan (40 RMB/month): Per 5 hours: 2,000 AFP. Per week: 7,000 AFP. Per month: 20,000 AFP. Daily quota: 10,000 AFP.
-    - Medium Plan (200 RMB/month): Per 5 hours: 10,000 AFP. Per week: 35,000 AFP. Per month: 100,000 AFP. Daily quota: 50,000 AFP.
-    - Large Plan (500 RMB/month): Per 5 hours: 25,000 AFP. Per week: 87,500 AFP. Per month: 250,000 AFP. Daily quota: 125,000 AFP.
-    - Max Plan (1000 RMB/month): Per 5 hours: 50,000 AFP. Per week: 175,000 AFP. Per month: 500,000 AFP. Daily quota: 250,000 AFP.
-    - Image generation models, video generation models, voice models, and Harness have no 5-hour or weekly quota limits; they are only subject to daily quota and monthly plan quota. Daily quota is uniformly half of the monthly plan quota.
+    - Agent Fuel Points (AFP) are the unified billing unit: text/embedding models = (input token × input coefficient + output token × output coefficient) / 10,000; video models = tokens / 10,000 × coefficient; image models = number of successfully generated images × coefficient. Coefficients are determined solely by the model and do not vary with input length
+    - Deduction coefficients per model (input/output identical): doubao-seed-2.0-mini 0.25 (without audio input) / 2.5 (with audio input); doubao-seed-2.0-lite (being retired), deepseek-v4-flash 0.5; doubao-seed-2.1-lite 0.5 (4.5 with audio input); glm-5.3-flash 0.5; doubao-seed-2.1-turbo (being retired), doubao-seed-evolving, minimax-m3, doubao-seed-2.1-pro 2.5; deepseek-v4.1-flash 2.5 (1.25 at a limited-time 50% off); kimi-k2.7-code 4.5; kimi-k2.8-preview 8 (4.8 at a limited-time 40% off); glm-5.3 (glm-latest) 4.5; deepseek-v4-pro 5.5; kimi-k3 10; doubao-embedding-vision 0.5
+    - Tiers (AFP, per 5 hours / week / month / day): Small 40 RMB/month (2000/7000/20000/10000), Medium 200 (10000/35000/100000/50000), Large 500 (25000/87500/250000/125000), Max 1000 (50000/175000/500000/250000)
+    - Image, video and speech models and Harness have no 5-hour or weekly limits; they are subject only to the daily and monthly limits, with the daily limit equal to half the monthly limit
     - All plans support: doubao-seed-2.1-pro, doubao-seed-2.1-lite, doubao-seed-2.0-mini, doubao-seed-2.0-lite (being retired), deepseek-v4-flash, deepseek-v3.2, minimax-m3, glm-5.3, glm-5.3-flash, kimi-k2.7-code, kimi-k2.8-preview, deepseek-v4-pro, deepseek-v4.1-flash, doubao-embedding-vision, doubao-seedream-5.0-lite (being retired), doubao-seedream-5-0-pro, doubao-seed-tts-2.0, doubao-seed-asr-2.0
-    - Agent Evolution: first 50 files free (previously limited/charged)
-    - Medium and above plans additionally support: doubao-seedance-2.0, doubao-seedance-2.0-fast, doubao-seedance-2.0-mini, doubao-seedance-2.5
-    - 2026-09-23 model library update: added doubao-seed-2.1-pro (text generation (advanced), new-generation flagship model with all-round capability gains, 1024k context window / 256k output, deduction coefficient 2.5), doubao-seed-2.1-lite (text generation (standard), lightweight and efficient, 1024k context window / 256k output, deduction coefficient 0.5 / 4.5 with audio input) and doubao-seed-2.0-mini (text generation (fast), 256k context window / 128k output, deduction coefficient refined to 0.25 without audio input / 2.5 with audio input); doubao-seed-2.1-turbo and doubao-seed-2.0-lite are marked "being retired"; doubao-seedance-1.5-pro has been removed from the model table
-    - New doubao-seedream-5-0-pro (image generation, all plans): input-image deduction coefficient is free for the first image and 10 AFP per image from the second onward; output images cost 150 AFP (single-image generation, ≤2.61M pixels) or 300 AFP (>2.61M pixels), and 75 / 150 AFP for the layer-separation scenario
-    - New doubao-seedance-2.5 (video generation, Large/Max): deduction coefficient per token is 210 when the input contains video and 350 when it does not (480p/720p output), and 230 / 385 for 1080p output
-    - New deepseek-v4.1-flash (text generation (advanced), all plans): 1M context window / 384K max output, natively capable of multimodal vision understanding; deduction coefficient 2.5, at 50% off (1.25) from 2026-09-15 00:00 to 2026-10-30 18:00. The model also joins the 1M-context supported list (glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3)
-    - New kimi-k2.8-preview (text generation (advanced), all plans): 1M context window / 1M max output, supports text and image input, overall performance close to K3 with higher thinking efficiency and strong at code completion and routine development tasks; deduction coefficient 8, at 40% off (4.8) from 2026-09-17 00:00 to 2026-10-14 23:59. The model also joins the 1M-context supported list (glm-5.3, glm-5.3-flash, deepseek-v4.1-flash, deepseek-v4-flash, deepseek-v4-pro, kimi-k3, kimi-k2.8-preview)
+    - Medium and above additionally support: doubao-seedance-2.0, doubao-seedance-2.0-fast, doubao-seedance-2.0-mini, doubao-seedance-2.5
+    - Agent Evolution: first 50 files free
 - [Alibaba Cloud Bailian Token Plan (Personal Edition)](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
-    - Lite Plan (60 RMB/month, 39 RMB/month for a limited time): 11,500 Credits per month
-    - Essential Plan (120 RMB/month, 79 RMB/month for a limited time): 25,500 Credits per month
-    - Standard Plan (180 RMB/month, 139 RMB/month for a limited time): 45,000 Credits per month
-    - Pro Plan (600 RMB/month, 499 RMB/month for a limited time): 180,000 Credits per month
-    - Usage Pack (100 RMB/month): 20,000 Credits
-    - Since 2026-09-22 the Personal Edition has abolished the fixed 7-day window quota and switched to a monthly quota: each subscription month runs 30 days from the subscription date, and once cumulative consumption within the subscription month reaches the plan quota, service is paused until the quota resets at the start of the next subscription month (auto-refreshed based on the subscription date, not a fixed calendar date); unused quota does not roll over. For existing subscriptions, the remaining quota was reset once to the full monthly quota of the corresponding plan on 2026-09-22, with the subscription cycle and expiry date unchanged; the previous "reset card / quota reset entitlement" was removed along with the weekly limit
-    - Deduction order: each request is first deducted from the current subscription month's plan quota; once that is exhausted, Usage Pack quota is deducted automatically (Usage Pack quota neither occupies nor counts toward the plan monthly quota); when both are exhausted, or no Usage Pack is held, service is paused. You can upgrade the plan or wait for the next subscription month's reset
-    - Upgrades (the current subscription cycle is not reset): the price difference is paid for the remaining days — upgrade price difference = (new plan price − old plan price) × remaining days ÷ 30, and the new quota granted for the current cycle = remaining days ÷ 30 × (new monthly quota − old monthly quota), with partial days counted as a full day and the quota result rounded up; from the next subscription month the new plan's monthly quota applies (page updated 2026-09-28: a sentence was added below the formula — "the actual prorated amount is subject to the price breakdown shown on the payment page"; the formula, the worked example and the tier prices are unchanged)
-    - Essential is a newly added tier: supports 2-3 concurrent Agents, and its benefits are all Lite benefits (page updated 2026-09-24: the benefits row no longer states the "2.25x / 4x / 16x Lite plan quota" multipliers — Standard now lists only "all Lite benefits + complementary Harness entitlement" and Pro only "all Standard benefits + higher concurrency cap + complementary Harness entitlement"; the Credits quota figures per tier are unchanged)
-    - Device usage note: The Token Plan Personal Edition is for use by the subscriber on a single device only. (The official guide was tightened from "you may configure the same API Key on multiple of your own devices (e.g., home and office computers)" to "for the subscriber's own use on a single device.")
-    - Supported models: auto (a platform-provided smart model that automatically matches the underlying model to the request), qwen3.8-max, qwen3.8-flash, qwen3.7-max, qwen3.7-plus, qwen3.6-flash, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qewn-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4.1-flash (capability label now includes "vision understanding"), deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, glm-5.3, glm-5.2, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v, decision-model-preview (domain model – decision model, limited-time free, consumes no Credits)
-    - Limited-time night discount (every night 22:00 to 08:00): Credits consumption is 40% off for qwen3.8-max and qwen3.8-flash, and 50% off for deepseek-v4-pro-0813, deepseek-v4-flash-0731 and deepseek-v4.1-flash (page updated 2026-09-22: qwen3.8-max went from 50% off to 40% off, and qwen3.8-flash was added at 40% off)
-    - decision-model-preview (domain model – decision model) is free for a limited time: calls consume no Credits (see the official "Connecting to the decision model" doc for setup). It is positioned as "a structured decision model for high-frequency business judgement that completes classification, yes/no decisions and scoring in a single forward pass and returns a probability distribution and confidence"; the model also entered the Bailian model library and the model pricing page under a new "decision models" section, billed on input tokens with the input price marked "limited-time free" (both China North 2 (Beijing) and Singapore)
+    - Lite (60, 39 for a limited time), Essential (120, 79), Standard (180, 139), Pro (600, 499) RMB/month, corresponding to 11,500 / 25,500 / 45,000 / 180,000 Credits per month; Usage Pack (100 RMB/month) = 20,000 Credits
+    - Since 2026-09-22 the fixed 7-day window quota has been abolished in favour of a subscription-month (30-day) quota; once cumulative consumption in the subscription month reaches the plan quota, service is paused, and unused quota does not roll over
+    - Deduction order: each request is deducted first from the current subscription month's plan quota, and once exhausted from the Usage Pack quota
+    - Upgrades: the current subscription cycle is not reset; the price difference is paid for the remaining days and the new quota is granted for the current cycle, with the new tier's monthly quota applying from the next subscription month
+    - Essential supports 2–3 concurrent agents and carries all Lite benefits
+    - For the subscriber's own use on a single device only
+    - Supported models: auto, qwen3.8-max, qwen3.8-flash, qwen3.7-max, qwen3.7-plus, qwen3.6-flash, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4.1-flash, deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, glm-5.3, glm-5.2, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v, decision-model-preview
+    - Limited-time night discount (22:00–08:00 daily): 40% off Credits for qwen3.8-max and qwen3.8-flash; 50% off for deepseek-v4-pro-0813, deepseek-v4-flash-0731 and deepseek-v4.1-flash
+    - decision-model-preview (domain model – decision model) is free for a limited time and consumes no Credits
 - [Alibaba Cloud Bailian Token Plan (Team Edition)](https://help.aliyun.com/zh/model-studio/token-plan-overview)
-    - Standard Seat (¥198/seat/month): 25,000 Credits/seat/month
-    - Advanced Seat (¥698/seat/month): 100,000 Credits/seat/month
-    - Premium Seat (¥1,398/seat/month): 250,000 Credits/seat/month
-    - Shared Usage Pack (¥5,000/pack): 625,000 Credits/pack
-    - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode, and tool calls. Actual consumption is based on the bill.
-    - For example, with Qwen3.6-plus, every 5,000 uncached input tokens, every 50,000 cached input tokens, or every 5,000/6 output tokens equals one Credit
-    - For contexts within 256K, one Credit corresponds to an API price (implicit caching) of 0.01–0.02 RMB; for contexts between 256K–1M, one Credit corresponds to 0.04–0.08 RMB
+    - Standard Seat ¥198/seat/month (25,000 Credits), Advanced Seat ¥698 (100,000), Premium Seat ¥1,398 (250,000); Shared Usage Pack ¥5,000/pack (625,000 Credits)
+    - Credits consumed per request are dynamically determined by model type, token usage, reasoning mode and tool calls; for example, with Qwen3.6-plus every 5,000 uncached input tokens, every 50,000 cached input tokens or every 5,000/6 output tokens equals one Credit
+    - API price per Credit (implicit caching): 0.01–0.02 RMB within 256K context, 0.04–0.08 RMB for 256K–1M
     - Supported models: qwen3.8-max, qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, deepseek-v4-pro, deepseekv4-pro-0813, deepseek-v4-flash, deepseek-v4-flash-0731, deepseek-v3.2, kimi-k2.7-code, kimi-k2.6, kimi-k2.5, glm-5.2, glm-5.1, glm-5, minimax-m2.5, happyhorse-1.1-i2v, happyhorse-1.1-t2v, happyhorse-1.1-r2v
 - [Tencent Cloud LLM Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
-    - Token Plan Enterprise Edition:
-        - Professional Plan: 1 RMB/100 Credits per month, minimum purchase 50K Credits (500 RMB/month); available model library (varies slightly by region, Guangzhou more complete, Singapore fewer; updated 2026-09-30): Auto, Hy4 preview, GLM-5.3, GLM-5.3-Flash, GLM-5.2, GLM-5 (discontinued 2026-10-09), GLM-5.1 (discontinued 2026-10-09), GLM-5-Turbo (discontinued 2026-10-09), Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi K3, Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4.1-Flash (not Official direct-supply, model ID `deepseek-v4.1-flash`), DeepSeek-V4.1-Flash Official direct-supply (model ID `deepseek/deepseek-flash`), DeepSeek-V4-Flash 0731 Official direct-supply, DeepSeek-V4-Pro 0813 Official direct-supply, DeepSeek-V4-Flash-Vision-Exp Official direct-supply (text capability on par with V4-Flash Official, with greatly enhanced visual understanding, multimodal Agent performance approaching Claude Opus-4.8), MiMo-V2.6-Pro, MiMo-V2.6-Flash (Kimi-K2.5 discontinued 2026-08-31); this update added Hy4 preview, MiMo-V2.6-Pro and MiMo-V2.6-Flash, removed the flat-credit-priced `deepseek-v4-flash` (the variant without the "0731 Official" suffix), and completed the two Official direct-supply model names to "DeepSeek-V4-Flash 0731 Official direct-supply" / "DeepSeek-V4-Pro 0813 Official direct-supply" (model IDs unchanged)
-        - Peak-valley billing (unified to "weekday peak-valley + all-day off-peak weekends" from 2026-09-26): for DeepSeek models, peak hours are weekdays (Mon–Fri) 9:00–12:00 and 14:00–18:00 with all other times off-peak; weekends (Sat-Sun) are billed at off-peak rates all day. This took effect for Official direct-supply models from 2026-08-29 00:00 and for other DeepSeek models (except `deepseek-v4-flash` and `deepseek-v4-pro`, which are billed at flat credit prices without peak/off-peak) from 2026-09-26 00:00, replacing the previous rule that "DeepSeek V4 Official peak hours are Mon–Sun". The billing window is determined by when the platform server receives the request (Beijing time). This update was applied only to the notes in the Guangzhou region section; the Singapore region section still carries the old wording. Both sets of notes were unified to this same wording in the 2026-09-30 page update (the Guangzhou and Singapore sections now read identically, so the case of Singapore still carrying the old wording no longer applies)
-        - DeepSeek [Official direct-supply] Flash-series credit prices lowered (2026-09-14): DeepSeek-V4-Flash 0731 Official direct-supply (previously ~39 off-peak / ~77 peak credits per 1M tokens) and DeepSeek-V4-Flash-Vision-Exp Official direct-supply (previously ~35 / ~70) both dropped to match the newly added DeepSeek-V4.1-Flash — cached input 2 / uncached input 100 / output 400 (off-peak), 4 / 200 / 800 (peak) credits per 1M tokens, i.e. an estimated blended price of ~26 / ~51 credits per 1M tokens; this follows DeepSeek's upstream move of routing the legacy model names to V4.1-Flash billing
-        - The newly added DeepSeek-V4.1-Flash (not Official direct-supply) has exactly the same credit prices as the Official direct-supply version: cached input 2 / uncached input 100 / output 400 (off-peak), 4 / 200 / 800 (peak) credits per 1M tokens, i.e. an estimated blended price of ~26 / ~51 credits per 1M tokens
-        - Newly added Hy4 preview credit prices (2026-09-30, identical in Guangzhou and Singapore): cached input 30 / uncached input 600 / output 1800 credits per 1M tokens (no peak/off-peak distinction), an estimated blended price of ~158 credits per 1M tokens, i.e. 500K credits cover roughly 3.165B tokens
-        - Newly added MiMo-V2.6-Pro and MiMo-V2.6-Flash credit prices (2026-09-30, neither has peak/off-peak distinction): MiMo-V2.6-Pro 2.5 / 300 / 600 in Guangzhou and 2.59 / 313.05 / 626.1 in Singapore credits per 1M tokens (estimated blended price ~107 / ~112); MiMo-V2.6-Flash 2 / 100 / 200 in Guangzhou and 2.02 / 100.75 / 201.5 in Singapore credits per 1M tokens (estimated blended price ~33, i.e. 500K credits cover roughly 15.152B tokens)
-        - Light Enjoyment Plan: 2 RMB/million tokens per month
-    - Token Plan Personal Edition (switched to credit-based deduction effective 2026-08-31 17:00):
-        - Hy Token Plan:
-            - Lite Plan (28 RMB/month): 560 credits per subscription month
-            - Standard Plan (78 RMB/month): 1,560 credits per subscription month
-            - Pro Plan (238 RMB/month): 4,760 credits per subscription month (238 RMB × 20 = 4,760, consistent with the other tiers; the source page previously mislabeled this as 1,560 credits, now corrected)
-            - Max Plan (468 RMB/month): 9,360 credits per subscription month
-            - Supported models (image, video, and other multimodal capabilities temporarily not supported): Hy3, Hy4 preview (Hy3 preview calls auto-route to Hy3)
-        - Universal Token Plan:
-            - Lite Plan (39 RMB/month): 780 credits per subscription month
-            - Standard Plan (99 RMB/month): 1,980 credits per subscription month
-            - Pro Plan (299 RMB/month): 5,980 credits per subscription month
-            - Max Plan (599 RMB/month): 11,980 credits per subscription month
-            - Supported models (updated 2026-09-30): Auto, DeepSeek-V4.1-Flash Official direct-supply, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply, MiniMax-M2.7, MiniMax-M3, GLM-5, GLM-5.1, GLM-5.2, GLM-5.3, GLM-5.3-Flash, Kimi K2.7 Code, Kimi K3, Hy4 preview, MiMo-V2.6-Flash (Kimi-K2.5 discontinued; this update added DeepSeek-V4.1-Flash Official direct-supply and MiMo-V2.6-Flash, the former being the first V4.1-series direct-supply model in this plan; neither carries a separate credit-price note)
-            - DeepSeek-V4-Flash/DeepSeek-V4-Pro Official direct-supply model aliases deepseek/deepseek-v4-flash-0731, deepseek/deepseek-v4-flash, deepseek/deepseek-v4-pro-0813, deepseek/deepseek-v4-pro
-            - Token Plan Enterprise Professional Plan has removed MiniMax-M2.5 model (discontinued on August 7, 2026)
-- [Baidu Qianfan Token Plan (Personal Edition)](https://cloud.baidu.com/product/codingplan.html) [Personal Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [Enterprise Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
-    - Mini Plan (9.9 RMB/month): 10M tokens per month
-    - Lite Plan (40 RMB/month): 42M tokens per month
-    - Pro Plan (200 RMB/month): 230M tokens per month
-    - Max Plan (600 RMB/month): 700M tokens per month
+    - Enterprise Professional Plan: 1 RMB/100 Credits, minimum purchase 50K Credits (500 RMB/month); Light Enjoyment Plan: 2 RMB per million tokens
+    - Enterprise supported models (varies slightly by region): Auto, Hy4 preview, GLM-5.3, GLM-5.3-Flash, GLM-5.2, GLM-5 (retiring 2026-10-09), GLM-5.1 (retiring 2026-10-09), GLM-5-Turbo (retiring 2026-10-09), Kimi K2.7 Code, Kimi K2.7 Code HighSpeed, Kimi K3, Kimi-K2.6, MiniMax-M2.7, MiniMax-M3, DeepSeek-V4-Pro, DeepSeek-V4-Flash 0731 Official, DeepSeek-V4-Pro 0813 Official, DeepSeek-V4.1-Flash (not Official direct-supply), DeepSeek-V4.1-Flash Official direct-supply, DeepSeek-V4-Flash 0731 Official direct-supply, DeepSeek-V4-Pro 0813 Official direct-supply, DeepSeek-V4-Flash-Vision-Exp Official direct-supply, MiMo-V2.6-Pro, MiMo-V2.6-Flash
+    - Peak-valley billing: for DeepSeek models, peak hours are weekdays (Mon–Fri) 9:00–12:00 and 14:00–18:00 with all other times off-peak; weekends are billed at off-peak rates all day
+    - Credit prices (credits per 1M tokens): DeepSeek-V4.1-Flash (including Official direct-supply) cached 2 / uncached 100 / output 400 (off-peak), 4 / 200 / 800 (peak); Hy4 preview 30 / 600 / 1800; MiMo-V2.6-Pro 2.5/300/600 in Guangzhou and 2.59/313.05/626.1 in Singapore; MiMo-V2.6-Flash 2/100/200 in Guangzhou and 2.02/100.75/201.5 in Singapore
+    - Personal Hy Token Plan: Lite 28 RMB/month (560 credits), Standard 78 (1,560), Pro 238 (4,760), Max 468 (9,360); supports Hy3 and Hy4 preview
+    - Personal Universal Token Plan: Lite 39 (780 credits), Standard 99 (1,980), Pro 299 (5,980), Max 599 (11,980); supports Auto, DeepSeek-V4.1-Flash Official direct-supply, DeepSeek-V4-Flash Official direct-supply, DeepSeek-V4-Pro Official direct-supply, MiniMax-M2.7, MiniMax-M3, GLM-5, GLM-5.1, GLM-5.2, GLM-5.3, GLM-5.3-Flash, Kimi K2.7 Code, Kimi K3, Hy4 preview, MiMo-V2.6-Flash
+- [Baidu Qianfan Token Plan (Personal Edition)](https://cloud.baidu.com/product/codingplan.html) | [Personal Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) | [Enterprise Edition Documentation](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
+    - Mini 9.9 RMB/month (10M tokens), Lite 40 (42M), Pro 200 (230M), Max 600 (700M)
     - Supported models: DeepSeek-V4-Pro, DeepSeek-V4-Flash, GLM-5.2, GLM-5.1, Kimi-K2.6, ERNIE 5.1
 - [JD Cloud Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
-    - Lite Plan (19.9 RMB first purchase/month, 40 RMB renewal/month): Per 5 hours: maximum 1,200 requests. Per week: maximum 9,000 requests. Per subscription month: maximum 18,000 requests
-    - Pro Plan (99.9 RMB first purchase/month, 200 RMB renewal/month): Per 5 hours: maximum 6,000 requests. Per week: maximum 45,000 requests. Per subscription month: maximum 90,000 requests
+    - Lite Plan (19.9 first purchase, 40 renewal, RMB/month): maximum 1,200 requests per 5 hours, 9,000 per week, 18,000 per subscription month
+    - Pro Plan (99.9 first purchase, 200 renewal, RMB/month): maximum 6,000 requests per 5 hours, 45,000 per week, 90,000 per subscription month
     - Supported models: DeepSeek-V3.2, GLM-5, GLM-4.7, MiniMax-M2.5, Kimi-K2.5, Kimi-K2-Turbo, Qwen3-Coder
-- [iFlytek Astron Token Plan Team Edition](https://www.xfyun.cn/doc/spark/TokenPlan.html) [Subscription](https://maas.xfyun.cn/tokenPlan/subscription)
-    - Standard Member (200 RMB/seat/month): 20000 Credits, 2M TPM
-    - Advanced Member (600 RMB/seat/month): 60000 Credits, 3M TPM
-    - Premium Member (1200 RMB/seat/month): 200000 Credits, 5M TPM
+- [iFlytek Astron Token Plan Team Edition](https://www.xfyun.cn/doc/spark/TokenPlan.html) | [Subscription](https://maas.xfyun.cn/tokenPlan/subscription)
+    - Standard Member 200 RMB/seat/month (20,000 Credits, 2M TPM), Advanced Member 600 (60,000 Credits, 3M TPM), Premium Member 1200 (200,000 Credits, 5M TPM)
     - Supported models: Spark-X2.5, Spark-X2-Flash, GLM-5.2, GLM-5.1, GLM-5, DeepSeek-V4-Pro, DeepSeek-V4-Flash, DeepSeek-V3.2, Kimi-K2.6, Kimi-K2.5, MiniMax-M2.5, Qwen3.5-397B-A17B, Qwen3.6-35B-A3B, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, GLM-4.7-Flash
-- [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) [Subscription](https://maas.xfyun.cn/packageSubscription)
-    - Professional (39 RMB/month): Per 5 hours: maximum ~1,200 requests; per week: maximum ~9,000 requests; per subscription month: maximum ~18,000 requests. Supports Spark-X2-Agent, Spark-X2, Auto, GLM-5.1, GLM-5, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
-    - Efficient (199 RMB/month): Per 5 hours: maximum ~6,000 requests; per week: maximum ~45,000 requests; per subscription month: maximum ~90,000 requests. Supports Spark-X2-Agent, Spark-X2, Auto, GLM-5, GLM-5.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B models
-- [CTCloud Programming Token Plan](https://www.ctyun.cn/document/11061839/11092368): billing switched from a fixed token allowance to credits ("Programming Token Plan (Credits Edition)", page updated 2026-09-23)
-    - 29 RMB/month: 3,000 credits
-    - 89 RMB/month: 10,000 credits
-    - 199 RMB/month: 25,000 credits
-    - 399 RMB/month: 50,000 credits
-    - 699 RMB/month: 100,000 credits
-    - Supported models (credits edition): DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, GLM-5.2, GLM-5.1, Kimi-K2.6, MiniMax-M3
-    - Credit-to-token conversion (tokens per credit, input/output): DeepSeek-V4-Pro 1,111/370; DeepSeek-V4-Flash 3,333/1,111; GLM-5.2 1,250/357; GLM-5.1 input [0,32k] 1,667 (output 417) and input (32k,200k] 1,250 (output 357); Kimi-K2.6 1,538/370; MiniMax-M3 input [0,512k] 4,762 (output 1,190) and input (512k,1M] 2,381 (output 595)
-    - Official note: the plan model library is updated dynamically — models may be added, replaced, upgraded, re-scoped or retired according to model performance, stability and supply, and the plan only grants access to the models adapted for the current period with no guarantee of permanently providing any given model
-    - The previous token-metered plans are being retired: only existing subscribers may renew and new purchases are not supported; their supported models are now DeepSeek-V4-Flash-0731, GLM-5.1, GLM-5.0 (retiring 2026-10-10) and DeepSeek-V3.2 (written "DeepSeeV3.2" on the page, retiring 2026-10-10)
+- [iFlytek Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) | [Subscription](https://maas.xfyun.cn/packageSubscription)
+    - Professional (39 RMB/month): ~1,200 requests per 5 hours, ~9,000 per week, ~18,000 per subscription month; supports Spark-X2-Agent, Spark-X2, Auto, GLM-5.1, GLM-5, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B
+    - Efficient (199 RMB/month): ~6,000 requests per 5 hours, ~45,000 per week, ~90,000 per subscription month; supports Spark-X2-Agent, Spark-X2, Auto, GLM-5, GLM-5.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash, MiniMax-M2.5, Kimi-K2.6, Kimi-K2.5, DeepSeek-V3.2, Spark-X2-Flash, Qwen3.6-35B-A3B, GLM-4.7-Flash, Qwen3.5-35B-A3B, Qwen3-Coder-Next-FP8, Qwen3.5-397B-A17B
+- [CTCloud Programming Token Plan](https://www.ctyun.cn/document/11061839/11092368) (Credits Edition)
+    - 29 (3,000 credits), 89 (10,000), 199 (25,000), 399 (50,000), 699 (100,000) RMB/month
+    - Supported models: DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, GLM-5.2, GLM-5.1, Kimi-K2.6, MiniMax-M3
+    - Credit-to-token conversion (tokens per credit, input/output): DeepSeek-V4-Pro 1,111/370; DeepSeek-V4-Flash 3,333/1,111; GLM-5.2 1,250/357; GLM-5.1 input [0,32k] 1,667 (output 417), (32k,200k] 1,250 (output 357); Kimi-K2.6 1,538/370; MiniMax-M3 input [0,512k] 4,762 (output 1,190), (512k,1M] 2,381 (output 595)
+    - The previous token-metered plans allow renewals by existing subscribers only
 - [Huawei Cloud MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
-    - Lite (59 RMB/month): 50M tokens per subscription month
-    - Standard (149 RMB/month): 130M tokens per subscription month
-    - Pro (399 RMB/month): 380M tokens per subscription month
-    - Max (799 RMB/month): 880M tokens per subscription month
+    - Lite 59 RMB/month (50M tokens per subscription month), Standard 149 (130M), Pro 399 (380M), Max 799 (880M)
     - Supported models: GLM-5, GLM-5.1, Kimi-K2.6, DeepSeek-V3.2, DeepSeek-V4-Flash
 
 ### Others
 
 - [StepFun Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
-    - Flash Mini (49 RMB/month): 400M Credits
-    - Flash Plus (99 RMB/month): 1600M Credits
-    - Flash Pro (199 RMB/month): 8000M Credits
-    - Flash Max (699 RMB/month): 40000M Credits
+    - Flash Mini 49 RMB/month (400M Credits), Flash Plus 99 (1600M), Flash Pro 199 (8000M), Flash Max 699 (40000M)
     - Supported models: step-5-preview (next-generation flagship base model), step-3.7-flash, step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-realtime, stepaudio-2.5-chat, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash)
-    - step-image-edit-2 (text-to-image and image editing model, originally scheduled for retirement on 2026-10-10) has been removed from the supported model list and the official page also deleted the image model retirement notice; the page after the switch to Credit monthly-pool billing no longer includes any image generation/editing model
-- [Xiaomi MiMo Token Plan (Personal Edition)](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription) (the official page title changed from "Subscription" to "Personal Edition", and the plan purchase note now reads "only one Personal Edition plan can be held at a time")
-    - Lite (39 RMB or 6 USD/month): 4.1B Credits per month
-    - Standard (99 RMB or 16 USD/month): 11B Credits per month
-    - Pro (329 RMB or 50 USD/month): 38B Credits per month
-    - Max (659 RMB or 100 USD/month): 82B Credits per month
-    - Supported models: All plans support MiMo-V2.6-Pro, MiMo-V2.6-Flash, MiMo-V2.5-Pro, MiMo-V2.5, MiMo-V2.5-ASR, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS (8 models total; MiMo-V2-Pro, MiMo-V2-Omni and MiMo-V2-TTS were removed from the list and the Credit table)
-    - MiMo-V2.6-Pro and MiMo-V2.6-Flash are new models whose Credit conversion matches the previous generation: V2.6-Pro is 2.5 cached input / 300 uncached input / 600 output Credits per token, V2.6-Flash is 2 / 100 / 200 Credits per token (identical to V2.5-Pro / V2.5; ASR remains 30M Credits per hour)
-    - **mimo-v2.5-pro and mimo-v2.5 will be retired at 10:00 Beijing time on 2026-10-21; the official page advises switching to the new models as soon as possible.**
-    - Credit consumption: language models deduct Credits by token count, ASR deducts by input audio duration, and the TTS series is free for a limited time and does not consume plan Credits
-    - The discounts are now only "88% off first purchase, 88% off annual auto-renewal, 0.8x consumption at night (0:00-8:00)"; the Token Plan upgrade "Credits usage reset" campaign (effective 2026-05-27) has been removed from the page
-
-- [OpenCode Go](https://opencode.ai/docs/zh-cn/go) (low-cost open-source coding model subscription for international users)
-    - Two plans: **Go ($10/month)** and **Go Plus ($40/month)**; token prices are identical on both, and Go Plus only raises the usage limits of each model
-    - Usage limits: defined per model as a monthly amount; 5 hours = 20% of the monthly limit, week = 50%, month = 100% (monthly limits differ per model — on Go, e.g. GLM-5.3 $15, GLM-5.3-Flash $60; Go Plus multiplies each model's monthly limit by 2–8x, mostly 4x, e.g. GLM-5.3 from $15 to $120 and GLM-5.3-Flash from $60 to $180); cross-model totals are $12/$30/$60 (5 hours/week/month) on Go and $48/$120/$240 on Go Plus (2026-09-29 page update: the Usage limits section deleted the illustrative example — "if a model's monthly limit on Go is $60 and on Go Plus $120 …" — together with the sentence that cross-model totals are $12/$30/$60 on Go and $48/$120/$240 on Go Plus, leaving only "each model's monthly limit below determines how its usage counts toward these allowances"; the per-model allowance tables and token prices are unchanged, so the totals above are kept as historical values only, as the page no longer states them)
-    - Supported models: Grok 4.7, Grok 4.6, GLM-5.3/5.3-Flash/5.2, GPT 6 Luna, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro, MiniMax M3/M2.7, **Muse Spark 1.3 Contributor**, **Muse Spark 1.2 Contributor**, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3, **Space Bunny Free** (limited-time free), **LongCat 2.5 Preview Free** (limited-time free)
-    - Go Plus is a new plan added on 2026-09-28: a higher monthly fee buys higher per-model usage limits while token unit prices stay the same, and the subscription entry point was renamed from OpenCode Zen to OpenCode Console; each workspace still allows only one member to subscribe to Go or Go Plus
-    - 2026-09-28 model list update: GLM-5.1, Qwen3.7 Max, Qwen3.6 Plus and MiniMax M2.5 were removed from the model list, the token price table, the request limit table, the endpoint table and the data retention table; Omen Alpha is no longer in any list on the page either
-    - Grok 4.7 is a new model: pricing and request limits are the same as Grok 4.6 (≤200K tokens: input $2.00 / output $6.00 / cache read $0.50; >200K tokens: input $4.00 / output $12.00 / cache read $1.00 per 1M tokens; monthly usage allowance $15; request limits 169 per 5 hours, 423 per week, 845 per month); model ID grok-4.7, endpoint https://opencode.ai/zen/go/v1/responses
-    - MiMo-V2.6-Flash and MiMo-V2.6-Pro are new models: pricing and request limits are identical to the previous generations they replace — V2.6-Flash input $0.14 / output $0.28 / cache read $0.0028 (allowance $60, request limits 30,100 per 5 hours, 75,200 per week, 150,400 per month, model ID mimo-v2.6-flash); V2.6-Pro input $0.435 / output $0.87 / cache read $0.003625 (allowance $15, request limits 3,250 per 5 hours, 8,150 per week, 16,300 per month, model ID mimo-v2.6-pro)
-    - The DeepSeek V4.1 Flash model ID was renamed from deepseek-flash to deepseek-v4.1-flash (endpoint https://opencode.ai/zen/go/v1/chat/completions)
-    - Hy4 preview is a new model: input $0.834/1M, output $2.501/1M, cache read $0.042/1M (usage allowance $30); request limits 1,350 per 5 hours, 3,380 per week, 6,770 per month; model ID hy4-preview
-    - Omen Alpha is no longer present in the model list, the token price table, the request limit table or the endpoint table (as of 2026-09-28 the kb no longer lists it as a supported model)
-    - Muse Spark 1.3 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M, usage allowance $60); request limits 45,300 per 5 hours, 113,300 per week, 226,600 per month; model ID muse-spark-1.3-contributor. Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
-    - Muse Spark 1.2 Contributor is a new model: allows Meta to use prompts and completions for training future models in exchange for heavily discounted token pricing (input $0.10/1M, output $0.20/1M, cache read $0.002/1M). Only available in regions permitted by Meta's [Geographic Use Policy](https://ai.developer.meta.com/legal/geographic-use-policy)
-    - Qwen3.8 Flash is a new model: input $0.15/1M, output $0.47/1M, cache read $0.016/1M, cache write $0.20/1M (usage limit $30); request limits 5,400 per 5 hours, 13,500 per week, 27,000 per month; model ID qwen3.8-flash
-    - Qwen3.7 Max was removed from the supported model list on 2026-09-28 (previously: request limits 170 per 5 hours, 420 per week, 840 per month, usage allowance $30/month; pricing input $2.50/1M, output $7.50/1M, cache read $0.50/1M, cache write $3.125/1M; from 2026-09-01 the request limits were halved from 340/840/1,690 and the monthly usage allowance was reduced from $60 to $30)
-    - The 4x boost of the DeepSeek V4.1 Flash quota has changed from a limited-time promotion into a standard value (page updated 2026-09-26): the monthly usage allowance of **$60** and the request limits of 26,000 per 5 hours, 65,000 per week, 130,000 per month are now listed directly as this model's regular quota — the "~~$15~~ **$60** 4x · ends Sep 27" annotations in both the pricing table and the estimated-request table (the limited-time promotion note, the struck-through old $15 baseline and the end date) have been removed entirely; token pricing unchanged (off-peak input $0.15/1M, output $0.60/1M, cache read $0.003/1M; peak pricing is double)
-    - Space Bunny Free is a new (limited-time) model: input, output and cache read are all Free, and both the request limits and the monthly usage allowance are listed as unlimited (a limited-time promotion with no end date given by the vendor); model ID space-bunny-free, endpoint https://opencode.ai/zen/go/v1/chat/completions
-    - LongCat 2.5 Preview Free is a new (limited-time) model: input, output and cache read are all Free, and both the request limits and the monthly usage allowance are listed as unlimited (a limited-time promotion with no end date given by the vendor); model ID longcat-2.5-preview-free, endpoint https://opencode.ai/zen/go/v1/chat/completions
-    - GPT 6 Luna is a new model: billed in 272K-token tiers — up to 272K tokens input $0.10 / output $0.50 / cache read $0.01 / cache write $0.125 per 1M tokens, above 272K tokens input $0.20 / output $0.75 / cache read $0.02 / cache write $0.25, i.e. exactly half of GPT 5.6 Luna's input and cache prices with a lower output price (GPT 5.6 Luna charged $1.20); GPT 5.6 Luna remains available. Monthly usage allowance $15, request limits 4,230 per 5 hours, 10,560 per week, 21,130 per month; model ID gpt-6-luna, endpoint https://opencode.ai/zen/go/v1/responses
+- [Xiaomi MiMo Token Plan (Personal Edition)](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
+    - Lite (39 RMB or 6 USD/month): 4.1B Credits per month; Standard (99 RMB or 16 USD): 11B; Pro (329 RMB or 50 USD): 38B; Max (659 RMB or 100 USD): 82B
+    - Supported models: MiMo-V2.6-Pro, MiMo-V2.6-Flash, MiMo-V2.5-Pro, MiMo-V2.5, MiMo-V2.5-ASR, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS
+    - **mimo-v2.5-pro and mimo-v2.5 will be retired at 10:00 Beijing time on 2026-10-21; switching to the new models as soon as possible is recommended**
+    - Discounts: 88% off first purchase, 88% off annual auto-renewal, 0.8× consumption at night (0:00–8:00)
+- [OpenCode Go](https://opencode.ai/docs/zh-cn/go)
+    - Two plans: **Go ($10/month)** and **Go Plus ($40/month)**; token prices are identical and Go Plus only raises the per-model usage limits (monthly allowances are 2–8x those of Go, mostly 4x)
+    - Usage limits are defined per model as a monthly amount: 5 hours = 20% of the monthly limit, week = 50%, month = 100%
+    - Supported models: Grok 4.7, Grok 4.6, GLM-5.3/5.3-Flash/5.2, GPT 6 Luna, GPT 5.6 Luna, Kimi K3/K2.7 Code/K2.6, LongCat-2.0, MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro, MiniMax M3/M2.7, Muse Spark 1.3 Contributor, Muse Spark 1.2 Contributor, Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Plus, DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp, Hy4 preview, Hy3, Space Bunny Free (limited-time free), LongCat 2.5 Preview Free (limited-time free)
 - [StepFun International Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [UniAI GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [Moorethreads AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 - [DeepSeek API Pricing](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/):
-    - Peak-valley pricing: off-peak price is half of peak; peak hours are Monday to Friday 9:00-12:00, 14:00-18:00 Beijing time (the rest are off-peak)
-    - deepseek-flash (DeepSeek-V4.1-Flash, 1M context, supports image understanding; the official model name to use):
-        - Off-peak: cached input 0.02 RMB / uncached input 1 RMB / output 4 RMB per 1M tokens
-        - Peak: cached input 0.04 RMB / uncached input 2 RMB / output 8 RMB per 1M tokens
-        - Old model names deepseek-v4-flash and deepseek-v4-flash-vision-exp are discontinued; calls still work but are served by DeepSeek-V4.1-Flash and billed at Flash pricing
-    - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context, no image understanding):
-        - Off-peak: cached input 0.15 RMB / uncached input 4.5 RMB / output 13.5 RMB per 1M tokens
-        - Peak: cached input 0.30 RMB / uncached input 9.0 RMB / output 27.0 RMB per 1M tokens
-        - V4 Pro retirement was announced but has been reversed: DeepSeek will keep serving the DeepSeek V4 Pro API after 2026-09-14 with unchanged billing (the earlier notice said all requests would be routed to V4.1 Flash and billed at Flash pricing)
+    - Peak-valley pricing: off-peak prices are half of peak; peak hours are Monday to Friday 9:00-12:00 and 14:00-18:00 Beijing time
+    - deepseek-flash (DeepSeek-V4.1-Flash, 1M context, supports image understanding): off-peak cached input 0.02 / uncached input 1 / output 4 RMB per 1M tokens; peak 0.04 / 2 / 8
+    - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context, no image understanding): off-peak cached input 0.15 / uncached input 4.5 / output 13.5 RMB per 1M tokens; peak 0.30 / 9.0 / 27.0
 
 ## Prompts, Requests, and Tokens
 

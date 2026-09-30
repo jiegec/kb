@@ -4,63 +4,34 @@
 
 ### Kimi
 
-[Kimi 登月计划](https://www.kimi.com/membership/pricing) [Kimi Code](https://www.kimi.com/code)
+[Kimi 登月计划](https://www.kimi.com/membership/pricing) | [Kimi Code](https://www.kimi.com/code)
 
-- Andante（49 RMB 每月）
-- Moderato（99 RMB 每月）
-- Allegretto（199 RMB 每月）
-- Allegro（699 RMB 每月）
-- 订阅续购规则调整：因算力资源紧张，将优先保障订阅中用户的使用体验，你可于 2026-08-20 00:00 前续订，逾期将无法直接购买
-- Kimi Code 当前基于旗舰 K3 模型（参数规模约 2.8 万亿），并搭载 K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；全面兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
-- 模型 ID 与会员档位要求（2026-09-18 文档补充）：`k3`、`k3-256k` 需 Moderato / Plus 及以上会员，其中 1M 上下文需 Allegretto / Pro 及以上会员；`kimi-for-coding`（K2.8 Preview）需 Andante / Plus 及以上会员（此前表述为「所有会员可用」）；`kimi-for-coding-highspeed` 需 Allegretto / Pro 及以上会员。文档首次出现 Plus / Pro 档位命名（Kimi 会员定价页未纳入归档，Plus / Pro 与国内档位的对应关系待确认）
+- 档位（RMB 每月）：Andante 49、Moderato 99、Allegretto 199、Allegro 699
+- Kimi Code 基于旗舰 K3 模型（参数规模约 2.8 万亿），提供 K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
+- 模型 ID 与会员档位要求：`k3`、`k3-256k` 需 Moderato / Plus 及以上会员，其中 1M 上下文需 Allegretto / Pro 及以上会员；`kimi-for-coding`（K2.8 Preview）需 Andante / Plus 及以上会员；`kimi-for-coding-highspeed` 需 Allegretto / Pro 及以上会员
 - API 接入点区分国内/海外：OpenAI 兼容 国内 `https://api.kimi.com/coding/v1`、海外 `https://api.kimi.ai/coding/v1`；Anthropic 兼容 国内 `https://api.kimi.com/coding/`、海外 `https://api.kimi.ai/coding/`；Kimi 开放平台 国内 `https://api.moonshot.cn/v1`、海外 `https://api.moonshot.ai/v1`
-- [K3 API 价格](https://platform.kimi.com/docs/pricing/chat-k3)：
-    - 输入命中缓存 2 RMB 每 1M tokens
-    - 输入未命中缓存 20 RMB 每 1M tokens
-    - 输出 100 RMB 每 1M tokens
-    - 1M 上下文
-- [K2.7-Code API 价格](https://platform.kimi.com/docs/pricing/chat-k27-code)：
-    - 输入命中缓存 1.3 RMB 每 1M tokens
-    - 输入未命中缓存 6.5 RMB 每 1M tokens
-    - 输出 27 RMB 每 1M tokens
-    - 256K 上下文
-- [K2.7-Code-HighSpeed API 价格](https://platform.kimi.com/docs/pricing/chat-k27-code)：
-    - 输入命中缓存 2.6 RMB 每 1M tokens
-    - 输入未命中缓存 13.0 RMB 每 1M tokens
-    - 输出 54 RMB 每 1M tokens
-    - 256K 上下文
+- API 价格（RMB 每 1M tokens）：
+    - [K3](https://platform.kimi.com/docs/pricing/chat-k3)：输入命中缓存 2、输入未命中缓存 20、输出 100，1M 上下文
+    - [K2.7-Code](https://platform.kimi.com/docs/pricing/chat-k27-code)：输入命中缓存 1.3、输入未命中缓存 6.5、输出 27，256K 上下文
+    - [K2.7-Code-HighSpeed](https://platform.kimi.com/docs/pricing/chat-k27-code)：输入命中缓存 2.6、输入未命中缓存 13.0、输出 54，256K 上下文
 
 ### MiniMax
 
-[MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [订阅](https://platform.minimax.cn/subscribe/token-plan)
+[MiniMax M Plan](https://platform.minimaxi.com/docs/token-plan/intro) | [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan) | [订阅](https://platform.minimax.cn/subscribe/token-plan)
 
-- Token Plan 支持范围已从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
-- 新增语言模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文的 Frontier Coding 模型，思考深度可调）：官方模型概览标注「暂时仅通过 M Plan 和 MiniMax Code 提供」（2026-09-28 首次标注，2026-09-30 随产品更名改为「M Plan」表述，暂未给出单独定价与额度说明）
-- 产品更名（2026-09-30 抓取）：官方文档把「Token Plan」改称「M Plan」——模型概览页（中英文）与按量计费定价页中的「Token Plan」表述已替换为「M Plan」（含按量计费页的「M Plan MCP」插件字样与「通过 M Plan 调用 API-vlm 时…扣减套餐内 M Plan 额度」一句），站点导航「定价」下拉中也新增 M Plan（`/docs/m-plan/intro`）并把原 Token Plan 标签隐藏、外链改为 https://www.minimax.cn/m-plan；Token Plan FAQ 与 Token Plan 介绍页本次抓取仍沿用旧名（按量计费页提到的「积分资源覆盖范围与 Token Plan 相同」及指向 Token Plan 定价页的链接同样未改），套餐价格、额度与订阅入口均未变
-- Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+
-- Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
-- Ultra（469 RMB 每月）: 月度 M3 Token 用量约 71 亿+
-- 订阅权益与迁移规则（2026-09-28 FAQ 新增「订阅权益调整说明」与「Token Plan迁移说明」两节）：2026-06-05 前已订阅用户此前承诺的老用户权益继续保留，具体权益、适用范围与实时状态以控制台「权益详情」或用量看板为准；此前迁移方案发放的补偿积分有效期由 1 个月自动订正为自发放日起 1 年（自动生效，无需用户操作）；权益加成自订阅生效起自动激活，但仅在连续订阅周期内有效，主动变更套餐档位或取消订阅即视为放弃、后续恢复订阅也不再补发
-- 停售档位与迁移方案：Max-极速（199 元每月）、Ultra-极速（899 元每月）停售，下个续费日自动转入新档——Max-极速 → Max（119 元每月，月费下调 80 元，每月额外补发价值约 160 元积分，叠加多模态权益）、Ultra-极速 → Ultra（469 元每月，月费下调 430 元，每月额外补发价值约 860 元积分）；两个停售档的年包不一次性补差，而是按订阅时间每月独立补发等值积分（每月额度独立有效期 1 年、不滚存），年包到期后按新档年付价自动续约
-- 老用户专属保留档：Starter（29 元每月）、Plus-极速（98 元每月）价格与签约关系不变，但仅对老用户开放、不再对新用户售卖，中途断订后无法再次订阅同档；Plus / Max 档价格不变（签约价继续生效），M2.7 的 5 小时使用次数约 +10%，并新增 M3 使用权限与多模态额度（图像、语音，与 M2.7 共享同一份额度池）
-- Ultra 档为填补 199 与 899 元之间空缺的重度档：月度容量约 71 亿 token，含每日 5 条视频生成额度；已购积分可用于 MiniMax 开放平台大部分模型（暂不支持 MiniMax H3），按各模型 API 按量付费刊例价实时扣减，文本/图像/语音/视频（部分档位）跨模态共享
+- 产品名为 M Plan（原 Token Plan），覆盖范围已收窄为旗舰模型；音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，额度不再包含音乐资源
+- 档位（RMB 每月，月度 M3 Token 用量）：Plus 49（约 6 亿+）、Max 119（约 18 亿+）、Ultra 469（约 71 亿+）
+- MiniMax-M3.1-Flash-Preview 为新增语言模型（原生多模态、1M 上下文、思考深度可调），暂仅通过 M Plan 和 MiniMax Code 提供
+- 停售与迁移：Max-极速（199 元每月）、Ultra-极速（899 元每月）停售，下个续费日自动转入 Max（119 元每月）/ Ultra（469 元每月），月费下调并每月补发等值积分（年包按月独立补发、每月额度独立有效期 1 年、不滚存）；Starter（29 元每月）、Plus-极速（98 元每月）为老用户专属保留档，仅对老用户开放
+- 权益规则：2026-06-05 前已订阅用户的老用户权益继续保留；迁移补偿积分有效期自发放日起 1 年；权益加成自订阅生效起自动激活，仅在连续订阅周期内有效，变更档位或取消订阅即放弃
+- Ultra 含每日 5 条视频生成额度；已购积分可用于 MiniMax 开放平台大部分模型（暂不支持 MiniMax H3），按各模型 API 刊例价实时扣减，文本/图像/语音/视频跨模态共享
 - 预付积分包：¥30 获 4489 积分、¥150 获 22460 积分、¥500 获 74900 积分，有效期 365 天
-- [MiniMax M3 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)：
-    - `<=` 512K 输入 token：
-        - 输入命中缓存 0.42 RMB 每 1M tokens
-        - 输入未命中缓存 2.10 RMB 每 1M tokens
-        - 输出 8.40 RMB 每 1M tokens
-    - `>` 512K 输入 token：
-        - 输入命中缓存 0.84 RMB 每 1M tokens
-        - 输入未命中缓存 4.20 RMB 每 1M tokens
-        - 输出 16.80 RMB 每 1M tokens
+- [MiniMax M3 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)（RMB 每 1M tokens）：
+    - `<=` 512K 输入 token：输入命中缓存 0.42、输入未命中缓存 2.10、输出 8.40
+    - `>` 512K 输入 token：输入命中缓存 0.84、输入未命中缓存 4.20、输出 16.80
     - 1M 上下文
 
-[MiniMax 国际版 Token Plan](https://platform.minimax.io/docs/token-plan/intro) [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)
-
-- Plus（$22 每月）: 个人项目与原型开发
-- Max（$55 每月）: 日常编程 Agent 与多模态调用
-- Ultra（$132 每月）: 重度 Agent 工作流与长时使用
+[MiniMax 国际版 M Plan](https://platform.minimax.io/docs/token-plan/intro) | [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)：Plus $22 每月、Max $55 每月、Ultra $132 每月
 
 ### 智谱
 
@@ -69,16 +40,15 @@
 - Lite 套餐（118 RMB 每月）：每 5 小时 2000 积分，每周 10000 积分
 - Pro 套餐（538 RMB 每月）：每 5 小时 12000 积分，每周 60000 积分
 - Max 套餐（1078 RMB 每月）：每 5 小时 28000 积分，每周 140000 积分
-- 模型消耗积分数=（输入 Token × Input 抵扣系数 + 缓存命中 Token × Cached Input 抵扣系数 + 输出 Token × Output 抵扣系数）/ 10000
-- MCP 消耗积分数=调用次数 × Output 抵扣系数
-- 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**。
-- 调用历史模型 GLM-5.2、GLM-5.1 都将自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 将自动切换至 GLM-5.3-Flash。
-- 非高峰时段内，模型调用按基础积分消耗的 50% 抵扣。高峰时段：每周一至周五的 14:00～18:00（UTC+8）。
-    - 「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00）：套餐用户在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍
-    - 「庆双节活动」（2026-09-25 至 2026-10-07）：全天按非高峰时段规则消耗额度，即全天按 50% 积分消耗
-- GLM-5.3：Input 抵扣系数 6.9，Cached Input 抵扣系数 1.7，Output 抵扣系数 24
-- GLM-5.3-Flash（含视觉理解 MCP）：Input 抵扣系数 2.3，Cached Input 抵扣系数 0.56，Output 抵扣系数 8
-- 套餐的 Token 用量会因缓存命中率而有所不同，具体如下：
+- 模型消耗积分数 =（输入 Token × Input 抵扣系数 + 缓存命中 Token × Cached Input 抵扣系数 + 输出 Token × Output 抵扣系数）/ 10000
+- MCP 消耗积分数 = 调用次数 × Output 抵扣系数
+- 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**；调用历史模型 GLM-5.2、GLM-5.1 自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 自动切换至 GLM-5.3-Flash
+- 非高峰时段按基础积分消耗的 50% 抵扣；高峰时段为每周一至周五的 14:00～18:00（UTC+8）
+- 限时活动：
+    - 「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00）：在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍
+    - 「庆双节活动」（2026-09-25 至 2026-10-07）：全天按非高峰时段规则消耗额度
+- 抵扣系数：GLM-5.3 为 Input 6.9 / Cached Input 1.7 / Output 24；GLM-5.3-Flash（含视觉理解 MCP）为 Input 2.3 / Cached Input 0.56 / Output 8
+- 套餐 Token 用量因缓存命中率而异：
 
 | 缓存命中率 | 模型          | Lite（亿 Tokens/周） | Pro（亿 Tokens/周） | Max（亿 Tokens/周） |
 |------------|---------------|--------------------|-------------------|-------------------|
@@ -89,230 +59,109 @@
 | 98%        | GLM-5.3       | 0.52～1.04          | 3.13～6.27         | 7.31～14.63        |
 | 98%        | GLM-5.3-Flash | 1.58～3.17          | 9.50～19.00        | 22.17～44.33       |
 
-
-- 区间说明
-    - 最多 Tokens：全部在非高峰时段，按 0.5 倍积分消耗
-    - 最少 Tokens：全部在高峰时段，按 1 倍积分消耗
-- 当充分利用非高峰时段优惠时，相较于按量调用 GLM-5.3 标准 API，最高可节省 92% 成本
-- [GLM-5.3 API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 2 RMB 每 1M tokens
-    - 输入未命中缓存 8 RMB 每 1M tokens
-    - 输出 28 RMB 每 1M tokens
-    - 1M 上下文
-- [GLM-5.3-Flash API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 0.23、输入未命中缓存 0.8、输出 2.8 RMB 每 1M tokens
-    - 1M 上下文（限时五折活动已结束，现按上述标准价计费）
-- [GLM-5.2 API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 2 RMB 每 1M tokens
-    - 输入未命中缓存 8 RMB 每 1M tokens
-    - 输出 28 RMB 每 1M tokens
-    - 1M 上下文
-- [GLM-5.1 API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 1.3/2 RMB 每 1M tokens
-    - 输入未命中缓存 6/8 RMB 每 1M tokens
-    - 输出 24/28 RMB 每 1M tokens
-    - 200K 上下文
-- [GLM-5-Turbo API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 1.2/1.8 RMB 每 1M tokens
-    - 输入未命中缓存 5/7 RMB 每 1M tokens
-    - 输出 22/26 RMB 每 1M tokens
-    - 200K 上下文
-- [GLM-4.7 API 价格](https://bigmodel.cn/pricing)：
-    - 输入命中缓存 0.4/0.6/0.8 RMB 每 1M tokens
-    - 输入未命中缓存 2/3/4 RMB 每 1M tokens
-    - 输出 8/14/16 RMB 每 1M tokens
-    - 200K 上下文
+区间说明：最多 Tokens 为全部在非高峰时段按 0.5 倍消耗；最少 Tokens 为全部在高峰时段按 1 倍消耗。充分利用非高峰优惠时，相较按量调用 GLM-5.3 标准 API 最高可节省 92% 成本
+- API 价格（RMB 每 1M tokens）：
+    - [GLM-5.3](https://bigmodel.cn/pricing)：输入命中缓存 2、输入未命中缓存 8、输出 28，1M 上下文
+    - [GLM-5.3-Flash](https://bigmodel.cn/pricing)：输入命中缓存 0.23、输入未命中缓存 0.8、输出 2.8，1M 上下文
+    - [GLM-5.2](https://bigmodel.cn/pricing)：输入命中缓存 2、输入未命中缓存 8、输出 28，1M 上下文
+    - [GLM-5.1](https://bigmodel.cn/pricing)：输入命中缓存 1.3/2、输入未命中缓存 6/8、输出 24/28，200K 上下文
+    - [GLM-5-Turbo](https://bigmodel.cn/pricing)：输入命中缓存 1.2/1.8、输入未命中缓存 5/7、输出 22/26，200K 上下文
+    - [GLM-4.7](https://bigmodel.cn/pricing)：输入命中缓存 0.4/0.6/0.8、输入未命中缓存 2/3/4、输出 8/14/16，200K 上下文
 
 [智谱 GLM Coding Plan 团队版](https://docs.bigmodel.cn/cn/coding-plan/team)
 
 - 团队标准版（598 RMB 每月）：每 5 小时最多 0.6 亿 tokens 每席位，每周最多 3 亿 tokens 每席位
 - 团队高级版（1198 RMB 每月）：每 5 小时最多 1.6 亿 tokens 每席位，每周最多 8 亿 tokens 每席位
-- “最多”指在 1 倍消耗系数 下，可实际消耗的 Tokens 总量。当前各模型的额度消耗规则如下：
-    - GLM-4.7、GLM-4.5-Air：全天按 1 倍系数 消耗额度
-    - GLM-5.2、GLM-5-Turbo：作为高阶模型，调用时按“高峰期 3 倍，非高峰期 2 倍”系数消耗额度。作为限时福利，截至至 6 月底，GLM-5.2 与 GLM-5-Turbo 在非高峰期将仅按 1 倍系数抵扣额度。
-    - 注：高峰期时间为每日 14:00～18:00（UTC+8）。
+- 「最多」指在 1 倍消耗系数下可实际消耗的 Tokens 总量；各模型额度消耗规则：
+    - GLM-4.7、GLM-4.5-Air：全天按 1 倍系数消耗
+    - GLM-5.2、GLM-5-Turbo：高峰 3 倍、非高峰 2 倍；限时福利为非高峰仅按 1 倍抵扣
+    - 高峰时段为每日 14:00～18:00（UTC+8）
 
 [智谱国际版 GLM Coding Plan](https://z.ai/subscribe)：所有套餐均支持 GLM-5.3、GLM-5.3-Flash；调用 GLM-5.2/GLM-5.1 自动路由至 GLM-5.3，GLM-4.7 自动路由至 GLM-5.3-Flash
 
 ### 云厂商
 
-- [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) [文档](https://www.volcengine.com/docs/82379/1925114)
-    - Lite 套餐（40 RMB 每月）：每 5 小时：最多约 1,200 次请求。每周：最多约 9,000 次请求。每订阅月：最多约 18,000 次请求。
-    - Pro 套餐（200 RMB 每月）：Lite 套餐的 5 倍用量
+- [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) | [文档](https://www.volcengine.com/docs/82379/1925114)
+    - Lite 套餐（40 RMB 每月）：每 5 小时最多约 1,200 次请求、每周最多约 9,000 次、每订阅月最多约 18,000 次
+    - Pro 套餐（200 RMB 每月）：Lite 的 5 倍用量
     - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-2.1-turbo（即将下线）、Doubao-Seed-Evolving、Doubao-Seed-2.0-lite（即将下线）、MiniMax-M3、Kimi-K2.7-Code、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
-    - 2026-09-23 模型库更新：新增 doubao-seed-2.1-pro（新一代旗舰级模型，综合能力全面提升，1024k 上下文窗口/256k 输出，适合复杂推理、深度分析与长链路任务执行）、doubao-seed-2.1-lite（轻量高效，1024k 上下文窗口/256k 输出，适合日常编码与常规开发任务）、doubao-seed-2.0-mini（极速响应，256k 上下文窗口/128k 输出，适合简单编码任务与代码补全）与 deepseek-v4.1-flash（DeepSeek 全新架构系列轻量旗舰，552B 总参数 MoE，原生多模态视觉理解，1024k 上下文窗口/384k 最大输出）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」
-    - 1M 上下文支持名单（2026-09-23）：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
-    - deepseek-v4.1-flash 抵扣系数限时 5 折：2026-09-23 00:00 至 2026-10-30 18:00 活动期间，该模型在 Coding Plan 中的抵扣系数在现有基础上享 5 折优惠（同期在 Agent Plan 中同享 5 折，活动起始时间 2026-09-15 00:00）
-    - 新增 Kimi-K2.8-Preview 模型：综合性能接近 K3，思考效率更高，擅长代码补全与常规开发任务，支持文本和图片输入；1M 上下文窗口/1M 最大输出。2026-09-18 00:00 至 2026-10-14 23:59 活动期间，Coding Plan 中 Kimi-K2.8-Preview 的可用量与 Agent Plan 6 折抵扣活动期间相当
-    - GLM-5.3-Flash 为新增模型：智谱首个原生多模态模型，320B 总参数/18B 激活，支持图片输入，1M 上下文/128K 最大输出；首两周抵扣系数 5 折优惠，活动截止 2026-09-11 23:59:59
-    - DeepSeek-V4-Pro 已转正式版上线（原为尝鲜体验版），Agent 能力全面跃升，支持通过 model name 及控制台选择访问
+    - 1M 上下文支持：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
+    - 限时活动：deepseek-v4.1-flash 抵扣系数 5 折（2026-09-23 00:00 至 2026-10-30 18:00）；Kimi-K2.8-Preview 可用量活动（2026-09-18 00:00 至 2026-10-14 23:59，与 Agent Plan 6 折抵扣活动期间相当）
+    - 主要模型规格：Doubao-Seed-2.1-pro（新一代旗舰，1024k 上下文/256k 输出）、Doubao-Seed-2.1-lite（轻量高效，1024k/256k）、Doubao-Seed-2.0-mini（极速响应，256k/128k）、DeepSeek-V4.1-Flash（552B 总参数 MoE、原生多模态视觉理解，1024k/384k）、Kimi-K2.8-Preview（综合性能接近 K3、思考效率更高，1M/1M、支持文本与图片输入）、GLM-5.3-Flash（智谱首个原生多模态模型，320B 总参数/18B 激活，1M/128K）
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
-    - Agent 燃料值（Agent Fuel Point，简称 AFP）是 Agent Plan 套餐的统一用量计费单位，用于量化智能体（Agent）资源的消耗。
-        - 文本生成模型、向量化模型：(输入 token * 输入抵扣系数 + 输出 token * 输出抵扣系数) / 10,000
-        - 视频生成模型：消耗的 token / 10,000 * 抵扣系数
-        - 图片生成模型：成功生成的图片张数 * 抵扣系数
-        - 文本生成/向量化模型的输入抵扣系数与输出抵扣系数由模型统一决定、不随输入长度变化（此前输入抵扣系数 = 模型抵扣系数 × 输入分段系数：≤32k ×0.67、32k–128k ×1、>128k ×2，现已去掉长度分段）
-        - 各模型抵扣系数（输入/输出相同）：
-            - doubao-seed-2.0-mini：0.25（输入不含音频）/ 2.5（输入包含音频）
-            - doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash：0.5
-            - doubao-seed-2.1-lite：0.5（输入不含音频）/ 4.5（输入包含音频）
-            - glm-5.3-flash：0.5（0.25 限时5折）
-            - doubao-seed-2.1-turbo（即将下线）、doubao-seed-evolving、minimax-m3：2.5
-            - doubao-seed-2.1-pro：2.5
-            - deepseek-v4.1-flash：2.5（1.25 限时5折，2026-09-15 00:00 至 2026-10-30 18:00）
-            - kimi-k2.7-code：4.5
-            - kimi-k2.8-preview：8（4.8 限时6折，2026-09-17 00:00 至 2026-10-14 23:59）
-            - glm-5.3（glm-latest）：4.5
-            - deepseek-v4-pro：5.5
-            - kimi-k3：10
-            - doubao-embedding-vision：0.5
-    - Small 套餐（40 RMB 每月）：每 5 小时：2000 AFP。每周：7000 AFP。每月：20000 AFP。日额度：10000 AFP。
-    - Medium 套餐（200 RMB 每月）：每 5 小时：10000 AFP。每周：35000 AFP。每月：100000 AFP。日额度：50000 AFP。
-    - Large 套餐（500 RMB 每月）：每 5 小时：25000 AFP。每周：87500 AFP。每月：250000 AFP。日额度：125000 AFP。
-    - Max 套餐（1000 RMB 每月）：每 5 小时：50000 AFP。每周：175000 AFP。每月：500000 AFP。日额度：250000 AFP。
-    - 图片生成模型、视频生成模型、语音模型、Harness 没有5小时、周额度限制，仅受日额度和套餐月额度限制。日额度限制统一都是套餐月额度的一半。
-    - 全套餐支持模型：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite（即将下线）、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
-    - Agent 进化：前 50 个文件免费（此前为限制/收费项）
-    - Medium 以上套餐额外支持模型：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
-    - 2026-09-23 模型库更新：新增 doubao-seed-2.1-pro（文本生成（进阶），新一代旗舰级模型、综合能力全面提升，1024k 上下文窗口/256k 输出，抵扣系数 2.5）、doubao-seed-2.1-lite（文本生成（标准），轻量高效，1024k 上下文窗口/256k 输出，抵扣系数 0.5 / 输入包含音频 4.5）与 doubao-seed-2.0-mini（文本生成（极速），256k 上下文窗口/128k 输出，抵扣系数细化为输入不含音频 0.25 / 输入包含音频 2.5）；doubao-seed-2.1-turbo、doubao-seed-2.0-lite 标记为「即将下线」；doubao-seedance-1.5-pro 已从模型表移除
-    - 新增 doubao-seedream-5-0-pro（图片生成，全套餐）：输入图抵扣系数第一张免费、第二张起 10 AFP/张；输出图单图生成场景 ≤261 万像素 150、>261 万像素 300 AFP/张，图层拆分场景分别为 75 / 150 AFP/张
-    - 新增 doubao-seedance-2.5（视频生成，Large/Max）：抵扣系数以 token 为单位，480p/720p 输入含视频 210、不含视频 350；1080p 输入含视频 230、不含视频 385
-    - 新增 deepseek-v4.1-flash（文本生成（进阶），全套餐）：1M 上下文窗口/384K 最大输出，原生具备多模态视觉理解能力；抵扣系数 2.5，2026-09-15 00:00 至 2026-10-30 18:00 限时 5 折（1.25）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3）
-    - 新增 kimi-k2.8-preview（文本生成（进阶），全套餐）：1M 上下文窗口/1M 最大输出，支持文本和图片输入，综合性能接近 K3、思考效率更高、擅长代码补全与常规开发任务；抵扣系数 8，2026-09-17 00:00 至 2026-10-14 23:59 限时 6 折（4.8）。该模型同时列入 1M 上下文支持名单（glm-5.3、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro、kimi-k3、kimi-k2.8-preview）
+    - Agent 燃料值（AFP）为统一用量计费单位：文本/向量模型 =（输入 token × 输入抵扣系数 + 输出 token × 输出抵扣系数）/ 10000；视频模型 = tokens / 10000 × 系数；图片模型 = 成功生成张数 × 系数。抵扣系数由模型统一决定，不随输入长度变化
+    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-2.1-turbo（即将下线）、doubao-seed-evolving、minimax-m3、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25）；kimi-k2.7-code 4.5；kimi-k2.8-preview 8（限时 6 折 4.8）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10；doubao-embedding-vision 0.5
+    - 档位（AFP，每 5 小时/每周/每月/每日）：Small 40 RMB 每月（2000/7000/20000/10000）、Medium 200（10000/35000/100000/50000）、Large 500（25000/87500/250000/125000）、Max 1000（50000/175000/500000/250000）
+    - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
+    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、doubao-seed-2.0-lite（即将下线）、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5.0-lite（即将下线）、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - Medium 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
+    - Agent 进化：前 50 个文件免费
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
-    - Lite 套餐（60 RMB 每月，限时 39 RMB 每月）：11500 Credits 每月
-    - Essential 套餐（120 RMB 每月，限时 79 RMB 每月）：25500 Credits 每月
-    - Standard 套餐（180 RMB 每月，限时 139 RMB 每月）：45000 Credits 每月
-    - Pro 套餐（600 RMB 每月，限时 499 RMB 每月）：180000 Credits 每月
-    - 用量包（100 RMB 每月）：20000 Credits
-    - 自 2026-09-22 起个人版取消 7 天固定窗口限额，改为按月额度计量：以订阅日为起点每 30 天为一个订阅月，订阅月内累计消耗达到套餐额度即暂停服务，需等下一个订阅月额度重置（按订阅日自动刷新，非固定日历日期）；订阅月内未用完的额度不结转。存量订阅的剩余额度已于 2026-09-22 一次性重置为对应套餐的满月额度，订阅周期与到期时间保持不变；此前的「重置卡 / 额度重置权益」随周限额一并取消
-    - 抵扣顺序：每次调用优先抵扣当前订阅月的套餐额度；套餐月额度用尽后自动抵扣用量包额度（用量包额度不占用、不计入套餐月额度）；两者都用尽或未持有用量包时服务暂停，可升级套餐或等待下一个订阅月重置
-    - 升配（不重置当前订阅周期）：按剩余天数补缴差价 —— 升级补差金额 = (新套餐价格 − 旧套餐价格) × 剩余天数 ÷ 30，升级后当前周期新增额度 = 剩余天数 ÷ 30 × (升级后月额度 − 升级前月额度)，均不满一天按一天计算、额度结果向上取整；自下一个订阅月起按新档位月额度计量（2026-09-28 页面更新：在折算公式下新增一句「实际补差金额以支付页面展示的价格明细为准」，公式、换算示例与档位价格均未变）
-    - Essential 为新增档位：可同时支持 2-3 个 Agent 并发，权益为 Lite 全部权益（2026-09-24 页面更新：权益栏已移除「2.25x / 4x / 16x Lite 套餐用量」倍率表述，Standard 现仅列「Lite 全部权益 + 赠送 Harness 权益」、Pro 现仅列「Standard 全部权益 + 更高的并发上限 + 赠送 Harness 权益」；各档 Credits 额度数字未变）
-    - 设备使用说明：Token Plan 个人版仅供本人在单台设备上使用（官方使用说明由"可将同一个 API Key 配置到您本人的多台设备（如家庭电脑和公司电脑）上使用"收紧为"供本人在单台设备上使用"）
-    - 支持模型：auto（平台提供的智能模型，按请求内容自动匹配底层模型）、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qewn-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash（能力标注新增"视觉理解"）、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview（领域模型-决策模型，限时免费、不消耗 Credits）
-    - 限时夜间折扣（每晚 22:00 - 次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗享 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 享 5 折（2026-09-22 页面更新：qwen3.8-max 由 5 折降为 4 折，并新增 qwen3.8-flash 同为 4 折）
-    - decision-model-preview（领域模型-决策模型）限时免费：调用不消耗 Credits（接入方法见官方《接入决策模型》文档）。模型定位为「面向高频业务判断的结构化决策模型，一次前向完成分类、是非判断与评分，并返回概率分布与置信度」；该模型同时也进入百炼模型库与模型调用价格页的「决策模型」章节，计费规则为按输入 token 计费、输入单价标注「限时免费」（华北2（北京）与新加坡两地）
+    - Lite（60，限时 39）、Essential（120，限时 79）、Standard（180，限时 139）、Pro（600，限时 499）RMB 每月，对应 11500 / 25500 / 45000 / 180000 Credits 每月；用量包（100 RMB 每月）= 20000 Credits
+    - 自 2026-09-22 起取消 7 天固定窗口限额，改为订阅月（30 天）额度，订阅月内累计消耗达到套餐额度即暂停服务，未用完额度不结转
+    - 抵扣顺序：每次调用优先抵扣当前订阅月的套餐额度，用尽后自动抵扣用量包额度
+    - 升配：不重置当前订阅周期，按剩余天数补缴差价并发放当前周期新增额度，自下一个订阅月起按新档位月额度计量
+    - Essential 可同时支持 2–3 个 Agent 并发，权益为 Lite 全部权益
+    - 仅限本人在单台设备上使用
+    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
+    - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 5 折
+    - decision-model-preview（领域模型-决策模型）限时免费，调用不消耗 Credits
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
-    - 标准坐席（¥198/坐席/月）：25,000 Credits/坐席/月
-    - 高级坐席（¥698/坐席/月）：100,000 Credits/坐席/月
-    - 尊享坐席（¥1,398/坐席/月）：250,000 Credits/坐席/月
-    - 共享用量包（¥5,000/个）：625,000 Credits/个
-    - 单次消耗的 Credits 由模型类型、Token 用量、思考模式及工具调用等动态决定，实际消耗以账单为准。
-    - 以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
-    - 如果按 256K 以内的上下文算，一个 Credit 对应的 API 价格（隐式缓存）是 0.01-0.02 元，按 256K-1M 的上下文，一个 Credit 对应 0.04-0.08 元
+    - 标准坐席 ¥198/坐席/月（25,000 Credits）、高级坐席 ¥698（100,000）、尊享坐席 ¥1,398（250,000）；共享用量包 ¥5,000/个（625,000 Credits）
+    - 单次消耗 Credits 由模型类型、Token 用量、思考模式及工具调用动态决定；以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
+    - 1 Credit 对应 API 价格（隐式缓存）：256K 以内上下文 0.01–0.02 元，256K–1M 0.04–0.08 元
     - 支持模型：qwen3.8-max、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4-pro、deepseekv4-pro-0813、deepseek-v4-flash、deepseek-v4-flash-0731、deepseek-v3.2、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.2、glm-5.1、glm-5、minimax-m2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
-    - Token Plan 企业版：
-        - 专业套餐：每月 1 元/100 积分，单次购买最低 5 万积分（500 元/月）；可用模型库（广州/新加坡地域略有差异，2026-09-30 更新）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5（将于 2026-10-09 下线）、GLM-5.1（将于 2026-10-09 下线）、GLM-5-Turbo（将于 2026-10-09 下线）、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供，model ID `deepseek-v4.1-flash`）、DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供（纯文本能力与 V4-Flash 正式版持平，并大幅补强视觉理解，多模态 Agent 表现接近 Claude Opus-4.8）、MiMo-V2.6-Pro、MiMo-V2.6-Flash（Kimi-K2.5 已于 2026-08-31 下线）；本次更新新增 Hy4 preview、MiMo-V2.6-Pro、MiMo-V2.6-Flash 三款模型，移除仅有固定积分价、不带「0731 正式版」后缀的 `deepseek-v4-flash`，并把两个原厂直供模型的名称补全为「DeepSeek-V4-Flash 0731 正式版 原厂直供」「DeepSeek-V4-Pro 0813 正式版 原厂直供」（model ID 不变）
-        - 峰谷计费（2026-09-26 起统一为「工作日峰谷 + 周末全天空闲」）：DeepSeek 模型工作日（周一至周五）高峰时段为 9:00–12:00、14:00–18:00，其余为空闲时段；周末（周六、周日）全天按空闲时段价格计费。原厂直供模型自 2026-08-29 00:00 起生效；其他 DeepSeek 模型（除按固定积分价计费、不分峰谷的 `deepseek-v4-flash`、`deepseek-v4-pro` 外）自 2026-09-26 00:00 起生效，此前「DeepSeek V4 正式版高峰时段为周一至周日」的规则作废；单次请求计费时段以平台服务端接收请求时间（北京时间）为准。页面本次仅更新了广州地域章节的注意事项，新加坡地域章节仍保留旧表述；这两处注意事项已于 2026-09-30 的页面更新中统一为同一表述（广州、新加坡两节文字一致，新加坡章节沿用旧表述的情况已消失）
-        - DeepSeek【原厂直供】Flash 系积分价下调（2026-09-14）：DeepSeek-V4-Flash 0731 正式版 原厂直供（原空闲 约 39 / 高峰 约 77 积分每百万 tokens）与 DeepSeek-V4-Flash-Vision-Exp 原厂直供（原 约 35 / 约 70）均降至与新增的 DeepSeek-V4.1-Flash 一致——缓存命中 2 / 未命中 100 / 输出 400（空闲时段）、4 / 200 / 800（高峰时段）积分每百万 tokens，综合单价预估 约 26 / 约 51 积分每百万 tokens；即跟随 DeepSeek 原厂把旧模型名统一切换到 V4.1-Flash 计费
-        - 新增的 DeepSeek-V4.1-Flash（非原厂直供）积分抵扣价与原厂直供完全一致：缓存命中 2 / 未命中 100 / 输出 400（空闲时段）、4 / 200 / 800（高峰时段）积分每百万 tokens，综合单价预估 约 26 / 约 51 积分每百万 tokens
-        - 新增 Hy4 preview 积分抵扣价（2026-09-30，广州与新加坡一致）：缓存命中 30 / 未命中 600 / 输出 1800 积分每百万 tokens（不分峰谷），综合单价预估 约 158 积分每百万 tokens，50 万积分预估可抵扣约 31.65 亿 tokens
-        - 新增 MiMo-V2.6-Pro、MiMo-V2.6-Flash 积分抵扣价（2026-09-30，均不分峰谷）：MiMo-V2.6-Pro 广州 2.5 / 300 / 600、新加坡 2.59 / 313.05 / 626.1 积分每百万 tokens（综合单价预估 约 107 / 约 112）；MiMo-V2.6-Flash 广州 2 / 100 / 200、新加坡 2.02 / 100.75 / 201.5 积分每百万 tokens（综合单价预估 约 33，50 万积分预估可抵扣约 151.52 亿 tokens）
-        - 轻享套餐：每月 2 元/百万 tokens
-    - Token Plan 个人版（自 2026-08-31 17:00 起改为积分抵扣模式）：
-        - Hy Token Plan:
-            - Lite 套餐（28 RMB 每月）：每订阅月 560 积分
-            - Standard 套餐（78 RMB 每月）：每订阅月 1560 积分
-            - Pro 套餐（238 RMB 每月）：每订阅月 4760 积分（238 元 × 20 = 4760，与其余档位一致；此前页面误标为 1560 积分，现已更正）
-            - Max 套餐（468 RMB 每月）：每订阅月 9360 积分
-            - 支持模型（暂不支持图片、视频等多模态能力）：Hy3、Hy4 preview（Hy3 preview 调用自动路由至 Hy3 模型）
-        - 通用 Token Plan:
-            - Lite 套餐（39 RMB 每月）：每订阅月 780 积分
-            - Standard 套餐（99 RMB 每月）：每订阅月 1980 积分
-            - Pro 套餐（299 RMB 每月）：每订阅月 5980 积分
-            - Max 套餐（599 RMB 每月）：每订阅月 11980 积分
-            - 支持模型（2026-09-30 更新）：Auto、DeepSeek-V4.1-Flash 原厂直供、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5、GLM-5.1、GLM-5.2、GLM-5.3、GLM-5.3-Flash、Kimi K2.7 Code、Kimi K3、Hy4 preview、MiMo-V2.6-Flash（Kimi-K2.5 已下线；本次新增 DeepSeek-V4.1-Flash 原厂直供与 MiMo-V2.6-Flash，前者是套餐内首个 V4.1 系原厂直供模型，两者均无单独积分价说明）
-            - DeepSeek-V4-Flash/DeepSeek-V4-Pro 正式版原厂直供 model 别名 deepseek/deepseek-v4-flash-0731、deepseek/deepseek-v4-flash、deepseek/deepseek-v4-pro-0813、deepseek/deepseek-v4-pro
-            - Token Plan 企业版专业套餐已移除 MiniMax-M2.5 模型（2026年8月7日下线）
-- [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
-    - Mini 套餐（9.9 RMB 每月）：1000 万 token 每月
-    - Lite 套餐（40 RMB 每月）：4200 万 token 每月
-    - Pro 套餐（200 RMB 每月）：2.3 亿 token 每月
-    - Max 套餐（600 RMB 每月）：7 亿 token 每月
+    - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
+    - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、GLM-5（2026-10-09 下线）、GLM-5.1（2026-10-09 下线）、GLM-5-Turbo（2026-10-09 下线）、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
+    - 峰谷计费：DeepSeek 模型工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰，其余为空闲；周末全天按空闲计费
+    - 积分抵扣价（积分每百万 tokens）：DeepSeek-V4.1-Flash（含原厂直供）缓存命中 2 / 未命中 100 / 输出 400（空闲）、4 / 200 / 800（高峰）；Hy4 preview 30 / 600 / 1800；MiMo-V2.6-Pro 广州 2.5/300/600、新加坡 2.59/313.05/626.1；MiMo-V2.6-Flash 广州 2/100/200、新加坡 2.02/100.75/201.5
+    - 个人版 Hy Token Plan：Lite 28 RMB 每月（560 积分）、Standard 78（1560）、Pro 238（4760）、Max 468（9360）；支持 Hy3、Hy4 preview
+    - 个人版通用 Token Plan：Lite 39（780 积分）、Standard 99（1980）、Pro 299（5980）、Max 599（11980）；支持 Auto、DeepSeek-V4.1-Flash 原厂直供、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5、GLM-5.1、GLM-5.2、GLM-5.3、GLM-5.3-Flash、Kimi K2.7 Code、Kimi K3、Hy4 preview、MiMo-V2.6-Flash
+- [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) | [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) | [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
+    - Mini 9.9 RMB 每月（1000 万 token）、Lite 40（4200 万）、Pro 200（2.3 亿）、Max 600（7 亿）
     - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5.2、GLM-5.1、Kimi-K2.6、ERNIE 5.1
 - [京东云 Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
-    - Lite 套餐（首购 19.9 RMB 每月，续费 40 RMB 每月）：每 5 小时：最多 1,200 次请求，每周：最多 9,000 次请求，每订阅月：最多 18,000 次请求
-    - Pro 套餐（首购 99.9 RMB 每月，续费 200 RMB 每月）：每 5 小时：最多 6,000 次请求，每周：最多 45,000 次请求，每订阅月：最多 90,000 次请求
+    - Lite 套餐（首购 19.9、续费 40 RMB 每月）：每 5 小时最多 1,200 次请求、每周最多 9,000 次、每订阅月最多 18,000 次
+    - Pro 套餐（首购 99.9、续费 200 RMB 每月）：每 5 小时最多 6,000 次、每周 45,000 次、每订阅月 90,000 次
     - 支持模型：DeepSeek-V3.2、GLM-5、GLM-4.7、MiniMax-M2.5、Kimi-K2.5、Kimi-K2-Turbo、Qwen3-Coder
-- [讯飞星辰 Astron Token Plan 团队版](https://www.xfyun.cn/doc/spark/TokenPlan.html) [订阅](https://maas.xfyun.cn/tokenPlan/subscription)
-    - 标准成员（200 RMB/席/月）：20000 Credits，200 万 TPM
-    - 高级成员（600 RMB/席/月）：60000 Credits，300 万 TPM
-    - 尊享成员（1200 RMB/席/月）：200000 Credits，500 万 TPM
+- [讯飞星辰 Astron Token Plan 团队版](https://www.xfyun.cn/doc/spark/TokenPlan.html) | [订阅](https://maas.xfyun.cn/tokenPlan/subscription)
+    - 标准成员 200 RMB/席/月（20000 Credits、200 万 TPM）、高级成员 600（60000 Credits、300 万 TPM）、尊享成员 1200（200000 Credits、500 万 TPM）
     - 支持模型：Spark-X2.5、Spark-X2-Flash、GLM-5.2、GLM-5.1、GLM-5、DeepSeek-V4-Pro、DeepSeek-V4-Flash、DeepSeek-V3.2、Kimi-K2.6、Kimi-K2.5、MiniMax-M2.5、Qwen3.5-397B-A17B、Qwen3.6-35B-A3B、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、GLM-4.7-Flash
-- [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) [订阅](https://maas.xfyun.cn/packageSubscription)
-    - 专业版（39 RMB 每月）：每 5 小时：最多约 1,200 次请求；每周：最多约 9,000 次请求；每订阅月：最多约 18,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5.1、GLM-5、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
-    - 高效版（199 RMB 每月）：每 5 小时：最多约 6,000 次请求；每周：最多约 45,000 次请求；每订阅月：最多约 90,000 次请求，支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5、GLM-5.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B 模型
-- [天翼云编程 Token Plan](https://www.ctyun.cn/document/11061839/11092368)：计费方式由按 Token 定额改为积分（「编程Token Plan（积分版）」，页面 2026-09-23 更新）
-    - 29 RMB 每月：3000 积分
-    - 89 RMB 每月：10000 积分
-    - 199 RMB 每月：25000 积分
-    - 399 RMB 每月：50000 积分
-    - 699 RMB 每月：100000 积分
-    - 支持模型（积分版）：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
-    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（其输出 417）、输入 (32k,200k] 1,250（其输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（其输出 1,190）、输入 (512k,1M] 2,381（其输出 595）
-    - 官方提示：套餐模型库为动态更新机制，将根据模型性能、稳定性、供应情况对模型进行新增、替换、升级、范围调整或下线，不承诺永久固定提供任一指定模型
-    - 原按 Token 计量套餐即将下线，仅存量已订阅用户可续订、不支持新购；其支持模型更新为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.0（2026-10-10 下线）、DeepSeek-V3.2（页面写作 DeepSeeV3.2，2026-10-10 下线）
+- [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) | [订阅](https://maas.xfyun.cn/packageSubscription)
+    - 专业版（39 RMB 每月）：每 5 小时约 1,200 次请求、每周约 9,000 次、每订阅月约 18,000 次；支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5.1、GLM-5、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B
+    - 高效版（199 RMB 每月）：每 5 小时约 6,000 次、每周约 45,000 次、每订阅月约 90,000 次；支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5、GLM-5.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B
+- [天翼云编程 Token Plan](https://www.ctyun.cn/document/11061839/11092368)（积分版）
+    - 29（3000 积分）、89（10000）、199（25000）、399（50000）、699（100000）RMB 每月
+    - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
+    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
+    - 原按 Token 计量套餐仅存量已订阅用户可续订
 - [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
-    - Lite（59 RMB 每月）：每订阅月 5000 万 tokens
-    - Standard（149 RMB 每月）：每订阅月 1.3 亿 tokens
-    - Pro（399 RMB 每月）：每订阅月 3.8 亿 tokens
-    - Max（799 RMB 每月）：每订阅月 8.8 亿 tokens
+    - Lite 59 RMB 每月（每订阅月 5000 万 tokens）、Standard 149（1.3 亿）、Pro 399（3.8 亿）、Max 799（8.8 亿）
     - 支持模型：GLM-5、GLM-5.1、Kimi-K2.6、DeepSeek-V3.2、DeepSeek-V4-Flash
 
 ### 其他
 
 - [阶越星辰 Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
-    - Flash Mini（49 RMB 每月）：400M Credit
-    - Flash Plus（99 RMB 每月）：1600M Credit
-    - Flash Pro（199 RMB 每月）：8000M Credit
-    - Flash Max（699 RMB 每月）：40000M Credit
+    - Flash Mini 49 RMB 每月（400M Credit）、Flash Plus 99（1600M）、Flash Pro 199（8000M）、Flash Max 699（40000M）
     - 支持模型：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）
-    - 支持模型列表已移除 step-image-edit-2（文生图与图像编辑模型，原本计划 2026-10-10 下线），官方页面同时删除了图像模型下线公告；套餐改为 Credit 月池计费后的页面已不再包含任何图像生成/编辑模型
-- [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)（官方页面标题由「订阅说明」改为「个人版」，套餐购买说明相应改为「仅支持同时购买 1 个个人版套餐」）
-    - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月
-    - Standard（99 RMB 或 16 USD 每月）：110 亿 Credits 每月
-    - Pro（329 RMB 或 50 USD 每月）：380 亿 Credits 每月
-    - Max（659 RMB 或 100 USD 每月）：820 亿 Credits 每月
-    - 支持模型：各套餐均支持 MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS 共 8 款模型（MiMo-V2-Pro、MiMo-V2-Omni、MiMo-V2-TTS 已从列表与额度表中移除）
-    - MiMo-V2.6-Pro、MiMo-V2.6-Flash 为新增模型，Credit 折算与上一代同档：V2.6-Pro 命中缓存 2.5、未命中 300、输出 600 Credits 每 Token；V2.6-Flash 命中缓存 2、未命中 100、输出 200 Credits 每 Token（V2.5-Pro/V2.5 相同，ASR 仍为 30M Credits 每小时）
-    - **mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线，官方建议尽快切换至新版模型。**
-    - 额度消耗：语言模型按 Token 数扣除 Credit 额度，ASR 按输入音频时长扣除，TTS 系列模型限时免费、不消耗套餐 Credit
-    - 折扣现仅剩「套餐首购 88 折、连续包年享 88 折、夜间（0:00-8:00）0.8 倍消耗」三项，此前页面上的 Token Plan 升级「Credits 用量焕新重置」活动（2026-05-27 生效）已删除
-- [OpenCode Go](https://opencode.ai/docs/zh-cn/go)（面向国际用户的低成本开源编程模型订阅服务）
-    - 两种方案：**Go（10 美元每月）**与 **Go Plus（40 美元每月）**，两者 token 价格完全相同，Go Plus 仅各模型的用量限制更高
-    - 使用限制：以各模型的每月额度定义，5 小时 = 月限 20%、每周 = 50%、每月 = 100%（各模型月限不同，如 Go 下 GLM-5.3 $15、GLM-5.3-Flash $60；Go Plus 把各模型月额度提升 2–8 倍、多数为 4 倍，如 GLM-5.3 由 $15 升至 $120、GLM-5.3-Flash 由 $60 升至 $180）；跨模型合计额度为 5 小时 / 每周 / 每月——Go $12/$30/$60，Go Plus $48/$120/$240（2026-09-29 页面更新：使用限制章节删除了「若某模型月限为 $60…」的举例段与「跨模型计算时，Go 的 5 小时、每周和每月额度分别为 $12、$30 和 $60；Go Plus 则分别为 $48、$120 和 $240」一句，现仅保留「下方每个模型的每月限制决定其用量如何计入这些额度」，各模型额度表与 token 价格未变；上述合计额度值自此不再见于页面，仅作历史值保留）
-    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7、**Muse Spark 1.3 Contributor**、**Muse Spark 1.2 Contributor**、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、**Space Bunny Free**（限时免费）、**LongCat 2.5 Preview Free**（限时免费）
-    - Go Plus 为 2026-09-28 新增方案：以更高的月费换取各模型更高的用量限制（token 单价不变），订阅入口的名称由 OpenCode Zen 改为 OpenCode Console；每个工作空间仍只能有一名成员订阅 Go 或 Go Plus
-    - 2026-09-28 模型列表更新：从模型列表、token 价格表、请求限额表、接入点表与数据保留表中移除 GLM-5.1、Qwen3.7 Max、Qwen3.6 Plus、MiniMax M2.5 四款模型；Omen Alpha 亦已不在页面任何列表中
-    - Grok 4.7 为新增模型：定价与请求限额与 Grok 4.6 一致（≤200K tokens 输入 $2.00/输出 $6.00/缓存读取 $0.50，>200K tokens 输入 $4.00/输出 $12.00/缓存读取 $1.00 每 1M tokens；月度使用额度 $15；请求限额 169/5 小时、423/周、845/月）；model ID grok-4.7，接入点 https://opencode.ai/zen/go/v1/responses
-    - MiMo-V2.6-Flash、MiMo-V2.6-Pro 为新增模型：定价与请求限额与对应的上一代完全相同——V2.6-Flash 输入 $0.14/输出 $0.28/缓存读取 $0.0028（额度 $60，请求限额 30,100/5 小时、75,200/周、150,400/月，model ID mimo-v2.6-flash）；V2.6-Pro 输入 $0.435/输出 $0.87/缓存读取 $0.003625（额度 $15，请求限额 3,250/5 小时、8,150/周、16,300/月，model ID mimo-v2.6-pro）
-    - DeepSeek V4.1 Flash 的 model ID 已由 deepseek-flash 更名为 deepseek-v4.1-flash（接入点 https://opencode.ai/zen/go/v1/chat/completions）
-    - Hy4 preview 为新增模型：input $0.834/1M、output $2.501/1M、cache read $0.042/1M（使用额度 $30）；请求限额 1,350/5 小时、3,380/周、6,770/月；model ID hy4-preview
-    - Omen Alpha 已不在模型列表、token 价格表、请求限额表与接入点表中（2026-09-28 起 kb 不再将其列为支持模型）
-    - Muse Spark 1.3 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M，使用额度 $60）；请求限额 45,300/5 小时、113,300/周、226,600/月；model ID muse-spark-1.3-contributor。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
-    - Muse Spark 1.2 Contributor 为新增模型：允许 Meta 使用提示词和补全结果训练未来模型以换取大幅折扣 token 价格（input $0.10/1M、output $0.20/1M、cache read $0.002/1M）。仅在 Meta 的[地理使用政策](https://ai.developer.meta.com/legal/geographic-use-policy)允许的地区提供
-    - Qwen3.8 Flash 为新增模型：input $0.15/1M、output $0.47/1M、cache read $0.016/1M、cache write $0.20/1M（使用额度 $30）；请求限额 5,400/5 小时、13,500/周、27,000/月；model ID qwen3.8-flash
-    - Qwen3.7 Max 已于 2026-09-28 从支持模型列表中移除（此前为：请求限额 170/5 小时、420/周、840/月，使用额度 $30/月；定价 input $2.50/1M、output $7.50/1M、cache read $0.50/1M、cache write $3.125/1M；2026-09-01 起请求限额由 340/840/1,690 减半、月度使用额度由 $60 降为 $30）
-    - DeepSeek V4.1 Flash 额度提升 4 倍已由限时活动转为常规值（2026-09-26 页面更新）：月度使用额度 **$60**、请求限额 26,000/5 小时、65,000/周、130,000/月 现直接作为该模型的常规额度列示，定价表与请求限额预估表中的「~~$15~~ **$60** 4x · 9 月 27 日结束」标注（限时活动说明、原 $15 基准的删除线与结束时间）已整体移除；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
-    - Space Bunny Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID space-bunny-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
-    - LongCat 2.5 Preview Free 为新增（限时）模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID longcat-2.5-preview-free，接入点 https://opencode.ai/zen/go/v1/chat/completions
-    - GPT 6 Luna 为新增模型：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为输入 $0.20/输出 $0.75/缓存读取 $0.02/缓存写入 $0.25——输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（GPT 5.6 Luna 为 $1.20），GPT 5.6 Luna 仍保留；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID gpt-6-luna，接入点 https://opencode.ai/zen/go/v1/responses
+- [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
+    - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月；Standard（99 RMB 或 16 USD）：110 亿；Pro（329 RMB 或 50 USD）：380 亿；Max（659 RMB 或 100 USD）：820 亿
+    - 支持模型：MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS
+    - **mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线，建议尽快切换至新版模型**
+    - 折扣：套餐首购 88 折、连续包年 88 折、夜间（0:00–8:00）0.8 倍消耗
+- [OpenCode Go](https://opencode.ai/docs/zh-cn/go)
+    - 两种方案：**Go（10 美元每月）**与 **Go Plus（40 美元每月）**，两者 token 价格相同，Go Plus 仅各模型用量限制更高（月额度为 Go 的 2–8 倍，多数为 4 倍）
+    - 使用限制按各模型每月额度定义：5 小时 = 月限 20%、每周 = 50%、每月 = 100%
+    - 支持模型：Grok 4.7、Grok 4.6、GLM-5.3/5.3-Flash/5.2、GPT 6 Luna、GPT 5.6 Luna、Kimi K3/K2.7 Code/K2.6、LongCat-2.0、MiMo-V2.6-Flash/V2.6-Pro/V2.5/V2.5-Pro、MiniMax M3/M2.7、Muse Spark 1.3 Contributor、Muse Spark 1.2 Contributor、Qwen3.8 Max/Qwen3.8 Flash/Qwen3.7 Plus、DeepSeek V4 Pro/V4 Flash/V4 Flash Vision Exp、Hy4 preview、Hy3、Space Bunny Free（限时免费）、LongCat 2.5 Preview Free（限时免费）
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
-    - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00（其余为空闲时段）
-    - deepseek-flash（DeepSeek-V4.1-Flash，1M 上下文，支持图像理解；官方要求使用此模型名）：
-        - 空闲时段：输入命中缓存 0.02 RMB / 输入未命中缓存 1 RMB / 输出 4 RMB 每 1M tokens
-        - 高峰时段：输入命中缓存 0.04 RMB / 输入未命中缓存 2 RMB / 输出 8 RMB 每 1M tokens
-        - 旧模型名 deepseek-v4-flash、deepseek-v4-flash-vision-exp 已下线，仍可调用但请求由 DeepSeek-V4.1-Flash 提供服务，并按 Flash 价格计费
-    - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：
-        - 空闲时段：输入命中缓存 0.15 RMB / 输入未命中缓存 4.5 RMB / 输出 13.5 RMB 每 1M tokens
-        - 高峰时段：输入命中缓存 0.30 RMB / 输入未命中缓存 9.0 RMB / 输出 27.0 RMB 每 1M tokens
-        - 曾公告计划下线 V4 Pro，但官方已撤回：2026-09-14 之后继续提供 DeepSeek V4 Pro 的 API 调用服务，计费方式保持不变（原公告为 9/14 后请求全部路由到 V4.1 Flash 并按 Flash 价计费）
+    - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
+    - deepseek-flash（DeepSeek-V4.1-Flash，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
+    - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：空闲时段输入命中缓存 0.15 / 输入未命中缓存 4.5 / 输出 13.5 RMB 每 1M tokens；高峰时段 0.30 / 9.0 / 27.0
 
 ## prompt、请求和 token
 
