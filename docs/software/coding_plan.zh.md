@@ -35,7 +35,8 @@
 [MiniMax Token Plan](https://platform.minimaxi.com/docs/token-plan/intro) [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan) [订阅](https://platform.minimax.cn/subscribe/token-plan)
 
 - Token Plan 支持范围已从"所有模型"调整为"旗舰模型"，音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，Token Plan 额度不再包含音乐资源
-- 新增语言模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文的 Frontier Coding 模型，思考深度可调）：官方模型概览标注「暂时仅通过 Token Plan 和 MiniMax Code 提供」（2026-09-28 更新，暂未给出单独定价与额度说明）
+- 新增语言模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文的 Frontier Coding 模型，思考深度可调）：官方模型概览标注「暂时仅通过 M Plan 和 MiniMax Code 提供」（2026-09-28 首次标注，2026-09-30 随产品更名改为「M Plan」表述，暂未给出单独定价与额度说明）
+- 产品更名（2026-09-30 抓取）：官方文档把「Token Plan」改称「M Plan」——模型概览页（中英文）与按量计费定价页中的「Token Plan」表述已替换为「M Plan」（含按量计费页的「M Plan MCP」插件字样与「通过 M Plan 调用 API-vlm 时…扣减套餐内 M Plan 额度」一句），站点导航「定价」下拉中也新增 M Plan（`/docs/m-plan/intro`）并把原 Token Plan 标签隐藏、外链改为 https://www.minimax.cn/m-plan；Token Plan FAQ 与 Token Plan 介绍页本次抓取仍沿用旧名（按量计费页提到的「积分资源覆盖范围与 Token Plan 相同」及指向 Token Plan 定价页的链接同样未改），套餐价格、额度与订阅入口均未变
 - Plus（49 RMB 每月）: 月度 M3 Token 用量约 6 亿+
 - Max（119 RMB 每月）: 月度 M3 Token 用量约 18 亿+
 - Ultra（469 RMB 每月）: 月度 M3 Token 用量约 71 亿+
@@ -362,6 +363,8 @@
 ## 更新历史
 
 - 2026/09/30：腾讯云大模型 Token Plan（企业版 `1823/130659`、个人版 `1823/130060` 与个人版套餐概览 `1772/129449` 三页同步更新至 2026-09-30 14:02）模型库更新：企业版专业套餐（广州/新加坡）新增 Hy4 preview、MiMo-V2.6-Pro、MiMo-V2.6-Flash 三款模型，移除仅有固定积分价、不带「0731 正式版」后缀的 `deepseek-v4-flash`，并把两个原厂直供模型名称补全为「DeepSeek-V4-Flash 0731 正式版 原厂直供」「DeepSeek-V4-Pro 0813 正式版 原厂直供」（model ID 不变）；三款新模型同步公布积分抵扣价——Hy4 preview 缓存命中 30 / 未命中 600 / 输出 1800（广州与新加坡一致，综合单价预估 约 158、50 万积分预估约 31.65 亿 tokens），MiMo-V2.6-Pro 广州 2.5/300/600、新加坡 2.59/313.05/626.1（综合单价预估 约 107 / 约 112），MiMo-V2.6-Flash 广州 2/100/200、新加坡 2.02/100.75/201.5（综合单价预估 约 33），单位均为积分每百万 tokens 且均不分峰谷；个人版通用 Token Plan 可用模型新增 DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）与 MiMo-V2.6-Flash，各档位积分额度与 Hy Token Plan 未变。峰谷计费方面，新加坡地域章节本次也统一为与广州相同的「工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰时段、其余空闲，周末（周六、周日）全天按空闲时段计费；原厂直供模型自 2026-08-29 00:00 起生效、其他 DeepSeek 模型（除 `deepseek-v4-flash`、`deepseek-v4-pro` 外）自 2026-09-26 00:00 起生效」表述，此前「仅广州章节更新、新加坡仍保留旧表述」的情况已消失；广州地域价格表中 Auto 行名称由「Auto 智能路由」改为「Auto 模型」（与新加坡一致），DeepSeek 免责声明由逐一列举具体模型名改为「由 DeepSeek 原厂直供的模型服务」，峰谷单价、其余模型积分价与套餐价格均未变
+
+- 2026/09/30：MiniMax 官方文档把「Token Plan」更名为「M Plan」：模型概览页与按量计费定价页（中英文共四个页面）中的「Token Plan」字样全部替换为「M Plan」（如「暂时仅通过 M Plan 和 MiniMax Code 提供」「M Plan MCP」插件、「通过 M Plan 调用 API-vlm 时，会按其按量计费价格扣减套餐内 M Plan 额度」），文档站点导航「定价」下拉与文档顶部标签页新增 M Plan（指向 `/docs/m-plan/intro`）并把原 Token Plan 标签隐藏、外链改为 https://www.minimax.cn/m-plan；Token Plan FAQ 与 Token Plan 介绍页本次抓取仍写作「Token Plan」（按量计费页中「资源覆盖范围与 Token Plan 相同」一句及指向 Token Plan 定价页的链接亦未改），说明更名尚在进行中；套餐档位、价格、额度与订阅入口均未变
 
 - 2026/09/29：火山方舟把 kimi-k2.8-preview 的 6 折抵扣活动窗口由 2026-09-30 23:59:59 延长至 2026-10-14 23:59:59：Agent Plan 中该模型抵扣系数 8 的限时 6 折（4.8）活动期（起始 2026-09-17 00:00 不变）随之延后两周；Coding Plan 中该模型可用量「与 Agent Plan 6 折抵扣活动期间相当」的活动期同步由 2026-09-18 00:00 至 2026-09-30 23:59 改为至 2026-10-14 23:59。Agent Plan 个人版计费说明（82379/2516283）、Agent Plan 个人版套餐概览（82379/2366394）与 Coding Plan 个人版套餐概览（82379/1925114）三页于 2026-09-29 15:26 同步更新，套餐价格、档位额度与其余模型的抵扣系数均未变
 
