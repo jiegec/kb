@@ -7,6 +7,7 @@
 [Kimi 登月计划](https://www.kimi.com/membership/pricing) | [Kimi Code](https://www.kimi.com/code)
 
 - 档位（RMB 每月）：Andante 49、Moderato 99、Allegretto 199、Allegro 699
+- 订阅续购：因算力资源紧张，优先保障订阅中用户的使用体验；2026-08-20 00:00 前可续订，逾期无法直接购买
 - Kimi Code 基于旗舰 K3 模型（参数规模约 2.8 万亿），提供 K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
 - 模型 ID 与会员档位要求：`k3`、`k3-256k` 需 Moderato / Plus 及以上会员，其中 1M 上下文需 Allegretto / Pro 及以上会员；`kimi-for-coding`（K2.8 Preview）需 Andante / Plus 及以上会员；`kimi-for-coding-highspeed` 需 Allegretto / Pro 及以上会员
 - API 接入点区分国内/海外：OpenAI 兼容 国内 `https://api.kimi.com/coding/v1`、海外 `https://api.kimi.ai/coding/v1`；Anthropic 兼容 国内 `https://api.kimi.com/coding/`、海外 `https://api.kimi.ai/coding/`；Kimi 开放平台 国内 `https://api.moonshot.cn/v1`、海外 `https://api.moonshot.ai/v1`
@@ -17,21 +18,20 @@
 
 ### MiniMax
 
-[MiniMax M Plan](https://platform.minimaxi.com/docs/token-plan/intro) | [产品定价](https://platform.minimaxi.com/docs/guides/pricing-token-plan) | [订阅](https://platform.minimax.cn/subscribe/token-plan)
+[MiniMax M Plan](https://platform.minimax.cn/docs/m-plan/intro) | [常见问题](https://platform.minimax.cn/docs/m-plan/faq) | [国际版](https://platform.minimax.io/docs/m-plan/intro)
 
-- 产品名为 M Plan（原 Token Plan），覆盖范围已收窄为旗舰模型；音乐相关 API（Music-3.0、Music-2.6、歌词生成等）已下线，额度不再包含音乐资源
-- 档位（RMB 每月，月度 M3 Token 用量）：Plus 49（约 6 亿+）、Max 119（约 18 亿+）、Ultra 469（约 71 亿+）
-- MiniMax-M3.1-Flash-Preview 为新增语言模型（原生多模态、1M 上下文、思考深度可调），暂仅通过 M Plan 和 MiniMax Code 提供
-- 停售与迁移：Max-极速（199 元每月）、Ultra-极速（899 元每月）停售，下个续费日自动转入 Max（119 元每月）/ Ultra（469 元每月），月费下调并每月补发等值积分（年包按月独立补发、每月额度独立有效期 1 年、不滚存）；Starter（29 元每月）、Plus-极速（98 元每月）为老用户专属保留档，仅对老用户开放
-- 权益规则：2026-06-05 前已订阅用户的老用户权益继续保留；迁移补偿积分有效期自发放日起 1 年；权益加成自订阅生效起自动激活，仅在连续订阅周期内有效，变更档位或取消订阅即放弃
-- Ultra 含每日 5 条视频生成额度；已购积分可用于 MiniMax 开放平台大部分模型（暂不支持 MiniMax H3），按各模型 API 刊例价实时扣减，文本/图像/语音/视频跨模态共享
-- 预付积分包：¥30 获 4489 积分、¥150 获 22460 积分、¥500 获 74900 积分，有效期 365 天
+- M Plan 为 MiniMax 面向个人的 AI 订阅，取代原 Token Plan（Token Plan 已停止售卖）。月付原价：Go ¥49 / $22、Explore ¥119 / $55、Build ¥469 / $132；年付只需付 10 个月（省 2 个月）；上线期间（至 2026-10-14）月付首月 5 折
+- 支持模型：三档均含文本模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文、思考深度可调）、图像与音频生成、联网搜索、多模态理解；Explore、Build 另含 H3 视频模型（Go 不含视频）；不含音乐等资源
+- 用量：Explore 约为 Go 的 3 倍、Build 为 7.5 倍；文本/图像/音频等非视频模型受 5 小时与周窗口限制，视频模型仅受周窗口限制
+- 积分包：1,000 积分 = ¥7（国际版 $1），自购买起 1 年有效；扣费顺序为套餐额度优先、积分包其次
+- MiniMax-M3.1-Flash-Preview 官方标注暂仅通过 M Plan 与 MiniMax Code 提供
+- 原 Token Plan 老用户：自动续费开启时原套餐与权益不变（保留 ∞ 限额、150% 周额度等历史优惠），可随时升级到 M Plan（未使用部分按剩余时间折算抵扣）；升级对应关系 Plus → Go/Explore/Build、Max → Explore/Build、Ultra → Build，升级后不可退回 Token Plan
+- Token Plan 老用户迁移（国内）：Max-极速 ¥199 → Max ¥119（月费下调 ¥80、每月补约 ¥160 积分）、Ultra-极速 ¥899 → Ultra ¥469（下调 ¥430、补约 ¥860 积分）；Starter ¥29、Plus-极速 ¥98 继续保留（仅老用户）；国际版 Max-hs $80 → Max、Ultra-hs $150 → Ultra（各下调 $30、每月补约 $60 积分），Starter $10、Plus-hs $40 保留；停售档年包按月独立补发等值积分（每月额度有效期 1 年、不滚存）
+- 老用户权益：2026-06-05 前订阅用户权益保留；迁移补偿积分有效期 1 年；权益加成仅在连续订阅周期内有效，变更档位或取消订阅即放弃
 - [MiniMax M3 API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)（RMB 每 1M tokens）：
     - `<=` 512K 输入 token：输入命中缓存 0.42、输入未命中缓存 2.10、输出 8.40
     - `>` 512K 输入 token：输入命中缓存 0.84、输入未命中缓存 4.20、输出 16.80
     - 1M 上下文
-
-[MiniMax 国际版 M Plan](https://platform.minimax.io/docs/token-plan/intro) | [产品定价](https://platform.minimax.io/docs/guides/pricing-token-plan)：Plus $22 每月、Max $55 每月、Ultra $132 每月
 
 ### 智谱
 
@@ -211,32 +211,20 @@
 
 ## 更新历史
 
+- 2026/09/30：MiniMax 上线 M Plan 承接 Token Plan（公告日期 2026-09-29）：M Plan 分 Go（¥49 / $22）、Explore（¥119 / $55）、Build（¥469 / $132）三档，文本模型为 M3.1 Flash Preview，Explore/Build 另含 H3 视频；年付付 10 个月用 12 个月；上线期间（至 2026-10-14）月付首月 5 折；1,000 积分 = ¥7（国际版 $1）。Token Plan 停止售卖，老用户自动续费开启时原套餐与权益不变（保留 ∞ 限额、150% 周额度等历史优惠），可升级到 M Plan（Plus → Go/Explore/Build、Max → Explore/Build、Ultra → Build），升级后不可退回 Token Plan
 - 2026/09/30：腾讯云大模型 Token Plan（企业版 `1823/130659`、个人版 `1823/130060` 与个人版套餐概览 `1772/129449` 三页同步更新至 2026-09-30 14:02）模型库更新：企业版专业套餐（广州/新加坡）新增 Hy4 preview、MiMo-V2.6-Pro、MiMo-V2.6-Flash 三款模型，移除仅有固定积分价、不带「0731 正式版」后缀的 `deepseek-v4-flash`，并把两个原厂直供模型名称补全为「DeepSeek-V4-Flash 0731 正式版 原厂直供」「DeepSeek-V4-Pro 0813 正式版 原厂直供」（model ID 不变）；三款新模型同步公布积分抵扣价——Hy4 preview 缓存命中 30 / 未命中 600 / 输出 1800（广州与新加坡一致，综合单价预估 约 158、50 万积分预估约 31.65 亿 tokens），MiMo-V2.6-Pro 广州 2.5/300/600、新加坡 2.59/313.05/626.1（综合单价预估 约 107 / 约 112），MiMo-V2.6-Flash 广州 2/100/200、新加坡 2.02/100.75/201.5（综合单价预估 约 33），单位均为积分每百万 tokens 且均不分峰谷；个人版通用 Token Plan 可用模型新增 DeepSeek-V4.1-Flash 原厂直供（model ID `deepseek/deepseek-flash`）与 MiMo-V2.6-Flash，各档位积分额度与 Hy Token Plan 未变。峰谷计费方面，新加坡地域章节本次也统一为与广州相同的「工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰时段、其余空闲，周末（周六、周日）全天按空闲时段计费；原厂直供模型自 2026-08-29 00:00 起生效、其他 DeepSeek 模型（除 `deepseek-v4-flash`、`deepseek-v4-pro` 外）自 2026-09-26 00:00 起生效」表述，此前「仅广州章节更新、新加坡仍保留旧表述」的情况已消失；广州地域价格表中 Auto 行名称由「Auto 智能路由」改为「Auto 模型」（与新加坡一致），DeepSeek 免责声明由逐一列举具体模型名改为「由 DeepSeek 原厂直供的模型服务」，峰谷单价、其余模型积分价与套餐价格均未变
-
-- 2026/09/30：MiniMax 官方文档把「Token Plan」更名为「M Plan」：模型概览页与按量计费定价页（中英文共四个页面）中的「Token Plan」字样全部替换为「M Plan」（如「暂时仅通过 M Plan 和 MiniMax Code 提供」「M Plan MCP」插件、「通过 M Plan 调用 API-vlm 时，会按其按量计费价格扣减套餐内 M Plan 额度」），文档站点导航「定价」下拉与文档顶部标签页新增 M Plan（指向 `/docs/m-plan/intro`）并把原 Token Plan 标签隐藏、外链改为 https://www.minimax.cn/m-plan；Token Plan FAQ 与 Token Plan 介绍页本次抓取仍写作「Token Plan」（按量计费页中「资源覆盖范围与 Token Plan 相同」一句及指向 Token Plan 定价页的链接亦未改），说明更名尚在进行中；套餐档位、价格、额度与订阅入口均未变
-
+- 2026/09/30：MiniMax 官方文档把「Token Plan」更名为「M Plan」：模型概览页与按量计费定价页（中英文共四个页面）中的「Token Plan」字样全部替换为「M Plan」（如「暂时仅通过 M Plan 和 MiniMax Code 提供」「M Plan MCP」插件、「通过 M Plan 调用 API-vlm 时，会按其按量计费价格扣减套餐内 M Plan 额度」），文档站点导航「定价」下拉与文档顶部标签页新增 M Plan（指向 `/docs/m-plan/intro`）并把原 Token Plan 标签隐藏、外链改为 https://www.minimax.cn/m-plan；Token Plan FAQ 与 Token Plan 介绍页本次抓取仍写作「Token Plan」（按量计费页中「资源覆盖范围与 Token Plan 相同」一句及指向 Token Plan 定价页的链接亦未改），说明更名尚在进行中。（2026-09-30 复核：M Plan 实为承接 Token Plan 的新档位体系，档位改为 Go/Explore/Build、Token Plan 停止售卖，详见上一条）
 - 2026/09/29：火山方舟把 kimi-k2.8-preview 的 6 折抵扣活动窗口由 2026-09-30 23:59:59 延长至 2026-10-14 23:59:59：Agent Plan 中该模型抵扣系数 8 的限时 6 折（4.8）活动期（起始 2026-09-17 00:00 不变）随之延后两周；Coding Plan 中该模型可用量「与 Agent Plan 6 折抵扣活动期间相当」的活动期同步由 2026-09-18 00:00 至 2026-09-30 23:59 改为至 2026-10-14 23:59。Agent Plan 个人版计费说明（82379/2516283）、Agent Plan 个人版套餐概览（82379/2366394）与 Coding Plan 个人版套餐概览（82379/1925114）三页于 2026-09-29 15:26 同步更新，套餐价格、档位额度与其余模型的抵扣系数均未变
-
 - 2026/09/29：阿里云百炼 Token Plan 个人版概述页（页面更新时间 2026-09-28 22:20）在升配折算公式下新增一句「实际补差金额以支付页面展示的价格明细为准」——升配补差公式、换算示例与各档价格均未变；同站 FAQ 页本次仅变更「上一篇」导航链接（由「接入 Harness 工具」改为「Harness 权益」），无内容变化；该导航链接已于 2026-09-29 13:38 抓取时改回「接入 Harness 工具」，页面正文内容自始至终未变
-
 - 2026/09/29：OpenCode Go 文档（zh-cn）使用限制章节删除举例说明：原「例如，如果某个模型在 Go 的每月限制为 $60，在 Go Plus 的每月限制为 $120……」的示例，以及「跨模型计算时，Go 的 5 小时、每周和每月额度分别为 $12、$30 和 $60；Go Plus 则分别为 $48、$120 和 $240」一句被整体移除，现仅保留「每个模型 5 小时 = 月限 20%、每周 = 50%、每月 = 100%」与「下方每个模型的每月限制决定其用量如何计入这些额度」；各模型的月度使用额度表、token 价格表与请求限额表未变（该页面无更新时间戳，本次抓取于 2026-09-29 01:22），跨模型合计额度自此不再见于页面
-
 - 2026/09/28：火山方舟 Agent Plan 个人版套餐概览与计费说明（AFP 抵扣规则）把 doubao-seedream-5.0-lite 标记为「即将下线」（模型表中该行、以及 AFP 抵扣示例中的模型名均加上「即将下线」，各档位仍为 √，官方尚未给出具体下线日期）
-
-- 2026/09/28：MiniMax Token Plan FAQ 新增「订阅权益调整说明」与「Token Plan迁移说明」两节，首次以官方文档形式说明档位迁移与补偿规则：Max-极速（199 元每月）、Ultra-极速（899 元每月）停售并转入 Max（119 元每月）/ Ultra（469 元每月），月费分别下调 80/430 元、每月另补发价值约 160/860 元等值积分（年包按月独立补发、每月额度有效期 1 年不滚存）；Starter（29 元）、Plus-极速（98 元）转为老用户专属保留档、不再对新用户售卖；2026-06-05 前订阅用户的老用户权益继续保留，迁移补偿积分有效期由 1 个月自动订正为 1 年；Plus/Max 档价格不变、M2.7 的 5 小时使用次数约 +10%，并新增 M3 使用权限与多模态额度；已购积分可用于开放平台大部分模型（暂不支持 MiniMax H3）且跨模态共享；国际版迁移说明中 Plus/Max 仍写作 $20/$50，与国际版定价页的 $22/$55 不一致
-
+- 2026/09/28：MiniMax Token Plan FAQ 新增「订阅权益调整说明」与「Token Plan迁移说明」两节，首次以官方文档形式说明档位迁移与补偿规则：Max-极速（199 元每月）、Ultra-极速（899 元每月）停售并转入 Max（119 元每月）/ Ultra（469 元每月），月费分别下调 80/430 元、每月另补发价值约 160/860 元等值积分（年包按月独立补发、每月额度有效期 1 年不滚存）；Starter（29 元）、Plus-极速（98 元）转为老用户专属保留档、不再对新用户售卖；2026-06-05 前订阅用户的老用户权益继续保留，迁移补偿积分有效期由 1 个月自动订正为 1 年；Plus/Max 档价格不变、M2.7 的 5 小时使用次数约 +10%，并新增 M3 使用权限与多模态额度；已购积分可用于开放平台大部分模型（暂不支持 MiniMax H3）且跨模态共享；国际版迁移说明中 Plus/Max/Ultra 仍写作 $20/$50/$120，与国际版定价页的 $22/$55/$132 不一致（FAQ 未随 2026-08-26 涨价更新）
 - 2026/09/28：OpenCode Go 新增 **Go Plus（40 美元每月）** 方案并与 Go（10 美元每月）并列：两个方案 token 价格完全相同，Go Plus 仅提高各模型的用量限制——各模型月额度普遍为 Go 的 2–8 倍（多数为 4 倍，如 GLM-5.3 $15→$120、GLM-5.3-Flash $60→$180、Kimi K2.6 $60→$240、DeepSeek V4 Flash $30→$120），跨模型合计额度 Go 为 5 小时 $12 / 每周 $30 / 每月 $60、Go Plus 为 $48/$120/$240；订阅入口名称由 OpenCode Zen 改为 OpenCode Console，每个工作空间仍限一名成员订阅 Go 或 Go Plus。同一页面更新把 GLM-5.1、Qwen3.7 Max、Qwen3.6 Plus、MiniMax M2.5 从模型列表、token 价格表、请求限额预估表、接入点表与数据保留表中移除（Omen Alpha 亦已不在页面任何列表中，本次同步修正 kb 中仍将其列为支持模型的旧内容）
-
 - 2026/09/27：OpenCode Go 新增限时免费的 LongCat 2.5 Preview Free 模型：input、output、cache read 均为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID `longcat-2.5-preview-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions（支持模型列表、token 价格表、请求限额表、接入点表与数据保留表同步新增该模型，其余模型的价格与额度无变化）
-
 - 2026/09/26：OpenCode Go 的 DeepSeek V4.1 Flash 额度提升 4 倍由限时活动转为常规值：定价表中该模型的月度使用额度由「~~$15~~ **$60** 4x · 9 月 27 日结束」改为直接标注 **$60**，请求限额预估表同步把「~~6,500~~ **26,000**（4x · 9 月 27 日结束）」改为 **26,000/65,000/130,000**——原 $15、6,500/16,250/32,500 的基准值与活动结束时间标注全部移除，即额度提升与提高后的请求限额成为常规额度；token 价格不变（空闲时段 input $0.15/1M、output $0.60/1M、cache read $0.003/1M，高峰时段为两倍）
-
 - 2026/09/25：无问芯穹 Infini GenStudio 更新日志发布「2026-10-09 发布预告」：`deepseek-v4-flash` 将于 2026 年 10 月 9 日 12:00 下架，官方推荐替换模型为 `deepseek-v4.1-flash`，建议提前完成迁移（该平台此前的 Infini Coding Plan 已于 2026-06-27 下线，此变化影响 GenStudio API 调用）
-
 - 2026/09/25：阿里云百炼新增领域模型 decision-model-preview 并纳入 Token Plan 个人版（相关页面更新时间 2026-09-24）：模型调用价格页新增「决策模型」章节（计费规则为按输入 token 计费，模型 `decision-model-preview` 输入单价标注「限时免费」，覆盖华北2（北京）与新加坡两地），「选择模型」页新增「决策模型」分类，介绍为「面向高频业务判断的结构化决策模型，一次前向完成分类、是非判断与评分，并返回概率分布与置信度」（模型详情页 /zh/model-studio/decision-model-preview）；Token Plan 个人版概述页的权益说明新增「decision-model-preview 限时免费：调用不消耗 Credits，接入方法参见接入决策模型」，支持模型表新增一行「领域模型 / decision-model-preview / 决策模型」
-
 - 2026/09/25：腾讯云 Token Plan 企业版专业套餐（页面更新时间 2026-09-24 20:08）DeepSeek 峰谷计费规则改写并新增非原厂直供的 DeepSeek-V4.1-Flash：注意事项由「原厂直供模型周末全天空闲、正式版高峰时段为周一至周日」统一改为「所有 DeepSeek 模型工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰时段、其余空闲，周末（周六、周日）全天按空闲时段计费」，并新增生效时间说明——原厂直供模型自北京时间 2026-08-29 00:00 起生效，其他 DeepSeek 模型（除不分峰谷、按固定积分价计费的 `deepseek-v4-flash`、`deepseek-v4-pro` 外）自北京时间 2026-09-26 00:00 起生效，即 DeepSeek-V4-Flash 0731 正式版、DeepSeek-V4-Pro 0813 正式版等平台托管模型自 9 月 26 日起同样享有周末全天空闲价；页面仅更新了广州地域章节的注意事项，新加坡地域章节仍保留旧表述。模型库（广州/新加坡两地）同步新增非原厂直供的 DeepSeek-V4.1-Flash（model ID `deepseek-v4.1-flash`，与原厂直供的 `deepseek/deepseek-flash` 并存），其积分抵扣价与原厂直供完全一致——缓存命中 2 / 未命中 100 / 输出 400（空闲时段）、4 / 200 / 800（高峰时段）积分每百万 tokens，综合单价预估 约 26 / 约 51 积分每百万 tokens
-
 - 2026/09/24：阿里云百炼模型调用价格页 DeepSeek 第三方模型章节补充峰谷时段定义（相关页面更新时间 2026-09-23 23:50）：在 DeepSeek-V4-Flash-0731 峰谷定价说明之后、列有忙时/闲时单价的模型表之前，新增一句「其中，忙时为北京时间 8:00 - 22:00，闲时为北京时间 22:00 - 次日 8:00」；即表中标注忙时/闲时单价的 DeepSeek 模型按每日 8:00–22:00 为忙时、22:00–次日 8:00 为闲时计费（该时段与百炼 Token Plan 个人版夜间折扣时段一致）；价格数字与其他计费规则未变
 - 2026/09/24：OpenCode Go 模型列表新增 GPT 6 Luna：按 272K tokens 分档，≤272K tokens 输入 $0.10/输出 $0.50/缓存读取 $0.01/缓存写入 $0.125 每 1M tokens，>272K tokens 为 $0.20/$0.75/$0.02/$0.25；输入与缓存价格恰为 GPT 5.6 Luna 的一半、输出更低（原 $1.20），GPT 5.6 Luna 保留在列表与定价表中；月度使用额度 $15，请求限额 4,230/5 小时、10,560/周、21,130/月；model ID `gpt-6-luna`，接入点 https://opencode.ai/zen/go/v1/responses（数据保留说明同步由「GPT 5.6 Luna」改为「GPT 6 Luna / GPT 5.6 Luna」）
 - 2026/09/23：智谱 GLM Coding Plan「夜间畅用活动」的适用客户端由 ZCode 扩展为 ZCode 与 AutoClaw（[autoclaw.zhipuai.cn](https://autoclaw.zhipuai.cn/)）：套餐用户在两个客户端调用 GLM-5.3-Flash 均无限用量，活动时间与其他条款不变（2026-09-03 至 2026-10-07 每日 23:00～次日 09:00，在其他 Agent 端额度翻倍）
