@@ -20,3 +20,9 @@ USB 3.2 支持把 Type-C 里的四对差分对，都拿来传输数据，这样�
 USB 3.2 Gen 1x2 和 USB 3.2 Gen 2x1 虽然每个方向都是 10Gbps，但因为编码的不同，USB 3.2 Gen 2x1 的理论有效数据传输速率更高。
 
 如果只用两个差分对，那么 Type-A 和 Type-B 都可以支持；如果要用四个差分对，就必须 Type-C。
+
+## DP Alternate Mode
+
+把 Type-C 里的 1/2/4 对差分对拿来传 DP 信号，就是 DP Alternate Mode。其余的差分对（如有）还可以继续给 USB 3.x 用。
+
+比较常见的是把两对差分对用于 DP，然后每对差分对用的是 HBR2 速率，两对 HBR2 差分对提供 10.8 Gbps 的速率，能支持 4K 30Hz，或者 4K 60Hz YCbCr 4:2:0。
