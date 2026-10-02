@@ -1,26 +1,20 @@
-[tool.poetry]
+[project]
 name = "kb"
 version = "0.1.0"
 description = ""
-authors = ["Jiajie Chen <c@jia.je>"]
+authors = [{ name = "Jiajie Chen", email = "c@jia.je" }]
 readme = "README.md"
-package-mode = false
-
-[tool.poetry.dependencies]
-python = "^3.10"
-mkdocs-material = "^9.1.21"
-pillow = "^12.3.0"
-cairosvg = "^2.9.0"
-mkdocs-git-revision-date-localized-plugin = "^1.2.0"
-mkdocs-static-i18n = "^1.0"
-mkdocs-glightbox = "^0.5.0"
-mkdocs-rss-plugin = "^1.6.0"
-jieba = "^0.42.1"
-pymdown-extensions = "11.0.1"
-mkdocs-llmstxt = "^0.5.0"
-zensical-wavedrom-plugin = "^0.1.1"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "mkdocs-material>=9.1.21,<10.0.0",
+    "pillow>=12.3.0,<13.0.0",
+    "cairosvg>=2.9.0,<3.0.0",
+    "mkdocs-git-revision-date-localized-plugin>=1.2.0,<2.0.0",
+    "mkdocs-static-i18n>=1.0,<2.0",
+    "mkdocs-glightbox>=0.5.0,<0.6.0",
+    "mkdocs-rss-plugin>=1.6.0,<2.0.0",
+    "jieba>=0.42.1,<0.43.0",
+    "pymdown-extensions==11.0.1",
+    "mkdocs-llmstxt>=0.5.0,<0.6.0",
+    "zensical-wavedrom-plugin>=0.1.1,<0.2.0",
+]
