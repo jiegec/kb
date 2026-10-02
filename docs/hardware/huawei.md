@@ -160,6 +160,16 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - Maleoon 935
 - 与麒麟 9030Pro 规格一致
 
+### 麒麟 9035
+
+- 首发 Mate 90 Pro (CMS-AL20)
+- 1x 大核（带 SMT，2.85 GHz，0xd06），4x 中核（带 SMT，2.35 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
+- Maleoon 935, 6CU, 2160 ALU
+
+### 麒麟 9050
+
+- 首发 Mate 90 Pro Max 12GB (CMM-AL00)
+
 ### 麒麟 9050 Pro
 
 - 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
@@ -186,6 +196,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
 | 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
 | 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
+| 2026 | 麒麟 9035     | 1x 2.85 GHz, SMT, 0xd06 | 4x 2.35 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
 | 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
 
 ## hip
