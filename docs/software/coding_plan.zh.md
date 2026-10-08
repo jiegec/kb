@@ -122,6 +122,10 @@
 - [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) | [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) | [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
     - Mini 9.9 RMB 每月（1000 万 token）、Lite 40（4200 万）、Pro 200（2.3 亿）、Max 600（7 亿）
     - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5.2、GLM-5.1、Kimi-K2.6、ERNIE 5.1
+- [百度千帆 Coding Plan](https://cloud.baidu.com/doc/qianfan/s/imlg0beiu)（页面更新时间 2026-10-08）
+    - Coding Plan Lite 40 RMB 每月：每 5 小时最多约 1,200 次请求、每周约 9,000 次、每订阅月约 18,000 次；Coding Plan Pro 200 RMB 每月：6,000 / 45,000 / 90,000 次
+    - 支持模型与抵扣系数：DeepSeek-V4-Pro（高峰期 5 / 低峰期 4）、GLM-5.1（高峰期 4 / 低峰期 3）、百度搜索（10）；高峰期一般为每日 10:30-12:00、14:00-18:00（随流量变化）
+    - 官方公告「Coding Plan 已停止模型更新，如需使用新模型，建议迁移至 Token Plan 个人版」；本次更新把模型库缩减为上述两款语言模型（配置文件可指定的 Model Name 也只剩 `deepseek-v4-pro`、`glm-5.1`），移除 Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Flash、GLM-5、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402
 - [京东云 Coding Plan](https://docs.jdcloud.com/cn/jdaip/PackageOverview)
     - Lite 套餐（首购 19.9、续费 40 RMB 每月）：每 5 小时最多 1,200 次请求、每周最多 9,000 次、每订阅月最多 18,000 次
     - Pro 套餐（首购 99.9、续费 200 RMB 每月）：每 5 小时最多 6,000 次、每周 45,000 次、每订阅月 90,000 次
@@ -213,6 +217,7 @@
 ## 更新历史
 
 - 2026/10/08：MiniMax 国内站与英文站的 Token Plan 介绍页与 FAQ（platform.minimaxi.com 与 platform.minimax.io 的 `/docs/token-plan/intro`、`/docs/token-plan/faq` 共四页）由旧 Token Plan 内容整体改写为 M Plan 内容，站点内容迁移基本完成。新页面明确国内站 Build 档额度为 Go 的 **12 倍**，而英文站仍写作 **7.5 倍**（两站数值不一致，本次已按站区分写入主条目）；三档模型范围（三档均含 M3.1 Flash Preview 文本模型与图像/音频生成、联网搜索、多模态理解，Explore/Build 另含 H3 视频、Go 不含视频）、「非视频模型受 5 小时与周窗口、视频模型仅受周窗口」「1,000 积分 = ¥7、有效期 1 年」等规则与此前一致。FAQ 改写后补充的要点：订阅 Key 可用于支持 OpenAI 或 Anthropic 兼容协议的任意工具（列举 Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw）、在 MiniMax Code 中使用无需单独订阅或配置订阅 Key、暂不支持降级（月付可升级为更高档位月付或年付，年付仅可升级为更高档位年付）、关闭自动续费后无法恢复须重新购买、5 小时与周窗口均自首次使用起计时且各自独立刷新、额度用尽不会自动扣账户余额、登录报 401 时用 `mmx config set --key region` 手动指定区域等。同期 `/docs/guides/pricing-token-plan`（订阅定价页）与 `/docs/guides/pricing-paygo` 仍为旧 Token Plan / 按量计费内容，尚未迁移
+- 2026/10/08：百度千帆 Coding Plan（页面更新时间 2026-10-08）模型库大幅缩减并公告停止模型更新：抵扣系数表与可配置的模型名单只剩 DeepSeek-V4-Pro（高峰期 5 / 低峰期 4）、GLM-5.1（高峰期 4 / 低峰期 3）与百度搜索（10），移除 Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Flash、GLM-5、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402（配置文件可指定的 Model Name 由 6 个减为 `deepseek-v4-pro`、`glm-5.1` 两个）；原来的「DeepSeek-V4-Flash和GLM-5.1为尝鲜体验版，服务资源有限，后续逐步扩容」一句被替换为新公告「支持的模型范围将随模型版本迭代动态调整。Coding Plan 已停止模型更新，如需使用新模型，建议迁移至 Token Plan 个人版」。套餐价格与限额（Lite 40 元、Pro 200 元每月，每 5 小时 1,200 / 6,000 次）未变
 
 - 2026/10/06：OpenCode Go 的 Space Bunny Free 限时免费结束，转为常规付费模型 **Space Bunny**：token 价格 input $0.15、output $0.60、cache read $0.03 每 1M tokens（Go 与 Go Plus 相同），月度使用额度 Go **$30**、Go Plus **$120**（不再是无限制）；请求限额预估 Go 为 3,130/5 小时、7,810/周、15,630/月，Go Plus 为 12,500/5 小时、31,250/周、62,500/月；单次请求估算用量 1,000 输入 token、55,000 缓存 token、200 输出 token。model ID 由 `space-bunny-free` 改为 `space-bunny`，接入点不变（https://opencode.ai/zen/go/v1/chat/completions），数据保留表同步改名；页面中该模型的「限时」标注与「**Space Bunny Free:** 限时免费。」说明句一并删除，其余模型的价格、额度与请求限额均未变
 - 2026/10/03：阿里云百炼模型调用价格页（页面更新时间 2026-10-03 13:56）新增「千问图像生成与编辑2.0系列」章节：新增图像模型 qwen-image-2.1-pro（文生图与图生图/图像编辑，按张计费），中国站与「全球」部署 0.25 元/张（免费额度 10 张）、国际站 0.283404 元/张；原先分散在「千问文生图」「千问图像编辑」等章节的 qwen-image-2.0 系列（qwen-image-2.0-pro 及其 2026-06-22/2026-04-22/2026-03-03 版本 0.5 元/张、qwen-image-2.0 及其 2026-03-03 版本 0.2 元/张；国际站 0.550443 / 0.256873 元/张；免费额度均为 100 张）被合并进该新章节，这些模型的单价与免费额度均未变。该变更只涉及百炼通用模型目录的图像生成定价，未改动包括 Token Plan 在内的任何 coding plan 的模型库、档位或额度
