@@ -345,7 +345,7 @@ GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 
 
 GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 组 512KB 的 L2 缓存，每组对应一个内存控制器，L2 一共是 6144 KB。（`The memory subsystem of GA102 consists of twelve 32-bit memory controllers (384-bit total). 512 KB of L2 cache is paired with each 32-bit memory controller, for a total of 6144 KB on the full GA102 GPU.`）。
 
-GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 166$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
+GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
 ## NVIDIA Ada Lovelace
 
@@ -385,7 +385,7 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 $25 / 114 / 1620 * 1e6 = 135$ 字节）的数据。
 
-CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
+CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block Cluster 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
 
 ## NVIDIA Blackwell
 
@@ -471,7 +471,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 
 - G80: 16 SM(8 TPC * 2 SM/TPC) * 8 = 128 CUDA core
 - GF100: 16 SM(4 GPC * 4 SM/GPC) * 32 = 512 CUDA core
-- GK210: 15 SM(15 SM) * 192 = 2730 CUDA core
+- GK210: 15 SM(15 SM) * 192 = 2880 CUDA core
 - GM204: 16 SM(4 GPC * 4 SM/GPC) * 128(4 PB * 32 Core/PB) = 2048 CUDA core
 - GP100: 60 SM(6 GPC * 5 TPC/GPC * 2 SM/TPC) * 64(2 PB * 32 Core/PB) = 3840 CUDA core
 - GV100: 84 SM(6 GPC * 7 TPC/GPC * 2 SM/TPC) * 64(4 PB * 16 Core/PB) = 5376 CUDA core
@@ -532,7 +532,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 
 ### Stall count
 
-首先是 Stall Count，以 Ampere SM8.0 为例，这个架构里每个 PB 只有 8 个 LD/ST unit，因此一条 Load/Store 指令需要四个周期才能发射完成。因此如果是连续的 Load/Store 质量，它们的 Stall count 会是 4：
+首先是 Stall Count，以 Ampere SM8.0 为例，这个架构里每个 PB 只有 8 个 LD/ST unit，因此一条 Load/Store 指令需要四个周期才能发射完成。因此如果是连续的 Load/Store 指令，它们的 Stall count 会是 4：
 
 ```asm
 [B------:R-:W3:-:S04]          /*0090*/                   LDG.E R8, [R2.64] ;                       /* 0x0000000402087981 */
@@ -563,7 +563,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 [B------:R-:W-:-:S01]          /*0060*/                   IMAD.MOV.U32 R7, RZ, RZ, c[0x0][0x174] ;  /* 0x00005d00ff077624 */
 ```
 
-虽然 Ampere SM 8.0 每个 PB 只有 16 个 INT32 和 16 个 FP 32 单元，也就是说一条 IMAD 指令需要两个周期才能发射完成，但是从上面可以看出，MOV 指令和 IMAD 指令使用不同的 dispatch port，虽然它们各自都需要两个周期来发射，但是间隔地发射使得每个周期都可以发射一条指令：
+虽然 Ampere SM 8.0 每个 PB 只有 16 个 INT32 和 16 个 FP32 单元，也就是说一条 IMAD 指令需要两个周期才能发射完成，但是从上面可以看出，MOV 指令和 IMAD 指令使用不同的 dispatch port，虽然它们各自都需要两个周期来发射，但是间隔地发射使得每个周期都可以发射一条指令：
 
 | 周期 | PC   | MOV dispatch port | IMAD dispatch port   |
 |------|------|-------------------|----------------------|
@@ -576,7 +576,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 | 6    | 0070 | Other insts       | 0060 IMAD.MOV.U32 R7 |
 
 
-而如果是同类型的质量，就可能会阻塞 dispatch port，因此需要大于 1 的 stall count：
+而如果是同类型的指令，就可能会阻塞 dispatch port，因此需要大于 1 的 stall count：
 
 ```asm
 [B------:R-:W-:-:S01]          /*0010*/                   IADD3 R1, R1, -0x1a0, RZ ;                                     /* 0xfffffe6001017810 */
@@ -586,7 +586,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 [B------:R-:W-:-:S01]          /*0050*/                   IMAD.MOV.U32 R3, RZ, RZ, c[0x0][0x1c] ;                        /* 0x00000700ff037624 */
 ```
 
-这里的 0010 IADD3 和 0020 IMAD 之间、0020 IMAD 和 0030 ISETP 之间、0030 ISETP 和 0040 IMAC 之间不会出现 dispatch port 的冲突。但是 IMAD 和 IMAD 就会出现冲突，所以 0040 IMAD 指令的 stall count 是 2。根据这些信息，可以猜测，IMAD 并没有放在 INT32 core 中执行，而是放到了 FP32 中，这样或许可以共享乘法器，减少面积。其余的 MOV，IADD3 和 ISETP 指令可能是在 INT32 core 中实现。下面的例子也说明了 IADD3 和 ISETP 大概率是同一个 dispatch port：
+这里的 0010 IADD3 和 0020 IMAD 之间、0020 IMAD 和 0030 ISETP 之间、0030 ISETP 和 0040 IMAD 之间不会出现 dispatch port 的冲突。但是 IMAD 和 IMAD 就会出现冲突，所以 0040 IMAD 指令的 stall count 是 2。根据这些信息，可以猜测，IMAD 并没有放在 INT32 core 中执行，而是放到了 FP32 中，这样或许可以共享乘法器，减少面积。其余的 MOV，IADD3 和 ISETP 指令可能是在 INT32 core 中实现。下面的例子也说明了 IADD3 和 ISETP 大概率是同一个 dispatch port：
 
 ```asm
 [B------:R-:W-:-:S02]          /*0080*/                   ISETP.NE.AND P0, PT, R2, 0x1, PT ;                             /* 0x000000010200780c */
@@ -605,7 +605,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 [B------:R-:W-:Y:S13]          /*0200*/                   ISETP.GE.U32.AND.EX P0, PT, R3, c[0x0][0x54], !P1, P0 ;        /* 0x0000150003007a0c */
 ```
 
-首先是 01c0 的 IMAD 质量，它写入 R4 寄存器，会被 01e0 ISETP 指令使用，所以这是一个写后读的依赖。如果不考虑依赖，那么 01d0 ISETP 和 01e0 ISETP 应该只需要相隔两个周期，就可以保证顺利发射，但实际上 01d0 ISETP 的 stall count 设置成了 4。这会有什么效果呢？如果把周期画出来：
+首先是 01c0 的 IMAD 指令，它写入 R4 寄存器，会被 01e0 ISETP 指令使用，所以这是一个写后读的依赖。如果不考虑依赖，那么 01d0 ISETP 和 01e0 ISETP 应该只需要相隔两个周期，就可以保证顺利发射，但实际上 01d0 ISETP 的 stall count 设置成了 4。这会有什么效果呢？如果把周期画出来：
 
 | 周期 | PC   | ISETP dispatch port | IMAD dispatch port |
 |------|------|---------------------|--------------------|
@@ -619,7 +619,7 @@ Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](htt
 | 7    | 01e0 | Idle                | Idle               |
 | 8    | 01e0 | Idle                | Idle               |
 
-我们不知道 IMAD.X 指令需要执行多少个周期，但是可以猜测，如果 01d0 ISETP 的 stall count 设置为 2，虽然 01e0 ISETP 质量可以提前发射，但是当他读取寄存器的时候，可能 IMAD.X 还没有计算完成并且把结果写回到寄存器。
+我们不知道 IMAD.X 指令需要执行多少个周期，但是可以猜测，如果 01d0 ISETP 的 stall count 设置为 2，虽然 01e0 ISETP 指令可以提前发射，但是当他读取寄存器的时候，可能 IMAD.X 还没有计算完成并且把结果写回到寄存器。
 
 而后面的 01f0 ISETP 指令依赖了 P1 和 P0，也就是 01d0 ISETP 和 01e0 ISETP 指令要写入的寄存器，这里也出现了写后读的依赖。因此 01e0 ISETP 也设置了比 2 大的 stall count：4。到 0200 ISETP 的时候，它虽然也依赖 P1 和 P0，但是由于前面已经等待了足够的周期数，不需要额外的 stall count 了，因此 01f0 的 stall count 就是 2。把整个过程写下来，就得到了如下表格：
 
@@ -729,7 +729,7 @@ Dependency Barrier 主要是用来解决依赖的问题。
 [B0-----:R-:W-:-:S01]          /*0090*/                   STG.E [R2.64], R5 ;                                /* 0x0000000502007986 */
 ```
 
-0070 LDS 指令会写入 R5，R5 寄存器会被 0090 STG 指令读取。因此 0070 LDS 指令设置 write barrier 0，只有当它执行完成，把结果写入到 R5 寄存器，才能允许 0090 STG 指令去读取 R5 寄存器。在 GPGPU 上，这个约束可能简化为，只有当 0070 LDS 指令执行完成，才允许发射 0090 STG 质量。
+0070 LDS 指令会写入 R5，R5 寄存器会被 0090 STG 指令读取。因此 0070 LDS 指令设置 write barrier 0，只有当它执行完成，把结果写入到 R5 寄存器，才能允许 0090 STG 指令去读取 R5 寄存器。在 GPGPU 上，这个约束可能简化为，只有当 0070 LDS 指令执行完成，才允许发射 0090 STG 指令。
 
 但是，并非所有情况下都需要设置 barrier。例如上面这段汇编，0080 ULDC 需要写 UR4 寄存器，而 0070 LDS 需要写 UR4 寄存器，这是一个读后写（WAR）的情况，看似需要 read dependency barrier。但实际上，ULDC 和 LDS 应该都在 LD/ST 单元中执行，因此它们内部可以保证顺序，不会出现读错值的问题。
 

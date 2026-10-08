@@ -205,7 +205,7 @@ if (issuePrefetchRequests) {
 - 16 个 delta，每个 delta 包括：
     - 13-bit 的 delta 本身，就是 Offset
     - 4-bit 的 coverage，代表当前 Offset 能够覆盖多少比例的预取
-    - 2-bit 的 status，代表当前 Offest 的状态，是否启动预取
+    - 2-bit 的 status，代表当前 Offset 的状态，是否启动预取
 
 当地址为 Y 的 cacheline 进入缓存时，往回找历史，从 History Table 中找到匹配的表项且时间戳足够早，计算地址的距离记为 delta，然后更新到 Table of deltas 当中：给 counter 加一，然后对于每个表项中记录的 delta，如果有匹配的 delta，则给它 coverage 加一。
 
@@ -278,7 +278,7 @@ Spatial Prefetcher 利用的是程序的访存模式在空间上的相似性，�
 4. 当 Region 内缓存被换出 Cache 时，认为该 Region 学习完毕，将对应信息移动到 Pattern History Table 中，注意此时 Region 地址信息不会被记录在 Pattern History Table 上，这样它可以用来预测多个 Region
 5. 同时，查询 Pattern History Table，如果有 PC 和 offset 匹配的 entry，按照 Bitmap 将 Region 内被访问过的 cacheline 预取进来
 
-Gem5 实现了 [Spartial Memory Stream 预取器](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/sms.cc)，基本就是按照上面的思路实现的：
+Gem5 实现了 [Spatial Memory Stream 预取器](https://github.com/gem5/gem5/blob/stable/src/mem/cache/prefetch/sms.cc)，基本就是按照上面的思路实现的：
 
 首先是计算出 Region 的地址以及 Region 内的 offset：
 
@@ -433,7 +433,7 @@ vector<vector<bool>> find(uint64_t pc, uint64_t address) {
 
 ### Pattern Merging Prefetcher (MICRO-55)
 
-[Pattern Merging Perfetcher (PMP, MICRO-55)](https://ieeexplore.ieee.org/document/9923831) 也是一个 Spatial Prefetcher，它的思路是，很多 Spatial Pattern 是类似的，但保存了很多份，所以它希望通过合并 Pattern（类似 SMS 里面的那个 Bitmap）来节省空间。合并思路是这样的：
+[Pattern Merging Prefetcher (PMP, MICRO-55)](https://ieeexplore.ieee.org/document/9923831) 也是一个 Spatial Prefetcher，它的思路是，很多 Spatial Pattern 是类似的，但保存了很多份，所以它希望通过合并 Pattern（类似 SMS 里面的那个 Bitmap）来节省空间。合并思路是这样的：
 
 1. 把 Bitmap 进行旋转移位，使得 Trigger Access 对应的 Bit 挪到开头
 2. 用 Counter Vector 代替 Bitmap，每一个位置记录一个数而不再是 0/1，合并 Bitmap 时，将旋转移位后的 Bitmap 求和到 Counter Vector 当中
@@ -829,15 +829,15 @@ if(num_prefs == 0 && spec_nl[cpu] == 1){                                        
 1. 估计程序在多核场景下，预取器比无预取器的加速：根据 Micro-Armed Bandit 在开始的拓展阶段时观察到的 IPC 作为无预取器时的性能的估计
 2. 估计程序在多核相比单核的劣化：程序 L2 miss 次数越多，那么它的劣化就越严重，因此就用一减去 L2 miss 占所有核的 L2 miss 的比例来估计它的劣化程度
 
-另一种全局的性能指标是 Harmonic Speedup，它更多考虑的是公平性，和 Weight Speedup 的区别是，它采用调和平均代替了算术平均。
+另一种全局的性能指标是 Harmonic Speedup，它更多考虑的是公平性，和 Weighted Speedup 的区别是，它采用调和平均代替了算术平均。
 
-### Perceptron-Base Prefetch Filtering (ICSA '19)
+### Perceptron-Based Prefetch Filtering (ISCA '19)
 
-[Perceptron-Base Prefetch Filtering](https://ieeexplore.ieee.org/document/8980306/) 是一种改进已有预取器的方法，它的思路是，添加额外的过滤器，在让已有预取器更加激进的同时，过滤掉那些错误的预取，从而实现 coverage 和 accuracy 的双重保证。这个过滤器用的是 Perceptron，即输入一系列的 feature，通过查表求和后，和阈值比较，判断是否进行预取。然后根据预取的数据是否被使用，来训练 Perceptron。
+[Perceptron-Based Prefetch Filtering](https://ieeexplore.ieee.org/document/8980306/) 是一种改进已有预取器的方法，它的思路是，添加额外的过滤器，在让已有预取器更加激进的同时，过滤掉那些错误的预取，从而实现 coverage 和 accuracy 的双重保证。这个过滤器用的是 Perceptron，即输入一系列的 feature，通过查表求和后，和阈值比较，判断是否进行预取。然后根据预取的数据是否被使用，来训练 Perceptron。
 
 ### Sandbox Prefetcher (HPCA '14)
 
-[Sandbox Prefetcher](https://ieeexplore.ieee.org/document/6835971) 是一种在运行时评估多种预取器或预取参数（例如 Offset 和预取深度），从中选择比较好的那一个进行实际的预取的办法。但如果实际去跑这些预取器，会耗费一段时间在评估上，同时应用的特性也会不断变化，使得最优的参数出现变化，所以最好是能在不进行实现预取的前提下，评估预取器或预取参数的效果，这怎么做呢？
+[Sandbox Prefetcher](https://ieeexplore.ieee.org/document/6835971) 是一种在运行时评估多种预取器或预取参数（例如 Offset 和预取深度），从中选择比较好的那一个进行实际的预取的办法。但如果实际去跑这些预取器，会耗费一段时间在评估上，同时应用的特性也会不断变化，使得最优的参数出现变化，所以最好是能在不进行实际预取的前提下，评估预取器或预取参数的效果，这怎么做呢？
 
 Sandbox Prefetcher 的思路是，使用 Bloom filter 来模拟预取的效果：如果某个预取器要预取某个地址，就把这个地址加到 Bloom filter 当中；然后在访问缓存的时候，查询 Bloom filter，如果有命中，就猜测这个预取器能够正确地把缓存行预取出来，如果没有命中，就认为预取器进行了失败的预取。论文中，根据不同的 Offset，得到了多个预取器，在 Bloom filter 中评估这些 Offset 的效果如何，然后选出分数高的用于实际的预取；每隔一段时间就重新评估一次。
 

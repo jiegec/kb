@@ -8,7 +8,7 @@
 
 1. Op：需要执行的操作
 2. Qj，Qk：操作数依赖的指令目前所在的保留站 ID
-3. Vj，Qk：操作数的值
+3. Vj，Vk：操作数的值
 4. Rj，Rk：操作数是否 ready（或者用特殊的 Qj，Qk 值表示是否 ready）
 5. Busy：这个保留站被占用
 
@@ -61,7 +61,7 @@ Issue Queue 可以理解为保留站的简化版，它不再保存操作数的�
 	graduation commits its new mapping, so the old physical register can
 	return to the free list for reuse. When an exception occurs, however,
 	subsequent instructions never graduate. Instead, the processor restores
-	old mappings from the active list. The R1OOOO unmaps four instructions
+	old mappings from the active list. The R10000 unmaps four instructions
 	per cycle--in reverse order, in case it renamed the same logical
 	register twice. Although this is slower than restoring a branch,
 	exceptions are much rarer than mispredicted branches. The processor
