@@ -51,9 +51,11 @@ HDMI 2.1 还支持 DSC 视频流压缩，可以支持更高的分辨率，如 8k
 
 DisplayPort 采用四对差分对来传输数据，支持视频和音频等。
 
-DisplayPort 1.0 版本支持 10.8 Gbps 的传输速率（编码方式 8b/10b，因此数据 8.64 Gbps）。DisplayPort 1.2 版本速率翻倍，达到了 21.6 Gbps（数据 17.28 Gbps）。DisplayPort 1.3 进一步提高到了 32.4 Gbps（数据 25.92 Gbps）。DisplayPort 2.0 进一步提高到 80 Gbps（编码方式 128b/132b），数据速率 77.37 Gbps（计算公式不明）。
+DisplayPort 1.0 版本支持 10.8 Gbps 的传输速率（编码方式 8b/10b，因此数据 8.64 Gbps）。DisplayPort 1.2 版本速率翻倍，达到了 21.6 Gbps（数据 17.28 Gbps，HBR2）。DisplayPort 1.3 进一步提高到了 32.4 Gbps（数据 25.92 Gbps，HBR3）。DisplayPort 2.0 进一步提高到 80 Gbps（编码方式 128b/132b），数据速率 77.37 Gbps（计算公式不明）。
 
-DisplayPort 可以在 USB Type C 上通过 Alternate Mode 传输。
+DisplayPort 可以在 USB Type C 上通过 Alternate Mode 传输。在 Type-C DP Alt-mode 里，DP 可能有 1/2/4 lane 的配置。
+
+对于 2 lane HBR2，最高支持 4K 30Hz 4:4:4 8bpc；对于 2 lane HBR3，最高支持 4K 60Hz 4:4:4 8bpc。对于 4 lane HBR2，最高支持 4K 75Hz 4:4:4 8bpc。
 
 在笔记本或手机中，内置的显示器可能会采用 eDP 接口。
 
