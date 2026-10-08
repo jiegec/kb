@@ -28,7 +28,7 @@ $V_{OH}=2.4$ in the data on [Wikipedia](https://en.wikipedia.org/wiki/Transistor
 The [FT232H](https://www.ftdichip.com/old2020/Support/Documents/DataSheets/ICs/DS_FT232H.pdf) chip supports TTL, the parameters are as follows:
 
 - $V_{OL}=0.4$, $V_{OH}=2.4$
-- $V_{IL}=0.8$, $V_{OL}=2.0$
+- $V_{IL}=0.8$, $V_{IH}=2.0$
 
 ## CMOS logic level
 
@@ -42,7 +42,7 @@ CMOS logic level is more common nowadays. Take [Artix-7 FPGAs](https://docs.xili
 
 Among them, $V_{CCO}$ is the external input voltage, which matches the two digits behind LVCMOS, and LVCMOS33 corresponds to 3.3 V. Each Bank has the same $V_{CCO}$ voltage, which is why IOSTANDARD is written in the constraint file, and often consecutive signals use the same logic level standard.
 
-In some cases, TTL level standards and CMOS level standards are compatible as long as their voltage range meets the requirements and can accept higher input voltages. For details, see [Can I Use 3.3V TTL to Trigger a 3.3V CMOS Device](https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q000001Dn19CAC&l=en-US) and [Logic Guide - Texas Instruments](https:/ /www.ti.com/lit/sg/sdyu001ab/sdyu001ab.pdf):
+In some cases, TTL level standards and CMOS level standards are compatible as long as their voltage range meets the requirements and can accept higher input voltages. For details, see [Can I Use 3.3V TTL to Trigger a 3.3V CMOS Device](https://knowledge.ni.com/KnowledgeArticleDetails?id=kA03q000001Dn19CAC&l=en-US) and [Logic Guide - Texas Instruments](https://www.ti.com/lit/sg/sdyu001ab/sdyu001ab.pdf):
 
 <figure markdown>
   ![](logic_levels_compatible.png){ width=400 }

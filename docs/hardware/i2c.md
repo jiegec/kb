@@ -71,7 +71,7 @@ I2C 协议涉及到两个信号：
 
 ## I2C Audio Codec
 
-上面的例子中的 [WM8731](http://cdn.sparkfun.com/datasheets/Dev/Arduino/Shields/WolfsonWM8731.pdf) 实际上就是一个 Audio Codec，可以通过 I2C 对其寄存器进行写入。WM8731 的寄存器地址有 9 位，每个寄存器有 8 位的数据，因此写入流程是：start，7 位设备地址，W，ack；7 位寄存器地址，1 位寄存器数据，ack；8 位寄存器数据，ack；stop。
+上面的例子中的 [WM8731](http://cdn.sparkfun.com/datasheets/Dev/Arduino/Shields/WolfsonWM8731.pdf) 实际上就是一个 Audio Codec，可以通过 I2C 对其寄存器进行写入。WM8731 的寄存器地址有 7 位，每个寄存器有 9 位的数据，因此写入流程是：start，7 位设备地址，W，ack；7 位寄存器地址，1 位寄存器数据，ack；8 位寄存器数据，ack；stop。
 
 ## I2C Sensor
 

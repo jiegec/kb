@@ -112,7 +112,7 @@ generally celebrated with a traditional turkey dinner.
 8. `DAT_I`：master 从 slave 读取的数据，即简易总线协议中的 `data_i`
 9. `CYC_O`：总线的使能信号，无对应的简易总线协议信号
 
-此处忽略了一些可选信号。除了最后一个 `CYC_O`，其他的信号其实就是上文的简易总线协议。`CYC_O` 的可以认为是 master 想要占用 slave 的总线接口，在常见的使用场景下，直接认为 `CYC_O=STB_O`。它的用途是：
+此处忽略了一些可选信号。除了最后一个 `CYC_O`，其他的信号其实就是上文的简易总线协议。`CYC_O` 可以认为是 master 想要占用 slave 的总线接口，在常见的使用场景下，直接认为 `CYC_O=STB_O`。它的用途是：
 
 1. 占用 slave 的总线接口，不允许其他 master 访问
 2. 简化 interconnect 的实现
@@ -198,8 +198,8 @@ Wishbone Classic Standard 协议非常简单，但是会遇到一个问题：假
 <figcaption>Wishbone Classic Pipelined 实现 SRAM 控制器的波形图</caption>
 </figure>
 
-- `a` 周期：master 请求读地址 0x01，slave 接收读请求（`STALL_O=0`）
-- `b` 周期：slave 返回读请求结果 0x12，并设置 `ACK_I=1`；同时 master 请求读地址 0x02，slave 接收读请求（`STALL_O=0`）
+- `a` 周期：master 请求读地址 0x01，slave 接收读请求（`STALL_I=0`）
+- `b` 周期：slave 返回读请求结果 0x12，并设置 `ACK_I=1`；同时 master 请求读地址 0x02，slave 接收读请求（`STALL_I=0`）
 - `c` 周期：slave 返回读请求结果 0x34，并设置 `ACK_I=1`；master 不再发起请求，设置 `STB_O=0`
 - `d` 周期：所有请求完成，master 设置 `CYC_O=0`
 
@@ -270,9 +270,9 @@ TileLink Uncached(TL-UL 和 TL-UH) 包括了两个 channel：
 
 首先针对 [AXI4ToTL](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L59) 模块的例子，来分析一下如何把一个 AXI4 Master 转换为 TileLink。
 
-针对 AXI4 和 TileLink 的区别进行设计：一个是读写 channel 合并了，所以这里需要一个 Arbiter；其次 AXI4 中 AW 和 W 是分开的，这里也需要进行合并。这个模块并不考虑 Burst 的情况，而是由 [AXI4Fragmenter](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/Fragmenter.scala#L14=) 来进行拆分，即添加若干个 AW beat，和 W 进行配对。
+针对 AXI4 和 TileLink 的区别进行设计：一个是读写 channel 合并了，所以这里需要一个 Arbiter；其次 AXI4 中 AW 和 W 是分开的，这里也需要进行合并。这个模块并不考虑 Burst 的情况，而是由 [AXI4Fragmenter](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/Fragmenter.scala#L14) 来进行拆分，即添加若干个 AW beat，和 W 进行配对。
 
-具体到代码实现上，首先把 AR channel [对应到](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L86=) 到 A channel 上：
+具体到代码实现上，首先把 AR channel [对应到](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L86) 到 A channel 上：
 
 ```scala
 val r_out = Wire(out.a)
@@ -280,7 +280,7 @@ r_out.valid := in.ar.valid
 r_out.bits :<= edgeOut.Get(r_id, r_addr, r_size)._2
 ```
 
-然后 AW+W channel 也[连接](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L119=) 到 A channel，由于不用考虑 burst 的情况，这里在 aw 和 w 同时 valid 的时候才认为有请求。
+然后 AW+W channel 也[连接](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L119) 到 A channel，由于不用考虑 burst 的情况，这里在 aw 和 w 同时 valid 的时候才认为有请求。
 
 ```scala
 val w_out = Wire(out.a)
@@ -292,7 +292,7 @@ w_out.bits :<= edgeOut.Put(w_id, w_addr, w_size, in.w.bits.data, in.w.bits.strb)
 
 为了区分请求的类型，读写的 id 增加了若干位，最低位 0 表示读，1 表示写，剩下几位是请求编号，这样发出去的是不同 id 的多个请求。
 
-然后，把读和写的 A channel [连接](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L155=)到 Arbiter 上：
+然后，把读和写的 A channel [连接](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/amba/axi4/ToTL.scala#L155)到 Arbiter 上：
 
 ```scala
 TLArbiter(TLArbiter.roundRobin)(out.a, (UInt(0), r_out), (in.aw.bits.len, w_out))
@@ -308,7 +308,7 @@ ok_b.valid := out.d.valid && !d_hasData
 
 最后处理了一下 TileLink 和 AXI4 对写请求返回确认的区别：TileLink 中，可以在第一个 burst beat 就返回确认，而 AXI4 需要在最后一个 burst beat 之后返回确认。
 
-再来看一下反过来的转换，即从 TileLink Master 到 AXI。由于 TileLink 同时只能进行读或者写，所以它首先做了一个虚构的 arw channel，可以理解为合并了 ar 和 aw channel 的 AXI4，这个设计在 SpinalHDL 的代码中也能看到。然后再根据是否是写入，分别[连接](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L153=)到 ar 和 aw channel：
+再来看一下反过来的转换，即从 TileLink Master 到 AXI。由于 TileLink 同时只能进行读或者写，所以它首先做了一个虚构的 arw channel，可以理解为合并了 ar 和 aw channel 的 AXI4，这个设计在 SpinalHDL 的代码中也能看到。然后再根据是否是写入，分别[连接](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L153)到 ar 和 aw channel：
 
 ```scala
 val queue_arw = Queue.irrevocable(out_arw, entries=depth, flow=combinational)
@@ -319,7 +319,7 @@ out.aw.valid := queue_arw.valid &&  queue_arw.bits.wen
 queue_arw.ready := Mux(queue_arw.bits.wen, out.aw.ready, out.ar.ready)
 ```
 
-[这里](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L197=)处理了 aw 和 w 的 valid 信号：
+[这里](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L197)处理了 aw 和 w 的 valid 信号：
 
 ```scala
 in.a.ready := !stall && Mux(a_isPut, (doneAW || out_arw.ready) && out_w.ready, out_arw.ready)
@@ -329,7 +329,7 @@ out_w.valid := !stall && in.a.valid && a_isPut && (doneAW || out_arw.ready)
 
 这样做的原因是，在 TileLink 中，每个 burst 都是一个 a channel 上的请求，而 AXI4 中，只有第一个 burst 有 aw 请求，所有 burst 都有 w 请求，因此这里用 doneAW 信号来进行区分。
 
-接着，要把 b 和 r channel 上的结果连接到 d channel，根据上面的经验，[这里](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L205=) 又是一个 arbitration：
+接着，要把 b 和 r channel 上的结果连接到 d channel，根据上面的经验，[这里](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/ToAXI4.scala#L205) 又是一个 arbitration：
 
 ```scala
 val r_wins = (out.r.valid && b_delay =/= UInt(7)) || r_holds_d

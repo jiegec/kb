@@ -272,7 +272,7 @@ __simd_vf__ inline void VectorFunctionAdd(
 
 ### simt 样例
 
-`cann/cann-samples/Samples/1_Features/hardware_features/simt` 下面有 SIMT 的样例，其编程模型就和 NVIDIA 十分接近了，很多概念也直接映射过去。UB 就变成了 Shared Memory，然后 UB 还划分出了一部分空间用于 SIMD DCache，这和 NVIDIA 的 L1 和 Shared Memory 共享一篇空间，大小可调是类似的。SIMT 模式下还能访问 GM，比上面的向量编程会方便很多，不用强制走一遍 UB。样例代码：
+`cann/cann-samples/Samples/1_Features/hardware_features/simt` 下面有 SIMT 的样例，其编程模型就和 NVIDIA 十分接近了，很多概念也直接映射过去。UB 就变成了 Shared Memory，然后 UB 还划分出了一部分空间用于 SIMD DCache，这和 NVIDIA 的 L1 和 Shared Memory 共享一片空间，大小可调是类似的。SIMT 模式下还能访问 GM，比上面的向量编程会方便很多，不用强制走一遍 UB。样例代码：
 
 ```c++
 template <uint32_t MAX_THREADNUM, typename DATA_TYPE, typename INDICES_TYPE, typename INDEX_SIZE_TYPE>

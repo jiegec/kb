@@ -28,7 +28,7 @@
 [FT232H](https://www.ftdichip.com/old2020/Support/Documents/DataSheets/ICs/DS_FT232H.pdf) 芯片支持 TTL，参数如下：
 
 - $V_{OL}=0.4$, $V_{OH}=2.4$
-- $V_{IL}=0.8$, $V_{OL}=2.0$
+- $V_{IL}=0.8$, $V_{IH}=2.0$
 
 ## CMOS 电平
 
@@ -82,7 +82,7 @@ SSTL(Stub Series Terminated Logic) 是 SDRAM 所采用的电平标准，有不�
 - SSTL_15
 - [SSTL_18](https://www.jedec.org/sites/default/files/docs/JESD8-15A.pdf): $V_{DDQ} = 1.8 \mathrm{V}$, $V_{REF} = 0.9 \mathrm{V}$
 - [SSTL_2](https://www.jedec.org/sites/default/files/docs/JESD8-9B.pdf): $V_{DDQ} = 2.5 \mathrm{V}$, $V_{REF} = 1.25 \mathrm{V}$
-- [SSTL_3](https://www.jedec.org/system/files/docs/jesd8-8.pdf): $V_{DDQ} = 3.3 \mathrm{V}, $V_{REF} = 1.5 \mathrm{V}$
+- [SSTL_3](https://www.jedec.org/system/files/docs/jesd8-8.pdf): $V_{DDQ} = 3.3 \mathrm{V}, V_{REF} = 1.5 \mathrm{V}$
 
 SSTL 还有差分版本，用于传输 CK、DQS 等差分信号。
 

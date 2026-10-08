@@ -137,7 +137,7 @@ Dragon 协议是一个基于更新的协议，意味着写入缓存的时候，�
 
 1. Exclusive clean(E)：独占，并且数据和内存一致
 2. Shared clean(Sc)：数据同时存在多个缓存中，并且自己不是最后一个写入该缓存数据的
-3. Shared modified(Sm)：数据同时存在多个缓存中，并且自己设最后一个写入该缓存数据的，类似于前面 MOESI 协议的 Owner 状态
+3. Shared modified(Sm)：数据同时存在多个缓存中，并且自己是最后一个写入该缓存数据的，类似于前面 MOESI 协议的 Owner 状态
 4. Modify(M)：独占，并且数据和内存不一致
 
 可以看到，E 和 M 都是独占的，如果出现了多个缓存有同一个缓存行，那就是若干个 Sc 和一个 Sm。
@@ -186,13 +186,13 @@ TileLink 为了实现缓存一致性，在已有的 A 和 D channel 以外，它
 
 首先 Master A 发出 Acquire 请求，然后 Slave 向其他 Master 广播 Probe，等到其他 Master 返回 ProbeAck 后，再向 Master A 返回 Grant，最后 Master A 发送 GrantAck 给 Slave。这样 Master A 就获得了这个缓存行的一份拷贝，并且让 Master B 的缓存行失效或者状态变成只读。
 
-TileLink 的缓存行有三个状态：None，Branch 和 Trunk(Tip)。基本对应 MSI 模型：None->Invalid，Branch->Shared 和 Trunk->Modified。Rocket Chip 代码中 [ClientStates](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Metadata.scala#L10=) 还定义了 Dirty 状态，大致对应 MESI 模型：None->Invalid，Branch->Shared，Trunk->Exclusive，Dirty->Modified。
+TileLink 的缓存行有三个状态：None，Branch 和 Trunk(Tip)。基本对应 MSI 模型：None->Invalid，Branch->Shared 和 Trunk->Modified。Rocket Chip 代码中 [ClientStates](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Metadata.scala#L10) 还定义了 Dirty 状态，大致对应 MESI 模型：None->Invalid，Branch->Shared，Trunk->Exclusive，Dirty->Modified。
 
 此外，标准还说可以在 B 和 C channel 上进行 TL-UH 的操作。标准这么设计的意图是可以让 Slave 转发操作到拥有缓存数据的 Master 上。比如 Master A 在 A channel 上发送 Put 请求，那么 Slave 向 Master B 的 B channel 上发送 Put 请求，Master B 在 C channel 上发送 AccessAck 响应，Slave 再把响应转回 Master A 的 D channel。这就像是一个片上的网络，Slave 负责在 Master 之间路由请求。
 
 接下来看 Rocket Chip 自带的基于广播的缓存一致性协议实现。核心实现是 [TLBroadcast](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala)，核心的逻辑就是，如果一个 Master A 发送了 Acquire，那么 TLBroadcast 需要发送 Probe 到其他的 Master，当其他的 Master 都响应了 ProbeAck 后，再返回 Grant 到 Master A。
 
-首先来看 B channel 上的 Probe [逻辑](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala#L214=)。它记录了一个 todo bitmask，表示哪些 Master 需要发送 Probe，这里采用了 Probe Filter 来减少发送 Probe 的次数，因为只需要向拥有这个缓存行的 Master 发送 Probe：
+首先来看 B channel 上的 Probe [逻辑](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala#L214)。它记录了一个 todo bitmask，表示哪些 Master 需要发送 Probe，这里采用了 Probe Filter 来减少发送 Probe 的次数，因为只需要向拥有这个缓存行的 Master 发送 Probe：
 
 ```scala
 val probe_todo = RegInit(0.U(max(1, caches.size).W))
@@ -210,7 +210,7 @@ if (caches.size != 0) {
 when (in.b.fire()) { probe_todo := probe_todo & ~probe_next }
 ```
 
-这里 `probe_next` 就是被 probe 的那个 Master 对应的 bitmask，`probe_target` 就是 Master 的 Id。这个 Probe FSM 的输入就是 Probe Filter，它会[给出](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala#L256=)哪些 Cache 拥有当前的缓存行的信息：
+这里 `probe_next` 就是被 probe 的那个 Master 对应的 bitmask，`probe_target` 就是 Master 的 Id。这个 Probe FSM 的输入就是 Probe Filter，它会[给出](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala#L256)哪些 Cache 拥有当前的缓存行的信息：
 
 ```scala
 val leaveB = !filter.io.response.bits.needT && !filter.io.response.bits.gaveT
@@ -226,7 +226,7 @@ when (filter.io.response.fire()) {
 
 这里又区分两种情况：如果 Acquire 需要进入 Trunk 状态（比如是个写入操作），意味着其他 Master 需要进入 None 状态，所以这里要发送 toN；如果 Acquire 不需要进入 Trunk 状态（比如是个读取操作），那么只需要其他 Master 进入 Branch 状态，所以这里要发送 toB。
 
-在 B channel 发送 Probe 的同时，也要[处理](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala#L152=) C channel 上的 ProbeAck 和 ProbeAckData：
+在 B channel 发送 Probe 的同时，也要[处理](https://github.com/chipsalliance/rocket-chip/blob/850e1d5d56989f031fe3e7939a15afa1ec165d64/src/main/scala/tilelink/Broadcast.scala#L152) C channel 上的 ProbeAck 和 ProbeAckData：
 
 ```scala
 // Incoming C can be:

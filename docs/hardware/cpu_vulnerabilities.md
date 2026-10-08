@@ -40,7 +40,7 @@
 		- Supervisor-Mode Execution Prevention (SMEP)
 	- `/sys/devices/system/cpu/vulnerabilities/spectre_v2`
 
-### Meltdown (Rouge Data Cache Load)
+### Meltdown (Rogue Data Cache Load)
 
 - [论文 Meltdown: Reading Kernel Memory from User Space](https://meltdownattack.com/meltdown.pdf)
 - [Reading privileged memory with a side-channel](https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html)
@@ -203,7 +203,7 @@
 - [L1TF - L1 Terminal Fault from linux docs](https://www.kernel.org/doc/html/next/admin-guide/hw-vuln/l1tf.html)
 - 原理：
 	- 处理器在推测执行的时候，有时候会无视掉页表项的 Present bit，即使它最终会导致 page fault，但还是会执行/读取它指向的物理地址的指令/数据
-- 环节措施：
+- 缓解措施：
 	- PTE inversion：避免 Present bit 设为 0 的页表项的物理地址指向一个合法的可以被缓存的物理地址，从而避免内存中数据的泄漏
 - `/sys/devices/system/cpu/vulnerabilities/l1tf`
 
@@ -410,7 +410,7 @@
 	clac
 	# cannot access user pointers
 	```
-- ARMv8 上，这个功能通过 [PSTATE.PAN(Privileged Acess Never)](https://developer.arm.com/documentation/ddi0601/2025-03/AArch64-Registers/PAN--Privileged-Access-Never) 实现
+- ARMv8 上，这个功能通过 [PSTATE.PAN(Privileged Access Never)](https://developer.arm.com/documentation/ddi0601/2025-03/AArch64-Registers/PAN--Privileged-Access-Never) 实现
 - 虽然内核不能用用户态的指针访问用户态的数据，但由于 Linux 下所有的物理地址都被映射到了内核的地址空间，所以如果可以获取到用户态的指针对应的物理地址在内核态中被映射的地址，也可以在内核态访问它
 
 ### Bounds Clipping
@@ -499,7 +499,7 @@
 	- [8]: DDPD_U，用户态下禁止 Data Dependent Prefetcher
 	- [10]: BHI_DIS_S，Branch History Injection Disable Supervisor，隔离用户态和内核态用于分支预测的分支历史
 - IA32_PRED_CMD:
-	- [0]: IPBP，Indirect Branch Prediction Barrier，阻止 Barrier 前面的指令影响 Barrier 后面的指令的间接分支预测
+	- [0]: IBPB，Indirect Branch Prediction Barrier，阻止 Barrier 前面的指令影响 Barrier 后面的指令的间接分支预测
 
 ### __user pointer sanitization
 
