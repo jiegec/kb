@@ -55,7 +55,7 @@ struct _IO_FILE
 };
 ```
 
-实际上，FILE 通常还会带一个尾部的 vtable，保存了一些函数的指针，成为 `_IO_FILE_plus` 结构体：
+实际上，FILE 通常还会带一个尾部的 vtable，保存了一些函数的指针，称为 `_IO_FILE_plus` 结构体：
 
 ```c
 struct _IO_FILE_plus
@@ -210,7 +210,7 @@ _IO_new_file_underflow (FILE *fp)
 }
 ```
 
-可以看到，核心思路就是通过 `read` 系统调用读取更多数据，把数据保存到 `_IO_buf_base` 指向的空间，然后把读取的指针 `_IO_read_ptr` 指向 buffer 的开头 `_IO_buf_base`，`_IO_read_end` 指向 buffer 中已读取数据的结尾：`_IO_buf_base`。
+可以看到，核心思路就是通过 `read` 系统调用读取更多数据，把数据保存到 `_IO_buf_base` 指向的空间，然后把读取的指针 `_IO_read_ptr` 指向 buffer 的开头 `_IO_buf_base`，`_IO_read_end` 指向 buffer 中已读取数据的结尾：`_IO_buf_base + count`。
 
 ### 缓冲区初始化
 
@@ -717,7 +717,7 @@ _IO_wfile_overflow (FILE *f, wint_t wch)
 }
 ```
 
-`_IO_wallocbuf` 进而会调用 `_IO_WDOALLOCATE`：
+`_IO_wdoallocbuf` 进而会调用 `_IO_WDOALLOCATE`：
 
 ```c
 void

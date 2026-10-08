@@ -214,7 +214,7 @@ Stack<int>::pop():
 - `LM REG1, REG2, MEM`：从 MEM 内存读取两个寄存器的数据，到 REG1 和 REG2
 - `LA REG, IMM`：Load Address，加载立即数 IMM 到 REG
 - `AR REG1, REG2`：Add Register，两个寄存器相加
-- `CDS REG1, REG2, MEM`：Compare Double and Swap，把 REG1 和 REG1+1 两个 l 连号的存器作为一个整体，把 REG2 和 REG2+1 两个连号的寄存器作为一个整体，实现一个两倍宽度的 Compare and Swap
+- `CDS REG1, REG2, MEM`：Compare Double and Swap，把 REG1 和 REG1+1 两个连号的寄存器作为一个整体，把 REG2 和 REG2+1 两个连号的寄存器作为一个整体，实现一个两倍宽度的 Compare and Swap
 
 对应的 C++ 版本：
 
@@ -467,7 +467,7 @@ Hazard Pointers 是由 M.M.Michael 在 2004 的论文 [Hazard Pointers: Safe Mem
 - Push/Pop 的时候，首先按照 Treiber Stack 的方式进行 CAS，如果 CAS 成功，那就直接结束；如果 CAS 失败，不立即重试，而是尝试进行一次 Elimination
 - 尝试 Eliminate：在一个 Elimination Array 当中，随机选取一项，根据它的占用状态：
     - 如果没有其他线程在占用，那就由本线程占用这一项，然后等待一段时间，直到有其他线程来访问同一项
-    - 如果已经有其他线程占用了这一项，并且本线程和占用了这一项的现场正好是一 Push 一 Pop，就进行 Eliminate
+    - 如果已经有其他线程占用了这一项，并且本线程和占用了这一项的线程正好是一 Push 一 Pop，就进行 Eliminate
 - 如果 Eliminate 失败，回到 Treiber Stack 的方式，重新进行 CAS
 
 ### 参考
@@ -631,7 +631,7 @@ public boolean remove(T item) {
 }
 
 public boolean contains(T item) {
-  boolean[] marked = false;
+  boolean[] marked = {false};
   int key = item.hashCode();
   Node curr = head;
   while (curr.key < key) {

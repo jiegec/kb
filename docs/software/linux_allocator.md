@@ -149,7 +149,7 @@ struct {
 
 1. 根据传入的 kmem_cache，找到一个 freelist，为了性能，首先用 per-cpu 的 `struct kmem_cache_cpu` 的 freelist
 2. 如果 freelist 有空闲块，就把一个空闲块从 freelist 中取出，然后更新 freelist，指向它的下一个空闲块
-3. 如果 freelist 已经满了，就走 slow path，寻找其他 freelist，或者申请更多的页
+3. 如果 freelist 已经空了，就走 slow path，寻找其他 freelist，或者申请更多的页
 
 接下来看这个 `struct kmem_cache` 是怎么实现分配的。先不考虑 NUMA-aware，分配的入口是 `kmem_cache_alloc` 函数：
 
@@ -746,7 +746,7 @@ static __always_inline void *kmalloc(size_t size, gfp_t flags)
 }
 ```
 
-可以看到，它会判断输入的 size 是不是常量，比如传入的是一个 sizeof(struct)，那它就是一个常量，此时会判断它的大小：如果小于或等于 `KMALLOC_MAX_CACHE_SIZE`（等于两倍的页表大小），就会用全局的一系列 kmem_cache 来进行分配，它保存在 kmalloc_cache 数组当中：
+可以看到，它会判断输入的 size 是不是常量，比如传入的是一个 sizeof(struct)，那它就是一个常量，此时会判断它的大小：如果小于或等于 `KMALLOC_MAX_CACHE_SIZE`（等于两倍的页大小），就会用全局的一系列 kmem_cache 来进行分配，它保存在 kmalloc_caches 数组当中：
 
 ```c
 // in include/linux/slab.h
