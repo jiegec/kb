@@ -160,7 +160,7 @@ Reference Counting 就是引用计数，记录每个对象的引用次数，当�
 参考 [Collecting the Garbage: A brief history of GC over Android versions](https://proandroiddev.com/collecting-the-garbage-a-brief-history-of-gc-over-android-versions-f7f5583e433c) 和 [Debug ART garbage collection](https://source.android.com/docs/core/runtime/gc-debug)，Android 的 GC 实现经历过以下几个过程：
 
 1. Dalvik GC（直到 Android KitKat 版本即 Android 4.4)：stop the world, Concurrent Mark-And-Sweep
-2. Android Runtime GC，从 Lollipop (Android 5) 开始到 Marshamallow (Android 6): Concurrent Mark-And-Sweep + Generational
+2. Android Runtime GC，从 Lollipop (Android 5) 开始到 Marshmallow (Android 6): Concurrent Mark-And-Sweep + Generational
 3. Android Runtime GC，从 Oreo（Android 8）开始：Concurrent Copying（`Starting with Android 8 (Oreo), the default plan is Concurrent Copying (CC).`）
 4. Android Runtime GC，从 Q（Android 10）开始：Concurrent Copying + Generational（`CC extends to be a generational GC in Android 10 and higher.`）
 

@@ -172,13 +172,13 @@ w' &= -z
 -f = -A-\frac{B}{-f}
 \end{align}
 
-求解可得 $A=n+f, B=-nf$，因此前面的矩阵就是：
+求解可得 $A=n+f, B=nf$，因此前面的矩阵就是：
 
 $$
 \begin{pmatrix}
 n & 0 & 0 & 0 \\
 0 & n & 0 & 0 \\
-0 & 0 & n+f & -nf \\
+0 & 0 & n+f & nf \\
 0 & 0 & -1 & 0
 \end{pmatrix}
 $$
@@ -196,7 +196,7 @@ $$
 \begin{pmatrix}
 n & 0 & 0 & 0 \\
 0 & n & 0 & 0 \\
-0 & 0 & n+f & -nf \\
+0 & 0 & n+f & nf \\
 0 & 0 & -1 & 0
 \end{pmatrix}
 =

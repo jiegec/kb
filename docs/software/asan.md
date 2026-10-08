@@ -5,7 +5,7 @@
 - 如果可执行文件没有链接 ASan，但是动态库使用了 ASan，为了保证 ASan 运行时能够第一个被加载，通常需要设置 `LD_PRELOAD` 环境变量
 - 只要有 ASan 运行时，就能检测内存泄漏和 Double-Free 等只需要 hook malloc/free 等内存管理函数即可检测的错误；但对于越界访问等，只有在编译时打开 ASan，让编译器插桩才能检测
 - 即使没有编译或链接 ASan，也可以用 `LD_PRELOAD` 加载 ASan，不过此时只有 ASan 运行时，没有编译器插桩
-- 不要加载多个 ASan 运行时（比如一个静态链接、一个动态链接），也不要混合来自不同编译器的 ASan（比如一个来来自 GCC、一个来自 Clang），否则会遇到 `Your application is linked against incompatible ASan runtimes.` 报错
+- 不要加载多个 ASan 运行时（比如一个静态链接、一个动态链接），也不要混合来自不同编译器的 ASan（比如一个来自 GCC、一个来自 Clang），否则会遇到 `Your application is linked against incompatible ASan runtimes.` 报错
 
 特定编译器行为：
 

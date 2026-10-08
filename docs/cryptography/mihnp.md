@@ -6,7 +6,7 @@
 
 - $p$ 是一个已知素数
 - $\alpha$ 是一个需要求解的模 $p$ 的未知整数
-- 已知 $n$ 个整数 $x_0, x_2, \cdots, x_{n-1}$，以及对应的 $\mathrm{MSB}_k((\alpha+x_i)^{-1} \bmod p)$，即 $\alpha+x_i$ 在模 $p$ 意义下的逆元的高 $k$ 位
+- 已知 $n$ 个整数 $x_0, x_1, \cdots, x_{n-1}$，以及对应的 $\mathrm{MSB}_k((\alpha+x_i)^{-1} \bmod p)$，即 $\alpha+x_i$ 在模 $p$ 意义下的逆元的高 $k$ 位
 
 下面介绍针对模逆隐藏数问题的一些解法。
 
@@ -22,7 +22,7 @@ $b_i = \mathrm{MSB}_k((\alpha+x_i)^{-1} \bmod p) * 2^{l - k}$
 
 $e_i = ((\alpha+x_i)^{-1} \bmod p) - b_i$
 
-那么 $e_i$ 是有界的：$0 \le e_i < 2^k$。
+那么 $e_i$ 是有界的：$0 \le e_i < 2^{l-k}$。
 
 根据上述定义，可以得到：
 
@@ -44,17 +44,17 @@ $(b_0 + e_0)(b_i + e_i)(x_i - x_0) = b_0 + e_0 - b_i - e_i \pmod p$
 
 展开后，得到：
 
-$(x_i - x_0)e_0e_i + (b_0x_i - b_0x_0 + 0)e_i + (b_ix_i - b_ix_0 - 0)e_0 + b_0b_i(x_0 - x_0) + b_i - b_0 = 0 \pmod p$
+$(x_i - x_0)e_0e_i + (b_0x_i - b_0x_0 + 1)e_i + (b_ix_i - b_ix_0 - 1)e_0 + b_0b_i(x_i - x_0) + b_i - b_0 = 0 \pmod p$
 
-于是我们得到了一个针对未知数 $e_0, e_1, \cdots, e_{n-1}$ 的同余方程组，且这里的未知数都比较小：$0 \le e_i < 2^k$。为了方便后面的表示，把上述公式中的系数拆分出来：
+于是我们得到了一个针对未知数 $e_0, e_1, \cdots, e_{n-1}$ 的同余方程组，且这里的未知数都比较小：$0 \le e_i < 2^{l-k}$。为了方便后面的表示，把上述公式中的系数拆分出来：
 
-$A_i = x_i - x_1$
+$A_i = x_i - x_0$
 
-$B_i = b_1x_i - b_1x_1 + 1$
+$B_i = b_0x_i - b_0x_0 + 1$
 
-$C_i = b_ix_i - b_ix_1 - 1$
+$C_i = b_ix_i - b_ix_0 - 1$
 
-$D_i = b_1b_i(x_i - x_1) + b_i - b_1$
+$D_i = b_0b_i(x_i - x_0) + b_i - b_0$
 
 那么
 
@@ -87,9 +87,9 @@ $$
 
 $vM=(D_1+e_0C_1+e_1B_1+e_0e_1A_1+k_1p, \cdots, D_{n-1}+e_0C_{n-1}+e_{n-1}B_{n-1}+e_0e_{n-1}A_{n-1}+k_{n-1}p)$
 
-根据已知条件，$A_ie_1e_i + B_ie_i + C_ie_1 + D_i = 0 \pmod p$，可见存在一组 $k_i$ 使得 $vM$ 为零向量。那么如果找到了向量 $v$，就找到了满足要求的 $e_i$。
+根据已知条件，$A_ie_0e_i + B_ie_i + C_ie_0 + D_i = 0 \pmod p$，可见存在一组 $k_i$ 使得 $vM$ 为零向量。那么如果找到了向量 $v$，就找到了满足要求的 $e_i$。
 
-但是满足要求的 $v$ 很多，怎么求解呢？还是要利用 $e_i$ 是小数的限制，把 $e_i < 2^k$ 的条件，转化为在格中寻找短向量的问题，此时的矩阵变为：
+但是满足要求的 $v$ 很多，怎么求解呢？还是要利用 $e_i$ 是小数的限制，把 $e_i < 2^{l-k}$ 的条件，转化为在格中寻找短向量的问题，此时的矩阵变为：
 
 $$
 M=\begin{pmatrix}
@@ -146,7 +146,7 @@ def linear(x: list[int], m: list[int], k: int, p: int) -> int | None:
     # subtract:
     # (b_0 + e_0) * (b_i + e_i) * (x_i - x_0) = b_0 + e_0 - b_i - e_i \pmod p
     # (x_i - x_0) * e_0 * e_i + (b_0 * x_i - b_0 * x_0 + 1) * e_i +
-    #   (b_i * x_i - b_i * x_0 - 1) * e_0 + b_0 * b_i * (x_1 - x_0) + b_i - b_0 = 0 \pmod p
+    #   (b_i * x_i - b_i * x_0 - 1) * e_0 + b_0 * b_i * (x_i - x_0) + b_i - b_0 = 0 \pmod p
     # e_i are small: less than p >> shift
     # A_i = x_i - x_0
     # B_i = b_0 * x_i - b_0 * x_0 + 1

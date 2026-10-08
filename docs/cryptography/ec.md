@@ -56,7 +56,7 @@ $$
 
 如果 $x_P = x_Q$，那么分情况讨论：
 
-1. 如果 $y_P = y_Q$，也就是 $P + Q$，此时 $PQ$ 连的直线是椭圆曲线在 $P$ 点的切线，切线上的斜率的计算方法是，对椭圆曲线方程两侧对 $x$ 求导，得到 $2y \frac{\mathrm{d}y}{\mathrm{d}x} = 3x^2+a$，因此斜率 $k = \frac{3x_P^2+a}{2y_P}$，剩下的计算过程和上面一样。
+1. 如果 $y_P = y_Q$，也就是 $P = Q$，此时 $PQ$ 连的直线是椭圆曲线在 $P$ 点的切线，切线上的斜率的计算方法是，对椭圆曲线方程两侧对 $x$ 求导，得到 $2y \frac{\mathrm{d}y}{\mathrm{d}x} = 3x^2+a$，因此斜率 $k = \frac{3x_P^2+a}{2y_P}$，剩下的计算过程和上面一样。
 2. 如果 $y_P \ne y_Q$，根据椭圆曲线的对称性，那么 $y_P = - y_Q$，此时 $P + Q = O$。
 
 这部分推导参考了 [Wikipedia](https://en.wikipedia.org/wiki/Elliptic_curve)。

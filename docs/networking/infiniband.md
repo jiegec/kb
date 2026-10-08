@@ -24,7 +24,7 @@ InfiniBand 的网络分为两层，第一层是由 End Node 和 Switch 组成的
 
 <figure markdown>
   ![](infiniband_qp.png){ width="500" }
-  <figcaption>IBA 网络结构（图源 InfiniBand Spec）</figcaption>
+  <figcaption>IBA Queue Pair（图源 InfiniBand Spec）</figcaption>
 </figure>
 
 ## Transport Functions

@@ -56,7 +56,7 @@ PCIe 从 6.0 开始，引入了 256B 的 FLIT，因此如果要在 UCIe 上跑 P
 5. Format 5: Latency-Optimized 256B without Optional Bytes Flit `Protocol Layer transmits 256B of Flit on FDI, while driving 0b on the bits reserved for the Adapter. Adapter fills in the relevant Flit header and CRC information before transmitting on RDI. On the Rx, Adapter forwards the Flit received from the Link to the Protocol Layer without modifying any bits applicable to the Protocol Layer, and the Protocol Layer must ignore any bits not applicable for it. CRC bytes sent with each 128B of the Flit. The optional Protocol Layer bytes are reserved in this format and not used by the Protocol Layer.` 在数据的中间和尾部都插入较短的 CRC，从而实现更短的延迟
 6. Format 6: Latency-Optimized 256B with Optional Bytes Flit `Protocol Layer transmits 256B of Flit on FDI, while driving 0b on the bits reserved for the Adapter. Adapter fills in the relevant Flit header and CRC information before transmitting on RDI. On the Rx, Adapter forwards the Flit received from the Link to the Protocol Layer without modifying any bits applicable to the Protocol Layer, and the Protocol Layer must ignore any bits not applicable for it. CRC bytes sent with each 128B of the Flit, and optional bytes are used by the Protocol Layer.`
 
-上文的 FDI 意思是 Flit-aware D2D Interface，是 Protocol Layer 和 D2D Adapter 之间的接口；RDi 的意思是 Raw D2D Interface，是 D2D Adapter 和 Physical Layer 之间的接口。
+上文的 FDI 意思是 Flit-aware D2D Interface，是 Protocol Layer 和 D2D Adapter 之间的接口；RDI 的意思是 Raw D2D Interface，是 D2D Adapter 和 Physical Layer 之间的接口。
 
 ### Physical Layer
 

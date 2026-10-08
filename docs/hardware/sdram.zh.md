@@ -121,7 +121,7 @@ SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序�
 
 <figure markdown>
   ![](sdram_ddr3_consecutive_read.png){ width="800" }
-  <figcaption>DDR3 同一个 Row 内的的连续读（图源 <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>）</figcaption>
+  <figcaption>DDR3 同一个 Row 内的连续读（图源 <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>）</figcaption>
 </figure>
 
 为了缓解第二点带来的性能损失，引入了 Bank 的概念：每个 Bank 都可以取出来一个 row，那么如果要访问不同 Bank 里的数据，在第一个 Bank 进行 Activate/Precharge 的时候，其他 Bank 可以进行其他操作，从而掩盖 row 未命中带来的性能损失。

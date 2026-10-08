@@ -309,7 +309,7 @@ ACE 协议还设计了一个 ACE-Lite 版本：ACE-Lite 只在已有 Channel 上
 
 CHI 协议是 AMBA 5 标准中的缓存一致性协议，前身是 ACE 协议。最新的 CHI 标准可以从 [AMBA 5 CHI Architecture Specification](https://developer.arm.com/documentation/ihi0050/latest) 处下载。
 
-相比 AXI，CHI 更加复杂，进行了分层：协议层，物理层和链路层。因此，CHI 适用于片上网络，支持根据 Node ID 进行路由，而不像 AXI 那样只按照物理地址进行路由。CHI 的地位就相当于 Intel 的环形总线。CHI 也可以桥接到 CCIX 上，用 CCIX 连接 SMP 的的多个 Socket，或者连接支持 CCIX 的显卡等等。
+相比 AXI，CHI 更加复杂，进行了分层：协议层，物理层和链路层。因此，CHI 适用于片上网络，支持根据 Node ID 进行路由，而不像 AXI 那样只按照物理地址进行路由。CHI 的地位就相当于 Intel 的环形总线。CHI 也可以桥接到 CCIX 上，用 CCIX 连接 SMP 的多个 Socket，或者连接支持 CCIX 的显卡等等。
 
 #### 缓存行状态
 

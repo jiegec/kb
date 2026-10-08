@@ -10,7 +10,7 @@ MOSFET 有两种：NMOS 和 PMOS，电路符号如下：
   <figcaption>PMOS 和 NMOS 的电路符号（图源 <a href="https://en.wikipedia.org/wiki/MOSFET">Wikipedia</a>）</figcaption>
 </figure>
 
-PMOS 和 NMOS 都有三个电极，分别是源级（Source），栅级（Gate）和漏级（Drain）。MOSFET 的特点是，在 $D$ 到 $S$ 的电流受到 $G$ 也就是栅级的电压的控制：
+PMOS 和 NMOS 都有三个电极，分别是源极（Source），栅极（Gate）和漏极（Drain）。MOSFET 的特点是，在 $D$ 到 $S$ 的电流受到 $G$ 也就是栅极的电压的控制：
 
 1. 当 $V_{GS} < V_{th}$ 时，$I_D=0$，此时 MOSFET 处于断开的状态
 2. 当 $V_{GS} > V_{th}, V_{GD} > V_{th}$ 时，$I_D=\frac{1}{2}\mu_nC_{ox}\frac{W}{L}(2(V_{GS}-V_{th})V_{DS}-V_{DS}^2)$，此时 MOSFET 处于线性区
@@ -23,7 +23,7 @@ PMOS 和 NMOS 都有三个电极，分别是源级（Source），栅级（Gate�
   <figcaption> I<sub>D</sub> - V<sub>DS</sub> 特征曲线（图源清华大学张雷老师电子学基础课程的课件）</figcaption>
 </figure>
 
-PMOS 和 NMOS 的区别是电流的方向不同。PMOS 电流从 S 流向 D，NMOS 电流从 D 和 S。如果注意到上面 MOSFET 的符号的画法，会发现电流都是从上面往下流。此外还有一个规律，箭头连接的那一侧就是 S。
+PMOS 和 NMOS 的区别是电流的方向不同。PMOS 电流从 S 流向 D，NMOS 电流从 D 流向 S。如果注意到上面 MOSFET 的符号的画法，会发现电流都是从上面往下流。此外还有一个规律，箭头连接的那一侧就是 S。
 
 ## 数字电路中的 CMOS
 
@@ -52,7 +52,7 @@ CMOS 在实现数字电路的时候，并没有用到它的线性区和饱和区
 
 ## Planar FET, FinFET, GAAFET and MBCFET
 
-下面来讨论一下 CMOS 电路的工艺。前面讲到，CMOS 有三个源（S），栅（G）和漏（D），当 G 施加足够高的电压时，S 和 D 之间可以有电流通过。从物理上，这三个电级的位置就决定了它生产的难度以及能够实现的晶体管密度：
+下面来讨论一下 CMOS 电路的工艺。前面讲到，CMOS 有三个源（S），栅（G）和漏（D），当 G 施加足够高的电压时，S 和 D 之间可以有电流通过。从物理上，这三个电极的位置就决定了它生产的难度以及能够实现的晶体管密度：
 
 <figure markdown>
   ![Planar FET, FinFET, GAAFET and MBCFET](cmos_fet.png){ width="400" }

@@ -51,7 +51,7 @@ $$
 |b_1| \le 2^{(n-1)/4} |\mathrm{det}(L)|^{1/n}
 $$
 
-这意味着规约后得到的第一个基的大小是有界的，公式中 $\mathrm{det}(L)$ 指的是把基向量拼接成的矩形的特征值。
+这意味着规约后得到的第一个基的大小是有界的，公式中 $\mathrm{det}(L)$ 指的是把基向量拼接成的方阵的行列式。
 
 LLL 算法还会得到其他的性质，详见 [Wikipedia](https://en.wikipedia.org/wiki/Lenstra%E2%80%93Lenstra%E2%80%93Lov%C3%A1sz_lattice_basis_reduction_algorithm)。
 
@@ -219,8 +219,8 @@ $$
 \begin{align}
 x^2+ax+b \\
 (x^2+ax+b)x \\
-(x^x+ax+b)^2 \\
-(x^x+ax+b)^2x \\
+(x^2+ax+b)^2 \\
+(x^2+ax+b)^2x \\
 \end{align}
 
 可以看到 $x_0$ 是上面这些多项式的根。把这些多项式化简，得到了一系列多项式，这些多项式的系数向量构成一组基，可以用 LLL 算法规约：规约后得到的基对应的多项式，就是 $g(x)$。用迭代法求解 $g(x)$，就可以得到 $x_0$。
