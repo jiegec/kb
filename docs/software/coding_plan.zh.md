@@ -22,9 +22,10 @@
 
 - M Plan 为 MiniMax 面向个人的 AI 订阅，取代原 Token Plan（Token Plan 已停止售卖）。月付原价：Go ¥49 / $22、Explore ¥119 / $55、Build ¥469 / $132；年付只需付 10 个月（省 2 个月）；上线期间（至 2026-10-14）月付首月 5 折
 - 支持模型：三档均含文本模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文、思考深度可调）、图像与音频生成、联网搜索、多模态理解；Explore、Build 另含 H3 视频模型（Go 不含视频）；不含音乐等资源
-- 用量：Explore 约为 Go 的 3 倍、Build 为 7.5 倍；文本/图像/音频等非视频模型受 5 小时与周窗口限制，视频模型仅受周窗口限制
+- 用量（相对 Go）：Explore 3 倍；Build 在中文站文档为 **12 倍**、国际版文档为 **7.5 倍**（两站数值不一致）；文本/图像/音频等非视频模型受 5 小时与周窗口限制，视频模型仅受周窗口限制
 - 积分包：1,000 积分 = ¥7（国际版 $1），自购买起 1 年有效；扣费顺序为套餐额度优先、积分包其次
 - MiniMax-M3.1-Flash-Preview 官方标注暂仅通过 M Plan 与 MiniMax Code 提供
+- 订阅 Key 对支持 OpenAI 兼容或 Anthropic 兼容协议的工具均可用（Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw 等，官方文档已把 Hermes Agent 与 OpenClaw 列入）；在官方 MiniMax Code 中使用无需单独订阅或配置订阅 Key；套餐暂不支持降级——月付可升级为更高档位的月付或年付，年付仅可升级为更高档位的年付；关闭自动续费后无法恢复（需重新购买，未到期前升级可用剩余价值抵扣）
 - 原 Token Plan 老用户：自动续费开启时原套餐与权益不变（保留 ∞ 限额、150% 周额度等历史优惠），可随时升级到 M Plan（未使用部分按剩余时间折算抵扣）；升级对应关系 Plus → Go/Explore/Build、Max → Explore/Build、Ultra → Build，升级后不可退回 Token Plan
 - Token Plan 老用户迁移（国内）：Max-极速 ¥199 → Max ¥119（月费下调 ¥80、每月补约 ¥160 积分）、Ultra-极速 ¥899 → Ultra ¥469（下调 ¥430、补约 ¥860 积分）；Starter ¥29、Plus-极速 ¥98 继续保留（仅老用户）；国际版 Max-hs $80 → Max、Ultra-hs $150 → Ultra（各下调 $30、每月补约 $60 积分），Starter $10、Plus-hs $40 保留；停售档年包按月独立补发等值积分（每月额度有效期 1 年、不滚存）
 - 老用户权益：2026-06-05 前订阅用户权益保留；迁移补偿积分有效期 1 年；权益加成仅在连续订阅周期内有效，变更档位或取消订阅即放弃
@@ -210,6 +211,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/08：MiniMax 国内站与英文站的 Token Plan 介绍页与 FAQ（platform.minimaxi.com 与 platform.minimax.io 的 `/docs/token-plan/intro`、`/docs/token-plan/faq` 共四页）由旧 Token Plan 内容整体改写为 M Plan 内容，站点内容迁移基本完成。新页面明确国内站 Build 档额度为 Go 的 **12 倍**，而英文站仍写作 **7.5 倍**（两站数值不一致，本次已按站区分写入主条目）；三档模型范围（三档均含 M3.1 Flash Preview 文本模型与图像/音频生成、联网搜索、多模态理解，Explore/Build 另含 H3 视频、Go 不含视频）、「非视频模型受 5 小时与周窗口、视频模型仅受周窗口」「1,000 积分 = ¥7、有效期 1 年」等规则与此前一致。FAQ 改写后补充的要点：订阅 Key 可用于支持 OpenAI 或 Anthropic 兼容协议的任意工具（列举 Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw）、在 MiniMax Code 中使用无需单独订阅或配置订阅 Key、暂不支持降级（月付可升级为更高档位月付或年付，年付仅可升级为更高档位年付）、关闭自动续费后无法恢复须重新购买、5 小时与周窗口均自首次使用起计时且各自独立刷新、额度用尽不会自动扣账户余额、登录报 401 时用 `mmx config set --key region` 手动指定区域等。同期 `/docs/guides/pricing-token-plan`（订阅定价页）与 `/docs/guides/pricing-paygo` 仍为旧 Token Plan / 按量计费内容，尚未迁移
 
 - 2026/10/06：OpenCode Go 的 Space Bunny Free 限时免费结束，转为常规付费模型 **Space Bunny**：token 价格 input $0.15、output $0.60、cache read $0.03 每 1M tokens（Go 与 Go Plus 相同），月度使用额度 Go **$30**、Go Plus **$120**（不再是无限制）；请求限额预估 Go 为 3,130/5 小时、7,810/周、15,630/月，Go Plus 为 12,500/5 小时、31,250/周、62,500/月；单次请求估算用量 1,000 输入 token、55,000 缓存 token、200 输出 token。model ID 由 `space-bunny-free` 改为 `space-bunny`，接入点不变（https://opencode.ai/zen/go/v1/chat/completions），数据保留表同步改名；页面中该模型的「限时」标注与「**Space Bunny Free:** 限时免费。」说明句一并删除，其余模型的价格、额度与请求限额均未变
 - 2026/10/03：阿里云百炼模型调用价格页（页面更新时间 2026-10-03 13:56）新增「千问图像生成与编辑2.0系列」章节：新增图像模型 qwen-image-2.1-pro（文生图与图生图/图像编辑，按张计费），中国站与「全球」部署 0.25 元/张（免费额度 10 张）、国际站 0.283404 元/张；原先分散在「千问文生图」「千问图像编辑」等章节的 qwen-image-2.0 系列（qwen-image-2.0-pro 及其 2026-06-22/2026-04-22/2026-03-03 版本 0.5 元/张、qwen-image-2.0 及其 2026-03-03 版本 0.2 元/张；国际站 0.550443 / 0.256873 元/张；免费额度均为 100 张）被合并进该新章节，这些模型的单价与免费额度均未变。该变更只涉及百炼通用模型目录的图像生成定价，未改动包括 Token Plan 在内的任何 coding plan 的模型库、档位或额度
