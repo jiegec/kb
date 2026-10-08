@@ -20,7 +20,7 @@ writer 一侧要做的事情：
 2. 调用 `rcu_dereference_protected()` 来对指针进行解引用，得到原值
 3. 调用 `kmalloc()` 以创建新的对象，再基于上一步读取的原值进行修改
 4. 调用 `rcu_assign_pointer()` 把指针指向新的对象
-5. 如果是多个 writer，释放互斥锁：`spin_lock(mutex)`
+5. 如果是多个 writer，释放互斥锁：`spin_unlock(mutex)`
 6. 调用 `synchronize_rcu()` 等待所有正在进行的 reader 完成读取（即调用 `rcu_read_unlock`）
 7. 调用 `kfree` 把原来的旧对象释放掉
 

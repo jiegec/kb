@@ -36,11 +36,11 @@
 
 在希腊全程用 Google Map 就可以了，下面列出来一些值得去的地方：
 
-1. Zakynthos aka Zente
+1. Zakynthos aka Zante
     1. 在 Agios Nikolaos Beach 附近租船去 Navagio Beach（aka Shipwreck，沉船湾）和 Blue Caves，其中沉船湾还可以走陆路去观景台，在悬崖上往下拍，不过要排队
     2. 在 Laganas Beach 附近租船看海龟（Turtle Spotting）
 2. Athens
-    1. 在 Maris jewelery 等珠宝店可以买到 Gerochristo jewelery，建议货比三家
+    1. 在 Maris jewelry 等珠宝店可以买到 Gerochristo jewelry，建议货比三家
 3. Meteora
     1. 悬崖上的 Monastery 有意思，不过爬起来也挺累
 4. Santorini

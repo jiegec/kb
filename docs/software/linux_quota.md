@@ -18,7 +18,7 @@ sudo systemctl set-property user-1001.slice CPUQuota=
 限制用户的内存用量：
 
 ```shell
-# allow user with id 1001 to use 18 cores
+# allow user with id 1001 to use 20G memory
 sudo systemctl set-property user-1001.slice MemoryMax=20G
 # drop limit
 sudo systemctl set-property user-1001.slice MemoryMax=

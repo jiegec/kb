@@ -8,7 +8,7 @@
 
 但是这样的 CPU 不存在，不同的任务需要分时执行。因此需要记录每个任务执行的时间，让不同任务可以得到相同的 CPU 时间。CFS 要做的是，让可以运行的任务尽量得到相同的 CPU 时间。那就要找到那些没有得到足够 CPU 时间的任务，去调度它们。
 
-为了记录进程的 CPU 时间任务，CFS 给每个 Task 记录了一个 virtual runtime，那么如果一个任务的 virtual runtime 比别人都少，那就说明它得到的 CPU 时间不够，要调度它。
+为了记录进程的 CPU 时间，CFS 给每个 Task 记录了一个 virtual runtime，那么如果一个任务的 virtual runtime 比别人都少，那就说明它得到的 CPU 时间不够，要调度它。
 
 因此，调度实际上就是要找到当前 virtual runtime 最小的任务。CFS 用平衡树来维护这个信息，调度 virtual runtime 最小的任务，从平衡树中删除，当任务运行了一段时间后，回到调度器，它的 virtual runtime 增加，再插入平衡树。
 

@@ -75,7 +75,7 @@
 
 以下步骤适用于 v0.99+ 版本，参考了 [STS2 Early Access Mod Guide](https://www.reddit.com/r/slaythespire/comments/1rm5gvg/sts2_early_access_mod_guide/)：
 
-1. 安装 [Godot 4.5.1 .NET 版](https://godotengine.org/download/archive/4.5.1-stable/)，如 `Godot_v4.5.1-stable_mono_macos.unitervsal.zip`
+1. 安装 [Godot 4.5.1 .NET 版](https://godotengine.org/download/archive/4.5.1-stable/)，如 `Godot_v4.5.1-stable_mono_macos.universal.zip`
 2. 安装 [.NET SDK](https://dotnet.microsoft.com/zh-cn/download)，如 `dotnet-sdk-10.0.200-osx-arm64.pkg`
 3. 打开 Godot，创建项目，项目名如 `FirstMod`
 4. 在 Script 选项卡，创建 Script，文件名如 `NewScript.cs`，语言选择 .NET，填写以下内容：
