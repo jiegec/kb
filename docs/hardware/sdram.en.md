@@ -67,7 +67,7 @@ Each row contains 1024 columns, so the column address requires 10 bits. However,
 
 <figure markdown>
   ![](sdram_ddr4_burst.png){ width="800" }
-  <figcaption>DDR4 Burst Type and Column Order (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+  <figcaption>DDR4 Burst Type and Column Order (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD79-4D DDR4</a>)</figcaption>
 </figure>
 
 ## Prefetch
@@ -99,7 +99,7 @@ SDRAM defines the following timing parameters that describe the timing requireme
 
 1. CL (CAS Latency): the time between sending a read request and outputting the first data
 2. RCD (ACT to internal read or write delay time): the time from Activate to the next read or write request
-3. RP (RRE command period): the time between sending a Precharge command and the next command
+3. RP (PRE command period): the time between sending a Precharge command and the next command
 4. RAS (ACT to PRE command period): the time between Activate and Precharge
 5. RC (ACT to ACT or REF command period): the time between Activate and the next Activate or Refresh
 6. RTP (Internal READ Command to PRECHARGE command delay): the time between Read and Precharge
@@ -121,7 +121,7 @@ Based on this process, the following conclusions can be drawn:
 
 <figure markdown>
   ![](sdram_ddr3_consecutive_read.png){ width="800" }
-  <figcaption>DDR3 Sequential Reads within the Same Row (Source <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>)</figcaption>
+  <figcaption>DDR3 Sequential Reads within the Same Row (Source <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD79-3F DDR3</a>)</figcaption>
 </figure>
 
 To alleviate the performance loss caused by the second point, the concept of Bank is introduced: each Bank can take out a row, so if you want to access the data in different Banks, while the first Bank is doing Activate/Precharge, the other Banks can do other operations, thus covering the performance loss caused by row misses.
@@ -132,7 +132,7 @@ DDR4 introduces the concept of Bank Group compared to DDR3. Quoting [Is the time
 
 <figure markdown>
   ![](sdram_ddr4_nonconsecutive_read.png){ width="800" }
-  <figcaption>DDR4 Nonconsecutive Reads (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+  <figcaption>DDR4 Nonconsecutive Reads (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD79-4D DDR4</a>)</figcaption>
 </figure>
 
 In order to solve this bottleneck, the difference of DDR4 in the core part is that there is an additional `Global I/O gating`, and each Bank Group has its own `I/O gating, DM mask logic`, the following draws the storage part of DDR3 and DDR4 respectively, for comparison:
@@ -151,7 +151,7 @@ This means that DDR4 can have multiple Bank Groups reading at the same time and 
 
 <figure markdown>
   ![](sdram_consecutive_read.png){ width="800" }
-  <figcaption>DDR4 Consecutive Reads from Different Banks (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>)</figcaption>
+  <figcaption>DDR4 Consecutive Reads from Different Banks (Source <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD79-4D DDR4</a>)</figcaption>
 </figure>
 
 In the above figure, the first read request is initiated at time T0, the second request is initiated at time T4, T11-T15 get the data of the first request, followed by T15-T19 get the data of the second request. This solves the problem caused by the increased frequency.

@@ -46,7 +46,7 @@ SDRAM 相关标准由 JEDEC 制定：
 
 DDR SDRAM 通常会有一个数字来代表它的性能，例如 DDR4-2133 中的 2133，有时候会见到 2400 MT/s 的说法。这两者说的都是 SDRAM 每秒最多进行的数据传输次数，单位是 Million Transfers per Second。由于 SDRAM 采用 DDR 进行传输，一个时钟周期传输两份数据，所以实际的时钟频率要除以二，例如 2133 MT/s 对应时钟频率就是 1066 MHz。
 
-有时还会见到 PC4-21333 的写法用于描述内存条，这里的 $21333=8*2666$，对应了 2666 MT/s，乘以 8 是因为 DDR 内存条的数据位宽是 64 位，那么一个 2666 MT/s 的内存条其理论内存带宽就是 $2666 \mathrm{(MT/s)} * 64 \mathrm{(bits)} / 8 \mathrm{(bits/byte)} = 21333 \mathrm{(MB/s)}$。但也有些时候 PC4 后面跟着的就是 MT/s。
+有时还会见到 PC4-21333 的写法用于描述内存条，这里的 $21333 \approx 8*2666$，对应了 2666 MT/s，乘以 8 是因为 DDR 内存条的数据位宽是 64 位，那么一个 2666 MT/s 的内存条其理论内存带宽就是 $2666 \mathrm{(MT/s)} * 64 \mathrm{(bits)} / 8 \mathrm{(bits/byte)} = 21333 \mathrm{(MB/s)}$。但也有些时候 PC4 后面跟着的就是 MT/s。
 
 不同代次的内存条，下面引脚的缺口位置不同，所以是无法插错地方的。
 
@@ -67,7 +67,7 @@ DDR SDRAM 通常会有一个数字来代表它的性能，例如 DDR4-2133 中�
 
 <figure markdown>
   ![](sdram_ddr4_burst.png){ width="800" }
-  <figcaption>DDR4 Burst 类型和 Column 次序（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+  <figcaption>DDR4 Burst 类型和 Column 次序（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD79-4D DDR4</a>）</figcaption>
 </figure>
 
 ## Prefetch
@@ -93,13 +93,13 @@ SDRAM 的访问模式比较特别，它的 Memory array 每次只能以整个 ro
 4. 第四步，把第二次读的数据所在的整个 row 取出来
 5. 第五步，在 row 里读出想要的数据
 
-用 SDRAM 的术语来讲，第一步和第四步叫做 Activate，第二部和第五步叫做 Read，第三步叫做 Precharge。
+用 SDRAM 的术语来讲，第一步和第四步叫做 Activate，第二步和第五步叫做 Read，第三步叫做 Precharge。
 
 SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序要求：
 
 1. CL（CAS Latency）：发送读请求，到输出第一个数据的时间
 2. RCD（ACT to internal read or write delay time）：从 Activate 到下一个读或写请求的时间
-3. RP（RRE command period）：发送 Precharge 命令到下一个命令的时间
+3. RP（PRE command period）：发送 Precharge 命令到下一个命令的时间
 4. RAS（ACT to PRE command period）：从 Activate 到 Precharge 之间的时间
 5. RC（ACT to ACT or REF command period）：从 Activate 到下一个 Activate 或者 Refresh 之间的时间
 6. RTP（Internal READ Command to PRECHARGE command delay）：从 Read 到 Precharge 之间的时间
@@ -117,11 +117,11 @@ SDRAM 定义了下列的时序参数，描述了这三个操作之间的时序�
 1. 访问带有局部性的数据性能会更好，只需要连续地进行 Read，减少 Activate 和 Precharge 次数
 2. 不断访问不同的 row 的数据，会导致需要来回地 Activate，Read，Precharge 循环
 3. 访问 row 和访问 row 中的数据分成两个阶段，两个阶段可以使用同样的地址信号，使得内存总容量很大
-4. 而如果访问总是命中同一个 row，就不需要 Activate 和 Prechage，可以持续 Read，获得接近理论的传输速率，如图：
+4. 而如果访问总是命中同一个 row，就不需要 Activate 和 Precharge，可以持续 Read，获得接近理论的传输速率，如图：
 
 <figure markdown>
   ![](sdram_ddr3_consecutive_read.png){ width="800" }
-  <figcaption>DDR3 同一个 Row 内的连续读（图源 <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD9-3F DDR3</a>）</figcaption>
+  <figcaption>DDR3 同一个 Row 内的连续读（图源 <a href="https://www.jedec.org/sites/default/files/docs/JESD79-3F.pdf">JESD79-3F DDR3</a>）</figcaption>
 </figure>
 
 为了缓解第二点带来的性能损失，引入了 Bank 的概念：每个 Bank 都可以取出来一个 row，那么如果要访问不同 Bank 里的数据，在第一个 Bank 进行 Activate/Precharge 的时候，其他 Bank 可以进行其他操作，从而掩盖 row 未命中带来的性能损失。
@@ -132,7 +132,7 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 <figure markdown>
   ![](sdram_ddr4_nonconsecutive_read.png){ width="800" }
-  <figcaption>DDR4 的非连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+  <figcaption>DDR4 的非连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD79-4D DDR4</a>）</figcaption>
 </figure>
 
 为了解决这个瓶颈，DDR4 在核心部分的区别就是多了一个 `Global I/O gating`，并且每个 Bank Group 都有自己的 `I/O gating, DM mask logic`，下面分别画出 DDR3 和 DDR4 的存储部分，进行对比：
@@ -151,7 +151,7 @@ DDR4 相比 DDR3 引入了 Bank Group 的概念。引用 [同一 bank group page
 
 <figure markdown>
   ![](sdram_consecutive_read.png){ width="800" }
-  <figcaption>DDR4 不同 Bank Group 的连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD9-4D DDR4</a>）</figcaption>
+  <figcaption>DDR4 不同 Bank Group 的连续读（图源 <a href="https://www.jedec.org/document_search?search_api_views_fulltext=jesd79-4%20ddr4">JESD79-4D DDR4</a>）</figcaption>
 </figure>
 
 上图中 T0 时刻发起第一个读请求，T4 时刻发起第二个请求，T11-T15 得到第一个请求的数据，紧接着 T15-T19 得到第二个请求的数据。这样就解决了频率提高带来的问题。
@@ -529,7 +529,7 @@ DRAM 的数据存储在电容中。典型的 1T DRAM Cell 内部构造如下：
 - UDIMM(Unbuffered DIMM): 没有额外的寄存器打拍
 - RDIMM(Registered DIMM): 对地址、命令和时钟信号加寄存器打拍，数据信号不加寄存器
 - LRDIMM(Load Reduced DIMM): 在 RDIMM 的基础上，给数据信号也加上寄存器
-- CUDIMM(Clock Unbuferred DIMM): 在 DIMM 上添加 clock driver (CKD)，目标是更高的频率
+- CUDIMM(Clock Unbuffered DIMM): 在 DIMM 上添加 clock driver (CKD)，目标是更高的频率
 - SODIMM(Small Outline DIMM): 一般用于笔记本，面积小
 - CSODIMM(Clocked Small Outline DIMM): 在 SODIMM 上添加 clock driver (CKD)，频率更高
 

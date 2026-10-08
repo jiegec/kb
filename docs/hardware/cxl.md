@@ -126,7 +126,7 @@ Device 收到 SnpData 后，如果发现缓存行不在缓存中（状态是 I�
 - DirtyEvict(Write)，Device 要 Evict 一个 Modified 的缓存行。Host 响应 GO_WritePull/GO_ERR_WritePull。
 - CleanEvictNoData(Write)，Device 要 Evict 一个 Exclusive 的缓存行，但是不传输数据，只用于更新 Snoop Filter。Host 响应 GO-I。
 - WrInv(Write)，Write Invalidate Line，向 Host 写入 0-64 字节的数据，并且 Invalidate 缓存。Host 响应 WritePull/GO-Err/GO-I。
-- WOWrInv(Write)，Weakly Ordered 版本的 WrInV，写入 0-63 字节的数据。Host 响应 ExtCmp/FastGO_WritePull/GO_ERR_WritePull。
+- WOWrInv(Write)，Weakly Ordered 版本的 WrInv，写入 0-63 字节的数据。Host 响应 ExtCmp/FastGO_WritePull/GO_ERR_WritePull。
 - WOWrInvF(Write)，Weakly Ordered 版本的 WrInv，写入 64 字节的数据。Host 响应 ExtCmp/FastGO_WritePull/GO_ERR_WritePull。
 - CacheFlushed(Read0)，告诉 Host 自己的缓存都被清空了，所有缓存行都在 I 状态。Host 响应 GO-I。
 
@@ -202,7 +202,7 @@ CXL.mem 用于扩展内存，根据类型的不同，它可能单独使用，也
 
 具体地，256B Flit 被分为了前半部分（Even Flit）和后半部分（Odd Flit）。前半部分（Even Flit）包括 2 字节的头部，120 字节的数据和 6 字节的 CRC，这 6 字节的 CRC 保护的就是 Even Flit 的数据。后半部分（Odd Flit）包括 116 字节的数据，6 字节的 FEC 和 6 字节的 CRC，其中 FEC 保护的是完整的 256B 数据，CRC 保护的是后 128 字节数据。
 
-接受方收到前 128 字节的时候，如果发现 CRC 正确，就可以提前进行处理。类似地，收到后 128 自己的时候，如果发现 CRC 正确，就可以进行处理，不需要验证 FEC。如果任何一部分的 CRC 校验失败，再用 FEC 来纠正整个 256B Flit。如果 FEC 还是纠正失败，那就重传。
+接受方收到前 128 字节的时候，如果发现 CRC 正确，就可以提前进行处理。类似地，收到后 128 字节的时候，如果发现 CRC 正确，就可以进行处理，不需要验证 FEC。如果任何一部分的 CRC 校验失败，再用 FEC 来纠正整个 256B Flit。如果 FEC 还是纠正失败，那就重传。
 
 当然了，这种设计在减少延迟的同时，也带来了复杂性：例如前半部分 CRC 验证正确，后半部分 CRC 验证错误，这时候用 FEC 进行纠错，纠错之后发现，前半部分 CRC 错误，后半部分 CRC 正确。这时候应该相信谁呢？重传的时候，前半和后半的 CRC 如果又出现校验错误了呢？这里有很多情况需要讨论。
 

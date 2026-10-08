@@ -91,7 +91,7 @@ LlamaAttention 包括：
 7. `key_states = v2.transpose(1, 2)`: `aten::transpose([1, 1, 32, 128]) = [1, 32, 1, 128]`
 8. `v3 = value_states = value_states.view(bsz, q_len, self.num_key_value_heads, self.head_dim)`: `aten::view([1, 1, 4096]) = [1, 1, 32, 128]`
 9. `value_states = v3.transpose(1, 2)`: `aten::transpose([1, 1, 32, 128]) = [1, 32, 1, 128]`
-10. `cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)`: 见 LlamaRotaryEmebdding
+10. `cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)`: 见 LlamaRotaryEmbedding
 11. `query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin, position_ids)`: 见 apply_rotary_pos_emb
 12. `key_states = torch.cat([past_key_value[0], key_states], dim=2)`: `aten::cat([1, 32, C-1, 128], [1, 32, 1, 128]) = [1, 32, C, 128]`
 13. `value_states = torch.cat([past_key_value[1], value_states], dim=2)`: `aten::cat([1, 32, C-1, 128], [1, 32, 1, 128]) = [1, 32, C, 128]`
@@ -163,7 +163,7 @@ LlamaMLP 包括：
 - aten::pow
 - aten::reshape
 - aten::rsqrt
-- aten::sequeeze
+- aten::squeeze
 - aten::silu
 - aten::slice
 - aten::softmax
@@ -233,7 +233,7 @@ LlamaMLP 包括：
 
 FlashAttention 2 相比 FlashAttention 的主要区别是并行的方式。第一个版本是在 batch 和 head 维度上进行并行，也就是说，每个 CUDA thread block 对应一个 batch size 和一个 attention head，一共有 batch size 乘以 head 个数那么多个 thread block。
 
-而第二个版本在 sequence length 维度上也引入了并行，使得 GPU 的利用率可以继续提升。此外，在计算局部 softmax 的时候，也做了修改：不着急计算局部的 softmax，而是分别维护分子和分母，到算完了以后，再算分子除以坟墓。
+而第二个版本在 sequence length 维度上也引入了并行，使得 GPU 的利用率可以继续提升。此外，在计算局部 softmax 的时候，也做了修改：不着急计算局部的 softmax，而是分别维护分子和分母，到算完了以后，再算分子除以分母。
 
 ## FlashDecoding
 
