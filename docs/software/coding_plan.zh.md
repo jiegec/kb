@@ -45,9 +45,7 @@
 - MCP 消耗积分数 = 调用次数 × Output 抵扣系数
 - 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**；调用历史模型 GLM-5.2、GLM-5.1 自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 自动切换至 GLM-5.3-Flash
 - 非高峰时段按基础积分消耗的 50% 抵扣；高峰时段为每周一至周五的 14:00～18:00（UTC+8）
-- 限时活动：
-    - 「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00）：在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量，在其他 Agent 额度翻倍
-    - 「庆双节活动」（2026-09-25 至 2026-10-07）：全天按非高峰时段规则消耗额度
+- 限时活动（均已结束）：此前的「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00，在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量、其他 Agent 额度翻倍）与「庆双节活动」（2026-09-25 至 2026-10-07，全天按非高峰时段规则消耗额度）已于 2026-10-07 到期，国内站与国际版页面上的活动公告均已删除；截至 2026-10-09 两站无进行中的限时活动
 - 抵扣系数：GLM-5.3 为 Input 6.9 / Cached Input 1.7 / Output 24；GLM-5.3-Flash（含视觉理解 MCP）为 Input 2.3 / Cached Input 0.56 / Output 8
 - 套餐 Token 用量因缓存命中率而异：
 
@@ -217,6 +215,7 @@
 
 ## 更新历史
 
+- 2026/10/09：智谱 GLM Coding Plan 的两项限时活动到期后从页面移除——国内站套餐概览页（docs.bigmodel.cn/cn/coding-plan/overview，含 `.md` 版本）与国际版 DevPack 概览页（docs.z.ai/devpack/overview）删除了「夜间畅用活动」（2026-09-03 至 2026-10-07，ZCode/AutoClaw 端 GLM-5.3-Flash 无限用量、其他 Agent 额度翻倍）与「庆双节活动」（2026-09-25 至 2026-10-07，全天按非高峰时段规则计费）的公告文案，页面恢复为常规的「非高峰时段按基础积分 50% 抵扣、高峰时段为每周一至周五 14:00～18:00（UTC+8）」规则，截至本次抓取（2026-10-09）两站均无进行中的限时活动。国内站同一页面另把文案由「专为 AI 编码打造的订阅套餐」改为「专为大模型调用打造的订阅套餐」，并把「独家优势」中的兼容工具由「Claude Code、Kilo Code、OpenClaw、OpenCode、TRAE、CodeBuddy」改为「ZCode、AutoClaw、Claude Code、Codex、OpenCode、WorkBuddy」（kb 此前未记录该工具清单，故未在主条目中新增）；套餐档位与价格、积分额度、抵扣系数、模型范围与「最高可节省 92% 成本」表述均未变
 - 2026/10/08：MiniMax 国内站与英文站的 Token Plan 介绍页与 FAQ（platform.minimaxi.com 与 platform.minimax.io 的 `/docs/token-plan/intro`、`/docs/token-plan/faq` 共四页）由旧 Token Plan 内容整体改写为 M Plan 内容，站点内容迁移基本完成。新页面明确国内站 Build 档额度为 Go 的 **12 倍**，而英文站仍写作 **7.5 倍**（两站数值不一致，本次已按站区分写入主条目）；三档模型范围（三档均含 M3.1 Flash Preview 文本模型与图像/音频生成、联网搜索、多模态理解，Explore/Build 另含 H3 视频、Go 不含视频）、「非视频模型受 5 小时与周窗口、视频模型仅受周窗口」「1,000 积分 = ¥7、有效期 1 年」等规则与此前一致。FAQ 改写后补充的要点：订阅 Key 可用于支持 OpenAI 或 Anthropic 兼容协议的任意工具（列举 Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw）、在 MiniMax Code 中使用无需单独订阅或配置订阅 Key、暂不支持降级（月付可升级为更高档位月付或年付，年付仅可升级为更高档位年付）、关闭自动续费后无法恢复须重新购买、5 小时与周窗口均自首次使用起计时且各自独立刷新、额度用尽不会自动扣账户余额、登录报 401 时用 `mmx config set --key region` 手动指定区域等。同期 `/docs/guides/pricing-token-plan`（订阅定价页）与 `/docs/guides/pricing-paygo` 仍为旧 Token Plan / 按量计费内容，尚未迁移
 - 2026/10/08：百度千帆 Coding Plan（页面更新时间 2026-10-08）模型库大幅缩减并公告停止模型更新：抵扣系数表与可配置的模型名单只剩 DeepSeek-V4-Pro（高峰期 5 / 低峰期 4）、GLM-5.1（高峰期 4 / 低峰期 3）与百度搜索（10），移除 Kimi-K2.5、DeepSeek-V3.2、DeepSeek-V4-Flash、GLM-5、MiniMax-M2.5、ERNIE-4.5-Turbo-20260402（配置文件可指定的 Model Name 由 6 个减为 `deepseek-v4-pro`、`glm-5.1` 两个）；原来的「DeepSeek-V4-Flash和GLM-5.1为尝鲜体验版，服务资源有限，后续逐步扩容」一句被替换为新公告「支持的模型范围将随模型版本迭代动态调整。Coding Plan 已停止模型更新，如需使用新模型，建议迁移至 Token Plan 个人版」。套餐价格与限额（Lite 40 元、Pro 200 元每月，每 5 小时 1,200 / 6,000 次）未变
 - 2026/10/08：OpenCode Go 新增 **Claude Haiku 5.5** 与限时免费的 **Step 5 Preview Free**。Claude Haiku 5.5 按 100K tokens 分档定价（≤100K tokens 输入 $0.10、输出 $0.50、缓存读取 $0.01、缓存写入 $0.125；>100K tokens 输入 $0.50、输出 $2.50、缓存读取 $0.05、缓存写入 $0.625 每 1M tokens），月度使用额度 Go $15、Go Plus $60，请求限额预估 Go 3,850/5 小时、9,620/周、19,230/月，Go Plus 15,380/5 小时、38,460/周、76,920/月，单次请求估算用量 1,100 输入 token、55,000 缓存 token、240 输出 token，model ID `claude-haiku-5-5`，接入点 https://opencode.ai/zen/go/v1/messages（`@ai-sdk/anthropic`），数据保留 30 天（按 Anthropic 数据政策）。Step 5 Preview Free 输入/输出/缓存读取均免费、请求与月度使用额度均标注为无限制（限时活动，官方未给出结束时间），model ID `step-5-preview-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions。支持模型、token 价格、请求限额、接入点与数据保留五张表同步新增这两款模型，其余模型的价格、额度与请求限额均未变
