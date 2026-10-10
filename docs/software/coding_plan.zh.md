@@ -215,6 +215,7 @@
 
 ## 更新历史
 
+- 2026/10/10：阿里云百炼 Coding Plan 的 Pro 高级套餐支持模型缩减（套餐页页面更新时间 2026-10-10 15:08:26）：官方把 **qwen3-max-2026-01-23、qwen3-coder-next、qwen3-coder-plus、glm-4.7** 从「更多模型」中移除，「更多模型」自此只剩 qwen3.5-plus（支持图片理解）；推荐模型（qwen3.7-plus、qwen3.6-plus、kimi-k2.5、glm-5、MiniMax-M2.5）、价格（¥200/月，新客首月 ¥39.90）与用量限制（每 5 小时 6,000 次、每周 45,000 次、每月 90,000 次）均未变。同套文档同步更新：FAQ 页（同为 15:08:26）的「上下文长度」表删除上述 4 款模型（qwen3-max-2026-01-23 262,144、qwen3-coder-next 262,144、qwen3-coder-plus 1,000,000、glm-4.7 202,752），「切换模型」建议列表中的 qwen3-coder-plus 也被删除，OpenClaw 配置示例的模型 id 由 `qwen3-max-2026-01-23` 改为 `qwen3.7-max`；接入文档（OpenCode、OpenClaw，页面更新时间 2026-10-10 15:08:29）的 `bailian-coding-plan/*` 模型列表同步删除这 4 款，现列出 qwen3.7-plus、qwen3.6-plus、qwen3.5-plus、MiniMax-M2.5、glm-5、kimi-k2.5
 - 2026/10/10：天翼云编程 Token Plan 旧套餐（按 Token 计量、仅存量已订阅用户可续订）的支持模型完成当日到期的下线调整：先前标注「10月10日下线」的 **GLM-5.0** 与 **DeepSeek-V3.2**（页面上写作 DeepSeeV3.2）已从列表中移除，同时新增 **GLM-5.2**，列表变为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.2；积分版套餐的档位与价格（29/89/199/399/699 元每月）、积分额度、支持模型（DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3）与积分兑换关系表均未变
 - 2026/10/09：阿里云百炼新增图像模型 **qwen-image-2.1-turbo**：中国站与「全球」部署 0.1 元/张（免费额度 10 张）、国际站 0.113362 元/张，与 qwen-image-2.1-pro（中国站/全球 0.25 元/张、国际站 0.283404 元/张）并列；其余 qwen-image-2.0 系列与全部文本模型的单价未变。该变更只涉及百炼通用模型目录的图像生成定价，未改动包括 Token Plan 在内的任何 coding plan 的模型库、档位或额度
 - 2026/10/09：Kimi Code API 新增 **OpenAI Responses 协议**支持：OpenAI 兼容现提供 Chat Completions 与 Responses 两种协议，接入点为国内 `https://api.kimi.com/coding/v1/responses`（海外域名未给出示例）；Base URL、Anthropic 兼容接入点、模型 ID 与 API 价格均未变
