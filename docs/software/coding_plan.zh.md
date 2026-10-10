@@ -138,7 +138,7 @@
     - 29（3000 积分）、89（10000）、199（25000）、399（50000）、699（100000）RMB 每月
     - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
     - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
-    - 原按 Token 计量套餐仅存量已订阅用户可续订
+    - 原按 Token 计量套餐仅存量已订阅用户可续订，2026-10-10 起支持模型为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.2（GLM-5.0 与 DeepSeek-V3.2 已按先前下线公告移除）
 - [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite 59 RMB 每月（每订阅月 5000 万 tokens）、Standard 149（1.3 亿）、Pro 399（3.8 亿）、Max 799（8.8 亿）
     - 支持模型：GLM-5、GLM-5.1、Kimi-K2.6、DeepSeek-V3.2、DeepSeek-V4-Flash
@@ -215,6 +215,7 @@
 
 ## 更新历史
 
+- 2026/10/10：天翼云编程 Token Plan 旧套餐（按 Token 计量、仅存量已订阅用户可续订）的支持模型完成当日到期的下线调整：先前标注「10月10日下线」的 **GLM-5.0** 与 **DeepSeek-V3.2**（页面上写作 DeepSeeV3.2）已从列表中移除，同时新增 **GLM-5.2**，列表变为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.2；积分版套餐的档位与价格（29/89/199/399/699 元每月）、积分额度、支持模型（DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3）与积分兑换关系表均未变
 - 2026/10/09：阿里云百炼新增图像模型 **qwen-image-2.1-turbo**：中国站与「全球」部署 0.1 元/张（免费额度 10 张）、国际站 0.113362 元/张，与 qwen-image-2.1-pro（中国站/全球 0.25 元/张、国际站 0.283404 元/张）并列；其余 qwen-image-2.0 系列与全部文本模型的单价未变。该变更只涉及百炼通用模型目录的图像生成定价，未改动包括 Token Plan 在内的任何 coding plan 的模型库、档位或额度
 - 2026/10/09：Kimi Code API 新增 **OpenAI Responses 协议**支持：OpenAI 兼容现提供 Chat Completions 与 Responses 两种协议，接入点为国内 `https://api.kimi.com/coding/v1/responses`（海外域名未给出示例）；Base URL、Anthropic 兼容接入点、模型 ID 与 API 价格均未变
 - 2026/10/09：无问芯穹 Infini GenStudio 按先前预告把 `deepseek-v4-flash` 正式下架（2026-10-09 12:00 生效），推荐的替换模型仍为 `deepseek-v4.1-flash`；该平台的 Infini Coding Plan 已于 2026-06-27 下线，此变化只影响 GenStudio API 调用

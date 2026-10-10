@@ -138,7 +138,7 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
     - 29 (3,000 credits), 89 (10,000), 199 (25,000), 399 (50,000), 699 (100,000) RMB/month
     - Supported models: DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, GLM-5.2, GLM-5.1, Kimi-K2.6, MiniMax-M3
     - Credit-to-token conversion (tokens per credit, input/output): DeepSeek-V4-Pro 1,111/370; DeepSeek-V4-Flash 3,333/1,111; GLM-5.2 1,250/357; GLM-5.1 input [0,32k] 1,667 (output 417), (32k,200k] 1,250 (output 357); Kimi-K2.6 1,538/370; MiniMax-M3 input [0,512k] 4,762 (output 1,190), (512k,1M] 2,381 (output 595)
-    - The previous token-metered plans allow renewals by existing subscribers only
+    - The previous token-metered plans allow renewals by existing subscribers only; since 2026-10-10 they support DeepSeek-V4-Flash-0731, GLM-5.1 and GLM-5.2 (GLM-5.0 and DeepSeek-V3.2 were removed as previously announced)
 - [Huawei Cloud MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite 59 RMB/month (50M tokens per subscription month), Standard 149 (130M), Pro 399 (380M), Max 799 (880M)
     - Supported models: GLM-5, GLM-5.1, Kimi-K2.6, DeepSeek-V3.2, DeepSeek-V4-Flash
@@ -215,6 +215,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/10/10: The CTCloud Programming Token Plan's previous token-metered plans (renewable by existing subscribers only) completed the delisting that had been scheduled for that day: **GLM-5.0** and **DeepSeek-V3.2** (written "DeepSeeV3.2" on the page), previously marked as "retiring 10 October", were dropped from the list while **GLM-5.2** was added, leaving DeepSeek-V4-Flash-0731, GLM-5.1 and GLM-5.2. The Credits Edition's tiers and prices (29/89/199/399/699 RMB per month), credit allowances, supported models (DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, GLM-5.2, GLM-5.1, Kimi-K2.6, MiniMax-M3) and credit-conversion table are unchanged
 - 2026/10/09: Alibaba Cloud Bailian added the image model **qwen-image-2.1-turbo**: 0.1 CNY per image on the China site and the "Global" deployment (10 free images) and 0.113362 CNY per image internationally, listed alongside qwen-image-2.1-pro (0.25 / 0.283404 CNY per image); the unit prices of the rest of the qwen-image-2.0 series and of all text models are unchanged. This change only concerns image-generation pricing in Bailian's general model catalogue and alters no coding plan's model library, tiers or quotas, the Token Plan included
 - 2026/10/09: The Kimi Code API gained support for the **OpenAI Responses protocol**: the OpenAI-compatible interface now offers both the Chat Completions and Responses protocols, with the endpoint `https://api.kimi.com/coding/v1/responses` on the domestic domain (no overseas example given). The Base URLs, the Anthropic-compatible endpoints, model IDs and API prices are unchanged
 - 2026/10/09: Infini (Wuwen Xinqiong) GenStudio took `deepseek-v4-flash` offline at 12:00 on 2026-10-09 as previously announced, with the recommended replacement model still `deepseek-v4.1-flash`. The platform's Infini Coding Plan was discontinued on 2026-06-27, so this change only affects GenStudio API calls
