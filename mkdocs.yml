@@ -2,6 +2,7 @@ site_name: Jiegec's Knowledge Base
 site_url: https://jia.je/kb
 site_description: Knowledge Base of @jiegec
 theme:
+  font: false
   custom_dir: overrides
   icon:
     repo: fontawesome/brands/github
