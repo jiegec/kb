@@ -26,7 +26,7 @@
 - 积分包：1,000 积分 = ¥7（国际版 $1），自购买起 1 年有效；扣费顺序为套餐额度优先、积分包其次
 - MiniMax-M3.1-Flash-Preview 官方标注暂仅通过 M Plan 与 MiniMax Code 提供
 - 模型下线通知：MiniMax M2.5、M2.7 系列将逐步停止服务——2026-10-19 停止向新用户开放调用，2026-11-18 正式下线；按量付费 API 存量用户可继续调用至正式下线日；M Plan 与 Token Plan 用户对 M2.5、M2.7 的请求自 2026-10-19 起统一路由至 M3.1 Flash Preview（原模型名保留作为兼容入口，用户无需修改模型名，套餐用量权益不变）
-- 订阅 Key 对支持 OpenAI 兼容或 Anthropic 兼容协议的工具均可用（Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw 等，官方文档已把 Hermes Agent 与 OpenClaw 列入）；在官方 MiniMax Code 中使用无需单独订阅或配置订阅 Key；套餐暂不支持降级——月付可升级为更高档位的月付或年付，年付仅可升级为更高档位的年付；关闭自动续费后无法恢复（需重新购买，未到期前升级可用剩余价值抵扣）
+- 订阅 Key 对支持 OpenAI 兼容或 Anthropic 兼容协议的工具均可用（Claude Code、Codex、Cursor、OpenCode、Pi、Hermes Agent、OpenClaw 等，官方文档已把 Hermes Agent 与 OpenClaw 列入）；在官方 MiniMax Code 中使用无需单独订阅或配置订阅 Key；套餐暂不支持降级——月付可升级为更高档位的月付或年付，年付仅可升级为更高档位的年付；关闭自动续费后无法恢复（需重新购买，未到期前升级可用剩余价值抵扣）
 - 原 Token Plan 老用户：自动续费开启时原套餐与权益不变（保留 ∞ 限额、150% 周额度等历史优惠），可随时升级到 M Plan（未使用部分按剩余时间折算抵扣）；升级对应关系 Plus → Go/Explore/Build、Max → Explore/Build、Ultra → Build，升级后不可退回 Token Plan
 - Token Plan 老用户迁移（国内）：Max-极速 ¥199 → Max ¥119（月费下调 ¥80、每月补约 ¥160 积分）、Ultra-极速 ¥899 → Ultra ¥469（下调 ¥430、补约 ¥860 积分）；Starter ¥29、Plus-极速 ¥98 继续保留（仅老用户）；国际版 Max-hs $80 → Max、Ultra-hs $150 → Ultra（各下调 $30、每月补约 $60 积分），Starter $10、Plus-hs $40 保留；停售档年包按月独立补发等值积分（每月额度有效期 1 年、不滚存）
 - 老用户权益：2026-06-05 前订阅用户权益保留；迁移补偿积分有效期 1 年；权益加成仅在连续订阅周期内有效，变更档位或取消订阅即放弃
@@ -217,6 +217,7 @@
 
 ## 更新历史
 
+- 2026/10/13：MiniMax M Plan 介绍页（国内站与国际版的 `/docs/token-plan/intro`）改版，并把 **Pi** 加入兼容工具名单：页面把「MiniMax Code · 官方推荐」从工具列表的一项提升为独立小节（文案改为「从本地项目开发到日常工作，使用 MiniMax 官方 Agent 应用，登录即可享有 M Plan 会员权益，无需另行订阅或配置 API Key」），工具列表由 Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw 改为在 OpenCode 与 Hermes Agent 之间插入 Pi；套餐档位与价格、用量规则、积分包与迁移规则均未变
 - 2026/10/13：火山方舟新增 **kimi-k3** 抵扣系数限时 5 折活动：2026-10-12 00:00 至 2026-10-25 23:59 期间该模型在 Agent Plan 中的抵扣系数在现有基础上享 5 折，即 10 → 5。Agent Plan 个人版套餐概览页（活动公告）与计费说明页（AFP 抵扣系数表已标注「10（5限时折扣）」）同步更新；Agent Plan 其余模型的抵扣系数、套餐档位与价格、以及 Coding Plan 个人版页面均未变（Coding Plan 页面本次未同步该活动公告，其限时活动仍只有 deepseek-v4.1-flash 5 折与 Kimi-K2.8-Preview 可用量活动）
 - 2026/10/13：火山方舟把三款此前标注「即将下线」的模型从模型名单中移除：**doubao-seed-2.1-turbo** 与 **doubao-seed-2.0-lite**（两者原在 Coding Plan 个人版支持模型表、Agent Plan 个人版模型表与 AFP 抵扣系数表中，现已整行删除；Agent Plan 计费说明的文本抵扣示例中 doubao-seed-2.1-turbo 也改为 doubao-seed-evolving）、**doubao-seedream-5.0-lite**（Agent Plan 图片生成抵扣系数表与其图片生成抵扣示例一并删除，图片生成现仅余 doubao-seedream-5-0-pro）。涉及的三个页面——Coding Plan 个人版套餐概览、Agent Plan 个人版套餐概览、Agent Plan 个人版计费说明——最近更新时间同为 2026-10-12 21:22:20；套餐档位与价格、其余模型及其抵扣系数、1M 上下文支持名单均未变
 - 2026/10/13：MiniMax 在国内站与英文站的模型概览页（platform.minimaxi.com 与 platform.minimax.io 的 `/docs/guides/models-intro`）发布 M2.5、M2.7 系列模型下线通知：2026-10-19 停止向新用户开放调用，2026-11-18 正式下线。按量付费 API 用户（存量）可继续调用至正式下线日，下线后对这些模型的 API 请求不再可用；**M Plan 与 Token Plan 用户**对 M2.5、M2.7 的请求自 2026-10-19 起统一路由至 **M3.1 Flash Preview**，原模型名称保留作为兼容入口（用户无需修改模型名），套餐用量权益不受影响。两站公告内容一致（仅语言不同），M Plan 各档位的支持模型、价格与额度均未变
