@@ -85,16 +85,16 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) | [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时最多约 1,200 次请求、每周最多约 9,000 次、每订阅月最多约 18,000 次
     - Pro 套餐（200 RMB 每月）：Lite 的 5 倍用量
-    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、MiniMax-M3、Kimi-K2.7-Code、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
+    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、MiniMax-M3、Kimi-K2.7-Code（即将下线）、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
     - 1M 上下文支持：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
     - 限时活动：deepseek-v4.1-flash 抵扣系数 5 折（2026-09-23 00:00 至 2026-10-30 18:00）；Kimi-K2.8-Preview 可用量活动（2026-09-18 00:00 至 2026-10-14 23:59，与 Agent Plan 6 折抵扣活动期间相当）
     - 主要模型规格：Doubao-Seed-2.1-pro（新一代旗舰，1024k 上下文/256k 输出）、Doubao-Seed-2.1-lite（轻量高效，1024k/256k）、Doubao-Seed-2.0-mini（极速响应，256k/128k）、DeepSeek-V4.1-Flash（552B 总参数 MoE、原生多模态视觉理解，1024k/384k）、Kimi-K2.8-Preview（综合性能接近 K3、思考效率更高，1M/1M、支持文本与图片输入）、GLM-5.3-Flash（智谱首个原生多模态模型，320B 总参数/18B 激活，1M/128K）
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
     - Agent 燃料值（AFP）为统一用量计费单位：文本/向量模型 =（输入 token × 输入抵扣系数 + 输出 token × 输出抵扣系数）/ 10000；视频模型 = tokens / 10000 × 系数；图片模型 = 成功生成张数 × 系数。抵扣系数由模型统一决定，不随输入长度变化
-    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25）；kimi-k2.7-code 4.5；kimi-k2.8-preview 8（限时 6 折 4.8）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
+    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25）；kimi-k2.7-code（即将下线）4.5；kimi-k2.8-preview 8（限时 6 折 4.8）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
     - 档位（AFP，每 5 小时/每周/每月/每日）：Small 40 RMB 每月（2000/7000/20000/10000）、Medium 200（10000/35000/100000/50000）、Large 500（25000/87500/250000/125000）、Max 1000（50000/175000/500000/250000）
     - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
-    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code（即将下线）、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Medium 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
     - Agent 进化：前 50 个文件免费
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
@@ -221,6 +221,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/14：火山方舟把 **kimi-k2.7-code** 标记为「即将下线」，Coding Plan 与 Agent Plan 三处页面同步（页面更新时间 2026-10-13 21:57）：Coding Plan 个人版套餐概览的模型说明表、Agent Plan 个人版套餐概览的模型表与 Agent Plan 计费说明的 AFP 抵扣系数表中，该模型名后均加上「即将下线」（该模型的抵扣系数仍为 4.5、各档位仍为 √，官方尚未给出具体下线日期）；Coding Plan 个人版活动及公告页的更新日志新增 10.13 条目「模型启动下线：kimi-k2.7-code 模型启动下线」并链接至模型下线说明页。三个套餐页面与更新日志页的最近更新时间同为 2026-10-13 21:57:48–21:57:50；套餐档位与价格、其余模型及其抵扣系数、1M 上下文支持名单均未变。配套的接入文档（Coding Plan 接入 OpenClaw）把图片输入配置示例中的模型由 kimi-k2.7-code 换为 doubao-seed-2.1-lite，属示例改动，无规则变化
 
 - 2026/10/13：智谱 GLM Coding Plan 国内站套餐概览页（docs.bigmodel.cn/cn/coding-plan/overview 及同页的 `.md` 版本）在其「积分刷新规则」一节新增**套餐升级与续费**条款：已订阅用户升级套餐后，积分额度按新套餐档位立即刷新；续费不会触发积分额度重置，原有积分刷新周期保持不变。页面其余内容全部未变：套餐档位与价格（Lite 118 / Pro 538 / Max 1078 元每月）、每 5 小时与每周积分额度（2000/10000、12000/60000、28000/140000）、积分与 MCP 抵扣系数、支持模型（GLM-5.3、GLM-5.3-Flash）、可用额度参考表、非高峰 50% 抵扣规则、兼容工具列表与「最高可节省 92% 成本」表述均保持不变；本条为额度刷新机制的规则补充，kb 主条目此前未记录智谱的积分刷新信息，本次将该节（5 小时动态刷新、周积分周期与新增的升级/续费规则）一并补入
 - 2026/10/13：OpenCode Go 官网文档页迁至 v2（https://opencode.ai/v2/docs/console/go/）——2026-10-12 曾返回 404 的原文档页 /docs/zh-cn/go 现为 302 重定向至该页，Go 内容由营销页（/zh/go，仅列 13 款展示模型）回归文档站。文档页恢复后首次给出全量数据：32 款模型的 token 价格表（含空闲/高峰时段与 token 分档）、月额度表、预估请求数表（5 小时/周/月）、每请求 token 估算表与数据保留表。相较 kb 此前数据的变化：**接入点域名由 opencode.ai/zen/go/v1/… 改为 https://opencode.ai/inference/go/v1/…**（两域名互为别名，/v1/models 实测均返回 200），并新增在 OpenCode 内以 opencode-go/<model-id> 引用模型的方式与模型列表接口 https://opencode.ai/inference/go/v1/models；月额度除 DeepSeek V4.1 Flash 的 $80/$160（2026-10-12 起提高）外共 6 档——$15/$60、$30/$90、$30/$120、$60/$120、$60/$180、$60/$240，支持模型列表未变。页面另新增 Validated clients 表（Hermes、Claude Code、Codex、ZCode、Pi、jcode、Kilo Code CLI）与 Known problematic clients 表（DeepSeek Harness、GitHub Copilot Chat、Kimi Code、MiMo Code），均与 x-opencode-session 会话头支持相关
