@@ -42,6 +42,7 @@
 - Lite 套餐（118 RMB 每月）：每 5 小时 2000 积分，每周 10000 积分
 - Pro 套餐（538 RMB 每月）：每 5 小时 12000 积分，每周 60000 积分
 - Max 套餐（1078 RMB 每月）：每 5 小时 28000 积分，每周 140000 积分
+- 积分刷新规则：5 小时积分采用动态刷新机制（额度在请求消耗 5 小时后重置）、周积分自套餐下单时起以 7 天为一个周期刷新；已订阅用户升级套餐后积分额度按新套餐档位立即刷新，续费不会触发积分额度重置、原有积分刷新周期保持不变
 - 模型消耗积分数 =（输入 Token × Input 抵扣系数 + 缓存命中 Token × Cached Input 抵扣系数 + 输出 Token × Output 抵扣系数）/ 10000
 - MCP 消耗积分数 = 调用次数 × Output 抵扣系数
 - 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**；调用历史模型 GLM-5.2、GLM-5.1 自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 自动切换至 GLM-5.3-Flash
@@ -221,6 +222,7 @@
 
 ## 更新历史
 
+- 2026/10/13：智谱 GLM Coding Plan 国内站套餐概览页（docs.bigmodel.cn/cn/coding-plan/overview 及同页的 `.md` 版本）在其「积分刷新规则」一节新增**套餐升级与续费**条款：已订阅用户升级套餐后，积分额度按新套餐档位立即刷新；续费不会触发积分额度重置，原有积分刷新周期保持不变。页面其余内容全部未变：套餐档位与价格（Lite 118 / Pro 538 / Max 1078 元每月）、每 5 小时与每周积分额度（2000/10000、12000/60000、28000/140000）、积分与 MCP 抵扣系数、支持模型（GLM-5.3、GLM-5.3-Flash）、可用额度参考表、非高峰 50% 抵扣规则、兼容工具列表与「最高可节省 92% 成本」表述均保持不变；本条为额度刷新机制的规则补充，kb 主条目此前未记录智谱的积分刷新信息，本次将该节（5 小时动态刷新、周积分周期与新增的升级/续费规则）一并补入
 - 2026/10/13：OpenCode Go 官网文档页迁至 v2（https://opencode.ai/v2/docs/console/go/）——2026-10-12 曾返回 404 的原文档页 /docs/zh-cn/go 现为 302 重定向至该页，Go 内容由营销页（/zh/go，仅列 13 款展示模型）回归文档站。文档页恢复后首次给出全量数据：32 款模型的 token 价格表（含空闲/高峰时段与 token 分档）、月额度表、预估请求数表（5 小时/周/月）、每请求 token 估算表与数据保留表。相较 kb 此前数据的变化：**接入点域名由 opencode.ai/zen/go/v1/… 改为 https://opencode.ai/inference/go/v1/…**（两域名互为别名，/v1/models 实测均返回 200），并新增在 OpenCode 内以 opencode-go/<model-id> 引用模型的方式与模型列表接口 https://opencode.ai/inference/go/v1/models；月额度除 DeepSeek V4.1 Flash 的 $80/$160（2026-10-12 起提高）外共 6 档——$15/$60、$30/$90、$30/$120、$60/$120、$60/$180、$60/$240，支持模型列表未变。页面另新增 Validated clients 表（Hermes、Claude Code、Codex、ZCode、Pi、jcode、Kilo Code CLI）与 Known problematic clients 表（DeepSeek Harness、GitHub Copilot Chat、Kimi Code、MiMo Code），均与 x-opencode-session 会话头支持相关
 - 2026/10/13：MiniMax M Plan 介绍页（国内站与国际版的 `/docs/token-plan/intro`）改版，并把 **Pi** 加入兼容工具名单：页面把「MiniMax Code · 官方推荐」从工具列表的一项提升为独立小节（文案改为「从本地项目开发到日常工作，使用 MiniMax 官方 Agent 应用，登录即可享有 M Plan 会员权益，无需另行订阅或配置 API Key」），工具列表由 Claude Code、Codex、Cursor、OpenCode、Hermes Agent、OpenClaw 改为在 OpenCode 与 Hermes Agent 之间插入 Pi；套餐档位与价格、用量规则、积分包与迁移规则均未变
 - 2026/10/13：火山方舟新增 **kimi-k3** 抵扣系数限时 5 折活动：2026-10-12 00:00 至 2026-10-25 23:59 期间该模型在 Agent Plan 中的抵扣系数在现有基础上享 5 折，即 10 → 5。Agent Plan 个人版套餐概览页（活动公告）与计费说明页（AFP 抵扣系数表已标注「10（5限时折扣）」）同步更新；Agent Plan 其余模型的抵扣系数、套餐档位与价格、以及 Coding Plan 个人版页面均未变（Coding Plan 页面本次未同步该活动公告，其限时活动仍只有 deepseek-v4.1-flash 5 折与 Kimi-K2.8-Preview 可用量活动）
