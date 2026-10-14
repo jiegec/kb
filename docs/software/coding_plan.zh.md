@@ -170,6 +170,16 @@
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
+- [Command Code](https://commandcode.ai/zh/pricing)
+    - 套餐（均为「+ 处理费」；额度是按模型分配的共享池，模型 token 价格与上游官方一致、官方称零加价）：
+        - **Go**：$1/月含 $10 额度（10x），约 9K 次请求；2026-09-28 起新订阅者改为按模型分配额度（每个模型的月用量相当于 $6–$10），此前订阅者当期保留 $10 共享池、下次续订时自动切换
+        - **GOAT**：$10/月含 $80 额度（8x，官方称其为 $10 档 coding plan 中倍数最高者），叠加优惠可超 $100；约 75K 次请求；含 API 访问
+        - **Pro**：$20/月含 $80 额度，覆盖 45+ 模型，即 GOAT 全部模型再加 Claude、GPT、Gemini 等闭源高级模型；叠加优惠时潜在价值 $120+
+        - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
+        - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
+    - 限时免费模型：Laguna S 2.1、Ling 3.0 Flash Sante、Ling 3.1 Flash、Glyph Cluster
+    - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.0/3.1、Nemotron、Inkling 等
+    - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
     - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
     - deepseek-flash（DeepSeek-V4.1-Flash，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
@@ -223,6 +233,7 @@
 
 ## 更新历史
 
+- 2026/10/15：监控列表新增 **Command Code**（commandcode.ai）四个页面（/zh/pricing 与 /docs/plans/{go,goat,pro}），kb 新增该厂商条目：五档套餐（均为「+ 处理费」，额度为按模型分配的共享池，模型 token 价格与上游官方一致、官方称零加价）——**Go** $1/月含 $10 额度（10x、约 9K 次请求；2026-09-28 起新订阅者改为按模型分配额度、每模型月用量 $6–$10，此前订阅者续订时自动切换）、**GOAT** $10/月含 $80 额度（8x、约 75K 次请求、含 API 访问、叠加优惠可超 $100）、**Pro** $20/月含 $80 额度（覆盖 45+ 模型＝GOAT 全部再加 Claude / GPT / Gemini 等闭源高级模型）、**Max** $100/月含 $150 额度（叠加优惠最高 $300 等效、约 219K 次请求）、**Provider API 套餐** $15/月按量付费零加价（兼容 OpenAI 与 Anthropic 端点、充值额度可结转且永不过期）；限时免费模型 Laguna S 2.1、Ling 3.0 Flash Sante、Ling 3.1 Flash、Glyph Cluster；模型库含官方自研 taste-1 与 DeepSeek V4.1 Flash（沿用官方峰谷价）等
 - 2026/10/14：OpenCode Go 模型库调整（33 → 32 款）：移除 **DeepSeek V4 Flash** 与 **DeepSeek V4 Flash Vision Exp**，新增 **Gemini 4 Argon Contributor**。新模型的 token 价格为输入 $4.00 / 输出 $20.00 / 缓存读取 $0.20 每 1M tokens（无缓存写入价），月额度 Go ~~$30~~ **$60**、Go Plus ~~$120~~ **$240**（均标注「2x · Limited time」，即限时翻倍），预估请求数 Go 由 220 提高到 440 / 5 小时、540 → 1,080 / 周、1,060 → 2,120 / 月，Go Plus 880 → 1,760、2,160 → 4,320、4,240 → 8,480，model ID `gemini-4-argon-contributor`，接入点为 https://opencode.ai/inference/go/v1/models/gemini-4-argon-contributor（`@ai-sdk/google`，是该文档中唯一使用 `/v1/models/<model-id>` 形式的模型），隐私表标注 Model training 为 Yes、Data retention 为 Not ZDR，并给出说明句「Your prompts and completions may be used to train future Google models.」。被移除的两款 DeepSeek 旧模型在支持模型列表、token 价格表、两档月额度表、预估请求数表、接入点表与隐私表中整体删除，每请求 token 估算列表中的对应两行也被删除，DeepSeek 峰谷时段说明句随之由「DeepSeek V4.1 Flash / V4 Pro / V4 Flash / V4 Flash Vision Exp」改为「DeepSeek V4.1 Flash / V4 Pro」；其余模型的价格、额度与请求限额均未变，两个抓取地址（/docs/zh-cn/go 与 /v2/docs/console/go/）内容完全一致
 
 - 2026/10/14：MiniMax 官网的订阅定价页与按量计费页完成 M Plan 迁移（中英文共四页）：`/docs/guides/pricing-token-plan`（订阅定价）由旧的 **Token Plan** 内容（Plus ¥49 / Max ¥119 / Ultra ¥469 每月，国际版 $22 / $55 / $132；积分包 ¥30 → 4,489、¥150 → 22,460、¥500 → 74,900 积分，国际版 $5 / $25 / $100，有效期 365 天）整体改写为 **M Plan 概览**页——结构同 `/docs/m-plan/intro`：可用模型表分列 Go / Explore / Build 三档（文本模型均为 M3.1 Flash Preview、视频模型 H3 仅 Explore 与 Build 可用、图像与音频模型三档均含），用量额度表为 Go / Explore 3 倍 / Build（中文站 12 倍、国际版 7.5 倍），支持的产品列出 MiniMax Code（官方推荐，登录即享会员权益、无需单独订阅或配置 API Key）以及 Claude Code、Codex、Cursor、OpenCode、Pi、Hermes Agent、OpenClaw 与其他工具；**价格表与积分包表已从该页移除**。两站的按量计费页 `/docs/guides/pricing-paygo` 由「按量计费 / API 价格」改版为「定价概览 / 产品定价」，站内导航重排为模型价格（语言、语音、视频、图像、音乐）、工具价格（MCP、服务端工具）、资源包（语音资源包、视频资源包）与计费指南（付费方式对比、按量计费说明、资源包使用规则、常见问题）四组，正文新增语音资源包（HD 系列 ¥630 / ¥5,950 / ¥56,000，Turbo 系列 ¥360 / ¥3,400 / ¥32,000，有效期 1 个月 / 3 个月 / 1 年）、视频资源包、MCP 与服务端工具、计费指南等此前未进入抓取内容的章节，页内「Token Plan」表述统一改为「M Plan」（如 API-vlm 的 M Plan MCP 插件说明）；两站按量计费页的既有价格数字全部未变（MiniMax-M3 ≤512K 输入 tokens 永久五折 2.10 / 8.40 / 0.42，>512K 4.20 / 16.80 / 0.84，缓存读取同比例五折），套餐档位与用量规则、M3 API 价格均无变化
