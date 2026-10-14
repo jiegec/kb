@@ -179,7 +179,7 @@
         - **Pro**：$20/月含 $80 额度，覆盖 45+ 模型，即 GOAT 全部模型再加 Claude、GPT、Gemini 等闭源高级模型；叠加优惠时潜在价值 $120+
         - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
         - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
-    - 限时免费模型：Laguna S 2.1、Ling 3.0 Flash Sante、Ling 3.1 Flash、Glyph Cluster
+    - 限时免费模型：Laguna S 2.1、Ling 3.0 Flash Sante、Glyph Cluster
     - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.0/3.1、Nemotron、Inkling 等
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
@@ -235,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/15：Command Code 的限时免费模型 **Ling 3.1 Flash** 免费期结束，转为常规按量计费模型：Go、GOAT、Pro 三档中该模型的输入 / 输出 / 缓存读取价格由 Free 改为 $0.30 / $0.90 / $0.06 每 1M tokens（262K 上下文），月额度 Go $6、GOAT $20、Pro $30；预估请求数 Go 526 / 5 小时、1,050 / 周、1,750 / 月，GOAT 1,170 / 2,920 / 5,850，Pro 1,750 / 4,390 / 8,770。限时免费模型现为 Laguna S 2.1、Ling 3.0 Flash Sante、Glyph Cluster 三款；套餐档位与价格、其余模型的价格与额度均未变
 - 2026/10/15：OpenCode Go 为限时免费模型 **Cat Jam Free** 补充可用地区限制：该模型标注为「限时免费、仅限部分地区」，并在价格说明中列出不提供的地区——安哥拉、白俄罗斯、柬埔寨、中国大陆（含香港与澳门）、古巴、刚果民主共和国、赤道几内亚、伊朗、伊拉克、老挝、利比亚、尼日利亚、朝鲜、俄罗斯、叙利亚、土库曼斯坦、乌兹别克斯坦、委内瑞拉，以及乌克兰的克里米亚、顿涅茨克与卢甘斯克地区。该模型仍在支持模型列表、token 价格表（input / output / cache read 均 Free）与月额度表（限时无限制）中，model ID `cat-jam-free`、接入点与其余模型的价格、额度、请求限额均未变
 - 2026/10/15：阶越星辰 Step Plan 对 **step-5-preview** 引入分时段 Credit 扣减：高峰时段（北京时间周一至周五 09:00–12:00、14:00–18:00）消耗的 Credit 为低谷时段的 2 倍，其余时间均为低谷时段、按常规扣减，部分历史订阅不受该规则约束。套餐档位与额度不变——Mini 400M / Plus 1,600M / Pro 8,000M / Max 40,000M Credit 每月，月付 49 / 99 / 199 / 699 RMB，季付 129 / 269 / 539 / 1,889、年付 456 / 936 / 1,860 / 6,666 RMB（季付与年付一次性支付，Credit 仍按月分 3 次与 12 次发放）；Credit 与金额按 1 元 = 1,000,000 Credit 换算，当期剩余额度到期清零、不结转，加油包（小油包 49 RMB / 400M、大油包 99 RMB / 1600M，有效期 30 天）、额度扣减顺序（先到期先扣）、支付方式（微信、支付宝、开放平台充值余额）与支持模型（9 款）均未变；档位现称为 Mini / Plus / Pro / Max（此前称 Flash Mini / Flash Plus / Flash Pro / Flash Max）；按请求次数计量的旧版 Coding Plan 仍不再向新用户开放购买
 - 2026/10/15：新增 **Command Code**（commandcode.ai）厂商条目：五档套餐（均为「+ 处理费」，额度为按模型分配的共享池，模型 token 价格与上游官方一致、官方称零加价）——**Go** $1/月含 $10 额度（10x、约 9K 次请求；2026-09-28 起新订阅者改为按模型分配额度、每模型月用量 $6–$10，此前订阅者续订时自动切换）、**GOAT** $10/月含 $80 额度（8x、约 75K 次请求、含 API 访问、叠加优惠可超 $100）、**Pro** $20/月含 $80 额度（覆盖 45+ 模型＝GOAT 全部再加 Claude / GPT / Gemini 等闭源高级模型）、**Max** $100/月含 $150 额度（叠加优惠最高 $300 等效、约 219K 次请求）、**Provider API 套餐** $15/月按量付费零加价（兼容 OpenAI 与 Anthropic 端点、充值额度可结转且永不过期）；限时免费模型 Laguna S 2.1、Ling 3.0 Flash Sante、Ling 3.1 Flash、Glyph Cluster；模型库含官方自研 taste-1 与 DeepSeek V4.1 Flash（沿用官方峰谷价）等
