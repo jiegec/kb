@@ -87,11 +87,11 @@
     - Pro 套餐（200 RMB 每月）：Lite 的 5 倍用量
     - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、MiniMax-M3、Kimi-K2.7-Code（即将下线）、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
     - 1M 上下文支持：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
-    - 限时活动：deepseek-v4.1-flash 抵扣系数 5 折（2026-09-23 00:00 至 2026-10-30 18:00）；Kimi-K2.8-Preview 可用量活动（2026-09-18 00:00 至 2026-10-14 23:59，与 Agent Plan 6 折抵扣活动期间相当）
+    - 限时活动：deepseek-v4.1-flash 抵扣系数 5 折（2026-09-23 00:00 至 2026-12-30 23:59:59）；Kimi-K2.8-Preview 可用量活动（2026-09-18 00:00 至 2026-12-14 23:59:59，与 Agent Plan 6 折抵扣活动期间相当）
     - 主要模型规格：Doubao-Seed-2.1-pro（新一代旗舰，1024k 上下文/256k 输出）、Doubao-Seed-2.1-lite（轻量高效，1024k/256k）、Doubao-Seed-2.0-mini（极速响应，256k/128k）、DeepSeek-V4.1-Flash（552B 总参数 MoE、原生多模态视觉理解，1024k/384k）、Kimi-K2.8-Preview（综合性能接近 K3、思考效率更高，1M/1M、支持文本与图片输入）、GLM-5.3-Flash（智谱首个原生多模态模型，320B 总参数/18B 激活，1M/128K）
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
     - Agent 燃料值（AFP）为统一用量计费单位：文本/向量模型 =（输入 token × 输入抵扣系数 + 输出 token × 输出抵扣系数）/ 10000；视频模型 = tokens / 10000 × 系数；图片模型 = 成功生成张数 × 系数。抵扣系数由模型统一决定，不随输入长度变化
-    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25）；kimi-k2.7-code（即将下线）4.5；kimi-k2.8-preview 8（限时 6 折 4.8）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
+    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25，2026-09-15 00:00 至 2026-12-30 23:59:59）；kimi-k2.7-code（即将下线）4.5；kimi-k2.8-preview 8（限时 6 折 4.8，2026-09-17 00:00 至 2026-12-14 23:59:59）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
     - 档位（AFP，每 5 小时/每周/每月/每日）：Small 40 RMB 每月（2000/7000/20000/10000）、Medium 200（10000/35000/100000/50000）、Large 500（25000/87500/250000/125000）、Max 1000（50000/175000/500000/250000）
     - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
     - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code（即将下线）、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
@@ -221,6 +221,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/14：火山方舟把两项抵扣活动窗口整体延长（三页最近更新时间同为 2026-10-14 10:12:38–10:12:39）：**deepseek-v4.1-flash 的 5 折抵扣活动**截止时间由 2026-10-30 18:00 延长至 2026-12-30 23:59:59（起始不变，Agent Plan 为 2026-09-15 00:00、Coding Plan 为 2026-09-23 00:00，系数 2.5 → 1.25）；**kimi-k2.8-preview 的 6 折抵扣活动**（Agent Plan，系数 8 → 4.8）与 Coding Plan 中「可用量与 Agent Plan 6 折抵扣活动期间相当」的活动截止时间由 2026-10-14 23:59 延长至 2026-12-14 23:59:59（起始不变，Agent Plan 为 2026-09-17 00:00、Coding Plan 为 2026-09-18 00:00）。Agent Plan 个人版套餐概览页、Agent Plan 个人版计费说明页与 Coding Plan 个人版套餐概览页同步更新（原来 10-30/10-14 的旧截止时间为今日到期，此前已处于即将结束状态）；kimi-k3 的 5 折活动（2026-10-12 00:00 至 2026-10-25 23:59）、各模型抵扣系数数值、套餐档位与价格、模型库与 1M 上下文支持名单均未变
 
 - 2026/10/14：OpenCode Go 新增限时免费的 **Cat Jam Free** 模型：input、output、cache read 均标为 Free，请求限额与月度使用额度均标注为「无限制」（限时活动，官方未给出结束时间）；model ID `cat-jam-free`，接入点 https://opencode.ai/inference/go/v1/chat/completions。支持模型列表（由 32 款增至 33 款）、token 价格表、两档月额度表、预估请求数表、接入点表与隐私表同步新增该模型；隐私表中该模型的「Model training」列为 Yes、「Data retention」列为 Not ZDR，页面并新增说明句「**Cat Jam Free:** During its free period, collected data may be used to improve the model.」（免费期内收集的数据可能用于改进模型）。其余模型的价格、额度与请求限额均未变；两个抓取地址（/docs/zh-cn/go 与 /v2/docs/console/go/）内容完全一致（仅源地址注释不同）
 
