@@ -180,7 +180,7 @@
         - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
         - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
     - 限时免费模型：Laguna S 2.1、Ling 3.0 Flash Sante、Glyph Cluster
-    - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.0/3.1、Nemotron、Inkling 等
+    - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.0/3.1、Nemotron、Inkling 等
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
     - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
@@ -235,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/15：Command Code 的 Pro 与 GOAT 套餐新增 **Qwen 3.8 Max Prime**（1M 上下文）：token 价格为输入 $4.00 / 输出 $12.00 / 缓存读取 $0.50 / 缓存写入 $5.00 每 1M tokens，月额度 GOAT $20、Pro $30；预估请求数 GOAT 131 / 5 小时、327 / 周、654 / 月，Pro 196 / 490 / 980。套餐覆盖的模型总数由 90 款增至 91 款（GOAT 由 65 款增至 66 款、Pro 由 80 款增至 81 款）；其余模型的价格与额度、套餐价格与内容均未变
 - 2026/10/15：Command Code 的 GOAT 套餐为 **GLM-5.3 Flash** 提供 $100 月额度（此前该模型未列入 GOAT 的高额度模型，GLM-5.2 的 $70 月额度保持不变）；GOAT 的高额度模型现为 $100 的 DeepSeek V4.1 Flash 与 GLM-5.3 Flash，以及 $70 的 GPT-5.6 Sol、Tencent Hy3、Qwen 3.8 27B。GLM-5.3 Flash 的 token 价格 0.15 / 0.50 / 0.03 每 1M tokens（输入 / 输出 / 缓存读取）、1M 上下文以及套餐价格与其余模型额度均未变
 - 2026/10/15：Command Code 的限时免费模型 **Ling 3.1 Flash** 免费期结束，转为常规按量计费模型：Go、GOAT、Pro 三档中该模型的输入 / 输出 / 缓存读取价格由 Free 改为 $0.30 / $0.90 / $0.06 每 1M tokens（262K 上下文），月额度 Go $6、GOAT $20、Pro $30；预估请求数 Go 526 / 5 小时、1,050 / 周、1,750 / 月，GOAT 1,170 / 2,920 / 5,850，Pro 1,750 / 4,390 / 8,770。限时免费模型现为 Laguna S 2.1、Ling 3.0 Flash Sante、Glyph Cluster 三款；套餐档位与价格、其余模型的价格与额度均未变
 - 2026/10/15：OpenCode Go 为限时免费模型 **Cat Jam Free** 补充可用地区限制：该模型标注为「限时免费、仅限部分地区」，并在价格说明中列出不提供的地区——安哥拉、白俄罗斯、柬埔寨、中国大陆（含香港与澳门）、古巴、刚果民主共和国、赤道几内亚、伊朗、伊拉克、老挝、利比亚、尼日利亚、朝鲜、俄罗斯、叙利亚、土库曼斯坦、乌兹别克斯坦、委内瑞拉，以及乌克兰的克里米亚、顿涅茨克与卢甘斯克地区。该模型仍在支持模型列表、token 价格表（input / output / cache read 均 Free）与月额度表（限时无限制）中，model ID `cat-jam-free`、接入点与其余模型的价格、额度、请求限额均未变
