@@ -147,8 +147,10 @@
 
 ### 其他
 
-- [阶越星辰 Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview)
-    - Flash Mini 49 RMB 每月（400M Credit）、Flash Plus 99（1600M）、Flash Pro 199（8000M）、Flash Max 699（40000M）
+- [阶越星辰 Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview) | [套餐与计费](https://platform.stepfun.com/docs/zh/step-plan/pricing)
+    - Mini 49 RMB 每月（400M Credit）、Plus 99（1600M）、Pro 199（8000M）、Max 699（40000M）；季付 129 / 269 / 539 / 1889、年付 456 / 936 / 1860 / 6666 RMB（季付与年付一次性支付，Credit 仍按月分 3 次与 12 次发放）
+    - 分时段扣减：调用 step-5-preview 时，高峰时段（北京时间周一至周五 09:00–12:00、14:00–18:00）消耗的 Credit 为低谷时段的 2 倍，其余时间为低谷时段按常规扣减；部分历史订阅不受该规则约束
+    - 加油包（仅向已订阅用户开放，有效期 30 天、与套餐有效期分别计算）：小油包 49 RMB / 400M Credit、大油包 99 RMB / 1600M Credit；套餐 Credit 与加油包 Credit 同时存在时优先扣减先到期的额度
     - 支持模型：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）
 - [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月；Standard（99 RMB 或 16 USD）：110 亿；Pro（329 RMB 或 50 USD）：380 亿；Max（659 RMB 或 100 USD）：820 亿
@@ -233,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/15：阶越星辰 Step Plan 对 **step-5-preview** 引入分时段 Credit 扣减：高峰时段（北京时间周一至周五 09:00–12:00、14:00–18:00）消耗的 Credit 为低谷时段的 2 倍，其余时间均为低谷时段、按常规扣减，部分历史订阅不受该规则约束。套餐档位与额度不变——Mini 400M / Plus 1,600M / Pro 8,000M / Max 40,000M Credit 每月，月付 49 / 99 / 199 / 699 RMB，季付 129 / 269 / 539 / 1,889、年付 456 / 936 / 1,860 / 6,666 RMB（季付与年付一次性支付，Credit 仍按月分 3 次与 12 次发放）；Credit 与金额按 1 元 = 1,000,000 Credit 换算，当期剩余额度到期清零、不结转，加油包（小油包 49 RMB / 400M、大油包 99 RMB / 1600M，有效期 30 天）、额度扣减顺序（先到期先扣）、支付方式（微信、支付宝、开放平台充值余额）与支持模型（9 款）均未变；档位现称为 Mini / Plus / Pro / Max（此前称 Flash Mini / Flash Plus / Flash Pro / Flash Max）；按请求次数计量的旧版 Coding Plan 仍不再向新用户开放购买
 - 2026/10/15：新增 **Command Code**（commandcode.ai）厂商条目：五档套餐（均为「+ 处理费」，额度为按模型分配的共享池，模型 token 价格与上游官方一致、官方称零加价）——**Go** $1/月含 $10 额度（10x、约 9K 次请求；2026-09-28 起新订阅者改为按模型分配额度、每模型月用量 $6–$10，此前订阅者续订时自动切换）、**GOAT** $10/月含 $80 额度（8x、约 75K 次请求、含 API 访问、叠加优惠可超 $100）、**Pro** $20/月含 $80 额度（覆盖 45+ 模型＝GOAT 全部再加 Claude / GPT / Gemini 等闭源高级模型）、**Max** $100/月含 $150 额度（叠加优惠最高 $300 等效、约 219K 次请求）、**Provider API 套餐** $15/月按量付费零加价（兼容 OpenAI 与 Anthropic 端点、充值额度可结转且永不过期）；限时免费模型 Laguna S 2.1、Ling 3.0 Flash Sante、Ling 3.1 Flash、Glyph Cluster；模型库含官方自研 taste-1 与 DeepSeek V4.1 Flash（沿用官方峰谷价）等
 - 2026/10/14：OpenCode Go 模型库调整（33 → 32 款）：移除 **DeepSeek V4 Flash** 与 **DeepSeek V4 Flash Vision Exp**，新增 **Gemini 4 Argon Contributor**。新模型的 token 价格为输入 $4.00 / 输出 $20.00 / 缓存读取 $0.20 每 1M tokens（无缓存写入价），月额度 Go ~~$30~~ **$60**、Go Plus ~~$120~~ **$240**（均标注「2x · Limited time」，即限时翻倍），预估请求数 Go 由 220 提高到 440 / 5 小时、540 → 1,080 / 周、1,060 → 2,120 / 月，Go Plus 880 → 1,760、2,160 → 4,320、4,240 → 8,480，model ID `gemini-4-argon-contributor`，接入点为 https://opencode.ai/inference/go/v1/models/gemini-4-argon-contributor（`@ai-sdk/google`，是该文档中唯一使用 `/v1/models/<model-id>` 形式的模型），隐私表标注 Model training 为 Yes、Data retention 为 Not ZDR，并给出说明句「Your prompts and completions may be used to train future Google models.」。被移除的两款 DeepSeek 旧模型在支持模型列表、token 价格表、两档月额度表、预估请求数表、接入点表与隐私表中整体删除，每请求 token 估算列表中的对应两行也被删除，DeepSeek 峰谷时段说明句随之由「DeepSeek V4.1 Flash / V4 Pro / V4 Flash / V4 Flash Vision Exp」改为「DeepSeek V4.1 Flash / V4 Pro」；其余模型的价格、额度与请求限额均未变
 
