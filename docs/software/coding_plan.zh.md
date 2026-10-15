@@ -235,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/15：Command Code 的 **Max** 套餐新增按模型额度：Qwen 3.7 Max 的可用月额度为 $300（2 倍用量，与 MiniMax M3 相同）；套餐价格与档位、其余模型的额度均未变
 - 2026/10/15：Command Code 把 **GOAT** 套餐中 DeepSeek V4.1 Flash 与 GLM-5.3 Flash 的月额度由 $100 调整为 $60；GOAT 其余模型的额度、各模型的 token 价格、套餐价格与档位均未变
 - 2026/10/15：Command Code 的 Pro 与 GOAT 套餐新增 **Qwen 3.8 Max Prime**（1M 上下文）：token 价格为输入 $4.00 / 输出 $12.00 / 缓存读取 $0.50 / 缓存写入 $5.00 每 1M tokens，月额度 GOAT $20、Pro $30；预估请求数 GOAT 131 / 5 小时、327 / 周、654 / 月，Pro 196 / 490 / 980。套餐覆盖的模型总数由 90 款增至 91 款（GOAT 由 65 款增至 66 款、Pro 由 80 款增至 81 款）；其余模型的价格与额度、套餐价格与内容均未变
 - 2026/10/15：Command Code 的 GOAT 套餐为 **GLM-5.3 Flash** 提供 $100 月额度（此前该模型未列入 GOAT 的高额度模型，GLM-5.2 的 $70 月额度保持不变）；GOAT 的高额度模型现为 $100 的 DeepSeek V4.1 Flash 与 GLM-5.3 Flash，以及 $70 的 GPT-5.6 Sol、Tencent Hy3、Qwen 3.8 27B。GLM-5.3 Flash 的 token 价格 0.15 / 0.50 / 0.03 每 1M tokens（输入 / 输出 / 缓存读取）、1M 上下文以及套餐价格与其余模型额度均未变
