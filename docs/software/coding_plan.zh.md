@@ -179,7 +179,7 @@
         - **Pro**：$20/月含 $80 额度，覆盖 45+ 模型，即 GOAT 全部模型再加 Claude、GPT、Gemini 等闭源高级模型；叠加优惠时潜在价值 $120+
         - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
         - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
-    - 限时免费模型：Laguna S 2.1、Ling 3.0 Flash Sante、Glyph Cluster
+    - 限时免费模型：Laguna S 2.1、Ling 3.0 Flash、Ling 3.0 Flash Sante、Glyph Cluster（Go、GOAT、Max 三档），另加 TypeSafe Jev（GOAT、Max）
     - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.0/3.1、Nemotron、Inkling 等
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
@@ -235,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/15：Command Code 新增两款限时免费模型：**Ling 3.0 Flash** 在 Go、GOAT、Max 三档均免费，**TypeSafe Jev** 在 GOAT 与 Max 免费；限时免费模型现为 Laguna S 2.1、Ling 3.0 Flash、Ling 3.0 Flash Sante、Glyph Cluster、TypeSafe Jev。套餐价格与档位未变
 - 2026/10/15：Command Code 的 **Max** 套餐新增按模型额度：Qwen 3.7 Max 的可用月额度为 $300（2 倍用量，与 MiniMax M3 相同）；套餐价格与档位、其余模型的额度均未变
 - 2026/10/15：Command Code 把 **GOAT** 套餐中 DeepSeek V4.1 Flash 与 GLM-5.3 Flash 的月额度由 $100 调整为 $60；GOAT 其余模型的额度、各模型的 token 价格、套餐价格与档位均未变
 - 2026/10/15：Command Code 的 Pro 与 GOAT 套餐新增 **Qwen 3.8 Max Prime**（1M 上下文）：token 价格为输入 $4.00 / 输出 $12.00 / 缓存读取 $0.50 / 缓存写入 $5.00 每 1M tokens，月额度 GOAT $20、Pro $30；预估请求数 GOAT 131 / 5 小时、327 / 周、654 / 月，Pro 196 / 490 / 980。套餐覆盖的模型总数由 90 款增至 91 款（GOAT 由 65 款增至 66 款、Pro 由 80 款增至 81 款）；其余模型的价格与额度、套餐价格与内容均未变

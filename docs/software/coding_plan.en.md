@@ -179,7 +179,7 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
         - **Pro**: $20/month with $80 in credits across 45+ models — everything in GOAT plus closed premium models such as Claude, GPT and Gemini; $120+ in potential value when model deals are active
         - **Max**: $100/month with $150 in credits (up to $300 equivalent with deals), roughly 219K requests; includes open and premium models, API access, higher rate limits and priority support
         - **Provider (API plan)**: $15/month plus processing fee, pay-as-you-go at zero markup with OpenAI- and Anthropic-compatible endpoints; topped-up credits roll over and never expire
-    - Limited-time free models: Laguna S 2.1, Ling 3.0 Flash Sante, Glyph Cluster
+    - Limited-time free models: Laguna S 2.1, Ling 3.0 Flash, Ling 3.0 Flash Sante and Glyph Cluster (on Go, GOAT and Max), plus TypeSafe Jev (on GOAT and Max)
     - Supported models (partial): taste-1 (the vendor's own model), DeepSeek V4.1 Flash, DeepSeek V4.1 Flash Fast, GLM-5.3 FlashX, GLM-5.2, Qwen 3.8 Omni Flash, Qwen 3.8 27B, Qwen 3.8 Max Prime, Qwen 3.7 Max, Qwen 3.7 Plus, Tencent Hy3, MiMo V2.6 Flash / Pro / Pro UltraSpeed, Grok 4.7, Step 5 Preview, Muse Spark 1.3 Contributor, GPT-6 Luna, GPT-6 Sol, Claude Haiku 5.5, Claude Sonnet 5.5, Gemini 4 Argon, Mistral Large 4, Jev (a decision model usable only headless via `cmd -p` and the Provider API), Ling 3.0/3.1, Nemotron, Inkling and others
     - DeepSeek V4.1 Flash follows the official peak/off-peak pricing: off-peak 0.15 / 0.60 / 0.003 and peak 0.30 / 1.20 / 0.006 (per 1M tokens: input / output / cache read; peak hours are 01:00–04:00 and 06:00–10:00 UTC, Monday to Friday)
 - [DeepSeek API Pricing](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/):
@@ -235,6 +235,7 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/10/15: Command Code added two limited-time free models: **Ling 3.0 Flash** is free on Go, GOAT and Max, and **TypeSafe Jev** is free on GOAT and Max; the limited-time free models are now Laguna S 2.1, Ling 3.0 Flash, Ling 3.0 Flash Sante, Glyph Cluster and TypeSafe Jev. The plan prices and tiers are unchanged
 - 2026/10/15: Command Code's **Max** plan added a per-model credit: Qwen 3.7 Max carries $300 in monthly credits (2x usage, the same as MiniMax M3); the plan prices and tiers and every other model's credits are unchanged
 - 2026/10/15: Command Code lowered the monthly credits of **DeepSeek V4.1 Flash** and **GLM-5.3 Flash** on the **GOAT** plan from $100 to $60; every other GOAT model's credits, all models' token prices and the plan prices and tiers are unchanged
 - 2026/10/15: Command Code added **Qwen 3.8 Max Prime** (1M context) to the Pro and GOAT plans: token prices are input $4.00 / output $12.00 / cache read $0.50 / cache write $5.00 per 1M tokens, with monthly credits of $20 on GOAT and $30 on Pro; estimated requests are 131 per 5 hours, 327 per week and 654 per month on GOAT and 196 / 490 / 980 on Pro. The number of models covered rises from 90 to 91 (GOAT from 65 to 66, Pro from 80 to 81); every other model's price and credits and the plan prices and contents are unchanged
