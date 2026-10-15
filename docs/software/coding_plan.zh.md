@@ -235,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/16：Command Code 上调 **Ling 3.1 Flash** 的月额度：GOAT 由 $20 调整为 $100、Pro 由 $30 调整为 $110，对应的预估请求数 GOAT 由 1,170 / 5 小时、2,920 / 周、5,850 / 月提高到 5,850 / 14,600 / 29,200，Pro 由 1,750 / 4,390 / 8,770 提高到 6,430 / 16,100 / 32,200。GOAT 的高额度模型现为 $100 的 Ling 3.1 Flash、DeepSeek V4.1 Flash 与 GLM-5.3 Flash，以及 $70 的 GPT-5.6 Sol、Tencent Hy3、Qwen 3.8 27B。该模型的 token 价格（输入 $0.30 / 输出 $0.90 / 缓存读取 $0.06 每 1M tokens，262K 上下文）、Go 档 $6 月额度与 526 / 1,050 / 1,750 的预估请求数，以及套餐价格与档位均未变
 - 2026/10/15：腾讯云大模型 Token Plan 完成 2026-10-09 的模型下线安排，**GLM-5**、**GLM-5.1**、**GLM-5-Turbo** 从模型库移除：企业版专业套餐的模型表与积分价表删除这三款模型（model ID `glm-5`/`glm-5-0`、`glm-5.1`/`glm-5-1`、`glm-5-turbo` 及其积分价行——GLM-5 输入 [0,32k) 100/400/1800、输入 32k+ 150/600/2200，GLM-5.1 130/600/2400 与 200/800/2800，GLM-5-Turbo 120/500/2200 与 180/700/2600，均为命中缓存/未命中缓存/输出、单位积分每百万 tokens），个人版通用 Token Plan 的可用模型删除 GLM-5 与 GLM-5.1；个人版通用 Token Plan 现支持 Auto、DeepSeek-V4.1-Flash 原厂直供、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7、MiniMax-M3、GLM-5.2、GLM-5.3、GLM-5.3-Flash、Kimi K2.7 Code、Kimi K3、Hy4 preview、MiMo-V2.6-Flash；企业版其余模型、其余积分价与套餐档位价格、各档积分额度均未变。腾讯云大模型 Coding Plan 的模型列表同步移除 GLM-5，可用模型仅剩 Auto（model 参数值 `tc-code-latest`）
 - 2026/10/15：Command Code 新增两款限时免费模型：**Ling 3.0 Flash** 在 Go、GOAT、Max 三档均免费，**TypeSafe Jev** 在 GOAT 与 Max 免费；限时免费模型现为 Laguna S 2.1、Ling 3.0 Flash、Ling 3.0 Flash Sante、Glyph Cluster、TypeSafe Jev。套餐价格与档位未变
 - 2026/10/15：Command Code 的 **Max** 套餐新增按模型额度：Qwen 3.7 Max 的可用月额度为 $300（2 倍用量，与 MiniMax M3 相同）；套餐价格与档位、其余模型的额度均未变
