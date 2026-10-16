@@ -103,7 +103,7 @@
     - 抵扣顺序：每次调用优先抵扣当前订阅月的套餐额度，用尽后自动抵扣用量包额度
     - 升配：不重置当前订阅周期，按剩余天数补缴差价并发放当前周期新增额度，自下一个订阅月起按新档位月额度计量
     - Essential 可同时支持 2–3 个 Agent 并发，权益为 Lite 全部权益
-    - 仅限本人在单台设备上使用
+    - 仅限本人使用：同一个 API Key 可配置到本人的多台设备（如家庭电脑与公司电脑）上使用；共享给他人可能被判定为违规并导致封禁
     - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
     - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 5 折
     - decision-model-preview（领域模型-决策模型）限时免费，调用不消耗 Credits
@@ -235,6 +235,7 @@
 
 ## 更新历史
 
+- 2026/10/16：阿里云百炼 Token Plan 个人版的订阅与设备规则更新：设备使用说明由「供本人在单台设备上使用」改为同一个 API Key 可配置到本人的多台设备（如家庭电脑与公司电脑）上使用、仍仅限本人（共享给他人可能被判定为违规并导致封禁）；订阅到期后 API Key 变为不可用，重新购买成功后原 API Key 恢复可用、无需在工具中重新配置（此前说明为重新购买后 API Key 会变更、需在工具中重新配置）。套餐档位与价格（Lite 60 / Essential 120 / Standard 180 / Pro 600 元每月，限时 39/79/139/499 元）、各档 Credits 额度、用量包、抵扣顺序与升配规则、支持模型与限时夜间折扣均未变
 - 2026/10/16：Command Code 的 GOAT 套餐按模型额度调整为 $60 可用于 DeepSeek V4.1 Flash、$60 可用于 GLM-5.3 Flash、$70 可用于 Tencent Hy3、$70 可用于 Qwen 3.8 27B（此前 DeepSeek V4.1 Flash、GLM-5.3 Flash、Ling 3.1 Flash 各为 $100，现 Ling 3.1 Flash 不再单列额度），高额度模型之外另列 34 款模型（此前 33 款）；**Max** 套餐新增 $300 可用于 Qwen 3.7 Max（与同为 $300 的 MiniMax M3 并列）；限时免费模型新增 **TypeSafe Jev**（GOAT、Max 两档，Go 档不含）。各套餐价格与档位、各模型的 token 价格与其余额度均未变
 - 2026/10/16：OpenCode Go 各模型的调用接入点改为按协议区分前缀的路径——OpenAI 兼容 `https://opencode.ai/inference/go/openai/v1/{chat/completions,responses}`、Anthropic 兼容 `https://opencode.ai/inference/go/anthropic/v1/messages`、Google 兼容 `https://opencode.ai/inference/go/google/v1beta/models/<model-id>`（Gemini 4 Argon Contributor）；模型列表接口仍为 `https://opencode.ai/inference/go/v1/models`。两种套餐价格、各模型 token 价格与额度、支持模型均未变
 - 2026/10/16：OpenCode Go 的限时免费模型 **Step 5 Preview Free** 免费期结束，转为常规计费模型 **Step 5 Preview**：token 价格由免费改为输入 $1.00 / 输出 $2.70 / 缓存读取 $0.10 每 1M tokens，月度使用额度为 Go ~~$15~~ **$60**、Go Plus ~~$60~~ **$240**（均标注「4x · Limited time」，即限时 4 倍），预估请求数 Go 由无限制改为 ~~430~~ **1,720** / 5 小时、~~1,070~~ **4,280** / 周、~~2,130~~ **8,520** / 月，Go Plus ~~1,720~~ **6,880** / ~~4,280~~ **17,120** / ~~8,520~~ **34,080**；model ID 由 `step-5-preview-free` 改为 `step-5-preview`，每请求估算用量为 1,000 输入 token、55,000 缓存 token、200 输出 token，「**Step 5 Preview Free:** 限时免费」的说明句删除。限时免费模型现为 LongCat 2.5 Preview Free 与 Cat Jam Free，其余模型的价格、额度与请求限额均未变
