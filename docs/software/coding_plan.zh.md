@@ -236,6 +236,8 @@
 
 ## 更新历史
 
+- 2026/10/18：Command Code 下调 **GLM-5.3 Flash** 的预估请求数：GOAT 由 11,800 / 29,500 / 59,000 降至 9,440 / 23,600 / 47,200，Pro 由 11,800 / 29,500 / 59,000 降至 10,600 / 26,500 / 53,100（5 小时 / 周 / 月），Go 档仍为 1,770 / 3,540 / 5,900。该模型的 token 价格（输入 $0.15 / 输出 $0.50 / 缓存读取 $0.03 每 1M tokens，1M 上下文）、月额度（Go $10、GOAT $80、Pro $90）、各套餐价格与档位、其余模型的请求数与额度均未变
+
 - 2026/10/18：Command Code 调整 **GOAT** 与 **Max** 的按模型额度，并把 **TypeSafe Jev** 移出限时免费名单：GOAT 现为 $100 可用于 Ling 3.1 Flash（重新单列额度）、$80 可用于 DeepSeek V4.1 Flash（此前 $60）、$80 可用于 GLM-5.3 Flash（此前 $60）、$70 可用于 Tencent Hy3、$70 可用于 Qwen 3.8 27B，高额度模型之外另列 33 款模型（此前 34 款）；**Max** 现只列出 $300 可用于 MiniMax M3，Qwen 3.7 Max 的 $300 额度（2 倍用量）不再列出；限时免费模型现为 Laguna S 2.1、Glyph Cluster、Cat Jam（Go、GOAT、Max 三档）与 Beam 1.0（Go、GOAT、Pro、Max 10×、Max 20× 全部档位），此前在 GOAT 与 Max 免费的 TypeSafe Jev 已不再免费。按模型额度表中 DeepSeek V4.1 Flash 的月额度 GOAT 仍为 $80、Pro 仍为 $90。各套餐价格与档位、其余模型的 token 价格与额度均未变
 
 - 2026/10/17：Command Code 调整 **GOAT** 与 **Max** 的按模型额度，并把 **TypeSafe Jev** 重新列入限时免费名单：GOAT 现为 $60 可用于 DeepSeek V4.1 Flash（此前 $80）、$60 可用于 GLM-5.3 Flash（此前 $100）、$70 可用于 Tencent Hy3、$70 可用于 Qwen 3.8 27B（此前 Ling 3.1 Flash 单列的 $100 额度不再列出），高额度模型之外另列 34 款模型（此前 33 款）；**Max** 重新列出 $300 可用于 Qwen 3.7 Max（2 倍用量，与同为 $300 的 MiniMax M3 并列）；限时免费名单重新包含 **TypeSafe Jev**（GOAT、Max 两档，Go 档不含）。GOAT 与 Pro 的预估请求数表未变，DeepSeek V4.1 Flash 仍为 GOAT 41,000 / 103,000 / 205,000、Pro 46,200 / 115,000 / 231,000（5 小时 / 周 / 月）。各套餐价格与档位、其余模型的 token 价格与额度均未变
