@@ -114,11 +114,11 @@
     - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
-    - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版（2026-10-31 下线）、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
+    - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版（2026-10-31 下线）、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
     - 峰谷计费：DeepSeek 模型工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰，其余为空闲；周末全天按空闲计费
     - 积分抵扣价（积分每百万 tokens）：DeepSeek-V4.1-Flash（含原厂直供）缓存命中 2 / 未命中 100 / 输出 400（空闲）、4 / 200 / 800（高峰）；Hy4 preview 30 / 600 / 1800；MiMo-V2.6-Pro 广州 2.5/300/600、新加坡 2.59/313.05/626.1；MiMo-V2.6-Flash 广州 2/100/200、新加坡 2.02/100.75/201.5
     - 个人版 Hy Token Plan：Lite 28 RMB 每月（560 积分）、Standard 78（1560）、Pro 238（4760）、Max 468（9360）；支持 Hy3、Hy4 preview
-    - 个人版通用 Token Plan：Lite 39（780 积分）、Standard 99（1980）、Pro 299（5980）、Max 599（11980）；支持 Auto、DeepSeek-V4.1-Flash 原厂直供、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、GLM-5.2、GLM-5.3、GLM-5.3-Flash、Kimi K2.7 Code、Kimi K3、Hy4 preview、MiMo-V2.6-Flash
+    - 个人版通用 Token Plan：Lite 39（780 积分）、Standard 99（1980）、Pro 299（5980）、Max 599（11980）；支持 Auto、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 正式版 原厂直供、DeepSeek-V4-Pro 正式版 原厂直供、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、GLM-5.2、GLM-5.3、GLM-5.3-Flash、Kimi K2.7 Code、Kimi K3、Hy4 preview、MiMo-V2.6-Flash
 - [百度千帆 Token Plan 个人版](https://cloud.baidu.com/product/codingplan.html) | [个人版文档](https://cloud.baidu.com/doc/qianfan/s/Dmrabu8b6) | [企业版文档](https://cloud.baidu.com/doc/qianfan/s/ymq8wwch2)
     - Mini 9.9 RMB 每月（1000 万 token）、Lite 40（4200 万）、Pro 200（2.3 亿）、Max 600（7 亿）
     - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5.2、GLM-5.1、Kimi-K2.6、ERNIE 5.1
@@ -184,7 +184,7 @@
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
     - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
-    - deepseek-flash（DeepSeek-V4.1-Flash，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
+    - deepseek-flash（DeepSeek-V4.1-Flash-1017，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
     - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：空闲时段输入命中缓存 0.15 / 输入未命中缓存 4.5 / 输出 13.5 RMB 每 1M tokens；高峰时段 0.30 / 9.0 / 27.0
     - 网页搜索与抓取（Search、Fetch）为独立 API，按成功请求次数计费：Search 与 Fetch 均为每 1,000 次成功请求 5 元；在 DeepSeek Harness、Claude Code、Codex 中使用 DeepSeek API 时，Server 端工具调用对 Search / Fetch 的访问目前不计费，自北京时间 2026 年 11 月 1 日 00:00 起按次收取调用费用
 
@@ -235,6 +235,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/17：DeepSeek 把 deepseek-flash 对应的模型版本更新为 **DeepSeek-V4.1-Flash-1017**（此前 DeepSeek-V4.1-Flash）：版本说明中旧模型名 `deepseek-v4-flash`、`deepseek-v4-flash-vision-exp` 的请求现由 DeepSeek-V4.1-Flash-1017 提供服务，仍按 Flash 价格计费；腾讯云大模型 Token Plan 企业版专业套餐与个人版通用套餐中该模型的名称同步由「DeepSeek-V4.1-Flash 原厂直供」改为「DeepSeek-V4.1-Flash-1017 原厂直供」（model ID 仍为 `deepseek/deepseek-flash`，企业版另有 model ID `deepseek-v4.1-flash` 的非原厂直供版本不受影响）。token 价格与峰谷时段、各套餐档位与额度、其余模型均未变
 
 - 2026/10/17：OpenCode Go 的限时免费模型 **Cat Jam Free** 更名为 **Beam Free**：支持模型列表、token 价格表（输入 / 输出 / 缓存读取均 Free）、两档月额度表（限时无限制）、预估请求数表、接入点表与隐私表中的对应行及说明句一并改名，model ID 由 `cat-jam-free` 改为 `beam-free`；该模型仍标注「限时免费、仅限部分地区」，不提供的地区列表不变，数据保留仍为 30 天（Model training 为 Not used）。模型库仍为 29 款，两种套餐价格与其余模型的价格、额度、请求限额均未变
 - 2026/10/17：Command Code 调整 **GOAT** 与 **Max** 的按模型额度，并把 **TypeSafe Jev** 移出限时免费名单：GOAT 现为 $100 可用于 Ling 3.1 Flash（重新单列额度）、$80 可用于 DeepSeek V4.1 Flash（此前 $60）、$100 可用于 GLM-5.3 Flash（此前 $60）、$70 可用于 Tencent Hy3、$70 可用于 Qwen 3.8 27B，高额度模型之外另列 33 款模型（此前 34 款）；Max 不再列出 $300 可用于 Qwen 3.7 Max（$300 可用于 MiniMax M3 保留）；限时免费模型现为 Laguna S 2.1、Glyph Cluster、Cat Jam（Go、GOAT、Max 三档），此前在 GOAT 与 Max 免费的 TypeSafe Jev 已不再免费。按模型额度表中 **DeepSeek V4.1 Flash** 的月额度现为 GOAT $80（此前 $60）、Pro $90，其预估请求数（5 小时 / 周 / 月）GOAT 为 41,000 / 103,000 / 205,000、Pro 为 46,200 / 115,000 / 231,000（此前两档均为 51,300 / 128,000 / 256,000）。各套餐价格与档位、其余模型的价格与额度均未变
