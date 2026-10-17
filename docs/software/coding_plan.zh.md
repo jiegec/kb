@@ -179,7 +179,7 @@
         - **Pro**：$20/月含 $80 额度，覆盖 45+ 模型，即 GOAT 全部模型再加 Claude、GPT、Gemini 等闭源高级模型；叠加优惠时潜在价值 $120+
         - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
         - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
-    - 限时免费模型：Laguna S 2.1、Glyph Cluster、Cat Jam（Go、GOAT、Max 三档）、Beam 1.0（Go、Pro 两档）
+    - 限时免费模型：Laguna S 2.1、Glyph Cluster、Cat Jam（Go、GOAT、Max 三档）、Beam 1.0（Go、GOAT、Pro、Max 10×、Max 20× 全部档位）
     - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、Muse Spark Open、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Jev 1.14.0（决策模型，32K 上下文，与 Jev 同样仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.1、Nemotron、Nemotron 3.5 Super VL、Cat Jam（限时免费）、Beam 1.0（限时免费，1M 上下文）、Inkling 等
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
@@ -235,6 +235,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/17：Command Code 的限时免费模型 **Beam 1.0**（模型标识 `beam-free`，1M 上下文，输入 / 输出 / 缓存读取均 Free、容量供给期间免费）扩展到全部档位：GOAT 与 Max 现也包含该模型，GOAT 档的模型表列出 70 款（此前 69 款）。限时免费模型现为 Laguna S 2.1、Glyph Cluster、Cat Jam（Go、GOAT、Max 三档）与 Beam 1.0（Go、GOAT、Pro、Max 10×、Max 20× 全部档位）。各套餐价格与档位、其余模型的价格与额度均未变
 
 - 2026/10/17：DeepSeek 把 deepseek-flash 对应的模型版本更新为 **DeepSeek-V4.1-Flash-1017**（此前 DeepSeek-V4.1-Flash）：版本说明中旧模型名 `deepseek-v4-flash`、`deepseek-v4-flash-vision-exp` 的请求现由 DeepSeek-V4.1-Flash-1017 提供服务，仍按 Flash 价格计费；腾讯云大模型 Token Plan 企业版专业套餐与个人版通用套餐中该模型的名称同步由「DeepSeek-V4.1-Flash 原厂直供」改为「DeepSeek-V4.1-Flash-1017 原厂直供」（model ID 仍为 `deepseek/deepseek-flash`，企业版另有 model ID `deepseek-v4.1-flash` 的非原厂直供版本不受影响）。token 价格与峰谷时段、各套餐档位与额度、其余模型均未变
 
