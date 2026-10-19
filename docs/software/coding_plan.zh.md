@@ -85,16 +85,16 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) | [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时最多约 1,200 次请求、每周最多约 9,000 次、每订阅月最多约 18,000 次
     - Pro 套餐（200 RMB 每月）：Lite 的 5 倍用量
-    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、MiniMax-M3、Kimi-K2.7-Code（即将下线）、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
+    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、MiniMax-M3（即将下线）、Kimi-K2.7-Code（即将下线）、Kimi-K2.8-Preview、Kimi-K3（抵扣系数高，仅建议 Pro 套餐用户）、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash
     - 1M 上下文支持：doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4-flash、deepseek-v4-pro
     - 限时活动：deepseek-v4.1-flash 抵扣系数 5 折（2026-09-23 00:00 至 2026-12-30 23:59:59）；Kimi-K2.8-Preview 可用量活动（2026-09-18 00:00 至 2026-12-14 23:59:59，与 Agent Plan 6 折抵扣活动期间相当）
     - 主要模型规格：Doubao-Seed-2.1-pro（新一代旗舰，1024k 上下文/256k 输出）、Doubao-Seed-2.1-lite（轻量高效，1024k/256k）、Doubao-Seed-2.0-mini（极速响应，256k/128k）、DeepSeek-V4.1-Flash（552B 总参数 MoE、原生多模态视觉理解，1024k/384k）、Kimi-K2.8-Preview（综合性能接近 K3、思考效率更高，1M/1M、支持文本与图片输入）、GLM-5.3-Flash（智谱首个原生多模态模型，320B 总参数/18B 激活，1M/128K）
 - [方舟 Agent Plan 个人版](https://www.volcengine.com/docs/82379/2366394)
     - Agent 燃料值（AFP）为统一用量计费单位：文本/向量模型 =（输入 token × 输入抵扣系数 + 输出 token × 输出抵扣系数）/ 10000；视频模型 = tokens / 10000 × 系数；图片模型 = 成功生成张数 × 系数。抵扣系数由模型统一决定，不随输入长度变化
-    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25，2026-09-15 00:00 至 2026-12-30 23:59:59）；kimi-k2.7-code（即将下线）4.5；kimi-k2.8-preview 8（限时 6 折 4.8，2026-09-17 00:00 至 2026-12-14 23:59:59）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
+    - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3（即将下线）、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25，2026-09-15 00:00 至 2026-12-30 23:59:59）；kimi-k2.7-code（即将下线）4.5；kimi-k2.8-preview 8（限时 6 折 4.8，2026-09-17 00:00 至 2026-12-14 23:59:59）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
     - 档位（AFP，每 5 小时/每周/每月/每日）：Small 40 RMB 每月（2000/7000/20000/10000）、Medium 200（10000/35000/100000/50000）、Large 500（25000/87500/250000/125000）、Max 1000（50000/175000/500000/250000）
     - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
-    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3、glm-5.3、glm-5.3-flash、kimi-k2.7-code（即将下线）、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3（即将下线）、glm-5.3、glm-5.3-flash、kimi-k2.7-code（即将下线）、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Medium 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
     - Agent 进化：前 50 个文件免费
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
@@ -235,6 +235,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/19：火山方舟把 **minimax-m3** 标记为「即将下线」：Coding Plan 与 Agent Plan 的模型名单中该模型名后均加上「即将下线」，AFP 抵扣系数表中与 doubao-seed-evolving 同列的 minimax-m3 亦同，官方更新日志新增 10.19「模型启动下线：minimax-m3 模型启动下线」条目，尚未给出具体下线日期。该模型的抵扣系数仍为 2.5、各档位仍为 √。套餐档位与价格、其余模型及其抵扣系数、1M 上下文支持名单均未变
 
 - 2026/10/19：阿里云百炼新增 DeepSeek 模型 **deepseek-v4.1-flash-1017**，并为 DeepSeek 第三方模型新增中国香港地域：该模型按峰谷计费（闲时为 UTC+8 22:00 至次日 08:00，忙时为其余时段），单价与 deepseek-v4.1-flash 相同——中国站与「全球」部署忙时 2 元 / 闲时 1 元输入、忙时 8 元 / 闲时 4 元输出，国际站忙时 2.188 元 / 闲时 1.094 元输入、忙时 8.75 元 / 闲时 4.375 元输出（均为每百万 Token），华北2（北京）地域的免费额度为 100 万 Token；中国香港地域目前仅提供这一款 DeepSeek 模型（按全球部署的峰谷价计费）。上下文缓存折扣与 deepseek-v4.1-flash 一致——命中缓存的输入 Token 按输入单价的 **10%** 计费，在该章节目录所列的六个地域的忙时与闲时时段均适用。deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731 的单价与峰谷时段、其余章节与模型的定价规则均未变；该变更为百炼通用模型目录中的版本新增与地域扩展，Token Plan 个人版与团队版、Coding Plan 的档位、价格、额度与支持模型名单均未变
 
