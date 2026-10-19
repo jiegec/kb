@@ -21,11 +21,11 @@
 [MiniMax M Plan](https://platform.minimax.cn/docs/m-plan/intro) | [常见问题](https://platform.minimax.cn/docs/m-plan/faq) | [国际版](https://platform.minimax.io/docs/m-plan/intro)
 
 - M Plan 为 MiniMax 面向个人的 AI 订阅，取代原 Token Plan（Token Plan 已停止售卖）。月付原价：Go ¥49 / $22、Explore ¥119 / $55、Build ¥469 / $132；年付只需付 10 个月（省 2 个月）；上线期间（至 2026-10-14）月付首月 5 折
-- 支持模型：三档均含文本模型 MiniMax-M3.1-Flash-Preview（原生多模态、1M 上下文、思考深度可调）、图像与音频生成、联网搜索、多模态理解；Explore、Build 另含 H3 视频模型（Go 不含视频）；不含音乐等资源
+- 支持模型：三档均含文本模型 MiniMax-M3.1-Flash（原生多模态、1M 上下文、思考深度可调；M Plan 各页仍写作 M3.1 Flash Preview）、图像与音频生成、联网搜索、多模态理解；Explore、Build 另含 H3 视频模型（Go 不含视频）；不含音乐等资源
 - 用量（相对 Go）：Explore 3 倍；Build 在中文站文档为 **12 倍**、国际版文档为 **7.5 倍**（两站数值不一致）；文本/图像/音频等非视频模型受 5 小时与周窗口限制，视频模型仅受周窗口限制
 - 积分包：1,000 积分 = ¥7（国际版 $1），自购买起 1 年有效；扣费顺序为套餐额度优先、积分包其次
-- MiniMax-M3.1-Flash-Preview 官方标注暂仅通过 M Plan 与 MiniMax Code 提供
-- 模型下线通知：MiniMax M2.5、M2.7 系列将逐步停止服务——2026-10-19 停止向新用户开放调用，2026-11-18 正式下线；按量付费 API 存量用户可继续调用至正式下线日；M Plan 与 Token Plan 用户对 M2.5、M2.7 的请求自 2026-10-19 起统一路由至 M3.1 Flash Preview（原模型名保留作为兼容入口，用户无需修改模型名，套餐用量权益不变）
+- 文本模型在模型总览中的名称为 **MiniMax-M3.1-Flash**（此前 MiniMax-M3.1-Flash-Preview），且不再标注「暂仅通过 M Plan 与 MiniMax Code 提供」；按量计费页的模型价格表仍未列出该模型（当前只列 M3 与历史模型），M Plan 各档的文本模型在订阅页与 FAQ 中仍写作 M3.1 Flash Preview
+- 模型下线通知：MiniMax M2.5、M2.7 系列将逐步停止服务——2026-10-19 停止向新用户开放调用，2026-11-18 正式下线；按量付费 API 存量用户可继续调用至正式下线日；M Plan 与 Token Plan 用户对 M2.5、M2.7 的请求自 2026-10-19 起统一路由至 M3.1 Flash Preview（原模型名保留作为兼容入口，用户无需修改模型名，套餐用量权益不变）。自 2026-10-19 起 M2.7、M2.7-highspeed 在模型总览中已由语言模型转为历史模型（与 M2.5 系列并列），按量计费页仍把这两款列在历史模型之前
 - 订阅 Key 对支持 OpenAI 兼容或 Anthropic 兼容协议的工具均可用（Claude Code、Codex、Cursor、OpenCode、Pi、Hermes Agent、OpenClaw 等，官方文档已把 Hermes Agent 与 OpenClaw 列入）；在官方 MiniMax Code 中使用无需单独订阅或配置订阅 Key；套餐暂不支持降级——月付可升级为更高档位的月付或年付，年付仅可升级为更高档位的年付；关闭自动续费后无法恢复（需重新购买，未到期前升级可用剩余价值抵扣）
 - 原 Token Plan 老用户：自动续费开启时原套餐与权益不变（保留 ∞ 限额、150% 周额度等历史优惠），可随时升级到 M Plan（未使用部分按剩余时间折算抵扣）；升级对应关系 Plus → Go/Explore/Build、Max → Explore/Build、Ultra → Build，升级后不可退回 Token Plan
 - Token Plan 老用户迁移（国内）：Max-极速 ¥199 → Max ¥119（月费下调 ¥80、每月补约 ¥160 积分）、Ultra-极速 ¥899 → Ultra ¥469（下调 ¥430、补约 ¥860 积分）；Starter ¥29、Plus-极速 ¥98 继续保留（仅老用户）；国际版 Max-hs $80 → Max、Ultra-hs $150 → Ultra（各下调 $30、每月补约 $60 积分），Starter $10、Plus-hs $40 保留；停售档年包按月独立补发等值积分（每月额度有效期 1 年、不滚存）
@@ -237,6 +237,7 @@
 
 ## 更新历史
 
+- 2026/10/19：MiniMax 把文本模型 **M3.1 Flash Preview** 转为正式型号 **MiniMax-M3.1-Flash**：模型名去掉 Preview 后缀，不再标注「暂仅通过 M Plan 与 MiniMax Code 提供」，介绍与能力标注（原生多模态、1M 上下文、思考深度可调）不变；同时 **MiniMax-M2.7、M2.7-highspeed** 在模型总览中由语言模型转为历史模型（与 M2.5 系列并列），按量计费页仍把这两款列在历史模型之前。M2.5 / M2.7 系列的下线安排本身不变——2026-10-19 起停止向新用户开放调用、2026-11-18 正式下线，M Plan 与 Token Plan 用户的 M2.5 / M2.7 请求自 2026-10-19 起路由至 M3.1 Flash Preview。M Plan 三档的套餐价格与用量倍数、文本模型在订阅页与 FAQ 中的写法（仍为 M3.1 Flash Preview）、M3 与历史模型的按量单价（M3 ≤512K 输入 tokens 2.10 / 8.40 / 0.42、>512K 4.20 / 16.80 / 0.84，缓存读取同比例五折）均未变
 - 2026/10/19：阿里云百炼 Token Plan 个人版支持模型新增 **deepseek-v4.1-flash-1017**（能力标注「推理模型、视觉理解、文本生成」，列于 deepseek-v4.1-flash 之后），并加入限时夜间五折名单——每晚 22:00–次日 08:00 的 Credits 消耗享 5 折，名单现为 deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017；官方 OpenCode 与 OpenClaw 接入文档的个人版、团队版配置示例也同步加入该模型（OpenCode 中名称写作 DeepSeek V4.1 Flash 1017；OpenClaw 中 contextWindow 1,000,000、maxTokens 393,216、reasoning false、input 为 text 与 image）。套餐档位与价格（Lite 60 / Essential 120 / Standard 180 / Pro 600 元每月，限时 39/79/139/499 元）、各档 Credits 额度、用量包、抵扣顺序与升配规则、qwen3.8-max 与 qwen3.8-flash 的夜间四折、decision-model-preview 限时免费均未变
 - 2026/10/19：删除 kb 中 Command Code 的「按模型额度」类记录（10/15–10/18 共 11 条）：该厂商营销页的「$X 可用于 Y」在不同请求间交替返回两组数值（如 GOAT 档 $100 / $80 与 $60 / $60 交替出现），并非真实变更；各套餐的月额度以文档页 /docs/plans/{go,goat,pro} 的 Monthly credits 表为准（当前 Go / GOAT / Pro 三页数值稳定且互相一致）
 - 2026/10/19：火山方舟把 **minimax-m3** 标记为「即将下线」：Coding Plan 与 Agent Plan 的模型名单中该模型名后均加上「即将下线」，AFP 抵扣系数表中与 doubao-seed-evolving 同列的 minimax-m3 亦同，官方更新日志新增 10.19「模型启动下线：minimax-m3 模型启动下线」条目，尚未给出具体下线日期。该模型的抵扣系数仍为 2.5、各档位仍为 √。套餐档位与价格、其余模型及其抵扣系数、1M 上下文支持名单均未变
