@@ -104,14 +104,14 @@
     - 升配：不重置当前订阅周期，按剩余天数补缴差价并发放当前周期新增额度，自下一个订阅月起按新档位月额度计量
     - Essential 可同时支持 2–3 个 Agent 并发，权益为 Lite 全部权益
     - 仅限本人使用：同一个 API Key 可配置到本人的多台设备（如家庭电脑与公司电脑）上使用；共享给他人可能被判定为违规并导致封禁
-    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
-    - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash 5 折
+    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
+    - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017 5 折
     - decision-model-preview（领域模型 - 决策模型）限时免费，调用不消耗 Credits
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
     - 标准坐席 ¥198/坐席/月（25,000 Credits）、高级坐席 ¥698（100,000）、尊享坐席 ¥1,398（250,000）；共享用量包 ¥5,000/个（625,000 Credits）
     - 单次消耗 Credits 由模型类型、Token 用量、思考模式及工具调用动态决定；以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
     - 1 Credit 对应 API 价格（隐式缓存）：256K 以内上下文 0.01–0.02 元，256K–1M 0.04–0.08 元
-    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
     - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版（2026-10-31 下线）、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
@@ -237,6 +237,7 @@
 
 ## 更新历史
 
+- 2026/10/19：阿里云百炼 Token Plan 个人版支持模型新增 **deepseek-v4.1-flash-1017**（能力标注「推理模型、视觉理解、文本生成」，列于 deepseek-v4.1-flash 之后），并加入限时夜间五折名单——每晚 22:00–次日 08:00 的 Credits 消耗享 5 折，名单现为 deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017；官方 OpenCode 与 OpenClaw 接入文档的个人版、团队版配置示例也同步加入该模型（OpenCode 中名称写作 DeepSeek V4.1 Flash 1017；OpenClaw 中 contextWindow 1,000,000、maxTokens 393,216、reasoning false、input 为 text 与 image）。套餐档位与价格（Lite 60 / Essential 120 / Standard 180 / Pro 600 元每月，限时 39/79/139/499 元）、各档 Credits 额度、用量包、抵扣顺序与升配规则、qwen3.8-max 与 qwen3.8-flash 的夜间四折、decision-model-preview 限时免费均未变
 - 2026/10/19：删除 kb 中 Command Code 的「按模型额度」类记录（10/15–10/18 共 11 条）：该厂商营销页的「$X 可用于 Y」在不同请求间交替返回两组数值（如 GOAT 档 $100 / $80 与 $60 / $60 交替出现），并非真实变更；各套餐的月额度以文档页 /docs/plans/{go,goat,pro} 的 Monthly credits 表为准（当前 Go / GOAT / Pro 三页数值稳定且互相一致）
 - 2026/10/19：火山方舟把 **minimax-m3** 标记为「即将下线」：Coding Plan 与 Agent Plan 的模型名单中该模型名后均加上「即将下线」，AFP 抵扣系数表中与 doubao-seed-evolving 同列的 minimax-m3 亦同，官方更新日志新增 10.19「模型启动下线：minimax-m3 模型启动下线」条目，尚未给出具体下线日期。该模型的抵扣系数仍为 2.5、各档位仍为 √。套餐档位与价格、其余模型及其抵扣系数、1M 上下文支持名单均未变
 
