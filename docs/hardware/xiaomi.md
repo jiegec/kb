@@ -20,7 +20,7 @@
 
 来源：
 
-- [小米自研玄戒O1芯片深度评测：直逼8 Elite！](https://www.bilibili.com/video/BV18sJHz5ENR/)
+- [小米自研玄戒 O1 芯片深度评测：直逼 8 Elite！](https://www.bilibili.com/video/BV18sJHz5ENR/)
 
 ## 玄戒 O3
 
@@ -46,4 +46,4 @@
 
 来源：
 
-- [小米玄戒O3芯片前瞻上手：外星科技！](https://www.bilibili.com/video/BV1fhhP6xEMp/)
+- [小米玄戒 O3 芯片前瞻上手：外星科技！](https://www.bilibili.com/video/BV1fhhP6xEMp/)
