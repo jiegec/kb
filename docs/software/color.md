@@ -50,3 +50,6 @@ YCbCr 是把 YPbPr 转成数字。
 
 例如：sRGB 里的 (255,0,0)，是 P3 的 (234,51,35)。
 
+## gamma correction
+
+人眼对亮度的感知是非线性的，对低亮度的细节敏感。为了给低亮度部分更高的精度，做 gamma encoding：encoded = pow(linear, 1/2.2) 然后保存，然后显示之前，再进行 gamma decoding：linear = pow(encoded, 2.2)。
