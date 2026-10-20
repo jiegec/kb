@@ -184,7 +184,7 @@
     - 限时免费模型：Laguna S 2.1、Glyph Cluster、Beam 1.0、MiniMax M3.1 Flash（Go、GOAT、Pro、Max 10×、Max 20× 全部档位）
     - 模型库共 96 款：Go 列出 58 款、GOAT 71 款、Pro 86 款
     - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、Muse Spark Open、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Jev 1.14.0（决策模型，32K 上下文，与 Jev 同样仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.1、Nemotron、Nemotron 3.5 Super VL、MiniMax M3.1 Flash（另有同名的限时免费版本，调用不消耗额度）、Beam 1.0（限时免费，1M 上下文）、Inkling 等
-    - 各套餐月额度（按模型分配，取自文档页 Monthly credits 表，单位美元）：**Ling 3.1 Flash** Go $6 / GOAT $100 / Pro $110；**DeepSeek V4.1 Flash** Go $10 / GOAT ~~$80~~ **$100** / Pro ~~$90~~ **$110**（GOAT 与 Pro 为限时提高，至 2026-10-21）；**GLM-5.3 Flash** Go $10 / GOAT $80 / Pro $90；**DeepSeek V4.1 Flash Fast** Go $6 / GOAT $60 / Pro $70；**Qwen 3.7 Max** Go $10 / GOAT $33 / Pro $43；**GPT-5.6 Sol** GOAT $20 / Pro $30；**Muse Spark 1.3 Contributor** Go $6 / GOAT $20 / Pro $30；**Muse Spark Open**、**Nemotron 3.5 Super VL** 均为 Go $6 / GOAT $20 / Pro $30；**Jev 1.14.0** GOAT $20 / Pro $30；**Qwen 3.8 Max Prime** GOAT $20 / Pro $30；**MiniMax M3.1 Flash** Go $6 / GOAT $20 / Pro $30
+    - 各套餐月额度（按模型分配，取自文档页 Monthly credits 表，单位美元）：**Ling 3.1 Flash** Go $6 / GOAT $100 / Pro $110；**DeepSeek V4.1 Flash** Go $10 / GOAT ~~$80~~ **$100**（限时提高至 2026-10-21）/ Pro $90（限时提高已结束）；**GLM-5.3 Flash** Go $10 / GOAT $80 / Pro $90；**DeepSeek V4.1 Flash Fast** Go $6 / GOAT $60 / Pro $70；**Qwen 3.7 Max** Go $10 / GOAT $33 / Pro $43；**GPT-5.6 Sol** GOAT $20 / Pro $30；**Muse Spark 1.3 Contributor** Go $6 / GOAT $20 / Pro $30；**Muse Spark Open**、**Nemotron 3.5 Super VL** 均为 Go $6 / GOAT $20 / Pro $30；**Jev 1.14.0** GOAT $20 / Pro $30；**Qwen 3.8 Max Prime** GOAT $20 / Pro $30；**MiniMax M3.1 Flash** Go $6 / GOAT $20 / Pro $30
     - MiniMax M3.1 Flash token 价格（每 1M tokens，输入 / 输出 / 缓存读取）：$0.15 / $0.60 / $0.015，1M 上下文；同名限时免费版本输入 / 输出 / 缓存读取均为 Free、调用不消耗额度
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
@@ -240,6 +240,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/20：Command Code 在 **Pro** 套餐结束 **DeepSeek V4.1 Flash** 的限时额度提高，该模型的月额度由 $110 回落为 **$90**，预估请求数同步回落为 46,200 / 5 小时、115,000 / 周、231,000 / 月；**GOAT** 档仍为限时提高后的 $100（至 2026-10-21），**Go** 维持 $10。该模型 token 价格（输入 $0.15 / 输出 $0.60 / 缓存读取 $0.003 每 1M tokens）、其余模型的月额度、各套餐价格与档位均未变
 
 - 2026/10/20：火山方舟 Coding Plan 与 Agent Plan 新增模型 **DeepSeek-V4.1-Flash-Economy**：与 DeepSeek-V4.1-Flash 采用完全相同的模型权重、能力与效果一致，价格更低、回答生成速度略慢，适合注重成本、对速度要求不高的场景，支持多模态输入，默认开启深度思考且可手动关闭，上下文窗口 1049k、最大输出 384k，并纳入 1M 上下文支持名单。Agent Plan 中该模型抵扣系数为 **2**（输入 / 输出相同），2026-10-20 00:00 至 2026-12-30 23:59:59 期间享 5 折（折后 1）；Coding Plan 中同一时段抵扣系数亦享 5 折。Agent Plan 四档（Small / Medium / Large / Max）与 Coding Plan Lite / Pro 均支持该模型。各套餐价格与档位、其余模型的抵扣系数与模型范围均未变
 
