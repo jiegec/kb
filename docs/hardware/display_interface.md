@@ -47,6 +47,35 @@ HDMI 2.1 还支持 DSC 视频流压缩，可以支持更高的分辨率，如 8k
 
 参考：[Wikipedia](https://en.wikipedia.org/wiki/HDMI) [HDMI 2.1 FEC RX IP Core](https://www.hardent.com/pdf/Rambus-Hardent_HDMI_2_1_FEC_RX_IP.pdf)
 
+### AVI InfoFrame
+
+HDMI 内，可以通过 AVI InfoFrame 来传输视频格式的相关信息，结构如下：
+
+- Data[0]: Type
+- Data[1]: Version
+- Data[2]: Length
+- Data[3]: Checksum
+- Data[4][1:0]: Scan information, No data/Overscanned/Underscanned/Future
+- Data[4][3:2]: Bar data, None/Vertical/Horizontal/Vertical and Horizontal
+- Data[4][4]: Active format present
+- Data[4][6:5]: Pixel format, RGB/YCbCr 4:2:2/YCbCr 4:4:4/Future
+- Data[5][3:0]: Active format aspect ratio, Same as picture aspect ratio/4:3 (Center)/16:9 (Center)/14:9 (Center)
+- Data[5][5:4]: Picture aspect ratio, No Data/4:3/16:9/Future
+- Data[5][7:6]: Colorimetry, No Data/SMPTE 170M/ITU-R 709/Extended Colorimetry(See Data[6][6:4])
+- Data[6][1:0]: Non uniform picture scaling, No Known Non-Uniform Scaling/Scaled Horizontally/Scaled Vertically/Scaled Horizontally and Vertically
+- Data[6][3:2]: Quantization range, Default/Limited Range/Full Range/Reserved
+- Data[6][6:4]: Extended colorimetry, xvYCC601/xcYCC709/sYCC601/Adobe YCC601/Adobe RGB
+- Data[6][7]: IT content
+- Data[7][6:0]: VIC
+- Data[7][7]: Reserved
+- Data[8][3:0]: Pixel repetition
+- Data[8][5:4]: IT content type, Graphics/Photo/Cinema/Game
+- Data[8][7:6]: YCC quantization range, Limited Range/Full Range/Reserved/Reserved
+- Data[10:9]: ETB
+- Data[12:11]: SBB
+- Data[14:13]: ELB
+- Data[16:15]: SRB
+
 ## DisplayPort
 
 DisplayPort 采用四对差分对来传输数据，支持视频和音频等。
