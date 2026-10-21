@@ -156,8 +156,8 @@
     - 支持模型：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）
 - [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月；Standard（99 RMB 或 16 USD）：110 亿；Pro（329 RMB 或 50 USD）：380 亿；Max（659 RMB 或 100 USD）：820 亿
-    - 支持模型：MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-Pro、MiMo-V2.5、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS
-    - **mimo-v2.5-pro、mimo-v2.5 将于北京时间 2026-10-21 10:00 正式下线，建议尽快切换至新版模型**
+    - 支持模型（6 款）：MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS
+    - **mimo-v2.5-pro、mimo-v2.5 已于北京时间 2026-10-21 10:00 正式下线**，语言模型仅剩 MiMo-V2.6-Pro 与 MiMo-V2.6-Flash，两款下线模型的额度消耗行（V2.5-Pro 2.5 / 300 / 600、V2.5 2 / 100 / 200 Credits 每 Token）随之移除
     - 折扣：套餐首购 88 折、连续包年 88 折、夜间（0:00–8:00）0.8 倍消耗
 - [OpenCode Go](https://opencode.ai/v2/docs/console/go/)
     - 文档现列出全部 29 款模型的 token 价格、月额度、预估请求数（5 小时/周/月）、每请求 token 估算与数据保留
@@ -241,6 +241,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/21：小米 MiMo Token Plan 个人版完成模型下线：**mimo-v2.5-pro**、**mimo-v2.5** 已于北京时间 2026-10-21 10:00 下线，支持模型由 8 款减至 6 款——语言模型仅剩 MiMo-V2.6-Pro、MiMo-V2.6-Flash，MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS 四款音频模型继续提供；额度消耗的语言模型表删除 mimo-v2.5-pro（2.5 / 300 / 600 Credits 每 Token）与 mimo-v2.5（2 / 100 / 200）两行。月度套餐价格与额度（Lite 39 RMB / 6 USD、Standard 99 / 16、Pro 329 / 50、Max 659 / 100 每月，41 / 110 / 380 / 820 亿 Credits 每月）、年度套餐额度、ASR 的 30M Credits 每小时与 TTS 限时免费、折扣规则均未变；年度套餐人民币价格按汇率微调为 Lite 408、Standard 1044、Pro 3468、Max 6948 元每年（美元年价 63.36 / 168.96 / 528.00 / 1056.00 不变）
 
 - 2026/10/21：Command Code 模型库调整（96 → 98 款；Go 由 58 款增至 60 款、GOAT 由 71 款增至 73 款、Pro 由 86 款增至 88 款）：新增 **Ornith 1.5 122B**（262K 上下文），token 价格输入 $0.16 / 输出 $0.64 / 缓存读取 $0.02 每 1M tokens，月额度 Go $6 / GOAT $20 / Pro $30，预估请求数 Go 1,430 / 5 小时、2,870 / 周、4,780 / 月，GOAT 3,180 / 7,960 / 15,900，Pro 4,780 / 11,900 / 23,900；同时新增其限时免费版本（截至 2026-10-21 23:00 PT，输入 / 输出 / 缓存读取均 Free、调用不消耗额度，不参与预估请求数）。限时免费模型现为 Laguna S 2.1、Glyph Cluster、Beam 1.0、MiniMax M3.1 Flash 与 Ornith 1.5 122B，五档一致。各套餐价格（Go $1、GOAT $10、Pro $20、Max $100、Provider $15 每月 + 处理费）与档位、其余模型的 token 价格与月额度均未变
 
