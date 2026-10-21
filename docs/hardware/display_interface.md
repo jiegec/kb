@@ -61,10 +61,10 @@ HDMI 内，可以通过 AVI InfoFrame 来传输视频格式的相关信息，结
 - Data[4][6:5]: Pixel format, RGB/YCbCr 4:2:2/YCbCr 4:4:4/Future
 - Data[5][3:0]: Active format aspect ratio, Same as picture aspect ratio/4:3 (Center)/16:9 (Center)/14:9 (Center)
 - Data[5][5:4]: Picture aspect ratio, No Data/4:3/16:9/Future
-- Data[5][7:6]: Colorimetry, No Data/SMPTE 170M/ITU-R 709/Extended Colorimetry(See Data[6][6:4])
+- Data[5][7:6]: Colorimetry, No Data/SMPTE 170M/ITU-R BT.709/Extended Colorimetry(See Data[6][6:4])
 - Data[6][1:0]: Non uniform picture scaling, No Known Non-Uniform Scaling/Scaled Horizontally/Scaled Vertically/Scaled Horizontally and Vertically
-- Data[6][3:2]: Quantization range, Default/Limited Range/Full Range/Reserved
-- Data[6][6:4]: Extended colorimetry, xvYCC601/xcYCC709/sYCC601/Adobe YCC601/Adobe RGB
+- Data[6][3:2]: RGB quantization range, Default/Limited Range/Full Range/Reserved
+- Data[6][6:4]: Extended colorimetry, xvYCC601/xvYCC709/sYCC601/opYCC601/opRGB/ITU-R BT.2020 Y'CC'BCC'RC/ITU-R BT.2020 R'G'B' or Y'C'BC'R/Additional colorimetry
 - Data[6][7]: IT content
 - Data[7][6:0]: VIC
 - Data[8][3:0]: Pixel repetition
