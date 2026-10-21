@@ -63,7 +63,7 @@ HDMI 内，可以通过 AVI InfoFrame 来传输视频格式的相关信息，结
 - Data[5][5:4]: Picture aspect ratio, No Data/4:3/16:9/Future
 - Data[5][7:6]: Colorimetry, No Data/SMPTE 170M/ITU-R BT.709/Extended Colorimetry(See Data[6][6:4])
 - Data[6][1:0]: Non uniform picture scaling, No Known Non-Uniform Scaling/Scaled Horizontally/Scaled Vertically/Scaled Horizontally and Vertically
-- Data[6][3:2]: RGB quantization range, Default/Limited Range/Full Range/Reserved
+- Data[6][3:2]: RGB quantization range, Default(CE for Limited Range, IT for Full Range)/Limited Range/Full Range/Reserved
 - Data[6][6:4]: Extended colorimetry, xvYCC601/xvYCC709/sYCC601/opYCC601/opRGB/ITU-R BT.2020 Y'CC'BCC'RC/ITU-R BT.2020 R'G'B' or Y'C'BC'R/Additional colorimetry
 - Data[6][7]: IT content
 - Data[7][6:0]: VIC
@@ -76,6 +76,23 @@ HDMI 内，可以通过 AVI InfoFrame 来传输视频格式的相关信息，结
 - Data[16:15]: Start of Right Bar
 
 参考：US20170223330A1 专利 FIG.14
+
+### CE vs IT
+
+CE: Consumer Electronics，默认 limited range
+
+IT: Information Technology, 默认 RGB full range
+
+CE 还是 IT，是由时序参数决定的。
+
+### Limited vs full range
+
+- RGB:
+    - 如果 EDID VCDB 声明了 QS=1，代表可以由 AVI InfoFrame 覆盖，如果有 AVI InfoFrame 且 RGB quantization range 是 1 的话，就选择 Limited range；是 2 的话，就选择 Full range
+    - 如果 QS=0，或者无 AVI InfoFrame，或 AVI InfoFrame 里的 RGB quantization range 是 0，就选择默认值：CE 用 Limited range，IT 用 Full range
+- YCC: 为了启用 YCC，必须有 AVI InfoFrame
+    - 如果 EDID VCDB 声明了 QY=1，代表可以由 AVI InfoFrame 覆盖，如果 AVI InfoFrame 的 YCC quantization range 是 0 的话，就选择 Limited range；是 1 的话，就选择 Full range
+    - 如果 QY=0，对于 sYCC601/opYCC601，CE 就是 limited range，IT 就是 full range；对于其他 YCC 色彩空间，就是 limited range
 
 ## DisplayPort
 
