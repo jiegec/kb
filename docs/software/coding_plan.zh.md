@@ -66,6 +66,7 @@
 - API 价格（RMB 每 1M tokens）：
     - [GLM-5.3](https://bigmodel.cn/pricing)：输入命中缓存 2、输入未命中缓存 8、输出 28，1M 上下文
     - [GLM-5.3-Flash](https://bigmodel.cn/pricing)：输入命中缓存 0.23、输入未命中缓存 0.8、输出 2.8，1M 上下文
+    - [GLM-5.3-FlashX](https://bigmodel.cn/pricing)：原生多模态（输入模态含图片、视频、文件、文本），输入命中缓存 0.57、输入未命中缓存 2、输出 7，1M 上下文
     - [GLM-5.2](https://bigmodel.cn/pricing)：输入命中缓存 2、输入未命中缓存 8、输出 28，1M 上下文
     - [GLM-5.1](https://bigmodel.cn/pricing)：输入命中缓存 1.3/2、输入未命中缓存 6/8、输出 24/28，200K 上下文
     - [GLM-5-Turbo](https://bigmodel.cn/pricing)：输入命中缓存 1.2/1.8、输入未命中缓存 5/7、输出 22/26，200K 上下文
@@ -242,6 +243,7 @@
 
 ## 更新历史
 
+- 2026/10/21：智谱 API 价格表新增多模态模型 **GLM-5.3-FlashX**：输入模态含图片、视频、文件、文本，1M 上下文，输入命中缓存 0.57、输入未命中缓存 2、输出 7 元每百万 tokens。价格表的「其它模型和服务」一节不再单列 **GLM-5.2**，其计费与单价未变（输入命中缓存 2、输入未命中缓存 8、输出 28 元每百万 tokens，1M 上下文）；GLM-5.3（输入命中缓存 2 / 输入未命中缓存 8 / 输出 28）、GLM-5.3-Flash（0.23 / 0.8 / 2.8）、GLM-OCR（输入与输出均 0.2 元每百万 tokens，不支持 Batch API）、GLM-TTS（2 元每万字符）价格均未变
 - 2026/10/21：小米 MiMo Token Plan 个人版完成模型下线：**mimo-v2.5-pro**、**mimo-v2.5** 已于北京时间 2026-10-21 10:00 下线，支持模型由 8 款减至 6 款——语言模型仅剩 MiMo-V2.6-Pro、MiMo-V2.6-Flash，MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS 四款音频模型继续提供；额度消耗的语言模型表删除 mimo-v2.5-pro（2.5 / 300 / 600 Credits 每 Token）与 mimo-v2.5（2 / 100 / 200）两行。月度套餐价格与额度（Lite 39 RMB / 6 USD、Standard 99 / 16、Pro 329 / 50、Max 659 / 100 每月，41 / 110 / 380 / 820 亿 Credits 每月）、年度套餐额度、ASR 的 30M Credits 每小时与 TTS 限时免费、折扣规则均未变；年度套餐人民币价格按汇率微调为 Lite 408、Standard 1044、Pro 3468、Max 6948 元每年（美元年价 63.36 / 168.96 / 528.00 / 1056.00 不变）
 
 - 2026/10/21：Command Code 模型库调整（96 → 98 款；Go 由 58 款增至 60 款、GOAT 由 71 款增至 73 款、Pro 由 86 款增至 88 款）：新增 **Ornith 1.5 122B**（262K 上下文），token 价格输入 $0.16 / 输出 $0.64 / 缓存读取 $0.02 每 1M tokens，月额度 Go $6 / GOAT $20 / Pro $30，预估请求数 Go 1,430 / 5 小时、2,870 / 周、4,780 / 月，GOAT 3,180 / 7,960 / 15,900，Pro 4,780 / 11,900 / 23,900；同时新增其限时免费版本（截至 2026-10-21 23:00 PT，输入 / 输出 / 缓存读取均 Free、调用不消耗额度，不参与预估请求数）。限时免费模型现为 Laguna S 2.1、Glyph Cluster、Beam 1.0、MiniMax M3.1 Flash 与 Ornith 1.5 122B，五档一致。各套餐价格（Go $1、GOAT $10、Pro $20、Max $100、Provider $15 每月 + 处理费）与档位、其余模型的 token 价格与月额度均未变
