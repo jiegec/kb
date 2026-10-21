@@ -67,14 +67,15 @@ HDMI 内，可以通过 AVI InfoFrame 来传输视频格式的相关信息，结
 - Data[6][6:4]: Extended colorimetry, xvYCC601/xcYCC709/sYCC601/Adobe YCC601/Adobe RGB
 - Data[6][7]: IT content
 - Data[7][6:0]: VIC
-- Data[7][7]: Reserved
 - Data[8][3:0]: Pixel repetition
 - Data[8][5:4]: IT content type, Graphics/Photo/Cinema/Game
 - Data[8][7:6]: YCC quantization range, Limited Range/Full Range/Reserved/Reserved
-- Data[10:9]: ETB
-- Data[12:11]: SBB
-- Data[14:13]: ELB
-- Data[16:15]: SRB
+- Data[10:9]: End of Top Bar
+- Data[12:11]: Start of Bottom Bar
+- Data[14:13]: End of Left Bar
+- Data[16:15]: Start of Right Bar
+
+参考：US20170223330A1 专利 FIG.14
 
 ## DisplayPort
 
