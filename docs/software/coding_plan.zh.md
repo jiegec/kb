@@ -182,12 +182,12 @@
         - **Pro**：$20/月含 $80 额度，覆盖 45+ 模型，即 GOAT 全部模型再加 Claude、GPT、Gemini 等闭源高级模型；叠加优惠时潜在价值 $120+
         - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
         - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
-    - 限时免费模型：Laguna S 2.1、Glyph Cluster、Beam 1.0、MiniMax M3.1 Flash（Go、GOAT、Pro、Max 10×、Max 20× 全部档位）；Ornith 1.5 122B 的限时免费已于 2026-10-21 23:00 PT 到期，其免费版本仍计入 Go、GOAT、Pro 的模型表且标注为 Free（输入 / 输出 / 缓存读取均免费、调用不消耗额度），但不再标注截止时间
-    - 模型库共 98 款：Go 列出 60 款、GOAT 73 款、Pro 88 款
-    - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、Muse Spark Open、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Jev 1.14.0（决策模型，32K 上下文，与 Jev 同样仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.1、Nemotron、Nemotron 3.5 Super VL、MiniMax M3.1 Flash（另有同名的限时免费版本，调用不消耗额度）、Ornith 1.5 122B（另有同名的免费版本，调用不消耗额度，原限时免费截止 2026-10-21 23:00 PT 已到期，价格仍为 Free）、Beam 1.0（限时免费，1M 上下文）、Inkling 等
+    - 限时免费模型：Laguna S 2.1、Glyph Cluster、Beam 1.0（Go、GOAT、Pro、Max 10×、Max 20× 全部档位）；MiniMax M3.1 Flash 的限时免费版本仅保留在 GOAT、Pro 与 Max 10×、Max 20× 档，Go 档模型表已不含该免费版本。Ornith 1.5 122B 的限时免费已于 2026-10-21 23:00 PT 到期，其免费版本仍列入 GOAT 与 Pro 的模型表且标注为 Free（输入 / 输出 / 缓存读取均免费、调用不消耗额度），但不再标注截止时间，Go 档模型表同样已不含该免费版本
+    - 模型库共 98 款：Go 列出 58 款、GOAT 73 款、Pro 88 款（Go 档模型表合计 96 款）
+    - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、Muse Spark Open、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Jev 1.14.0（决策模型，32K 上下文，与 Jev 同样仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.1、Nemotron、Nemotron 3.5 Super VL、MiniMax M3.1 Flash（另有同名的限时免费版本，仅列于 GOAT、Pro 档，调用不消耗额度）、Ornith 1.5 122B（另有同名的免费版本，仅列于 GOAT、Pro 档，调用不消耗额度，原限时免费截止 2026-10-21 23:00 PT 已到期，价格仍为 Free）、Beam 1.0（限时免费，1M 上下文）、Inkling 等
     - 各套餐月额度（按模型分配，取自文档页 Monthly credits 表，单位美元）：**Ling 3.1 Flash** Go $6 / GOAT $100 / Pro $110；**DeepSeek V4.1 Flash** Go $10 / GOAT $80 / Pro $90；**GLM-5.3 Flash** Go $10 / GOAT $80 / Pro $90；**DeepSeek V4.1 Flash Fast** Go $6 / GOAT $60 / Pro $70；**Qwen 3.7 Max** Go $10 / GOAT $33 / Pro $43；**GPT-5.6 Sol** GOAT $20 / Pro $30；**Muse Spark 1.3 Contributor** Go $6 / GOAT $20 / Pro $30；**Muse Spark Open**、**Nemotron 3.5 Super VL** 均为 Go $6 / GOAT $20 / Pro $30；**Jev 1.14.0** GOAT $20 / Pro $30；**Qwen 3.8 Max Prime** GOAT $20 / Pro $30；**MiniMax M3.1 Flash** Go $6 / GOAT $20 / Pro $30；**Ornith 1.5 122B** Go $6 / GOAT $20 / Pro $30
-    - MiniMax M3.1 Flash token 价格（每 1M tokens，输入 / 输出 / 缓存读取）：$0.15 / $0.60 / $0.015，1M 上下文；同名限时免费版本输入 / 输出 / 缓存读取均为 Free、调用不消耗额度
-    - Ornith 1.5 122B token 价格（每 1M tokens，输入 / 输出 / 缓存读取）：$0.16 / $0.64 / $0.02，262K 上下文；同名免费版本输入 / 输出 / 缓存读取均为 Free、调用不消耗额度（原限时免费截止 2026-10-21 23:00 PT 已到期，仍按 Free 计费、不再标注截止时间）；预估请求数 Go 1,430 / 5 小时、2,870 / 周、4,780 / 月，GOAT 3,180 / 7,960 / 15,900，Pro 4,780 / 11,900 / 23,900
+    - MiniMax M3.1 Flash token 价格（每 1M tokens，输入 / 输出 / 缓存读取）：$0.15 / $0.60 / $0.015，1M 上下文；同名限时免费版本仅列于 GOAT、Pro 档，输入 / 输出 / 缓存读取均为 Free、调用不消耗额度
+    - Ornith 1.5 122B token 价格（每 1M tokens，输入 / 输出 / 缓存读取）：$0.16 / $0.64 / $0.02，262K 上下文；同名免费版本仅列于 GOAT、Pro 档，输入 / 输出 / 缓存读取均为 Free、调用不消耗额度（原限时免费截止 2026-10-21 23:00 PT 已到期，仍按 Free 计费、不再标注截止时间）；预估请求数 Go 1,430 / 5 小时、2,870 / 周、4,780 / 月，GOAT 3,180 / 7,960 / 15,900，Pro 4,780 / 11,900 / 23,900
     - DeepSeek V4.1 Flash 沿用官方峰谷定价：空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006（每 1M tokens 输入 / 输出 / 缓存读取；高峰时段为 UTC 周一至周五 01:00–04:00 与 06:00–10:00）
     - 零数据保留（ZDR）对所有模型可用，以 `CMD_ZDR=1`（如 `CMD_ZDR=1 cmd`）强制开启；本就含 ZDR 的模型不额外加价，其余模型按该套餐默认用量计量（Go 档 $6），即使该模型有提高后的额度也按默认用量而非提高后的数值计
 - [DeepSeek API 定价](https://api-docs.deepseek.com/zh-cn/quick_start/pricing/)：
@@ -243,6 +243,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/22：Command Code 的 Go 档模型表移除 **Ornith 1.5 122B** 与 **MiniMax M3.1 Flash** 的免费版本（输入 / 输出 / 缓存读取均 Free、调用不消耗额度），Go 列出模型由 60 款减至 58 款、Go 档模型表合计由 98 款减至 96 款；两款模型的付费版本仍在 Go 档，token 价格分别为 $0.16 / $0.64 / $0.02 与 $0.15 / $0.60 / $0.015 每 1M tokens（输入 / 输出 / 缓存读取），月额度均为 Go $6。GOAT（73 款）与 Pro（88 款）仍列出这两个免费版本，Go 档的限时免费模型现为 Laguna S 2.1、Glyph Cluster 与 Beam 1.0。各套餐价格与其余模型的价格、额度均未变
 
 - 2026/10/22：OpenCode Go 的 **MiniMax M3.1 Flash** 限时免费活动结束，转为常规计费模型——token 价格由全免改为输入 $0.15 / 输出 $0.60 / 缓存读取 $0.015 每 1M tokens（Go 与 Go Plus 相同），月额度由「限时无限制」改为 Go **$20**、Go Plus **$80**，预估请求数由无限制改为 Go 3,880 / 5 小时、9,690 / 周、19,380 / 月，Go Plus 15,500 / 38,760 / 77,520；model ID 由 `minimax-m3.1-flash-free` 改为 `minimax-m3.1-flash`，接入点仍为 `https://opencode.ai/inference/go/openai/v1/chat/completions`（`@ai-sdk/openai-compatible`），隐私表仍为 Model training Not used、Data retention 0 days，不再标注限时免费。限时免费模型现为 LongCat 2.5 Preview Free 与 Beam Free。两种套餐价格（Go 10 美元 / Go Plus 40 美元）与其余模型的价格、额度均未变
 
