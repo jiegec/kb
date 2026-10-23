@@ -97,7 +97,7 @@
     - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5；doubao-seed-evolving、minimax-m3（即将下线）、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 5 折 1.25，2026-09-15 00:00 至 2026-12-30 23:59:59）；deepseek-v4.1-flash-economy 2（限时 5 折 1，2026-10-20 00:00 至 2026-12-30 23:59:59）；kimi-k2.7-code（即将下线）4.5；kimi-k2.8-preview 8（限时 6 折 4.8，2026-09-17 00:00 至 2026-12-14 23:59:59）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（限时 5 折 5，2026-10-12 00:00 至 2026-10-25 23:59）；doubao-embedding-vision 0.5
     - 档位（AFP，每 5 小时/每周/每月/每日）：Small 40 RMB 每月（2000/7000/20000/10000）、Medium 200（10000/35000/100000/50000）、Large 500（25000/87500/250000/125000）、Max 1000（50000/175000/500000/250000）
     - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
-    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3（即将下线）、glm-5.3、glm-5.3-flash、kimi-k2.7-code（即将下线）、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、minimax-m3（即将下线）、glm-5.3、glm-5.3-flash、kimi-k2.7-code（即将下线）、kimi-k2.8-preview、deepseek-v4-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seedream-5.0-flash（图片生成，输出图 60 AFP/张、输入图不计）、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Medium 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
     - Agent 进化：前 50 个文件免费
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
@@ -246,6 +246,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/24：火山方舟 Agent Plan 个人版新增图片生成模型 **doubao-seedream-5.0-flash**（全套餐支持，输出图每张 60 AFP、输入图不计 AFP）；图片生成模型现有 doubao-seedream-5-0-pro 与 doubao-seedream-5.0-flash 两款，其余模型及其抵扣系数、1M 上下文支持名单、套餐档位与价格均未变
 
 - 2026/10/24：OpenCode Go 增列受限模型的开启方式：工作区隐私设置决定哪些模型可用——默认阻止会在请求数据上训练的付费端点、允许区域为欧洲与美国，未保存隐私设置的工作区对中国区请求额外允许 Global；DeepSeek V4.1 Flash 与 V4 Pro 需 owner / admin 在 Settings › Privacy 的 Regions 中选 Global，Gemini 4 Argon Contributor、Muse Spark 1.3 Contributor、Muse Spark 1.2 Contributor 需开启「Allow paid endpoints that train on request data」。两档价格、各模型 token 价格与月额度均未变
 - 2026/10/24：OpenCode Go 模型库由 29 款增至 30 款，新增 **Kimi K3.1 Pro**（1M 上下文，model ID `kimi-k3.1-pro`）：token 价格输入 $2.00 / 输出 $10.00 / 缓存读取 $0.20 / 缓存写入 $2.00 每 1M tokens（Go 与 Go Plus 相同），月使用额度 Go $15、Go Plus $60（与 Kimi K3 同档），预估请求数 Go 147 / 5 小时、368 / 周、735 / 月，Go Plus 588 / 1,471 / 2,941，每请求约 1,050 输入、76,500 缓存命中输入、300 输出 tokens；接入点为 OpenAI 兼容端点，`@ai-sdk/openai-compatible`。Kimi K3 的价格与额度未变，Go 与 Go Plus 两档价格、其余模型的 token 价格与月额度均未变
