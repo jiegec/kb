@@ -8,8 +8,8 @@
 
 - 档位（RMB 每月）：Andante 49、Moderato 99、Allegretto 199、Allegro 699
 - 订阅续购：因算力资源紧张，优先保障订阅中用户的使用体验；2026-08-20 00:00 前可续订，逾期无法直接购买
-- Kimi Code 基于旗舰 K3 模型（参数规模约 2.8 万亿），提供 K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式，最高推理速度 260 Tokens/s，支持 1M Tokens 超长上下文；兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
-- 模型 ID 与会员档位要求：`k3`、`k3-256k` 需 Moderato / Plus 及以上会员，其中 1M 上下文需 Allegretto / Pro 及以上会员；`kimi-for-coding`（K2.8 Preview）需 Andante / Plus 及以上会员；`kimi-for-coding-highspeed` 需 Allegretto / Pro 及以上会员
+- Kimi Code 当前由旗舰 K3.1 Pro 系列模型驱动（3T 级别参数，支持最高 1M 上下文，在代码、3D 创作、金融研究与长程 Agent 能力上较 K3 提升显著），按任务对效果与速度的需求提供普速版与高速版两种选择；兼容 Kimi Code CLI、Claude Code、VS Code 等主流 Agent 工具
+- 模型 ID 与会员档位要求（共 6 个，OpenAI 兼容与 Anthropic 兼容两种协议通用）：`k3.1-pro`、`k3`、`k3-256k` 需 Moderato / Plus 及以上会员，其中 1M 上下文需 Allegretto / Pro 及以上会员；`k3.1-pro` 仅支持思考模式、默认 `max`，关闭思考的请求会被拒绝；`k3.1-pro-highspeed`（输出速度约为 `k3.1-pro` 的 2–3 倍、额度消耗约为 2 倍，支持最高 1M 上下文）需 Allegretto / Pro 及以上会员；`kimi-for-coding`（K2.8 Preview）需 Andante / Plus 及以上会员；`kimi-for-coding-highspeed`（K2.7 Code 高速版）需 Allegretto / Pro 及以上会员
 - API 接入点区分国内/海外：OpenAI 兼容（含 Chat Completions 与 Responses 两种协议，文档给出的 Responses 接入点为国内 `https://api.kimi.com/coding/v1/responses`）国内 `https://api.kimi.com/coding/v1`、海外 `https://api.kimi.ai/coding/v1`；Anthropic 兼容 国内 `https://api.kimi.com/coding/`、海外 `https://api.kimi.ai/coding/`；Kimi 开放平台 国内 `https://api.moonshot.cn/v1`、海外 `https://api.moonshot.ai/v1`
 - API 价格（RMB 每 1M tokens）：
     - [K3](https://platform.kimi.com/docs/pricing/chat-k3)：输入命中缓存 2、输入未命中缓存 20、输出 100，1M 上下文
@@ -243,6 +243,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/24：Kimi Code 旗舰模型换代：Kimi Code 由旗舰 **K3.1 Pro** 系列模型驱动（3T 级别参数、支持最高 1M 上下文，在代码、3D 创作、金融研究与长程 Agent 能力上较 K3 提升显著），此前「K2.8 Preview 普速版与 K2.7 Code HighSpeed 高速版双模式、最高 260 Tokens/s」的表述改为按任务选择普速版或高速版的通用描述。可用模型 ID 由 4 个增至 6 个，新增 `k3.1-pro`（Moderato / Plus 及以上可调用，Allegretto / Pro 及以上解锁最高 1M 上下文，仅支持思考模式、默认 `max`，关闭思考的请求会被拒绝）与 `k3.1-pro-highspeed`（Allegretto / Pro 及以上可用，输出速度约为 `k3.1-pro` 的 2–3 倍、额度消耗约为 2 倍，支持最高 1M 上下文）；`k3`、`k3-256k`、`kimi-for-coding`（K2.8 Preview）、`kimi-for-coding-highspeed`（K2.7 Code 高速版）的档位要求与上下文权益未变。套餐档位价格未变（Andante 49、Moderato 99、Allegretto 199、Allegro 699 RMB 每月），K3、K2.7-Code 与 K2.7-Code-HighSpeed 的 API 价格未变
 
 - 2026/10/23：Command Code 的 Go 与 GOAT 档不再提供 **MiMo V2.5** 与 **MiMo V2.5 Pro**：Go 列出模型由 58 款减至 56 款、GOAT 由 71 款减至 69 款，两档的模型总数由 96 款改为 94 款；两款模型仅保留在 Pro 档（Pro 仍列出 86 款），token 价格维持优惠价 $0.14 / $0.28 / $0.0028 与 $0.435 / $0.87 / $0.0036 每 1M tokens（输入 / 输出 / 缓存读取），月额度分别为 $40 与 $30。**MiMo V2.6 Flash**、**MiMo V2.6 Pro** 与 **MiMo V2.6 Pro UltraSpeed** 不受影响：token 价格仍为 $0.14 / $0.28 / $0.0028、$0.435 / $0.87 / $0.0036 与 $4.35 / $8.70 / $0.036 每 1M tokens，前两款月额度 Go $6 / GOAT $20 / Pro $30，V2.6 Pro UltraSpeed 为 GOAT $10 / Pro $20。限时免费模型仍为 Laguna S 2.1、Glyph Cluster 与 Beam 1.0。各套餐价格与档位、其余模型的 token 价格与月额度均未变
 
