@@ -183,7 +183,7 @@
         - **Max**：$100/月含 $150 额度（叠加优惠最高 $300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
         - **Provider（API 套餐）**：$15/月 + 处理费，按量付费零加价、兼容 OpenAI 与 Anthropic 端点，充值额度可结转且永不过期
     - 限时免费模型：Laguna S 2.1、Glyph Cluster、Beam 1.0（Go、GOAT、Pro、Max 10×、Max 20× 全部档位）。MiniMax M3.1 Flash 与 Ornith 1.5 122B 的免费版本已从全部套餐的模型表移除，两者仅保留付费版本
-    - 模型库共 96 款：Go 列出 58 款、GOAT 71 款、Pro 86 款
+    - 模型库款数：Go 列出 94 款中的 56 款、GOAT 69 款，Pro 列出 96 款中的 86 款；MiMo V2.5 与 MiMo V2.5 Pro 仅列在 Pro 档
     - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Tencent Hy3、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、Muse Spark Open、GPT-6 Luna、GPT-6 Sol、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 Provider API 使用）、Jev 1.14.0（决策模型，32K 上下文，与 Jev 同样仅可通过 headless `cmd -p` 与 Provider API 使用）、Ling 3.1、Nemotron、Nemotron 3.5 Super VL、MiniMax M3.1 Flash、Ornith 1.5 122B、Beam 1.0（限时免费，1M 上下文）、Inkling 等
     - 各套餐月额度（按模型分配，取自文档页 Monthly credits 表，单位美元）：**Ling 3.1 Flash** Go $6 / GOAT $100 / Pro $110；**DeepSeek V4.1 Flash** Go $10 / GOAT $80 / Pro $90；**GLM-5.3 Flash** Go $10 / GOAT $80 / Pro $90；**DeepSeek V4.1 Flash Fast** Go $6 / GOAT $60 / Pro $70；**Qwen 3.7 Max** Go $10 / GOAT $33 / Pro $43；**GPT-5.6 Sol** GOAT $20 / Pro $30；**Muse Spark 1.3 Contributor** Go $6 / GOAT $20 / Pro $30；**Muse Spark Open**、**Nemotron 3.5 Super VL** 均为 Go $6 / GOAT $20 / Pro $30；**Jev 1.14.0** GOAT $20 / Pro $30；**Qwen 3.8 Max Prime** GOAT $20 / Pro $30；**MiniMax M3.1 Flash** Go $6 / GOAT $20 / Pro $30；**Ornith 1.5 122B** Go $6 / GOAT $20 / Pro $30
     - MiniMax M3.1 Flash token 价格（每 1M tokens，输入 / 输出 / 缓存读取）：$0.15 / $0.60 / $0.015，1M 上下文
@@ -243,6 +243,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/10/23：Command Code 的 Go 与 GOAT 档不再提供 **MiMo V2.5** 与 **MiMo V2.5 Pro**：Go 列出模型由 58 款减至 56 款、GOAT 由 71 款减至 69 款，两档的模型总数由 96 款改为 94 款；两款模型仅保留在 Pro 档（Pro 仍列出 86 款），token 价格维持优惠价 $0.14 / $0.28 / $0.0028 与 $0.435 / $0.87 / $0.0036 每 1M tokens（输入 / 输出 / 缓存读取），月额度分别为 $40 与 $30。**MiMo V2.6 Flash**、**MiMo V2.6 Pro** 与 **MiMo V2.6 Pro UltraSpeed** 不受影响：token 价格仍为 $0.14 / $0.28 / $0.0028、$0.435 / $0.87 / $0.0036 与 $4.35 / $8.70 / $0.036 每 1M tokens，前两款月额度 Go $6 / GOAT $20 / Pro $30，V2.6 Pro UltraSpeed 为 GOAT $10 / Pro $20。限时免费模型仍为 Laguna S 2.1、Glyph Cluster 与 Beam 1.0。各套餐价格与档位、其余模型的 token 价格与月额度均未变
 
 - 2026/10/23：Command Code 模型库由 98 款减至 96 款（GOAT 由 73 款减至 71 款、Pro 由 88 款减至 86 款，Go 仍列出 58 款、合计 96 款）：**MiniMax M3.1 Flash** 与 **Ornith 1.5 122B** 的免费版本从 GOAT 与 Pro 的模型表移除，两款模型的付费版本不变——token 价格分别仍为 $0.15 / $0.60 / $0.015 与 $0.16 / $0.64 / $0.02 每 1M tokens（输入 / 输出 / 缓存读取），月额度均为 Go $6 / GOAT $20 / Pro $30，预估请求数不变。限时免费模型现为 Laguna S 2.1、Glyph Cluster 与 Beam 1.0，Go、GOAT、Pro、Max 10×、Max 20× 五档一致。各套餐价格与档位、其余模型的 token 价格与月额度均未变
 
