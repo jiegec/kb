@@ -83,7 +83,7 @@ CE: Consumer Electronics，默认 limited range
 
 IT: Information Technology, 默认 RGB full range
 
-CE 还是 IT，是由时序参数决定的。
+CE 还是 IT，是由时序参数决定的。CE：>1 的 VIC；IT：VIC == 1 或不在 VIC 里面。
 
 ### Limited vs full range
 
