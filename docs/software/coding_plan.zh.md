@@ -247,6 +247,8 @@
 
 ## 更新历史
 
+- 2026/10/26：阿里云百炼「Kimi-月之暗面」部署（华北2（北京））新增两款模型，与该表原有的 kimi/kimi-k3、kimi/kimi-k2.7-code-highspeed、kimi/kimi-k2.7-code、kimi/kimi-k2.6、kimi/kimi-k2.5 并列：`kimi/kimi-k3.1-pro` 输入 **13 元**、输出 **68 元**每百万 Token，`kimi/kimi-k3.1-pro-highspeed` 输入 **26 元**、输出 **136 元**每百万 Token（免费额度一栏中 highspeed 标注「无」，k3.1-pro 未列具体额度）。上下文缓存折扣：`kimi/kimi-k3.1-pro` 命中缓存的输入按输入单价的 **10%** 计费（与 kimi/kimi-k3 相同），`kimi/kimi-k3.1-pro-highspeed` 为 **5%**。原 5 款模型（kimi/kimi-k3 20/100 元、kimi/kimi-k2.7-code-highspeed 13/54 元、kimi/kimi-k2.7-code 与 kimi/kimi-k2.6 各 6.5/27 元、kimi/kimi-k2.5 4/21 元）的单价与缓存折扣、其余部署与模型的定价均未变。百炼 Token Plan 个人版与团队版、Coding Plan 的档位、价格、额度与支持模型名单未变，Token Plan 两版的模型名单均未含 k3.1 系列
+
 - 2026/10/25：OpenCode Go 下线限时免费模型 **LongCat 2.5 Preview Free**，模型库由 30 款减为 29 款：支持模型列表、token 价格表、两档月额度表、预估请求数表、接入点表与数据保留表中该模型的行一并删除（model ID `longcat-2.5-preview-free`），月额度表中「限时无限制」一档只剩 Beam Free。两档套餐价格（Go $10 / Go Plus $40）与其余模型的 token 价格、月额度均未变
 
 - 2026/10/25：火山方舟 Coding Plan 个人版与 Agent Plan 个人版新增 **kimi-k3.1-pro** 模型（月之暗面旗舰模型，面向企业级长程任务与 Agentic 编程，支持深度思考、函数调用与上下文缓存，含 5min/1h 两档缓存写入，1024k 上下文/128k 输出，四档套餐均支持）：Agent Plan 抵扣系数 7，2026-10-24 00:00 至 2026-11-09 23:59:59 限时 5 折（3.5）；Coding Plan 在 2026-10-24 00:00 至 2026-11-09 23:59:59 期间的可用量与 Agent Plan 5 折抵扣活动期间相当。两档的 1M 上下文支持名单均加入 kimi-k3.1-pro，套餐档位与价格、其余模型的抵扣系数均未变
