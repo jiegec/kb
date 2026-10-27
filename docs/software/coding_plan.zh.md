@@ -174,6 +174,12 @@
     - 2026-10-08 新增两款模型：**Claude Haiku 5.5**——按 100K tokens 分档，≤100K tokens 输入 $0.10 / 输出 $0.50 / 缓存读取 $0.01 / 缓存写入 $0.125，>100K tokens 输入 $0.50 / 输出 $2.50 / 缓存读取 $0.05 / 缓存写入 $0.625 每 1M tokens，月度使用额度 Go $15、Go Plus $60，请求限额预估 Go 3,850/5 小时、9,620/周、19,230/月，Go Plus 15,380 / 38,460 / 76,920，model ID `claude-haiku-5-5`，接入点 https://opencode.ai/zen/go/v1/messages（`@ai-sdk/anthropic`）；**Step 5 Preview Free**——输入/输出/缓存读取均免费、请求与月度额度均无限制（限时），model ID `step-5-preview-free`，接入点 https://opencode.ai/zen/go/v1/chat/completions
     - 2026-10-14 模型库调整（33 → 32 款）：移除 **DeepSeek V4 Flash** 与 **DeepSeek V4 Flash Vision Exp**（token 价格表、两档月额度表、预估请求数表、接入点表与隐私表中的对应行一并删除，每请求 token 估算列表中的两行也删除，DeepSeek 峰谷时段说明句由「DeepSeek V4.1 Flash / V4 Pro / V4 Flash / V4 Flash Vision Exp」改为「DeepSeek V4.1 Flash / V4 Pro」），新增 **Gemini 4 Argon Contributor**——token 价格 输入 $4.00 / 输出 $20.00 / 缓存读取 $0.20 每 1M tokens（缓存写入无），月额度 Go ~~$30~~ **$60**、Go Plus ~~$120~~ **$240**（均标注「2x · Limited time」，即限时翻倍），预估请求数 Go 440 / 5 小时、1,080 / 周、2,120 / 月，Go Plus 1,760 / 4,320 / 8,480，model ID `gemini-4-argon-contributor`，接入点 `https://opencode.ai/inference/go/v1/models/gemini-4-argon-contributor`（`@ai-sdk/google`，是文档中唯一使用 `/v1/models/<model-id>` 形式的模型），隐私表标注 Model training 为 Yes、Data retention 为 Not ZDR，官方说明为「Your prompts and completions may be used to train future Google models.」；其余模型的价格、额度与请求限额均未变
 - [阶越星辰国际版 Coding Plan](https://platform.stepfun.ai/docs/en/step-plan/overview)
+- [商汤 SenseNova TokenPlan](https://platform.sensenova.cn/docs)
+    - 积分池（公测期权益）：通用积分池滚动 5 小时窗口上限 **120,000** 积分、滚动周窗口上限 **1,200,000** 积分（2026-10-27 起由 60,000 / 600,000 提升）；Flash-Lite 专属积分池仍为滚动 5 小时 60,000 积分、滚动周 600,000 积分
+    - 扣减顺序：使用 Flash-Lite 时先扣专属积分，专属积分用尽后再扣通用积分（通用积分未耗尽即可继续使用 Flash-Lite）；使用其他模型只扣通用积分
+    - Flash-Lite 消费返赠活动于 2026-10-27 下线：活动期间每实际消耗 1 积分 Flash-Lite 专属积分返赠 1 通用积分（按自然日汇总、每小时结算到账、每笔自到账起 30 天有效、不占用滚动 5 小时与滚动周额度）；已到账的返赠积分余额与有效期保持不变，切换前已计入返赠的消费仍按原规则结算
+    - 通用积分额度上调生效时，系统统一将各用户的通用积分窗口可用额度重置为新上限；Flash-Lite 专属积分的可用额度不变
+    - 支持模型（7 款）：SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4 Flash、DeepSeek V4.1 Flash、GLM-5.2、Kimi K3
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
@@ -248,6 +254,7 @@
 
 ## 更新历史
 
+- 2026/10/27：商汤 SenseNova TokenPlan 提高通用积分窗口额度——通用积分池滚动 5 小时窗口上限由 60,000 积分提升至 **120,000** 积分，滚动周窗口上限由 600,000 积分提升至 **1,200,000** 积分（均自 2026-10-27 起）；Flash-Lite 专属积分池维持滚动 5 小时 60,000、滚动周 600,000 不变。额度上调生效时系统统一将各用户的通用积分窗口可用额度重置为新上限，Flash-Lite 专属积分可用额度不变。同日 **Flash-Lite 消费返赠活动下线**——此前每实际消耗 1 积分 Flash-Lite 专属积分返赠 1 通用积分（按自然日汇总、每小时结算到账、每笔 30 天有效、不占用两类窗口额度），已到账的返赠积分余额与有效期保持不变，切换前已计入返赠的消费按原规则结算；通用积分未耗尽时仍可继续使用 Flash-Lite。Flash-Lite 之外的模型仍只扣通用积分，支持模型仍为 SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4 Flash、DeepSeek V4.1 Flash、GLM-5.2、Kimi K3
 - 2026/10/27：Command Code 新增 **GPT-6.1 Terra**（1.1M 上下文），仅 **Pro** 档提供——token 价格输入 $1.00 / 输出 $5.00 / 缓存读取 $0.05 / 缓存写入 $1.25 每 1M tokens，月额度 Pro $20，预估请求数 976 / 5 小时、2,440 / 周、4,880 / 月。模型库由 95 款增至 96 款（Pro 列出模型由 85 款增至 86 款，Go 仍 57 款、GOAT 仍 70 款）；各套餐价格、其余模型的 token 价格与月额度均未变
 - 2026/10/27：Command Code 提高 **GOAT** 与 **Pro** 两档的额度与用量限制——**GOAT**（$10/月）由 $80 额度（8x）改为**最高 $100** 额度（最高 10x），用量限制由每 5 小时 $14、每 7 天 $35、每月 $70 改为每 5 小时**最高 $20**、每 7 天**最高 $50**、每月**最高 $100**；**Pro**（$20/月）由 $80 额度改为**最高 $110** 额度，用量限制由每 5 小时 $16、每 7 天 $40、每月 $80 改为每 5 小时**最高 $22**、每 7 天**最高 $55**、每月**最高 $110**。两档的 premium 模型仍按每模型每月最高 $20 用量、Claude Haiku 5.5 为 $30；按模型分配的额度上限未变（Ling 3.1 Flash 最高 $100，DeepSeek V4.1 Flash、GLM-5.3 Flash 各 $80，Tencent Hy3、Qwen 3.8 27B 各 $70）。Go（$1/月）、Max（$100/月）、Provider（$15/月）三档的价格与额度、以及全部模型的 token 价格均未变
 
