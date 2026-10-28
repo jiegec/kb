@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T22:20:47+08:00",
+  "generated_at": "2026-10-28T23:18:11+08:00",
   "source": "https://www.vmall.com",
   "products": [
     {
@@ -718,6 +718,49 @@
       ]
     },
     {
+      "product_id": "10086153236238",
+      "url": "https://www.vmall.com/product/10086153236238.html",
+      "name": "HUAWEI Pura 80 Pro+",
+      "title": "HUAWEI Pura 80 Pro+ 16GB+512GB 釉青",
+      "launch_date": "2025年6月",
+      "launch_year": 2025,
+      "launch_month": 6,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "釉青·16GB+512GB",
+          "color": "釉青",
+          "capacity": "16GB+512GB",
+          "cpu": "",
+          "models": [
+            "LMR-AL10"
+          ],
+          "model": "LMR-AL10",
+          "marketing_name": "HUAWEI Pura 80 Pro+",
+          "title": "HUAWEI Pura 80 Pro+ 16GB+512GB 釉青",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "釉青·16GB+1TB",
+          "color": "釉青",
+          "capacity": "16GB+1TB",
+          "cpu": "",
+          "models": [
+            "LMR-AL10"
+          ],
+          "model": "LMR-AL10",
+          "marketing_name": "HUAWEI Pura 80 Pro+",
+          "title": "HUAWEI Pura 80 Pro+ 16GB+1TB 釉青",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
+        }
+      ]
+    },
+    {
       "product_id": "10086174757473",
       "url": "https://www.vmall.com/product/10086174757473.html",
       "name": "华为畅享 90",
@@ -761,6 +804,108 @@
       ]
     },
     {
+      "product_id": "10086182296668",
+      "url": "https://www.vmall.com/product/10086182296668.html",
+      "name": "nova 14 Pro",
+      "title": "nova 14 Pro 512GB 冰晶粉 双卡 全网通版 昆仑玻璃",
+      "launch_date": "2025年5月",
+      "launch_year": 2025,
+      "launch_month": 5,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "冰晶粉·512GB 昆仑玻璃",
+          "color": "冰晶粉",
+          "capacity": "512GB 昆仑玻璃",
+          "cpu": "",
+          "models": [
+            "MIA-AL00"
+          ],
+          "model": "MIA-AL00",
+          "marketing_name": "nova 14 Pro",
+          "title": "nova 14 Pro 512GB 冰晶粉 双卡 全网通版 昆仑玻璃",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
+        },
+        {
+          "label": "256GB",
+          "selected": "冰晶粉·256GB",
+          "color": "冰晶粉",
+          "capacity": "256GB",
+          "cpu": "",
+          "models": [
+            "MIA-AL00"
+          ],
+          "model": "MIA-AL00",
+          "marketing_name": "nova 14 Pro",
+          "title": "nova 14 Pro 256GB 冰晶粉 双卡 全网通版",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
+        },
+        {
+          "label": "512GB",
+          "selected": "冰晶粉·512GB",
+          "color": "冰晶粉",
+          "capacity": "512GB",
+          "cpu": "",
+          "models": [
+            "MIA-AL00"
+          ],
+          "model": "MIA-AL00",
+          "marketing_name": "nova 14 Pro",
+          "title": "nova 14 Pro 512GB 冰晶粉 双卡 全网通版",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
+        }
+      ]
+    },
+    {
+      "product_id": "10086187102699",
+      "url": "https://www.vmall.com/product/10086187102699.html",
+      "name": "nova 14 活力版",
+      "title": "nova 14 活力版 256GB 羽砂黑 双卡 全网通版",
+      "launch_date": "2025年10月",
+      "launch_year": 2025,
+      "launch_month": 10,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "羽砂黑·256GB",
+          "color": "羽砂黑",
+          "capacity": "256GB",
+          "cpu": "",
+          "models": [
+            "TYR-AL00"
+          ],
+          "model": "TYR-AL00",
+          "marketing_name": "nova 14 活力版",
+          "title": "nova 14 活力版 256GB 羽砂黑 双卡 全网通版",
+          "launch_date": "2025年10月",
+          "launch_year": 2025,
+          "launch_month": 10
+        },
+        {
+          "label": "512GB",
+          "selected": "羽砂黑·512GB",
+          "color": "羽砂黑",
+          "capacity": "512GB",
+          "cpu": "",
+          "models": [
+            "TYR-AL00"
+          ],
+          "model": "TYR-AL00",
+          "marketing_name": "nova 14 活力版",
+          "title": "nova 14 活力版 512GB 羽砂黑 双卡 全网通版",
+          "launch_date": "2025年10月",
+          "launch_year": 2025,
+          "launch_month": 10
+        }
+      ]
+    },
+    {
       "product_id": "10086204924439",
       "url": "https://www.vmall.com/product/10086204924439.html",
       "name": "HUAWEI MatePad Mini 悦读版 鸿蒙焕新版 全网通",
@@ -800,6 +945,110 @@
           "launch_date": "2026年8月",
           "launch_year": 2026,
           "launch_month": 8
+        }
+      ]
+    },
+    {
+      "product_id": "10086212269653",
+      "url": "https://www.vmall.com/product/10086212269653.html",
+      "name": "nova 14",
+      "title": "nova 14 256GB 凝霜白 双卡 全网通版",
+      "launch_date": "2025年5月",
+      "launch_year": 2025,
+      "launch_month": 5,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "凝霜白·256GB",
+          "color": "凝霜白",
+          "capacity": "256GB",
+          "cpu": "",
+          "models": [
+            "TLR-AL00"
+          ],
+          "model": "TLR-AL00",
+          "marketing_name": "nova 14",
+          "title": "nova 14 256GB 凝霜白 双卡 全网通版",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
+        },
+        {
+          "label": "512GB",
+          "selected": "凝霜白·512GB",
+          "color": "凝霜白",
+          "capacity": "512GB",
+          "cpu": "",
+          "models": [
+            "TLR-AL00"
+          ],
+          "model": "TLR-AL00",
+          "marketing_name": "nova 14",
+          "title": "nova 14 512GB 凝霜白 双卡 全网通版",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
+        },
+        {
+          "label": "512GB 昆仑玻璃",
+          "selected": "凝霜白·512GB 昆仑玻璃",
+          "color": "凝霜白",
+          "capacity": "512GB 昆仑玻璃",
+          "cpu": "",
+          "models": [
+            "TLR-AL00"
+          ],
+          "model": "TLR-AL00",
+          "marketing_name": "nova 14",
+          "title": "nova 14 512GB 凝霜白 双卡 全网通版 昆仑玻璃",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
+        }
+      ]
+    },
+    {
+      "product_id": "10086259366534",
+      "url": "https://www.vmall.com/product/10086259366534.html",
+      "name": "HUAWEI Mate 70 Pro",
+      "title": "HUAWEI Mate 70 Pro 12GB+256GB 曜石黑",
+      "launch_date": "2024年11月",
+      "launch_year": 2024,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "曜石黑·12GB+256GB",
+          "color": "曜石黑",
+          "capacity": "12GB+256GB",
+          "cpu": "",
+          "models": [
+            "PLR-AL00",
+            "PLR-AL30"
+          ],
+          "model": "PLR-AL00/PLR-AL30",
+          "marketing_name": "HUAWEI Mate 70 Pro",
+          "title": "HUAWEI Mate 70 Pro 12GB+256GB 曜石黑",
+          "launch_date": "2024年11月",
+          "launch_year": 2024,
+          "launch_month": 11
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "曜石黑·12GB+512GB",
+          "color": "曜石黑",
+          "capacity": "12GB+512GB",
+          "cpu": "",
+          "models": [
+            "PLR-AL00",
+            "PLR-AL30"
+          ],
+          "model": "PLR-AL00/PLR-AL30",
+          "marketing_name": "HUAWEI Mate 70 Pro",
+          "title": "HUAWEI Mate 70 Pro 12GB+512GB 曜石黑",
+          "launch_date": "2024年11月",
+          "launch_year": 2024,
+          "launch_month": 11
         }
       ]
     },
@@ -1068,6 +1317,65 @@
           "launch_date": "2025年5月",
           "launch_year": 2025,
           "launch_month": 5
+        }
+      ]
+    },
+    {
+      "product_id": "10086316355082",
+      "url": "https://www.vmall.com/product/10086316355082.html",
+      "name": "HUAWEI Pura 80 Pro",
+      "title": "HUAWEI Pura 80 Pro 12GB+512GB 釉金",
+      "launch_date": "2025年6月",
+      "launch_year": 2025,
+      "launch_month": 6,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "釉金·12GB+512GB",
+          "color": "釉金",
+          "capacity": "12GB+512GB",
+          "cpu": "",
+          "models": [
+            "LMR-AL00"
+          ],
+          "model": "LMR-AL00",
+          "marketing_name": "HUAWEI Pura 80 Pro",
+          "title": "HUAWEI Pura 80 Pro 12GB+512GB 釉金",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "釉金·12GB+256GB",
+          "color": "釉金",
+          "capacity": "12GB+256GB",
+          "cpu": "",
+          "models": [
+            "LMR-AL00"
+          ],
+          "model": "LMR-AL00",
+          "marketing_name": "HUAWEI Pura 80 Pro",
+          "title": "HUAWEI Pura 80 Pro 12GB+256GB 釉金",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
+        },
+        {
+          "label": "12GB+1TB",
+          "selected": "釉金·12GB+1TB",
+          "color": "釉金",
+          "capacity": "12GB+1TB",
+          "cpu": "",
+          "models": [
+            "LMR-AL00"
+          ],
+          "model": "LMR-AL00",
+          "marketing_name": "HUAWEI Pura 80 Pro",
+          "title": "HUAWEI Pura 80 Pro 12GB+1TB 釉金",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
         }
       ]
     },
@@ -1849,6 +2157,68 @@
       ]
     },
     {
+      "product_id": "10086524417416",
+      "url": "https://www.vmall.com/product/10086524417416.html",
+      "name": "nova 15 Pro",
+      "title": "nova 15 Pro 256GB 幻夜黑 双卡 全网通版 昆仑玻璃",
+      "launch_date": "2025年12月",
+      "launch_year": 2025,
+      "launch_month": 12,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "幻夜黑·256GB 昆仑玻璃",
+          "color": "幻夜黑",
+          "capacity": "256GB 昆仑玻璃",
+          "cpu": "麒麟9010S",
+          "models": [
+            "KLE-AL00U",
+            "KLE-AL00"
+          ],
+          "model": "KLE-AL00U",
+          "marketing_name": "nova 15 pro",
+          "title": "nova 15 Pro 256GB 幻夜黑 双卡 全网通版 昆仑玻璃",
+          "launch_date": "2025年12月",
+          "launch_year": 2025,
+          "launch_month": 12
+        },
+        {
+          "label": "256GB",
+          "selected": "幻夜黑·256GB",
+          "color": "幻夜黑",
+          "capacity": "256GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "KLE-AL00U",
+            "KLE-AL00"
+          ],
+          "model": "KLE-AL00U",
+          "marketing_name": "nova 15 pro",
+          "title": "nova 15 Pro 256GB 幻夜黑 双卡 全网通版",
+          "launch_date": "2025年12月",
+          "launch_year": 2025,
+          "launch_month": 12
+        },
+        {
+          "label": "512GB 昆仑玻璃",
+          "selected": "幻夜黑·512GB 昆仑玻璃",
+          "color": "幻夜黑",
+          "capacity": "512GB 昆仑玻璃",
+          "cpu": "麒麟9010S",
+          "models": [
+            "KLE-AL00U",
+            "KLE-AL00"
+          ],
+          "model": "KLE-AL00U",
+          "marketing_name": "nova 15 pro",
+          "title": "nova 15 Pro 512GB 幻夜黑 双卡 全网通版 昆仑玻璃",
+          "launch_date": "2025年12月",
+          "launch_year": 2025,
+          "launch_month": 12
+        }
+      ]
+    },
+    {
       "product_id": "10086524794571",
       "url": "https://www.vmall.com/product/10086524794571.html",
       "name": "nova 16 Ultra",
@@ -2156,6 +2526,124 @@
           "launch_date": "2026年10月",
           "launch_year": 2026,
           "launch_month": 10
+        }
+      ]
+    },
+    {
+      "product_id": "10086621059876",
+      "url": "https://www.vmall.com/product/10086621059876.html",
+      "name": "HUAWEI Pura X Max",
+      "title": "HUAWEI Pura X Max 12GB+256GB 星际蓝",
+      "launch_date": "2026年4月",
+      "launch_year": 2026,
+      "launch_month": 4,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "星际蓝·12GB+256GB",
+          "color": "星际蓝",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "HOP-AL00"
+          ],
+          "model": "HOP-AL00",
+          "marketing_name": "HUAWEI Pura X Max",
+          "title": "HUAWEI Pura X Max 12GB+256GB 星际蓝",
+          "launch_date": "2026年4月",
+          "launch_year": 2026,
+          "launch_month": 4
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "星际蓝·12GB+512GB",
+          "color": "星际蓝",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "HOP-AL00"
+          ],
+          "model": "HOP-AL00",
+          "marketing_name": "HUAWEI Pura X Max",
+          "title": "HUAWEI Pura X Max 12GB+512GB 星际蓝",
+          "launch_date": "2026年4月",
+          "launch_year": 2026,
+          "launch_month": 4
+        },
+        {
+          "label": "16GB+512GB 典藏版",
+          "selected": "星际蓝·16GB+512GB 典藏版",
+          "color": "星际蓝",
+          "capacity": "16GB+512GB 典藏版",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "HOP-AL10"
+          ],
+          "model": "HOP-AL10",
+          "marketing_name": "HUAWEI Pura X Max 典藏版",
+          "title": "HUAWEI Pura X Max 典藏版 16GB+512GB 星际蓝",
+          "launch_date": "2026年4月",
+          "launch_year": 2026,
+          "launch_month": 4
+        },
+        {
+          "label": "16GB+1TB 典藏版",
+          "selected": "星际蓝·16GB+1TB 典藏版",
+          "color": "星际蓝",
+          "capacity": "16GB+1TB 典藏版",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "HOP-AL10"
+          ],
+          "model": "HOP-AL10",
+          "marketing_name": "HUAWEI Pura X Max 典藏版",
+          "title": "HUAWEI Pura X Max 典藏版 16GB+1TB 星际蓝",
+          "launch_date": "2026年4月",
+          "launch_year": 2026,
+          "launch_month": 4
+        }
+      ]
+    },
+    {
+      "product_id": "10086649851723",
+      "url": "https://www.vmall.com/product/10086649851723.html",
+      "name": "华为畅享 90m Plus",
+      "title": "华为畅享 90m Plus 128GB 星空黑",
+      "launch_date": "2026年4月",
+      "launch_year": 2026,
+      "launch_month": 4,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "星空黑·128GB",
+          "color": "星空黑",
+          "capacity": "128GB",
+          "cpu": "麒麟8000",
+          "models": [
+            "JUY-AL50"
+          ],
+          "model": "JUY-AL50",
+          "marketing_name": "华为畅享 90m Plus",
+          "title": "华为畅享 90m Plus 128GB 星空黑",
+          "launch_date": "2026年4月",
+          "launch_year": 2026,
+          "launch_month": 4
+        },
+        {
+          "label": "256GB",
+          "selected": "星空黑·256GB",
+          "color": "星空黑",
+          "capacity": "256GB",
+          "cpu": "麒麟8000",
+          "models": [
+            "JUY-AL50"
+          ],
+          "model": "JUY-AL50",
+          "marketing_name": "华为畅享 90m Plus",
+          "title": "华为畅享 90m Plus 256GB 星空黑",
+          "launch_date": "2026年4月",
+          "launch_year": 2026,
+          "launch_month": 4
         }
       ]
     },
@@ -2642,6 +3130,108 @@
       ]
     },
     {
+      "product_id": "10086724171251",
+      "url": "https://www.vmall.com/product/10086724171251.html",
+      "name": "HUAWEI Mate 80 Pro Max",
+      "title": "HUAWEI Mate 80 Pro Max 16GB+512GB 极地银",
+      "launch_date": "2025年11月",
+      "launch_year": 2025,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "极地银·16GB+512GB·麒麟9030 Pro",
+          "color": "极地银",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGT-AL10"
+          ],
+          "model": "SGT-AL10",
+          "marketing_name": "HUAWEI Mate 80 Pro Max",
+          "title": "HUAWEI Mate 80 Pro Max 16GB+512GB 极地银",
+          "launch_date": "2025年11月",
+          "launch_year": 2025,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "极地银·16GB+1TB·麒麟9030 Pro",
+          "color": "极地银",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGT-AL10"
+          ],
+          "model": "SGT-AL10",
+          "marketing_name": "HUAWEI Mate 80 Pro Max",
+          "title": "HUAWEI Mate 80 Pro Max 16GB+1TB 极地银",
+          "launch_date": "2025年11月",
+          "launch_year": 2025,
+          "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086754422315",
+      "url": "https://www.vmall.com/product/10086754422315.html",
+      "name": "HUAWEI Mate XTs 非凡大师",
+      "title": "HUAWEI Mate XTs 非凡大师 16GB+256GB 槿紫 ULTIMATE DESIGN",
+      "launch_date": "2025年9月",
+      "launch_year": 2025,
+      "launch_month": 9,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "槿紫·16GB+256GB",
+          "color": "槿紫",
+          "capacity": "16GB+256GB",
+          "cpu": "麒麟 9020",
+          "models": [
+            "GRL-AL20"
+          ],
+          "model": "GRL-AL20",
+          "marketing_name": "HUAWEI Mate XTs | ULTIMATE DESIGN",
+          "title": "HUAWEI Mate XTs 非凡大师 16GB+256GB 槿紫 ULTIMATE DESIGN",
+          "launch_date": "2025年9月",
+          "launch_year": 2025,
+          "launch_month": 9
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "槿紫·16GB+512GB",
+          "color": "槿紫",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟 9020",
+          "models": [
+            "GRL-AL20"
+          ],
+          "model": "GRL-AL20",
+          "marketing_name": "HUAWEI Mate XTs | ULTIMATE DESIGN",
+          "title": "HUAWEI Mate XTs 非凡大师 16GB+512GB 槿紫 ULTIMATE DESIGN",
+          "launch_date": "2025年9月",
+          "launch_year": 2025,
+          "launch_month": 9
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "槿紫·16GB+1TB",
+          "color": "槿紫",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟 9020",
+          "models": [
+            "GRL-AL20"
+          ],
+          "model": "GRL-AL20",
+          "marketing_name": "HUAWEI Mate XTs | ULTIMATE DESIGN",
+          "title": "HUAWEI Mate XTs 非凡大师 16GB+1TB 槿紫 ULTIMATE DESIGN",
+          "launch_date": "2025年9月",
+          "launch_year": 2025,
+          "launch_month": 9
+        }
+      ]
+    },
+    {
       "product_id": "10086756705081",
       "url": "https://www.vmall.com/product/10086756705081.html",
       "name": "华为畅享 90 Plus",
@@ -2803,6 +3393,124 @@
       ]
     },
     {
+      "product_id": "10086838189168",
+      "url": "https://www.vmall.com/product/10086838189168.html",
+      "name": "HUAWEI Mate X7",
+      "title": "HUAWEI Mate X7 12GB+256GB 云锦蓝",
+      "launch_date": "2025年11月",
+      "launch_year": 2025,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "云锦蓝·12GB+256GB·麒麟9030 Pro",
+          "color": "云锦蓝",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "DEL-AL10"
+          ],
+          "model": "DEL-AL10",
+          "marketing_name": "HUAWEI Mate X7",
+          "title": "HUAWEI Mate X7 12GB+256GB 云锦蓝",
+          "launch_date": "2025年11月",
+          "launch_year": 2025,
+          "launch_month": 11
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "云锦蓝·12GB+512GB·麒麟9030 Pro",
+          "color": "云锦蓝",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "DEL-AL10"
+          ],
+          "model": "DEL-AL10",
+          "marketing_name": "HUAWEI Mate X7",
+          "title": "HUAWEI Mate X7 12GB+512GB 云锦蓝",
+          "launch_date": "2025年11月",
+          "launch_year": 2025,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB+512GB 典藏版",
+          "selected": "云锦蓝·16GB+512GB 典藏版·麒麟9030 Pro",
+          "color": "云锦蓝",
+          "capacity": "16GB+512GB 典藏版",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "DEL-AL20"
+          ],
+          "model": "DEL-AL20",
+          "marketing_name": "HUAWEI Mate X7 典藏版",
+          "title": "HUAWEI Mate X7 典藏版 16GB+512GB 云锦蓝",
+          "launch_date": "2025年11月",
+          "launch_year": 2025,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB+1TB 典藏版",
+          "selected": "云锦蓝·16GB+1TB 典藏版·麒麟9030 Pro",
+          "color": "云锦蓝",
+          "capacity": "16GB+1TB 典藏版",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "DEL-AL20"
+          ],
+          "model": "DEL-AL20",
+          "marketing_name": "HUAWEI Mate X7 典藏版",
+          "title": "HUAWEI Mate X7 典藏版 16GB+1TB 云锦蓝",
+          "launch_date": "2025年11月",
+          "launch_year": 2025,
+          "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086839537149",
+      "url": "https://www.vmall.com/product/10086839537149.html",
+      "name": "HUAWEI Pura 80 Ultra",
+      "title": "HUAWEI Pura 80 Ultra 16GB+512GB 鎏光金",
+      "launch_date": "2025年6月",
+      "launch_year": 2025,
+      "launch_month": 6,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "鎏光金·16GB+512GB",
+          "color": "鎏光金",
+          "capacity": "16GB+512GB",
+          "cpu": "",
+          "models": [
+            "LMR-AL10"
+          ],
+          "model": "LMR-AL10",
+          "marketing_name": "HUAWEI Pura 80 Ultra",
+          "title": "HUAWEI Pura 80 Ultra 16GB+512GB 鎏光金",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "鎏光金·16GB+1TB",
+          "color": "鎏光金",
+          "capacity": "16GB+1TB",
+          "cpu": "",
+          "models": [
+            "LMR-AL10"
+          ],
+          "model": "LMR-AL10",
+          "marketing_name": "HUAWEI Pura 80 Ultra",
+          "title": "HUAWEI Pura 80 Ultra 16GB+1TB 鎏光金",
+          "launch_date": "2025年6月",
+          "launch_year": 2025,
+          "launch_month": 6
+        }
+      ]
+    },
+    {
       "product_id": "10086839715516",
       "url": "https://www.vmall.com/product/10086839715516.html",
       "name": "HUAWEI Mate XT 2 非凡大师",
@@ -2874,6 +3582,81 @@
           "launch_date": "2026年9月",
           "launch_year": 2026,
           "launch_month": 9
+        }
+      ]
+    },
+    {
+      "product_id": "10086843224230",
+      "url": "https://www.vmall.com/product/10086843224230.html",
+      "name": "HUAWEI Mate X6",
+      "title": "HUAWEI Mate X6 12GB+256GB 曜石黑",
+      "launch_date": "2024年11月",
+      "launch_year": 2024,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "曜石黑·12GB+256GB·全款购买",
+          "color": "曜石黑",
+          "capacity": "12GB+256GB",
+          "cpu": "",
+          "models": [
+            "ICL-AL10"
+          ],
+          "model": "ICL-AL10",
+          "marketing_name": "HUAWEI Mate X6",
+          "title": "HUAWEI Mate X6 12GB+256GB 曜石黑",
+          "launch_date": "2024年11月",
+          "launch_year": 2024,
+          "launch_month": 11
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "曜石黑·12GB+512GB·全款购买",
+          "color": "曜石黑",
+          "capacity": "12GB+512GB",
+          "cpu": "",
+          "models": [
+            "ICL-AL10"
+          ],
+          "model": "ICL-AL10",
+          "marketing_name": "HUAWEI Mate X6",
+          "title": "HUAWEI Mate X6 12GB+512GB 曜石黑",
+          "launch_date": "2024年11月",
+          "launch_year": 2024,
+          "launch_month": 11
+        },
+        {
+          "label": "12GB+512GB 鸿蒙NEXT先锋版",
+          "selected": "曜石黑·12GB+512GB 鸿蒙NEXT先锋版·全款购买",
+          "color": "曜石黑",
+          "capacity": "12GB+512GB 鸿蒙NEXT先锋版",
+          "cpu": "",
+          "models": [
+            "ICL-AL10"
+          ],
+          "model": "ICL-AL10",
+          "marketing_name": "HUAWEI Mate X6",
+          "title": "HUAWEI Mate X6 12GB+512GB 鸿蒙NEXT先锋版 曜石黑",
+          "launch_date": "2024年11月",
+          "launch_year": 2024,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB+512GB 典藏版 鸿蒙NEXT先锋版",
+          "selected": "曜石黑·16GB+512GB 典藏版 鸿蒙NEXT先锋版·全款购买",
+          "color": "曜石黑",
+          "capacity": "16GB+512GB 典藏版 鸿蒙NEXT先锋版",
+          "cpu": "",
+          "models": [
+            "ICL-AL20"
+          ],
+          "model": "ICL-AL20",
+          "marketing_name": "HUAWEI Mate X6 典藏版",
+          "title": "HUAWEI Mate X6 典藏版 16GB+512GB 鸿蒙NEXT先锋版 曜石黑",
+          "launch_date": "2025年1月",
+          "launch_year": 2025,
+          "launch_month": 1
         }
       ]
     },
@@ -2994,6 +3777,33 @@
           "launch_date": "2026年4月",
           "launch_year": 2026,
           "launch_month": 4
+        }
+      ]
+    },
+    {
+      "product_id": "10086898360689",
+      "url": "https://www.vmall.com/product/10086898360689.html",
+      "name": "HUAWEI Mate 70 Pro 优享版",
+      "title": "HUAWEI Mate 70 Pro 优享版 12GB+256GB 雪域白",
+      "launch_date": "2025年2月",
+      "launch_year": 2025,
+      "launch_month": 2,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "雪域白·12GB+256GB",
+          "color": "雪域白",
+          "capacity": "12GB+256GB",
+          "cpu": "",
+          "models": [
+            "PLR-AL50"
+          ],
+          "model": "PLR-AL50",
+          "marketing_name": "HUAWEI Mate 70 Pro 优享版",
+          "title": "HUAWEI Mate 70 Pro 优享版 12GB+256GB 雪域白",
+          "launch_date": "2025年2月",
+          "launch_year": 2025,
+          "launch_month": 2
         }
       ]
     },
@@ -3251,6 +4061,76 @@
           "launch_date": "2026年9月",
           "launch_year": 2026,
           "launch_month": 9
+        }
+      ]
+    },
+    {
+      "product_id": "10086970282543",
+      "url": "https://www.vmall.com/product/10086970282543.html",
+      "name": "nova 15 Ultra",
+      "title": "nova 15 Ultra 256GB 带感绿 双卡 全网通版 昆仑玻璃",
+      "launch_date": "2025年12月",
+      "launch_year": 2025,
+      "launch_month": 12,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "带感绿·256GB 昆仑玻璃",
+          "color": "带感绿",
+          "capacity": "256GB 昆仑玻璃",
+          "cpu": "麒麟9010S",
+          "models": [
+            "SLY-AL00"
+          ],
+          "model": "SLY-AL00",
+          "marketing_name": "nova 15 Ultra",
+          "title": "nova 15 Ultra 256GB 带感绿 双卡 全网通版 昆仑玻璃",
+          "launch_date": "2025年12月",
+          "launch_year": 2025,
+          "launch_month": 12
+        },
+        {
+          "label": "512GB 昆仑玻璃",
+          "selected": "带感绿·512GB 昆仑玻璃",
+          "color": "带感绿",
+          "capacity": "512GB 昆仑玻璃",
+          "cpu": "麒麟9010S",
+          "models": [
+            "SLY-AL00"
+          ],
+          "model": "SLY-AL00",
+          "marketing_name": "nova 15 Ultra",
+          "title": "nova 15 Ultra 512GB 带感绿 双卡 全网通版 昆仑玻璃",
+          "launch_date": "2025年12月",
+          "launch_year": 2025,
+          "launch_month": 12
+        }
+      ]
+    },
+    {
+      "product_id": "10086980597404",
+      "url": "https://www.vmall.com/product/10086980597404.html",
+      "name": "nova 14 Ultra",
+      "title": "nova 14 Ultra 256GB 曜金黑 双卡 全网通版",
+      "launch_date": "2025年5月",
+      "launch_year": 2025,
+      "launch_month": 5,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "曜金黑·256GB",
+          "color": "曜金黑",
+          "capacity": "256GB",
+          "cpu": "",
+          "models": [
+            "MRT-AL10"
+          ],
+          "model": "MRT-AL10",
+          "marketing_name": "nova 14 Ultra",
+          "title": "nova 14 Ultra 256GB 曜金黑 双卡 全网通版",
+          "launch_date": "2025年5月",
+          "launch_year": 2025,
+          "launch_month": 5
         }
       ]
     },

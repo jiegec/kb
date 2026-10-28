@@ -252,9 +252,12 @@ EXTRACT_JS = r"""
     const models = [...new Set(modelField && /^[A-Za-z0-9-]{3,24}$/.test(modelField) ? [modelField, ...reModels] : reModels)];
     const title = (t.match(/首页[^\n]*>\s*([^\n]+)/) || [])[1] || "";
     const launch = (t.match(/上市时间\s*\n\s*([^\n]+)/) || [])[1] || "";
+    let cpuClean = cpu.trim();
+    if (!/麒麟|Kirin|骁龙|Snapdragon|天玑|Dimensity/i.test(cpuClean)) cpuClean = "";
+    cpuClean = cpuClean.replace(/HUAWEI\s+Kirin/i, "麒麟").trim();
     return {
       selected: sel.trim(),
-      cpu: cpu.trim(),
+      cpu: cpuClean,
       models,
       model: modelField,
       marketing_name: marketing,
@@ -346,6 +349,8 @@ def scrape_product(cdp: CDP, pid: str, wait: float) -> dict:
         ym = re.search(r"(\d{4})\s*年\s*(\d{1,2})\s*月", v.get("launch_date", ""))
         v["launch_year"] = int(ym.group(1)) if ym else None
         v["launch_month"] = int(ym.group(2)) if ym else None
+        if v.get("cpu") and not re.search(r"麒麟|骁龙|天玑|Kirin|Snapdragon", v["cpu"]):
+            v["cpu"] = ""
         if not v.get("title"):
             v["title"] = full
         uniq.append(v)
