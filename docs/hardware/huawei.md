@@ -88,17 +88,6 @@
 
 ### 三代
 
-#### 麒麟 9010S
-
-- 首发：Pura 80
-- 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
-- Maleoon 920C, 2CU
-
-来源：
-
-- [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
-- [HUAWEI HED-LX9](https://browser.geekbench.com/v6/compute/6784045)
-
 #### 麒麟 8000S
 
 - 首发：华为畅享 100
@@ -111,6 +100,43 @@
 - [麒麟 9020/8020 家族参数整理](https://www.sina.cn/news/detail/5357171013324123.html)
 - [华为畅享 100 手机发布：搭载麒麟 8000S 芯片，1399 元起](https://m.ithome.com/html/1018922.htm)
 - [华为畅享 100 系列发布 全系自研麒麟芯片 1399 元起步](https://phone.cnmo.com/news/821290.html)
+
+#### 麒麟 8020
+
+- 首发：华为 nova 14 Pro、nova 14 Ultra
+- 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
+- 大核中核有超线程，共 12 线程
+- Maleoon 920C, 2CU
+
+来源：
+
+- [华为 nova 14 Pro/Ultra 首销：3499 元起 首发麒麟 8020 芯片](https://m.mydrivers.com/newsview/1049373.html)
+- [麒麟 8020 家族参数整理（含 8020/8020A/8000S）](https://www.sina.cn/news/detail/5357171013324123.html)
+
+#### 麒麟 8020A
+
+- 首发：华为畅享 100 Pro、畅享 100 Pro Max 128GB/256GB
+- 6C9T：1x 大核（0xd05，带 SMT，2.29 GHz），2x 中核（0xd46，带 SMT，2.05 GHz），3x 小核（0xd23，1.31 GHz）
+- Maleoon 920C, 2CU
+
+来源：
+
+- [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
+- [最高配麒麟 8020+8800mAh 大电池？华为畅享 100 系列定档 10.28](https://www.pcpop.com/article/6954648.shtml)
+- [1999 元起！华为畅享 100 Pro Max 发布：麒麟 8020+鸿蒙 7](https://m.163.com/dy/article/LABD3H8T0511CPVM.html)
+
+
+#### 麒麟 9010S
+
+- 首发：Pura 80
+- 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
+- Maleoon 920C, 2CU
+
+来源：
+
+- [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
+- [HUAWEI HED-LX9](https://browser.geekbench.com/v6/compute/6784045)
+
 
 #### 麒麟 9020
 
@@ -135,18 +161,6 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
 - [HUAWEI VDE-AL00（Pura X）Geekbench 7](https://browser.geekbench.com/v7/cpu/677065)
-
-#### 麒麟 T92
-
-- 首发：MatePad Pro 13.2" 2025（另有 MatePad Pro 12.2" 2025 系列）
-- 8C12T：1x 2.50 GHz（带 SMT），3x 2.151 GHz（带 SMT），4x 1.60 GHz
-- Maleoon 920, 4CU
-- 与麒麟 9020 规格一致
-
-来源：
-
-- [麒麟 9020 家族参数整理（含 T92/T92A/T92B/T92C/T92D）](https://www.sina.cn/news/detail/5357171013324123.html)
-- [HUAWEI MatePad Pro 13.2-inch Specifications](https://download-c-retail.huawei.com/en/tablets/matepad-pro-13-2/specs/)
 
 #### 麒麟 9020A
 
@@ -186,29 +200,29 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
 - [麒麟 9020/8020 家族参数整理](https://www.sina.cn/news/detail/5357171013324123.html)
 
-#### 麒麟 8020
+#### 麒麟 T82B
 
-- 首发：华为 nova 14 Pro、nova 14 Ultra
-- 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
-- 大核中核有超线程，共 12 线程
-- Maleoon 920C, 2CU
+- 首发：MatePad 11.5 鸿蒙焕新版（TXZ-W10）
+- 8 核，1x 2.29 + 3x 2.05 + 4x 1.31 GHz（part 0xd05）
 
 来源：
 
-- [华为 nova 14 Pro/Ultra 首销：3499 元起 首发麒麟 8020 芯片](https://m.mydrivers.com/newsview/1049373.html)
-- [麒麟 8020 家族参数整理（含 8020/8020A/8000S）](https://www.sina.cn/news/detail/5357171013324123.html)
+- [HUAWEI TXZ-W10 Geekbench 7](https://browser.geekbench.com/v7/cpu/46698)
+- [华为商城 MatePad 11.5 鸿蒙焕新版](https://www.vmall.com/product/10086070683245.html)
 
-#### 麒麟 8020A
 
-- 首发：华为畅享 100 Pro、畅享 100 Pro Max 128GB/256GB
-- 6C9T：1x 大核（0xd05，带 SMT，2.29 GHz），2x 中核（0xd46，带 SMT，2.05 GHz），3x 小核（0xd23，1.31 GHz）
-- Maleoon 920C, 2CU
+#### 麒麟 T92
+
+- 首发：MatePad Pro 13.2" 2025（另有 MatePad Pro 12.2" 2025 系列）
+- 8C12T：1x 2.50 GHz（带 SMT），3x 2.151 GHz（带 SMT），4x 1.60 GHz
+- Maleoon 920, 4CU
+- 与麒麟 9020 规格一致
 
 来源：
 
-- [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
-- [最高配麒麟 8020+8800mAh 大电池？华为畅享 100 系列定档 10.28](https://www.pcpop.com/article/6954648.shtml)
-- [1999 元起！华为畅享 100 Pro Max 发布：麒麟 8020+鸿蒙 7](https://m.163.com/dy/article/LABD3H8T0511CPVM.html)
+- [麒麟 9020 家族参数整理（含 T92/T92A/T92B/T92C/T92D）](https://www.sina.cn/news/detail/5357171013324123.html)
+- [HUAWEI MatePad Pro 13.2-inch Specifications](https://download-c-retail.huawei.com/en/tablets/matepad-pro-13-2/specs/)
+
 
 #### 麒麟 T92C
 
@@ -219,16 +233,6 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [HUAWEI SLG-W50 Geekbench 7](https://browser.geekbench.com/v7/cpu/532113)
 - [华为商城 MatePad 11.5 S 鸿蒙焕新版](https://www.vmall.com/product/10086693978514.html)
-
-#### 麒麟 T82B
-
-- 首发：MatePad 11.5 鸿蒙焕新版（TXZ-W10）
-- 8 核，1x 2.29 + 3x 2.05 + 4x 1.31 GHz（part 0xd05）
-
-来源：
-
-- [HUAWEI TXZ-W10 Geekbench 7](https://browser.geekbench.com/v7/cpu/46698)
-- [华为商城 MatePad 11.5 鸿蒙焕新版](https://www.vmall.com/product/10086070683245.html)
 
 
 ### 四代
