@@ -81,7 +81,7 @@
 
 #### 麒麟 X90A
 
-- 首发：MatePad Edge
+- 首发：MatePad Edge（2025-11；液冷版 2026-03）
 - 8C16T，3+3+2：3x 2.07 GHz（0xd03，带 SMT），3x 1.85 GHz（0xd43，带 SMT），2x 1.81 GHz（0xd42，带 SMT）
 - 麒麟 X90 降频，减一大一中核
 - Maleoon 916B
@@ -226,7 +226,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T82
 
-- 首发：MatePad 11.5 鸿蒙焕新版 柔光版（TXZ-W20）
+- 首发：MatePad 11.5（2025-09）；MatePad 11.5 鸿蒙焕新版 柔光版（2026-07，TXZ-W20）
 - 1x 2.29（0xd05）+ 3x 2.05（0xd46）+ 4x 1.31 GHz（0xd23），8 核 12 线程
 - GPU: Maleoon 920C
 
@@ -250,7 +250,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T92C
 
-- 首发：MatePad 11.5 S 鸿蒙焕新版（SLG-W50）
+- 首发：MatePad 11.5 S 2025 灵动版（2025-08）；鸿蒙焕新版（2026-07，SLG-W50）
 - 6 核 9 线程，1x 2.30（part 0xd05）+ 2x 2.00（part 0xd46）+ 3x 1.60 GHz（part 0xd23）
 - 麒麟 9020 降频，少一中一小核
 - GPU: Maleoon 920A
@@ -263,7 +263,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T92D
 
-- 首发：MatePad 11.5 S 鸿蒙焕新版 活力版（SLG-W10）
+- 首发：MatePad 11.5 S 2025 活力版（2025-10）；鸿蒙焕新版（2026-07，SLG-W10）
 - 8 核，1x 2.40（part 0xd05）+ 3x 2.00（part 0xd46） + 4x 1.60 GHz（part 0xd23）
 - 麒麟 9020 降频
 - GPU: Maleoon 920
@@ -356,24 +356,24 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - 首发：MatePad Pro 12 悦享款（DAL-W20）
 - 8 核，1x 2.69（part 0xd06）+ 3x 2.27（part 0xd47）+ 4x 1.72 GHz（part 0xd24）
-- GPU: Maleoon 935A，5CU @933 MHz
+- GPU: Maleoon 935A，5CU（T93B 为 4CU，T93A 多 1CU）
 
 来源：
 
 - [HUAWEI DAL-W20 Geekbench 7](https://browser.geekbench.com/v7/cpu/728863)
-- [Kirin T93A 登场](https://reameizu.com/huawei-has-announced-kirin-t93a/)
+- [4499 元起！MatePad Air 2026 发布](https://www.vgover.com/news/234346)
 - [华为商城 MatePad Pro 12](https://www.vmall.com/product/10086473135606.html)
 
 #### 麒麟 T93B
 
 - 首发：MatePad Air 12 三代（WKI-W10）
-- 8 核 12 线程，1x 2.69（0xd06）+ 3x 2.27（0xd47）+ 4x 1.72 GHz（0xd24）
-- GPU: Maleoon 935B，4CU @933 MHz；无 NPU/ISP
+- 8 核 12 线程，1x 2.69（0xd06）+ 3x 2.27（0xd47）+ 4x 1.72 GHz（0xd24），CPU 与 T93A 相同
+- GPU: Maleoon 935B，4CU @933 MHz（比 T93A 少 1 CU）
 
 来源：
 
-- [Huawei が Kirin T93B を発表](https://reameizu.com/huawei-unveils-kirin-t93b/)
-- [麒麟 9050Pro 与 T93B 芯片参数及 GPU 频率实测](https://www.sina.cn/news/detail/5340600477158798.html)
+- [4499 元起！MatePad Air 2026 发布：柔光版为 T93B，GPU 比 T93A 少一核](https://www.vgover.com/news/234346)
+- [酷安：麒麟 T93B 的 GPU 为 4CU Maleoon 935B @933MHz](https://www.coolapk.com/feed/73629560)
 - [华为商城 MatePad Air 12 三代](https://www.vmall.com/product/10086662006762.html)
 
 #### 麒麟 T93C
@@ -458,7 +458,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2026 | 麒麟 8020A    | 1x 2.29 GHz, SMT, 0xd05 | 2x 2.05 GHz, SMT, 0xd46 | 3x 1.31 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920C |
 | 2026 | 麒麟 8000S    | N/A                     | 2x 2.05 GHz, SMT, 0xd46 | 3x 1.31 GHz, 0xd23       | N/A                | 5C7T       | Maleoon 920C |
 | 2026 | 麒麟 T82B     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
-| 2026 | 麒麟 T82      | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2025 | 麒麟 T82      | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
 | 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
 | 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
 | 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
