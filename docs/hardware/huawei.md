@@ -164,7 +164,7 @@
 
 #### 麒麟 9020
 
-- 搭载于：Mate 70 Pro+、Mate 80、Pura X、Pura X 典藏版
+- 搭载于：Mate 70 Pro、Mate 70 Pro+、Mate 80、Mate X6、Mate XTs 非凡大师、Pura X、Pura X 典藏版
 - 1x 大核（0xd05，带 SMT, 2.50 GHz），3x 中核（0xd46，带 SMT, 2.15 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
@@ -531,6 +531,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate 70 Pro+ | PLA-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086989076790.html) |
 | Mate 70 Air 12GB | SUP-AL90 | 麒麟 9020B | [华为商城](https://www.vmall.com/product/10086384239615.html) |
 | Mate 70 Air 16GB | SUP-AL90a | 麒麟 9020A | [华为商城](https://www.vmall.com/product/10086384239615.html) |
+| Mate 70 Pro | PLR-AL00 / PLR-AL30 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086259366534.html) |
+| Mate 70 Pro 优享版 | PLR-AL50 | 麒麟 9020A | [华为商城](https://www.vmall.com/product/10086898360689.html) |
 | Mate 80 | VYG-AL00 / VYG-AL30 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086133363559.html) |
 | Mate 80 Pro 12GB | SGT-AL50 | 麒麟 9030 | [华为商城](https://www.vmall.com/product/10086476013098.html) |
 | Mate 80 Pro 16GB | SGT-AL00 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086476013098.html) |
@@ -542,6 +544,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate 90 Pro Max 16GB | CMM-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086384648661.html) |
 | Mate 90 RS 非凡大师 | CMU-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086964819340.html) |
 | Mate XT2 ULTIMATE DESIGN | LAP-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086839715516.html) |
+| Mate X6 | ICL-AL10 / ICL-AL20 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086843224230.html) |
+| Mate XTs 非凡大师 | GRL-AL20 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086754422315.html) |
 | Pura X | VDE-AL00 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
 | Pura X 典藏版 | VDE-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
 | Pura X View | VOL-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086683896486.html) |
