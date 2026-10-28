@@ -324,7 +324,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 产品 | 型号 | 商城 CPU | 来源 |
 |------|------|----------|------|
 | Mate 70 Pro+ | PLA-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086989076790.html) |
-| Mate 70 Air | SUP-AL90 | 麒麟 9020B（12GB）/ 9020A（16GB） | [华为商城](https://www.vmall.com/product/10086384239615.html) |
+| Mate 70 Air 12GB | SUP-AL90 | 麒麟 9020B | [华为商城](https://www.vmall.com/product/10086384239615.html) |
+| Mate 70 Air 16GB | SUP-AL90a | 麒麟 9020A | [华为商城](https://www.vmall.com/product/10086384239615.html) |
 | Mate 80 | VYG-AL00 / VYG-AL30 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086133363559.html) |
 | Mate 80 Pro 12GB | SGT-AL50 | 麒麟 9030 | [华为商城](https://www.vmall.com/product/10086476013098.html) |
 | Mate 80 Pro 16GB | SGT-AL00 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086476013098.html) |
