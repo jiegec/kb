@@ -15,6 +15,8 @@
 - [麒麟 9000s 芯片性能详细解析——华为 mate60 系列！](https://www.zhihu.com/tardis/zm/art/659619471?source_id=1003)
 - [Kirin 9000S Review: How Powerful is Huawei Mate60 Pro?](https://www.youtube.com/watch?v=SCRIFe0uaac)
 
+### 麒麟 8000S
+
 ### 麒麟 9010
 
 - 首发：Pura 70
@@ -117,6 +119,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
 - 大核中核有超线程，共 12 线程
 - Maleoon 920C
+
+### 麒麟 8020A
 
 ### 麒麟 9030
 
