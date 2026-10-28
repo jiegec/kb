@@ -15,10 +15,6 @@
 - [麒麟 9000s 芯片性能详细解析——华为 mate60 系列！](https://www.zhihu.com/tardis/zm/art/659619471?source_id=1003)
 - [Kirin 9000S Review: How Powerful is Huawei Mate60 Pro?](https://www.youtube.com/watch?v=SCRIFe0uaac)
 
-### 麒麟 8000S
-
-- 首发：华为畅享 100
-
 ### 麒麟 9010
 
 - 首发：Pura 70
@@ -37,7 +33,7 @@
 
 ### 麒麟 9010S
 
-— 首发：Pura 80
+- 首发：Pura 80
 - 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
 - Maleoon 920C, 2CU
 
@@ -45,6 +41,19 @@
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
 - [HUAWEI HED-LX9](https://browser.geekbench.com/v6/compute/6784045)
+
+### 麒麟 8000S
+
+- 首发：华为畅享 100
+- 5 核 7 线程：2x 中核（0xd46，2.05 GHz，带 SMT），3x 小核（0xd23，1.31 GHz），无大核（0+2+3 两簇）
+- Maleoon 920C, 1CU
+
+来源：
+
+- [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
+- [麒麟 9020/8020 家族参数整理](https://www.sina.cn/news/detail/5357171013324123.html)
+- [华为畅享 100 手机发布：搭载麒麟 8000S 芯片，1399 元起](https://m.ithome.com/html/1018922.htm)
+- [华为畅享 100 系列发布 全系自研麒麟芯片 1399 元起步](https://phone.cnmo.com/news/821290.html)
 
 ### 麒麟 X90
 
@@ -75,9 +84,14 @@
 ### 麒麟 X90A
 
 - 首发：MatePad Edge
-- 3+3+2, 16 threads, 2.07 GHz/1.85 GHz/1.81 GHz
+- 8C16T，3+3+2：3x 2.07 GHz（带 SMT），3x 1.85 GHz（带 SMT），2x 1.805 GHz（带 SMT）
 - Maleoon 916B
-- 麒麟 X90 低配版
+
+来源：
+
+- [华为 MatePad Edge 芯片不是麒麟 X90，而是 X90A](https://www.sina.cn/news/detail/5235872261739929.html)
+- [HUAWEI MatePad Edge 规格参数](https://consumer.huawei.com/cn/tablets/matepad-edge/specs/)
+- [华为 MatePad Edge 首发猫头鹰散热架构 + 液冷技术](https://pad.zol.com.cn/1129/11294648_param.html)
 
 ### 麒麟 9020
 
@@ -104,32 +118,77 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 T92
 
-- 首发：MatePad Pro 13.2' 2025
-- 8C12T
-- Maleoon 920
+- 首发：MatePad Pro 13.2" 2025（另有 MatePad Pro 12.2" 2025 系列）
+- 8C12T：1x 2.50 GHz（带 SMT），3x 2.151 GHz（带 SMT），4x 1.60 GHz
+- Maleoon 920, 4CU
 - 与麒麟 9020 规格一致
+
+来源：
+
+- [麒麟 9020 家族参数整理（含 T92/T92A/T92B/T92C/T92D）](https://www.sina.cn/news/detail/5357171013324123.html)
+- [HUAWEI MatePad Pro 13.2-inch Specifications](https://download-c-retail.huawei.com/en/tablets/matepad-pro-13-2/specs/)
 
 ### 麒麟 9020A
 
-- 首发：华为 Mate 70 Pro 优享版
+- 首发：华为 Mate 70 Pro 优享版；华为 Mate 70 Air 16GB 版本
 - 1x 大核（0xd05，带 SMT, 2.40 GHz），3x 中核（0xd46，带 SMT, 2.00 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 大核中核有超线程，共 8 核 12 线程
-- Maleoon 920
+- Maleoon 920, 3CU
+
+来源：
+
+- [华为 Mate 70 Air 首次可选 CPU：麒麟 9020A、麒麟 9020B 有何区别 官方客服回应](https://m.mydrivers.com/newsview/1084793.html)
+- [麒麟 9020 家族参数整理（含 9020A/9020B）](https://www.sina.cn/news/detail/5357171013324123.html)
 
 ### 麒麟 9020B
 
-- 首发：华为 Mate 70 Air
+- 首发：华为 Mate 70 Air 12GB 版本
+- 6C9T：1x 2.40 GHz（带 SMT），2x 2.00 GHz（带 SMT），3x 1.60 GHz
+- Maleoon 920R, 3CU
+
+来源：
+
+- [华为 Mate 70 Air 首次可选 CPU：麒麟 9020A、麒麟 9020B 有何区别 官方客服回应](https://m.mydrivers.com/newsview/1084793.html)
+- [麒麟 9020 家族参数整理（含 9020A/9020B）](https://www.sina.cn/news/detail/5357171013324123.html)
+
+### 麒麟 9025
+
+- 首发：Pura 90 Plus
+- 麒麟 9020 提频版，仅超大核 2.50 → 2.60 GHz，其余不变：1x 大核（0xd05，带 SMT，2.60 GHz），3x 中核（0xd46，带 SMT，2.151 GHz），4x 小核（0xd23，无 SMT，1.60 GHz），共 8 核 12 线程
+- Maleoon 920, 4CU
+
+来源：
+
+- [华为 Pura90 Plus 手机配置曝光：2.6GHz 麒麟 9025 芯片](https://www.ithome.com/1/017/425.htm)
+- [麒麟 9025 下周登场：主频升至 2.6GHz 华为 Pura 90 Plus 首发搭载](https://news.17173.com/content/10242026/190105827.shtml)
+- [华为 Pura 90 Plus 正式发布！搭载麒麟 9025 处理器](https://phone.cnmo.com/news/821293.html)
+- [消息称华为 Pura 90 Plus 手机搭载麒麟 9025 处理器](https://www.163.com/dy/article/L9TPL4BC0511B8LM.html)
+- [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
+- [麒麟 9020/8020 家族参数整理](https://www.sina.cn/news/detail/5357171013324123.html)
 
 ### 麒麟 8020
 
-- 首发：华为畅享 100 Pro Max 512GB
+- 首发：华为 nova 14 Pro、nova 14 Ultra
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
 - 大核中核有超线程，共 12 线程
-- Maleoon 920C
+- Maleoon 920C, 2CU
+
+来源：
+
+- [华为 nova 14 Pro/Ultra 首销：3499 元起 首发麒麟 8020 芯片](https://m.mydrivers.com/newsview/1049373.html)
+- [麒麟 8020 家族参数整理（含 8020/8020A/8000S）](https://www.sina.cn/news/detail/5357171013324123.html)
 
 ### 麒麟 8020A
 
-- 首发：华为畅享 100 Pro Max 256GB/128GB，华为畅想 100 Pro
+- 首发：华为畅享 100 Pro、畅享 100 Pro Max 128GB/256GB
+- 6C9T：1x 大核（0xd05，带 SMT，2.29 GHz），2x 中核（0xd46，带 SMT，2.05 GHz），3x 小核（0xd23，1.31 GHz）
+- Maleoon 920C, 2CU
+
+来源：
+
+- [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
+- [最高配麒麟 8020+8800mAh 大电池？华为畅享 100 系列定档 10.28](https://www.pcpop.com/article/6954648.shtml)
+- [1999 元起！华为畅享 100 Pro Max 发布：麒麟 8020+鸿蒙 7](https://m.163.com/dy/article/LABD3H8T0511CPVM.html)
 
 ### 麒麟 9030
 
@@ -155,45 +214,79 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 9030S
 
-- 首发：Pura 90 Pro Max
+- 首发：Pura 90 Pro、Pura 90 Pro Max
 - 1x 大核（带 SMT，2.700 GHz，0xd06），3x 中核（带 SMT，2.150 GHz，0xd47），4x 小核（无 SMT，1.620 GHz，0xd24），共 8 核 12 线程
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - Maleoon 935F, 3CU
 
+来源：
+
+- [华为 Pura 90 Pro / Pro Max 手机开售：首发麒麟 9030S 芯片，售价 5499 元起](https://m.ithome.com/html/0944744.htm)
+- [HUAWEI Pura 90 Pro Max 规格参数](https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/)
+
 ### 麒麟 XE90
 
 - 首发：MateBook Pro S
-- 1+4+4
+- 1+4+4，14 线程
 - Maleoon 935
-- 与麒麟 9030Pro 规格一致
+- 与麒麟 9030 Pro 规格一致
+
+来源：
+
+- [华为发布麒麟 X90 Plus 和麒麟 XE90 PC 芯片](https://www.c114.net.cn/industry/106756.html)
+- [华为发布 MateBook Pro S 系列：798 克超轻薄 AI 笔记本，搭载麒麟 XE90 芯片](https://nb.zol.com.cn/1231/12318351.html)
+- [华为 MateBook Pro S 麒麟 XE90 芯片评测](https://www.sina.cn/news/detail/5336851805638220.html)
 
 ### 麒麟 T93 Pro
 
-- 9C14T
+- 首发：MatePad Pro Max 标准版/柔光版
+- 9C14T（1+4+4）
 - Maleoon 935
-- 与麒麟 9030Pro 规格一致
+
+来源：
+
+- [华为最强平板来了！MatePad Pro Max 发布：首发麒麟 T93 Pro 6199 元起](https://m.mydrivers.com/newsview/1126433.html)
+- [Huawei Kirin T93 Pro — Specs, Benchmarks](https://innoreviews.com/soc/huawei-kirin-t93-pro)
+- [The world's thinnest tablet is a powerhouse — MatePad Pro Max review](https://www.notebookcheck.net/The-world-s-thinnest-tablet-is-a-powerhouse-Huawei-MatePad-Pro-Max-review.1381968.0.html)
 
 ### 麒麟 9035
 
-- 首发 Mate 90 Pro (CMS-AL20)
+- 首发：Mate 90 Pro (CMS-AL20)
 - 1x 大核（带 SMT，2.85 GHz，0xd06），4x 中核（带 SMT，2.35 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
+- 麒麟 9030 Pro 提频版
+
+来源：
+
+- [华为 Mate 90 Pro 首发麒麟 9035：CPU 主频提升至 2.85GHz](https://m.mydrivers.com/newsview/1154483.html)
+- [麒麟 9035 跑分曝光，Mate90 全系智拍](https://www.sina.cn/news/detail/5348456299234883.html)
+- [华为 Mate 90 系列十大黑科技公布 麒麟 9050 性能提升 23%](https://phone.cnmo.com/news/821286.html)
+- [史上最强麒麟芯片！华为大大方方介绍 9050 Pro](https://www.eet-china.com/mp/a528616.html)
 
 ### 麒麟 9050
 
-- 首发 Mate 90 Pro Max 12GB (CMM-AL00)
+- 首发：Mate 90 Pro Max 12GB+512GB (CMM-AL00)
+
+来源：
+
+- [9499 元起！华为 Mate 90 Pro Max/典藏版发布：麒麟 9050 系列](http://m.mydrivers.com/newsview/1155018.html)
+- [华为 Mate 90 系列发布，全系搭载"韬芯片"](https://www.21jingji.com/article/20261001/herald/7d6a3b19765793c2e2df7a4187d5dc35.html)
 
 ### 麒麟 9050 Pro
 
 - 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
 - 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，16 线程
-- Maleoon 955 6CU
+- Maleoon 955 6CU, 1.05 GHz
 
 来源：
 
 - [HUAWEI LAP-AL10 Geekbench 6](https://browser.geekbench.com/v6/compute/6868350)
 - [HUAWEI LAP-AL10 Geekbench 7](https://browser.geekbench.com/v7/cpu/291822)
 - [酷安](https://www.coolapk.com/feed/73629560)
+- [9499 元起！华为 Mate 90 Pro Max/典藏版发布：麒麟 9050 系列](http://m.mydrivers.com/newsview/1155018.html)
+- [史上最强麒麟芯片！华为大大方方介绍 9050 Pro](https://www.eet-china.com/mp/a528616.html)
+- [中國產晶片實力解密 華為 Mate 90 Pro Max 跑分曝光](https://www.eprice.com.tw/mobile/talk/102/5827128/1/m/5827140/)
+- [韬定律表现如何！麒麟 9050 完整性能测试](https://m.mydrivers.com/newsview/1150918.html)
 
 ### 麒麟芯片对比
 
@@ -204,8 +297,12 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 916  |
 | 2025 | 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
 | 2024 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2026 | 麒麟 9025     | 1x 2.60 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
 | 2025 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
-| 2026 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2025 | 麒麟 9020B    | 1x 2.40 GHz, SMT, 0xd05 | 2x 2.00 GHz, SMT, 0xd46 | 3x 1.60 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920R |
+| 2025 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2026 | 麒麟 8020A    | 1x 2.29 GHz, SMT, 0xd05 | 2x 2.05 GHz, SMT, 0xd46 | 3x 1.31 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920C |
+| 2026 | 麒麟 8000S    | N/A                     | 2x 2.05 GHz, SMT, 0xd46 | 3x 1.31 GHz, 0xd23       | N/A                | 5C7T       | Maleoon 920C |
 | 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
 | 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
 | 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
@@ -408,18 +505,18 @@ part id:
 - 0xd01(3329): hip08
 - 0xd02(3330): Kirin 9000S/hip09
 - 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90
-- 0xd05(3333): Kirin 9020/Kirin 9010S
-- 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd05(3333): Kirin 9020/Kirin 9025/Kirin 9010S/Kirin 8020/Kirin 8020A
+- 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035
 - 0xd07(3335): Kirin 9050Pro
 - 0xd22(3362): hip11
-- 0xd23(3363): Kirin 9020/Kirin 9010S
-- 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd23(3363): Kirin 9020/Kirin 9025/Kirin 9020A/Kirin 9020B/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin 8000S
+- 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035
 - 0xd25(3365): Kirin 9050Pro
 - 0xd42(3394): Kirin 9000S/Kirin 9010/Kirin X90
 - 0xd43(3395): Kirin X90
 - 0xd45(3397): hip10c
-- 0xd46(3398): Kirin 9020/Kirin 9010S
-- 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S
+- 0xd46(3398): Kirin 9020/Kirin 9025/Kirin 9020A/Kirin 9020B/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin 8000S
+- 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035
 - 0xd48(3400): Kirin 9050Pro
 
 ## LX2
