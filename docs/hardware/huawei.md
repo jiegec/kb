@@ -126,7 +126,7 @@
 
 #### 麒麟 8020
 
-- 搭载于：nova 14 Pro、nova 14 Ultra、畅享 100 Pro Max 512GB、nova 15、nova 16 SE、nova 16z、MatePad 11.5 鸿蒙焕新版 全网通
+- 搭载于：nova 14、nova 14 Pro、nova 14 Ultra、nova 14 活力版、畅享 100 Pro Max 512GB、nova 15、nova 16 SE、nova 16z、MatePad 11.5 鸿蒙焕新版 全网通
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
 - 麒麟 9020 降频
 - 大核中核有超线程，共 12 线程
@@ -152,7 +152,7 @@
 
 #### 麒麟 9010S
 
-- 搭载于：Pura 80、Pura 90、nova 16、nova 16 Pro、nova 16 Ultra
+- 搭载于：Pura 80、Pura 80 Pro、Pura 80 Pro+、Pura 80 Ultra、Pura 90、nova 15 Pro、nova 15 Ultra、nova 16、nova 16 Pro、nova 16 Ultra
 - 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz，无 SMT）
 - 8 核 12 线程
 - Maleoon 920C, 2CU
@@ -307,7 +307,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9030 Pro
 
-- 搭载于：Mate 80 Pro 16GB、Mate 80 Pro Max 风驰版、Mate 80 RS 非凡大师
+- 搭载于：Mate 80 Pro 16GB、Mate 80 Pro Max、Mate 80 Pro Max 风驰版、Mate 80 RS 非凡大师、Mate X7、Pura X Max
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 
@@ -537,6 +537,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate 80 Pro 12GB | SGT-AL50 | 麒麟 9030 | [华为商城](https://www.vmall.com/product/10086476013098.html) |
 | Mate 80 Pro 16GB | SGT-AL00 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086476013098.html) |
 | Mate 80 Pro Max 风驰版 | SGT-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086981094378.html) |
+| Mate 80 Pro Max | SGT-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086724171251.html) |
 | Mate 80 RS 非凡大师 | SGU-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086511284892.html) |
 | Mate 90 | HLS-AL00 | 麒麟 9030 | [华为商城](https://www.vmall.com/product/10086824447544.html) |
 | Mate 90 Pro | CMS-AL20 | 麒麟 9035 | [华为商城](https://www.vmall.com/product/10086050799772.html) |
@@ -545,11 +546,16 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate 90 RS 非凡大师 | CMU-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086964819340.html) |
 | Mate XT2 ULTIMATE DESIGN | LAP-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086839715516.html) |
 | Mate X6 | ICL-AL10 / ICL-AL20 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086843224230.html) |
+| Mate X7 | DEL-AL10 / DEL-AL20 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086838189168.html) |
 | Mate XTs 非凡大师 | GRL-AL20 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086754422315.html) |
 | Pura X | VDE-AL00 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
+| Pura X Max | HOP-AL00 / HOP-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086621059876.html) |
 | Pura X 典藏版 | VDE-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
 | Pura X View | VOL-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086683896486.html) |
 | Pura 80 | HED-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086364337052.html) |
+| Pura 80 Pro | LMR-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086316355082.html) |
+| Pura 80 Pro+ | LMR-AL10 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086153236238.html) |
+| Pura 80 Ultra | LMR-AL10 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086839537149.html) |
 | Pura 90 | KEE-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086412214615.html) |
 | Pura 90 Plus | LCI-AL00 | 麒麟 9025 | [华为商城](https://www.vmall.com/product/10086663062178.html) |
 | Pura 90 Pro | MLN-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086866372688.html) |
@@ -558,11 +564,18 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 畅享 100m | JAL-AL90 | 麒麟 8000S | [华为商城](https://www.vmall.com/product/10086082763391.html) |
 | 畅享 90 | JUY-AL80 | 麒麟 8000A | [华为商城](https://www.vmall.com/product/10086174757473.html) |
 | 畅享 90 Plus | JUY-AL50 | 麒麟 8000 | [华为商城](https://www.vmall.com/product/10086756705081.html) |
+| 畅享 90m Plus | JUY-AL50 | 麒麟 8000 | [华为商城](https://www.vmall.com/product/10086649851723.html) |
 | 畅享 90 Pro Max | CHZ-AL00 | 麒麟 8000 | [华为商城](https://www.vmall.com/product/10086270081540.html) |
 | 畅享 100 Pro | CHZ-AL60 | 麒麟 8020A | [华为商城](https://www.vmall.com/product/10086591909517.html) |
 | 畅享 100 Pro Max 128/256GB | YEW-AL80 | 麒麟 8020A | [华为商城](https://www.vmall.com/product/10086296035938.html) |
 | 畅享 100 Pro Max 512GB | YEW-AL90 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086296035938.html) |
 | nova 15 | PSN-AL00 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086352871370.html) |
+| nova 14 | TLR-AL00 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086212269653.html) |
+| nova 14 Pro | MIA-AL00 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086182296668.html) |
+| nova 14 Ultra | MRT-AL10 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086980597404.html) |
+| nova 14 活力版 | TYR-AL00 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086187102699.html) |
+| nova 15 Pro | KLE-AL00 / KLE-AL00U | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086524417416.html) |
+| nova 15 Ultra | SLY-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086970282543.html) |
 | nova 16 | EMA-AL00 / EMA-AL00U | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086850799769.html) |
 | nova 16 Pro | CRS-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086941643085.html) |
 | nova 16 Ultra | HIP-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086524794571.html) |
