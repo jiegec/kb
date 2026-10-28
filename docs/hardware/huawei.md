@@ -73,7 +73,7 @@
 
 ### 麒麟 X90 Plus
 
-- 首发：MateBook Fold 非凡大师 2026
+- 首发：MateBook Fold 非凡大师（X90 Plus 版，SLM-W24）
 - 4(2.45 GHz)+4(2.05 GHz)+2(2.01 GHz), 20 threads
 - Maleoon 910?
 
@@ -331,20 +331,18 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate 80 Pro Max 风驰版 | SGT-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086981094378.html) |
 | Mate 80 RS 非凡大师 | SGU-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086511284892.html) |
 | Mate 90 Pro | CMS-AL20 | 麒麟 9035 | [华为商城](https://www.vmall.com/product/10086050799772.html) |
-| Mate 90 Pro Max 12GB | CMM-AL00 | 麒麟 9050 | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=Mate%2090%20Pro%20Max) |
-| Mate 90 Pro Max 16GB | CMM-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=Mate%2090%20Pro%20Max) |
+| Mate 90 Pro Max 12GB | CMM-AL00 | 麒麟 9050 | [华为商城](https://www.vmall.com/product/10086384648661.html) |
+| Mate 90 Pro Max 16GB | CMM-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086384648661.html) |
 | Mate 90 RS 非凡大师 | CMU-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086964819340.html) |
 | Mate XT2 ULTIMATE DESIGN | LAP-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086839715516.html) |
 | Pura X | VDE-AL00 / VDE-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
 | Pura X View | VOL-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086683896486.html) |
 | Pura 90 Plus | LCI-AL00 | 麒麟 9025 | [华为商城](https://www.vmall.com/product/10086663062178.html) |
-| Pura 90s Pro Max | SCA-LX9 | 麒麟 9030S | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=Pura%2090s%20Pro%20Max) |
 | Pura 80 | HED-LX9 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086364337052.html) |
 | MatePad Edge | QXS-W00 | 麒麟 X90A | [华为商城](https://www.vmall.com/product/10086590821009.html) |
 | MateBook Pro | HAD-W32 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086702263930.html) |
-| MateBook Fold 非凡大师 | HPR-W72 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086297718748.html) |
-| MateBook Fold 非凡大师 2026 | SLM-W24 / SLM-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=MateBook%20Fold) |
-| nova 14 | TLR-AL00 | — | [华为商城](https://www.vmall.com/product/10086212269653.html) |
+| MateBook Fold 非凡大师（X90） | HPR-W72 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086297718748.html) |
+| MateBook Fold 非凡大师（X90 Plus） | SLM-W24 / SLM-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html) |
 
 ## hip
 
