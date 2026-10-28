@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T22:11:16+08:00",
+  "generated_at": "2026-10-28T22:20:47+08:00",
   "source": "https://www.vmall.com",
   "products": [
     {
@@ -20,6 +20,8 @@
           "models": [
             "HAD-W24"
           ],
+          "model": "HAD-W24",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 麒麟X90 Plus 24GB 1TB 拂晓粉",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -34,6 +36,8 @@
           "models": [
             "HAD-W24"
           ],
+          "model": "HAD-W24",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 麒麟X90 Plus 24GB 512GB 晴蓝",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -48,6 +52,8 @@
           "models": [
             "HAD-W24"
           ],
+          "model": "HAD-W24",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 麒麟X90 Plus 24GB 1TB 晴蓝",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -62,6 +68,8 @@
           "models": [
             "HAD-W24"
           ],
+          "model": "HAD-W24",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 麒麟X90 Plus 柔光版 24GB 1TB 晴蓝",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -76,6 +84,8 @@
           "models": [
             "HAD-W32"
           ],
+          "model": "HAD-W32",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 麒麟X90 Plus 柔光版 32GB 1TB 晴蓝",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -101,6 +111,8 @@
           "models": [
             "CMS-AL20"
           ],
+          "model": "CMS-AL20",
+          "marketing_name": "HUAWEI Mate 90 Pro",
           "title": "HUAWEI Mate 90 Pro 12GB+512GB 晶钻白",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -115,6 +127,8 @@
           "models": [
             "CMS-AL20"
           ],
+          "model": "CMS-AL20",
+          "marketing_name": "HUAWEI Mate 90 Pro",
           "title": "HUAWEI Mate 90 Pro 12GB+256GB 晶钻白",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -129,6 +143,8 @@
           "models": [
             "CMS-AL20"
           ],
+          "model": "CMS-AL20",
+          "marketing_name": "HUAWEI Mate 90 Pro",
           "title": "HUAWEI Mate 90 Pro 16GB+512GB 晶钻白",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -143,6 +159,8 @@
           "models": [
             "CMS-AL20"
           ],
+          "model": "CMS-AL20",
+          "marketing_name": "HUAWEI Mate 90 Pro",
           "title": "HUAWEI Mate 90 Pro 16GB+1TB 晶钻白",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -168,6 +186,8 @@
           "models": [
             "VDE-AL00"
           ],
+          "model": "VDE-AL00",
+          "marketing_name": "HUAWEI Pura X",
           "title": "HUAWEI Pura X 12GB+256GB 零度白",
           "launch_date": "2025年3月",
           "launch_year": 2025,
@@ -182,6 +202,8 @@
           "models": [
             "VDE-AL00"
           ],
+          "model": "VDE-AL00",
+          "marketing_name": "HUAWEI Pura X",
           "title": "HUAWEI Pura X 12GB+512GB 零度白",
           "launch_date": "2025年3月",
           "launch_year": 2025,
@@ -196,6 +218,8 @@
           "models": [
             "VDE-AL00"
           ],
+          "model": "VDE-AL00",
+          "marketing_name": "HUAWEI Pura X",
           "title": "HUAWEI Pura X 16GB+512GB 零度白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -210,6 +234,8 @@
           "models": [
             "VDE-AL10"
           ],
+          "model": "VDE-AL10",
+          "marketing_name": "HUAWEI Pura X 典藏版",
           "title": "HUAWEI Pura X 典藏版 16GB+512GB 零度白",
           "launch_date": "2025年3月",
           "launch_year": 2025,
@@ -224,6 +250,8 @@
           "models": [
             "VDE-AL10"
           ],
+          "model": "VDE-AL10",
+          "marketing_name": "HUAWEI Pura X 典藏版",
           "title": "HUAWEI Pura X 典藏版 16GB+1TB 零度白",
           "launch_date": "2025年3月",
           "launch_year": 2025,
@@ -249,6 +277,8 @@
           "models": [
             "TXZ-W10"
           ],
+          "model": "TXZ-W10",
+          "marketing_name": "HUAWEI MatePad 11.5",
           "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 WiFi 8GB+128GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -263,6 +293,8 @@
           "models": [
             "TXZ-W10"
           ],
+          "model": "TXZ-W10",
+          "marketing_name": "HUAWEI MatePad 11.5",
           "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 WiFi 8GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -277,6 +309,8 @@
           "models": [
             "TXZ-W20"
           ],
+          "model": "TXZ-W20",
+          "marketing_name": "HUAWEI MatePad 11.5",
           "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 柔光版 WiFi 8GB+128GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -291,6 +325,8 @@
           "models": [
             "TXZ-W20"
           ],
+          "model": "TXZ-W20",
+          "marketing_name": "HUAWEI MatePad 11.5",
           "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 柔光版 WiFi 8GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -305,6 +341,8 @@
           "models": [
             "TXZ-W20"
           ],
+          "model": "TXZ-W20",
+          "marketing_name": "HUAWEI MatePad 11.5",
           "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 柔光版 WiFi 12GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -319,6 +357,8 @@
           "models": [
             "TXZ-AL10"
           ],
+          "model": "TXZ-AL10",
+          "marketing_name": "HUAWEI MatePad 11.5",
           "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 全网通 8GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -344,6 +384,8 @@
           "models": [
             "JAL-AL90"
           ],
+          "model": "JAL-AL90",
+          "marketing_name": "华为畅享 100m",
           "title": "华为畅享 100m 128GB 幻夜黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -358,6 +400,8 @@
           "models": [
             "JAL-AL90"
           ],
+          "model": "JAL-AL90",
+          "marketing_name": "华为畅享 100m",
           "title": "华为畅享 100m 256GB 幻夜黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -380,7 +424,11 @@
           "color": "HarmonyOS",
           "capacity": "16GB/512GB",
           "cpu": "麒麟X90",
-          "models": [],
+          "models": [
+            "MNTXM-24A"
+          ],
+          "model": "MNTXM-24A",
+          "marketing_name": "HUAWEI MateBook 14",
           "title": "HUAWEI MateBook 14 鸿蒙版 16GB 512GB 圆键盘 原野绿",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -392,7 +440,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/512GB",
           "cpu": "麒麟X90",
-          "models": [],
+          "models": [
+            "MNTXM-24A"
+          ],
+          "model": "MNTXM-24A",
+          "marketing_name": "HUAWEI MateBook 14",
           "title": "HUAWEI MateBook 14 鸿蒙版 24GB 512GB 圆键盘 原野绿",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -404,7 +456,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/512GB/柔光版",
           "cpu": "麒麟X90",
-          "models": [],
+          "models": [
+            "MNTXM-24A"
+          ],
+          "model": "MNTXM-24A",
+          "marketing_name": "HUAWEI MateBook 14",
           "title": "HUAWEI MateBook 14 鸿蒙版 24GB 512GB 柔光版 圆键盘 原野绿",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -416,7 +472,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/1TB",
           "cpu": "麒麟X90",
-          "models": [],
+          "models": [
+            "MNTXM-24A"
+          ],
+          "model": "MNTXM-24A",
+          "marketing_name": "HUAWEI MateBook 14",
           "title": "HUAWEI MateBook 14 鸿蒙版 24GB 1TB 圆键盘 原野绿",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -428,7 +488,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/1TB/柔光版",
           "cpu": "麒麟X90",
-          "models": [],
+          "models": [
+            "MNTXM-24A"
+          ],
+          "model": "MNTXM-24A",
+          "marketing_name": "HUAWEI MateBook 14",
           "title": "HUAWEI MateBook 14 鸿蒙版 24GB 1TB 柔光版 圆键盘 原野绿",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -440,7 +504,11 @@
           "color": "HarmonyOS",
           "capacity": "32GB/1TB",
           "cpu": "麒麟X90",
-          "models": [],
+          "models": [
+            "MNTXM-32A"
+          ],
+          "model": "MNTXM-32A",
+          "marketing_name": "HUAWEI MateBook 14",
           "title": "HUAWEI MateBook 14 鸿蒙版 32GB 1TB 圆键盘 原野绿",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -466,6 +534,8 @@
           "models": [
             "GEM-W40"
           ],
+          "model": "GEM-W40",
+          "marketing_name": "HUAWEI MatePad Pro Max 悦享款",
           "title": "HUAWEI MatePad Pro Max 12GB+256GB 悦享款 深空灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -480,6 +550,8 @@
           "models": [
             "GEM-W40"
           ],
+          "model": "GEM-W40",
+          "marketing_name": "HUAWEI MatePad Pro Max 悦享款",
           "title": "HUAWEI MatePad Pro Max 12GB+512GB 悦享款 深空灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -494,6 +566,8 @@
           "models": [
             "GEM-W40"
           ],
+          "model": "GEM-W40",
+          "marketing_name": "HUAWEI MatePad Pro Max 悦享款",
           "title": "HUAWEI MatePad Pro Max 16GB+512GB 悦享款 深空灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -508,6 +582,8 @@
           "models": [
             "GEM-W40"
           ],
+          "model": "GEM-W40",
+          "marketing_name": "HUAWEI MatePad Pro Max 悦享款",
           "title": "HUAWEI MatePad Pro Max 16GB+512GB 悦享款 深空灰  (含键盘)",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -522,6 +598,8 @@
           "models": [
             "GEM-W00"
           ],
+          "model": "GEM-W00",
+          "marketing_name": "HUAWEI MatePad Pro Max",
           "title": "HUAWEI MatePad Pro Max 12GB+256GB 深空灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -536,6 +614,8 @@
           "models": [
             "GEM-W00"
           ],
+          "model": "GEM-W00",
+          "marketing_name": "HUAWEI MatePad Pro Max",
           "title": "HUAWEI MatePad Pro Max 12GB+512GB 深空灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -550,6 +630,8 @@
           "models": [
             "GEM-W00"
           ],
+          "model": "GEM-W00",
+          "marketing_name": "HUAWEI MatePad Pro Max",
           "title": "HUAWEI MatePad Pro Max 12GB+256GB 柔光版 凝光工艺 曜石灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -564,6 +646,8 @@
           "models": [
             "GEM-W00"
           ],
+          "model": "GEM-W00",
+          "marketing_name": "HUAWEI MatePad Pro Max",
           "title": "HUAWEI MatePad Pro Max 12GB+512GB 柔光版 凝光工艺 曜石灰",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -590,6 +674,8 @@
             "VYG-AL00",
             "VYG-AL30"
           ],
+          "model": "VYG-AL00/VYG-AL30",
+          "marketing_name": "HUAWEI Mate 80",
           "title": "HUAWEI Mate 80 12GB+512GB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -605,6 +691,8 @@
             "VYG-AL00",
             "VYG-AL30"
           ],
+          "model": "VYG-AL00/VYG-AL30",
+          "marketing_name": "HUAWEI Mate 80",
           "title": "HUAWEI Mate 80 12GB+256GB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -620,6 +708,8 @@
             "VYG-AL00",
             "VYG-AL30"
           ],
+          "model": "VYG-AL00/VYG-AL30",
+          "marketing_name": "HUAWEI Mate 80",
           "title": "HUAWEI Mate 80 16GB+512GB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -645,6 +735,8 @@
           "models": [
             "JUY-AL80"
           ],
+          "model": "JUY-AL80",
+          "marketing_name": "华为畅享 90",
           "title": "华为畅享 90 256GB 星海蓝",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -659,6 +751,8 @@
           "models": [
             "JUY-AL80"
           ],
+          "model": "JUY-AL80",
+          "marketing_name": "华为畅享 90",
           "title": "华为畅享 90 128GB 星海蓝",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -684,6 +778,8 @@
           "models": [
             "MLR-AL00"
           ],
+          "model": "MLR-AL00",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 悦读版 鸿蒙焕新版 全网通 12GB+256GB 雪域白",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -698,6 +794,8 @@
           "models": [
             "MLR-AL00"
           ],
+          "model": "MLR-AL00",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 悦读版 鸿蒙焕新版 全网通 柔光屏 12GB+256GB 雪域白",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -723,6 +821,8 @@
           "models": [
             "CHZ-AL00"
           ],
+          "model": "CHZ-AL00",
+          "marketing_name": "华为畅享 90 Pro Max",
           "title": "华为畅享 90 Pro Max 256GB 曜金黑",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -737,6 +837,8 @@
           "models": [
             "CHZ-AL00"
           ],
+          "model": "CHZ-AL00",
+          "marketing_name": "华为畅享 90 Pro Max",
           "title": "华为畅享 90 Pro Max 128GB 曜金黑",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -751,6 +853,8 @@
           "models": [
             "CHZ-AL00"
           ],
+          "model": "CHZ-AL00",
+          "marketing_name": "华为畅享 90 Pro Max",
           "title": "华为畅享 90 Pro Max 512GB 曜金黑",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -776,6 +880,8 @@
           "models": [
             "MLR-AL00"
           ],
+          "model": "MLR-AL00",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 悦读版 全网通 柔光屏 12GB+256GB 雪域白",
           "launch_date": "2025年9月",
           "launch_year": 2025,
@@ -790,6 +896,8 @@
           "models": [
             "MLR-AL10"
           ],
+          "model": "MLR-AL10",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 全网通 12GB+512GB 雪域白",
           "launch_date": "2025年9月",
           "launch_year": 2025,
@@ -804,6 +912,8 @@
           "models": [
             "MLR-AL10"
           ],
+          "model": "MLR-AL10",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 全网通 柔光屏 12GB+512GB 雪域白",
           "launch_date": "2025年9月",
           "launch_year": 2025,
@@ -818,6 +928,8 @@
           "models": [
             "MLR-AL10"
           ],
+          "model": "MLR-AL10",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 典藏版 全网通 16GB+512GB 寰宇红",
           "launch_date": "2025年9月",
           "launch_year": 2025,
@@ -832,6 +944,8 @@
           "models": [
             "MLR-AL10"
           ],
+          "model": "MLR-AL10",
+          "marketing_name": "HUAWEI MatePad Mini",
           "title": "HUAWEI MatePad Mini 典藏版 全网通 16GB+1TB 寰宇红",
           "launch_date": "2025年9月",
           "launch_year": 2025,
@@ -857,6 +971,8 @@
           "models": [
             "YEW-AL80"
           ],
+          "model": "YEW-AL80",
+          "marketing_name": "华为畅享 100 Pro Max",
           "title": "华为畅享 100 Pro Max 128GB 曜金黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -871,6 +987,8 @@
           "models": [
             "YEW-AL80"
           ],
+          "model": "YEW-AL80",
+          "marketing_name": "华为畅享 100 Pro Max",
           "title": "华为畅享 100 Pro Max 256GB 曜金黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -885,6 +1003,8 @@
           "models": [
             "YEW-AL90"
           ],
+          "model": "YEW-AL90",
+          "marketing_name": "华为畅享 100 Pro Max",
           "title": "华为畅享 100 Pro Max 512GB 曜金黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -910,6 +1030,8 @@
           "models": [
             "HPR-W72"
           ],
+          "model": "HPR-W72",
+          "marketing_name": "MateBook Fold 非凡大师",
           "title": "HUAWEI MateBook Fold 非凡大师 32GB 2TB 瑞红",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -924,6 +1046,8 @@
           "models": [
             "HPR-W72"
           ],
+          "model": "HPR-W72",
+          "marketing_name": "MateBook Fold 非凡大师",
           "title": "HUAWEI MateBook Fold 非凡大师 32GB 1TB 云水蓝",
           "launch_date": "2025年5月",
           "launch_year": 2025,
@@ -938,6 +1062,8 @@
           "models": [
             "HPR-W72"
           ],
+          "model": "HPR-W72",
+          "marketing_name": "MateBook Fold 非凡大师",
           "title": "HUAWEI MateBook Fold 非凡大师 32GB 2TB 锻影黑",
           "launch_date": "2025年5月",
           "launch_year": 2025,
@@ -963,6 +1089,8 @@
           "models": [
             "PSN-AL00"
           ],
+          "model": "PSN-AL00",
+          "marketing_name": "nova 15",
           "title": "nova 15 256GB 好搭紫 双卡 全网通版",
           "launch_date": "2025年12月",
           "launch_year": 2025,
@@ -977,6 +1105,8 @@
           "models": [
             "PSN-AL00"
           ],
+          "model": "PSN-AL00",
+          "marketing_name": "nova 15",
           "title": "nova 15 512GB 好搭紫 双卡 全网通版",
           "launch_date": "2025年12月",
           "launch_year": 2025,
@@ -1002,6 +1132,8 @@
           "models": [
             "HED-AL00"
           ],
+          "model": "HED-AL00",
+          "marketing_name": "HUAWEI Pura 80",
           "title": "HUAWEI Pura 80 12GB+512GB 丝绒绿",
           "launch_date": "2025年7月",
           "launch_year": 2025,
@@ -1016,6 +1148,8 @@
           "models": [
             "HED-AL00"
           ],
+          "model": "HED-AL00",
+          "marketing_name": "HUAWEI Pura 80",
           "title": "HUAWEI Pura 80 12GB+256GB 丝绒绿",
           "launch_date": "2025年7月",
           "launch_year": 2025,
@@ -1030,6 +1164,8 @@
           "models": [
             "HED-AL00"
           ],
+          "model": "HED-AL00",
+          "marketing_name": "HUAWEI Pura 80",
           "title": "HUAWEI Pura 80 12GB+1TB 丝绒绿",
           "launch_date": "2025年7月",
           "launch_year": 2025,
@@ -1052,7 +1188,11 @@
           "color": "HarmonyOS",
           "capacity": "16GB/512GB",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M1"
+          ],
+          "model": "MOR-M1",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 16GB 512GB 烟云灰",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1064,7 +1204,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/512GB",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M1"
+          ],
+          "model": "MOR-M1",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 24GB 512GB 烟云灰",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1076,7 +1220,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/1TB",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M1"
+          ],
+          "model": "MOR-M1",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 24GB 1TB 仲夏紫",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1088,7 +1236,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/512GB/柔光版",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M1"
+          ],
+          "model": "MOR-M1",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 柔光版 24GB 512GB 仲夏紫",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1100,7 +1252,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/512GB/防窥版",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M1"
+          ],
+          "model": "MOR-M1",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 防窥版 24GB 512GB 晨曦黄",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1112,7 +1268,11 @@
           "color": "HarmonyOS",
           "capacity": "24GB/1TB/防窥版",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M1"
+          ],
+          "model": "MOR-M1",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 防窥版 24GB 1TB 仲夏紫",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1124,7 +1284,11 @@
           "color": "HarmonyOS",
           "capacity": "32GB/1TB/典藏版（防窥屏+手写笔）",
           "cpu": "麒麟XE90",
-          "models": [],
+          "models": [
+            "MOR-M2"
+          ],
+          "model": "MOR-M2",
+          "marketing_name": "HUAWEI MateBook Pro S",
           "title": "HUAWEI MateBook Pro S 典藏版 32GB 1TB 烟云灰",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1150,6 +1314,8 @@
           "models": [
             "SUP-AL90a"
           ],
+          "model": "SUP-AL90a",
+          "marketing_name": "HUAWEI Mate 70 Air",
           "title": "HUAWEI Mate 70 Air 16GB+512GB 羽衣白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1164,6 +1330,8 @@
           "models": [
             "SUP-AL90"
           ],
+          "model": "SUP-AL90",
+          "marketing_name": "HUAWEI Mate 70 Air",
           "title": "HUAWEI Mate 70 Air 12GB+256GB 羽衣白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1178,6 +1346,8 @@
           "models": [
             "SUP-AL90"
           ],
+          "model": "SUP-AL90",
+          "marketing_name": "HUAWEI Mate 70 Air",
           "title": "HUAWEI Mate 70 Air 12GB+512GB 羽衣白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1192,6 +1362,8 @@
           "models": [
             "SUP-AL90a"
           ],
+          "model": "SUP-AL90a",
+          "marketing_name": "HUAWEI Mate 70 Air",
           "title": "HUAWEI Mate 70 Air 16GB+256GB 羽衣白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1217,6 +1389,8 @@
           "models": [
             "CMM-AL00"
           ],
+          "model": "CMM-AL00",
+          "marketing_name": "HUAWEI Mate 90 Pro Max",
           "title": "HUAWEI Mate 90 Pro Max 12GB+512GB 翡冷翠",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1231,6 +1405,8 @@
           "models": [
             "CMM-AL10"
           ],
+          "model": "CMM-AL10",
+          "marketing_name": "HUAWEI Mate 90 Pro Max",
           "title": "HUAWEI Mate 90 Pro Max 16GB+512GB 翡冷翠",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1245,6 +1421,8 @@
           "models": [
             "CMM-AL10"
           ],
+          "model": "CMM-AL10",
+          "marketing_name": "HUAWEI Mate 90 Pro Max 典藏版",
           "title": "HUAWEI Mate 90 Pro Max 典藏版 16GB+512GB 翡冷翠",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1259,6 +1437,8 @@
           "models": [
             "CMM-AL10"
           ],
+          "model": "CMM-AL10",
+          "marketing_name": "HUAWEI Mate 90 Pro Max 典藏版",
           "title": "HUAWEI Mate 90 Pro Max 典藏版 16GB+1TB 翡冷翠",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1284,6 +1464,8 @@
           "models": [
             "KEE-AL00"
           ],
+          "model": "KEE-AL00",
+          "marketing_name": "HUAWEI Pura 90",
           "title": "HUAWEI Pura 90 12GB+256GB 雪域白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1298,6 +1480,8 @@
           "models": [
             "KEE-AL00"
           ],
+          "model": "KEE-AL00",
+          "marketing_name": "HUAWEI Pura 90",
           "title": "HUAWEI Pura 90 12GB+512GB 雪域白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1312,6 +1496,8 @@
           "models": [
             "KEE-AL00"
           ],
+          "model": "KEE-AL00",
+          "marketing_name": "HUAWEI Pura 90",
           "title": "HUAWEI Pura 90 16GB+512GB 雪域白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1334,7 +1520,11 @@
           "color": "WiFi 8GB+256GB",
           "capacity": "星海蓝",
           "cpu": "高通骁龙™ 685",
-          "models": [],
+          "models": [
+            "AGS6-W00"
+          ],
+          "model": "AGS6-W00",
+          "marketing_name": "HUAWEI MatePad SE",
           "title": "HUAWEI MatePad SE 11英寸 焕新版 WiFi 8GB+256GB 星海蓝",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -1360,6 +1550,8 @@
           "models": [
             "SCA-AL00"
           ],
+          "model": "SCA-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro Max",
           "title": "HUAWEI Pura 90 Pro Max 12GB+256GB 橘子海",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1374,6 +1566,8 @@
           "models": [
             "SCA-AL00"
           ],
+          "model": "SCA-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro Max",
           "title": "HUAWEI Pura 90 Pro Max 12GB+512GB 橘子海",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1388,6 +1582,8 @@
           "models": [
             "SCA-AL00"
           ],
+          "model": "SCA-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro Max",
           "title": "HUAWEI Pura 90 Pro Max 16GB+512GB 橘子海",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1402,6 +1598,8 @@
           "models": [
             "SCA-AL00"
           ],
+          "model": "SCA-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro Max",
           "title": "HUAWEI Pura 90 Pro Max 16GB+1TB 橘子海",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -1427,6 +1625,8 @@
           "models": [
             "DAL-W20"
           ],
+          "model": "DAL-W20",
+          "marketing_name": "HUAWEI MatePad Pro 悦享款",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+256GB 悦享款 深空灰",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1441,6 +1641,8 @@
           "models": [
             "DAL-W20"
           ],
+          "model": "DAL-W20",
+          "marketing_name": "HUAWEI MatePad Pro 悦享款",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+256GB 悦享款 柔光屏 深空灰",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1455,6 +1657,8 @@
           "models": [
             "DAL-W20"
           ],
+          "model": "DAL-W20",
+          "marketing_name": "HUAWEI MatePad Pro 悦享款",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+512GB 悦享款 皓月银（含键盘）",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1469,6 +1673,8 @@
           "models": [
             "DAL-W00"
           ],
+          "model": "DAL-W00",
+          "marketing_name": "HUAWEI MatePad Pro",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+256GB 深空灰",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1483,6 +1689,8 @@
           "models": [
             "DAL-W00"
           ],
+          "model": "DAL-W00",
+          "marketing_name": "HUAWEI MatePad Pro",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+256GB 柔光屏 浮光白",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1497,6 +1705,8 @@
           "models": [
             "DAL-W00"
           ],
+          "model": "DAL-W00",
+          "marketing_name": "HUAWEI MatePad Pro",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+512GB 浮光白（含键盘）",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1511,6 +1721,8 @@
           "models": [
             "DAL-W00"
           ],
+          "model": "DAL-W00",
+          "marketing_name": "HUAWEI MatePad Pro",
           "title": "HUAWEI MatePad Pro 12英寸 12GB+512GB 柔光屏 浮光白（含键盘）",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1536,6 +1748,8 @@
           "models": [
             "SGT-AL50"
           ],
+          "model": "SGT-AL50",
+          "marketing_name": "HUAWEI Mate 80 Pro",
           "title": "HUAWEI Mate 80 Pro 12GB+256GB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1550,6 +1764,8 @@
           "models": [
             "SGT-AL50"
           ],
+          "model": "SGT-AL50",
+          "marketing_name": "HUAWEI Mate 80 Pro",
           "title": "HUAWEI Mate 80 Pro 12GB+512GB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1564,6 +1780,8 @@
           "models": [
             "SGT-AL00"
           ],
+          "model": "SGT-AL00",
+          "marketing_name": "HUAWEI Mate 80 Pro",
           "title": "HUAWEI Mate 80 Pro 16GB+512GB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1578,6 +1796,8 @@
           "models": [
             "SGT-AL00"
           ],
+          "model": "SGT-AL00",
+          "marketing_name": "HUAWEI Mate 80 Pro",
           "title": "HUAWEI Mate 80 Pro 16GB+1TB 雪域白",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1603,6 +1823,8 @@
           "models": [
             "SGU-AL10"
           ],
+          "model": "SGU-AL10",
+          "marketing_name": "HUAWEI Mate 80 RS 非凡大师",
           "title": "HUAWEI Mate 80 RS 非凡大师 20GB+512GB 槿紫 ULTIMATE DESIGN",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1617,6 +1839,8 @@
           "models": [
             "SGU-AL10"
           ],
+          "model": "SGU-AL10",
+          "marketing_name": "HUAWEI Mate 80 RS 非凡大师",
           "title": "HUAWEI Mate 80 RS 非凡大师 20GB+1TB 槿紫 ULTIMATE DESIGN",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1642,6 +1866,8 @@
           "models": [
             "HIP-AL00"
           ],
+          "model": "HIP-AL00",
+          "marketing_name": "nova 16 Ultra",
           "title": "nova 16 Ultra 12GB+512GB 天际白 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -1656,6 +1882,8 @@
           "models": [
             "HIP-AL00"
           ],
+          "model": "HIP-AL00",
+          "marketing_name": "nova 16 Ultra",
           "title": "nova 16 Ultra 12GB+256GB 天际白 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -1670,6 +1898,8 @@
           "models": [
             "HIP-AL00"
           ],
+          "model": "HIP-AL00",
+          "marketing_name": "nova 16 Ultra",
           "title": "nova 16 Ultra 12GB+1TB 天际白 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -1695,6 +1925,8 @@
           "models": [
             "CAS-AL50"
           ],
+          "model": "CAS-AL50",
+          "marketing_name": "nova 16 SE",
           "title": "nova 16 SE 256GB 樱雪晴空 双卡 全网通版",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1709,6 +1941,8 @@
           "models": [
             "CAS-AL50"
           ],
+          "model": "CAS-AL50",
+          "marketing_name": "nova 16 SE",
           "title": "nova 16 SE 512GB 樱雪晴空 双卡 全网通版",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -1734,6 +1968,8 @@
           "models": [
             "JAL-AL90"
           ],
+          "model": "JAL-AL90",
+          "marketing_name": "华为畅享 100",
           "title": "华为畅享 100 128GB 冰川白",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1748,6 +1984,8 @@
           "models": [
             "JAL-AL90"
           ],
+          "model": "JAL-AL90",
+          "marketing_name": "华为畅享 100",
           "title": "华为畅享 100 256GB 冰川白",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1773,6 +2011,8 @@
           "models": [
             "QXS-W00"
           ],
+          "model": "QXS-W00",
+          "marketing_name": "HUAWEI MatePad Edge",
           "title": "HUAWEI MatePad Edge WiFi 16GB+256GB 深空灰",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1787,6 +2027,8 @@
           "models": [
             "QXS-W00"
           ],
+          "model": "QXS-W00",
+          "marketing_name": "HUAWEI MatePad Edge",
           "title": "HUAWEI MatePad Edge WiFi 16GB+512GB 深空灰",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1801,6 +2043,8 @@
           "models": [
             "QXS-W00"
           ],
+          "model": "QXS-W00",
+          "marketing_name": "HUAWEI MatePad Edge",
           "title": "HUAWEI MatePad Edge 柔光屏 WiFi 16GB+512GB 深空灰",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1815,6 +2059,8 @@
           "models": [
             "QXS-W10"
           ],
+          "model": "QXS-W10",
+          "marketing_name": "HUAWEI MatePad Edge",
           "title": "HUAWEI MatePad Edge WiFi 24GB+1TB 深空灰",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1829,6 +2075,8 @@
           "models": [
             "QXS-W10"
           ],
+          "model": "QXS-W10",
+          "marketing_name": "HUAWEI MatePad Edge",
           "title": "HUAWEI MatePad Edge 柔光屏 WiFi 24GB+1TB 深空灰（含键盘）",
           "launch_date": "2025年11月",
           "launch_year": 2025,
@@ -1843,6 +2091,8 @@
           "models": [
             "QXS-W20"
           ],
+          "model": "QXS-W20",
+          "marketing_name": "HUAWEI MatePad Edge",
           "title": "HUAWEI MatePad Edge 液冷版 WiFi 24GB+1TB 深空灰",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -1868,6 +2118,8 @@
           "models": [
             "CHZ-AL60"
           ],
+          "model": "CHZ-AL60",
+          "marketing_name": "华为畅享 100 Pro",
           "title": "华为畅享 100 Pro 128GB 幻夜黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1882,6 +2134,8 @@
           "models": [
             "CHZ-AL60"
           ],
+          "model": "CHZ-AL60",
+          "marketing_name": "华为畅享 100 Pro",
           "title": "华为畅享 100 Pro 256GB 幻夜黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1896,6 +2150,8 @@
           "models": [
             "CHZ-AL60"
           ],
+          "model": "CHZ-AL60",
+          "marketing_name": "华为畅享 100 Pro",
           "title": "华为畅享 100 Pro 512GB 幻夜黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -1921,6 +2177,8 @@
           "models": [
             "PKN-AL00"
           ],
+          "model": "PKN-AL00",
+          "marketing_name": "nova 16z",
           "title": "nova 16z 12GB+512GB 幻彩贝母 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -1935,6 +2193,8 @@
           "models": [
             "PKN-AL00"
           ],
+          "model": "PKN-AL00",
+          "marketing_name": "nova 16z",
           "title": "nova 16z 12GB+256GB 幻彩贝母 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -1960,6 +2220,8 @@
           "models": [
             "WKI-W00"
           ],
+          "model": "WKI-W00",
+          "marketing_name": "HUAWEI MatePad Air 悦享款",
           "title": "HUAWEI MatePad Air 12英寸（第三代）8GB+256GB 悦享款 暖云白",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -1974,6 +2236,8 @@
           "models": [
             "WKI-W00"
           ],
+          "model": "WKI-W00",
+          "marketing_name": "HUAWEI MatePad Air 悦享款",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 悦享款 暖云白",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -1988,6 +2252,8 @@
           "models": [
             "WKI-W00"
           ],
+          "model": "WKI-W00",
+          "marketing_name": "HUAWEI MatePad Air 悦享款",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+512GB 悦享款 暖云白",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2002,6 +2268,8 @@
           "models": [
             "WKI-W00"
           ],
+          "model": "WKI-W00",
+          "marketing_name": "HUAWEI MatePad Air 悦享款",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 悦享款 樱语粉（含键盘）",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2016,6 +2284,8 @@
           "models": [
             "WKI-W10"
           ],
+          "model": "WKI-W10",
+          "marketing_name": "HUAWEI MatePad Air",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 烟云灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2030,6 +2300,8 @@
           "models": [
             "WKI-W10"
           ],
+          "model": "WKI-W10",
+          "marketing_name": "HUAWEI MatePad Air",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+512GB 烟云灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2044,6 +2316,8 @@
           "models": [
             "WKI-W10"
           ],
+          "model": "WKI-W10",
+          "marketing_name": "HUAWEI MatePad Air",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 柔光版 烟云灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2058,6 +2332,8 @@
           "models": [
             "WKI-W10"
           ],
+          "model": "WKI-W10",
+          "marketing_name": "HUAWEI MatePad Air",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+512GB 柔光版 烟云灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2072,6 +2348,8 @@
           "models": [
             "WKI-W10"
           ],
+          "model": "WKI-W10",
+          "marketing_name": "HUAWEI MatePad Air",
           "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 樱语粉（含手写笔）",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2097,6 +2375,8 @@
           "models": [
             "LCI-AL00"
           ],
+          "model": "LCI-AL00",
+          "marketing_name": "HUAWEI Pura 90 Plus",
           "title": "HUAWEI Pura 90 Plus 12GB+512GB 霞光紫",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2111,6 +2391,8 @@
           "models": [
             "LCI-AL00"
           ],
+          "model": "LCI-AL00",
+          "marketing_name": "HUAWEI Pura 90 Plus",
           "title": "HUAWEI Pura 90 Plus 12GB+256GB 霞光紫",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2125,6 +2407,8 @@
           "models": [
             "LCI-AL00"
           ],
+          "model": "LCI-AL00",
+          "marketing_name": "HUAWEI Pura 90 Plus",
           "title": "HUAWEI Pura 90 Plus 12GB+1TB 霞光紫",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2150,6 +2434,8 @@
           "models": [
             "VOL-AL00"
           ],
+          "model": "VOL-AL00",
+          "marketing_name": "HUAWEI Pura X View",
           "title": "HUAWEI Pura X View 12GB+512GB 零度白",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2164,6 +2450,8 @@
           "models": [
             "VOL-AL00"
           ],
+          "model": "VOL-AL00",
+          "marketing_name": "HUAWEI Pura X View",
           "title": "HUAWEI Pura X View 12GB+256GB 零度白",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2178,6 +2466,8 @@
           "models": [
             "VOL-AL00"
           ],
+          "model": "VOL-AL00",
+          "marketing_name": "HUAWEI Pura X View",
           "title": "HUAWEI Pura X View 12GB+1TB 零度白",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2203,6 +2493,8 @@
           "models": [
             "SLG-W50"
           ],
+          "model": "SLG-W50",
+          "marketing_name": "HUAWEI MatePad 11.5 S 灵动款",
           "title": "HUAWEI MatePad 11.5 S 灵动款 鸿蒙焕新版 WiFi 8GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -2217,6 +2509,8 @@
           "models": [
             "SLG-W10"
           ],
+          "model": "SLG-W10",
+          "marketing_name": "HUAWEI MatePad 11.5 S 活力版",
           "title": "HUAWEI MatePad 11.5 S 活力版 鸿蒙焕新版 WiFi 8GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -2231,6 +2525,8 @@
           "models": [
             "SLG-W10"
           ],
+          "model": "SLG-W10",
+          "marketing_name": "HUAWEI MatePad 11.5 S 活力版",
           "title": "HUAWEI MatePad 11.5 S 活力版 鸿蒙焕新版 WiFi 12GB+256GB 深空灰",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -2245,6 +2541,8 @@
           "models": [
             "SLG-W50"
           ],
+          "model": "SLG-W50",
+          "marketing_name": "HUAWEI MatePad 11.5 S 灵动款",
           "title": "HUAWEI MatePad 11.5 S 灵动款 鸿蒙焕新版 WiFi 12GB+256GB 冰霜银",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -2259,6 +2557,8 @@
           "models": [
             "SLG-W50"
           ],
+          "model": "SLG-W50",
+          "marketing_name": "HUAWEI MatePad 11.5 S 灵动款",
           "title": "HUAWEI MatePad 11.5 S 灵动款 鸿蒙焕新版 柔光版 WiFi 12GB+256GB 冰霜银",
           "launch_date": "2026年7月",
           "launch_year": 2026,
@@ -2284,6 +2584,8 @@
           "models": [
             "HAD-W32"
           ],
+          "model": "HAD-W32",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 14.2英寸 柔光版 32GB 1TB 晴蓝",
           "launch_date": "2025年5月",
           "launch_year": 2025,
@@ -2298,6 +2600,8 @@
           "models": [
             "HAD-W24"
           ],
+          "model": "HAD-W24",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 14.2英寸 24GB 512GB 晴蓝",
           "launch_date": "2025年5月",
           "launch_year": 2025,
@@ -2312,6 +2616,8 @@
           "models": [
             "HAD-W32"
           ],
+          "model": "HAD-W32",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 14.2英寸 32GB 1TB 晴蓝",
           "launch_date": "2025年5月",
           "launch_year": 2025,
@@ -2326,6 +2632,8 @@
           "models": [
             "HAD-W32"
           ],
+          "model": "HAD-W32",
+          "marketing_name": "HUAWEI MateBook Pro",
           "title": "HUAWEI MateBook Pro 14.2英寸 柔光版 32GB 2TB 砚黑",
           "launch_date": "2025年5月",
           "launch_year": 2025,
@@ -2351,6 +2659,8 @@
           "models": [
             "JUY-AL50"
           ],
+          "model": "JUY-AL50",
+          "marketing_name": "华为畅享 90 Plus",
           "title": "华为畅享 90 Plus 128GB 星空黑",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -2365,6 +2675,8 @@
           "models": [
             "JUY-AL50"
           ],
+          "model": "JUY-AL50",
+          "marketing_name": "华为畅享 90 Plus",
           "title": "华为畅享 90 Plus 256GB 星空黑",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -2390,6 +2702,8 @@
           "models": [
             "SLM-W24"
           ],
+          "model": "SLM-W24",
+          "marketing_name": "HUAWEI MateBook Fold | ULTIMATE DESIGN",
           "title": "HUAWEI MateBook Fold 非凡大师 麒麟X90 Plus 24GB 512GB 天际白 手写笔键盘套装",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -2404,6 +2718,8 @@
           "models": [
             "SLM-W24"
           ],
+          "model": "SLM-W24",
+          "marketing_name": "HUAWEI MateBook Fold | ULTIMATE DESIGN",
           "title": "HUAWEI MateBook Fold 非凡大师 麒麟X90 Plus 24GB 1TB 天际白 手写笔键盘套装",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -2418,6 +2734,8 @@
           "models": [
             "SLM-W32"
           ],
+          "model": "SLM-W32",
+          "marketing_name": "HUAWEI MateBook Fold | ULTIMATE DESIGN",
           "title": "HUAWEI MateBook Fold 非凡大师 麒麟X90 Plus 32GB 2TB 流光金 手写笔键盘套装",
           "launch_date": "2026年8月",
           "launch_year": 2026,
@@ -2443,6 +2761,8 @@
           "models": [
             "HLS-AL00"
           ],
+          "model": "HLS-AL00",
+          "marketing_name": "HUAWEI Mate 90",
           "title": "HUAWEI Mate 90 12GB+256GB 曜石黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2457,6 +2777,8 @@
           "models": [
             "HLS-AL00"
           ],
+          "model": "HLS-AL00",
+          "marketing_name": "HUAWEI Mate 90",
           "title": "HUAWEI Mate 90 12GB+512GB 曜石黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2471,6 +2793,8 @@
           "models": [
             "HLS-AL00"
           ],
+          "model": "HLS-AL00",
+          "marketing_name": "HUAWEI Mate 90",
           "title": "HUAWEI Mate 90 12GB+1TB 曜石黑",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2496,6 +2820,8 @@
           "models": [
             "LAP-AL10"
           ],
+          "model": "LAP-AL10",
+          "marketing_name": "HUAWEI Mate XT 2 | ULTIMATE DESIGN",
           "title": "HUAWEI Mate XT 2 非凡大师 16GB+1TB 皓白 ULTIMATE DESIGN",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2510,6 +2836,8 @@
           "models": [
             "LAP-AL10"
           ],
+          "model": "LAP-AL10",
+          "marketing_name": "HUAWEI Mate XT 2 | ULTIMATE DESIGN",
           "title": "HUAWEI Mate XT 2 非凡大师 16GB+256GB 皓白 ULTIMATE DESIGN",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2524,6 +2852,8 @@
           "models": [
             "LAP-AL10"
           ],
+          "model": "LAP-AL10",
+          "marketing_name": "HUAWEI Mate XT 2 | ULTIMATE DESIGN",
           "title": "HUAWEI Mate XT 2 非凡大师 16GB+512GB 皓白 ULTIMATE DESIGN",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2538,6 +2868,8 @@
           "models": [
             "LAP-AL10"
           ],
+          "model": "LAP-AL10",
+          "marketing_name": "HUAWEI Mate XT 2 | ULTIMATE DESIGN",
           "title": "HUAWEI Mate XT 2 非凡大师 16GB+1TB 皓白 灵盾防窥屏 ULTIMATE DESIGN",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2561,8 +2893,11 @@
           "capacity": "12GB+256GB",
           "cpu": "麒麟9010S",
           "models": [
+            "EMA-AL00U",
             "EMA-AL00"
           ],
+          "model": "EMA-AL00U",
+          "marketing_name": "nova 16",
           "title": "nova 16 12GB+256GB 星空黑 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -2575,8 +2910,11 @@
           "capacity": "12GB+512GB",
           "cpu": "麒麟9010S",
           "models": [
+            "EMA-AL00U",
             "EMA-AL00"
           ],
+          "model": "EMA-AL00U",
+          "marketing_name": "nova 16",
           "title": "nova 16 12GB+512GB 星空黑 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -2602,6 +2940,8 @@
           "models": [
             "MLN-AL00"
           ],
+          "model": "MLN-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro",
           "title": "HUAWEI Pura 90 Pro 12GB+256GB 椰青白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -2616,6 +2956,8 @@
           "models": [
             "MLN-AL00"
           ],
+          "model": "MLN-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro",
           "title": "HUAWEI Pura 90 Pro 12GB+512GB 椰青白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -2630,6 +2972,8 @@
           "models": [
             "MLN-AL00"
           ],
+          "model": "MLN-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro",
           "title": "HUAWEI Pura 90 Pro 16GB+512GB 椰青白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -2644,6 +2988,8 @@
           "models": [
             "MLN-AL00"
           ],
+          "model": "MLN-AL00",
+          "marketing_name": "HUAWEI Pura 90 Pro",
           "title": "HUAWEI Pura 90 Pro 16GB+1TB 椰青白",
           "launch_date": "2026年4月",
           "launch_year": 2026,
@@ -2669,6 +3015,8 @@
           "models": [
             "CRS-AL00"
           ],
+          "model": "CRS-AL00",
+          "marketing_name": "nova 16 Pro",
           "title": "nova 16 Pro 12GB+256GB 星空黑 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -2683,6 +3031,8 @@
           "models": [
             "CRS-AL00"
           ],
+          "model": "CRS-AL00",
+          "marketing_name": "nova 16 Pro",
           "title": "nova 16 Pro 12GB+512GB 星空黑 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -2697,6 +3047,8 @@
           "models": [
             "CRS-AL00"
           ],
+          "model": "CRS-AL00",
+          "marketing_name": "nova 16 Pro",
           "title": "nova 16 Pro 12GB+1TB 星空黑 双卡 全网通版",
           "launch_date": "2026年6月",
           "launch_year": 2026,
@@ -2722,6 +3074,8 @@
           "models": [
             "CMU-AL10"
           ],
+          "model": "CMU-AL10",
+          "marketing_name": "HUAWEI Mate 90 RS 非凡大师",
           "title": "HUAWEI Mate 90 RS 非凡大师 16GB+512GB 瑞红 ULTIMATE DESIGN",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2736,6 +3090,8 @@
           "models": [
             "CMU-AL10"
           ],
+          "model": "CMU-AL10",
+          "marketing_name": "HUAWEI Mate 90 RS 非凡大师",
           "title": "HUAWEI Mate 90 RS 非凡大师 16GB+1TB 瑞红 ULTIMATE DESIGN",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2750,6 +3106,8 @@
           "models": [
             "CMU-AL10"
           ],
+          "model": "CMU-AL10",
+          "marketing_name": "HUAWEI Mate 90 RS 非凡大师",
           "title": "HUAWEI Mate 90 RS 非凡大师 16GB+2TB 瑞红 ULTIMATE DESIGN",
           "launch_date": "2026年10月",
           "launch_year": 2026,
@@ -2775,6 +3133,8 @@
           "models": [
             "AST-W30"
           ],
+          "model": "AST-W30",
+          "marketing_name": "HUAWEI MatePad Air Z 悦享款",
           "title": "HUAWEI MatePad Air Z 8GB+128GB 悦享款 皓月银",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2789,6 +3149,8 @@
           "models": [
             "AST-W30"
           ],
+          "model": "AST-W30",
+          "marketing_name": "HUAWEI MatePad Air Z 悦享款",
           "title": "HUAWEI MatePad Air Z 8GB+256GB 悦享款 皓月银",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2803,6 +3165,8 @@
           "models": [
             "AST-W30"
           ],
+          "model": "AST-W30",
+          "marketing_name": "HUAWEI MatePad Air Z 悦享款",
           "title": "HUAWEI MatePad Air Z 12GB+256GB 悦享款 皓月银",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2817,6 +3181,8 @@
           "models": [
             "AST-W30"
           ],
+          "model": "AST-W30",
+          "marketing_name": "HUAWEI MatePad Air Z 悦享款",
           "title": "HUAWEI MatePad Air Z 12GB+256GB 悦享款 柔光屏 皓月银",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2831,6 +3197,8 @@
           "models": [
             "AST-W00"
           ],
+          "model": "AST-W00",
+          "marketing_name": "HUAWEI MatePad Air Z",
           "title": "HUAWEI MatePad Air Z 8GB+256GB 深空灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2845,6 +3213,8 @@
           "models": [
             "AST-W00"
           ],
+          "model": "AST-W00",
+          "marketing_name": "HUAWEI MatePad Air Z",
           "title": "HUAWEI MatePad Air Z 12GB+256GB 深空灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2859,6 +3229,8 @@
           "models": [
             "AST-W10"
           ],
+          "model": "AST-W10",
+          "marketing_name": "HUAWEI MatePad Air Z",
           "title": "HUAWEI MatePad Air Z 8GB+256GB 柔光屏 深空灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2873,6 +3245,8 @@
           "models": [
             "AST-W10"
           ],
+          "model": "AST-W10",
+          "marketing_name": "HUAWEI MatePad Air Z",
           "title": "HUAWEI MatePad Air Z 12GB+256GB 柔光屏 深空灰",
           "launch_date": "2026年9月",
           "launch_year": 2026,
@@ -2898,6 +3272,8 @@
           "models": [
             "SGT-AL10"
           ],
+          "model": "SGT-AL10",
+          "marketing_name": "HUAWEI Mate 80 Pro Max 风驰版",
           "title": "HUAWEI Mate 80 Pro Max 风驰版 16GB+512GB 极夜黑",
           "launch_date": "2026年3月",
           "launch_year": 2026,
@@ -2923,6 +3299,8 @@
           "models": [
             "PLA-AL10"
           ],
+          "model": "PLA-AL10",
+          "marketing_name": "HUAWEI Mate 70 Pro+",
           "title": "HUAWEI Mate 70 Pro+ 16GB+512GB 墨韵黑",
           "launch_date": "2024年11月",
           "launch_year": 2024,
@@ -2937,6 +3315,8 @@
           "models": [
             "PLA-AL10"
           ],
+          "model": "PLA-AL10",
+          "marketing_name": "HUAWEI Mate 70 Pro+",
           "title": "HUAWEI Mate 70 Pro+ 16GB+1TB 墨韵黑",
           "launch_date": "2024年11月",
           "launch_year": 2024,
