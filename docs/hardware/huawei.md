@@ -40,7 +40,8 @@
 #### 麒麟 9010B
 
 - 首发：MatePad Mini（MLR-AL00）
-- 6 核，1x 2.19（part 0xd03）+ 2x 2.18 + 3x 1.40 GHz
+- 6 核 9 线程，1x 2.19（part 0xd03）+ 2x 2.18（part 0xd42）+ 3x 1.40 GHz（Cortex-A510）
+- 麒麟 9010 降频，去掉一中一小
 
 来源：
 
@@ -67,7 +68,8 @@
 #### 麒麟 X90 Plus
 
 - 首发：MateBook Fold 非凡大师（X90 Plus 版，SLM-W24）
-- 4(2.45 GHz)+4(2.05 GHz)+2(2.01 GHz), 20 threads
+- 4(2.45 GHz, 0xd03)+4(2.05 GHz, 0xd43)+2(2.01 GHz, 0xd42), 20 threads
+- 麒麟 X90 提频
 - Maleoon 910?
 
 来源：
@@ -77,7 +79,8 @@
 #### 麒麟 X90A
 
 - 首发：MatePad Edge
-- 8C16T，3+3+2：3x 2.07 GHz（带 SMT），3x 1.85 GHz（带 SMT），2x 1.805 GHz（带 SMT）
+- 8C16T，3+3+2：3x 2.07 GHz（0xd03，带 SMT），3x 1.85 GHz（0xd43，带 SMT），2x 1.805 GHz（0xd42，带 SMT）
+- 麒麟 X90 降频，减一大一中核
 - Maleoon 916B
 
 来源：
@@ -92,6 +95,7 @@
 
 - 首发：华为畅享 100
 - 5 核 7 线程：2x 中核（0xd46，2.05 GHz，带 SMT），3x 小核（0xd23，1.31 GHz），无大核（0+2+3 两簇）
+- 麒麟 9020 降频，砍一大核一中核一小核
 - Maleoon 920C, 1CU
 
 来源：
@@ -105,6 +109,7 @@
 
 - 首发：华为 nova 14 Pro、nova 14 Ultra
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
+- 麒麟 9020 降频
 - 大核中核有超线程，共 12 线程
 - Maleoon 920C, 2CU
 
@@ -117,6 +122,7 @@
 
 - 首发：华为畅享 100 Pro、畅享 100 Pro Max 128GB/256GB
 - 6C9T：1x 大核（0xd05，带 SMT，2.29 GHz），2x 中核（0xd46，带 SMT，2.05 GHz），3x 小核（0xd23，1.31 GHz）
+- 麒麟 9020 降频，砍一中核一小核
 - Maleoon 920C, 2CU
 
 来源：
@@ -125,18 +131,17 @@
 - [最高配麒麟 8020+8800mAh 大电池？华为畅享 100 系列定档 10.28](https://www.pcpop.com/article/6954648.shtml)
 - [1999 元起！华为畅享 100 Pro Max 发布：麒麟 8020+鸿蒙 7](https://m.163.com/dy/article/LABD3H8T0511CPVM.html)
 
-
 #### 麒麟 9010S
 
 - 首发：Pura 80
-- 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
+- 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz，无 SMT）
+- 8 核 12 线程
 - Maleoon 920C, 2CU
 
 来源：
 
 - [Pura 80 数字版搭载 Kirin 9010S](https://www.coolapk.com/feed/66237183)
 - [HUAWEI HED-LX9](https://browser.geekbench.com/v6/compute/6784045)
-
 
 #### 麒麟 9020
 
@@ -166,6 +171,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - 首发：华为 Mate 70 Pro 优享版；华为 Mate 70 Air 16GB 版本
 - 1x 大核（0xd05，带 SMT, 2.40 GHz），3x 中核（0xd46，带 SMT, 2.00 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
+- 麒麟 9020 降频
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 3CU
 
@@ -177,7 +183,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 9020B
 
 - 首发：华为 Mate 70 Air 12GB 版本
-- 6C9T：1x 2.40 GHz（带 SMT），2x 2.00 GHz（带 SMT），3x 1.60 GHz
+- 6C9T：1x 2.40 GHz（0xd05，带 SMT），2x 2.00 GHz（0xd46，带 SMT），3x 1.60 GHz（0xd23）
+- 麒麟 9020 降频，减一中核
 - Maleoon 920R, 3CU
 
 来源：
@@ -204,13 +211,13 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T82B
 
 - 首发：MatePad 11.5 鸿蒙焕新版（TXZ-W10）
-- 8 核，1x 2.29（part 0xd05）+ 3x 2.05 + 4x 1.31 GHz
+- 8 核 12 线程，1x 2.29（part 0xd05）+ 3x 2.05（part 0xd46）+ 4x 1.31 GHz（part 0xd23）
+- 麒麟 9020 降频
 
 来源：
 
 - [HUAWEI TXZ-W10 Geekbench 7](https://browser.geekbench.com/v7/cpu/46698)
 - [华为商城 MatePad 11.5 鸿蒙焕新版](https://www.vmall.com/product/10086070683245.html)
-
 
 #### 麒麟 T82
 
@@ -223,7 +230,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T92
 
 - 首发：MatePad Pro 13.2" 2025（另有 MatePad Pro 12.2" 2025 系列）
-- 8C12T：1x 2.50 GHz（带 SMT），3x 2.151 GHz（带 SMT），4x 1.60 GHz
+- 8C12T：1x 2.50 GHz（0xd05，带 SMT），3x 2.151 GHz（0xd46，带 SMT），4x 1.60 GHz（0xd23）
 - Maleoon 920, 4CU
 - 与麒麟 9020 规格一致
 
@@ -236,7 +243,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T92C
 
 - 首发：MatePad 11.5 S 鸿蒙焕新版（SLG-W50）
-- 6 核，1x 2.30（part 0xd05）+ 2x 2.00 + 3x 1.60 GHz
+- 6 核 9 线程，1x 2.30（part 0xd05）+ 2x 2.00（part 0xd46）+ 3x 1.60 GHz（part 0xd23）
+- 麒麟 9020 降频，少一中一小核
 
 来源：
 
@@ -246,13 +254,13 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T92D
 
 - 首发：MatePad 11.5 S 鸿蒙焕新版 活力版（SLG-W10）
-- 8 核，1x 2.40（part 0xd05）+ 3x 2.00 + 4x 1.60 GHz
+- 8 核，1x 2.40（part 0xd05）+ 3x 2.00（part 0xd46） + 4x 1.60 GHz（part 0xd23）
+- 麒麟 9020 降频
 
 来源：
 
 - [HUAWEI SLG-W10 Geekbench 7](https://browser.geekbench.com/v7/cpu/597088)
 - [华为商城 MatePad 11.5 S 鸿蒙焕新版](https://www.vmall.com/product/10086693978514.html)
-
 
 ### 四代
 
@@ -312,6 +320,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 首发：MatePad Pro Max 标准版/柔光版
 - 9C14T（1+4+4）
 - Maleoon 935
+- 与麒麟 9030 Pro 规格相同
 
 来源：
 
@@ -322,7 +331,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93
 
 - 首发：MatePad Pro Max 悦享款（GEM-W40）、MatePad Pro 12（DAL-W00）
-- 8 核，1x 2.69（part 0xd06）+ 3x 2.27 + 4x 1.72 GHz
+- 8 核，1x 2.69（part 0xd06）+ 3x 2.27（part 0xd47） + 4x 1.72 GHz（part 0xd24）
+- 与麒麟 9030 规格相同
 
 来源：
 
@@ -333,7 +343,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93A
 
 - 首发：MatePad Pro 12 悦享款（DAL-W20）
-- 8 核，1x 2.69（part 0xd06）+ 3x 2.27 + 4x 1.72 GHz
+- 8 核，1x 2.69（part 0xd06）+ 3x 2.27（part 0xd47）+ 4x 1.72 GHz（part 0xd24）
 
 来源：
 
@@ -351,7 +361,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93C
 
 - 首发：MatePad Air 12 三代 悦享款（WKI-W00）
-- 8 核，4x 2.27（part 0xd47）+ 4x 1.72 GHz
+- 8 核，4x 2.27（part 0xd47）+ 4x 1.72（part 0xd24）GHz
+- 比麒麟 9030 少了一个大核，多了一个中核
 
 来源：
 
@@ -377,7 +388,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 9050
 
 - 首发：Mate 90 Pro Max 12GB+512GB (CMM-AL00)
-- 1x 3.00 GHz + 2x 2.70 GHz + 3x 2.20 GHz + 2x 1.75 GHz，8 核
+- 1x 3.00 GHz（0xd47）+ 2x 2.70 GHz（0xd48）+ 3x 2.20 GHz（0xd48）+ 2x 1.75 GHz（0xd25），8 核 14 线程
 
 来源：
 
@@ -388,7 +399,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 9050 Pro
 
 - 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
-- 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，16 线程
+- 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，9 核 16 线程
+- 比麒麟 9050 频率高，多一个 2.2 GHz 中核
 - Maleoon 955 6CU, 1.05 GHz
 
 来源：
