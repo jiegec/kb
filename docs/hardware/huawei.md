@@ -254,6 +254,75 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [Huawei Kirin T93 Pro — Specs, Benchmarks](https://innoreviews.com/soc/huawei-kirin-t93-pro)
 - [The world's thinnest tablet is a powerhouse — MatePad Pro Max review](https://www.notebookcheck.net/The-world-s-thinnest-tablet-is-a-powerhouse-Huawei-MatePad-Pro-Max-review.1381968.0.html)
 
+### 麒麟 T93
+
+- 首发：MatePad Pro Max 悦享款（GEM-W40）、MatePad Pro 12（DAL-W00）
+- 8 核，1x 2.69 + 3x 2.27 + 4x 1.72 GHz（part 0xd06，与麒麟 9030 同族）
+
+来源：
+
+- [HUAWEI GEM-W40 Geekbench 7](https://browser.geekbench.com/v7/cpu/627090)
+- [华为商城 MatePad Pro Max](https://www.vmall.com/product/10086127502687.html)
+- [华为商城 MatePad Pro 12](https://www.vmall.com/product/10086473135606.html)
+
+### 麒麟 T93A
+
+- 首发：MatePad Pro 12 悦享款（DAL-W20）
+- 8 核，1x 2.69 + 3x 2.27 + 4x 1.72 GHz（part 0xd06）
+
+来源：
+
+- [HUAWEI DAL-W20 Geekbench 7](https://browser.geekbench.com/v7/cpu/728863)
+- [华为商城 MatePad Pro 12](https://www.vmall.com/product/10086473135606.html)
+
+### 麒麟 T93B
+
+- 首发：MatePad Air 12 三代（WKI-W10）
+
+来源：
+
+- [华为商城 MatePad Air 12 三代](https://www.vmall.com/product/10086662006762.html)
+
+### 麒麟 T93C
+
+- 首发：MatePad Air 12 三代 悦享款（WKI-W00）
+- 8 核，4x 2.27 + 4x 1.72 GHz（part 0xd47）
+
+来源：
+
+- [HUAWEI WKI-W00 Geekbench 7](https://browser.geekbench.com/v7/cpu/537841)
+- [华为商城 MatePad Air 12 三代](https://www.vmall.com/product/10086662006762.html)
+
+### 麒麟 T92C
+
+- 首发：MatePad 11.5 S 鸿蒙焕新版（SLG-W50）
+- 6 核，1x 2.30 + 2x 2.00 + 3x 1.60 GHz（part 0xd05）
+
+来源：
+
+- [HUAWEI SLG-W50 Geekbench 7](https://browser.geekbench.com/v7/cpu/532113)
+- [华为商城 MatePad 11.5 S 鸿蒙焕新版](https://www.vmall.com/product/10086693978514.html)
+
+### 麒麟 T82B
+
+- 首发：MatePad 11.5 鸿蒙焕新版（TXZ-W10）
+- 8 核，1x 2.29 + 3x 2.05 + 4x 1.31 GHz（part 0xd05）
+
+来源：
+
+- [HUAWEI TXZ-W10 Geekbench 7](https://browser.geekbench.com/v7/cpu/46698)
+- [华为商城 MatePad 11.5 鸿蒙焕新版](https://www.vmall.com/product/10086070683245.html)
+
+### 麒麟 9010B
+
+- 首发：MatePad Mini（MLR-AL00）
+- 6 核，1x 2.19 + 2x 2.18 + 3x 1.40 GHz（part 0xd03）
+
+来源：
+
+- [HUAWEI MLR-AL00 Geekbench 7](https://browser.geekbench.com/v7/cpu/613986)
+- [华为商城 MatePad Mini](https://www.vmall.com/product/10086287244006.html)
+
 ### 麒麟 9035
 
 - 首发：Mate 90 Pro (CMS-AL20)
@@ -331,16 +400,38 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate 80 Pro 16GB | SGT-AL00 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086476013098.html) |
 | Mate 80 Pro Max 风驰版 | SGT-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086981094378.html) |
 | Mate 80 RS 非凡大师 | SGU-AL10 | 麒麟 9030 Pro | [华为商城](https://www.vmall.com/product/10086511284892.html) |
+| Mate 90 | HLS-AL00 | 麒麟 9030 | [华为商城](https://www.vmall.com/product/10086824447544.html) |
 | Mate 90 Pro | CMS-AL20 | 麒麟 9035 | [华为商城](https://www.vmall.com/product/10086050799772.html) |
 | Mate 90 Pro Max 12GB | CMM-AL00 | 麒麟 9050 | [华为商城](https://www.vmall.com/product/10086384648661.html) |
 | Mate 90 Pro Max 16GB | CMM-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086384648661.html) |
 | Mate 90 RS 非凡大师 | CMU-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086964819340.html) |
 | Mate XT2 ULTIMATE DESIGN | LAP-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086839715516.html) |
-| Pura X | VDE-AL00 / VDE-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
+| Pura X | VDE-AL00 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
+| Pura X 典藏版 | VDE-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
 | Pura X View | VOL-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086683896486.html) |
+| Pura 80 | HED-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086364337052.html) |
+| Pura 90 | KEE-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086412214615.html) |
 | Pura 90 Plus | LCI-AL00 | 麒麟 9025 | [华为商城](https://www.vmall.com/product/10086663062178.html) |
-| Pura 80 | HED-LX9 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086364337052.html) |
+| Pura 90 Pro | MLN-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086866372688.html) |
+| Pura 90 Pro Max | SCA-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086454848882.html) |
+| 畅享 100 | JAL-AL90 | 麒麟 8000S | [华为商城](https://www.vmall.com/product/10086576131735.html) |
+| 畅享 100m | JAL-AL90 | 麒麟 8000S | [华为商城](https://www.vmall.com/product/10086082763391.html) |
+| 畅享 100 Pro | CHZ-AL60 | 麒麟 8020A | [华为商城](https://www.vmall.com/product/10086591909517.html) |
+| 畅享 100 Pro Max 128/256GB | YEW-AL80 | 麒麟 8020A | [华为商城](https://www.vmall.com/product/10086296035938.html) |
+| 畅享 100 Pro Max 512GB | YEW-AL90 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086296035938.html) |
+| nova 15 | PSN-AL00 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086352871370.html) |
+| nova 16 | EMA-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086850799769.html) |
+| nova 16 Pro | CRS-AL00 | 麒麟 9010S | [华为商城](https://www.vmall.com/product/10086941643085.html) |
 | MatePad Edge | QXS-W00 | 麒麟 X90A | [华为商城](https://www.vmall.com/product/10086590821009.html) |
+| MatePad Pro Max 悦享款 | GEM-W40 | 麒麟 T93 | [华为商城](https://www.vmall.com/product/10086127502687.html) |
+| MatePad Pro Max | GEM-W00 | 麒麟 T93 Pro | [华为商城](https://www.vmall.com/product/10086127502687.html) |
+| MatePad Pro 12 悦享款 | DAL-W20 | 麒麟 T93A | [华为商城](https://www.vmall.com/product/10086473135606.html) |
+| MatePad Pro 12 | DAL-W00 | 麒麟 T93 | [华为商城](https://www.vmall.com/product/10086473135606.html) |
+| MatePad Air 12 三代 悦享款 | WKI-W00 | 麒麟 T93C | [华为商城](https://www.vmall.com/product/10086662006762.html) |
+| MatePad Air 12 三代 | WKI-W10 | 麒麟 T93B | [华为商城](https://www.vmall.com/product/10086662006762.html) |
+| MatePad 11.5 S 鸿蒙焕新版 | SLG-W50 | 麒麟 T92C | [华为商城](https://www.vmall.com/product/10086693978514.html) |
+| MatePad 11.5 鸿蒙焕新版 | TXZ-W10 | 麒麟 T82B | [华为商城](https://www.vmall.com/product/10086070683245.html) |
+| MatePad Mini | MLR-AL00 | 麒麟 9010B | [华为商城](https://www.vmall.com/product/10086287244006.html) |
 | MateBook Pro | HAD-W32 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086702263930.html) |
 | MateBook Fold 非凡大师（X90） | HPR-W72 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086297718748.html) |
 | MateBook Fold 非凡大师（X90 Plus） | SLM-W24 / SLM-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html) |
@@ -540,9 +631,9 @@ part id:
 
 - 0xd01(3329): hip08
 - 0xd02(3330): Kirin 9000S/hip09
-- 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90
-- 0xd05(3333): Kirin 9020/Kirin 9025/Kirin 9010S/Kirin 8020/Kirin 8020A
-- 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035
+- 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90/Kirin 9010B
+- 0xd05(3333): Kirin 9020/Kirin 9025/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin T92C/Kirin T82B
+- 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035/Kirin T93/Kirin T93A
 - 0xd07(3335): Kirin 9050Pro
 - 0xd22(3362): hip11
 - 0xd23(3363): Kirin 9020/Kirin 9025/Kirin 9020A/Kirin 9020B/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin 8000S
@@ -552,7 +643,7 @@ part id:
 - 0xd43(3395): Kirin X90
 - 0xd45(3397): hip10c
 - 0xd46(3398): Kirin 9020/Kirin 9025/Kirin 9020A/Kirin 9020B/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin 8000S
-- 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035
+- 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035/Kirin T93C
 - 0xd48(3400): Kirin 9050Pro
 
 ## LX2
