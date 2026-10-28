@@ -8,7 +8,7 @@
 
 #### 麒麟 9000S
 
-- 首发：Mate 60
+- 搭载于：Mate 60
 - 1x 大核（2.62 GHz, 带 SMT，0xd02），3x 中核（2.15 GHz, 带 SMT，0xd42），4x 小核 Cortex-A510（1.53 GHz, 无 SMT）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 910, 4CU, 1024 ALU
@@ -23,7 +23,7 @@
 
 #### 麒麟 9010
 
-- 首发：Pura 70
+- 搭载于：Pura 70 系列、MatePad Mini 典藏版
 - 1x 大核（0xd03，最大 2.30 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
 - 8 核，2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
@@ -39,7 +39,7 @@
 
 #### 麒麟 9010B
 
-- 首发：MatePad Mini（MLR-AL00）
+- 搭载于：MatePad Mini、MatePad Mini 悦读版 鸿蒙焕新版
 - 6 核 9 线程，1x 2.19（part 0xd03）+ 2x 2.18（part 0xd42）+ 3x 1.40 GHz（Cortex-A510）
 - 麒麟 9010 降频，去掉一中一小
 - GPU: Maleoon 910
@@ -53,7 +53,7 @@
 
 #### 麒麟 X90
 
-- 首发：MateBook Pro
+- 搭载于：MatePad Edge 液冷版、MateBook Pro、MateBook Pro 24GB/512GB、MateBook 14 鸿蒙版、MateBook Fold 非凡大师（X90）
 - 4+4+2, 20 threads
 - part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.32 GHz）, 0xd43（8 threads，4 核，2.05 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.01 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
@@ -69,7 +69,7 @@
 
 #### 麒麟 X90 Plus
 
-- 首发：MateBook Fold 非凡大师（X90 Plus 版，SLM-W24）
+- 搭载于：MateBook Pro 麒麟 X90 Plus、MateBook Fold 非凡大师（X90 Plus）
 - 4(2.45 GHz, 0xd03)+4(2.05 GHz, 0xd43)+2(2.01 GHz, 0xd42), 20 threads
 - 麒麟 X90 提频
 - Maleoon 910
@@ -81,7 +81,7 @@
 
 #### 麒麟 X90A
 
-- 首发：MatePad Edge（2025-11；液冷版 2026-03）
+- 搭载于：MatePad Edge WiFi
 - 8C16T，3+3+2：3x 2.07 GHz（0xd03，带 SMT），3x 1.85 GHz（0xd43，带 SMT），2x 1.81 GHz（0xd42，带 SMT）
 - 麒麟 X90 降频，减一大一中核
 - Maleoon 916B
@@ -96,7 +96,7 @@
 
 #### 麒麟 8000S
 
-- 首发：华为畅享 100
+- 搭载于：畅享 100、畅享 100m
 - 5 核 7 线程：2x 中核（0xd46，2.05 GHz，带 SMT），3x 小核（0xd23，1.31 GHz），无大核（0+2+3 两簇）
 - 麒麟 9020 降频，砍一大核一中核一小核
 - Maleoon 920C, 1CU
@@ -110,7 +110,7 @@
 
 #### 麒麟 8020
 
-- 首发：华为 nova 14 Pro、nova 14 Ultra
+- 搭载于：nova 14 Pro、nova 14 Ultra、畅享 100 Pro Max 512GB、nova 15、nova 16 SE、nova 16z、MatePad 11.5 鸿蒙焕新版 全网通
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
 - 麒麟 9020 降频
 - 大核中核有超线程，共 12 线程
@@ -123,7 +123,7 @@
 
 #### 麒麟 8020A
 
-- 首发：华为畅享 100 Pro、畅享 100 Pro Max 128GB/256GB
+- 搭载于：畅享 100 Pro、畅享 100 Pro Max 128/256GB
 - 6C9T：1x 大核（0xd05，带 SMT，2.29 GHz），2x 中核（0xd46，带 SMT，2.05 GHz），3x 小核（0xd23，1.31 GHz）
 - 麒麟 9020 降频，砍一中核一小核
 - Maleoon 920C, 2CU
@@ -136,7 +136,7 @@
 
 #### 麒麟 9010S
 
-- 首发：Pura 80
+- 搭载于：Pura 80、Pura 90、nova 16、nova 16 Pro、nova 16 Ultra
 - 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz，无 SMT）
 - 8 核 12 线程
 - Maleoon 920C, 2CU
@@ -148,7 +148,7 @@
 
 #### 麒麟 9020
 
-- 首发：Mate 70
+- 搭载于：Mate 70 Pro+、Mate 80、Pura X、Pura X 典藏版
 - 1x 大核（0xd05，带 SMT, 2.50 GHz），3x 中核（0xd46，带 SMT, 2.15 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
@@ -172,7 +172,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9020A
 
-- 首发：华为 Mate 70 Pro 优享版；华为 Mate 70 Air 16GB 版本
+- 搭载于：Mate 70 Pro 优享版、Mate 70 Air 16GB
 - 1x 大核（0xd05，带 SMT, 2.40 GHz），3x 中核（0xd46，带 SMT, 2.00 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 麒麟 9020 降频
 - 大核中核有超线程，共 8 核 12 线程
@@ -185,7 +185,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9020B
 
-- 首发：华为 Mate 70 Air 12GB 版本
+- 搭载于：Mate 70 Air 12GB
 - 6C9T：1x 2.40 GHz（0xd05，带 SMT），2x 2.00 GHz（0xd46，带 SMT），3x 1.60 GHz（0xd23）
 - 麒麟 9020 降频，减一中核
 - Maleoon 920R, 3CU
@@ -197,7 +197,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9025
 
-- 首发：Pura 90 Plus
+- 搭载于：Pura 90 Plus
 - 麒麟 9020 提频
 - 1x 大核（0xd05，带 SMT，2.60 GHz），3x 中核（0xd46，带 SMT，2.15 GHz），4x 小核（0xd23，无 SMT，1.60 GHz），共 8 核 12 线程
 - Maleoon 920, 4CU
@@ -213,7 +213,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T82B
 
-- 首发：MatePad 11.5 鸿蒙焕新版（TXZ-W10）
+- 搭载于：MatePad 11.5 鸿蒙焕新版 WiFi
 - 8 核 12 线程，1x 2.29（part 0xd05）+ 3x 2.05（part 0xd46）+ 4x 1.31 GHz（part 0xd23）
 - 麒麟 9020 降频
 - GPU: Maleoon 920C
@@ -226,7 +226,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T82
 
-- 首发：MatePad 11.5（2025-09）；MatePad 11.5 鸿蒙焕新版 柔光版（2026-07，TXZ-W20）
+- 搭载于：MatePad 11.5 鸿蒙焕新版 柔光版
 - 1x 2.29（0xd05）+ 3x 2.05（0xd46）+ 4x 1.31 GHz（0xd23），8 核 12 线程
 - GPU: Maleoon 920C
 
@@ -237,7 +237,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T92
 
-- 首发：MatePad Pro 13.2" 2025（另有 MatePad Pro 12.2" 2025 系列）
+- 搭载于：MatePad Pro 13.2" 2025、MatePad Pro 12.2" 2025
 - 8C12T：1x 2.50 GHz（0xd05，带 SMT），3x 2.15 GHz（0xd46，带 SMT），4x 1.60 GHz（0xd23）
 - Maleoon 920, 4CU
 - 与麒麟 9020 规格一致
@@ -250,7 +250,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T92C
 
-- 首发：MatePad 11.5 S 2025 灵动版（2025-08）；鸿蒙焕新版（2026-07，SLG-W50）
+- 搭载于：MatePad 11.5 S 2025 灵动版、MatePad 11.5 S 鸿蒙焕新版 灵动款
 - 6 核 9 线程，1x 2.30（part 0xd05）+ 2x 2.00（part 0xd46）+ 3x 1.60 GHz（part 0xd23）
 - 麒麟 9020 降频，少一中一小核
 - GPU: Maleoon 920A
@@ -263,7 +263,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T92D
 
-- 首发：MatePad 11.5 S 2025 活力版（2025-10）；鸿蒙焕新版（2026-07，SLG-W10）
+- 搭载于：MatePad 11.5 S 2025 活力版、MatePad 11.5 S 鸿蒙焕新版 活力版
 - 8 核，1x 2.40（part 0xd05）+ 3x 2.00（part 0xd46） + 4x 1.60 GHz（part 0xd23）
 - 麒麟 9020 降频
 - GPU: Maleoon 920
@@ -278,7 +278,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9030
 
-- 首发：Mate 80 Pro（12GB，SGT-AL50）
+- 搭载于：Mate 80 Pro 12GB、Mate 90
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
 
@@ -290,7 +290,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9030 Pro
 
-- 首发：Mate 80 Pro（16GB，SGT-AL00）、Mate 80 Pro Max（SGT-AL10）
+- 搭载于：Mate 80 Pro 16GB、Mate 80 Pro Max 风驰版、Mate 80 RS 非凡大师
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 
@@ -302,10 +302,10 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9030S
 
-- 首发：Pura 90 Pro、Pura 90 Pro Max
+- 搭载于：Pura X View、Pura 90 Pro、Pura 90 Pro Max
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.15 GHz，0xd47），4x 小核（无 SMT，1.62 GHz，0xd24），共 8 核 12 线程
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
-- Maleoon 935F, 3CU
+- GPU: Maleoon 935F, 3CU（T93S/T93SD 为同规格平板版）
 
 来源：
 
@@ -316,7 +316,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 XE90
 
-- 首发：MateBook Pro S
+- 搭载于：MateBook Pro S
 - 1+4+4，14 线程
 - Maleoon 935
 - 与麒麟 9030 Pro 规格一致
@@ -329,7 +329,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T93 Pro
 
-- 首发：MatePad Pro Max 标准版/柔光版
+- 搭载于：MatePad Pro Max
 - 9C14T（1+4+4）
 - Maleoon 935
 - 与麒麟 9030 Pro 规格相同
@@ -342,7 +342,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T93
 
-- 首发：MatePad Pro Max 悦享款（GEM-W40）、MatePad Pro 12（DAL-W00）
+- 搭载于：MatePad Pro Max 悦享款、MatePad Pro 12
 - 8 核，1x 2.69（part 0xd06）+ 3x 2.27（part 0xd47） + 4x 1.72 GHz（part 0xd24）
 - 与麒麟 9030 规格相同
 
@@ -354,7 +354,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T93A
 
-- 首发：MatePad Pro 12 悦享款（DAL-W20）
+- 搭载于：MatePad Pro 12 悦享款
 - 8 核，1x 2.69（part 0xd06）+ 3x 2.27（part 0xd47）+ 4x 1.72 GHz（part 0xd24）
 - GPU: Maleoon 935A，5CU（T93B 为 4CU，T93A 多 1CU）
 
@@ -366,7 +366,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T93B
 
-- 首发：MatePad Air 12 三代（WKI-W10）
+- 搭载于：MatePad Air 12 三代
 - 8 核 12 线程，1x 2.69（0xd06）+ 3x 2.27（0xd47）+ 4x 1.72 GHz（0xd24），CPU 与 T93A 相同
 - GPU: Maleoon 935B，4CU @933 MHz（比 T93A 少 1 CU）
 
@@ -378,7 +378,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T93C
 
-- 首发：MatePad Air 12 三代 悦享款（WKI-W00）
+- 搭载于：MatePad Air 12 三代 悦享款
 - 8 核，4x 2.27（part 0xd47）+ 4x 1.72（part 0xd24）GHz
 - 比麒麟 9030 少了一个大核，多了一个中核
 - GPU: Maleoon 935B
@@ -389,9 +389,35 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [HiSilicon Kirin T93C](https://www.notebookcheck.net/HiSilicon-Kirin-T93C-Processor-Benchmarks-and-Specs.1431009.0.html)
 - [华为商城 MatePad Air 12 三代](https://www.vmall.com/product/10086662006762.html)
 
+#### 麒麟 T93S
+
+- 搭载于：MatePad Air Z 柔光版（AST-W10）
+- 8 核，1x 2.70（0xd06）+ 3x 2.15（0xd47）+ 4x 1.62 GHz（0xd24），与麒麟 9030S 规格相同
+- GPU: Maleoon 935F，3CU
+
+来源：
+
+- [HUAWEI AST-W10 Geekbench 6 Compute（OpenCL：Maleoon 935F，3CU）](https://browser.geekbench.com/v6/compute/6913440)
+- [华为 MatePad Air Z 核心配置公布：柔光版为 T93S](https://news.17173.com/content/09242026/110415388.shtml)
+- [华为商城 MatePad Air Z](https://www.vmall.com/product/10086966141469.html)
+
+#### 麒麟 T93SD
+
+- 搭载于：MatePad Air Z（标准版普通屏，AST-W00）、MatePad Air Z 悦享款（AST-W30）
+- 与 T93S 的区别：MatePad Air Z 柔光版（AST-W10）用 T93S，普通屏/悦享款用 T93SD
+- 8 核，1x 2.70（0xd06）+ 3x 2.15（0xd47）+ 4x 1.62 GHz（0xd24）
+- GPU: Maleoon 935F（Vulkan）
+
+来源：
+
+- [HUAWEI AST-W00 Geekbench 6 Compute（Vulkan：Maleoon 935F）](https://browser.geekbench.com/v6/compute/6910487)
+- [华为 MatePad Air Z 平板配置公布：麒麟 T93SD 处理器](https://www.ithome.com/0/100/6606.htm)
+- [华为 MatePad Air Z 核心配置公布：柔光版为 T93S，普通屏/悦享款为 T93SD](https://news.17173.com/content/09242026/110415388.shtml)
+- [华为商城 MatePad Air Z](https://www.vmall.com/product/10086966141469.html)
+
 #### 麒麟 9035
 
-- 首发：Mate 90 Pro (CMS-AL20)
+- 搭载于：Mate 90 Pro
 - 1x 大核（带 SMT，2.85 GHz，0xd06），4x 中核（带 SMT，2.35 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 - 麒麟 9030 Pro 提频版
@@ -407,7 +433,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9050
 
-- 首发：Mate 90 Pro Max 12GB+512GB (CMM-AL00)
+- 搭载于：Mate 90 Pro Max 12GB
 - 1x 3.00 GHz（0xd47）+ 2x 2.70 GHz（0xd48）+ 3x 2.20 GHz（0xd48）+ 2x 1.75 GHz（0xd25），8 核 14 线程
 - GPU: Maleoon 955A
 
@@ -420,7 +446,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9050 Pro
 
-- 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
+- 搭载于：Mate 90 Pro Max 16GB、Mate 90 RS 非凡大师、Mate XT2 ULTIMATE DESIGN
 - 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，9 核 16 线程
 - 比麒麟 9050 频率高，多一个 2.20 GHz 中核
 - Maleoon 955 6CU, 1.05 GHz
@@ -468,6 +494,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2026 | 麒麟 T93A     | 1x 2.69 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
 | 2026 | 麒麟 T93B     | 1x 2.69 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935B |
 | 2026 | 麒麟 T93C     | N/A                     | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935B |
+| 2026 | 麒麟 T93S     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
+| 2026 | 麒麟 T93SD    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
 | 2026 | 麒麟 XE90     | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
 | 2026 | 麒麟 9050     | 1x 3.00 GHz, SMT, 0xd47 | 2x 2.70 GHz, SMT, 0xd48 | 3x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 8C14T      | Maleoon 955A |
 | 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
@@ -522,7 +550,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | MatePad Pro 12 | DAL-W00 | 麒麟 T93 | [华为商城](https://www.vmall.com/product/10086473135606.html) |
 | MatePad Air 12 三代 悦享款 | WKI-W00 | 麒麟 T93C | [华为商城](https://www.vmall.com/product/10086662006762.html) |
 | MatePad Air 12 三代 | WKI-W10 | 麒麟 T93B | [华为商城](https://www.vmall.com/product/10086662006762.html) |
-| MatePad Air Z | AST-W00 / AST-W10 / AST-W30 | 麒麟 T93SD | [华为商城](https://www.vmall.com/product/10086966141469.html) |
+| MatePad Air Z | AST-W00 / AST-W30 | 麒麟 T93SD | [华为商城](https://www.vmall.com/product/10086966141469.html) |
+| MatePad Air Z 柔光版 | AST-W10 | 麒麟 T93S | [华为商城](https://www.vmall.com/product/10086966141469.html) |
 | MatePad 11.5 S 鸿蒙焕新版 灵动款 | SLG-W50 | 麒麟 T92C | [华为商城](https://www.vmall.com/product/10086693978514.html) |
 | MatePad 11.5 S 鸿蒙焕新版 活力版 | SLG-W10 | 麒麟 T92D | [华为商城](https://www.vmall.com/product/10086693978514.html) |
 | MatePad 11.5 鸿蒙焕新版 WiFi | TXZ-W10 | 麒麟 T82B | [华为商城](https://www.vmall.com/product/10086070683245.html) |
