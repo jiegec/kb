@@ -17,6 +17,8 @@
 
 ### 麒麟 8000S
 
+- 首发：华为畅享 100
+
 ### 麒麟 9010
 
 - 首发：Pura 70
@@ -35,7 +37,7 @@
 
 ### 麒麟 9010S
 
-— Pura 80
+— 首发：Pura 80
 - 1x 大核（0xd05，2.50 GHz），3x 中核（0xd46，2.05 GHz），4x 小核（0xd23，1.50 GHz）
 - Maleoon 920C, 2CU
 
@@ -46,7 +48,7 @@
 
 ### 麒麟 X90
 
-- MateBook Pro
+- 首发：MateBook Pro
 - 4+4+2, 20 threads
 - part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.316 GHz）, 0xd43（8 threads，4 核，2.050 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.010 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
@@ -62,7 +64,7 @@
 
 ### 麒麟 X90 Plus
 
-- MateBook Fold 非凡大师 2026
+- 首发：MateBook Fold 非凡大师 2026
 - 4(2.45 GHz)+4(2.05 GHz)+2(2.01 GHz), 20 threads
 - Maleoon 910?
 
@@ -72,7 +74,7 @@
 
 ### 麒麟 X90A
 
-- MatePad Edge
+- 首发：MatePad Edge
 - 3+3+2, 16 threads, 2.07 GHz/1.85 GHz/1.81 GHz
 - Maleoon 916B
 - 麒麟 X90 低配版
@@ -102,29 +104,36 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 T92
 
+- 首发：MatePad Pro 13.2' 2025
 - 8C12T
 - Maleoon 920
 - 与麒麟 9020 规格一致
 
 ### 麒麟 9020A
 
+- 首发：华为 Mate 70 Pro 优享版
 - 1x 大核（0xd05，带 SMT, 2.40 GHz），3x 中核（0xd46，带 SMT, 2.00 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920
 
 ### 麒麟 9020B
 
+- 首发：华为 Mate 70 Air
+
 ### 麒麟 8020
 
+- 首发：华为畅享 100 Pro Max 512GB
 - 1x 大核（0xd05，带 SMT，2.29 GHz），3x 中核（0xd46，带 SMT，2.05 GHz），4x 小核（0xd23，无 SMT，1.31 GHz）
 - 大核中核有超线程，共 12 线程
 - Maleoon 920C
 
 ### 麒麟 8020A
 
+- 首发：华为畅享 100 Pro Max 256GB/128GB，华为畅想 100 Pro
+
 ### 麒麟 9030
 
-- Mate 80/Mate X7
+- 首发：Mate 80
 - 1x 大核（带 SMT，2.695 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
 
@@ -135,7 +144,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 9030 Pro
 
-- Mate 80 Pro Max(SGT-AL10)/Mate X7
+- 首发：Mate 80 Pro Max(SGT-AL10)
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 
@@ -146,14 +155,14 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 9030S
 
-- Pura 90 Pro Max
+- 首发：Pura 90 Pro Max
 - 1x 大核（带 SMT，2.700 GHz，0xd06），3x 中核（带 SMT，2.150 GHz，0xd47），4x 小核（无 SMT，1.620 GHz，0xd24），共 8 核 12 线程
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - Maleoon 935F, 3CU
 
 ### 麒麟 XE90
 
-- MateBook Pro S
+- 首发：MateBook Pro S
 - 1+4+4
 - Maleoon 935
 - 与麒麟 9030Pro 规格一致
