@@ -40,7 +40,7 @@
 #### 麒麟 9010B
 
 - 首发：MatePad Mini（MLR-AL00）
-- 6 核，1x 2.19 + 2x 2.18 + 3x 1.40 GHz（part 0xd03）
+- 6 核，1x 2.19（part 0xd03）+ 2x 2.18 + 3x 1.40 GHz
 
 来源：
 
@@ -188,7 +188,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 9025
 
 - 首发：Pura 90 Plus
-- 麒麟 9020 提频版，仅超大核 2.50 → 2.60 GHz，其余不变：1x 大核（0xd05，带 SMT，2.60 GHz），3x 中核（0xd46，带 SMT，2.151 GHz），4x 小核（0xd23，无 SMT，1.60 GHz），共 8 核 12 线程
+- 麒麟 9020 提频
+- 1x 大核（0xd05，带 SMT，2.60 GHz），3x 中核（0xd46，带 SMT，2.151 GHz），4x 小核（0xd23，无 SMT，1.60 GHz），共 8 核 12 线程
 - Maleoon 920, 4CU
 
 来源：
@@ -203,7 +204,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T82B
 
 - 首发：MatePad 11.5 鸿蒙焕新版（TXZ-W10）
-- 8 核，1x 2.29 + 3x 2.05 + 4x 1.31 GHz（part 0xd05）
+- 8 核，1x 2.29（part 0xd05）+ 3x 2.05 + 4x 1.31 GHz
 
 来源：
 
@@ -227,7 +228,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T92C
 
 - 首发：MatePad 11.5 S 鸿蒙焕新版（SLG-W50）
-- 6 核，1x 2.30 + 2x 2.00 + 3x 1.60 GHz（part 0xd05）
+- 6 核，1x 2.30（part 0xd05）+ 2x 2.00 + 3x 1.60 GHz
 
 来源：
 
@@ -303,7 +304,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93
 
 - 首发：MatePad Pro Max 悦享款（GEM-W40）、MatePad Pro 12（DAL-W00）
-- 8 核，1x 2.69 + 3x 2.27 + 4x 1.72 GHz（part 0xd06，与麒麟 9030 同族）
+- 8 核，1x 2.69（part 0xd06）+ 3x 2.27 + 4x 1.72 GHz
 
 来源：
 
@@ -314,7 +315,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93A
 
 - 首发：MatePad Pro 12 悦享款（DAL-W20）
-- 8 核，1x 2.69 + 3x 2.27 + 4x 1.72 GHz（part 0xd06）
+- 8 核，1x 2.69（part 0xd06）+ 3x 2.27 + 4x 1.72 GHz
 
 来源：
 
@@ -332,7 +333,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93C
 
 - 首发：MatePad Air 12 三代 悦享款（WKI-W00）
-- 8 核，4x 2.27 + 4x 1.72 GHz（part 0xd47）
+- 8 核，4x 2.27（part 0xd47）+ 4x 1.72 GHz
 
 来源：
 
