@@ -19,6 +19,39 @@
 - [麒麟 9000s 芯片性能详细解析——华为 mate60 系列！](https://www.zhihu.com/tardis/zm/art/659619471?source_id=1003)
 - [Kirin 9000S Review: How Powerful is Huawei Mate60 Pro?](https://www.youtube.com/watch?v=SCRIFe0uaac)
 
+#### 麒麟 9000W
+
+- 搭载于：MatePad Pro 13.2、MatePad Pro 11、MatePad 11.5"S（均为平板，已换代）
+- 8 核 12 线程：1x 2.49（0xd02，带 SMT）+ 3x 2.15 GHz（0xd42，带 SMT）+ 4x 1.53 GHz（Cortex-A510）
+- GPU: Maleoon 910, 4CU
+- 与麒麟 9000S1 规格相同，按产品线分别命名（平板 W / 手机 S1）
+
+来源：
+
+- [华为 MatePad 11.5''S 平板现身 Geekbench，预计为麒麟 9000W](https://m.ithome.com/html/768075.htm)
+
+#### 麒麟 9000S1
+
+- 搭载于：Pura 70（已下架）
+- 8 核 12 线程：1x 2.49 + 3x 2.15 + 4x 1.53 GHz（Cortex-A510）
+- GPU: Maleoon 910, 4CU
+- 与麒麟 9000W 规格相同，是它在手机产品线上的名字
+
+来源：
+
+- [华为 MatePad 11.5''S 平板现身 Geekbench，预计为麒麟 9000W（麒麟 9000S1）](https://m.ithome.com/html/768075.htm)
+- [华为手机处理器规格表](https://www.mydrivers.com/zhuanti/tianti/01/index_huawei.html)
+
+#### 麒麟 9000SL
+
+- 搭载于：nova 12 Ultra（已下架）
+- 6 核 9 线程：1x 2.35（0xd02，带 SMT）+ 2x 2.15 GHz（0xd42，带 SMT）+ 3x 1.53 GHz（Cortex-A510）
+- GPU: Maleoon 910, 4CU
+
+来源：
+
+- [华为麒麟 9000SL、8000 处理器齐曝光：核心数、主频等调整](https://www.163.com/dy/article/IMSM0I5H0511CPVM.html)
+
 ### 二代
 
 #### 麒麟 9010
@@ -488,6 +521,9 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 时间 | 芯片          | 核心簇 1                | 核心簇 2                | 核心簇 3                 | 核心簇 4           | 核心线程数 | GPU               |
 |------|---------------|-------------------------|-------------------------|--------------------------|--------------------|------------|-------------------|
 | 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
+| 2023 | 麒麟 9000W    | 1x 2.49 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
+| 2023 | 麒麟 9000S1   | 1x 2.49 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
+| 2023 | 麒麟 9000SL   | 1x 2.35 GHz, SMT, 0xd02 | 2x 2.15 GHz, SMT, 0xd42 | 3x 1.53 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910, 4CU  |
 | 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2024 | 麒麟 9010E    | 1x 2.19 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2025 | 麒麟 9010B    | 1x 2.19 GHz, SMT, 0xd03 | 2x 2.18 GHz, SMT, 0xd42 | 3x 1.40 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910, 3CU  |
@@ -802,7 +838,7 @@ implementer 0x48
 part id:
 
 - 0xd01(3329): hip08
-- 0xd02(3330): Kirin 9000S/hip09
+- 0xd02(3330): Kirin 9000S/Kirin 9000S1/Kirin 9000W/Kirin 9000SL/hip09
 - 0xd03(3331): Kirin 9010/Kirin 9010E/hip10/hip10a/Kirin X90/Kirin 9010B
 - 0xd05(3333): Kirin 9020/Kirin 9025/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin T92C/Kirin T92D/Kirin T82B
 - 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035/Kirin T93/Kirin T93A
@@ -811,7 +847,7 @@ part id:
 - 0xd23(3363): Kirin 9020/Kirin 9025/Kirin 9020A/Kirin 9020B/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin 8000S
 - 0xd24(3364): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035
 - 0xd25(3365): Kirin 9050Pro
-- 0xd42(3394): Kirin 9000S/Kirin 9010/Kirin X90
+- 0xd42(3394): Kirin 9000S/Kirin 9000W/Kirin 9000S1/Kirin 9000SL/Kirin 9010/Kirin X90
 - 0xd43(3395): Kirin X90
 - 0xd45(3397): hip10c
 - 0xd46(3398): Kirin 9020/Kirin 9025/Kirin 9020A/Kirin 9020B/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin 8000S
