@@ -37,6 +37,19 @@
 - [HiSilicon Kirin 9010](https://www.notebookcheck.net/HiSilicon-Kirin-9010-Processor-Benchmarks-and-Specs.855471.0.html)
 - [Huawei’s Kirin 9010 Is a Reality Check for China’s Semiconductor Ambitions](https://zh.ifixit.com/News/95646/huaweis-kirin-9010-is-a-reality-check-for-chinas-semiconductor-ambitions)
 
+#### 麒麟 9010E
+
+- 搭载于：Pura 70 北斗卫星消息版、Pocket 2 优享版（均已下架）
+- 8 核 12 线程，1x 2.19（0xd03）+ 3x 2.18（0xd42）+ 4x 1.55 GHz（Cortex-A510）
+- 与麒麟 9010 的区别：超大核 2.30 → 2.19 GHz，其余相同
+- GPU: Maleoon 910, 4CU @750MHz
+
+来源：
+
+- [华为 Pura 70 北斗卫星消息版手机首发麒麟 9010E 处理器](https://m.ithome.com/html/0778427.htm)
+- [首发麒麟 9010E！华为 Pura 70 北斗卫星消息版跑分出炉](https://m.mydrivers.com/newsview/988644.html)
+- [华为 Pocket 2 优享版处理器揭秘：麒麟 9010E](https://m.mydrivers.com/newsview/1056618.html)
+
 #### 麒麟 9010B
 
 - 搭载于：MatePad Mini、MatePad Mini 悦读版 鸿蒙焕新版
@@ -476,6 +489,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 |------|---------------|-------------------------|-------------------------|--------------------------|--------------------|------------|-------------------|
 | 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
+| 2024 | 麒麟 9010E    | 1x 2.19 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2025 | 麒麟 9010B    | 1x 2.19 GHz, SMT, 0xd03 | 2x 2.18 GHz, SMT, 0xd42 | 3x 1.40 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910, 3CU  |
 | 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 916, 6CU  |
 | 2025 | 麒麟 X90A     | 3x 2.07 GHz, SMT, 0xd03 | 3x 1.85 GHz, SMT, 0xd43 | 2x 1.81 GHz, SMT, 0xd42  | N/A                | 8C16T      | Maleoon 916B, ?CU |
@@ -772,7 +786,7 @@ part id:
 
 - 0xd01(3329): hip08
 - 0xd02(3330): Kirin 9000S/hip09
-- 0xd03(3331): Kirin 9010/hip10/hip10a/Kirin X90/Kirin 9010B
+- 0xd03(3331): Kirin 9010/Kirin 9010E/hip10/hip10a/Kirin X90/Kirin 9010B
 - 0xd05(3333): Kirin 9020/Kirin 9025/Kirin 9010S/Kirin 8020/Kirin 8020A/Kirin T92C/Kirin T92D/Kirin T82B
 - 0xd06(3334): hip12/Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035/Kirin T93/Kirin T93A
 - 0xd07(3335): Kirin 9050Pro
