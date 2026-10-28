@@ -30,6 +30,36 @@
 
 - [华为 MatePad 11.5''S 平板现身 Geekbench，预计为麒麟 9000W](https://m.ithome.com/html/768075.htm)
 
+#### 麒麟 9000WL
+
+- 搭载于：MatePad 11.5"S 柔光版（已换代）
+- 8 核 12 线程：1x 2.49（0xd02，带 SMT）+ 3x 2.15 GHz（0xd42，带 SMT）+ 4x 1.53 GHz（Cortex-A510）
+- GPU: Maleoon 910, 4CU
+
+来源：
+
+- [华为 MatePad 11.5"S 灵动版搭载麒麟 9000WM，弱于柔光版 9000WL](https://www.c114.com.cn/news/51/a1262775.html)
+
+#### 麒麟 9000WM
+
+- 搭载于：MatePad 11.5"S 灵动版（已换代）
+- 6 核 9 线程：1x 2.35（0xd02，带 SMT）+ 2x 2.15 GHz（0xd42，带 SMT）+ 3x 1.53 GHz（Cortex-A510）
+- GPU: Maleoon 910, 4CU
+
+来源：
+
+- [华为 MatePad 11.5"S 灵动版搭载麒麟 9000WM，弱于柔光版 9000WL](https://www.c114.com.cn/news/51/a1262775.html)
+
+#### 麒麟 9000C
+
+- 搭载于：华为擎云 W515x 台式机
+- 8 核 12 线程，具体频率未公开
+- GPU 未公开
+
+来源：
+
+- [华为擎云 W515x 台式机亮相：麒麟 9000C + 16G RAM](https://m.ithome.com/html/849568.htm)
+
 #### 麒麟 9000S1
 
 - 搭载于：Pura 70（已下架）
@@ -553,8 +583,11 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 |------|---------------|-------------------------|-------------------------|--------------------------|--------------------|------------|-------------------|
 | 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2023 | 麒麟 9000W    | 1x 2.49 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
+| 2023 | 麒麟 9000WL   | 1x 2.49 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
+| 2023 | 麒麟 9000WM   | 1x 2.35 GHz, SMT, 0xd02 | 2x 2.15 GHz, SMT, 0xd42 | 3x 1.53 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910, 4CU  |
 | 2023 | 麒麟 9000S1   | 1x 2.49 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2023 | 麒麟 9000SL   | 1x 2.35 GHz, SMT, 0xd02 | 2x 2.15 GHz, SMT, 0xd42 | 3x 1.53 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910, 4CU  |
+| 2023 | 麒麟 9000C    | ?                       | ?                       | ?                        | N/A                | 8C12T      | ?                 |
 | 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2024 | 麒麟 9010E    | 1x 2.19 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910, 4CU  |
 | 2025 | 麒麟 9010B    | 1x 2.19 GHz, SMT, 0xd03 | 2x 2.18 GHz, SMT, 0xd42 | 3x 1.40 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910, 3CU  |
