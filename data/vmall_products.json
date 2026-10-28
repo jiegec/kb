@@ -1,0 +1,1609 @@
+{
+  "generated_at": "2026-10-28T20:47:19+08:00",
+  "source": "https://www.vmall.com",
+  "products": [
+    {
+      "product_id": "10086050799772",
+      "url": "https://www.vmall.com/product/10086050799772.html",
+      "name": "HUAWEI Mate 90 Pro",
+      "title": "HUAWEI Mate 90 Pro 16GB+1TB 晶钻白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "晶钻白·12GB+512GB·麒麟9035",
+          "color": "晶钻白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9035",
+          "models": [
+            "CMS-AL20"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "晶钻白·12GB+256GB·麒麟9035",
+          "color": "晶钻白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9035",
+          "models": [
+            "CMS-AL20"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "晶钻白·16GB+512GB·麒麟9035",
+          "color": "晶钻白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9035",
+          "models": [
+            "CMS-AL20"
+          ]
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "晶钻白·16GB+1TB·麒麟9035",
+          "color": "晶钻白",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9035",
+          "models": [
+            "CMS-AL20"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086061975812",
+      "url": "https://www.vmall.com/product/10086061975812.html",
+      "name": "HUAWEI Pura X 典藏版",
+      "title": "HUAWEI Pura X 典藏版 16GB+1TB 零度白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "零度白·12GB+256GB",
+          "color": "零度白",
+          "capacity": "12GB+256GB",
+          "cpu": "",
+          "models": [
+            "VDE-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "零度白·12GB+512GB",
+          "color": "零度白",
+          "capacity": "12GB+512GB",
+          "cpu": "",
+          "models": [
+            "VDE-AL00"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "零度白·16GB+512GB",
+          "color": "零度白",
+          "capacity": "16GB+512GB",
+          "cpu": "",
+          "models": [
+            "VDE-AL00"
+          ]
+        },
+        {
+          "label": "16GB+512GB 典藏版",
+          "selected": "零度白·16GB+512GB 典藏版",
+          "color": "零度白",
+          "capacity": "16GB+512GB 典藏版",
+          "cpu": "",
+          "models": [
+            "VDE-AL10"
+          ]
+        },
+        {
+          "label": "16GB+1TB 典藏版",
+          "selected": "零度白·16GB+1TB 典藏版",
+          "color": "零度白",
+          "capacity": "16GB+1TB 典藏版",
+          "cpu": "",
+          "models": [
+            "VDE-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086070683245",
+      "url": "https://www.vmall.com/product/10086070683245.html",
+      "name": "HUAWEI MatePad 11.5 鸿蒙焕新版 全网通",
+      "title": "HUAWEI MatePad 11.5 鸿蒙焕新版 全网通 8GB+256GB 深空灰",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "WiFi 8GB+128GB·深空灰",
+          "color": "WiFi 8GB+128GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T82B",
+          "models": [
+            "TXZ-W10"
+          ]
+        },
+        {
+          "label": "WiFi 8GB+256GB",
+          "selected": "WiFi 8GB+256GB·深空灰",
+          "color": "WiFi 8GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T82B",
+          "models": [
+            "TXZ-W10"
+          ]
+        },
+        {
+          "label": "WiFi 8GB+128GB 柔光版",
+          "selected": "WiFi 8GB+128GB 柔光版·深空灰",
+          "color": "WiFi 8GB+128GB 柔光版",
+          "capacity": "深空灰",
+          "cpu": "麒麟T82",
+          "models": [
+            "TXZ-W20"
+          ]
+        },
+        {
+          "label": "WiFi 8GB+256GB 柔光版",
+          "selected": "WiFi 8GB+256GB 柔光版·深空灰",
+          "color": "WiFi 8GB+256GB 柔光版",
+          "capacity": "深空灰",
+          "cpu": "麒麟T82",
+          "models": [
+            "TXZ-W20"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+256GB 柔光版",
+          "selected": "WiFi 12GB+256GB 柔光版·深空灰",
+          "color": "WiFi 12GB+256GB 柔光版",
+          "capacity": "深空灰",
+          "cpu": "麒麟T82",
+          "models": [
+            "TXZ-W20"
+          ]
+        },
+        {
+          "label": "全网通 8GB+256GB",
+          "selected": "全网通 8GB+256GB·深空灰",
+          "color": "全网通 8GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟8020",
+          "models": [
+            "TXZ-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086082763391",
+      "url": "https://www.vmall.com/product/10086082763391.html",
+      "name": "华为畅享 100m",
+      "title": "华为畅享 100m 256GB 幻夜黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "幻夜黑·128GB",
+          "color": "幻夜黑",
+          "capacity": "128GB",
+          "cpu": "麒麟8000S",
+          "models": [
+            "JAL-AL90"
+          ]
+        },
+        {
+          "label": "256GB",
+          "selected": "幻夜黑·256GB",
+          "color": "幻夜黑",
+          "capacity": "256GB",
+          "cpu": "麒麟8000S",
+          "models": [
+            "JAL-AL90"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086127502687",
+      "url": "https://www.vmall.com/product/10086127502687.html",
+      "name": "HUAWEI MatePad Pro Max",
+      "title": "HUAWEI MatePad Pro Max 12GB+512GB 柔光版 凝光工艺 曜石灰",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "悦享款 12GB+256GB·深空灰·麒麟T93",
+          "color": "悦享款 12GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93",
+          "models": [
+            "GEM-W40"
+          ]
+        },
+        {
+          "label": "悦享款 12GB+512GB",
+          "selected": "悦享款 12GB+512GB·深空灰·麒麟T93",
+          "color": "悦享款 12GB+512GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93",
+          "models": [
+            "GEM-W40"
+          ]
+        },
+        {
+          "label": "悦享款 16GB+512GB",
+          "selected": "悦享款 16GB+512GB·深空灰·麒麟T93",
+          "color": "悦享款 16GB+512GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93",
+          "models": [
+            "GEM-W40"
+          ]
+        },
+        {
+          "label": "悦享款 16GB+512GB（含键盘）",
+          "selected": "悦享款 16GB+512GB（含键盘）·深空灰（套装）·麒麟T93",
+          "color": "悦享款 16GB+512GB（含键盘）",
+          "capacity": "深空灰（套装）",
+          "cpu": "麒麟T93",
+          "models": [
+            "GEM-W40"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+256GB",
+          "selected": "WiFi 12GB+256GB·深空灰·麒麟T93 Pro",
+          "color": "WiFi 12GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93 Pro",
+          "models": [
+            "GEM-W00"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+512GB",
+          "selected": "WiFi 12GB+512GB·深空灰·麒麟T93 Pro",
+          "color": "WiFi 12GB+512GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93 Pro",
+          "models": [
+            "GEM-W00"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+256GB 柔光版 凝光工艺",
+          "selected": "WiFi 12GB+256GB 柔光版 凝光工艺·曜石灰·麒麟T93 Pro",
+          "color": "WiFi 12GB+256GB 柔光版 凝光工艺",
+          "capacity": "曜石灰",
+          "cpu": "麒麟T93 Pro",
+          "models": [
+            "GEM-W00"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+512GB 柔光版 凝光工艺",
+          "selected": "WiFi 12GB+512GB 柔光版 凝光工艺·曜石灰·麒麟T93 Pro",
+          "color": "WiFi 12GB+512GB 柔光版 凝光工艺",
+          "capacity": "曜石灰",
+          "cpu": "麒麟T93 Pro",
+          "models": [
+            "GEM-W00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086133363559",
+      "url": "https://www.vmall.com/product/10086133363559.html",
+      "name": "HUAWEI Mate 80",
+      "title": "HUAWEI Mate 80 16GB+512GB 雪域白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "雪域白·12GB+512GB·麒麟9020",
+          "color": "雪域白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9020",
+          "models": [
+            "VYG-AL00",
+            "VYG-AL30"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "雪域白·12GB+256GB·麒麟9020",
+          "color": "雪域白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9020",
+          "models": [
+            "VYG-AL00",
+            "VYG-AL30"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "雪域白·16GB+512GB·麒麟9020",
+          "color": "雪域白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9020",
+          "models": [
+            "VYG-AL00",
+            "VYG-AL30"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086287244006",
+      "url": "https://www.vmall.com/product/10086287244006.html",
+      "name": "HUAWEI MatePad Mini 典藏版 全网通",
+      "title": "HUAWEI MatePad Mini 典藏版 全网通 16GB+1TB 寰宇红",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "全网通 12GB+256GB 柔光屏 悦读版·雪域白",
+          "color": "全网通 12GB+256GB 柔光屏 悦读版",
+          "capacity": "雪域白",
+          "cpu": "麒麟9010B",
+          "models": [
+            "MLR-AL00"
+          ]
+        },
+        {
+          "label": "全网通 12GB+512GB",
+          "selected": "全网通 12GB+512GB·雪域白",
+          "color": "全网通 12GB+512GB",
+          "capacity": "雪域白",
+          "cpu": "麒麟9010",
+          "models": [
+            "MLR-AL10"
+          ]
+        },
+        {
+          "label": "全网通 12GB+512GB 柔光屏",
+          "selected": "全网通 12GB+512GB 柔光屏·雪域白",
+          "color": "全网通 12GB+512GB 柔光屏",
+          "capacity": "雪域白",
+          "cpu": "麒麟9010",
+          "models": [
+            "MLR-AL10"
+          ]
+        },
+        {
+          "label": "全网通 16GB+512GB 典藏版",
+          "selected": "全网通 16GB+512GB 典藏版·寰宇红",
+          "color": "全网通 16GB+512GB 典藏版",
+          "capacity": "寰宇红",
+          "cpu": "麒麟9010",
+          "models": [
+            "MLR-AL10"
+          ]
+        },
+        {
+          "label": "全网通 16GB+1TB 典藏版",
+          "selected": "全网通 16GB+1TB 典藏版·寰宇红",
+          "color": "全网通 16GB+1TB 典藏版",
+          "capacity": "寰宇红",
+          "cpu": "麒麟9010",
+          "models": [
+            "MLR-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086296035938",
+      "url": "https://www.vmall.com/product/10086296035938.html",
+      "name": "华为畅享 100 Pro Max",
+      "title": "华为畅享 100 Pro Max 512GB 曜金黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "曜金黑·128GB",
+          "color": "曜金黑",
+          "capacity": "128GB",
+          "cpu": "麒麟8020A",
+          "models": [
+            "YEW-AL80"
+          ]
+        },
+        {
+          "label": "256GB",
+          "selected": "曜金黑·256GB",
+          "color": "曜金黑",
+          "capacity": "256GB",
+          "cpu": "麒麟8020A",
+          "models": [
+            "YEW-AL80"
+          ]
+        },
+        {
+          "label": "512GB",
+          "selected": "曜金黑·512GB",
+          "color": "曜金黑",
+          "capacity": "512GB",
+          "cpu": "麒麟8020",
+          "models": [
+            "YEW-AL90"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086297718748",
+      "url": "https://www.vmall.com/product/10086297718748.html",
+      "name": "HUAWEI MateBook Fold 非凡大师",
+      "title": "HUAWEI MateBook Fold 非凡大师 32GB 2TB 锻影黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "HarmonyOS·32GB/2TB·瑞红·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/2TB",
+          "cpu": "麒麟X90",
+          "models": [
+            "HPR-W72"
+          ]
+        },
+        {
+          "label": "32GB/1TB",
+          "selected": "HarmonyOS·32GB/1TB·云水蓝·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/1TB",
+          "cpu": "麒麟X90",
+          "models": [
+            "HPR-W72"
+          ]
+        },
+        {
+          "label": "32GB/2TB",
+          "selected": "HarmonyOS·32GB/2TB·锻影黑·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/2TB",
+          "cpu": "麒麟X90",
+          "models": [
+            "HPR-W72"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086352871370",
+      "url": "https://www.vmall.com/product/10086352871370.html",
+      "name": "nova 15",
+      "title": "nova 15 512GB 好搭紫 双卡 全网通版",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "好搭紫·256GB",
+          "color": "好搭紫",
+          "capacity": "256GB",
+          "cpu": "麒麟8020",
+          "models": [
+            "PSN-AL00"
+          ]
+        },
+        {
+          "label": "512GB",
+          "selected": "好搭紫·512GB",
+          "color": "好搭紫",
+          "capacity": "512GB",
+          "cpu": "麒麟8020",
+          "models": [
+            "PSN-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086364337052",
+      "url": "https://www.vmall.com/product/10086364337052.html",
+      "name": "HUAWEI Pura 80",
+      "title": "HUAWEI Pura 80 12GB+1TB 丝绒绿",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "丝绒绿·12GB+512GB",
+          "color": "丝绒绿",
+          "capacity": "12GB+512GB",
+          "cpu": "",
+          "models": [
+            "HED-AL00"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "丝绒绿·12GB+256GB",
+          "color": "丝绒绿",
+          "capacity": "12GB+256GB",
+          "cpu": "",
+          "models": [
+            "HED-AL00"
+          ]
+        },
+        {
+          "label": "12GB+1TB",
+          "selected": "丝绒绿·12GB+1TB",
+          "color": "丝绒绿",
+          "capacity": "12GB+1TB",
+          "cpu": "",
+          "models": [
+            "HED-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086384239615",
+      "url": "https://www.vmall.com/product/10086384239615.html",
+      "name": "HUAWEI Mate 70 Air",
+      "title": "HUAWEI Mate 70 Air 16GB+512GB 羽衣白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "羽衣白·16GB+512GB·麒麟 9020A",
+          "color": "羽衣白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟 9020A",
+          "models": [
+            "SUP-AL90a"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "羽衣白·12GB+256GB·麒麟 9020B",
+          "color": "羽衣白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟 9020B",
+          "models": [
+            "SUP-AL90"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "羽衣白·12GB+512GB·麒麟 9020B",
+          "color": "羽衣白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟 9020B",
+          "models": [
+            "SUP-AL90"
+          ]
+        },
+        {
+          "label": "16GB+256GB",
+          "selected": "羽衣白·16GB+256GB·麒麟 9020A",
+          "color": "羽衣白",
+          "capacity": "16GB+256GB",
+          "cpu": "麒麟 9020A",
+          "models": [
+            "SUP-AL90a"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086384648661",
+      "url": "https://www.vmall.com/product/10086384648661.html",
+      "name": "HUAWEI Mate 90 Pro Max 典藏版",
+      "title": "HUAWEI Mate 90 Pro Max 典藏版 16GB+1TB 翡冷翠",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "翡冷翠·12GB+512GB·麒麟9050",
+          "color": "翡冷翠",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9050",
+          "models": [
+            "CMM-AL00"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "翡冷翠·16GB+512GB·麒麟9050 Pro",
+          "color": "翡冷翠",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMM-AL10"
+          ]
+        },
+        {
+          "label": "16GB+512GB 典藏版",
+          "selected": "翡冷翠·16GB+512GB 典藏版·麒麟9050 Pro",
+          "color": "翡冷翠",
+          "capacity": "16GB+512GB 典藏版",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMM-AL10"
+          ]
+        },
+        {
+          "label": "16GB+1TB 典藏版",
+          "selected": "翡冷翠·16GB+1TB 典藏版·麒麟9050 Pro",
+          "color": "翡冷翠",
+          "capacity": "16GB+1TB 典藏版",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMM-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086412214615",
+      "url": "https://www.vmall.com/product/10086412214615.html",
+      "name": "HUAWEI Pura 90",
+      "title": "HUAWEI Pura 90 16GB+512GB 雪域白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "雪域白·12GB+256GB",
+          "color": "雪域白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "KEE-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "雪域白·12GB+512GB",
+          "color": "雪域白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "KEE-AL00"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "雪域白·16GB+512GB",
+          "color": "雪域白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "KEE-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086454848882",
+      "url": "https://www.vmall.com/product/10086454848882.html",
+      "name": "HUAWEI Pura 90 Pro Max",
+      "title": "HUAWEI Pura 90 Pro Max 16GB+1TB 橘子海",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "橘子海·12GB+256GB",
+          "color": "橘子海",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "SCA-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "橘子海·12GB+512GB",
+          "color": "橘子海",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "SCA-AL00"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "橘子海·16GB+512GB",
+          "color": "橘子海",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "SCA-AL00"
+          ]
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "橘子海·16GB+1TB",
+          "color": "橘子海",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "SCA-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086473135606",
+      "url": "https://www.vmall.com/product/10086473135606.html",
+      "name": "HUAWEI MatePad Pro 12英寸",
+      "title": "HUAWEI MatePad Pro 12英寸 12GB+512GB 柔光屏 浮光白（含键盘）",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "悦享款 12GB+256GB·深空灰·麒麟T93A",
+          "color": "悦享款 12GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93A",
+          "models": [
+            "DAL-W20"
+          ]
+        },
+        {
+          "label": "悦享款 12GB+256GB 柔光屏",
+          "selected": "悦享款 12GB+256GB 柔光屏·深空灰·麒麟T93A",
+          "color": "悦享款 12GB+256GB 柔光屏",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93A",
+          "models": [
+            "DAL-W20"
+          ]
+        },
+        {
+          "label": "悦享款 12GB+512GB（含键盘）",
+          "selected": "悦享款 12GB+512GB（含键盘）·皓月银（套装）·麒麟T93A",
+          "color": "悦享款 12GB+512GB（含键盘）",
+          "capacity": "皓月银（套装）",
+          "cpu": "麒麟T93A",
+          "models": [
+            "DAL-W20"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "12GB+256GB·深空灰·麒麟T93",
+          "color": "12GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟T93",
+          "models": [
+            "DAL-W00"
+          ]
+        },
+        {
+          "label": "12GB+256GB 柔光屏",
+          "selected": "12GB+256GB 柔光屏·浮光白·麒麟T93",
+          "color": "12GB+256GB 柔光屏",
+          "capacity": "浮光白",
+          "cpu": "麒麟T93",
+          "models": [
+            "DAL-W00"
+          ]
+        },
+        {
+          "label": "12GB+512GB（含键盘）",
+          "selected": "12GB+512GB（含键盘）·浮光白（套装）·麒麟T93",
+          "color": "12GB+512GB（含键盘）",
+          "capacity": "浮光白（套装）",
+          "cpu": "麒麟T93",
+          "models": [
+            "DAL-W00"
+          ]
+        },
+        {
+          "label": "12GB+512GB 柔光屏 （含键盘）",
+          "selected": "12GB+512GB 柔光屏 （含键盘）·浮光白（套装）·麒麟T93",
+          "color": "12GB+512GB 柔光屏 （含键盘）",
+          "capacity": "浮光白（套装）",
+          "cpu": "麒麟T93",
+          "models": [
+            "DAL-W00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086476013098",
+      "url": "https://www.vmall.com/product/10086476013098.html",
+      "name": "HUAWEI Mate 80 Pro",
+      "title": "HUAWEI Mate 80 Pro 16GB+1TB 雪域白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "雪域白·12GB+256GB·麒麟9030",
+          "color": "雪域白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030",
+          "models": [
+            "SGT-AL50"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "雪域白·12GB+512GB·麒麟9030",
+          "color": "雪域白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030",
+          "models": [
+            "SGT-AL50"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "雪域白·16GB+512GB·麒麟9030 Pro",
+          "color": "雪域白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGT-AL00"
+          ]
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "雪域白·16GB+1TB·麒麟9030 Pro",
+          "color": "雪域白",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGT-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086511284892",
+      "url": "https://www.vmall.com/product/10086511284892.html",
+      "name": "HUAWEI Mate 80 RS 非凡大师",
+      "title": "HUAWEI Mate 80 RS 非凡大师 20GB+1TB 槿紫 ULTIMATE DESIGN",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "槿紫·20GB+512GB·麒麟9030 Pro",
+          "color": "槿紫",
+          "capacity": "20GB+512GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGU-AL10"
+          ]
+        },
+        {
+          "label": "20GB+1TB",
+          "selected": "槿紫·20GB+1TB·麒麟9030 Pro",
+          "color": "槿紫",
+          "capacity": "20GB+1TB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGU-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086576131735",
+      "url": "https://www.vmall.com/product/10086576131735.html",
+      "name": "华为畅享 100",
+      "title": "华为畅享 100 256GB 冰川白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "冰川白·128GB",
+          "color": "冰川白",
+          "capacity": "128GB",
+          "cpu": "麒麟8000S",
+          "models": [
+            "JAL-AL90"
+          ]
+        },
+        {
+          "label": "256GB",
+          "selected": "冰川白·256GB",
+          "color": "冰川白",
+          "capacity": "256GB",
+          "cpu": "麒麟8000S",
+          "models": [
+            "JAL-AL90"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086590821009",
+      "url": "https://www.vmall.com/product/10086590821009.html",
+      "name": "HUAWEI MatePad Edge 液冷版 WiFi",
+      "title": "HUAWEI MatePad Edge 液冷版 WiFi 24GB+1TB 深空灰",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "WiFi 16GB+256GB·深空灰·麒麟X90A",
+          "color": "WiFi 16GB+256GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟X90A",
+          "models": [
+            "QXS-W00"
+          ]
+        },
+        {
+          "label": "WiFi 16GB+512GB",
+          "selected": "WiFi 16GB+512GB·深空灰·麒麟X90A",
+          "color": "WiFi 16GB+512GB",
+          "capacity": "深空灰",
+          "cpu": "麒麟X90A",
+          "models": [
+            "QXS-W00"
+          ]
+        },
+        {
+          "label": "WiFi 16GB+512GB 柔光屏",
+          "selected": "WiFi 16GB+512GB 柔光屏·深空灰·麒麟X90A",
+          "color": "WiFi 16GB+512GB 柔光屏",
+          "capacity": "深空灰",
+          "cpu": "麒麟X90A",
+          "models": [
+            "QXS-W00"
+          ]
+        },
+        {
+          "label": "WiFi 24GB+1TB",
+          "selected": "WiFi 24GB+1TB·深空灰·麒麟X90A",
+          "color": "WiFi 24GB+1TB",
+          "capacity": "深空灰",
+          "cpu": "麒麟X90A",
+          "models": [
+            "QXS-W10"
+          ]
+        },
+        {
+          "label": "WiFi 24GB+1TB 柔光屏（含键盘）",
+          "selected": "WiFi 24GB+1TB 柔光屏（含键盘）·深空灰（套装）·麒麟X90A",
+          "color": "WiFi 24GB+1TB 柔光屏（含键盘）",
+          "capacity": "深空灰（套装）",
+          "cpu": "麒麟X90A",
+          "models": [
+            "QXS-W10"
+          ]
+        },
+        {
+          "label": "WiFi 24GB+1TB 液冷版",
+          "selected": "WiFi 24GB+1TB 液冷版·深空灰·麒麟X90",
+          "color": "WiFi 24GB+1TB 液冷版",
+          "capacity": "深空灰",
+          "cpu": "麒麟X90",
+          "models": [
+            "QXS-W20"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086591909517",
+      "url": "https://www.vmall.com/product/10086591909517.html",
+      "name": "华为畅享 100 Pro",
+      "title": "华为畅享 100 Pro 512GB 幻夜黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "幻夜黑·128GB",
+          "color": "幻夜黑",
+          "capacity": "128GB",
+          "cpu": "麒麟8020A",
+          "models": [
+            "CHZ-AL60"
+          ]
+        },
+        {
+          "label": "256GB",
+          "selected": "幻夜黑·256GB",
+          "color": "幻夜黑",
+          "capacity": "256GB",
+          "cpu": "麒麟8020A",
+          "models": [
+            "CHZ-AL60"
+          ]
+        },
+        {
+          "label": "512GB",
+          "selected": "幻夜黑·512GB",
+          "color": "幻夜黑",
+          "capacity": "512GB",
+          "cpu": "麒麟8020A",
+          "models": [
+            "CHZ-AL60"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086662006762",
+      "url": "https://www.vmall.com/product/10086662006762.html",
+      "name": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 樱语粉（含手写笔）",
+      "title": "HUAWEI MatePad Air 12英寸（第三代）12GB+256GB 樱语粉（含手写笔）",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "悦享款 8GB+256GB·暖云白",
+          "color": "悦享款 8GB+256GB",
+          "capacity": "暖云白",
+          "cpu": "麒麟T93C",
+          "models": [
+            "WKI-W00"
+          ]
+        },
+        {
+          "label": "悦享款 12GB+256GB",
+          "selected": "悦享款 12GB+256GB·暖云白",
+          "color": "悦享款 12GB+256GB",
+          "capacity": "暖云白",
+          "cpu": "麒麟T93C",
+          "models": [
+            "WKI-W00"
+          ]
+        },
+        {
+          "label": "悦享款 12GB+512GB",
+          "selected": "悦享款 12GB+512GB·暖云白",
+          "color": "悦享款 12GB+512GB",
+          "capacity": "暖云白",
+          "cpu": "麒麟T93C",
+          "models": [
+            "WKI-W00"
+          ]
+        },
+        {
+          "label": "悦享款 12GB+256GB（含键盘）",
+          "selected": "悦享款 12GB+256GB（含键盘）·樱语粉（悦享款套装）",
+          "color": "悦享款 12GB+256GB（含键盘）",
+          "capacity": "樱语粉（悦享款套装）",
+          "cpu": "麒麟T93C",
+          "models": [
+            "WKI-W00"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "12GB+256GB·烟云灰",
+          "color": "12GB+256GB",
+          "capacity": "烟云灰",
+          "cpu": "麒麟T93B",
+          "models": [
+            "WKI-W10"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "12GB+512GB·烟云灰",
+          "color": "12GB+512GB",
+          "capacity": "烟云灰",
+          "cpu": "麒麟T93B",
+          "models": [
+            "WKI-W10"
+          ]
+        },
+        {
+          "label": "12GB+256GB 柔光版",
+          "selected": "12GB+256GB 柔光版·烟云灰",
+          "color": "12GB+256GB 柔光版",
+          "capacity": "烟云灰",
+          "cpu": "麒麟T93B",
+          "models": [
+            "WKI-W10"
+          ]
+        },
+        {
+          "label": "12GB+512GB 柔光版",
+          "selected": "12GB+512GB 柔光版 ·烟云灰",
+          "color": "12GB+512GB 柔光版",
+          "capacity": "烟云灰",
+          "cpu": "麒麟T93B",
+          "models": [
+            "WKI-W10"
+          ]
+        },
+        {
+          "label": "12GB+256GB（含手写笔）",
+          "selected": "12GB+256GB（含手写笔）·樱语粉（套装）",
+          "color": "12GB+256GB（含手写笔）",
+          "capacity": "樱语粉（套装）",
+          "cpu": "麒麟T93B",
+          "models": [
+            "WKI-W10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086663062178",
+      "url": "https://www.vmall.com/product/10086663062178.html",
+      "name": "HUAWEI Pura 90 Plus",
+      "title": "HUAWEI Pura 90 Plus 12GB+1TB 霞光紫",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "霞光紫·12GB+512GB",
+          "color": "霞光紫",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9025",
+          "models": [
+            "LCI-AL00"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "霞光紫·12GB+256GB",
+          "color": "霞光紫",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9025",
+          "models": [
+            "LCI-AL00"
+          ]
+        },
+        {
+          "label": "12GB+1TB",
+          "selected": "霞光紫·12GB+1TB",
+          "color": "霞光紫",
+          "capacity": "12GB+1TB",
+          "cpu": "麒麟9025",
+          "models": [
+            "LCI-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086683896486",
+      "url": "https://www.vmall.com/product/10086683896486.html",
+      "name": "HUAWEI Pura X View",
+      "title": "HUAWEI Pura X View 12GB+1TB 零度白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "零度白·12GB+512GB",
+          "color": "零度白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "VOL-AL00"
+          ]
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "零度白·12GB+256GB",
+          "color": "零度白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "VOL-AL00"
+          ]
+        },
+        {
+          "label": "12GB+1TB",
+          "selected": "零度白·12GB+1TB",
+          "color": "零度白",
+          "capacity": "12GB+1TB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "VOL-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086693978514",
+      "url": "https://www.vmall.com/product/10086693978514.html",
+      "name": "HUAWEI MatePad 11.5 S 灵动款 鸿蒙焕新版 柔光版 WiFi",
+      "title": "HUAWEI MatePad 11.5 S 灵动款 鸿蒙焕新版 柔光版 WiFi 12GB+256GB 冰霜银",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "WiFi 8GB+256GB 灵动款·深空灰",
+          "color": "WiFi 8GB+256GB 灵动款",
+          "capacity": "深空灰",
+          "cpu": "麒麟T92C",
+          "models": [
+            "SLG-W50"
+          ]
+        },
+        {
+          "label": "WiFi 8GB+256GB 活力版",
+          "selected": "WiFi 8GB+256GB 活力版·深空灰",
+          "color": "WiFi 8GB+256GB 活力版",
+          "capacity": "深空灰",
+          "cpu": "麒麟T92D",
+          "models": [
+            "SLG-W10"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+256GB 活力版",
+          "selected": "WiFi 12GB+256GB 活力版·深空灰",
+          "color": "WiFi 12GB+256GB 活力版",
+          "capacity": "深空灰",
+          "cpu": "麒麟T92D",
+          "models": [
+            "SLG-W10"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+256GB 灵动款",
+          "selected": "WiFi 12GB+256GB 灵动款·冰霜银",
+          "color": "WiFi 12GB+256GB 灵动款",
+          "capacity": "冰霜银",
+          "cpu": "麒麟T92C",
+          "models": [
+            "SLG-W50"
+          ]
+        },
+        {
+          "label": "WiFi 12GB+256GB 灵动款 柔光版",
+          "selected": "WiFi 12GB+256GB 灵动款 柔光版·冰霜银",
+          "color": "WiFi 12GB+256GB 灵动款 柔光版",
+          "capacity": "冰霜银",
+          "cpu": "麒麟T92C",
+          "models": [
+            "SLG-W50"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086702263930",
+      "url": "https://www.vmall.com/product/10086702263930.html",
+      "name": "HUAWEI MateBook Pro 14.2英寸 柔光版",
+      "title": "HUAWEI MateBook Pro 14.2英寸 柔光版 32GB 2TB 砚黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "HarmonyOS·32GB/1TB/柔光版·晴蓝·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/1TB/柔光版",
+          "cpu": "麒麟X90",
+          "models": [
+            "HAD-W32"
+          ]
+        },
+        {
+          "label": "24GB/512GB",
+          "selected": "HarmonyOS·24GB/512GB·晴蓝·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "24GB/512GB",
+          "cpu": "麒麟X90",
+          "models": [
+            "HAD-W24"
+          ]
+        },
+        {
+          "label": "32GB/1TB",
+          "selected": "HarmonyOS·32GB/1TB·晴蓝·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/1TB",
+          "cpu": "麒麟X90",
+          "models": [
+            "HAD-W32"
+          ]
+        },
+        {
+          "label": "32GB/2TB/柔光版",
+          "selected": "HarmonyOS·32GB/2TB/柔光版·砚黑·麒麟X90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/2TB/柔光版",
+          "cpu": "麒麟X90",
+          "models": [
+            "HAD-W32"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086769820844",
+      "url": "https://www.vmall.com/product/10086769820844.html",
+      "name": "HUAWEI MateBook Fold 非凡大师 麒麟X90 Plus",
+      "title": "HUAWEI MateBook Fold 非凡大师 麒麟X90 Plus 32GB 2TB 流光金 手写笔键盘套装",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "HarmonyOS·24GB/512GB·天际白·麒麟X90 Plus",
+          "color": "HarmonyOS",
+          "capacity": "24GB/512GB",
+          "cpu": "麒麟X90 Plus",
+          "models": [
+            "SLM-W24"
+          ]
+        },
+        {
+          "label": "24GB/1TB",
+          "selected": "HarmonyOS·24GB/1TB·天际白·麒麟X90 Plus",
+          "color": "HarmonyOS",
+          "capacity": "24GB/1TB",
+          "cpu": "麒麟X90 Plus",
+          "models": [
+            "SLM-W24"
+          ]
+        },
+        {
+          "label": "32GB/2TB",
+          "selected": "HarmonyOS·32GB/2TB·流光金·麒麟X90 Plus",
+          "color": "HarmonyOS",
+          "capacity": "32GB/2TB",
+          "cpu": "麒麟X90 Plus",
+          "models": [
+            "SLM-W32"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086824447544",
+      "url": "https://www.vmall.com/product/10086824447544.html",
+      "name": "HUAWEI Mate 90",
+      "title": "HUAWEI Mate 90 12GB+1TB 曜石黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "曜石黑·12GB+256GB·麒麟9030",
+          "color": "曜石黑",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030",
+          "models": [
+            "HLS-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "曜石黑·12GB+512GB·麒麟9030",
+          "color": "曜石黑",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030",
+          "models": [
+            "HLS-AL00"
+          ]
+        },
+        {
+          "label": "12GB+1TB",
+          "selected": "曜石黑·12GB+1TB·麒麟9030",
+          "color": "曜石黑",
+          "capacity": "12GB+1TB",
+          "cpu": "麒麟9030",
+          "models": [
+            "HLS-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086839715516",
+      "url": "https://www.vmall.com/product/10086839715516.html",
+      "name": "HUAWEI Mate XT 2 非凡大师",
+      "title": "HUAWEI Mate XT 2 非凡大师 16GB+1TB 皓白 灵盾防窥屏 ULTIMATE DESIGN",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "皓白·16GB+1TB",
+          "color": "皓白",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "LAP-AL10"
+          ]
+        },
+        {
+          "label": "16GB+256GB",
+          "selected": "皓白·16GB+256GB",
+          "color": "皓白",
+          "capacity": "16GB+256GB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "LAP-AL10"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "皓白·16GB+512GB",
+          "color": "皓白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "LAP-AL10"
+          ]
+        },
+        {
+          "label": "16GB+1TB 灵盾防窥屏",
+          "selected": "皓白·16GB+1TB 灵盾防窥屏",
+          "color": "皓白",
+          "capacity": "16GB+1TB 灵盾防窥屏",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "LAP-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086850799769",
+      "url": "https://www.vmall.com/product/10086850799769.html",
+      "name": "nova 16",
+      "title": "nova 16 12GB+512GB 星空黑 双卡 全网通版",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "星空黑·12GB+256GB",
+          "color": "星空黑",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "EMA-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "星空黑·12GB+512GB",
+          "color": "星空黑",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "EMA-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086866372688",
+      "url": "https://www.vmall.com/product/10086866372688.html",
+      "name": "HUAWEI Pura 90 Pro",
+      "title": "HUAWEI Pura 90 Pro 16GB+1TB 椰青白",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "椰青白·12GB+256GB",
+          "color": "椰青白",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "MLN-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "椰青白·12GB+512GB",
+          "color": "椰青白",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "MLN-AL00"
+          ]
+        },
+        {
+          "label": "16GB+512GB",
+          "selected": "椰青白·16GB+512GB",
+          "color": "椰青白",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "MLN-AL00"
+          ]
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "椰青白·16GB+1TB",
+          "color": "椰青白",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9030S",
+          "models": [
+            "MLN-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086941643085",
+      "url": "https://www.vmall.com/product/10086941643085.html",
+      "name": "nova 16 Pro",
+      "title": "nova 16 Pro 12GB+1TB 星空黑 双卡 全网通版",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "星空黑·12GB+256GB",
+          "color": "星空黑",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "CRS-AL00"
+          ]
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "星空黑·12GB+512GB",
+          "color": "星空黑",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "CRS-AL00"
+          ]
+        },
+        {
+          "label": "12GB+1TB",
+          "selected": "星空黑·12GB+1TB",
+          "color": "星空黑",
+          "capacity": "12GB+1TB",
+          "cpu": "麒麟9010S",
+          "models": [
+            "CRS-AL00"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086964819340",
+      "url": "https://www.vmall.com/product/10086964819340.html",
+      "name": "HUAWEI Mate 90 RS 非凡大师",
+      "title": "HUAWEI Mate 90 RS 非凡大师 16GB+2TB 瑞红 ULTIMATE DESIGN",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "瑞红·16GB+512GB·麒麟9050 Pro",
+          "color": "瑞红",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMU-AL10"
+          ]
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "瑞红·16GB+1TB·麒麟9050 Pro",
+          "color": "瑞红",
+          "capacity": "16GB+1TB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMU-AL10"
+          ]
+        },
+        {
+          "label": "16GB+2TB",
+          "selected": "瑞红·16GB+2TB·麒麟9050 Pro",
+          "color": "瑞红",
+          "capacity": "16GB+2TB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMU-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086981094378",
+      "url": "https://www.vmall.com/product/10086981094378.html",
+      "name": "HUAWEI Mate 80 Pro Max 风驰版",
+      "title": "HUAWEI Mate 80 Pro Max 风驰版 16GB+512GB 极夜黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "极夜黑·16GB+512GB·麒麟9030 Pro",
+          "color": "极夜黑",
+          "capacity": "16GB+512GB",
+          "cpu": "麒麟9030 Pro",
+          "models": [
+            "SGT-AL10"
+          ]
+        }
+      ]
+    },
+    {
+      "product_id": "10086989076790",
+      "url": "https://www.vmall.com/product/10086989076790.html",
+      "name": "HUAWEI Mate 70 Pro+",
+      "title": "HUAWEI Mate 70 Pro+ 16GB+1TB 墨韵黑",
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "墨韵黑·16GB+512GB",
+          "color": "墨韵黑",
+          "capacity": "16GB+512GB",
+          "cpu": "",
+          "models": [
+            "PLA-AL10"
+          ]
+        },
+        {
+          "label": "16GB+1TB",
+          "selected": "墨韵黑·16GB+1TB",
+          "color": "墨韵黑",
+          "capacity": "16GB+1TB",
+          "cpu": "",
+          "models": [
+            "PLA-AL10"
+          ]
+        }
+      ]
+    }
+  ]
+}
