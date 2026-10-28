@@ -223,6 +223,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [华为 Pura 90 Pro / Pro Max 手机开售：首发麒麟 9030S 芯片，售价 5499 元起](https://m.ithome.com/html/0944744.htm)
 - [HUAWEI Pura 90 Pro Max 规格参数](https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/)
+- [HUAWEI SCA-LX9 Geekbench 7](https://browser.geekbench.com/v7/cpu/722104)
 
 ### 麒麟 XE90
 
@@ -266,9 +267,11 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 ### 麒麟 9050
 
 - 首发：Mate 90 Pro Max 12GB+512GB (CMM-AL00)
+- 1x 3.00 GHz + 2x 2.70 GHz + 3x 2.20 GHz + 2x 1.75 GHz，8 核
 
 来源：
 
+- [HUAWEI CMM-AL00 Geekbench 7](https://browser.geekbench.com/v7/cpu/550340)
 - [9499 元起！华为 Mate 90 Pro Max/典藏版发布：麒麟 9050 系列](http://m.mydrivers.com/newsview/1155018.html)
 - [华为 Mate 90 系列发布，全系搭载"韬芯片"](https://www.21jingji.com/article/20261001/herald/7d6a3b19765793c2e2df7a4187d5dc35.html)
 
@@ -287,6 +290,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [史上最强麒麟芯片！华为大大方方介绍 9050 Pro](https://www.eet-china.com/mp/a528616.html)
 - [中國產晶片實力解密 華為 Mate 90 Pro Max 跑分曝光](https://www.eprice.com.tw/mobile/talk/102/5827128/1/m/5827140/)
 - [韬定律表现如何！麒麟 9050 完整性能测试](https://m.mydrivers.com/newsview/1150918.html)
+- [HUAWEI CMM-AL10 Geekbench 7](https://browser.geekbench.com/v7/cpu/734989)
 
 ### 麒麟芯片对比
 
