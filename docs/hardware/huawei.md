@@ -24,7 +24,7 @@
 #### 麒麟 9010
 
 - 首发：Pura 70
-- 1x 大核（0xd03，最大 2.3 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
+- 1x 大核（0xd03，最大 2.30 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
 - 8 核，2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
 - 大核中核有超线程
@@ -55,7 +55,7 @@
 
 - 首发：MateBook Pro
 - 4+4+2, 20 threads
-- part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.316 GHz）, 0xd43（8 threads，4 核，2.050 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.010 GHz），都带 SMT
+- part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.32 GHz）, 0xd43（8 threads，4 核，2.05 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.01 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
 - Charlotte Pro
 - Maleoon 916
@@ -72,16 +72,17 @@
 - 首发：MateBook Fold 非凡大师（X90 Plus 版，SLM-W24）
 - 4(2.45 GHz, 0xd03)+4(2.05 GHz, 0xd43)+2(2.01 GHz, 0xd42), 20 threads
 - 麒麟 X90 提频
-- Maleoon 910?
+- Maleoon 910
 
 来源：
 
 - [HUAWEI SLM-W24](https://browser.geekbench.com/v7/gpu/120510)
+- [HUAWEI SLM-W24 Vulkan](https://browser.geekbench.com/v7/gpu/228311)
 
 #### 麒麟 X90A
 
 - 首发：MatePad Edge
-- 8C16T，3+3+2：3x 2.07 GHz（0xd03，带 SMT），3x 1.85 GHz（0xd43，带 SMT），2x 1.805 GHz（0xd42，带 SMT）
+- 8C16T，3+3+2：3x 2.07 GHz（0xd03，带 SMT），3x 1.85 GHz（0xd43，带 SMT），2x 1.81 GHz（0xd42，带 SMT）
 - 麒麟 X90 降频，减一大一中核
 - Maleoon 916B
 
@@ -198,13 +199,13 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - 首发：Pura 90 Plus
 - 麒麟 9020 提频
-- 1x 大核（0xd05，带 SMT，2.60 GHz），3x 中核（0xd46，带 SMT，2.151 GHz），4x 小核（0xd23，无 SMT，1.60 GHz），共 8 核 12 线程
+- 1x 大核（0xd05，带 SMT，2.60 GHz），3x 中核（0xd46，带 SMT，2.15 GHz），4x 小核（0xd23，无 SMT，1.60 GHz），共 8 核 12 线程
 - Maleoon 920, 4CU
 
 来源：
 
-- [华为 Pura90 Plus 手机配置曝光：2.6GHz 麒麟 9025 芯片](https://www.ithome.com/1/017/425.htm)
-- [麒麟 9025 下周登场：主频升至 2.6GHz 华为 Pura 90 Plus 首发搭载](https://news.17173.com/content/10242026/190105827.shtml)
+- [华为 Pura90 Plus 手机配置曝光：2.60GHz 麒麟 9025 芯片](https://www.ithome.com/1/017/425.htm)
+- [麒麟 9025 下周登场：主频升至 2.60GHz 华为 Pura 90 Plus 首发搭载](https://news.17173.com/content/10242026/190105827.shtml)
 - [华为 Pura 90 Plus 正式发布！搭载麒麟 9025 处理器](https://phone.cnmo.com/news/821293.html)
 - [消息称华为 Pura 90 Plus 手机搭载麒麟 9025 处理器](https://www.163.com/dy/article/L9TPL4BC0511B8LM.html)
 - [麒麟 8000S/8020A/9025 芯片参数对比](https://weibo.com/2/detail/5357226468049171)
@@ -226,7 +227,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T82
 
 - 首发：MatePad 11.5 鸿蒙焕新版 柔光版（TXZ-W20）
-- 1x 2.285（0xd05）+ 3x 2.05（0xd46）+ 4x 1.306 GHz（0xd23），8 核 12 线程
+- 1x 2.29（0xd05）+ 3x 2.05（0xd46）+ 4x 1.31 GHz（0xd23），8 核 12 线程
 - GPU: Maleoon 920C
 
 来源：
@@ -237,7 +238,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T92
 
 - 首发：MatePad Pro 13.2" 2025（另有 MatePad Pro 12.2" 2025 系列）
-- 8C12T：1x 2.50 GHz（0xd05，带 SMT），3x 2.151 GHz（0xd46，带 SMT），4x 1.60 GHz（0xd23）
+- 8C12T：1x 2.50 GHz（0xd05，带 SMT），3x 2.15 GHz（0xd46，带 SMT），4x 1.60 GHz（0xd23）
 - Maleoon 920, 4CU
 - 与麒麟 9020 规格一致
 
@@ -278,7 +279,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 9030
 
 - 首发：Mate 80 Pro（12GB，SGT-AL50）
-- 1x 大核（带 SMT，2.695 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
+- 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
 
 来源：
@@ -302,7 +303,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 9030S
 
 - 首发：Pura 90 Pro、Pura 90 Pro Max
-- 1x 大核（带 SMT，2.700 GHz，0xd06），3x 中核（带 SMT，2.150 GHz，0xd47），4x 小核（无 SMT，1.620 GHz，0xd24），共 8 核 12 线程
+- 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.15 GHz，0xd47），4x 小核（无 SMT，1.62 GHz，0xd24），共 8 核 12 线程
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - Maleoon 935F, 3CU
 
@@ -355,7 +356,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - 首发：MatePad Pro 12 悦享款（DAL-W20）
 - 8 核，1x 2.69（part 0xd06）+ 3x 2.27（part 0xd47）+ 4x 1.72 GHz（part 0xd24）
-- GPU: Maleoon 935A（与 T93 相同）
+- GPU: Maleoon 935A，5CU @933 MHz
 
 来源：
 
@@ -366,10 +367,12 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 #### 麒麟 T93B
 
 - 首发：MatePad Air 12 三代（WKI-W10）
-- GPU: Maleoon 935B，4CU @933 MHz
+- 8 核 12 线程，1x 2.69（0xd06）+ 3x 2.27（0xd47）+ 4x 1.72 GHz（0xd24）
+- GPU: Maleoon 935B，4CU @933 MHz；无 NPU/ISP
 
 来源：
 
+- [Huawei が Kirin T93B を発表](https://reameizu.com/huawei-unveils-kirin-t93b/)
 - [麒麟 9050Pro 与 T93B 芯片参数及 GPU 频率实测](https://www.sina.cn/news/detail/5340600477158798.html)
 - [华为商城 MatePad Air 12 三代](https://www.vmall.com/product/10086662006762.html)
 
@@ -419,7 +422,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - 首发 Mate XT2 ULTIMATE DESIGN (LAP-AL10)
 - 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，9 核 16 线程
-- 比麒麟 9050 频率高，多一个 2.2 GHz 中核
+- 比麒麟 9050 频率高，多一个 2.20 GHz 中核
 - Maleoon 955 6CU, 1.05 GHz
 
 来源：
@@ -435,39 +438,39 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟芯片对比
 
-| 时间 | 芯片          | 核心簇 1                 | 核心簇 2                 | 核心簇 3                 | 核心簇 4           | 核心线程数 | GPU          |
-|------|---------------|--------------------------|--------------------------|--------------------------|--------------------|------------|--------------|
-| 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02  | 3x 2.15 GHz, SMT, 0xd42  | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
-| 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03  | 3x 2.18 GHz, SMT, 0xd42  | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
-| 2025 | 麒麟 9010B    | 1x 2.19 GHz, SMT, 0xd03  | 2x 2.18 GHz, SMT, 0xd42  | 3x 1.40 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910  |
-| 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03  | 4x 2.05 GHz, SMT, 0xd43  | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 916  |
-| 2025 | 麒麟 X90A     | 3x 2.07 GHz, SMT, 0xd03  | 3x 1.85 GHz, SMT, 0xd43  | 2x 1.805 GHz, SMT, 0xd42 | N/A                | 8C16T      | Maleoon 916B |
-| 2026 | 麒麟 X90 Plus | 4x 2.45 GHz, SMT, 0xd03  | 4x 2.05 GHz, SMT, 0xd43  | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 910? |
-| 2025 | 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05  | 3x 2.05 GHz, SMT, 0xd46  | 4x 1.50 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
-| 2024 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05  | 3x 2.15 GHz, SMT, 0xd46  | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
-| 2026 | 麒麟 9025     | 1x 2.60 GHz, SMT, 0xd05  | 3x 2.15 GHz, SMT, 0xd46  | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
-| 2025 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05  | 3x 2.00 GHz, SMT, 0xd46  | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
-| 2025 | 麒麟 9020B    | 1x 2.40 GHz, SMT, 0xd05  | 2x 2.00 GHz, SMT, 0xd46  | 3x 1.60 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920R |
-| 2024 | 麒麟 T92      | 1x 2.50 GHz, SMT, 0xd05  | 3x 2.151 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
-| 2025 | 麒麟 T92C     | 1x 2.30 GHz, SMT, 0xd05  | 2x 2.00 GHz, SMT, 0xd46  | 3x 1.60 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920A |
-| 2025 | 麒麟 T92D     | 1x 2.40 GHz, SMT, 0xd05  | 3x 2.00 GHz, SMT, 0xd46  | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
-| 2025 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05  | 3x 2.05 GHz, SMT, 0xd46  | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
-| 2026 | 麒麟 8020A    | 1x 2.29 GHz, SMT, 0xd05  | 2x 2.05 GHz, SMT, 0xd46  | 3x 1.31 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920C |
-| 2026 | 麒麟 8000S    | N/A                      | 2x 2.05 GHz, SMT, 0xd46  | 3x 1.31 GHz, 0xd23       | N/A                | 5C7T       | Maleoon 920C |
-| 2026 | 麒麟 T82B     | 1x 2.29 GHz, SMT, 0xd05  | 3x 2.05 GHz, SMT, 0xd46  | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
-| 2026 | 麒麟 T82      | 1x 2.285 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46  | 4x 1.306 GHz, 0xd23      | N/A                | 8C12T      | Maleoon 920C |
-| 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06  | 3x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
-| 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06  | 4x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
-| 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06  | 3x 2.15 GHz, SMT, 0xd47  | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
-| 2026 | 麒麟 9035     | 1x 2.85 GHz, SMT, 0xd06  | 4x 2.35 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
-| 2026 | 麒麟 T93 Pro  | 1x 2.75 GHz, SMT, 0xd06  | 4x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
-| 2026 | 麒麟 T93      | 1x 2.69 GHz, SMT, 0xd06  | 3x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
-| 2026 | 麒麟 T93A     | 1x 2.69 GHz, SMT, 0xd06  | 3x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
-| 2026 | 麒麟 T93B     | ?                        | ?                        | ?                        | ?                  | ?          | Maleoon 935B |
-| 2026 | 麒麟 T93C     | N/A                      | 4x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935B |
-| 2026 | 麒麟 XE90     | 1x 2.75 GHz, SMT, 0xd06  | 4x 2.27 GHz, SMT, 0xd47  | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
-| 2026 | 麒麟 9050     | 1x 3.00 GHz, SMT, 0xd47  | 2x 2.70 GHz, SMT, 0xd48  | 3x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 8C14T      | Maleoon 955A |
-| 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07  | 2x 2.70 GHz, SMT, 0xd48  | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
+| 时间 | 芯片          | 核心簇 1                | 核心簇 2                | 核心簇 3                 | 核心簇 4           | 核心线程数 | GPU          |
+|------|---------------|-------------------------|-------------------------|--------------------------|--------------------|------------|--------------|
+| 2023 | 麒麟 9000S    | 1x 2.62 GHz, SMT, 0xd02 | 3x 2.15 GHz, SMT, 0xd42 | 4x 1.53 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
+| 2024 | 麒麟 9010     | 1x 2.30 GHz, SMT, 0xd03 | 3x 2.18 GHz, SMT, 0xd42 | 4x 1.55 GHz, Cortex-A510 | N/A                | 8C12T      | Maleoon 910  |
+| 2025 | 麒麟 9010B    | 1x 2.19 GHz, SMT, 0xd03 | 2x 2.18 GHz, SMT, 0xd42 | 3x 1.40 GHz, Cortex-A510 | N/A                | 6C9T       | Maleoon 910  |
+| 2025 | 麒麟 X90      | 4x 2.32 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 916  |
+| 2025 | 麒麟 X90A     | 3x 2.07 GHz, SMT, 0xd03 | 3x 1.85 GHz, SMT, 0xd43 | 2x 1.81 GHz, SMT, 0xd42  | N/A                | 8C16T      | Maleoon 916B |
+| 2026 | 麒麟 X90 Plus | 4x 2.45 GHz, SMT, 0xd03 | 4x 2.05 GHz, SMT, 0xd43 | 2x 2.01 GHz, SMT, 0xd42  | N/A                | 10C20T     | Maleoon 910  |
+| 2025 | 麒麟 9010S    | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.50 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2024 | 麒麟 9020     | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2026 | 麒麟 9025     | 1x 2.60 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2025 | 麒麟 9020A    | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2025 | 麒麟 9020B    | 1x 2.40 GHz, SMT, 0xd05 | 2x 2.00 GHz, SMT, 0xd46 | 3x 1.60 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920R |
+| 2024 | 麒麟 T92      | 1x 2.50 GHz, SMT, 0xd05 | 3x 2.15 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2025 | 麒麟 T92C     | 1x 2.30 GHz, SMT, 0xd05 | 2x 2.00 GHz, SMT, 0xd46 | 3x 1.60 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920A |
+| 2025 | 麒麟 T92D     | 1x 2.40 GHz, SMT, 0xd05 | 3x 2.00 GHz, SMT, 0xd46 | 4x 1.60 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920  |
+| 2025 | 麒麟 8020     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2026 | 麒麟 8020A    | 1x 2.29 GHz, SMT, 0xd05 | 2x 2.05 GHz, SMT, 0xd46 | 3x 1.31 GHz, 0xd23       | N/A                | 6C9T       | Maleoon 920C |
+| 2026 | 麒麟 8000S    | N/A                     | 2x 2.05 GHz, SMT, 0xd46 | 3x 1.31 GHz, 0xd23       | N/A                | 5C7T       | Maleoon 920C |
+| 2026 | 麒麟 T82B     | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2026 | 麒麟 T82      | 1x 2.29 GHz, SMT, 0xd05 | 3x 2.05 GHz, SMT, 0xd46 | 4x 1.31 GHz, 0xd23       | N/A                | 8C12T      | Maleoon 920C |
+| 2025 | 麒麟 9030     | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
+| 2025 | 麒麟 9030 Pro | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
+| 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
+| 2026 | 麒麟 9035     | 1x 2.85 GHz, SMT, 0xd06 | 4x 2.35 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
+| 2026 | 麒麟 T93 Pro  | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
+| 2026 | 麒麟 T93      | 1x 2.69 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
+| 2026 | 麒麟 T93A     | 1x 2.69 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935A |
+| 2026 | 麒麟 T93B     | 1x 2.69 GHz, SMT, 0xd06 | 3x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935B |
+| 2026 | 麒麟 T93C     | N/A                     | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935B |
+| 2026 | 麒麟 XE90     | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
+| 2026 | 麒麟 9050     | 1x 3.00 GHz, SMT, 0xd47 | 2x 2.70 GHz, SMT, 0xd48 | 3x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 8C14T      | Maleoon 955A |
+| 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
 
 ## 产品型号
 
@@ -549,7 +552,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - hip08 from DSDT oem table id
 - hi1620
 - kunpeng 920
-- 2.6 GHz
+- 2.60 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
 - HIP08 appears in ACPI: `ACPI: XSDT 0x000000002F5DFE98 0000B4 (v01 HISI   HIP08    00000000 HISI 20151124)`
 
@@ -676,7 +679,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 64 cores/socket
 - SVE
 - SMT2
-- 2.9 GHz
+- 2.90 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
 - 疑似等价于 hip09
 

@@ -312,6 +312,11 @@ def scrape_product(cdp: CDP, pid: str, wait: float) -> dict:
     full = title_from_page(txt)
     # "HUAWEI Mate 80 Pro 16GB+1TB 雪域白" -> "HUAWEI Mate 80 Pro"
     name = re.split(r"\s+\d+\s*GB", full, maxsplit=1)[0].strip() or full
+    m = re.search(r"上市时间\s*\n\s*([^\n]+)", txt)
+    launch_date = m.group(1).strip() if m else ""
+    ym = re.search(r"(\d{4})\s*年\s*(\d{1,2})\s*月", launch_date)
+    launch_year = int(ym.group(1)) if ym else None
+    launch_month = int(ym.group(2)) if ym else None
     seen, uniq = set(), []
     for v in variants:
         key = v.get("selected") or v.get("label")
@@ -324,6 +329,9 @@ def scrape_product(cdp: CDP, pid: str, wait: float) -> dict:
         "url": url,
         "name": name,
         "title": full,
+        "launch_date": launch_date,
+        "launch_year": launch_year,
+        "launch_month": launch_month,
         "variants": uniq,
     }
 
