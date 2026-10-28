@@ -193,7 +193,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 麒麟 9030
 
-- 首发：Mate 80
+- 首发：Mate 80 Pro（12GB，SGT-AL50）
 - 1x 大核（带 SMT，2.695 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
 
@@ -201,10 +201,11 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
 - [酷安](https://www.coolapk.com/feed/68880017)
+- [华为商城 Mate 80 Pro（12GB 为 9030）](https://item.vmall.com/product/comdetail/index.html?prdId=10086476013098)
 
 ### 麒麟 9030 Pro
 
-- 首发：Mate 80 Pro Max(SGT-AL10)
+- 首发：Mate 80 Pro（16GB，SGT-AL00）、Mate 80 Pro Max（SGT-AL10）
 - 1x 大核（带 SMT，2.75 GHz，0xd06），4x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 9 核 14 线程
 - Maleoon 935, 6CU, 2160 ALU
 
@@ -212,6 +213,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 - [Kirin 9030 vs Kirin 9030 Pro: Major differences between new chips](https://www.huaweicentral.com/kirin-9030-vs-kirin-9030-pro-major-differences-between-new-chips/)
 - [酷安](https://www.coolapk.com/feed/68880017)
+- [华为商城 Mate 80 Pro（16GB 为 9030 Pro）](https://item.vmall.com/product/comdetail/index.html?prdId=10086476013098)
 
 ### 麒麟 9030S
 
@@ -314,6 +316,35 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2026 | 麒麟 9030S    | 1x 2.70 GHz, SMT, 0xd06 | 3x 2.15 GHz, SMT, 0xd47 | 4x 1.62 GHz, 0xd24       | N/A                | 8C12T      | Maleoon 935F |
 | 2026 | 麒麟 9035     | 1x 2.85 GHz, SMT, 0xd06 | 4x 2.35 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935  |
 | 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955  |
+
+## 产品型号
+
+这里记录产品名与型号的对应关系。同一商品不同容量可能是不同型号、不同芯片（如 Mate 80 Pro 12GB 为 SGT-AL50/9030，16GB 为 SGT-AL00/9030 Pro）。
+
+| 产品 | 型号 | 商城 CPU | 来源 |
+|------|------|----------|------|
+| Mate 70 Pro+ | PLA-AL10 | 麒麟 9020 | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086989076790) |
+| Mate 70 Air | SUP-AL90 | 麒麟 9020B（12GB）/ 9020A（16GB） | [华为商城](https://item.m.vmall.com/product/comdetail/index.html?prdId=10086384239615&cid=358753) |
+| Mate 80 | VYG-AL00 / VYG-AL30 | 麒麟 9020 | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086133363559) |
+| Mate 80 Pro 12GB | SGT-AL50 | 麒麟 9030 | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086476013098) |
+| Mate 80 Pro 16GB | SGT-AL00 | 麒麟 9030 Pro | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086476013098) |
+| Mate 80 Pro Max 风驰版 | SGT-AL10 | 麒麟 9030 Pro | [华为商城](https://item.m.vmall.com/product/comdetail/index.html?prdId=10086981094378) |
+| Mate 80 RS 非凡大师 | SGU-AL10 | 麒麟 9030 Pro | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086511284892) |
+| Mate 90 Pro | CMS-AL20 | 麒麟 9035 | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086050799772) |
+| Mate 90 Pro Max 12GB | CMM-AL00 | 麒麟 9050 | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=Mate%2090%20Pro%20Max) |
+| Mate 90 Pro Max 16GB | CMM-AL10 | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=Mate%2090%20Pro%20Max) |
+| Mate 90 RS 非凡大师 | CMU-AL10 | 麒麟 9050 Pro | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086964819340) |
+| Mate XT2 ULTIMATE DESIGN | LAP-AL10 | 麒麟 9050 Pro | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086839715516) |
+| Pura X | VDE-AL00 / VDE-AL10 | 麒麟 9020 | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086061975812) |
+| Pura X View | VOL-AL00 | 麒麟 9030S | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086683896486) |
+| Pura 90 Plus | LCI-AL00 | 麒麟 9025 | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086663062178) |
+| Pura 90s Pro Max | SCA-LX9 | 麒麟 9030S | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=Pura%2090s%20Pro%20Max) |
+| Pura 80 | HED-LX9 | 麒麟 9010S | [华为商城](https://m.vmall.com/product/comdetail/index.html?prdId=10086364337052) |
+| MatePad Edge | QXS-W00 | 麒麟 X90A | [华为商城](https://www.vmall.com/product/10086590821009.html) |
+| MateBook Pro | HAD-W32 | 麒麟 X90 | [华为商城](https://item.m.vmall.com/product/comdetail/index.html?prdId=10086702263930) |
+| MateBook Fold 非凡大师 | HPR-W72 | 麒麟 X90 | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086297718748) |
+| MateBook Fold 非凡大师 2026 | SLM-W24 / SLM-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/portal/search/index.html?targetRoute=searchresult&searchWord=MateBook%20Fold) |
+| nova 14 | TLR-AL00 | — | [华为商城](https://item.vmall.com/product/comdetail/index.html?prdId=10086212269653) |
 
 ## hip
 
