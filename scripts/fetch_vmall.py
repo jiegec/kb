@@ -236,10 +236,31 @@ EXTRACT_JS = r"""
     const t = document.body.innerText;
     const sel = (t.match(/已选：([^\n]+)/) || [])[1] || "";
     const cpu = (t.match(/CPU型号\s*\n\s*([^\n]+)/) || [])[1] || "";
-    const models = [...new Set(t.match(/[A-Z]{2,3}-(?:AL|AN|W)\d{2}[a-z]?/g) || [])];
+    const lines = t.split("\n");
+    const pickNext = (key) => {
+      const i = lines.findIndex((l) => l.trim() === key);
+      if (i < 0) return "";
+      for (let j = i + 1; j < lines.length; j++) {
+        const v = lines[j].trim();
+        if (v) return v;
+      }
+      return "";
+    };
+    const modelField = pickNext("型号");
+    const marketing = pickNext("传播名");
+    const reModels = [...new Set(t.match(/[A-Z]{2,3}-(?:AL|AN|W)\d{2}[a-z]?/g) || [])];
+    const models = [...new Set(modelField && /^[A-Za-z0-9-]{3,24}$/.test(modelField) ? [modelField, ...reModels] : reModels)];
     const title = (t.match(/首页[^\n]*>\s*([^\n]+)/) || [])[1] || "";
     const launch = (t.match(/上市时间\s*\n\s*([^\n]+)/) || [])[1] || "";
-    return { selected: sel.trim(), cpu: cpu.trim(), models, title: title.trim(), launch_date: launch.trim() };
+    return {
+      selected: sel.trim(),
+      cpu: cpu.trim(),
+      models,
+      model: modelField,
+      marketing_name: marketing,
+      title: title.trim(),
+      launch_date: launch.trim(),
+    };
   };
   const parse = (s) => {
     const parts = s.split("·").map((x) => x.trim()).filter(Boolean);
@@ -275,6 +296,8 @@ EXTRACT_JS = r"""
       capacity: p.capacity,
       cpu: r.cpu || p.cpu,
       models: r.models,
+      model: r.model,
+      marketing_name: r.marketing_name,
       title: r.title,
       launch_date: r.launch_date,
     });
@@ -328,7 +351,7 @@ def scrape_product(cdp: CDP, pid: str, wait: float) -> dict:
         uniq.append(v)
     first = uniq[0] if uniq else {}
     title = first.get("title") or full
-    # "HUAWEI Mate 80 Pro 16GB+1TB 雪域白" -> "HUAWEI Mate 80 Pro"
+    # 从标题里截掉容量，保留“典藏版/悦享款”等后缀；传播名另存 marketing_name
     name = re.split(r"\s+\d+\s*GB", title, maxsplit=1)[0].strip() or title
     return {
         "product_id": pid,

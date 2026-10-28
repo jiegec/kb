@@ -528,15 +528,15 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | MatePad 11.5 鸿蒙焕新版 WiFi | TXZ-W10 | 麒麟 T82B | [华为商城](https://www.vmall.com/product/10086070683245.html) |
 | MatePad 11.5 鸿蒙焕新版 柔光版 | TXZ-W20 | 麒麟 T82 | [华为商城](https://www.vmall.com/product/10086070683245.html) |
 | MatePad 11.5 鸿蒙焕新版 全网通 | TXZ-AL10 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086070683245.html) |
-| MatePad SE 11 英寸 焕新版 | ? | 骁龙 685 | [华为商城](https://www.vmall.com/product/10086426290126.html) |
+| MatePad SE 11 英寸 焕新版 | AGS6-W00 | 骁龙 685 | [华为商城](https://www.vmall.com/product/10086426290126.html) |
 | MatePad Mini | MLR-AL00 | 麒麟 9010B | [华为商城](https://www.vmall.com/product/10086287244006.html) |
 | MatePad Mini 典藏版 | MLR-AL10 | 麒麟 9010 | [华为商城](https://www.vmall.com/product/10086287244006.html) |
 | MatePad Mini 悦读版 鸿蒙焕新版 | MLR-AL00 | 麒麟 9010B | [华为商城](https://www.vmall.com/product/10086204924439.html) |
 | MateBook Pro | HAD-W32 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086702263930.html) |
 | MateBook Pro 24GB/512GB | HAD-W24 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086702263930.html) |
 | MateBook Pro 麒麟 X90 Plus | HAD-W24 / HAD-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086008052699.html) |
-| MateBook Pro S | ? | 麒麟 XE90 | [华为商城](https://www.vmall.com/product/10086380895025.html) |
-| MateBook 14 鸿蒙版 | ? | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086097339191.html) |
+| MateBook Pro S | MOR-M1 | 麒麟 XE90 | [华为商城](https://www.vmall.com/product/10086380895025.html) |
+| MateBook 14 鸿蒙版 | MNTXM-24A | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086097339191.html) |
 | MateBook Fold 非凡大师（X90） | HPR-W72 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086297718748.html) |
 | MateBook Fold 非凡大师（X90 Plus） | SLM-W24 / SLM-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html) |
 
