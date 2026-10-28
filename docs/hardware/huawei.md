@@ -115,6 +115,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 来源：
 
 - [华为 Pura X 发售第一时间又消费了！今年最惊喜的拆解，全新的 9020 换封装工艺了，CPU 不一样了！](https://www.bilibili.com/video/BV1qAZzY4Eyj)
+- [HUAWEI VDE-AL00（Pura X）Geekbench 7](https://browser.geekbench.com/v7/cpu/677065)
 
 ### 麒麟 T92
 
@@ -224,6 +225,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [华为 Pura 90 Pro / Pro Max 手机开售：首发麒麟 9030S 芯片，售价 5499 元起](https://m.ithome.com/html/0944744.htm)
 - [HUAWEI Pura 90 Pro Max 规格参数](https://consumer.huawei.com/cn/phones/pura90-pro-max/specs/)
 - [HUAWEI SCA-LX9 Geekbench 7](https://browser.geekbench.com/v7/cpu/722104)
+- [HUAWEI VOL-AL00（Pura X View）Geekbench 7](https://browser.geekbench.com/v7/cpu/725112)
 
 ### 麒麟 XE90
 
