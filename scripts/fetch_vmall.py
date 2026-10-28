@@ -237,7 +237,9 @@ EXTRACT_JS = r"""
     const sel = (t.match(/已选：([^\n]+)/) || [])[1] || "";
     const cpu = (t.match(/CPU型号\s*\n\s*([^\n]+)/) || [])[1] || "";
     const models = [...new Set(t.match(/[A-Z]{2,3}-(?:AL|AN|W)\d{2}[a-z]?/g) || [])];
-    return { selected: sel.trim(), cpu: cpu.trim(), models };
+    const title = (t.match(/首页[^\n]*>\s*([^\n]+)/) || [])[1] || "";
+    const launch = (t.match(/上市时间\s*\n\s*([^\n]+)/) || [])[1] || "";
+    return { selected: sel.trim(), cpu: cpu.trim(), models, title: title.trim(), launch_date: launch.trim() };
   };
   const parse = (s) => {
     const parts = s.split("·").map((x) => x.trim()).filter(Boolean);
@@ -273,6 +275,8 @@ EXTRACT_JS = r"""
       capacity: p.capacity,
       cpu: r.cpu || p.cpu,
       models: r.models,
+      title: r.title,
+      launch_date: r.launch_date,
     });
   };
 
@@ -310,28 +314,30 @@ def scrape_product(cdp: CDP, pid: str, wait: float) -> dict:
     variants = cdp.eval(EXTRACT_JS, timeout=120) or []
     txt = cdp.eval("document.body.innerText", timeout=30) or ""
     full = title_from_page(txt)
-    # "HUAWEI Mate 80 Pro 16GB+1TB 雪域白" -> "HUAWEI Mate 80 Pro"
-    name = re.split(r"\s+\d+\s*GB", full, maxsplit=1)[0].strip() or full
-    m = re.search(r"上市时间\s*\n\s*([^\n]+)", txt)
-    launch_date = m.group(1).strip() if m else ""
-    ym = re.search(r"(\d{4})\s*年\s*(\d{1,2})\s*月", launch_date)
-    launch_year = int(ym.group(1)) if ym else None
-    launch_month = int(ym.group(2)) if ym else None
     seen, uniq = set(), []
     for v in variants:
         key = v.get("selected") or v.get("label")
         if key in seen:
             continue
         seen.add(key)
+        ym = re.search(r"(\d{4})\s*年\s*(\d{1,2})\s*月", v.get("launch_date", ""))
+        v["launch_year"] = int(ym.group(1)) if ym else None
+        v["launch_month"] = int(ym.group(2)) if ym else None
+        if not v.get("title"):
+            v["title"] = full
         uniq.append(v)
+    first = uniq[0] if uniq else {}
+    title = first.get("title") or full
+    # "HUAWEI Mate 80 Pro 16GB+1TB 雪域白" -> "HUAWEI Mate 80 Pro"
+    name = re.split(r"\s+\d+\s*GB", title, maxsplit=1)[0].strip() or title
     return {
         "product_id": pid,
         "url": url,
         "name": name,
-        "title": full,
-        "launch_date": launch_date,
-        "launch_year": launch_year,
-        "launch_month": launch_month,
+        "title": title,
+        "launch_date": first.get("launch_date", ""),
+        "launch_year": first.get("launch_year"),
+        "launch_month": first.get("launch_month"),
         "variants": uniq,
     }
 
