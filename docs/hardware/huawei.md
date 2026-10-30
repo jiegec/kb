@@ -806,8 +806,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Mate X5 典藏版 | ? | 麒麟 9000S | [IT之家产品库](https://ku.ithome.com/item/22292/canshu.html) |
 | Mate XT 非凡大师 | ? | 麒麟 9010 | [华为官网规格](https://consumer.huawei.com/hk/phones/mate-xt-ultimate-design/specs/) |
 | Mate 70 | CLS-AL30 | 麒麟 9020 | [IT之家](https://www.ithome.com/0/837/312.htm) |
-| Mate 70 Pro+ | ? | 麒麟 9020 | [IT之家](https://ku.ithome.com/item/22291/canshu.html) |
-| Mate 70 RS 非凡大师 | ? | 麒麟 9020 | [九机网](https://www.9ji.com/zhaotong-baojia-409442.html) |
+| Mate 70 Pro+ | ? | 麒麟 9020 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Mate 70 RS 非凡大师 | ? | 麒麟 9020 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
 | Pocket 2 | LEM-AL00 | 麒麟 9000S | [九机网](https://www.9ji.com/qujing-baojia-424848.html) |
 | Pocket 2 优享版 | ? | 麒麟 9010E | [IT之家](https://m.mydrivers.com/newsview/1056618.html) |
 | nova 12 Ultra | ADA-AL00U | 麒麟 9000SL | [九机网](https://www.9ji.com/zunyi-baojia-422620.html) |
