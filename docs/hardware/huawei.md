@@ -8,7 +8,7 @@
 
 #### 麒麟 9000S
 
-- 搭载于：Mate 60
+- 搭载于：Mate 60、Mate 60 Pro、Mate 60 Pro+、Mate 60 RS 非凡大师
 - 1x 大核（2.62 GHz, 带 SMT，0xd02），3x 中核（2.15 GHz, 带 SMT，0xd42），4x 小核 Cortex-A510（1.53 GHz, 无 SMT）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 910, 4CU, 1024 ALU
@@ -111,7 +111,7 @@
 
 #### 麒麟 9010
 
-- 搭载于：Pura 70 系列、MatePad Mini 典藏版
+- 搭载于：Pura 70 Pro、Pura 70 Pro+、Pura 70 Ultra、MatePad Mini 典藏版
 - 1x 大核（0xd03，最大 2.30 GHz，带 SMT），3x 中核（0xd42，最大 2.18 GHz，带 SMT），4x 小核 Cortex-A510（impl 0x41, part 0xd46，最大 1.55 GHz）
 - 8 核，2+6+4=12 线程
 - all CPU features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 bti
@@ -788,6 +788,20 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | MateBook 14 鸿蒙版 | MNTXM-24A / MNTXM-32A | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086097339191.html) |
 | MateBook Fold 非凡大师（X90） | HPR-W72 | 麒麟 X90 | [华为商城](https://www.vmall.com/product/10086297718748.html) |
 | MateBook Fold 非凡大师（X90 Plus） | SLM-W24 / SLM-W32 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html) |
+
+### 已下架机型（部分）
+
+| 产品 | 型号 | 芯片 | 来源 |
+|---|---|---|---|
+| Mate 60 | BRA-AL00 | 麒麟 9000S | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Mate 60 Pro | ALN-AL00 / ALN-AL80 | 麒麟 9000S | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Mate 60 Pro+ | ALN-AL10 | 麒麟 9000S | [九机网](https://www.9ji.com/zhaotong-baojia-409442.html) |
+| Mate 60 RS 非凡大师 | ALN-AL10 | 麒麟 9000S | [九机网](https://www.9ji.com/zhaotong-baojia-409442.html) |
+| Pura 70 | ADY-AL00 | 麒麟 9000S1 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Pura 70 Pro | HBN-AL00 | 麒麟 9010 | [苏宁](http://www.suning.com/sellers/12431346719.html) |
+| Pura 70 Pro+ | HBN-AL10 / HBN-AL80 | 麒麟 9010 | [九机网](https://www.9ji.com/changde-baojia-429019.html) |
+| Pura 70 Ultra | HBP-AL00 | 麒麟 9010 | [九机网](https://www.9ji.com/xiaqu-baojia-429047.html) |
+| Pura 70 北斗卫星消息版 | ? | 麒麟 9010E | [IT之家](https://m.ithome.com/html/0778427.htm) |
 
 ## hip
 
