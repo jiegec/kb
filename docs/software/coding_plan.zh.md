@@ -30,7 +30,7 @@
 - 原 Token Plan 老用户：自动续费开启时原套餐与权益不变（保留 ∞ 限额、150% 周额度等历史优惠），可随时升级到 M Plan（未使用部分按剩余时间折算抵扣）；升级对应关系 Plus → Go/Explore/Build、Max → Explore/Build、Ultra → Build，升级后不可退回 Token Plan
 - Token Plan 老用户迁移（国内）：Max-极速 ¥199 → Max ¥119（月费下调 ¥80、每月补约 ¥160 积分）、Ultra-极速 ¥899 → Ultra ¥469（下调 ¥430、补约 ¥860 积分）；Starter ¥29、Plus-极速 ¥98 继续保留（仅老用户）；国际版 Max-hs $80 → Max、Ultra-hs $150 → Ultra（各下调 $30、每月补约 $60 积分），Starter $10、Plus-hs $40 保留；停售档年包按月独立补发等值积分（每月额度有效期 1 年、不滚存）
 - 老用户权益：2026-06-05 前订阅用户权益保留；迁移补偿积分有效期 1 年；权益加成仅在连续订阅周期内有效，变更档位或取消订阅即放弃
-- [MiniMax API 价格](https://platform.minimaxi.com/docs/guides/pricing-paygo)（RMB 每 1M tokens）：
+- [MiniMax API 价格](https://platform.minimax.cn/docs/pricing/overview)（RMB 每 1M tokens）：
     - MiniMax-M3.1-Flash：输入命中缓存 0.10、输入未命中缓存 1.00、输出 4.00（国际版 $0.015 / $0.15 / $0.60）
     - MiniMax-M3 `<=` 512K 输入 token：输入命中缓存 0.42、输入未命中缓存 2.10、输出 8.40
     - MiniMax-M3 `>` 512K 输入 token：输入命中缓存 0.84、输入未命中缓存 4.20、输出 16.80
@@ -255,6 +255,7 @@
 
 ## 更新历史
 
+- 2026/10/31：MiniMax 文档站更换域名与路径：国内站由 platform.minimaxi.com 改为 **platform.minimax.cn**，订阅文档由 `/docs/token-plan/{intro,faq}` 改为 `/docs/m-plan/{intro,faq}`，按量计费定价页由 `/docs/guides/pricing-paygo` 改为 `/docs/pricing/overview`（旧地址分别以 302 / 307 / 308 重定向至新地址）；国际站 platform.minimax.io 同步把 `/docs/token-plan/*` 改为 `/docs/m-plan/*`、`/docs/guides/pricing-paygo` 改为 `/docs/pricing/overview`；kb 中的 API 价格链接已改为新地址
 - 2026/10/31：Command Code 的 **GOAT** 档提高 **DeepSeek V4.1 Flash** 与 **GLM-5.3 Flash** 的月额度，两款均由 $80 改为 **$100**，预估请求数同步提高——DeepSeek V4.1 Flash 由 5 小时 41,000 / 周 103,000 / 月 205,000 改为 **51,300 / 128,000 / 256,000**，GLM-5.3 Flash 由 9,440 / 23,600 / 47,200 改为 **11,800 / 29,500 / 59,000**。两款模型的 token 价格（DeepSeek V4.1 Flash 空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006；GLM-5.3 Flash $0.15 / $0.50 / $0.03 每 1M tokens 输入 / 输出 / 缓存读取）不变，GOAT 套餐价格（$10/月）、用量限制（每 5 小时最高 $20、每 7 天最高 $50、每月最高 $100）与其「最高 $100 额度、最高 10x」的说明均未变
 - 2026/10/31：Command Code 新增限时免费模型 **Ling 3.1 Flash 1019**（model ID `ling-3-1-flash-1019-free`，1M 上下文，输入 / 输出 / 缓存读取均为 Free、调用不消耗额度，免费至 2026-11-03 16:00 UTC），GOAT 档列出模型由 70 款增至 71 款、模型库合计由 96 款增至 97 款，该模型在 GOAT 档的月额度表与预估请求数表中以「免费、不消耗额度」计；各套餐价格与档位、其余模型的 token 价格与月额度均未变
 - 2026/10/31：OpenCode Go 提高 **DeepSeek V4.1 Flash** 的月使用额度——Go 由 $80 改为 **$100**、Go Plus 由 $160 改为 **$200**、Go Teams 由 $85 改为 **$105**（Go Teams 仍为同档 Go 额度加 5 美元），三档预估请求数同步提高为 Go 43,330 / 5 小时、108,330 / 周、216,670 / 月，Go Plus 86,670 / 216,670 / 433,330，Go Teams 45,500 / 113,750 / 227,500。该模型的 token 价格（空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006 每 1M tokens）与峰谷时段规则、其余 29 款模型的 token 价格与月额度、三档价格（Go $10、Go Plus $40、Go Teams 每人 $20 每月）与其余额度规则均未变
