@@ -793,24 +793,25 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 | 产品 | 型号 | 芯片 | 来源 |
 |---|---|---|---|
-| Mate 60 | BRA-AL00 | 麒麟 9000S | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
 | Mate 60 Pro | ALN-AL00 / ALN-AL80 | 麒麟 9000S | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
 | Mate 60 Pro+ | ALN-AL10 | 麒麟 9000S | [九机网](https://www.9ji.com/zhaotong-baojia-409442.html) |
 | Mate 60 RS 非凡大师 | ALN-AL10 | 麒麟 9000S | [九机网](https://www.9ji.com/zhaotong-baojia-409442.html) |
-| Pura 70 | ADY-AL00 | 麒麟 9000S1 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
-| Pura 70 Pro | HBN-AL00 | 麒麟 9010 | [苏宁](http://www.suning.com/sellers/12431346719.html) |
-| Pura 70 Pro+ | HBN-AL10 / HBN-AL80 | 麒麟 9010 | [九机网](https://www.9ji.com/changde-baojia-429019.html) |
-| Pura 70 Ultra | HBP-AL00 | 麒麟 9010 | [九机网](https://www.9ji.com/xiaqu-baojia-429047.html) |
-| Pura 70 北斗卫星消息版 | ? | 麒麟 9010E | [IT之家](https://m.ithome.com/html/0778427.htm) |
+| Mate 60 | BRA-AL00 | 麒麟 9000S | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Mate 70 Pro+ | ? | 麒麟 9020 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Mate 70 RS 非凡大师 | ? | 麒麟 9020 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Mate 70 | CLS-AL30 | 麒麟 9020 | [IT之家](https://www.ithome.com/0/837/312.htm) |
 | Mate X5 | ALT-AL00 | 麒麟 9000S | [IT之家产品库](https://ku.ithome.com/item/22291/canshu.html) |
 | Mate X5 典藏版 | ? | 麒麟 9000S | [IT之家产品库](https://ku.ithome.com/item/22292/canshu.html) |
 | Mate XT 非凡大师 | ? | 麒麟 9010 | [华为官网规格](https://consumer.huawei.com/hk/phones/mate-xt-ultimate-design/specs/) |
-| Mate 70 | CLS-AL30 | 麒麟 9020 | [IT之家](https://www.ithome.com/0/837/312.htm) |
-| Mate 70 Pro+ | ? | 麒麟 9020 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
-| Mate 70 RS 非凡大师 | ? | 麒麟 9020 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
 | Pocket 2 | LEM-AL00 | 麒麟 9000S | [九机网](https://www.9ji.com/qujing-baojia-424848.html) |
 | Pocket 2 优享版 | ? | 麒麟 9010E | [IT之家](https://m.mydrivers.com/newsview/1056618.html) |
+| Pura 70 Pro | HBN-AL00 | 麒麟 9010 | [苏宁](http://www.suning.com/sellers/12431346719.html) |
+| Pura 70 Pro+ | HBN-AL10 / HBN-AL80 | 麒麟 9010 | [九机网](https://www.9ji.com/changde-baojia-429019.html) |
+| Pura 70 Ultra | HBP-AL00 | 麒麟 9010 | [九机网](https://www.9ji.com/xiaqu-baojia-429047.html) |
+| Pura 70 | ADY-AL00 | 麒麟 9000S1 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
+| Pura 70 北斗卫星消息版 | ? | 麒麟 9010E | [IT之家](https://m.ithome.com/html/0778427.htm) |
 | nova 12 Ultra | ADA-AL00U | 麒麟 9000SL | [九机网](https://www.9ji.com/zunyi-baojia-422620.html) |
+| nova 12 Ultra 星耀版 | ? | 麒麟 9010L | [IT之家](https://digi.ithome.com/archiver/769/029.htm) |
 
 ## hip
 
