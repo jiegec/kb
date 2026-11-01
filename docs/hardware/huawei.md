@@ -141,7 +141,7 @@
 #### 麒麟 9010L
 
 - 搭载于：nova 12 Ultra 星耀版（已下架）
-- 6 核 9 线程：1x 2.19（0xd03，带 SMT）+ 2x 2.18（0xd42，带 SMT）+ 3x 1.40 GHz（Cortex-A510）
+- 6 核 9 线程：1x 2.19 GHz（0xd03，带 SMT）+ 2x 2.18 GHz（0xd42，带 SMT）+ 3x 1.40 GHz（Cortex-A510）
 - GPU: Maleoon 910, 3CU
 - 与麒麟 9010B 频率/核心一致，可视为同一档；9010L 即 9010B 的前身命名
 
