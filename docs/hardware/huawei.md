@@ -811,7 +811,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Pura 70 | ADY-AL00 | 麒麟 9000S1 | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
 | Pura 70 北斗卫星消息版 | ? | 麒麟 9010E | [IT之家](https://m.ithome.com/html/0778427.htm) |
 | nova 12 Ultra | ADA-AL00U | 麒麟 9000SL | [九机网](https://www.9ji.com/zunyi-baojia-422620.html) |
-| nova 12 Ultra 星耀版 | ? | 麒麟 9010L | [IT之家](https://digi.ithome.com/archiver/769/029.htm) |
+| nova 12 Ultra 星耀版 | ADA-AL00U | 麒麟 9010L | [IT之家](https://digi.ithome.com/archiver/769/029.htm) |
 
 ## hip
 
