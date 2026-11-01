@@ -49,6 +49,7 @@
 - MCP 消耗积分数 = 调用次数 × Output 抵扣系数
 - 所有套餐均支持 **GLM-5.3**、**GLM-5.3-Flash**；调用历史模型 GLM-5.2、GLM-5.1 自动切换至 GLM-5.3，调用 GLM-5-Turbo、GLM-4.7 自动切换至 GLM-5.3-Flash
 - 非高峰时段按基础积分消耗的 50% 抵扣；高峰时段为每周一至周五的 14:00～18:00（UTC+8）
+- 编码套餐使用独立的 API Key：套餐 API Key 与模型标准 API 的 API Key 分开管理、互不通用——个人版套餐（含领取体验卡）的用户在[个人版 Coding Plan](https://bigmodel.cn/apikey/coding-plan-per)新建 API Key，团队版套餐的成员在[团队版 Coding Plan](https://bigmodel.cn/apikey/coding-plan-team)新建 API Key
 - 限时活动（均已结束）：此前的「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00，在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量、其他 Agent 额度翻倍）与「庆双节活动」（2026-09-25 至 2026-10-07，全天按非高峰时段规则消耗额度）已于 2026-10-07 到期；截至 2026-10-09 两站无进行中的限时活动
 - 抵扣系数：GLM-5.3 为 Input 6.9 / Cached Input 1.7 / Output 24；GLM-5.3-Flash（含视觉理解 MCP）为 Input 2.3 / Cached Input 0.56 / Output 8
 - 套餐 Token 用量因缓存命中率而异：
@@ -255,6 +256,7 @@
 
 ## 更新历史
 
+- 2026/11/01：智谱 GLM Coding Plan 改用独立的套餐 API Key——套餐 API Key 与模型标准 API 的 API Key 分开管理、互不通用，个人版套餐（含领取体验卡）的用户需在个人版 Coding Plan 新建 API Key，团队版套餐的成员需在团队版 Coding Plan 新建 API Key；此前按工具区分的 Base URL 说明（Claude Code 为 `https://open.bigmodel.cn/api/anthropic`、Cherry Studio 为 `https://open.bigmodel.cn/api/coding/paas/v4/`、其余工具为 `https://open.bigmodel.cn/api/coding/paas/v4`）不再提供，套餐过期后改用标准 API 地址（`https://open.bigmodel.cn/api/paas/v4`）调用资源包的说明也一并取消。套餐档位与价格（Lite 118 / Pro 538 / Max 1078 元每月）、积分额度与抵扣系数、支持模型（GLM-5.3、GLM-5.3-Flash）均未变
 - 2026/11/01：Command Code 的限时免费模型 **Ling 3.1 Flash 1019** 扩展至 **Go** 与 **Pro** 两档——Go 列出模型由 57 款增至 58 款、Pro 由 86 款增至 87 款，模型库合计仍为 97 款，该模型（model ID `ling-3-1-flash-1019-free`，1M 上下文，输入 / 输出 / 缓存读取均 Free、调用不消耗额度，免费至 2026-11-03 16:00 UTC）现于 Go、GOAT、Pro、Max 10×、Max 20× 五档一致提供。各套餐价格与档位、其余模型的 token 价格与月额度均未变
 - 2026/11/01：Command Code 的 **Pro** 档提高 **DeepSeek V4.1 Flash** 与 **GLM-5.3 Flash** 的月额度，两款均由 $90 改为 **$110**，与该档 **Ling 3.1 Flash** 的额度持平；预估请求数同步提高——DeepSeek V4.1 Flash 由 5 小时 46,200 / 周 115,000 / 月 231,000 改为 **56,400 / 141,000 / 282,000**，GLM-5.3 Flash 由 10,600 / 26,500 / 53,100 改为 **13,000 / 32,400 / 64,900**。两款模型的 token 价格（DeepSeek V4.1 Flash 空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006；GLM-5.3 Flash $0.15 / $0.50 / $0.03 每 1M tokens 输入 / 输出 / 缓存读取）、Pro 套餐价格（$20/月）、其用量限制（每 5 小时最高 $22、每 7 天最高 $55、每月最高 $110）与其余模型的月额度均未变
 - 2026/10/31：MiniMax 文档站更换域名与路径：国内站由 platform.minimaxi.com 改为 **platform.minimax.cn**，订阅文档由 `/docs/token-plan/{intro,faq}` 改为 `/docs/m-plan/{intro,faq}`，按量计费定价页由 `/docs/guides/pricing-paygo` 改为 `/docs/pricing/overview`（旧地址分别以 302 / 307 / 308 重定向至新地址）；国际站 platform.minimax.io 同步把 `/docs/token-plan/*` 改为 `/docs/m-plan/*`、`/docs/guides/pricing-paygo` 改为 `/docs/pricing/overview`；kb 中的 API 价格链接已改为新地址
