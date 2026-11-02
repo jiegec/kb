@@ -181,7 +181,8 @@
     - 扣减顺序：使用 Flash-Lite 时先扣专属积分，专属积分用尽后再扣通用积分（通用积分未耗尽即可继续使用 Flash-Lite）；使用其他模型只扣通用积分
     - Flash-Lite 消费返赠活动于 2026-10-27 下线：活动期间每实际消耗 1 积分 Flash-Lite 专属积分返赠 1 通用积分（按自然日汇总、每小时结算到账、每笔自到账起 30 天有效、不占用滚动 5 小时与滚动周额度）；已到账的返赠积分余额与有效期保持不变，切换前已计入返赠的消费仍按原规则结算
     - 通用积分额度上调生效时，系统统一将各用户的通用积分窗口可用额度重置为新上限；Flash-Lite 专属积分的可用额度不变
-    - 支持模型（7 款）：SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4 Flash、DeepSeek V4.1 Flash、GLM-5.2、Kimi K3
+    - 支持模型（8 款）：SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4 Flash、DeepSeek V4.1 Flash、GLM-5.2、Kimi K3
+    - SenseNova 6.8 Flash（`sensenova-6.8-flash`）：1M 上下文，单次输出默认 64K、范围 1–128K，支持图像输入（JPG / JPEG / PNG / WebP，可传公网 URL 或 Base64 Data URL）；思考模式默认开启且不可关闭（`thinking.type` 仅接受 `enabled`），`reasoning_effort` 默认 `high`，可选 `minimal` / `low` / `medium` / `high` / `xhigh` / `max`；日常任务官方仍推荐 SenseNova 6.8 Flash Lite，复杂长链路与专业交付任务推荐 SenseNova 6.8 Flash
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
 - [摩尔线程 AI Coding Plan](https://code.mthreads.com/)
 - [KwaiKAT Coding Plan](https://www.streamlake.com/marketing/coding-plan)
@@ -256,6 +257,7 @@
 
 ## 更新历史
 
+- 2026/11/02：商汤 SenseNova TokenPlan 新增 **SenseNova 6.8 Flash**（`sensenova-6.8-flash`），支持模型由 7 款增至 8 款——1M 上下文，单次输出默认 64K、范围 1–128K，支持图像输入（JPG / JPEG / PNG / WebP，可传公网 URL 或 Base64 Data URL），思考模式默认开启且不可关闭（`thinking.type` 仅接受 `enabled`），`reasoning_effort` 默认 `high`，可选 `minimal` / `low` / `medium` / `high` / `xhigh` / `max`。该模型定位为性能更强、端到端执行能力更优的一档，日常任务仍推荐 SenseNova 6.8 Flash Lite。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）与扣减顺序均未变
 - 2026/11/01：智谱 GLM Coding Plan 改用独立的套餐 API Key——套餐 API Key 与模型标准 API 的 API Key 分开管理、互不通用，个人版套餐（含领取体验卡）的用户需在个人版 Coding Plan 新建 API Key，团队版套餐的成员需在团队版 Coding Plan 新建 API Key；此前按工具区分的 Base URL 说明（Claude Code 为 `https://open.bigmodel.cn/api/anthropic`、Cherry Studio 为 `https://open.bigmodel.cn/api/coding/paas/v4/`、其余工具为 `https://open.bigmodel.cn/api/coding/paas/v4`）不再提供，套餐过期后改用标准 API 地址（`https://open.bigmodel.cn/api/paas/v4`）调用资源包的说明也一并取消。套餐档位与价格（Lite 118 / Pro 538 / Max 1078 元每月）、积分额度与抵扣系数、支持模型（GLM-5.3、GLM-5.3-Flash）均未变
 - 2026/11/01：Command Code 的限时免费模型 **Ling 3.1 Flash 1019** 扩展至 **Go** 与 **Pro** 两档——Go 列出模型由 57 款增至 58 款、Pro 由 86 款增至 87 款，模型库合计仍为 97 款，该模型（model ID `ling-3-1-flash-1019-free`，1M 上下文，输入 / 输出 / 缓存读取均 Free、调用不消耗额度，免费至 2026-11-03 16:00 UTC）现于 Go、GOAT、Pro、Max 10×、Max 20× 五档一致提供。各套餐价格与档位、其余模型的 token 价格与月额度均未变
 - 2026/11/01：Command Code 的 **Pro** 档提高 **DeepSeek V4.1 Flash** 与 **GLM-5.3 Flash** 的月额度，两款均由 $90 改为 **$110**，与该档 **Ling 3.1 Flash** 的额度持平；预估请求数同步提高——DeepSeek V4.1 Flash 由 5 小时 46,200 / 周 115,000 / 月 231,000 改为 **56,400 / 141,000 / 282,000**，GLM-5.3 Flash 由 10,600 / 26,500 / 53,100 改为 **13,000 / 32,400 / 64,900**。两款模型的 token 价格（DeepSeek V4.1 Flash 空闲时段 0.15 / 0.60 / 0.003、高峰时段 0.30 / 1.20 / 0.006；GLM-5.3 Flash $0.15 / $0.50 / $0.03 每 1M tokens 输入 / 输出 / 缓存读取）、Pro 套餐价格（$20/月）、其用量限制（每 5 小时最高 $22、每 7 天最高 $55、每月最高 $110）与其余模型的月额度均未变
