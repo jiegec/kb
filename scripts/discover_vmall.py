@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -77,11 +78,13 @@ def discover(keyword: str, port: int, max_scroll: int, max_products: int) -> lis
             except (json.JSONDecodeError, TypeError, ValueError):
                 continue
             name = ""
-            for line in info.get("lines", []):
-                line = line.strip()
-                if line and line not in ("新品", "赠品") and len(line) > 2:
+            lines = [l.strip() for l in info.get("lines", []) if l.strip()]
+            for line in lines:
+                if re.search(r"HUAWEI|华为|nova|畅享|Mate|Pura|MatePad|MateBook", line):
                     name = line
                     break
+            if not name:
+                name = max(lines, key=len) if lines else ""
 
             before = {p["id"] for p in fv.http_json(f"http://127.0.0.1:{port}/json/list") if p["type"] == "page"}
             cdp.call("Input.dispatchMouseEvent", {"type": "mousePressed", "x": x, "y": y, "button": "left", "clickCount": 1})
