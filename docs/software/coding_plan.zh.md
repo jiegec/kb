@@ -118,7 +118,7 @@
     - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
-    - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Flash 0731 正式版（2026-10-31 下线）、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash-1017（非原厂直供）、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
+    - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash-1017（非原厂直供）、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
     - 峰谷计费：DeepSeek 模型工作日（周一至周五）9:00–12:00、14:00–18:00 为高峰，其余为空闲；周末全天按空闲计费
     - 积分抵扣价（积分每百万 tokens）：DeepSeek-V4.1-Flash、DeepSeek-V4.1-Flash-1017（均含原厂直供版本）缓存命中 2 / 未命中 100 / 输出 400（空闲）、4 / 200 / 800（高峰）；Hy4 preview 30 / 600 / 1800；MiMo-V2.6-Pro 广州 2.5/300/600、新加坡 2.59/313.05/626.1；MiMo-V2.6-Flash 广州 2/100/200、新加坡 2.02/100.75/201.5
     - 个人版 Hy Token Plan：Lite 28 RMB 每月（560 积分）、Standard 78（1560）、Pro 238（4760）、Max 468（9360）；支持 Hy3、Hy4 preview
@@ -257,6 +257,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/03：腾讯云大模型 Token Plan 企业版专业套餐（广州/新加坡）的 **DeepSeek-V4-Flash 0731 正式版**（model ID `deepseek-v4-flash-0731`）按原定安排于 2026-10-31 下线，企业版支持模型列表移除该模型，积分抵扣价表同步删除其两行——空闲时段 5 / 150 / 450、高峰时段 10 / 300 / 900 积分每百万 tokens（缓存命中 / 未命中 / 输出）。同名原厂直供版本（model ID `deepseek-v4-flash-202605`、`deepseek/deepseek-v4-flash-0731`、`deepseek/deepseek-v4-flash`）继续提供且积分价未变，缓存命中 2 / 未命中 100 / 输出 400（空闲时段）、4 / 200 / 800（高峰时段）积分每百万 tokens。企业版套餐价格（1 元/100 积分、单次最低 5 万积分）、峰谷计费时段、其余模型的积分价与个人版 Hy Token Plan、通用 Token Plan 的档位、额度和支持模型均未变
 
 - 2026/11/03：天翼云 Token Plan 新增**企业版**——团队尝鲜版 98 元/月（10000 积分）、团队标准版 498 元/月（60000 积分）、团队至尊版 1198 元/月（150000 积分），并推出个人加油包 49 元/个（5000 积分，仅单个子用户使用、不可共享，限企业认证主用户购买，1 年内需分配给持有有效席位的子用户、逾期作废，分配后有效期跟随子用户席位当期订阅月、不累计至下一订阅月）；原积分版套餐名称为 **Token Plan（个人版）**（套餐表内列名仍为「编程 Token Plan X 积分」），档位与价格（29 / 89 / 199 / 399 / 699 元每月对应 3000 / 10000 / 25000 / 50000 / 100000 积分）及积分与 Token 兑换关系均未变
 - 2026/11/02：商汤 SenseNova TokenPlan 新增 **SenseNova 6.8 Flash**（`sensenova-6.8-flash`），支持模型由 7 款增至 8 款——1M 上下文，单次输出默认 64K、范围 1–128K，支持图像输入（JPG / JPEG / PNG / WebP，可传公网 URL 或 Base64 Data URL），思考模式默认开启且不可关闭（`thinking.type` 仅接受 `enabled`），`reasoning_effort` 默认 `high`，可选 `minimal` / `low` / `medium` / `high` / `xhigh` / `max`。该模型定位为性能更强、端到端执行能力更优的一档，日常任务仍推荐 SenseNova 6.8 Flash Lite。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）与扣减顺序均未变
