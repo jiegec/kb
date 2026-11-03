@@ -707,7 +707,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 这里记录产品名与型号的对应关系。同一商品不同容量可能是不同型号、不同芯片（如 Mate 80 Pro 12GB 为 SGT-AL50/9030，16GB 为 SGT-AL00/9030 Pro）。
 
-| 产品 | 型号 | 商城 CPU | 来源 |
+| 产品 | 型号 | 处理器 | 来源 |
 |------|------|----------|------|
 | Mate 60 Pro | ALN-AL00 / ALN-AL80 | 麒麟 9000S | [维基：华为手机型号列表](https://zh.wikipedia.org/wiki/%E5%8D%8E%E4%B8%BA%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA%E5%9E%8B%E5%8F%B7%E5%88%97%E8%A1%A8) |
 | Mate 60 Pro+ | ALN-AL10 | 麒麟 9000S | [九机网](https://www.9ji.com/zhaotong-baojia-409442.html) |
