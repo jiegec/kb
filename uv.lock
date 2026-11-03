@@ -60,7 +60,7 @@ wheels = [
 [package.optional-dependencies]
 filecache = [
     { name = "filelock", version = "4.1.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
-    { name = "filelock", version = "4.2.6", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
+    { name = "filelock", version = "4.2.7", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
 ]
 
 [[package]]
@@ -429,15 +429,15 @@ wheels = [
 
 [[package]]
 name = "filelock"
-version = "4.2.6"
+version = "4.2.7"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
 resolution-markers = [
     "python_full_version >= '3.11.5'",
     "python_full_version >= '3.11' and python_full_version < '3.11.5'",
 ]
-sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/35/6c/730b340182f1fd74d4ef8d3f35431ce84f8f97b1a1f2afd145174b7bb047/filelock-4.2.6.tar.gz", hash = "sha256:ee7af8ede36dcaf12e1016d9f7c3a63ecd5497d46f85dab21b8c779b8f944e97", size = 661339, upload-time = "2026-10-31T15:10:16.889Z" }
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/e0/14/73688a22e91cfcfc6837a011ffa572e2ba3c348765f7bd482d8436fa9b6f/filelock-4.2.7.tar.gz", hash = "sha256:31f6f7e3a8b6f0bd89114d30c5d5218ea1cfb63e5c4aa695b7559314a209bc7f", size = 661450, upload-time = "2026-11-02T16:09:15.119Z" }
 wheels = [
-    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/b7/8d/3f849fcb79359259737bc2d8ddcaee6149ffb773239a260c9ff20179736f/filelock-4.2.6-py3-none-any.whl", hash = "sha256:fd7d4fca497bf3e3d0945a13261f8e684f2aef12ce7cf76aef26e13bf7388b88", size = 164378, upload-time = "2026-10-31T15:10:15.322Z" },
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/1d/1a/1fcf0d3886bad15b92459a0e529dd86a1ec4d9ef30e789df48044fd3698c/filelock-4.2.7-py3-none-any.whl", hash = "sha256:d08972bbca2b8767ee552aff877b091dd111ffb1d22de7de885766ea7d719d5e", size = 164345, upload-time = "2026-11-02T16:09:13.588Z" },
 ]
 
 [[package]]
@@ -445,7 +445,8 @@ name = "ghp-import"
 version = "2.1.0"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
 dependencies = [
-    { name = "python-dateutil" },
+    { name = "python-dateutil", version = "3.0.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
+    { name = "python-dateutil", version = "4.0.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/d9/29/d40217cbe2f6b1359e00c6c307bb3fc876ba74068cbab3dde77f03ca0dc4/ghp-import-2.1.0.tar.gz", hash = "sha256:9c535c4c61193c2df8871222567d7fd7e5014d835f97dc7b7439069e2413d343", size = 10943, upload-time = "2022-05-02T15:47:16.11Z" }
 wheels = [
@@ -468,12 +469,31 @@ wheels = [
 name = "gitpython"
 version = "3.1.62"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
 dependencies = [
     { name = "gitdb" },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/e0/db/3ca813cbacb23ab6fe46ff38a9b5ef8e73e970c8051f2ce903aacafe0446/gitpython-3.1.62.tar.gz", hash = "sha256:1791de66309bc0c7cfca40bf8d2e3de7ca091cbf94e6051be1ad0722c61062af", size = 231728, upload-time = "2026-09-07T02:57:21.155Z" }
 wheels = [
     { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/d6/0b/29d7965215f8ef830a7ca1f42997fe13e5693d85e9edb18f938d063ef5f2/gitpython-3.1.62-py3-none-any.whl", hash = "sha256:7002251225e10e29d2e1f49e6532613fe5d5d9f0b6f1f02997a52b38fe56899e", size = 222753, upload-time = "2026-09-07T02:57:19.762Z" },
+]
+
+[[package]]
+name = "gitpython"
+version = "3.2.1"
+source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version >= '3.11.5'",
+    "python_full_version >= '3.11' and python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "gitdb" },
+]
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/c0/ff/fee293f1ec3e1b64db6eb270e00964f29c086d769201474cedb8d1608930/gitpython-3.2.1.tar.gz", hash = "sha256:0f1229ec5c057bdabdeeda8bda4f17bda679ab33dbccc00f24e6a480553c8613", size = 241688, upload-time = "2026-10-14T12:20:20.589Z" }
+wheels = [
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/6b/50/2a923c4dc02522ff9567f07c67ed1deca6d5fa9474f4708168b8088dfa37/gitpython-3.2.1-py3-none-any.whl", hash = "sha256:d66b0832aa8755c1a84892937282df0befb16c97e5a64aeebd68be9c5e323f53", size = 231548, upload-time = "2026-10-14T12:20:18.844Z" },
 ]
 
 [[package]]
@@ -510,13 +530,15 @@ source = { virtual = "." }
 dependencies = [
     { name = "cairosvg" },
     { name = "jieba" },
-    { name = "mkdocs-git-revision-date-localized-plugin" },
+    { name = "mkdocs-git-revision-date-localized-plugin", version = "1.6.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
+    { name = "mkdocs-git-revision-date-localized-plugin", version = "1.6.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
     { name = "mkdocs-glightbox" },
     { name = "mkdocs-llmstxt", version = "0.5.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
     { name = "mkdocs-llmstxt", version = "0.5.1", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
     { name = "mkdocs-material", version = "9.7.7", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
     { name = "mkdocs-material", version = "9.8.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
-    { name = "mkdocs-rss-plugin" },
+    { name = "mkdocs-rss-plugin", version = "1.19.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
+    { name = "mkdocs-rss-plugin", version = "1.20.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
     { name = "mkdocs-static-i18n" },
     { name = "pillow", version = "12.3.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
     { name = "pillow", version = "13.0.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
@@ -809,7 +831,7 @@ source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
 dependencies = [
     { name = "mergedeep" },
     { name = "platformdirs", version = "4.12.4", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
-    { name = "platformdirs", version = "4.14.2", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
+    { name = "platformdirs", version = "4.14.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
     { name = "pyyaml" },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/ce/25/b3cccb187655b9393572bde9b09261d267c3bf2f2cdabe347673be5976a6/mkdocs_get_deps-0.2.2.tar.gz", hash = "sha256:8ee8d5f316cdbbb2834bc1df6e69c08fe769a83e040060de26d3c19fad3599a1", size = 11047, upload-time = "2026-03-10T02:46:33.632Z" }
@@ -821,16 +843,39 @@ wheels = [
 name = "mkdocs-git-revision-date-localized-plugin"
 version = "1.6.0"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
 dependencies = [
     { name = "babel" },
-    { name = "gitpython" },
+    { name = "gitpython", version = "3.1.62", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
     { name = "mkdocs" },
     { name = "packaging" },
-    { name = "tzdata", marker = "sys_platform == 'win32'" },
+    { name = "tzdata", version = "2025.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/f1/a7/ded2f0e2321213862225f9f657a51493af8f92626e3dd0a02ce9ef9b1131/mkdocs_git_revision_date_localized_plugin-1.6.0.tar.gz", hash = "sha256:469af4b344a4d493a6402aa92eec87a6138e1dac444e9551c1af06991453954b", size = 36957, upload-time = "2026-09-14T12:57:04.84Z" }
 wheels = [
     { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/5a/f7/d4aeef9f48150900634e7f864b076038e69014fb3ae4e515035803bca561/mkdocs_git_revision_date_localized_plugin-1.6.0-py3-none-any.whl", hash = "sha256:88b2d524d24c49a05cd6c9b1456f7dc0c8fa5e233b09ecf8a1dd12aebc127990", size = 27966, upload-time = "2026-09-14T12:57:03.607Z" },
+]
+
+[[package]]
+name = "mkdocs-git-revision-date-localized-plugin"
+version = "1.6.3"
+source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version >= '3.11.5'",
+    "python_full_version >= '3.11' and python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "babel" },
+    { name = "gitpython", version = "3.2.1", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
+    { name = "mkdocs" },
+    { name = "packaging" },
+    { name = "tzdata", version = "2026.6", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/60/fb/df1622f5a45e6f5ab2e8399cf4886f51c0c7f82b7cac31878d738849d1bd/mkdocs_git_revision_date_localized_plugin-1.6.3.tar.gz", hash = "sha256:72b7f27d780af4d9efc2eb70197404e4510ce5664de6a96e092a6050e35eab46", size = 81047, upload-time = "2026-11-02T08:23:48.38Z" }
+wheels = [
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/7c/c3/72cef2f83502150d5ac98b9a997ec8cb5b09e1c088375d88850d0c44f3b2/mkdocs_git_revision_date_localized_plugin-1.6.3-py3-none-any.whl", hash = "sha256:3e37bc5bd047063ab062c9328e10d00670d69a99dc002c3cb5823582ce6d8e60", size = 29402, upload-time = "2026-11-02T08:23:46.98Z" },
 ]
 
 [[package]]
@@ -946,17 +991,39 @@ wheels = [
 name = "mkdocs-rss-plugin"
 version = "1.19.0"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
 dependencies = [
     { name = "cachecontrol", extra = ["filecache"] },
-    { name = "gitpython" },
+    { name = "gitpython", version = "3.1.62", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
     { name = "mkdocs" },
     { name = "properdocs" },
     { name = "requests" },
-    { name = "tzdata", marker = "sys_platform == 'win32'" },
+    { name = "tzdata", version = "2025.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/22/e8/70055ec6d7105c0f7c84918e0f98180443b5065469b2877aca43067a5709/mkdocs_rss_plugin-1.19.0.tar.gz", hash = "sha256:0b9b7f14688393e5bd7d26a6dc14dfd2b228a8cdfe5b598a6677589b2159d957", size = 573045, upload-time = "2026-04-17T09:35:34.115Z" }
 wheels = [
     { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/9f/00/1f2144fad080706c1ebebef83b7b5c0f8d80f9a2a06b33baabb94e33c84e/mkdocs_rss_plugin-1.19.0-py3-none-any.whl", hash = "sha256:5fdaffdee96745011c7c7786ed52b42a2d751f3aad84c188ffbedeb5a6e2994a", size = 33252, upload-time = "2026-04-17T09:35:32.372Z" },
+]
+
+[[package]]
+name = "mkdocs-rss-plugin"
+version = "1.20.0"
+source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version >= '3.11.5'",
+    "python_full_version >= '3.11' and python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "cachecontrol", extra = ["filecache"] },
+    { name = "gitpython", version = "3.2.1", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
+    { name = "requests" },
+    { name = "tzdata", version = "2026.6", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/da/f9/7751ee702888610df548f409ba6f3f98b578e1939ba666ca9677f210cbb2/mkdocs_rss_plugin-1.20.0.tar.gz", hash = "sha256:9e98d4213d7e5d2ae445bed6c95aaf888950f0dd3f268f6ece2ffd49f0ac3ace", size = 580921, upload-time = "2026-11-02T14:52:21.082Z" }
+wheels = [
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/48/02/caee4772a20d121e216da9a963f3752b01ce9f429f9a40816209fa34e9f3/mkdocs_rss_plugin-1.20.0-py3-none-any.whl", hash = "sha256:05b6dfb6f3c1a9f7d5e1aba2b9645691130fbd2caa10de4e1091e01fb96933b8", size = 33325, upload-time = "2026-11-02T14:52:19.593Z" },
 ]
 
 [[package]]
@@ -1301,15 +1368,15 @@ wheels = [
 
 [[package]]
 name = "platformdirs"
-version = "4.14.2"
+version = "4.14.3"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
 resolution-markers = [
     "python_full_version >= '3.11.5'",
     "python_full_version >= '3.11' and python_full_version < '3.11.5'",
 ]
-sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/6e/4e/2684728d9f2c8c4110738dcadca7e0bed4b60c8dc68c40c2a9e0cf017900/platformdirs-4.14.2.tar.gz", hash = "sha256:6d13b4c1d66b7548dcec9e3db13c1ba9d9adb65041b5d07869313afc07e6e41b", size = 70792, upload-time = "2026-10-31T15:10:34.029Z" }
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/9a/6e/886dc7c9d21e2d95aceb696f1e31271742033aeef3661f6e9c8921493592/platformdirs-4.14.3.tar.gz", hash = "sha256:021add1ab113483edbcd4694f5fbb2d688b893ea30d35e1155bb371cf4be0be8", size = 71124, upload-time = "2026-11-01T16:27:32.928Z" }
 wheels = [
-    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/0b/2d/98af31fdcd7c95c7114e2eb7c2eb0fa55d2a012c37ba4eb3722b7272abcb/platformdirs-4.14.2-py3-none-any.whl", hash = "sha256:dc1f93390f2a9265e44e5afc8667ec7faf737739604e39bc538fec889720c36b", size = 35291, upload-time = "2026-10-31T15:10:32.615Z" },
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/93/41/f0aa003909ee77a9e7e55f8659abb635ca23ab0d022a449bbb18da87a1ef/platformdirs-4.14.3-py3-none-any.whl", hash = "sha256:cba2d05fe5e18b26b1fa6f376b8e6234c012abe1f8696c486fface7d0054e931", size = 35276, upload-time = "2026-11-01T16:27:31.498Z" },
 ]
 
 [[package]]
@@ -1321,17 +1388,14 @@ dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "ghp-import" },
     { name = "jinja2" },
-    { name = "markdown", version = "3.10.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
-    { name = "markdown", version = "3.11.2", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
+    { name = "markdown", version = "3.10.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
     { name = "markupsafe" },
     { name = "packaging" },
     { name = "pathspec" },
-    { name = "platformdirs", version = "4.12.4", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
-    { name = "platformdirs", version = "4.14.2", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
+    { name = "platformdirs", version = "4.12.4", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
     { name = "pyyaml" },
     { name = "pyyaml-env-tag" },
-    { name = "watchdog", version = "6.0.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version < '3.11'" },
-    { name = "watchdog", version = "7.0.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }, marker = "python_full_version >= '3.11'" },
+    { name = "watchdog", version = "6.0.0", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/ec/29/f27a4e1eddf72ed3db6e47818fbafe6debbf09fd7051f9c1a007239b46ef/properdocs-1.6.7.tar.gz", hash = "sha256:adc7b16e562890af0e098a7e5b02e3a81c20894a87d6a28d345c9300de73c26e", size = 276141, upload-time = "2026-03-20T20:07:48.167Z" }
 wheels = [
@@ -1390,13 +1454,32 @@ wheels = [
 name = "python-dateutil"
 version = "3.0.0"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
 dependencies = [
     { name = "six" },
-    { name = "tzdata" },
+    { name = "tzdata", version = "2025.3", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
 ]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/0e/df/f15f80383f152452d8985b36d95cb8751f901a3e0ff4cd27f7e118f168e2/python_dateutil-3.0.0.tar.gz", hash = "sha256:7ebcb3c29a92f3ceafe79a7a48a5c45677e9e004bbeec5742ac0bbb00560b7a2", size = 271066, upload-time = "2026-10-21T23:41:45.075Z" }
 wheels = [
     { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/5a/17/cebee01d1c0c1441174cf0456ddc91b280d79acb65340c05e41d77866ee8/python_dateutil-3.0.0-py2.py3-none-any.whl", hash = "sha256:3c79630202e4152c6add678446984236efe4f57e84d8e892aab0637bab82e9fd", size = 94659, upload-time = "2026-10-21T23:41:43.431Z" },
+]
+
+[[package]]
+name = "python-dateutil"
+version = "4.0.0"
+source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version >= '3.11.5'",
+    "python_full_version >= '3.11' and python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "tzdata", version = "2026.6", source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" } },
+]
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/18/39/b3927f3616f6223832f9b760e4208e8a7c7e1dea2b4d9ad7d32a5d214c3a/python_dateutil-4.0.0.tar.gz", hash = "sha256:d7295ff14fdc0f92f662100bfb6c551d160ca090f2939f1ec5b9794265c03f06", size = 250419, upload-time = "2026-11-01T07:02:42.426Z" }
+wheels = [
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/2f/a9/52b89563d154433d79b51ed1eb4842bf7334cb2696891a7fe135618853d7/python_dateutil-4.0.0-py3-none-any.whl", hash = "sha256:a5e246f79eb80475e691bf93862cead98decd8a498cf53ba0516fcdc0f50dc1c", size = 92853, upload-time = "2026-11-01T07:02:40.797Z" },
 ]
 
 [[package]]
@@ -1719,9 +1802,25 @@ wheels = [
 name = "tzdata"
 version = "2025.3"
 source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
 sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/5e/a7/c202b344c5ca7daf398f3b8a477eeb205cf3b6f32e7ec3a6bac0629ca975/tzdata-2025.3.tar.gz", hash = "sha256:de39c2ca5dc7b0344f2eba86f49d614019d29f060fc4ebc8a417896a620b56a7", size = 196772, upload-time = "2025-12-13T17:45:35.667Z" }
 wheels = [
     { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/c7/b0/003792df09decd6849a5e39c28b513c06e84436a54440380862b5aeff25d/tzdata-2025.3-py2.py3-none-any.whl", hash = "sha256:06a47e5700f3081aab02b2e513160914ff0694bce9947d6b76ebd6bf57cfc5d1", size = 348521, upload-time = "2025-12-13T17:45:33.889Z" },
+]
+
+[[package]]
+name = "tzdata"
+version = "2026.6"
+source = { registry = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/" }
+resolution-markers = [
+    "python_full_version >= '3.11.5'",
+    "python_full_version >= '3.11' and python_full_version < '3.11.5'",
+]
+sdist = { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/7a/29/6a1391d31cd00ff9e927215a224a880e1e84e826b64ba80a499e51c074d8/tzdata-2026.6.tar.gz", hash = "sha256:85d2cd9c09f81f0bb29db27759fc83af4f1e620efb814f8c5bf8b4cc4feece6d", size = 201017, upload-time = "2026-10-28T09:57:09.137Z" }
+wheels = [
+    { url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/packages/0a/66/9a06c2227fedfd4919f0eaaa8b94377d9730882a7e4f95823c9a331ab5e1/tzdata-2026.6-py2.py3-none-any.whl", hash = "sha256:0a10eec6e13ef16b627fabed9a5f2ba61a62b1c67f327305f4e7e412a70b4aec", size = 348210, upload-time = "2026-10-28T09:57:07.276Z" },
 ]
 
 [[package]]
