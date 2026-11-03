@@ -140,8 +140,9 @@
 - [讯飞星辰 Astron Coding Plan](https://www.xfyun.cn/doc/spark/CodingPlan.html) | [订阅](https://maas.xfyun.cn/packageSubscription)
     - 专业版（39 RMB 每月）：每 5 小时约 1,200 次请求、每周约 9,000 次、每订阅月约 18,000 次；支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5.1、GLM-5、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B
     - 高效版（199 RMB 每月）：每 5 小时约 6,000 次、每周约 45,000 次、每订阅月约 90,000 次；支持 Spark-X2-Agent、Spark-X2、Auto、GLM-5、GLM-5.2、DeepSeek-V4-Pro、DeepSeek-V4-Flash、MiniMax-M2.5、Kimi-K2.6、Kimi-K2.5、DeepSeek-V3.2、Spark-X2-Flash、Qwen3.6-35B-A3B、GLM-4.7-Flash、Qwen3.5-35B-A3B、Qwen3-Coder-Next-FP8、Qwen3.5-397B-A17B
-- [天翼云编程 Token Plan](https://www.ctyun.cn/document/11061839/11092368)（积分版）
-    - 29（3000 积分）、89（10000）、199（25000）、399（50000）、699（100000）RMB 每月
+- [天翼云 Token Plan](https://www.ctyun.cn/document/11061839/11092368)（个人版 / 企业版）
+    - 编程 Token Plan（个人版）：29（3000 积分）、89（10000）、199（25000）、399（50000）、699（100000）RMB 每月
+    - TokenPlan（企业版）：团队尝鲜版 98 RMB 每月（10000 积分）、团队标准版 498（60000）、团队至尊版 1198（150000）；个人加油包 49 RMB 每个（5000 积分），席位余量不足时补充购买，仅单个子用户使用、不可共享，限企业认证主用户购买，1 年内需分配给持有有效席位的子用户、逾期作废，可分配多个，分配后有效期跟随子用户席位当期订阅月到期、不累计至下一订阅月
     - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
     - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
     - 原按 Token 计量套餐仅存量已订阅用户可续订，2026-10-10 起支持模型为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.2（GLM-5.0 与 DeepSeek-V3.2 已按先前下线公告移除）
@@ -257,6 +258,7 @@
 
 ## 更新历史
 
+- 2026/11/03：天翼云 Token Plan 新增**企业版**——团队尝鲜版 98 元/月（10000 积分）、团队标准版 498 元/月（60000 积分）、团队至尊版 1198 元/月（150000 积分），并推出个人加油包 49 元/个（5000 积分，仅单个子用户使用、不可共享，限企业认证主用户购买，1 年内需分配给持有有效席位的子用户、逾期作废，分配后有效期跟随子用户席位当期订阅月、不累计至下一订阅月）；原积分版套餐定名为**编程 Token Plan（个人版）**，档位与价格（29 / 89 / 199 / 399 / 699 元每月对应 3000 / 10000 / 25000 / 50000 / 100000 积分）及积分与 Token 兑换关系均未变
 - 2026/11/02：商汤 SenseNova TokenPlan 新增 **SenseNova 6.8 Flash**（`sensenova-6.8-flash`），支持模型由 7 款增至 8 款——1M 上下文，单次输出默认 64K、范围 1–128K，支持图像输入（JPG / JPEG / PNG / WebP，可传公网 URL 或 Base64 Data URL），思考模式默认开启且不可关闭（`thinking.type` 仅接受 `enabled`），`reasoning_effort` 默认 `high`，可选 `minimal` / `low` / `medium` / `high` / `xhigh` / `max`。该模型定位为性能更强、端到端执行能力更优的一档，日常任务仍推荐 SenseNova 6.8 Flash Lite。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）与扣减顺序均未变
 - 2026/11/01：智谱 GLM Coding Plan 改用独立的套餐 API Key——套餐 API Key 与模型标准 API 的 API Key 分开管理、互不通用，个人版套餐（含领取体验卡）的用户需在个人版 Coding Plan 新建 API Key，团队版套餐的成员需在团队版 Coding Plan 新建 API Key；此前按工具区分的 Base URL 说明（Claude Code 为 `https://open.bigmodel.cn/api/anthropic`、Cherry Studio 为 `https://open.bigmodel.cn/api/coding/paas/v4/`、其余工具为 `https://open.bigmodel.cn/api/coding/paas/v4`）不再提供，套餐过期后改用标准 API 地址（`https://open.bigmodel.cn/api/paas/v4`）调用资源包的说明也一并取消。套餐档位与价格（Lite 118 / Pro 538 / Max 1078 元每月）、积分额度与抵扣系数、支持模型（GLM-5.3、GLM-5.3-Flash）均未变
 - 2026/11/01：Command Code 的限时免费模型 **Ling 3.1 Flash 1019** 扩展至 **Go** 与 **Pro** 两档——Go 列出模型由 57 款增至 58 款、Pro 由 86 款增至 87 款，模型库合计仍为 97 款，该模型（model ID `ling-3-1-flash-1019-free`，1M 上下文，输入 / 输出 / 缓存读取均 Free、调用不消耗额度，免费至 2026-11-03 16:00 UTC）现于 Go、GOAT、Pro、Max 10×、Max 20× 五档一致提供。各套餐价格与档位、其余模型的 token 价格与月额度均未变
