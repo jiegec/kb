@@ -798,6 +798,9 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | Pura X View | VOL-AL00 | 麒麟 9030S | [华为商城](https://www.vmall.com/product/10086683896486.html) |
 | Pura X | VDE-AL00 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
 | Pura X 典藏版 | VDE-AL10 | 麒麟 9020 | [华为商城](https://www.vmall.com/product/10086061975812.html) |
+| nova 12 | BLK-AL00 / BLK-TL00 | 麒麟 8000 | [官网支持列表](https://consumer.huawei.com/cn/support/content/zh-cn00447891/) |
+| nova 12 Pro | ADA-AL00 | 麒麟 8000 | [官网支持列表](https://consumer.huawei.com/cn/support/content/zh-cn00447891/) |
+| nova 12 活力版 | FIN-AL60 | 骁龙 778G | [官网支持列表](https://consumer.huawei.com/cn/support/content/zh-cn00447891/) |
 | nova 12 Ultra | ADA-AL00U | 麒麟 9000SL | [九机网](https://www.9ji.com/zunyi-baojia-422620.html) |
 | nova 12 Ultra 星耀版 | ADA-AL10U | 麒麟 9010L | [IT 之家](https://digi.ithome.com/archiver/769/029.htm) |
 | nova 14 Pro | MIA-AL00 | 麒麟 8020 | [华为商城](https://www.vmall.com/product/10086182296668.html) |
