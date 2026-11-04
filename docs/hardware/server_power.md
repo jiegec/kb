@@ -46,6 +46,11 @@ Pinout:
   <figcaption>CRPS 185mm x 73.5mm 俯视图（图源 <a href="https://www.opencompute.org/projects/server/mhs/dc-mhs-specs-and-designs/">M-CRPS Base Specification</a> Supplemental Material A）</figcaption>
 </figure>
 
+<figure markdown>
+  ![](server_power_pinout.png){ width="400" }
+  <figcaption>CRPS Pinout（图源 <a href="https://www.silverstonetek.com/cn/product/info/power-supplies/gm2000c_tfu/">Gemini 2000Cx Titanium Module</a>）</figcaption>
+</figure>
+
 Example: Delta DPS-800AB-37 A, 185mm by 73.5mm
 
 Reference:
