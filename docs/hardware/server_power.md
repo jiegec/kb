@@ -36,6 +36,11 @@ Pinout:
 - B24(S13): Imon，电源的输出信号，代表输出的电流大小
 - B25(S14): VINOK，电源的输出信号，代表电源输入电压在正常范围
 
+<figure markdown>
+  ![](server_power_output_interface.png){ width="400" }
+  <figcaption>CRPS 输出接口（图源 <a href="https://www.opencompute.org/projects/server/mhs/dc-mhs-specs-and-designs/">M-CRPS Base Specification</a> Figure 2-24）</figcaption>
+</figure>
+
 Reference:
 
 - <https://www.gpupartner.com/reference/crps>
