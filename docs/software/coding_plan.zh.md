@@ -211,7 +211,7 @@
     - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
     - deepseek-flash（DeepSeek-V4.1-Flash-1017，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
     - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：空闲时段输入命中缓存 0.15 / 输入未命中缓存 4.5 / 输出 13.5 RMB 每 1M tokens；高峰时段 0.30 / 9.0 / 27.0
-    - 网页搜索与抓取（Search、Fetch）为独立 API，按成功请求次数计费：Search 与 Fetch 均为每 1,000 次成功请求 5 元；在 DeepSeek Harness、Claude Code、Codex 中使用 DeepSeek API 时，Server 端工具调用对 Search / Fetch 的访问目前不计费，自北京时间 2026 年 11 月 1 日 00:00 起按次收取调用费用
+    - 网页搜索与抓取（Search、Fetch）为独立 API，按成功请求次数计费：Search 与 Fetch 均为每 1,000 次成功请求 5 元；在 DeepSeek Harness、Claude Code、Codex 中使用 DeepSeek API 时，Server 端工具调用对 Search / Fetch 的访问自北京时间 2026 年 11 月 1 日 00:00 起按次收取费用，与上表同价（每 1,000 次成功请求 5 元）
 
 ## prompt、请求和 token
 
@@ -261,6 +261,7 @@
 
 ## 更新历史
 
+- 2026/11/04：DeepSeek 的网页搜索与抓取（Search、Fetch）在 DeepSeek Harness、Claude Code、Codex 中经 Server 端工具调用发起时已转为按次计费：自北京时间 2026-11-01 00:00 起按成功请求收费，Search 与 Fetch 均为 5 元/千次成功请求，与直接调用 Search / Fetch 接口同价（此前的免费过渡期已结束）。deepseek-flash 与 deepseek-v4-pro 的模型单价与峰谷时段未变
 - 2026/11/04：阶越星辰 **Step Plan 国际版**（platform.stepfun.ai）不再提供智能路由模型 **step-router-v1**，支持的模型为 6 款——step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603、stepaudio-2.5-tts、stepaudio-2.5-asr，Step Plan 的能力说明也相应改为覆盖文本、推理与语音（不再提智能路由）。**国内版 Step Plan**（platform.stepfun.com）仍支持 9 款，含 step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）与 stepaudio-2.5-realtime、stepaudio-2.5-chat。两站的套餐档位与价格（Mini 49 / Plus 99 / Pro 199 / Max 699 RMB 每月、Credit 额度 400M / 1600M / 8000M / 40000M）、分时段扣减与加油包规则均未变
 - 2026/11/04：商汤 SenseNova TokenPlan 新增 **GLM-5.3**（`glm-5.3`），支持模型由 8 款增至 9 款——智谱新一代旗舰模型，面向大型代码库开发、终端操作、端到端项目与代码安全分析等复杂软件工程与 Agent 任务；1M 上下文，单次生成上限默认 65536、范围 1–131072，思考模式始终开启（`thinking.type` 仅接受 `enabled`，传入 `disabled` 会报错，`reasoning_effort` 可选 `low` / `high` / `max`），仅支持文本输入，`tool_choice` 支持 `required`。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）、扣减顺序与其余模型均未变
 - 2026/11/04：火山方舟的 **Coding Plan 个人版** 与 **Agent Plan 个人版** 下线 **MiniMax-M3** 与 **Kimi-K2.7-Code**（两款此前均标注「即将下线」）：Coding Plan 的支持模型表（现为 13 款：Auto 之外列 Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、Kimi-K2.8-Preview、Kimi-K3、Kimi-K3.1-Pro、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash、DeepSeek-V4.1-Flash-Economy）、Agent Plan 的「全套餐支持」名单与 AFP 抵扣系数表（MiniMax-M3 原 2.5、Kimi-K2.7-Code 原 4.5）均不再包含这两款模型。Coding Plan Lite / Pro 与 Agent Plan 四档（Small / Medium / Large / Max）的档位、价格与 AFP 额度，其余模型的抵扣系数与 1M 上下文支持名单（doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3.1-pro、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、deepseek-v4-flash、deepseek-v4-pro）均未变
