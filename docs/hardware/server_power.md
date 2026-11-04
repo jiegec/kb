@@ -10,6 +10,11 @@ Form factor:
 = 185mm by 60mm
 - 265mm by 73.5mm
 
+<figure markdown>
+  ![](server_power_form_factor.png){ width="400" }
+  <figcaption>CRPS Form Factor（图源 <a href="https://www.opencompute.org/projects/server/mhs/dc-mhs-specs-and-designs/">M-CRPS Base Specification</a> Figure 2-1）</figcaption>
+</figure>
+
 Pinout:
 
 - A1-A9: GND
