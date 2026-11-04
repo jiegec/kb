@@ -41,6 +41,13 @@ Pinout:
   <figcaption>CRPS 输出接口（图源 <a href="https://www.opencompute.org/projects/server/mhs/dc-mhs-specs-and-designs/">M-CRPS Base Specification</a> Figure 2-24）</figcaption>
 </figure>
 
+<figure markdown>
+  ![](server_power_top.png){ width="400" }
+  <figcaption>CRPS 185mm x 73.5mm 俯视图（图源 <a href="https://www.opencompute.org/projects/server/mhs/dc-mhs-specs-and-designs/">M-CRPS Base Specification</a> Supplemental Material A）</figcaption>
+</figure>
+
+Example: Delta DPS-800AB-37 A, 185mm by 73.5mm
+
 Reference:
 
 - <https://www.gpupartner.com/reference/crps>
