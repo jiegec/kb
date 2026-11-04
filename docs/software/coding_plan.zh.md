@@ -158,7 +158,7 @@
     - Mini 49 RMB 每月（400M Credit）、Plus 99（1600M）、Pro 199（8000M）、Max 699（40000M）；季付 129 / 269 / 539 / 1889、年付 456 / 936 / 1860 / 6666 RMB（季付与年付一次性支付，Credit 仍按月分 3 次与 12 次发放）
     - 分时段扣减：调用 step-5-preview 时，高峰时段（北京时间周一至周五 09:00–12:00、14:00–18:00）消耗的 Credit 为低谷时段的 2 倍，其余时间为低谷时段按常规扣减；部分历史订阅不受该规则约束
     - 加油包（仅向已订阅用户开放，有效期 30 天、与套餐有效期分别计算）：小油包 49 RMB / 400M Credit、大油包 99 RMB / 1600M Credit；套餐 Credit 与加油包 Credit 同时存在时优先扣减先到期的额度
-    - 支持模型：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）
+    - 支持模型（国内版 9 款）：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）；国际版 Step Plan 支持 6 款，为 step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603、stepaudio-2.5-tts、stepaudio-2.5-asr，不含 stepaudio-2.5-realtime、stepaudio-2.5-chat 与 step-router-v1
 - [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月；Standard（99 RMB 或 16 USD）：110 亿；Pro（329 RMB 或 50 USD）：380 亿；Max（659 RMB 或 100 USD）：820 亿
     - 支持模型（6 款）：MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS
@@ -261,6 +261,7 @@
 
 ## 更新历史
 
+- 2026/11/04：阶越星辰 **Step Plan 国际版**（platform.stepfun.ai）不再提供智能路由模型 **step-router-v1**，支持的模型为 6 款——step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603、stepaudio-2.5-tts、stepaudio-2.5-asr，Step Plan 的能力说明也相应改为覆盖文本、推理与语音（不再提智能路由）。**国内版 Step Plan**（platform.stepfun.com）仍支持 9 款，含 step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）与 stepaudio-2.5-realtime、stepaudio-2.5-chat。两站的套餐档位与价格（Mini 49 / Plus 99 / Pro 199 / Max 699 RMB 每月、Credit 额度 400M / 1600M / 8000M / 40000M）、分时段扣减与加油包规则均未变
 - 2026/11/04：商汤 SenseNova TokenPlan 新增 **GLM-5.3**（`glm-5.3`），支持模型由 8 款增至 9 款——智谱新一代旗舰模型，面向大型代码库开发、终端操作、端到端项目与代码安全分析等复杂软件工程与 Agent 任务；1M 上下文，单次生成上限默认 65536、范围 1–131072，思考模式始终开启（`thinking.type` 仅接受 `enabled`，传入 `disabled` 会报错，`reasoning_effort` 可选 `low` / `high` / `max`），仅支持文本输入，`tool_choice` 支持 `required`。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）、扣减顺序与其余模型均未变
 - 2026/11/04：火山方舟的 **Coding Plan 个人版** 与 **Agent Plan 个人版** 下线 **MiniMax-M3** 与 **Kimi-K2.7-Code**（两款此前均标注「即将下线」）：Coding Plan 的支持模型表（现为 13 款：Auto 之外列 Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、Kimi-K2.8-Preview、Kimi-K3、Kimi-K3.1-Pro、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash、DeepSeek-V4.1-Flash-Economy）、Agent Plan 的「全套餐支持」名单与 AFP 抵扣系数表（MiniMax-M3 原 2.5、Kimi-K2.7-Code 原 4.5）均不再包含这两款模型。Coding Plan Lite / Pro 与 Agent Plan 四档（Small / Medium / Large / Max）的档位、价格与 AFP 额度，其余模型的抵扣系数与 1M 上下文支持名单（doubao-seed-evolving、glm-5.3、glm-5.3-flash、kimi-k3.1-pro、kimi-k3、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、deepseek-v4-flash、deepseek-v4-pro）均未变
 - 2026/11/04：腾讯云大模型 Token Plan 企业版专业套餐把 **联网搜索** 纳入积分抵扣：自北京时间 2026-11-18 00:00:00 起，套餐中 DeepSeek 原厂直供模型发起的联网搜索调用（Search 搜索 / Fetch 网页抓取）计入套餐积分，Search 与 Fetch 均按 **500 积分/千次成功请求** 计费，搜索结果注入的内容计入输入 Token、按对应模型的输入积分价抵扣。套餐档位与价格（1 元/100 积分、单次最低 5 万积分）、峰谷时段与各模型积分抵扣价均未变
