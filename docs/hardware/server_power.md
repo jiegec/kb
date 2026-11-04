@@ -23,17 +23,17 @@ Pinout:
 - A20(S2): PMBus SCL
 - A21(S3): PSON#，电源的输入信号，控制供电开启或关闭
 - A22(S4): SMBAlert#，电源的输出信号，代表电源出了问题
-- A23(S5): Return Sense / PS_KILL
-- A24(S6): Remote Sense
+- A23(S5): Return Sense / PS_KILL，Return Sense 代表感知负载端的实际地电压
+- A24(S6): Remote Sense，感知负载端的 12V 实际电压
 - A25(S7): PWOK，电源的输出信号，代表电源正常工作
 - B1-B9: GND
 - B10-B18: +12V
 - B19(S8): SMBus Address A0
 - B20(S9): SMBus Address A1
-- B21(S10): +12VSB
-- B22(S11): Cold Redundancy Bus
-- B23(S12): 12V load share bus
-- B24(S13): Imon，电源的输出信号，代表输出的电流大小
+- B21(S10): +12VSB，Standby 待机输出
+- B22(S11): Cold Redundancy Bus，用于让冗余电源休眠
+- B23(S12): 12V load share bus，用于电源间的负载均衡
+- B24(S13): Imon / Present，Imon 是电源的输出模拟信号，代表输出的电流大小
 - B25(S14): VINOK，电源的输出信号，代表电源输入电压在正常范围
 
 <figure markdown>
