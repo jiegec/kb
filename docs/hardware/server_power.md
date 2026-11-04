@@ -7,7 +7,7 @@ Common Redundant Power Supply
 Form factor:
 
 - 185mm by 73.5mm
-= 185mm by 60mm
+- 185mm by 60mm
 - 265mm by 73.5mm
 
 <figure markdown>
