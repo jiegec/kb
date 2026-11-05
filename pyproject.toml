@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = [{ name = "Jiajie Chen", email = "c@jia.je" }]
 readme = "README.md"
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.11,<4.0"
 dependencies = [
     "mkdocs-material>=9.1.21,<10.0.0",
     "pillow>=12.3.0,<14.0.0",
