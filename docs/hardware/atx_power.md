@@ -32,7 +32,7 @@
   <figcaption>24-pin ATX_PWR（图源 <a href="https://rog.asus.com/motherboards/rog-strix/rog-strix-z790-a-gaming-wifi-model/helpdesk_manual/">ROG STRIX Z790-A GAMING WIFI User's Manual</a>）</figcaption>
 </figure>
 
-Source: <https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/atx-version-3-0-multi-rail-desktop-platform-power-supply-design-guide/2.0/2.1a/main-power-connector-required/>, <https://en.wikipedia.org/wiki/ATX#Power_supply>, <https://www.moddiy.com/pages/Power-Supply-Connectors-and-Pinouts.html>
+Source: <https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/atx-version-3-0-multi-rail-desktop-platform-power-supply-design-guide/2.0/2.1a/main-power-connector-required/>, <https://en.wikipedia.org/wiki/ATX#Power_supply>, <https://www.moddiy.com/pages/Power-Supply-Connectors-and-Pinouts.html>, <https://sparks.gogo.co.nz/atx-pcie-power-supply-connector-guide.html>
 
 更早的 ATX 用的是 20-pin 的版本，所以 ATX 电源为了兼容新旧主板，通常会提供 20+4 pin 的线。
 
