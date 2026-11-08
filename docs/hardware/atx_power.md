@@ -38,12 +38,12 @@ Source: <https://edc.intel.com/content/www/us/en/design/ipla/software-developmen
 
 <figure markdown>
   ![](atx_power_cpu.png){ width="400" }
-  <figcaption>8-pin ATX CPU Power（图源 <a href="https://rog.asus.com/motherboards/rog-strix/rog-strix-z790-a-gaming-wifi-model/helpdesk_manual/">ROG STRIX Z790-A GAMING WIFI User's Manual</a>）</figcaption>
+  <figcaption>8-pin CPU Power（图源 <a href="https://rog.asus.com/motherboards/rog-strix/rog-strix-z790-a-gaming-wifi-model/helpdesk_manual/">ROG STRIX Z790-A GAMING WIFI User's Manual</a>）</figcaption>
 </figure>
 
 ## 6-pin PCIe Power
 
 <figure markdown>
   ![](atx_power_pcie.png){ width="400" }
-  <figcaption>8-pin ATX PCIe Power（图源 <a href="https://www.asus.com/motherboards-components/motherboards/workstation/ws-x299-pro-se/helpdesk_manual?model2Name=WS-X299-PRO-SE">WS X299 PRO User Manual</a>）</figcaption>
+  <figcaption>8-pin PCIe Power（图源 <a href="https://www.asus.com/motherboards-components/motherboards/workstation/ws-x299-pro-se/helpdesk_manual?model2Name=WS-X299-PRO-SE">WS X299 PRO User Manual</a>）</figcaption>
 </figure>
