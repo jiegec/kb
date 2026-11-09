@@ -146,8 +146,8 @@
 - [天翼云 Token Plan](https://www.ctyun.cn/document/11061839/11092368)（个人版 / 企业版）
     - Token Plan（个人版）：29（3000 积分）、89（10000）、199（25000）、399（50000）、699（100000）RMB 每月（套餐表内列名仍为「编程 Token Plan X 积分」）
     - TokenPlan（企业版）：团队尝鲜版 98 RMB 每月（10000 积分）、团队标准版 498（60000）、团队至尊版 1198（150000）；个人加油包 49 RMB 每个（5000 积分），席位余量不足时补充购买，仅单个子用户使用、不可共享，限企业认证主用户购买，1 年内需分配给持有有效席位的子用户、逾期作废，可分配多个，分配后有效期跟随子用户席位当期订阅月到期、不累计至下一订阅月
-    - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
-    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
+    - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3，以及智能路由 ctyun-smart-router
+    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：ctyun-smart-router 3,704/1,235；DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
     - 原按 Token 计量套餐仅存量已订阅用户可续订，2026-10-10 起支持模型为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.2（GLM-5.0 与 DeepSeek-V3.2 已按先前下线公告移除）
 - [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite 59 RMB 每月（每订阅月 5000 万 tokens）、Standard 149（1.3 亿）、Pro 399（3.8 亿）、Max 799（8.8 亿）
@@ -263,6 +263,7 @@
 
 ## 更新历史
 
+- 2026/11/09：天翼云 Token Plan 新增智能路由 **ctyun-smart-router** 并纳入积分兑换：1 积分对应输入 **3,704** / 输出 **1,235** tokens，与 DeepSeek-V4-Pro、DeepSeek-V4-Flash、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3 并列于兑换关系表。该智能路由支持成本优先、质量优先、均衡三种策略自动优选模型。个人版五档价格（29 / 89 / 199 / 399 / 699 元每月，对应 3000 / 10000 / 25000 / 50000 / 100000 积分）、企业版三档（团队尝鲜版 98、团队标准版 498、团队至尊版 1198 元每月）与个人加油包（49 元 / 5000 积分）均未变，其余模型的兑换比例亦未变
 - 2026/11/07：Command Code 模型库新增 **DeepSeek V4.1 Flash Ultrafast**（1M 上下文），仅 GOAT 与 Pro 两档提供，模型库由 97 款增至 98 款（GOAT 由 71 款增至 72 款、Pro 由 87 款增至 88 款、Go 仍为 58 款）：token 价格输入 \$2.40 / 输出 \$9.60 / 缓存读取 \$0.048 每 1M tokens（无缓存写入价），月额度 GOAT \$20、Pro \$30，预估请求数 GOAT 641 / 5 小时、1,600 / 周、3,210 / 月，Pro 962 / 2,400 / 4,810。各套餐价格（Go \$1、GOAT \$10、Pro \$20、Max \$100、Provider \$15 每月 + 处理费）与档位、限时免费模型（Glyph Cluster、Crouton Alpha、Beam 1.0）、其余模型的 token 价格与月额度均未变
 - 2026/11/07：OpenCode Go 模型库由 31 款增至 32 款，新增限时免费模型 **Crouton Alpha Free**（1M 上下文）：输入 / 输出 / 缓存读取均为 Free，Go、Go Plus 与 Go Teams 三档的月度使用额度与预估请求数均为无限制（限时），model ID `crouton-alpha-free`，接入点 `https://opencode.ai/inference/go/openai/v1/responses`（`@ai-sdk/openai`，按 OpenAI Responses API 而非 chat/completions 调用）；Model training 为 Not used、Data retention 为 30 天。该模型标注为限时免费、仅限部分地区，不提供的地区为欧盟、阿富汗、白俄罗斯、中国大陆（含香港与澳门）、柬埔寨、古巴、厄立特里亚、埃塞俄比亚、海地、伊朗、伊拉克、利比亚、缅甸、尼加拉瓜、朝鲜、巴基斯坦、俄罗斯、索马里、叙利亚、委内瑞拉、西撒哈拉，以及其余支持国家内的部分区域。三档套餐价格（Go \$10、Go Plus \$40、Go Teams 每人 \$20 每月）与其余 31 款模型的 token 价格与月额度均未变
 - 2026/11/06：火山方舟 **Coding Plan 个人版** 与 **Agent Plan 个人版** 的 **DeepSeek-V4.1-Flash** 全量升级为 **261101** 版本，该模型的抵扣折扣活动改为 2026-11-07 00:00 至 2026-12-15 23:59:59：在原有 5 折基础上再享 7 折，合计 3.5 折。Agent Plan 的 AFP 抵扣系数由 1.25 降至 **0.875**（原抵扣系数 2.5），Coding Plan 同步按 3.5 折计扣。活动截止时间由 2026-12-30 23:59:59 提前至 2026-12-15 23:59:59，起始时间由 Agent Plan 的 2026-09-15 00:00、Coding Plan 的 2026-09-23 00:00 统一改为 2026-11-07 00:00。Coding Plan Lite / Pro（40 / 200 元每月）与 Agent Plan 四档（Small 40 / Medium 200 / Large 500 / Max 1000 元每月）的档位、价格与用量/AFP 额度、其余模型的抵扣系数、同期的 deepseek-v4.1-flash-economy 5 折活动（至 2026-12-30 23:59:59）、模型库与 1M 上下文支持名单均未变
