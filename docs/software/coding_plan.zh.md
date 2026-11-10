@@ -186,7 +186,7 @@
     - 扣减顺序：使用 Flash-Lite 时先扣专属积分，专属积分用尽后再扣通用积分（通用积分未耗尽即可继续使用 Flash-Lite）；使用其他模型只扣通用积分
     - Flash-Lite 消费返赠活动于 2026-10-27 下线：活动期间每实际消耗 1 积分 Flash-Lite 专属积分返赠 1 通用积分（按自然日汇总、每小时结算到账、每笔自到账起 30 天有效、不占用滚动 5 小时与滚动周额度）；已到账的返赠积分余额与有效期保持不变，切换前已计入返赠的消费仍按原规则结算
     - 通用积分额度上调生效时，系统统一将各用户的通用积分窗口可用额度重置为新上限；Flash-Lite 专属积分的可用额度不变
-    - 支持模型（9 款）：SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4 Flash、DeepSeek V4.1 Flash、GLM-5.3、GLM-5.2、Kimi K3
+    - 支持模型（7 款）：SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4.1 Flash、GLM-5.3、Kimi K3
     - GLM-5.3（`glm-5.3`）：智谱新一代旗舰模型，面向大型代码库开发、终端操作、端到端项目与代码安全分析等复杂软件工程和 Agent 任务；1M 上下文，单次生成上限默认 65536、范围 1–131072，思考模式始终开启（`thinking.type` 仅接受 `enabled`，传入 `disabled` 会报错，`reasoning_effort` 可选 `low` / `high` / `max`），仅支持文本输入，`tool_choice` 支持 `required`
     - SenseNova 6.8 Flash（`sensenova-6.8-flash`）：1M 上下文，单次输出默认 64K、范围 1–128K，支持图像输入（JPG / JPEG / PNG / WebP，可传公网 URL 或 Base64 Data URL）；思考模式默认开启且不可关闭（`thinking.type` 仅接受 `enabled`），`reasoning_effort` 默认 `high`，可选 `minimal` / `low` / `medium` / `high` / `xhigh` / `max`；日常任务官方仍推荐 SenseNova 6.8 Flash Lite，复杂长链路与专业交付任务推荐 SenseNova 6.8 Flash
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -264,6 +264,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/10：商汤 SenseNova TokenPlan 下线 **DeepSeek V4 Flash**（`deepseek-v4-flash`）与 **GLM-5.2**（`glm-5.2`），支持模型由 9 款减至 **7 款**——SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4.1 Flash、GLM-5.3、Kimi K3；两款下线模型不再提供调用说明。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）、扣减顺序与其余模型的规格均未变
 
 - 2026/11/10：火山方舟 **Coding Plan 个人版** 与 **Agent Plan 个人版** 的 **kimi-k3.1-pro** 抵扣系数由限时 3.5 恢复为 **7**（2026-10-24 00:00 至 2026-11-09 23:59:59 的 5 折抵扣活动到期），**kimi-k3** 的抵扣系数为 **10**（2026-10-12 00:00 至 2026-10-25 23:59 的 5 折活动已到期）；Auto 模式的抵扣系数限时折扣（Coding Plan 1、Agent Plan 0.5，2026-06-10 18:00 至 2026-11-08 23:59:59）到期后，两档套餐不再为 Auto 单独标定抵扣系数。当前进行中的限时活动仅覆盖 deepseek-v4.1-flash（0.875）、deepseek-v4.1-flash-economy（5 折 1）与 kimi-k2.8-preview（6 折 4.8）。Coding Plan Lite / Pro（40 / 200 元每月）与 Agent Plan 四档（Small 40 / Medium 200 / Large 500 / Max 1000 元每月）的价格与档位、各档 AFP 额度、模型库与 1M 上下文支持名单均未变
 
