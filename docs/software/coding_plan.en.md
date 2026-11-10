@@ -36,6 +36,11 @@
     - MiniMax-M3 `>` 512K input tokens: cached input 0.84, uncached input 4.20, output 16.80
     - M3 effective unit prices are unchanged, but the "permanent 50% off" label and struck-through list prices are back: ≤512K input tokens list prices 4.20 / 16.80 / 0.84 (input / output / cached input) and >512K 8.40 / 33.60 / 1.68, halved to the values above; the international site carries the same label — ≤512K \$0.30 / \$1.20 / \$0.06 and >512K \$0.60 / \$2.40 / \$0.12 against struck-through list prices of \$0.60 / \$2.40 / \$0.12 and \$1.20 / \$4.80 / \$0.24
     - 1M context
+    - MiniMax-H3-Image (standard): text input 15, image input 10, image output 25
+    - MiniMax-H3-Image-Highspeed: text input 15, image input 20, image output 50
+    - Both image models were released on 2026-11-10, support text-to-image and image editing with 1–16 reference images, accept output size as width and height or as an area tier plus aspect ratio, and support streaming output; the international site lists \$2.30 / \$1.50 / \$3.80 and \$2.30 / \$3.00 / \$7.60 (text input / image input / image output); the H3-Image-Context-IR prompt-enhancement endpoint is charged at 15 RMB per 1M text input tokens
+    - Requests whose delivered image is at least 16.6 million pixels (width × height) cost 50% less: the promotion runs through 2026-11-18 00:00 Beijing time on the Chinese site (end exclusive) and through 2026-11-17 16:00 UTC internationally
+    - image-01 and image-01-live are now legacy models at 0.025 RMB per image (\$0.0035 internationally)
 
 ### Zhipu (GLM, Z.ai)
 
@@ -264,6 +269,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/10: MiniMax released the image models **MiniMax-H3-Image** and **MiniMax-H3-Image-Highspeed** (same parameters and limits, faster): text-to-image and image editing with 1–16 reference images, output size given as width and height or as an area tier plus aspect ratio, and streaming output. Pay-as-you-go pricing (RMB per 1M tokens, text input / image input / image output): standard 15 / 10 / 25 and highspeed 15 / 20 / 50 (international \$2.30 / \$1.50 / \$3.80 and \$2.30 / \$3.00 / \$7.60); the H3-Image-Context-IR prompt-enhancement endpoint is charged at 15 per 1M text input tokens. Requests delivering an image of at least 16.6 million pixels (4K) cost 50% less, through 2026-11-18 00:00 Beijing time (2026-11-17 16:00 UTC internationally). **image-01** and **image-01-live** are now legacy models at 0.025 RMB per image (\$0.0035 internationally)
 
 - 2026/11/10: SenseTime's SenseNova TokenPlan retired **DeepSeek V4 Flash** (`deepseek-v4-flash`) and **GLM-5.2** (`glm-5.2`), taking the supported models from 9 to **7** — SenseNova 6.8 Flash, SenseNova 6.8 Flash Lite, SenseNova U1.5 Lite, SenseNova U1.5 Fast, DeepSeek V4.1 Flash, GLM-5.3 and Kimi K3; the two retired models no longer come with usage instructions. Both credit pools (general pool 120,000 credits per rolling 5-hour window and 1,200,000 per rolling week; Flash-Lite pool 60,000 / 600,000), the deduction order and the specifications of the remaining models are unchanged
 
