@@ -1,5 +1,10 @@
 # 主板
 
+<figure markdown>
+  ![](motherboard_atx_features.png){ width="600" }
+  <figcaption>ATX 机箱布局（图源 <a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/intel/ATX/ATX_Specification_2.01_199702.PDF">ATX Specification 2.01</a>）</figcaption>
+</figure>
+
 ## 尺寸
 
 参考 <https://en.wikipedia.org/wiki/DTX_(form_factor)> <https://www.silverstonetek.com/en/tech-talk/wh11_008> <https://en.wikipedia.org/wiki/ATX> <https://www.corsair.com/us/en/explorer/diy-builder/power-supply-units/ssi-eeb-and-ceb-motherboards-explained/>：
@@ -14,6 +19,26 @@
 - miniITX: 170mm x 170mm
 - SSI-EEB: 305mm × 330mm
 - SSI-CEB: 305mm × 266.7mm
+
+<figure markdown>
+  ![](motherboard_atx_layout.png){ width="700" }
+  <figcaption>ATX/Mini-ATX 布局（图源 <a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/intel/ATX/ATX_Specification_2.01_199702.PDF">ATX Specification 2.01</a>）</figcaption>
+</figure>
+
+<figure markdown>
+  ![](motherboard_atx_mounting_holes.png){ width="700" }
+  <figcaption>ATX / Baby AT / Full AT 安装孔位（图源 <a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/intel/ATX/ATX_Specification_2.01_199702.PDF">ATX Specification 2.01</a>）</figcaption>
+</figure>
+
+<figure markdown>
+  ![](motherboard_atx_height_limits.png){ width="650" }
+  <figcaption>组件高度限制（图源 <a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/intel/ATX/ATX_Specification_2.01_199702.PDF">ATX Specification 2.01</a>）</figcaption>
+</figure>
+
+<figure markdown>
+  ![](motherboard_atx_io_aperture.png){ width="700" }
+  <figcaption>后置 I/O 开口（图源 <a href="http://bitsavers.informatik.uni-stuttgart.de/pdf/intel/ATX/ATX_Specification_2.01_199702.PDF">ATX Specification 2.01</a>）</figcaption>
+</figure>
 
 ## 供电
 
