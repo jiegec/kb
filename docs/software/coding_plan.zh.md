@@ -115,7 +115,8 @@
     - 升配：不重置当前订阅周期，按剩余天数补缴差价并发放当前周期新增额度，自下一个订阅月起按新档位月额度计量
     - Essential 可同时支持 2–3 个 Agent 并发，权益为 Lite 全部权益
     - 仅限本人使用：同一个 API Key 可配置到本人的多台设备（如家庭电脑与公司电脑）上使用；共享给他人可能被判定为违规并导致封禁
-    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
+    - 支持模型：auto、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
+    - qwen4-max-preview（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview）为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens、单次输出上限 131,072，仅通过 Token Plan 提供；预览期 2026-11-11 10:00 至 2026-11-25 24:00（UTC+8），期间不做变更、预览结束后下线，活动期间 Credits 消耗低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 再享 4 折（即原标准的 0.8 折）
     - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017 5 折
     - decision-model-preview（领域模型 - 决策模型）限时免费，调用不消耗 Credits
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
@@ -271,6 +272,7 @@
 
 ## 更新历史
 
+- 2026/11/11：阿里云百炼 **Token Plan 个人版**模型库新增 **qwen4-max-preview**（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview；推理模型、视觉理解、文本生成，上下文 1,000,000 tokens、单次输出上限 131,072，仅通过 Token Plan 提供）。该模型为预览版，预览期 2026-11-11 10:00 至 2026-11-25 24:00（UTC+8），期间不做变更、预览结束后下线；活动期间 Credits 消耗低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 再享 4 折（即原标准的 0.8 折）。官方 OpenCode 与 OpenClaw 接入文档的个人版、团队版配置示例同步加入该模型（OpenCode 中名称写作 Qwen4.0 Max Preview，单次输出默认 32,000、可用 `OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX` 调高；OpenClaw 中 contextWindow 1,000,000、maxTokens 131,072、reasoning true、input 为 text 与 image，并可用 `params.cacheRetention` 设置 short、long 或 none，long 对应 1 小时 TTL）；该模型同时列入上下文缓存支持名单。四档价格与月额度（Lite 39 / Essential 79 / Standard 139 / Pro 312 元每月，20,000 / 45,000 / 80,000 / 200,000 Credits）、用量包与升配规则、夜间四折与五折名单、decision-model-preview 限时免费均未变
 - 2026/11/11：Command Code 模型库换血（仍为 99 款）：下线限时免费模型 **Crouton Alpha**（1M 上下文，stealth preview 期间免费、每次请求计费 \$0、不消耗额度），Go、GOAT、Pro、Max 各档位的模型表与用量对比表中该行一并删除，Go 列出款数由 58 减至 57、GOAT 由 72 减至 71、Pro 仍为 88 款；限时免费模型现为 Glyph Cluster。新增 **Gemini 4 Carbon**（1M 上下文，仅 Pro 档）：token 价格输入 \$2.00 / 输出 \$10.00 / 缓存读取 \$0.10 每 1M tokens（无缓存写入价），月额度 Pro **\$30**（Claude、GPT、Gemini 系列常规为每模型 \$20，Claude Haiku 5.5 与该模型为 \$30），预估请求数 Pro 698 / 5 小时、1,740 / 周、3,490 / 月。各套餐价格（Go \$1、GOAT \$10、Pro \$20、Max \$100、Provider \$15 每月 + 处理费）与档位、其余模型的 token 价格与月额度均未变
 
 - 2026/11/10：MiniMax M Plan 的模型与额度规则调整：三档共用同一份额度，其中图片与视频模型仅受周窗口限制、不受 5 小时窗口限制，文本、声音等模型同时受 5 小时与周窗口限制；三档均支持图片模型 H3 Image 与声音模型，Explore、Build 另支持图片高速版 H3 Image Highspeed 与 H3 视频模型（此前仅说明 Go 不含视频模型）。图片模型的周额度用尽后可用积分包继续生成图片（国际站把积分包统一改称 Credits，适用范围表述为文本、视频、图片和声音模型加联网搜索与多模态理解）。MiniMax 同时下线视频资源包——Hailuo 系视频此前以 1 个月点数包按 ¥7,000 / ¥15,000 / ¥30,000 / ¥40,000（国际版 \$1,000 / \$2,500 / \$4,500 / \$6,000）售卖，按模型与规格每条视频扣 0.3～2 点、失败或触发安全审核不扣点；资源包现仅保留语音资源包。三档价格（Go ¥49 / \$22、Explore ¥119 / \$55、Build ¥469 / \$132）与额度倍率未变
