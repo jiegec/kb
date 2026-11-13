@@ -93,6 +93,8 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - javascripts/tablesort.js
+  - javascripts/vic_data.js
+  - javascripts/vic_timing.js
 
 extra_css:
   - stylesheets/extra.css

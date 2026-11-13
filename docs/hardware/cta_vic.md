@@ -29,6 +29,19 @@
 
 另外 480i/240p/576i/288p 这类格式在接口上是双时钟的，Hactive 记的是双倍值（1440/2880），实际有效像素是 720/1440。
 
+## 时序可视化
+
+选择 VIC 查看它的行时序和场时序：
+
+<div class="vic-widget" id="vic-widget">
+  <label for="vic-select">VIC</label>
+  <select id="vic-select" aria-label="选择 VIC"></select>
+  <div class="vic-info" id="vic-info"></div>
+  <div id="vic-svg"></div>
+</div>
+
+## VIC 列表
+
 - **1**: 640×480p (4:3), 59.940 Hz, 25.175 MHz; Htotal 800, Hblank 160, Vtotal 525, Vblank 45, H Freq 31.469 kHz; Hfront 16, Hsync 96, Hback 48, Hpol N, Vfront 10, Vsync 2, Vback 33, Vpol N, Ln 1
 - **2**: 720×480p (4:3), 59.940 Hz, 27.000 MHz; Htotal 858, Hblank 138, Vtotal 525, Vblank 45, H Freq 31.469 kHz; Hfront 16, Hsync 62, Hback 60, Hpol N, Vfront 9, Vsync 6, Vback 30, Vpol N, Ln 7
 - **3**: 720×480p (16:9), 59.940 Hz, 27.000 MHz; Htotal 858, Hblank 138, Vtotal 525, Vblank 45, H Freq 31.469 kHz; Hfront 16, Hsync 62, Hback 60, Hpol N, Vfront 9, Vsync 6, Vback 30, Vpol N, Ln 7

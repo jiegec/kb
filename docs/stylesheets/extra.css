@@ -10,3 +10,9 @@ figure { counter-increment: figureCounter; }
   display: flex;
   justify-content: center;
 }
+
+/* VIC timing widget */
+.vic-widget { margin: 1em 0; }
+.vic-widget label { margin-right: .4em; font-weight: 700; }
+.vic-widget select { max-width: 100%; }
+.vic-widget .vic-info { margin: .5em 0 .2em; font-size: .85em; opacity: .85; }
