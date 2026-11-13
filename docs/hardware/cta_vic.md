@@ -1,5 +1,30 @@
 # CTA-861 VIC 表
 
+<figure markdown>
+  ![](cta_vic_timing.png){ width="720" }
+  <figcaption>时序参数定义：H 参数以像素时钟为单位，V 参数以行为单位（图源 CTA-861）</figcaption>
+</figure>
+
+下面每一行是一种 Video Timing，各部分的含义：
+
+- **VIC**：Video Identification Code，给「时序 + 宽高比」组合分配的编号
+- **宽高比**：画面宽高比（Picture Aspect Ratio），同一时序的 4:3 和 16:9 是两个不同的 VIC
+- **Hactive / Vactive**：有效像素列数 / 有效行数，对应 Data Enable 为高的部分
+- **I/P**：Prog 为逐行，Int 为隔行
+- **Htotal / Vtotal**：一行 / 一场的总像素数、总行数，包含消隐区
+- **Hblank / Vblank**：行消隐像素数、场消隐行数，即 Htotal − Hactive、Vtotal − Vactive
+- **H Freq**：行频，每秒扫描的行数
+- **V Freq**：场频；逐行时就是帧率，隔行时是场率
+- **Pixel Freq**：像素时钟频率
+
+这些量之间是相互约束的：
+
+- Pixel Freq = Htotal × H Freq
+- 逐行时 H Freq = V Freq × Vtotal；隔行时 H Freq = V Freq × Vtotal / 2（每个场只有 Vtotal/2 行）
+- 隔行的 Vblank 按场计，等于 (Vtotal − Vactive) / 2，所以 1080i 的 Vblank 是 22.5 行
+
+行消隐内部再分 Hfront / Hsync / Hback 三段，场消隐分 Vfront / Vsync / Vback 三段，VIC 表只给出 Hblank / Vblank 的总量。另外 480i/240p/576i/288p 这类格式在接口上是双时钟的，Hactive 记的是双倍值（1440/2880），实际有效像素是 720/1440。
+
 - **1**: 640×480p (4:3), 59.940 Hz, 25.175 MHz; Htotal 800, Hblank 160, Vtotal 525, Vblank 45, H Freq 31.469 kHz
 - **2**: 720×480p (4:3), 59.940 Hz, 27.000 MHz; Htotal 858, Hblank 138, Vtotal 525, Vblank 45, H Freq 31.469 kHz
 - **3**: 720×480p (16:9), 59.940 Hz, 27.000 MHz; Htotal 858, Hblank 138, Vtotal 525, Vblank 45, H Freq 31.469 kHz
