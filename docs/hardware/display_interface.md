@@ -6,6 +6,31 @@ VGA 采用 15-pin 的连接器，包括 RGB 三种颜色，HSync 和 VSync 信�
 
 VGA 不支持传输音频。
 
+### 引脚
+
+<figure markdown>
+  ![](display_vga_pinout.png){ width="520" }
+  <figcaption>VGA（DE-15）母座引脚编号，正面看（图源 <a href="https://commons.wikimedia.org/wiki/File:DE15_Connector_Pinout.svg">Wikimedia Commons</a>，作者 Mobius，公有领域）</figcaption>
+</figure>
+
+| Pin | 信号 | 说明 |
+|----:|------|------|
+| 1 | RED | 红色模拟视频 |
+| 2 | GREEN | 绿色模拟视频 |
+| 3 | BLUE | 蓝色模拟视频 |
+| 4 | ID2/RES | 显示器 ID bit 2，E-DDC 之后保留 |
+| 5 | GND | 地 |
+| 6 | RGND | 红通道地 |
+| 7 | GGND | 绿通道地 |
+| 8 | BGND | 蓝通道地 |
+| 9 | +5V | DDC 电源 |
+| 10 | GND | 同步信号地 |
+| 11 | ID0/RES | 显示器 ID bit 0，保留 |
+| 12 | ID1/SDA | DDC 数据 |
+| 13 | HSYNC | 行同步 |
+| 14 | VSYNC | 场同步 |
+| 15 | ID3/SCL | DDC 时钟 |
+
 参考：[Wikipedia](https://en.wikipedia.org/wiki/Video_Graphics_Array)
 
 ## DVI
@@ -19,6 +44,47 @@ DVI 在传输数字信号的时候，可以采用 3 对（Single link）或者 6
 TMDS 每个时钟周期内，传输 8 bit 的数据，这 8 位的数据经过 8b/10b 编码在差分对上传输。因此对于 165 MHz 的 TMDS 时钟，传输视频数据的速率是 $165 \mathrm{MHz} * 3 * 8 = 3.96 \mathrm{Gbps}$。
 
 DVI 不支持传输音频。
+
+### 引脚
+
+<figure markdown>
+  ![](display_dvi_pinout.png){ width="560" }
+  <figcaption>DVI 母座引脚编号，正面看（图源 <a href="https://commons.wikimedia.org/wiki/File:DVI_Connector_Pinout.svg">Wikimedia Commons</a>，作者 Mobius，公有领域）</figcaption>
+</figure>
+
+| Pin | 信号 | 说明 |
+|----:|------|------|
+| 1 | TMDS Data2- | Link 1 数据 2 负 |
+| 2 | TMDS Data2+ | Link 1 数据 2 正 |
+| 3 | TMDS Data2/4 Shield | 数据 2/4 屏蔽 |
+| 4 | TMDS Data4- | Link 2 数据 4 负 |
+| 5 | TMDS Data4+ | Link 2 数据 4 正 |
+| 6 | DDC Clock | DDC 时钟（SCL） |
+| 7 | DDC Data | DDC 数据（SDA） |
+| 8 | Analog Vertical Sync | 模拟场同步 |
+| 9 | TMDS Data1- | Link 1 数据 1 负 |
+| 10 | TMDS Data1+ | Link 1 数据 1 正 |
+| 11 | TMDS Data1/3 Shield | 数据 1/3 屏蔽 |
+| 12 | TMDS Data3- | Link 2 数据 3 负 |
+| 13 | TMDS Data3+ | Link 2 数据 3 正 |
+| 14 | +5V | 待机供电 |
+| 15 | GND | pin 14 与模拟同步的回流地 |
+| 16 | Hot Plug Detect | 热插拔检测 |
+| 17 | TMDS Data0- | Link 1 数据 0 负 |
+| 18 | TMDS Data0+ | Link 1 数据 0 正 |
+| 19 | TMDS Data0/5 Shield | 数据 0/5 屏蔽 |
+| 20 | TMDS Data5- | Link 2 数据 5 负 |
+| 21 | TMDS Data5+ | Link 2 数据 5 正 |
+| 22 | TMDS Clock Shield | 时钟屏蔽 |
+| 23 | TMDS Clock+ | 时钟正 |
+| 24 | TMDS Clock- | 时钟负 |
+| C1 | Analog Red | 模拟红 |
+| C2 | Analog Green | 模拟绿 |
+| C3 | Analog Blue | 模拟蓝 |
+| C4 | Analog Horizontal Sync | 模拟行同步 |
+| C5 | Analog Ground | 模拟地（RGB 回流） |
+
+DVI-I 同时有数字和模拟引脚，DVI-D 只有数字引脚，DVI-A 只有模拟引脚（C1–C5）；Single link 只用到 link 1 的数据对（0、1、2）和时钟对，Dual link 再加上 link 2（3、4、5）。
 
 参考：[Wikipedia](https://en.wikipedia.org/wiki/Digital_Visual_Interface)
 
@@ -44,6 +110,35 @@ HDMI 2.1 不再使用单独的 TMDS 时钟差分对，把最后一对也用来�
 但这个表格不是绝对的，例如 HDMI 1.4b 在采用不在 HDMI 1.4b 标准里但是由显卡和显示器支持的 YCbCr 420 时，也可以输出 4k 60Hz 的分辨率：[NVIDIA Kepler Cards Get HDMI 4K@60Hz Support (Kind Of)](https://www.anandtech.com/show/8191/nvidia-kepler-cards-get-hdmi-4k60hz-support-kind-of)。
 
 HDMI 2.1 还支持 DSC 视频流压缩，可以支持更高的分辨率，如 8k 60Hz 甚至 8k 120Hz。
+
+### 引脚
+
+<figure markdown>
+  ![](display_hdmi_pinout.png){ width="560" }
+  <figcaption>HDMI Type A 母座引脚编号，正面看（图源 <a href="https://commons.wikimedia.org/wiki/File:HDMI_Connector_Pinout.svg">Wikimedia Commons</a>，作者 Mobius，公有领域）</figcaption>
+</figure>
+
+| Pin | 信号 | 说明 |
+|----:|------|------|
+| 1 | TMDS Data2+ | 数据 2 正 |
+| 2 | TMDS Data2 Shield | 数据 2 屏蔽 |
+| 3 | TMDS Data2- | 数据 2 负 |
+| 4 | TMDS Data1+ | 数据 1 正 |
+| 5 | TMDS Data1 Shield | 数据 1 屏蔽 |
+| 6 | TMDS Data1- | 数据 1 负 |
+| 7 | TMDS Data0+ | 数据 0 正 |
+| 8 | TMDS Data0 Shield | 数据 0 屏蔽 |
+| 9 | TMDS Data0- | 数据 0 负 |
+| 10 | TMDS Clock+ | 时钟正 |
+| 11 | TMDS Clock Shield | 时钟屏蔽 |
+| 12 | TMDS Clock- | 时钟负 |
+| 13 | CEC | 消费电子控制 |
+| 14 | Utility/HEAC+ | 以太网与音频回传（HDMI 1.4 起） |
+| 15 | SCL | DDC 时钟 |
+| 16 | SDA | DDC 数据 |
+| 17 | DDC/CEC Ground | DDC 与 CEC 地 |
+| 18 | +5V | 电源 |
+| 19 | Hot Plug Detect | 热插拔检测 |
 
 参考：[Wikipedia](https://en.wikipedia.org/wiki/HDMI) [HDMI 2.1 FEC RX IP Core](https://www.hardent.com/pdf/Rambus-Hardent_HDMI_2_1_FEC_RX_IP.pdf)
 
@@ -106,10 +201,54 @@ DisplayPort 可以在 USB Type C 上通过 Alternate Mode 传输。在 Type-C DP
 
 在笔记本或手机中，内置的显示器可能会采用 eDP 接口。
 
+### 引脚
+
+<figure markdown>
+  ![](display_dp_pinout.png){ width="560" }
+  <figcaption>DisplayPort 母座引脚编号，正面看（图源 <a href="https://commons.wikimedia.org/wiki/File:DisplayPort_Connector.svg">Wikimedia Commons</a>，作者 Abisys，CC BY-SA 3.0）</figcaption>
+</figure>
+
+| Pin | 信号 | 说明 |
+|----:|------|------|
+| 1 | ML_Lane 0 (p) | Lane 0 正 |
+| 2 | GND | 地 |
+| 3 | ML_Lane 0 (n) | Lane 0 负 |
+| 4 | ML_Lane 1 (p) | Lane 1 正 |
+| 5 | GND | 地 |
+| 6 | ML_Lane 1 (n) | Lane 1 负 |
+| 7 | ML_Lane 2 (p) | Lane 2 正 |
+| 8 | GND | 地 |
+| 9 | ML_Lane 2 (n) | Lane 2 负 |
+| 10 | ML_Lane 3 (p) | Lane 3 正 |
+| 11 | GND | 地 |
+| 12 | ML_Lane 3 (n) | Lane 3 负 |
+| 13 | CONFIG1 | 配置脚，通常接 GND |
+| 14 | CONFIG2 | 配置脚，通常接 GND |
+| 15 | AUX CH (p) | 辅助通道正 |
+| 16 | GND | 地 |
+| 17 | AUX CH (n) | 辅助通道负 |
+| 18 | Hot Plug Detect | 热插拔检测 |
+| 19 | Return | DP_PWR 回流，通常接 GND |
+| 20 | DP_PWR | +3.3 V 电源 |
+
 参考：[Wikipedia](https://en.wikipedia.org/wiki/DisplayPort)
 
 ## SDI
 
 SDI 全称 Serial Digital Interface，在同轴电缆上，串行传输视频数据。
+
+### 引脚
+
+SDI 用 75 Ω 同轴电缆传输，常见连接器是 BNC，高密度设备也会用 HD-BNC 或 DIN 1.0/2.3。
+
+<figure markdown>
+  ![](display_sdi_bnc.jpg){ width="420" }
+  <figcaption>BNC 接头（图源 <a href="https://commons.wikimedia.org/wiki/File:BNC_connector_20050720_001.jpg">Wikimedia Commons</a>，作者 Jonas Bergsten，公有领域）</figcaption>
+</figure>
+
+| 导体 | 信号 |
+|------|------|
+| 中心针 | 串行数字信号 |
+| 外壳 | 屏蔽/地 |
 
 参考：[Wikipedia](https://en.wikipedia.org/wiki/Serial_digital_interface)
