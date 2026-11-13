@@ -95,6 +95,7 @@ extra_javascript:
   - javascripts/tablesort.js
   - javascripts/vic_data.js
   - javascripts/vic_timing.js
+  - javascripts/cvt_timing.js
 
 extra_css:
   - stylesheets/extra.css

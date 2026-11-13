@@ -16,3 +16,30 @@ figure { counter-increment: figureCounter; }
 .vic-widget label { margin-right: .4em; font-weight: 700; }
 .vic-widget select { max-width: 100%; }
 .vic-widget .vic-info { margin: .5em 0 .2em; font-size: .85em; opacity: .85; }
+
+/* CVT calculator */
+.cvt-calc { margin: 1em 0; }
+.cvt-calc .cvt-inputs { display: flex; flex-wrap: wrap; gap: .5em 1.2em; align-items: center; margin-bottom: .6em; }
+.cvt-calc .cvt-inputs label { font-size: .85em; }
+.cvt-calc .cvt-inputs input[type=number] {
+  width: 6.5em;
+  padding: .1em .4em;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--md-default-fg-color--light, #999);
+  border-radius: .15rem;
+}
+.cvt-calc .cvt-inputs select {
+  padding: .1em .3em;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--md-default-fg-color--light, #999);
+  border-radius: .15rem;
+}
+.cvt-calc .cvt-info { font-size: .85em; opacity: .85; margin: .2em 0; }
+.cvt-calc .cvt-values { font-size: .85em; line-height: 1.7; margin: .2em 0 .6em; }
+
+.cvt-calc .cvt-steps { margin: .8em 0 .4em; font-size: .85em; }
+.cvt-calc .cvt-steps summary { cursor: pointer; opacity: .85; }
+.cvt-calc .cvt-steps ol { margin: .4em 0 .4em 1.4em; padding: 0; line-height: 1.7; }
+.cvt-calc .cvt-steps li { font-family: var(--md-code-font-family); font-size: .95em; }
