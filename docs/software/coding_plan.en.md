@@ -223,7 +223,9 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
     - Peak-valley pricing: off-peak prices are half of peak; peak hours are Monday to Friday 9:00-12:00 and 14:00-18:00 Beijing time
     - deepseek-flash (DeepSeek-V4.1-Flash-1017, 1M context, supports image understanding): off-peak cached input 0.02 / uncached input 1 / output 4 RMB per 1M tokens; peak 0.04 / 2 / 8
     - deepseek-v4-pro (DeepSeek-V4-Pro-0813, 1M context, no image understanding): off-peak cached input 0.15 / uncached input 4.5 / output 13.5 RMB per 1M tokens; peak 0.30 / 9.0 / 27.0
-    - Web search and fetch (Search, Fetch) are separate APIs billed per successful request: both Search and Fetch cost 5 RMB per 1,000 successful requests; when the DeepSeek API is used in DeepSeek Harness, Claude Code or Codex, Search / Fetch calls made through server-side tool use have been billed per request since 00:00 Beijing time on November 1, 2026 at the same rates (5 RMB per 1,000 successful requests)
+    - Web search and fetch (Search, Fetch): text and image search and page fetching are all billed at 5 RMB per 1,000 calls, whether the Search / Fetch APIs are called directly or a model reaches them through web tools; when the DeepSeek API is used in DeepSeek Harness, Claude Code or Codex, Search / Fetch calls made through server-side tool use are billed at the same rate
+    - Document parsing and OCR: document parsing and the OCR API cost 1.5 RMB per 1,000 pages
+    - Speech: text-to-speech (TTS) costs 3 RMB per 10,000 characters (list price, 50% off for a limited time at 1.5 RMB); speech recognition (ASR) costs 0.78 RMB per hour of audio (list price, 50% off at 0.39 RMB)
 
 ## Prompts, Requests, and Tokens
 
@@ -272,6 +274,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/14: DeepSeek unified its web search and fetch billing — text and image search and page fetching all cost 5 RMB per 1,000 calls, and reaching them directly through the Search / Fetch APIs costs the same as reaching them from a model through web tools. Two billing categories were added: **document parsing and OCR** (document parsing and the OCR API at 1.5 RMB per 1,000 pages) and **speech** (text-to-speech at 3 RMB per 10,000 characters, list price, 50% off for a limited time at 1.5 RMB; speech recognition at 0.78 RMB per hour of audio, list price, 50% off at 0.39 RMB). The unit prices, peak/off-peak windows, context lengths and concurrency limits of deepseek-flash and deepseek-v4-pro are unchanged
 
 - 2026/11/13: Alibaba Cloud Bailian **Token Plan Team Edition** added **qwen4-max-preview** (alias qwen4.0-max-preview, billed as qwen4.0-max-preview; reasoning, vision understanding and text generation; preview window 10:00 on 2026-11-11 to 24:00 on 11-25 (UTC+8), retired afterwards; during the campaign Credits consumption runs as low as 20% of standard, plus a further 40% off between 22:00 and 08:00 daily, i.e. 0.8× of standard) and **wan3.0-video** (Wanxiang, video generation, listed after wan2.7-image-pro). The Team Edition now supports: auto, qwen4-max-preview, qwen3.8-max, qwen3.8-flash, qwen3.7-max, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, qwen-image-2.0, qwen-image-2.0-pro, qwen-image-3.0-pro, qwen-audio-3.0-tts-plus, qwen-audio-3.0-realtime-plus, qwen-audio-3.0-asr-flash, wan2.7-image, wan2.7-image-pro, wan3.0-video, deepseek-v4.1-flash, deepseek-v4.1-flash-1017, deepseek-v4-pro, deepseek-v4-pro-0813, deepseek-v4-flash-0731, kimi-k2.7-code, kimi-k2.6, kimi-k2.5, glm-5.3, glm-5.2, glm-5.1, glm-5, MiniMax-M2.5, happyhorse-1.1-i2v, happyhorse-1.1-t2v and happyhorse-1.1-r2v; the Personal Edition model list and both editions' monthly quotas are unchanged
 

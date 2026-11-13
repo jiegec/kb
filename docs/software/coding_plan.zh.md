@@ -223,7 +223,9 @@
     - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
     - deepseek-flash（DeepSeek-V4.1-Flash-1017，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
     - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：空闲时段输入命中缓存 0.15 / 输入未命中缓存 4.5 / 输出 13.5 RMB 每 1M tokens；高峰时段 0.30 / 9.0 / 27.0
-    - 网页搜索与抓取（Search、Fetch）为独立 API，按成功请求次数计费：Search 与 Fetch 均为每 1,000 次成功请求 5 元；在 DeepSeek Harness、Claude Code、Codex 中使用 DeepSeek API 时，Server 端工具调用对 Search / Fetch 的访问自北京时间 2026 年 11 月 1 日 00:00 起按次收取费用，与上表同价（每 1,000 次成功请求 5 元）
+    - 联网搜索与抓取（Search、Fetch）：搜索（文字、图片）与网页抓取均按每 1,000 次 5 元计费，无论直接调用 Search / Fetch API，还是模型通过联网工具调用，均按此价计费；在 DeepSeek Harness、Claude Code、Codex 中使用 DeepSeek API 时，Server 端工具调用对 Search / Fetch 的访问同样按此价计费
+    - 文件解析与 OCR：文件解析、OCR API 每 1,000 页 1.5 元
+    - 语音：语音合成（TTS）每 10,000 字符刊例价 3 元、限时 5 折 1.5 元；语音识别（ASR）每小时音频刊例价 0.78 元、限时 5 折 0.39 元
 
 ## prompt、请求和 token
 
@@ -272,6 +274,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/14：DeepSeek 的联网搜索与抓取计费口径统一——搜索（文字、图片）与网页抓取均为每 1,000 次 5 元，直接调用 Search / Fetch API 与模型通过联网工具调用同价。同时新增两类计费项：**文件解析与 OCR**（文件解析、OCR API 每 1,000 页 1.5 元）与**语音**（语音合成 TTS 每 10,000 字符刊例价 3 元、限时 5 折 1.5 元；语音识别 ASR 每小时音频刊例价 0.78 元、限时 5 折 0.39 元）。deepseek-flash 与 deepseek-v4-pro 的单价、峰谷时段、上下文长度与并发限制均未变
 
 - 2026/11/13：阿里云百炼 **Token Plan 团队版**模型库新增 **qwen4-max-preview**（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview；推理模型、视觉理解、文本生成，预览期 2026-11-11 10:00 至 11-25 24:00（UTC+8），预览结束后下线；活动期间 Credits 消耗低至 2 折，每晚 22:00–次日 08:00 再享 4 折即原标准的 0.8 折）与 **wan3.0-video**（万相，视频生成，列于 wan2.7-image-pro 之后）。团队版支持模型现为 auto、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v；个人版模型名单与两版各档月额度未变
 
