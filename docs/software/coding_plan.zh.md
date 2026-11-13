@@ -124,7 +124,7 @@
     - 限时优惠的适用与折算：适用于新购、续费、自动续费、加购坐席和升级坐席；加购坐席或升级坐席时按剩余时长折算费用，实际收费取折算金额与限时价中的较低值（例：标准坐席原价 ¥198/月、限时价 ¥150/月，折算为 ¥99 时收取 ¥99，折算为 ¥165 时收取 ¥150）
     - 单次消耗 Credits 由模型类型、Token 用量、思考模式及工具调用动态决定；以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
     - 1 Credit 对应 API 价格（隐式缓存）：256K 以内上下文 0.01–0.02 元，256K–1M 0.04–0.08 元
-    - 支持模型：auto、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：auto、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
     - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4、Hy4 preview、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash-1017（非原厂直供）、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
@@ -272,6 +272,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/13：阿里云百炼 **Token Plan 团队版**模型库新增 **qwen4-max-preview**（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview；推理模型、视觉理解、文本生成，预览期 2026-11-11 10:00 至 11-25 24:00（UTC+8），预览结束后下线；活动期间 Credits 消耗低至 2 折，每晚 22:00–次日 08:00 再享 4 折即原标准的 0.8 折）与 **wan3.0-video**（万相，视频生成，列于 wan2.7-image-pro 之后）。团队版支持模型现为 auto、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v；个人版模型名单与两版各档月额度未变
 
 - 2026/11/13：阿里云百炼 **Token Plan 团队版**坐席价格下调并重新公布限时优惠折算计费规则：标准坐席 **¥198 → ¥150**、高级坐席 **¥698 → ¥550**、尊享坐席 **¥1,398 → ¥1,298**（均为每坐席每月；标准坐席标注原价 ¥198、限时价 ¥150），各坐席月额度（25,000 / 100,000 / 250,000 Credits）、共享用量包（¥5,000/个、625,000 Credits、有效期 1 个月、到期未用清零）与个人版各档价格、月额度均未变。限时优惠适用于新购、续费、自动续费、加购坐席和升级坐席；加购坐席或升级坐席按剩余时长折算费用，实际收费取折算金额与限时价中的较低值（标准坐席折算 ¥99 收 ¥99、折算 ¥165 收 ¥150），该折算规则此前不再公布、现重新给出
 
