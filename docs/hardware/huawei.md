@@ -409,7 +409,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 T92A
 
-- 搭载于：MatePad Pro 12.2" 2025、MatePad Air 12" 2025 柔光版（均已下架/换代）
+- 搭载于：MatePad Pro 12.2" 2025、MatePad Pro 13.2（2025）、MatePad Air 12" 2025 柔光版（均已下架/换代）
 - 8 核 12 线程：1x 2.40 + 3x 2.00 + 4x 1.60 GHz
 - GPU: Maleoon 920, 3CU
 
@@ -758,7 +758,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2025 | MatePad Mini                         | MLR-AL00                                | 麒麟 9010B    | [华为商城](https://www.vmall.com/product/10086287244006.html)                                                                                     |
 | 2025 | MatePad Mini 典藏版                  | MLR-AL10                                | 麒麟 9010     | [华为商城](https://www.vmall.com/product/10086287244006.html)                                                                                     |
 | 2025 | MatePad Pro 12.2（2025）               | MRDI-W00 / MRDI-W10 / MRDI-W20          | 麒麟 T92A     | [9020 家族整理](https://www.sina.cn/news/detail/5357171013324123.html)                                                                            |
-| 2025 | MatePad Pro 13.2（2025）               | WEB-AL00 / WEB-AL10 / WEB-W00 / WEB-W10 | ?             | [官网设备清单](https://developer.huawei.com/consumer/cn/doc/doccenter-release-notes/support-device)                                               |
+| 2025 | MatePad Pro 13.2（2025）               | WEB-AL00 / WEB-AL10 / WEB-W00 / WEB-W10 | 麒麟 T92      | [官网设备清单](https://developer.huawei.com/consumer/cn/doc/doccenter-release-notes/support-device)                                               |
 | 2025 | Pocket 2 优享版                      | LEM-AL50                                | 麒麟 9010E    | [华为商城](https://www.vmall.com/product/10086475962232.html)                                                                                     |
 | 2025 | Pura 80                              | HED-AL00                                | 麒麟 9010S    | [华为商城](https://www.vmall.com/product/10086364337052.html)                                                                                     |
 | 2025 | Pura 80 Pro                          | LMR-AL00                                | 麒麟 9010S    | [华为商城](https://www.vmall.com/product/10086316355082.html)                                                                                     |
@@ -780,7 +780,8 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2026 | Mate 90 Pro Max 16GB                 | CMM-AL10                                | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086384648661.html)                                                                                     |
 | 2026 | Mate 90 RS 非凡大师                  | CMU-AL10                                | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086964819340.html)                                                                                     |
 | 2026 | Mate XT2 ULTIMATE DESIGN             | LAP-AL10                                | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086839715516.html)                                                                                     |
-| 2026 | MateBook 14 鸿蒙版 16GB/24GB         | MNTXM-24A / MNTXM-24B                   | 麒麟 X90      | [华为商城](https://www.vmall.com/product/10086097339191.html)                                                                                     |
+| 2026 | MateBook 14 鸿蒙版 16GB/24GB         | MNTXM-24A                               | 麒麟 X90      | [华为商城](https://www.vmall.com/product/10086097339191.html)                                                                                     |
+| 2026 | MateBook 14 鸿蒙版 方形键盘          | MNTXM-24B                               | 麒麟 X90      | [华为支持页](https://consumer.huawei.com/cn/support/laptops/matebook-14-harmonyos-version/)                                                       |
 | 2026 | MateBook 14 鸿蒙版 32GB              | MNTXM-32A                               | 麒麟 X90      | [华为商城](https://www.vmall.com/product/10086097339191.html)                                                                                     |
 | 2026 | MateBook Fold 非凡大师（X90 Plus）24GB | SLM-W24                                 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html)                                                                                     |
 | 2026 | MateBook Fold 非凡大师（X90 Plus）32GB | SLM-W32                                 | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html)                                                                                     |
