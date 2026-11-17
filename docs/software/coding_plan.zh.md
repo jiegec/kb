@@ -278,6 +278,8 @@
 
 ## 更新历史
 
+- 2026/11/17：阿里云百炼 **Token Plan 团队版** 的 **qwen4-max-preview** 预览权益取消夜间叠加折扣：预览期 2026-11-11 10:00 至 2026-11-25 24:00（UTC+8）内 Credits 消耗仍低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 的再 4 折（即原标准的 0.8 折）不再适用；个人版该模型的预览权益仍为 2 折叠加夜间 4 折，夜间五折名单仍为 deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017。两版的坐席与套餐价格、Credits 额度、共享用量包、升配规则与支持模型名单均未变
+
 - 2026/11/17：Command Code 新增限时免费模型 **Flint**（model ID `flint-v1-0-free`，262K 上下文，免费期内每次请求计费 \$0、不消耗额度）：Go、GOAT、Pro、Max 10×、Max 20× 五档一致提供，token 价格输入 / 输出 / 缓存读取均为 Free（无缓存写入价），五档并排对比中该模型的等效用量均按「请求不消耗额度、免费」计，并列入 Go、GOAT 与 Max 各档的免费模型清单；该模型为 Go、GOAT、Pro 三档模型表首行。模型库由 102 款增至 103 款（Go 由 60 款增至 61 款、GOAT 由 74 款增至 75 款、Pro 由 91 款增至 92 款）。限时免费模型现为 Glyph Cluster、Inkling 2 Small 与 Flint。各套餐价格（Go \$1、GOAT \$10、Pro \$20、Max 10× \$100、Max 20× \$200、Provider \$15 每月 + 处理费）与档位、其余模型的 token 价格与月额度均未变
 
 - 2026/11/16：OpenCode Go 模型库由 33 款增至 34 款，新增限时免费模型 **Hy4 flash Free**（model ID `hy4-flash-free`）：输入 / 输出 / 缓存读取均为 Free，Go、Go Plus 与 Go Teams 三档的月度使用额度与预估请求数均为无限制（限时），在各档月额度表中列于 LongCat 2.5 Free 之后；接入点为 OpenAI 兼容 `https://opencode.ai/inference/go/openai/v1/chat/completions`（`@ai-sdk/openai-compatible`），Model training 为 Not used、数据保留 0 天。三档套餐价格（Go \$10、Go Plus \$40、Go Teams 每人 \$20 每月）与其余 33 款模型的 token 价格、月额度均未变
