@@ -156,8 +156,8 @@
 - [天翼云 Token Plan](https://www.ctyun.cn/document/11061839/11092368)（个人版 / 企业版）
     - Token Plan（个人版）：29（3000 积分）、89（10000）、199（25000）、399（50000）、699（100000）RMB 每月（套餐表内列名仍为「编程 Token Plan X 积分」）
     - TokenPlan（企业版）：团队尝鲜版 98 RMB 每月（10000 积分）、团队标准版 498（60000）、团队至尊版 1198（150000）；个人加油包 49 RMB 每个（5000 积分），席位余量不足时补充购买，仅单个子用户使用、不可共享，限企业认证主用户购买，1 年内需分配给持有有效席位的子用户、逾期作废，可分配多个，分配后有效期跟随子用户席位当期订阅月到期、不累计至下一订阅月
-    - 支持模型：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3，以及智能路由 ctyun-smart-router
-    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：ctyun-smart-router 3,704/1,235；DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
+    - 支持模型（6 款）：DeepSeek-V4-Pro、DeepSeek-V4-Flash-0731、GLM-5.2、GLM-5.1、Kimi-K2.6、MiniMax-M3
+    - 积分与 Token 兑换关系（1 积分相当于多少个 Token，输入/输出）：DeepSeek-V4-Pro 1,111/370；DeepSeek-V4-Flash 3,333/1,111；GLM-5.2 1,250/357；GLM-5.1 输入 [0,32k] 1,667（输出 417）、(32k,200k] 1,250（输出 357）；Kimi-K2.6 1,538/370；MiniMax-M3 输入 [0,512k] 4,762（输出 1,190）、(512k,1M] 2,381（输出 595）
     - 原按 Token 计量套餐仅存量已订阅用户可续订，2026-10-10 起支持模型为 DeepSeek-V4-Flash-0731、GLM-5.1、GLM-5.2（GLM-5.0 与 DeepSeek-V3.2 已按先前下线公告移除）
 - [华为云 MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite 59 RMB 每月（每订阅月 5000 万 tokens）、Standard 149（1.3 亿）、Pro 399（3.8 亿）、Max 799（8.8 亿）
@@ -277,6 +277,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/17：天翼云 Token Plan 不再提供智能路由 **ctyun-smart-router**：积分与 Token 兑换关系表中该模型（1 积分对应输入 3,704 / 输出 1,235 tokens）的行已移除，套餐支持模型为 DeepSeek-V4-Pro（1,111/370）、DeepSeek-V4-Flash（3,333/1,111）、GLM-5.2（1,250/357）、GLM-5.1、Kimi-K2.6（1,538/370）、MiniMax-M3 六款。个人版五档价格（29 / 89 / 199 / 399 / 699 元每月）与企业版三档（团队尝鲜版 98、团队标准版 498、团队至尊版 1198 元每月）、个人加油包（49 元 / 5000 积分）与其余模型的兑换比例均未变
 
 - 2026/11/17：火山方舟 **Coding Plan 个人版** 与 **Agent Plan 个人版** 的抵扣系数限时折扣扩大到 **Auto 模式**、**glm-5.3-flash** 与 **kimi-k3.1-pro**：Agent Plan 的 AFP 抵扣系数中 glm-5.3-flash 由 0.5 改为限时 **0.25**（5 折）、kimi-k3.1-pro 由 7 改为限时 **3.5**（5 折）。两档进行中的限时活动现覆盖 Auto 模式、glm-5.3-flash、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、kimi-k2.8-preview 与 kimi-k3.1-pro。Coding Plan Lite / Pro（40 / 200 元每月）与 Agent Plan 四档（Small 40 / Medium 200 / Large 500 / Max 1000 元每月）的档位、价格与 AFP 额度，其余模型的抵扣系数、模型库（Coding Plan 13 款）与 1M 上下文支持名单均未变
 
