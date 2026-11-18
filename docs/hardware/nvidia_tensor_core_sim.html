@@ -96,14 +96,36 @@ function exponentOf(a) {
   return e;
 }
 
-function decomp(x, kind) {
-  // x != 0 且有限。返回 value = sign * s * 2^e，次正规不规格化（e 钳在格式的最小正规指数）。
-  const sign = x < 0 ? -1 : 1;
-  const a = Math.abs(x);
-  let e = exponentOf(a);
-  const minE = kind === "f16" ? -14 : -126;
-  if (e < minE) e = minE;
-  return { sign: sign, s: a / Math.pow(2, e), e: e };
+// FP16 = 1+5+10 -> { sign, e(5b), f(10b), m(11b), E(有符号) }
+function decode16(v) {
+  const sign = v < 0 ? 1 : 0;
+  const a = Math.abs(v);
+  if (a === 0) return { sign: 0, e: 0, f: 0, m: 0, E: 0 };
+  const ev = exponentOf(a);
+  if (ev < -14) {
+    const m = a * Math.pow(2, 24);
+    return { sign: sign, e: 0, f: m, m: m, E: -24 };
+  }
+  const m = a * Math.pow(2, 10 - ev);
+  return { sign: sign, e: ev + 15, f: m - 1024, m: m, E: ev - 10 };
+}
+
+// FP32 = 1+8+23 -> { sign, e(8b), f(23b), m(24b), E(有符号) }
+function decode32(v) {
+  const sign = v < 0 ? 1 : 0;
+  const a = Math.abs(v);
+  if (a === 0) return { sign: 0, e: 0, f: 0, m: 0, E: 0 };
+  const ev = exponentOf(a);
+  if (ev < -126) {
+    const m = a * Math.pow(2, 149);
+    return { sign: sign, e: 0, f: m, m: m, E: -149 };
+  }
+  const m = a * Math.pow(2, 23 - ev);
+  return { sign: sign, e: ev + 127, f: m - Math.pow(2, 23), m: m, E: ev - 23 };
+}
+
+function shiftTrunc(M, sh) {
+  return sh >= 0 ? M * Math.pow(2, sh) : Math.trunc(M / Math.pow(2, -sh));
 }
 
 function rneF16(v) {
@@ -146,63 +168,55 @@ function fmtNum(x) {
   return String(Number(x.toPrecision(10)));
 }
 
+// 整数版 dot4：拆字段 -> 22b 乘积 -> 对齐截断 -> 定点求和 -> 归一化/舍入
 function voltaDot4(A, B, C, i, j, fmt) {
   const terms = [];
   for (let k = 0; k < 4; k++) {
     const a = A[i][k], b = B[k][j];
-    const t = { k: k, a: a, b: b, p: a * b };
-    if (a !== 0 && b !== 0) {
-      const da = decomp(a, "f16");
-      const db = decomp(b, "f16");
-      t.sign = da.sign * db.sign;
-      t.s = da.s * db.s;
-      t.e = da.e + db.e;
-    } else {
-      t.sign = 1;
-      t.s = 0;
-      t.e = 0;
-    }
-    terms.push(t);
+    const da = decode16(a), db = decode16(b);
+    terms.push({
+      k: k, a: a, b: b, da: da, db: db,
+      M: da.m * db.m,
+      E: da.E + db.E,
+      e: da.E + db.E + 20,
+      sign: da.sign ^ db.sign
+    });
   }
-
   const c = C[i][j];
-  const cterm = { c: c };
-  if (c !== 0) {
-    const dc = decomp(c, fmt === "f16" ? "f16" : "f32");
-    cterm.sign = dc.sign;
-    cterm.s = dc.s;
-    cterm.e = dc.e;
-  } else {
-    cterm.sign = 1;
-    cterm.s = 0;
-    cterm.e = 0;
-  }
+  const dc = fmt === "f16" ? decode16(c) : decode32(c);
+  const off = fmt === "f16" ? 10 : 23;
+  const ct = { c: c, d: dc, M: dc.m, E: dc.E, e: dc.E + off, sign: dc.sign };
 
   let eMax = -Infinity;
-  for (const t of terms) if (t.s !== 0) eMax = Math.max(eMax, t.e);
-  if (cterm.s !== 0) eMax = Math.max(eMax, cterm.e);
+  for (const t of terms) if (t.M !== 0) eMax = Math.max(eMax, t.e);
+  if (ct.M !== 0) eMax = Math.max(eMax, ct.e);
   if (!isFinite(eMax)) eMax = 0;
 
   let S = 0;
   for (const t of terms) {
-    t.shift = t.s === 0 ? 0 : t.e - eMax + F_BITS;
-    t.t = t.s === 0 ? 0 : t.sign * Math.trunc(t.s * Math.pow(2, t.shift));
+    t.shift = t.M === 0 ? 0 : t.E + 23 - eMax;
+    const mag = t.M === 0 ? 0 : shiftTrunc(t.M, t.shift);
+    t.t = t.sign ? -mag : mag;
     S += t.t;
   }
-  cterm.shift = cterm.s === 0 ? 0 : cterm.e - eMax + F_BITS;
-  cterm.t = cterm.s === 0 ? 0 : cterm.sign * Math.trunc(cterm.s * Math.pow(2, cterm.shift));
-  S += cterm.t;
+  ct.shift = ct.M === 0 ? 0 : ct.E + 23 - eMax;
+  const cmag = ct.M === 0 ? 0 : shiftTrunc(ct.M, ct.shift);
+  ct.t = ct.sign ? -cmag : cmag;
+  S += ct.t;
 
-  const raw = S * Math.pow(2, eMax - F_BITS);
+  const raw = S * Math.pow(2, eMax - 23);
   let d = fmt === "f16" ? rneF16(raw) : rzF32(raw);
-  if (d === 0) d = 0;  // -0 归一为 +0
-  const exact = terms.reduce(function (acc, t) { return acc + t.p; }, 0) + c;
+  if (d === 0) d = 0;
 
-  return { i: i, j: j, terms: terms, cterm: cterm, eMax: eMax, S: S, raw: raw, d: d, exact: exact, fmt: fmt };
+  const exact = terms.reduce(function (acc, t) { return acc + t.a * t.b; }, 0) + c;
+  return { i: i, j: j, terms: terms, ct: ct, eMax: eMax, S: S, raw: raw, d: d, exact: exact, fmt: fmt };
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { voltaDot4: voltaDot4, rneF16: rneF16, rzF32: rzF32, decomp: decomp, fmtNum: fmtNum, exponentOf: exponentOf };
+  module.exports = {
+    voltaDot4: voltaDot4, rneF16: rneF16, rzF32: rzF32,
+    decode16: decode16, decode32: decode32, fmtNum: fmtNum, exponentOf: exponentOf
+  };
 }
 </script>
 
@@ -343,30 +357,35 @@ if (typeof module !== "undefined") {
     const L = [];
     L.push("dot4(A, B, C, i=" + r.i + ", j=" + r.j + ")    # 输出 " + (r.fmt === "f16" ? "FP16（RNE）" : "FP32（RZ）"));
     L.push("");
-    L.push("for k in 0..3:        # p_k = a·b 精确计算，e_k = e_a + e_b");
+    L.push("# 第一步：计算四个乘积（拆字段：FP16 = 1+5+10）");
     for (const t of r.terms) {
-      const right = t.s === 0 ? "p=0" : "p=" + n(t.p) + "  s=" + n(t.sign * t.s) + "  e=" + t.e;
-      L.push("  k=" + t.k + ":  " + n(t.a) + " × " + n(t.b) + "  →  " + right);
+      if (t.M === 0) { L.push("k=" + t.k + ":  0"); continue; }
+      L.push("k=" + t.k + ": a=" + n(t.a) + "  s" + t.da.sign + " e" + t.da.e + " f" + n(t.da.f) + "  →  m=" + n(t.da.m) + " E=" + t.da.E);
+      L.push("     b=" + n(t.b) + "  s" + t.db.sign + " e" + t.db.e + " f" + n(t.db.f) + "  →  m=" + n(t.db.m) + " E=" + t.db.E);
+      L.push("     M=" + n(t.M) + " (22b)  E=" + t.E + "  e=" + t.e + "  sign=" + (t.sign ? "-" : "+"));
     }
-    L.push("");
-    L.push("e_max = max(e_0..e_3, e_c) = " + r.eMax);
-    L.push("");
-    L.push("S = Σ trunc(s_k · 2^(e_k − e_max + 23))");
-    for (const t of r.terms) {
-      if (t.s === 0) {
-        L.push("  k=" + t.k + ":  0");
-      } else {
-        L.push("  k=" + t.k + ":  trunc(" + n(t.sign * t.s) + " · 2^" + t.shift + ") = " + n(t.t));
-      }
-    }
-    if (r.cterm.s === 0) {
-      L.push("  c  :  0");
+    const dc = r.ct.d;
+    if (r.ct.M === 0) {
+      L.push("c=0");
     } else {
-      L.push("  c  :  trunc(" + n(r.cterm.sign * r.cterm.s) + " · 2^" + r.cterm.shift + ") = " + n(r.cterm.t));
+      L.push("c=" + n(r.ct.c) + "  s" + dc.sign + " e" + dc.e + " f" + n(dc.f) + "  →  m=" + n(dc.m) + " E=" + dc.E + "  e=" + r.ct.e);
     }
-    L.push("S = " + n(r.S));
     L.push("");
-    L.push("d = " + (r.fmt === "f16" ? "RNE_FP16" : "RZ_FP32") + "(S · 2^(e_max − 23)) = " + n(r.d));
+    L.push("# 第二步：按 emax 对齐并累加（sh = E + 23 - emax）");
+    L.push("emax = max(e_0..e_3, e_c) = " + r.eMax);
+    for (const t of r.terms) {
+      if (t.M === 0) { L.push("k=" + t.k + ":  0"); continue; }
+      L.push("k=" + t.k + ":  sh=" + t.shift + "  t=" + n(t.t));
+    }
+    if (r.ct.M === 0) {
+      L.push("c  :  0");
+    } else {
+      L.push("c  :  sh=" + r.ct.shift + "  t=" + n(r.ct.t));
+    }
+    L.push("S = " + n(r.S) + "   # 29b 有符号");
+    L.push("");
+    L.push("# 第三步：转回浮点并舍入");
+    L.push("d = " + (r.fmt === "f16" ? "RNE_FP16" : "RZ_FP32") + "(S · 2^(emax − 23)) = " + n(r.d));
     L.push("");
     L.push("精确值 = " + n(r.exact) + "    误差 = " + n(r.d - r.exact));
     return L.join("\n");
