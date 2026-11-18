@@ -53,6 +53,11 @@ mma4x4(A, B, C):                 # 一个 TC 每周期吞吐一个 4×4×4
 
 输出为 FP16 时，5 项的对齐、截断和定点求和都不变，只有最后一步从 RZ 到 FP32 换成 RNE 到 FP16。
 
+<figure markdown>
+  ![](nvidia_tensor_core_fig13.png){ width="720" }
+  <figcaption>HMMA datapath（来源：US10884734B2 FIG. 13）</figcaption>
+</figure>
+
 ### 模拟器
 
 下面是一个可交互的 $4\times4\times4$ 模拟器：A、B、C 可以自由修改，输出格式可选 FP32（RZ）或 FP16（RNE）；点击 D 的任意元素，左侧会显示该元素的 dot4 逐步计算。
