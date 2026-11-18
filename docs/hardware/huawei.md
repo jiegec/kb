@@ -842,7 +842,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 代号                   | 产品                                                                                                                                                                                 |
 |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Adela (ADA, ADE, ADL)  | HUAWEI nova 12 Pro、HUAWEI nova 12 Ultra、HUAWEI nova 12 Ultra 星耀版                                                                                                                |
-| Agassi6 (AGS6)         | HUAWEI MatePad SE 11”                                                                                                                                                                |
+| Agassi6 (AGS6)         | HUAWEI MatePad SE 11"                                                                                                                                                                |
 | Allen (ALN)            | HUAWEI Mate 60 Pro                                                                                                                                                                   |
 | Alta (ALT)             | HUAWEI Mate X5                                                                                                                                                                       |
 | Audrey (ADY)           | HUAWEI Pura 70、HUAWEI Pura 70 北斗卫星消息版                                                                                                                                        |
