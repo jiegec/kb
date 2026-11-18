@@ -104,8 +104,8 @@
     - 各模型抵扣系数（输入/输出相同）：doubao-seed-2.0-mini 0.25（输入不含音频）/ 2.5（输入含音频）；deepseek-v4-flash 0.5；doubao-seed-2.1-lite 0.5 / 4.5（含音频）；glm-5.3-flash 0.5（限时 0.25）；doubao-seed-evolving、doubao-seed-2.1-pro 2.5；deepseek-v4.1-flash 2.5（限时 0.875，即在 5 折 1.25 基础上再享 7 折，2026-11-07 00:00 至 2026-12-30 23:59:59）；deepseek-v4.1-flash-economy 2（限时 5 折 1，2026-10-20 00:00 至 2026-12-30 23:59:59）；kimi-k2.8-preview 8（限时 6 折 4.8，2026-09-17 00:00 至 2026-12-14 23:59:59）；glm-5.3（glm-latest）4.5；deepseek-v4-pro 5.5；kimi-k3 10（即将下线）；kimi-k3.1-pro 7（限时 5 折 3.5）；doubao-embedding-vision 0.5
     - 档位（AFP，每 5 小时/每周/每月/每日）：Small 40 RMB 每月（2000/7000/20000/10000）、Medium 200（10000/35000/100000/50000）、Large 500（25000/87500/250000/125000）、Max 1000（50000/175000/500000/250000）
     - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
-    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、glm-5.3、glm-5.3-flash、kimi-k2.8-preview、kimi-k3.1-pro、deepseek-v4-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seedream-5.0-flash（图片生成，输出图 60 AFP/张、输入图不计）、doubao-seed-tts-2.0、doubao-seed-asr-2.0
-    - Medium 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5
+    - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、glm-5.3、glm-5.3-flash、kimi-k2.8-preview、kimi-k3.1-pro、deepseek-v4-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、doubao-embedding-vision、doubao-seedream-5-0-pro、doubao-seedream-5.0-flash（图片生成，输出图 60 AFP/张、输入图不计）、doubao-seedream-5.5（图片生成，输入图 25 AFP/张，输出图 ≤2.61M 像素 65 AFP/张、2.61M～4.63M 像素 115 AFP/张）、doubao-seed-tts-2.0、doubao-seed-asr-2.0
+    - Large 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5、doubao-seedance-2.5-flash（输出 480p / 720p，抵扣系数输入含视频 140、输入不含视频 230）
     - Agent 进化：前 50 个文件免费
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite（39）、Essential（79）、Standard（139）、Pro（312）RMB 每月，对应 20000 / 45000 / 80000 / 200000 Credits 每月；Lite、Essential 另有新用户限时价 19.5 / 39.5 RMB 每月，有效期至 2026-11-30 23:59:59（UTC+8），仅限从未购买过 Token Plan 个人版的账号；用量包（100 RMB 每月）= 20000 Credits，需先订阅有效套餐后购买，最多同时持有 5 个（合计 100,000 Credits），用量包 Credits 不计入套餐月限额
@@ -279,6 +279,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/18：火山方舟 Agent Plan 个人版新增两款生成模型：图片生成 **doubao-seedream-5.5**（Small 至 Max 四档均支持，输入图 25 AFP/张，输出图 ≤2.61M 像素 65 AFP/张、2.61M～4.63M 像素 115 AFP/张）与视频生成 **doubao-seedance-2.5-flash**（Large、Max 两档支持，输出 480p / 720p，抵扣系数输入含视频 140、输入不含视频 230）。四档价格（Small 40、Medium 200、Large 500、Max 1000 元每月）与 AFP 额度、其余模型的抵扣系数与可用档位、1M 上下文支持名单均未变
 
 - 2026/11/18：DeepSeek 调整联网搜索与抓取计费：自北京时间 2026-11-18 12:00 起，调用模型时触发的服务端搜索与网页抓取不再计费，仅按模型 Token 用量计费，触发服务端搜索的接口为联网工具、Anthropic API 的 `web_search` 工具与 Responses API 的 `web_search` 工具；直接调用 API 仍按次计费，Search API（文字）与 Fetch API 均为每 1,000 次**成功请求** 5 元，此前模型通过联网工具使用 Search / Fetch 亦按每 1,000 次 5 元计费。deepseek-flash 与 deepseek-v4-pro 的单价、峰谷时段，以及文件解析与 OCR、语音价格均未变
 
