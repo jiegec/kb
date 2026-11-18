@@ -30,21 +30,24 @@ PAGE_SIZE = 100
 
 
 def fetch_page(page: int, site_code: str = "worldwide") -> list[dict]:
-    qs = urllib.parse.urlencode(
+    # 注意：GET 会忽略 curPage（永远返回第 1 页），必须用 POST 表单。
+    body = urllib.parse.urlencode(
         {
             "siteCode": site_code,
             "fileType": "openSourceSoftware",
             "pageSize": PAGE_SIZE,
             "curPage": page,
         }
-    )
+    ).encode()
     req = urllib.request.Request(
-        f"{API}?{qs}",
+        API,
+        data=body,
         headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126 Safari/537.36",
             "Referer": REFERER,
             "Accept": "application/json, text/javascript, */*; q=0.01",
             "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as r:
@@ -57,9 +60,11 @@ def normalize(item: dict) -> dict:
     intro = item.get("fileIntroduce") or ""
     parts = [p.strip() for p in intro.split(",")]
     product = parts[0] if parts else ""
+    codename = parts[1] if len(parts) > 1 else ""
     return {
         "model": model,
         "product": product,
+        "codename": codename,
         "os_version": item.get("fileVersion") or os_ver,
         "file_name": filename,
         "file_size": item.get("fileSize"),
@@ -78,6 +83,7 @@ def main() -> int:
     args = ap.parse_args()
 
     all_items: list[dict] = []
+    seen: set = set()
     total = 0
     page = 1
     while True:
@@ -89,8 +95,17 @@ def main() -> int:
         if not items:
             break
         total = items[0].get("totalRows") or total
-        all_items.extend(items)
-        print(f"page {page}: +{len(items)} (total {len(all_items)}/{total})", file=sys.stderr)
+        added = 0
+        for it in items:
+            key = (it.get("fileInfoId"), it.get("fileName"), it.get("releaseDate"))
+            if key in seen:
+                continue
+            seen.add(key)
+            all_items.append(it)
+            added += 1
+        print(f"page {page}: +{added} new (total {len(all_items)}/{total})", file=sys.stderr)
+        if added == 0:
+            break
         if not total or len(all_items) >= total:
             break
         if args.max_pages and page >= args.max_pages:
