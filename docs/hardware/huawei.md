@@ -13,7 +13,6 @@
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 910, 4CU, 1024 ALU
 - 丝印 Hi36A0 GFCV120
-- Charlotte
 
 来源：
 
@@ -119,7 +118,6 @@
 - 大核中核有超线程
 - Maleoon 910, 4CU
 - 丝印 Hi36A0 GFCV121
-- Charlotte CSV2
 
 来源：
 
@@ -172,7 +170,6 @@
 - 4+4+2, 20 threads
 - part id 0xd03（8 threads，4 核，同麒麟 9010 大核，2.32 GHz）, 0xd43（8 threads，4 核，2.05 GHz）, 0xd42（4 threads，2 核，同麒麟 9010 中核，2.01 GHz），都带 SMT
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti ecv
-- Charlotte Pro
 - Maleoon 916, 6CU @950MHz
 
 来源：
@@ -314,7 +311,6 @@
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
 - 丝印 Hi36C0 GFCV110
-- Nashville
 
 来源：
 
@@ -466,7 +462,6 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
 - Hi36D0
-- Changsha
 
 来源：
 
@@ -628,7 +623,6 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 1x 3.00 GHz（0xd47）+ 2x 2.70 GHz（0xd48）+ 3x 2.20 GHz（0xd48）+ 2x 1.75 GHz（0xd25），8 核 14 线程
 - GPU: Maleoon 955A, 5CU
 - Hi36E0
-- Nanchang
 
 来源：
 
@@ -709,6 +703,15 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2026 | 麒麟 XE90     | 1x 2.75 GHz, SMT, 0xd06 | 4x 2.27 GHz, SMT, 0xd47 | 4x 1.72 GHz, 0xd24       | N/A                | 9C14T      | Maleoon 935, 6CU  |
 | 2026 | 麒麟 9050     | 1x 3.00 GHz, SMT, 0xd47 | 2x 2.70 GHz, SMT, 0xd48 | 3x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 8C14T      | Maleoon 955A, 5CU |
 | 2026 | 麒麟 9050 Pro | 1x 3.10 GHz, SMT, 0xd07 | 2x 2.70 GHz, SMT, 0xd48 | 4x 2.20 GHz, SMT, 0xd48  | 2x 1.75 GHz, 0xd25 | 9C16T      | Maleoon 955, 6CU  |
+
+### 内部代号
+
+- 麒麟 9000s：Charlotte Hi36A0
+- 麒麟 9010：Charlotte CSV2 Hi36A0
+- 麒麟 X90：Charlotte Pro Hi9600
+- 麒麟 9020：Nashville Hi36C0
+- 麒麟 9030：Changsha Hi36D0
+- 麒麟 9050：Nanchang Hi36E0
 
 ## 产品型号
 
