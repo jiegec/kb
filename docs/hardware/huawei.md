@@ -229,6 +229,7 @@
 - 麒麟 9020 降频
 - 大核中核有超线程，共 12 线程
 - Maleoon 920C, 2CU
+- Hi62B0 GFCV110
 
 来源：
 
@@ -710,6 +711,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 麒麟 9010：Charlotte CSV2 Hi36A0 GFCV121
 - 麒麟 X90：Charlotte Pro Hi9600
 - 麒麟 9020：Nashville Hi36C0 GFCV110
+- 麒麟 8020：Xian Hi62B0 GFCV110
 - 麒麟 9030：Changsha Hi36D0 GFCV100
 - 麒麟 9050：Nanchang Hi36E0 GFCV100
 
