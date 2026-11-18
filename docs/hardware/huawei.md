@@ -13,6 +13,7 @@
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 910, 4CU, 1024 ALU
 - 丝印 Hi36A0 GFCV120
+- Charlotte
 
 来源：
 
@@ -118,6 +119,7 @@
 - 大核中核有超线程
 - Maleoon 910, 4CU
 - 丝印 Hi36A0 GFCV121
+- Charlotte CSV2
 
 来源：
 
@@ -312,6 +314,7 @@
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
 - 丝印 Hi36C0 GFCV110
+- Nashville
 
 来源：
 
@@ -462,6 +465,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 搭载于：Mate 80 Pro 12GB、Mate 90
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
+- Changsha
 
 来源：
 
