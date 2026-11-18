@@ -228,7 +228,7 @@
     - 峰谷定价：空闲时段价格为高峰时段的一半；高峰时段为北京时间周一至周五 9:00-12:00、14:00-18:00
     - deepseek-flash（DeepSeek-V4.1-Flash-1017，1M 上下文，支持图像理解）：空闲时段输入命中缓存 0.02 / 输入未命中缓存 1 / 输出 4 RMB 每 1M tokens；高峰时段 0.04 / 2 / 8
     - deepseek-v4-pro（DeepSeek-V4-Pro-0813，1M 上下文，不支持图像理解）：空闲时段输入命中缓存 0.15 / 输入未命中缓存 4.5 / 输出 13.5 RMB 每 1M tokens；高峰时段 0.30 / 9.0 / 27.0
-    - 联网搜索与抓取（Search、Fetch）：搜索（文字、图片）与网页抓取均按每 1,000 次 5 元计费，无论直接调用 Search / Fetch API，还是模型通过联网工具调用，均按此价计费；在 DeepSeek Harness、Claude Code、Codex 中使用 DeepSeek API 时，Server 端工具调用对 Search / Fetch 的访问同样按此价计费
+    - 联网搜索与抓取（Search、Fetch）：Search API（文字）与 Fetch API 均按每 1,000 次**成功请求** 5 元计费；自北京时间 2026-11-18 12:00 起，调用模型时触发的服务端搜索与网页抓取不再计费，仅按模型 Token 用量计费，触发服务端搜索的接口为联网工具、Anthropic API 的 `web_search` 工具与 Responses API 的 `web_search` 工具
     - 文件解析与 OCR：文件解析、OCR API 每 1,000 页 1.5 元
     - 语音：语音合成（TTS）每 10,000 字符刊例价 3 元、限时 5 折 1.5 元；语音识别（ASR）每小时音频刊例价 0.78 元、限时 5 折 0.39 元
 
@@ -279,6 +279,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/18：DeepSeek 调整联网搜索与抓取计费：自北京时间 2026-11-18 12:00 起，调用模型时触发的服务端搜索与网页抓取不再计费，仅按模型 Token 用量计费，触发服务端搜索的接口为联网工具、Anthropic API 的 `web_search` 工具与 Responses API 的 `web_search` 工具；直接调用 API 仍按次计费，Search API（文字）与 Fetch API 均为每 1,000 次**成功请求** 5 元，此前模型通过联网工具使用 Search / Fetch 亦按每 1,000 次 5 元计费。deepseek-flash 与 deepseek-v4-pro 的单价、峰谷时段，以及文件解析与 OCR、语音价格均未变
 
 - 2026/11/18：Command Code 新增 **GPT-6.2 Sol**（1.1M 上下文），仅 **Pro** 档提供——token 价格输入 \$2.00 / 输出 \$10.00 / 缓存读取 \$0.10 / 缓存写入 \$2.50 每 1M tokens，月额度 Pro \$20（GPT 系列常规为每模型 \$20），预估请求数 488 / 5 小时、1,220 / 周、2,440 / 月。模型库由 104 款增至 106 款，Pro 列出款数由 93 款增至 **94** 款，Go（62 款）与 GOAT（76 款）的模型清单未变。各套餐价格（Go \$1、GOAT \$10、Pro \$20、Max 10× \$100、Max 20× \$200、Provider \$15 每月 + 处理费）、档位与其余模型的 token 价格、月额度均未变
 
