@@ -461,7 +461,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 搭载于：Mate 80 Pro 12GB、Mate 90
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.27 GHz，0xd47），4x 小核（无 SMT，1.72 GHz，0xd24），共 8 核 12 线程
 - Maleoon 935A, 5CU, 1800 ALU
-- Hi36D0
+- Hi36D0 GFCV100
 
 来源：
 
@@ -706,11 +706,11 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 内部代号
 
-- 麒麟 9000s：Charlotte Hi36A0
-- 麒麟 9010：Charlotte CSV2 Hi36A0
+- 麒麟 9000s：Charlotte Hi36A0 GFCV120
+- 麒麟 9010：Charlotte CSV2 Hi36A0 GFCV121
 - 麒麟 X90：Charlotte Pro Hi9600
-- 麒麟 9020：Nashville Hi36C0
-- 麒麟 9030：Changsha Hi36D0
+- 麒麟 9020：Nashville Hi36C0 GFCV110
+- 麒麟 9030：Changsha Hi36D0 GFCV100
 - 麒麟 9050：Nanchang Hi36E0
 
 ## 产品型号
