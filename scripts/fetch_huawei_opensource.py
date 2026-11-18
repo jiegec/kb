@@ -60,6 +60,8 @@ def normalize(item: dict) -> dict:
     intro = item.get("fileIntroduce") or ""
     parts = [p.strip() for p in intro.split(",")]
     product = parts[0] if parts else ""
+    # 统一产品名空格：Pura70 -> Pura 70、Mate60 -> Mate 60
+    product = re.sub(r"\b(Pura|Mate|nova|Pocket|畅享)(?=\d)", r"\1 ", product)
     codename = parts[1] if len(parts) > 1 else ""
     return {
         "model": model,

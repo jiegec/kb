@@ -540,7 +540,7 @@
   },
   {
     "model": "JDY-AL50,JDY-AL60,JDY-AL80,JDY-TL70,CHZ-AL00",
-    "product": "畅享90 Plus",
+    "product": "畅享 90 Plus",
     "codename": "畅享90m Plus",
     "os_version": "HarmonyOS6.0.0",
     "file_name": "JDY-AL50,JDY-AL60,JDY-AL80,JDY-TL70,CHZ-AL00_HarmonyOS6.0.0",
@@ -551,7 +551,7 @@
   },
   {
     "model": "JDY-AL50,JDY-AL60,JDY-AL80,JDY-TL70",
-    "product": "畅享90 Plus",
+    "product": "畅享 90 Plus",
     "codename": "畅享90m Plus",
     "os_version": "HarmonyOS6.1.0",
     "file_name": "JDY-AL50,JDY-AL60,JDY-AL80,JDY-TL70_HarmonyOS6.1.0",
@@ -2212,7 +2212,7 @@
   },
   {
     "model": "HBP-AL00",
-    "product": "HUAWEI Pura70 Ultra",
+    "product": "HUAWEI Pura 70 Ultra",
     "codename": "HepburnP",
     "os_version": "HarmonyOS 4.2.0",
     "file_name": "HBP-AL00_HarmonyOS4.2.0",
@@ -2223,7 +2223,7 @@
   },
   {
     "model": "HBN-AL00,HBN-AL10,HBN-AL80",
-    "product": "HUAWEI Pura70 Pro",
+    "product": "HUAWEI Pura 70 Pro",
     "codename": "Hepburn",
     "os_version": "HarmonyOS 4.2.0",
     "file_name": "HBN-AL00,HBN-AL10,HBN-AL80_HarmonyOS4.2.0",
@@ -3906,7 +3906,7 @@
   },
   {
     "model": "OCE-AN50-AN50e",
-    "product": "HUAWEI Mate40E 全网通",
+    "product": "HUAWEI Mate 40E 全网通",
     "codename": "Ocean",
     "os_version": "HarmonyOS 3.0.0",
     "file_name": "OCE-AN50-AN50e_HarmonyOS3.0.0",
@@ -3917,7 +3917,7 @@
   },
   {
     "model": "OCE-AL50",
-    "product": "HUAWEI Mate40E 全网通",
+    "product": "HUAWEI Mate 40E 全网通",
     "codename": "Ocean",
     "os_version": "HarmonyOS 3.0.0",
     "file_name": "OCE-AL50_HarmonyOS3_0_0",
@@ -3928,7 +3928,7 @@
   },
   {
     "model": "OCE-AN10",
-    "product": "HUAWEI Mate40 全网通",
+    "product": "HUAWEI Mate 40 全网通",
     "codename": "Ocean",
     "os_version": "HarmonyOS 3.0.0",
     "file_name": "OCE-AN10_HarmonyOS3.0.0",
@@ -5930,7 +5930,7 @@
   },
   {
     "model": "BLA-AL00-TL00",
-    "product": "HUAWEI Mate10 Pro",
+    "product": "HUAWEI Mate 10 Pro",
     "codename": "BLA",
     "os_version": "HarmonyOS 2.0",
     "file_name": "BLA-AL00-TL00_02_HM",
@@ -5941,7 +5941,7 @@
   },
   {
     "model": "ALP-AL00-TL00",
-    "product": "HUAWEI Mate10",
+    "product": "HUAWEI Mate 10",
     "codename": "ALP",
     "os_version": "HarmonyOS 2.0",
     "file_name": "ALP-AL00-TL00_02_HM",
@@ -7316,7 +7316,7 @@
   },
   {
     "model": "JEF-AN00-TN00-AN20-TN20-N29B-N29C-N09B-N09CandJER-AN10-TN10-AN20-TN20",
-    "product": "nova7",
+    "product": "nova 7",
     "codename": "JEF",
     "os_version": "EMUI10.1.1",
     "file_name": "JEF-AN00-TN00-AN20-TN20-N29B-N29C-N09B-N09CandJER-AN10-TN10-AN20-TN20_10_EMUI10.1.1",
@@ -7756,7 +7756,7 @@
   },
   {
     "model": "AQM",
-    "product": "畅享10S",
+    "product": "畅享 10S",
     "codename": "AQM",
     "os_version": "EMUI10.1.0",
     "file_name": "AQM_AL00_10_EMUI10.1.0",
@@ -7822,7 +7822,7 @@
   },
   {
     "model": "POTPro",
-    "product": "畅享9S",
+    "product": "畅享 9S",
     "codename": "POTPro",
     "os_version": "POTPro-EMUI10.0.0",
     "file_name": "POTPro_10_EMUI10.0.0",
@@ -7855,7 +7855,7 @@
   },
   {
     "model": "POT",
-    "product": "畅享9S",
+    "product": "畅享 9S",
     "codename": "POT",
     "os_version": "POT-EMUI10.0.0",
     "file_name": "POT_10_EMUI10.0.0",
@@ -7866,7 +7866,7 @@
   },
   {
     "model": "STK",
-    "product": "畅享10",
+    "product": "畅享 10",
     "codename": "STK",
     "os_version": "Stark-AL00B",
     "file_name": "STK_10_EMUI10.0.0",
@@ -8152,7 +8152,7 @@
   },
   {
     "model": "ALP-AL00B",
-    "product": "Mate10",
+    "product": "Mate 10",
     "codename": "ALP",
     "os_version": "ALP-EMUI10.0",
     "file_name": "ALP-AL00B_10_EMUI10.0",
@@ -8218,7 +8218,7 @@
   },
   {
     "model": "BLA-AL00B",
-    "product": "HUAWEI Mate10 Pro",
+    "product": "HUAWEI Mate 10 Pro",
     "codename": "BLA",
     "os_version": "BLA_EMUI10.0",
     "file_name": "BLA-AL00B_10_EMUI10.0",
@@ -8229,7 +8229,7 @@
   },
   {
     "model": "ALP-AL00B",
-    "product": "HUAWEI Mate10",
+    "product": "HUAWEI Mate 10",
     "codename": "ALP",
     "os_version": "ALP_EMUI10.0",
     "file_name": "ALP-AL00B_10_EMUI10.0",
@@ -8350,7 +8350,7 @@
   },
   {
     "model": "Jackman-AL00D",
-    "product": "畅享9 Plus",
+    "product": "畅享 9 Plus",
     "codename": "JKM",
     "os_version": "JKM_PIE_EMUI9.1.0",
     "file_name": "Jackman-AL00D_PIE",
@@ -9901,7 +9901,7 @@
   },
   {
     "model": "BLA",
-    "product": "Mate10 pro",
+    "product": "Mate 10 pro",
     "codename": "BLANC",
     "os_version": "OREO_EMUI8.0",
     "file_name": "BLA",
@@ -10033,7 +10033,7 @@
   },
   {
     "model": "ALP-AL00",
-    "product": "Mate10",
+    "product": "Mate 10",
     "codename": "ALPS",
     "os_version": "EMUI8.0",
     "file_name": "ALP-AL00_TL00_L09_L29",
