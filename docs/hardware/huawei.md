@@ -622,7 +622,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 搭载于：Mate 90 Pro Max 12GB
 - 1x 3.00 GHz（0xd47）+ 2x 2.70 GHz（0xd48）+ 3x 2.20 GHz（0xd48）+ 2x 1.75 GHz（0xd25），8 核 14 线程
 - GPU: Maleoon 955A, 5CU
-- Hi36E0
+- Hi36E0 GFCV100
 
 来源：
 
@@ -711,7 +711,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 麒麟 X90：Charlotte Pro Hi9600
 - 麒麟 9020：Nashville Hi36C0 GFCV110
 - 麒麟 9030：Changsha Hi36D0 GFCV100
-- 麒麟 9050：Nanchang Hi36E0
+- 麒麟 9050：Nanchang Hi36E0 GFCV100
 
 ## 产品型号
 
