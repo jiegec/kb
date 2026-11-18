@@ -25,30 +25,47 @@ $A$、$B$ 是 $4\times4$ 的 FP16 矩阵，$C$、$D$ 是 $4\times4$ 的矩阵，
 
 ### dot4 单元
 
-dot4 单元的工作方式：4 个乘积和第 5 个加数 $c$ 一起对齐到最大指数，截断后做一次定点求和，最后才归一化并舍入到输出格式（FP32 用 RZ，FP16 用 RNE）。伪代码如下：
+dot4 一次算一个输出元素。FP16 的 1+5+10 位、FP32 的 1+8+23 位首先被拆成整数：`m` 是有效数字（11 或 24 位），`E` 是 `m·2^E` 里的指数。伪代码如下：
 
 ```text
 dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,j) 指明算哪个输出
+    # FP16: 1+5+10；FP32: 1+8+23
     for k in 0..3:
-        p_k = A[i][k] * B[k][j]  # 11×11 乘法器，精确，不规格化
-        e_k = exp(A[i][k]) + exp(B[k][j])
-    e_max = max(e_0, e_1, e_2, e_3, exp(C[i][j]))
-
-    S = 0
-    for k in 0..3:
-        S += trunc(p_k * 2^(e_k - e_max + 23))        # 对齐到 e_max，右移截断
-    S += trunc(C[i][j] * 2^(exp(C[i][j]) - e_max + 23))
+        (sa, ea, fa) = A[i][k]                  # 1b, 5b, 10b
+        (sb, eb, fb) = B[k][j]
+        ma = ea == 0 ? fa : (1 << 10) + fa      # 11b；非规格数没有隐含 1
+        mb = eb == 0 ? fb : (1 << 10) + fb
+        Ea = ea == 0 ? -24 : ea - 25            # m 的指数，6b 有符号
+        Eb = eb == 0 ? -24 : eb - 25
+        M[k] = ma * mb                          # 22b 无符号
+        E[k] = Ea + Eb                          # 7b 有符号
+        s[k] = sa ^ sb                          # 1b
+        e[k] = E[k] + 20                        # 7b：frexp 指数
 
     if D 是 FP32:
-        return RZ_FP32(S * 2^(e_max - 23))            # 归一化后向零截断
+        (sc, ec, fc) = C[i][j]                  # 1b, 8b, 23b
+        mc = ec == 0 ? fc : (1 << 23) + fc      # 24b
+        Ec = ec == 0 ? -149 : ec - 150          # 9b 有符号
+        e_c = Ec + 23                           # 8b
     else:
-        return RNE_FP16(S * 2^(e_max - 23))           # 归一化后 RNE 到 FP16
+        (sc, ec, fc) = C[i][j]                  # 1b, 5b, 10b
+        mc = ec == 0 ? fc : (1 << 10) + fc      # 11b
+        Ec = ec == 0 ? -24 : ec - 25            # 6b 有符号
+        e_c = Ec + 10                           # 7b
 
-mma4x4(A, B, C):                 # 一个 TC 每周期吞吐一个 4×4×4
-    D = 4×4 矩阵
-    for i in 0..3, j in 0..3:    # 16 个 dot4 同时进行
-        D[i][j] = dot4(A, B, C, i, j)
-    return D
+    emax = max(e[0], e[1], e[2], e[3], e_c)     # 8b 有符号
+
+    S = 0                                       # 29b 有符号，定点（单位 2^(emax-23)）
+    for k in 0..3:
+        sh = E[k] + 23 - emax                   # 9b 有符号，<= 3
+        t = sh >= 0 ? M[k] << sh : M[k] >> -sh  # 26b 有符号（25b 数值 + 符号）
+        S += s[k] ? -t : t
+    sh = Ec + 23 - emax
+    t = sh >= 0 ? mc << sh : mc >> -sh
+    S += sc ? -t : t
+
+    d = S * 2^(emax - 23)                       # 这里转回浮点
+    return D 是 FP32 ? RZ_FP32(d) : RNE_FP16(d)
 ```
 
 输出为 FP16 时，5 项的对齐、截断和定点求和都不变，只有最后一步从 RZ 到 FP32 换成 RNE 到 FP16。

@@ -1,6 +1,7 @@
 site_name: Jiegec's Knowledge Base
 site_url: https://jia.je/kb
 site_description: Knowledge Base of @jiegec
+use_directory_urls: false
 theme:
   font: false
   custom_dir: overrides
