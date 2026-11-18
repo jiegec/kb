@@ -707,15 +707,20 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 内部代号
 
+Hi36 系列：
+
 - 麒麟 9000s：Charlotte Hi36A0 GFCV120
 - 麒麟 9010：Charlotte CSV2 Hi36A0 GFCV121
-- 麒麟 X90：Charlotte Pro Hi9600
 - 麒麟 9020：Nashville Hi36C0 GFCV110
-- 麒麟 8020：Xian Hi62B0 GFCV110
 - 麒麟 9030：Changsha Hi36D0 GFCV100
-- 麒麟 9030S：Chengdu Hi62C0
 - 麒麟 9050：Nanchang Hi36E0 GFCV100
-- ?：Guangzhou Hi36F0
+- 麒麟 9060？：Guangzhou Hi36F0
+
+其他：
+
+- 麒麟 X90：Charlotte Pro Hi9600
+- 麒麟 8020：Xian Hi62B0 GFCV110
+- 麒麟 9030S：Chengdu Hi62C0
 
 ## 产品型号
 
