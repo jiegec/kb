@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Volta Tensor Core 4×4×4 模拟器</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #fff; color: #1f2430;
+    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", Arial, sans-serif;
+  }
+  .wrap { padding: 12px 14px 16px; max-width: 1000px; margin: 0 auto; }
+  .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .toolbar .title { font-weight: 600; }
+  .toolbar label { display: flex; align-items: center; gap: 6px; }
+  select, button {
+    font: inherit; padding: 3px 8px; border: 1px solid #cfd5df; border-radius: 5px;
+    background: #fff; color: inherit; cursor: pointer;
+  }
+  button:hover { background: #f2f4f8; }
+  .note { color: #6b7280; font-size: 12px; }
+  .mats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .panel { background: #f8f9fb; border: 1px solid #e1e5ec; border-radius: 8px; padding: 8px 8px 9px; }
+  .panel h2 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: #374151; display: flex; gap: 6px; align-items: baseline; }
+  .panel h2 span { color: #8a94a6; font-weight: 400; }
+  .grid { display: grid; grid-template-columns: 16px repeat(4, 52px); gap: 4px; }
+  .grid .h { color: #9aa3b2; font-size: 11px; text-align: center; line-height: 26px; }
+  .cell {
+    width: 52px; height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
+    background: #fff; color: #111827; padding: 0 3px;
+    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  input.cell { text-align: right; }
+  input.cell:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
+  button.cell { cursor: pointer; text-align: center; }
+  button.cell:hover { background: #eef2ff; }
+  .hl { background: #fff7d6 !important; border-color: #e0b100 !important; }
+  .sel { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; }
+  .bottom { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 12px; margin-top: 12px; align-items: start; }
+  .trace {
+    margin: 0; max-height: 430px; overflow: auto; white-space: pre;
+    font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #111827; background: #fff; border: 1px solid #e5e9f0; border-radius: 6px; padding: 8px 10px;
+  }
+  .tip { margin: 8px 0 0; color: #8a94a6; font-size: 11px; }
+  @media (max-width: 760px) {
+    .bottom { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="toolbar">
+    <span class="title">Volta 4×4×4 MMA</span>
+    <label>输出格式
+      <select id="fmt">
+        <option value="f32">FP32（RZ）</option>
+        <option value="f16">FP16（RNE）</option>
+      </select>
+    </label>
+    <button id="btnReset">重置</button>
+    <button id="btnRandom">随机</button>
+    <button id="btnExample">论文例子</button>
+    <span class="note">输入会先舍入到对应格式（A/B 为 FP16，C 随输出格式）</span>
+  </div>
+
+  <div class="mats">
+    <section class="panel"><h2>A <span>4×4 FP16</span></h2><div class="grid" id="gridA"></div></section>
+    <section class="panel"><h2>B <span>4×4 FP16</span></h2><div class="grid" id="gridB"></div></section>
+    <section class="panel"><h2>C <span id="cType">4×4 FP32</span></h2><div class="grid" id="gridC"></div></section>
+  </div>
+
+  <div class="bottom">
+    <section class="panel">
+      <h2>dot4 计算过程</h2>
+      <pre class="trace" id="trace"></pre>
+    </section>
+    <section class="panel">
+      <h2>D <span id="dType">4×4 FP32</span></h2>
+      <div class="grid" id="gridD"></div>
+      <p class="tip">点击 D 的元素，左侧显示该元素的 dot4 过程</p>
+    </section>
+  </div>
+</div>
+
+<script id="model">
+"use strict";
+
+const F_BITS = 23;
+
+function exponentOf(a) {
+  let e = Math.floor(Math.log2(a));
+  while (Math.pow(2, e) > a) e--;
+  while (Math.pow(2, e + 1) <= a) e++;
+  return e;
+}
+
+function decomp(x, kind) {
+  // x != 0 且有限。返回 value = sign * s * 2^e，次正规不规格化（e 钳在格式的最小正规指数）。
+  const sign = x < 0 ? -1 : 1;
+  const a = Math.abs(x);
+  let e = exponentOf(a);
+  const minE = kind === "f16" ? -14 : -126;
+  if (e < minE) e = minE;
+  return { sign: sign, s: a / Math.pow(2, e), e: e };
+}
+
+function rneF16(v) {
+  if (!isFinite(v)) return v;
+  if (v === 0) return 0;
+  const sign = v < 0 ? -1 : 1;
+  const a = Math.abs(v);
+  if (a > 65520) return sign * Infinity;
+  const e = exponentOf(a);
+  const q = e < -14 ? Math.pow(2, -24) : Math.pow(2, e - 10);
+  const x = a / q;
+  const n0 = Math.floor(x);
+  const rem = x - n0;
+  let n;
+  if (rem > 0.5) n = n0 + 1;
+  else if (rem < 0.5) n = n0;
+  else n = n0 % 2 === 0 ? n0 : n0 + 1;
+  const r = n * q;
+  if (r > 65504) return sign * Infinity;
+  return sign * r;
+}
+
+function rzF32(v) {
+  if (!isFinite(v) || v === 0) return v;
+  const sign = v < 0 ? -1 : 1;
+  const a = Math.abs(v);
+  const e = exponentOf(a);
+  const q = e >= -126 ? Math.pow(2, e - 23) : Math.pow(2, -149);
+  return sign * Math.trunc(a / q) * q;
+}
+
+function fmtNum(x) {
+  if (x === 0) return "0";
+  if (!isFinite(x)) return x > 0 ? "∞" : "-∞";
+  if (Number.isInteger(x) && Math.abs(x) < 1e15) return String(x);
+  const a = Math.abs(x);
+  if (a >= 1e6 || a < 1e-4) {
+    return x.toExponential(6).replace(/\.?0+e/, "e");
+  }
+  return String(Number(x.toPrecision(10)));
+}
+
+function voltaDot4(A, B, C, i, j, fmt) {
+  const terms = [];
+  for (let k = 0; k < 4; k++) {
+    const a = A[i][k], b = B[k][j];
+    const t = { k: k, a: a, b: b, p: a * b };
+    if (a !== 0 && b !== 0) {
+      const da = decomp(a, "f16");
+      const db = decomp(b, "f16");
+      t.sign = da.sign * db.sign;
+      t.s = da.s * db.s;
+      t.e = da.e + db.e;
+    } else {
+      t.sign = 1;
+      t.s = 0;
+      t.e = 0;
+    }
+    terms.push(t);
+  }
+
+  const c = C[i][j];
+  const cterm = { c: c };
+  if (c !== 0) {
+    const dc = decomp(c, fmt === "f16" ? "f16" : "f32");
+    cterm.sign = dc.sign;
+    cterm.s = dc.s;
+    cterm.e = dc.e;
+  } else {
+    cterm.sign = 1;
+    cterm.s = 0;
+    cterm.e = 0;
+  }
+
+  let eMax = -Infinity;
+  for (const t of terms) if (t.s !== 0) eMax = Math.max(eMax, t.e);
+  if (cterm.s !== 0) eMax = Math.max(eMax, cterm.e);
+  if (!isFinite(eMax)) eMax = 0;
+
+  let S = 0;
+  for (const t of terms) {
+    t.shift = t.s === 0 ? 0 : t.e - eMax + F_BITS;
+    t.t = t.s === 0 ? 0 : t.sign * Math.trunc(t.s * Math.pow(2, t.shift));
+    S += t.t;
+  }
+  cterm.shift = cterm.s === 0 ? 0 : cterm.e - eMax + F_BITS;
+  cterm.t = cterm.s === 0 ? 0 : cterm.sign * Math.trunc(cterm.s * Math.pow(2, cterm.shift));
+  S += cterm.t;
+
+  const raw = S * Math.pow(2, eMax - F_BITS);
+  let d = fmt === "f16" ? rneF16(raw) : rzF32(raw);
+  if (d === 0) d = 0;  // -0 归一为 +0
+  const exact = terms.reduce(function (acc, t) { return acc + t.p; }, 0) + c;
+
+  return { i: i, j: j, terms: terms, cterm: cterm, eMax: eMax, S: S, raw: raw, d: d, exact: exact, fmt: fmt };
+}
+
+if (typeof module !== "undefined") {
+  module.exports = { voltaDot4: voltaDot4, rneF16: rneF16, rzF32: rzF32, decomp: decomp, fmtNum: fmtNum, exponentOf: exponentOf };
+}
+</script>
+
+<script>
+(function () {
+  "use strict";
+
+  const DEFAULT = {
+    A: [[1.5, -2, 0, 0.5], [0.25, 1, 0, 0], [0, 0, 1.25, -0.5], [0.5, 0, 0, 2]],
+    B: [[1, 0, 0.5, 0], [0, 1.5, 0, 0], [0.5, 0, 1, 0], [0, 0, 0, 1.25]],
+    C: [[0.125, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  };
+
+  const EXAMPLE = {
+    A: [[-8192, -0.5, -0.25, -0.125], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    B: [[1024, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
+    C: [[8388608, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  };
+
+  const RANDOM_POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
+
+  const state = { fmt: "f32", si: 0, sj: 0 };
+  let D = null;
+
+  const fmtSel = document.getElementById("fmt");
+  const traceEl = document.getElementById("trace");
+  const cType = document.getElementById("cType");
+  const dType = document.getElementById("dType");
+
+  function cellEl(name, i, j) {
+    return document.querySelector('[data-name="' + name + '"][data-i="' + i + '"][data-j="' + j + '"]');
+  }
+
+  function buildGrid(hostId, name, interactive) {
+    const host = document.getElementById(hostId);
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    const corner = document.createElement("div");
+    corner.className = "h";
+    grid.appendChild(corner);
+    for (let j = 0; j < 4; j++) {
+      const h = document.createElement("div");
+      h.className = "h";
+      h.textContent = j;
+      grid.appendChild(h);
+    }
+    for (let i = 0; i < 4; i++) {
+      const h = document.createElement("div");
+      h.className = "h";
+      h.textContent = i;
+      grid.appendChild(h);
+      for (let j = 0; j < 4; j++) {
+        let node;
+        if (interactive) {
+          node = document.createElement("input");
+          node.type = "text";
+          node.inputMode = "decimal";
+          node.className = "cell";
+          node.addEventListener("input", render);
+          node.addEventListener("change", function () { commitCell(node); });
+        } else {
+          node = document.createElement("button");
+          node.type = "button";
+          node.className = "cell";
+          node.addEventListener("click", function () {
+            state.si = i;
+            state.sj = j;
+            render();
+          });
+        }
+        node.dataset.name = name;
+        node.dataset.i = i;
+        node.dataset.j = j;
+        grid.appendChild(node);
+      }
+    }
+    host.appendChild(grid);
+  }
+
+  function roundInput(x, kind) {
+    if (!isFinite(x)) return 0;
+    if (kind === "f16") {
+      const r = rneF16(x);
+      if (!isFinite(r)) return x < 0 ? -65504 : 65504;
+      return r;
+    }
+    const r = Math.fround(x);
+    if (!isFinite(r)) return x < 0 ? -3.4028234663852886e38 : 3.4028234663852886e38;
+    return r;
+  }
+
+  function readCell(name, i, j) {
+    const el = cellEl(name, i, j);
+    let x = parseFloat(el.value);
+    if (!isFinite(x)) x = 0;
+    return roundInput(x, name === "C" && state.fmt === "f32" ? "f32" : "f16");
+  }
+
+  function readMat(name) {
+    const m = [];
+    for (let i = 0; i < 4; i++) {
+      const row = [];
+      for (let j = 0; j < 4; j++) row.push(readCell(name, i, j));
+      m.push(row);
+    }
+    return m;
+  }
+
+  function commitCell(el) {
+    const name = el.dataset.name;
+    const i = +el.dataset.i, j = +el.dataset.j;
+    el.value = fmtNum(readCell(name, i, j));
+    render();
+  }
+
+  function setMatrix(name, data) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        cellEl(name, i, j).value = String(data[i][j]);
+      }
+    }
+  }
+
+  function highlight() {
+    document.querySelectorAll(".cell").forEach(function (el) {
+      el.classList.remove("hl", "sel");
+    });
+    for (let k = 0; k < 4; k++) {
+      cellEl("A", state.si, k).classList.add("hl");
+      cellEl("B", k, state.sj).classList.add("hl");
+    }
+    cellEl("C", state.si, state.sj).classList.add("hl");
+    cellEl("D", state.si, state.sj).classList.add("sel");
+  }
+
+  function traceText(r) {
+    const n = fmtNum;
+    const L = [];
+    L.push("dot4(A, B, C, i=" + r.i + ", j=" + r.j + ")    # 输出 " + (r.fmt === "f16" ? "FP16（RNE）" : "FP32（RZ）"));
+    L.push("");
+    L.push("for k in 0..3:        # p_k = a·b 精确计算，e_k = e_a + e_b");
+    for (const t of r.terms) {
+      const right = t.s === 0 ? "p=0" : "p=" + n(t.p) + "  s=" + n(t.sign * t.s) + "  e=" + t.e;
+      L.push("  k=" + t.k + ":  " + n(t.a) + " × " + n(t.b) + "  →  " + right);
+    }
+    L.push("");
+    L.push("e_max = max(e_0..e_3, e_c) = " + r.eMax);
+    L.push("");
+    L.push("S = Σ trunc(s_k · 2^(e_k − e_max + 23))");
+    for (const t of r.terms) {
+      if (t.s === 0) {
+        L.push("  k=" + t.k + ":  0");
+      } else {
+        L.push("  k=" + t.k + ":  trunc(" + n(t.sign * t.s) + " · 2^" + t.shift + ") = " + n(t.t));
+      }
+    }
+    if (r.cterm.s === 0) {
+      L.push("  c  :  0");
+    } else {
+      L.push("  c  :  trunc(" + n(r.cterm.sign * r.cterm.s) + " · 2^" + r.cterm.shift + ") = " + n(r.cterm.t));
+    }
+    L.push("S = " + n(r.S));
+    L.push("");
+    L.push("d = " + (r.fmt === "f16" ? "RNE_FP16" : "RZ_FP32") + "(S · 2^(e_max − 23)) = " + n(r.d));
+    L.push("");
+    L.push("精确值 = " + n(r.exact) + "    误差 = " + n(r.d - r.exact));
+    return L.join("\n");
+  }
+
+  function render() {
+    const A = readMat("A");
+    const B = readMat("B");
+    const C = readMat("C");
+
+    D = [];
+    for (let i = 0; i < 4; i++) {
+      const row = [];
+      for (let j = 0; j < 4; j++) {
+        row.push(voltaDot4(A, B, C, i, j, state.fmt));
+      }
+      D.push(row);
+    }
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        cellEl("D", i, j).textContent = fmtNum(D[i][j].d);
+      }
+    }
+
+    dType.textContent = "4×4 " + (state.fmt === "f16" ? "FP16" : "FP32");
+    cType.textContent = "4×4 " + (state.fmt === "f16" ? "FP16" : "FP32");
+
+    highlight();
+    traceEl.textContent = traceText(D[state.si][state.sj]);
+  }
+
+  fmtSel.addEventListener("change", function () {
+    state.fmt = fmtSel.value;
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        cellEl("C", i, j).value = fmtNum(readCell("C", i, j));
+      }
+    }
+    render();
+  });
+
+  document.getElementById("btnReset").addEventListener("click", function () {
+    state.fmt = "f32";
+    fmtSel.value = "f32";
+    setMatrix("A", DEFAULT.A);
+    setMatrix("B", DEFAULT.B);
+    setMatrix("C", DEFAULT.C);
+    state.si = 0;
+    state.sj = 0;
+    render();
+  });
+
+  document.getElementById("btnRandom").addEventListener("click", function () {
+    function pick() { return RANDOM_POOL[Math.floor(Math.random() * RANDOM_POOL.length)]; }
+    for (const name of ["A", "B", "C"]) {
+      const m = [];
+      for (let i = 0; i < 4; i++) {
+        const row = [];
+        for (let j = 0; j < 4; j++) row.push(pick());
+        m.push(row);
+      }
+      setMatrix(name, m);
+    }
+    state.si = 0;
+    state.sj = 0;
+    render();
+  });
+
+  document.getElementById("btnExample").addEventListener("click", function () {
+    state.fmt = "f32";
+    fmtSel.value = "f32";
+    setMatrix("A", EXAMPLE.A);
+    setMatrix("B", EXAMPLE.B);
+    setMatrix("C", EXAMPLE.C);
+    state.si = 0;
+    state.sj = 0;
+    render();
+  });
+
+  buildGrid("gridA", "A", true);
+  buildGrid("gridB", "B", true);
+  buildGrid("gridC", "C", true);
+  buildGrid("gridD", "D", false);
+  setMatrix("A", DEFAULT.A);
+  setMatrix("B", DEFAULT.B);
+  setMatrix("C", DEFAULT.C);
+  render();
+})();
+</script>
+</body>
+</html>
