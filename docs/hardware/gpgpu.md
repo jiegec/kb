@@ -363,6 +363,8 @@ GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 �
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
+GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16 FMA 每周期每 TC，如果是 FP16 累加到 FP32 则进一步降低到 64 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。
+
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
@@ -378,6 +380,8 @@ Ada Lovelace 架构的 AD102 包括：
   ![](gpgpu_ada_lovelace_sm.png){ width="600" }
   <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
+
+Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持；原有的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，是数据中心 Ampere（GA100）的一半或四分之一（如涉及到 FP32 累加），通过增加 SM 数量和频率来提升总算力。每周期计算 4x4x16 的 FP8 矩阵，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。
 
 ## NVIDIA Hopper
 

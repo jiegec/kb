@@ -116,6 +116,12 @@ BF16 和 FP16 的区别在于 BF16 是 1-8-7，而 FP16 是 1-5-10，所以 BF16
 
 FP64 应该是单独的数据通路，因为每周期的吞吐是 2x2x4，应该就是 16 个 FP64 的 FMA 并行+流水起来，比如 d00 就等于 `FMA(a03,b30,FMA(a02,b20,FMA(a01,b10,FMA(a00,b00,c00))))`，其中 FMA(a,b,c) 就是 IEEE-754 的 FMA，计算 `a*b+c`。所以它和 FP16 的搞法不同，FP16 是把几个乘积和 C 在中间一起对齐和累加，而 FP64 的 FMA 是每加一个元素就重新对齐和累加一次。
 
+## Ada Lovelace
+
+Ada Lovelace 继承了消费级 Ampere（GA102）的 FP16/BF16/TF32/INT8/INT4 性能，额外增加了 FP8 的支持。
+
+针对 FP8，每周期做 4x4x16 的 FP8 矩阵计算，每周期 256 FMA、512 FLOP。应该是用 dot16 实现 FP8 矩阵乘。支持 E4M3 和 E5M2 两种数据格式，即 1-4-3 和 1-5-2。C/D 矩阵有两种数据格式，一种是 FP16，最终结果是 RNE 到 FP16；另一种是 FP32，最终结果是 RZ 到 E8M13，精度介于 TF32 的 1-8-10 和 FP32 的 1-8-23 之间。猜测在硬件上，内部是按照 E5M3 来设计数据通路的，从而一个数据通路可以同时支持 E4M3 和 E5M2。对齐的时候，F 设为 13，所以输入的 FP32 有很多位数会直接被丢弃。
+
 ## 引用
 
 - NVIDIA, *NVIDIA Tesla V100 GPU Architecture* (whitepaper), 2017. <https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf>
