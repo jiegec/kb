@@ -508,7 +508,9 @@ if (typeof module !== "undefined") {
       lines.push("D[" + state.si + "][" + state.sj + "] = " + fmtNum(res.d));
       return lines.join("\n");
     }
-    lines.push(m.label + "：每周期 " + m.m + "×" + m.n + "×" + m.k + "，每次对齐 " + m.L + " 项，F = " + m.F);
+    lines.push(m.label + "：每周期 " + m.m + "×" + m.n + "×" + m.k + "，" +
+      (m.L < m.k ? "每次对齐 " + m.L + " 项，分 " + (m.k / m.L) + " 次" : "一次对齐 " + m.L + " 项") +
+      "，F = " + m.F);
     lines.push("");
     lines.push("# 拆字段（" + FMTS[m.in].name + "），value = ±m · 2^E");
     for (const t of res.terms) {
@@ -520,7 +522,8 @@ if (typeof module !== "undefined") {
     lines.push("");
     for (let p = 0; p < res.passes.length; p++) {
       const ps = res.passes[p];
-      lines.push("# 第 " + (p + 1) + " 次对齐：" + ps.chunk.length + " 个乘积 + C，按 e_max 截断到 2^(e_max-" + ps.F + ")");
+      const head = res.passes.length > 1 ? "# 第 " + (p + 1) + " 次对齐：" : "# 对齐：";
+      lines.push(head + ps.chunk.length + " 个乘积 + C，按 e_max 截断到 2^(e_max-" + ps.F + ")");
       lines.push(" C 初值 = " + fmtNum(ps.cInit) + "  (m=" + ps.dc.m + ",E=" + ps.dc.E + ")");
       lines.push(" e_max = " + ps.emax);
       for (const t of ps.chunk) {
