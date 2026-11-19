@@ -21,9 +21,9 @@ $A$、$B$ 是 $4\times4$ 的 FP16 矩阵，$C$、$D$ 是 $4\times4$ 的矩阵，
 
 硬件上它是一个 $4\times4$ 的 dot4 阵列：**16 个 dot4 单元**，每个单元有 4 个 11×11 乘法器，负责输出矩阵的一个元素。
 
-每个 SM 有 8 个 TC（每个 Processing Block 2 个），合计 512 FMA/周期。按 V100 的 80 个 SM、1.53 GHz 计算，FP16 峰值约为 125 TFLOPS。
+每个 SM 有 8 个 TC（每个 Processing Block 2 个），合计 512 FMA/周期，1024 FLOP/周期。按 V100 的 80 个 SM、1.53 GHz 计算，FP16 峰值约为 125 TFLOPS。
 
-SASS 暴露出来的是 HMMA.884 指令，计算的是 8x8x4 的矩阵乘，会拆成 4 个 4x4x4 矩阵乘，由 TC 进行计算。因为每个 Processing Block 有 2 个 TC，所以每两个周期可以执行一条 HMMA.884。
+SASS 暴露出来的是 HMMA.884 指令，计算的是 8x8x4 的矩阵乘，会拆成 4 个 4x4x4 矩阵乘，由 TC 进行计算。因为每个 Processing Block 有 2 个 TC，所以每两个周期可以执行一条 HMMA.884。每个 SM 有四个 Processing Block 共 8 个 TC，所以 SM 是每周期执行两条 HMMA.884。
 
 ### dot4 单元
 
@@ -93,6 +93,8 @@ dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,
 ## Turing
 
 Turing 的 Tensor Core 相比 Volta 在 FP16 数据通路上改动不大，每周期也是计算一个 4x4x4 的矩阵乘。SASS 上暴露的指令，除了 HMMA.884，还有 HMMA.1688。HMMA.884 的行为和 Volta 相同，而后者，体现出来的是 8 个乘积和 C 累加的行为（Volta 的 dot4 是 4 个乘积加上 C）。因此猜测 Turing Tensor Core 在执行后者的时候，在中间的数据通路上有一些特殊的处理，但每周期的性能不变，猜测可能是两个周期各出 4 个乘积，再一起累加起来，来完成等效 dot8 的操作，此时是 8 个乘积一起对齐和累加，所以累加用的加法器也得加宽。
+
+此外，Turing Tensor Core 还支持 INT8 和 INT4 的矩阵乘。
 
 ## 引用
 
