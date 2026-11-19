@@ -96,6 +96,10 @@ Turing 的 Tensor Core 相比 Volta 在 FP16 数据通路上改动不大，每�
 
 此外，Turing Tensor Core 还支持 INT8 和 INT4 的矩阵乘。
 
+## Ampere
+
+Ampere 的 Tensor Core 针对 FP16 做了 32 个 dot8，每周期计算一个 8x4x8 的矩阵乘。此外，还引入了 BF16/TF32/FP64 的 Tensor Core 支持。
+
 ## 引用
 
 - NVIDIA, *NVIDIA Tesla V100 GPU Architecture* (whitepaper), 2017. <https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf>

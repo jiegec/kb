@@ -344,7 +344,7 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
 - 每个 SM 有四个 Tensor Core
 - 每个 Tensor Core 吞吐：
     - 8x4x8 的 FP16/BF16 矩阵，对应 256 FMA/周期，512 FLOP/周期
-    - 8x4x4 的 FP32/TP32 矩阵，对应 128 FMA/周期，256 FLOP/周期
+    - 8x4x4 的 TF32 矩阵，对应 128 FMA/周期，256 FLOP/周期
     - 2x4x2 的 FP64 矩阵，对应 16 FMA/周期，32 FLOP/周期
     - 8x4x16 的 INT8 矩阵，对应 1024 OP/周期
 
