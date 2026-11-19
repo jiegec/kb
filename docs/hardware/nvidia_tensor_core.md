@@ -100,6 +100,10 @@ Turing 的 Tensor Core 相比 Volta 在 FP16 数据通路上改动不大，每�
 
 Ampere 的 Tensor Core 针对 FP16 做了 32 个 dot8，每周期计算一个 8x4x8 的矩阵乘。此外，还引入了 BF16/TF32/FP64 的 Tensor Core 支持。
 
+BF16 和 FP16 的区别在于 BF16 是 1-8-7，而 FP16 是 1-5-10，所以 BF16 的 E 范围更大，M 精度更低，在硬件上应该可以共享大部分电路，只是要给 BF16 扩充一下 E 相关计算的位数。TF32 则是 1-8-10 保存在 32 位里，正好 E 的位数和 BF16 相同，M 的位数和 FP16 不变，所以数据通路上不需要付出太多额外的代价，即可同时支持 BF16/FP16/TF32 三种数据格式。
+
+只是因为 TF32 要用 32bit 来存一个数，所以瓶颈在数据位宽上，dot8 只需要用到它的一半，比如只用前四个乘积，后四个乘积置零，所以它每周期做的是 8x4x4 的 TF32。
+
 ## 引用
 
 - NVIDIA, *NVIDIA Tesla V100 GPU Architecture* (whitepaper), 2017. <https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf>
