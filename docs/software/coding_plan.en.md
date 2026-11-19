@@ -39,7 +39,7 @@
     - MiniMax-H3-Image (standard): text input 15, image input 10, image output 25
     - MiniMax-H3-Image-Highspeed: text input 15, image input 20, image output 50
     - Both image models were released on 2026-11-10, support text-to-image and image editing with 1–16 reference images, accept output size as width and height or as an area tier plus aspect ratio, and support streaming output; the international site lists \$2.30 / \$1.50 / \$3.80 and \$2.30 / \$3.00 / \$7.60 (text input / image input / image output); the H3-Image-Context-IR prompt-enhancement endpoint is charged at 15 RMB per 1M text input tokens
-    - Requests whose delivered image is at least 16.6 million pixels (width × height) cost 50% less: the promotion runs through 2026-11-18 00:00 Beijing time on the Chinese site (end exclusive) and through 2026-11-17 16:00 UTC internationally
+    - Requests whose delivered image is at least 16.6 million pixels (4K, width × height) cost 50% less; the offer is in effect again with no stated end date (the previous round ran until 2026-11-18 00:00 Beijing time and 2026-11-17 16:00 UTC internationally): discounted 4K per-image indicative prices are 0.2261 (text-to-image), 0.2404 / 0.2605 RMB (image editing with 1 / 3 reference images) on the standard model and 0.4275 / 0.4499 / 0.5073 RMB on the highspeed model
     - image-01 and image-01-live are now legacy models at 0.025 RMB per image (\$0.0035 internationally)
 
 ### Zhipu (GLM, Z.ai)
@@ -281,6 +281,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/20: MiniMax's limited-time 50% off 4K image generation is in effect again — MiniMax-H3-Image and MiniMax-H3-Image-Highspeed charge half for a whole request whose delivered image is at least 16.6 million pixels (4K) wide × high, with no stated end date. Discounted 4K per-image indicative prices are 0.2261 (text-to-image), 0.2404 / 0.2605 RMB (image editing with 1 / 3 reference images) on the standard model and 0.4275 / 0.4499 / 0.5073 RMB on the highspeed model (USD 0.03439 / 0.03656 / 0.03957 and USD 0.06501 / 0.06837 / 0.07703 internationally); the 1K and 2K output prices and both models' token prices (text input 15, image input 10 / 20, image output 25 / 50 RMB per 1M tokens) are unchanged
 
 - 2026/11/19: MiniMax's limited-time 50% off 4K image generation has expired — MiniMax-H3-Image and MiniMax-H3-Image-Highspeed no longer discount requests whose delivered image is at least 16.6 million pixels (4K), and the per-image indicative prices for 4K output return to 0.4522 (text-to-image), 0.4809 (image editing with 1 reference image) and 0.5211 RMB (3 reference images) on the standard model, and 0.8550 / 0.8998 / 1.0146 RMB on the highspeed model (USD 0.06879 / 0.07312 / 0.07914 and USD 0.13001 / 0.13673 / 0.15407 internationally); the 1K and 2K output prices and both models' token prices (text input 15, image input 10 / 20, image output 25 / 50 RMB per 1M tokens) are unchanged
 
