@@ -23,7 +23,7 @@ $A$、$B$ 是 $4\times4$ 的 FP16 矩阵，$C$、$D$ 是 $4\times4$ 的矩阵，
 
 每个 SM 有 8 个 TC（每个 Processing Block 2 个），合计 512 FMA/周期，1024 FLOP/周期。按 V100 的 80 个 SM、1.53 GHz 计算，FP16 峰值约为 125 TFLOPS。
 
-SASS 暴露出来的是 HMMA.884 指令，计算的是 8x8x4 的矩阵乘，会拆成 4 个 4x4x4 矩阵乘，由 TC 进行计算。因为每个 Processing Block 有 2 个 TC，所以每两个周期可以执行一条 HMMA.884。每个 SM 有四个 Processing Block 共 8 个 TC，所以 SM 是每周期执行两条 HMMA.884。
+SASS 暴露出来的是 HMMA.884 指令，计算的是 8x8x4 的矩阵乘，会拆成 4 个 4x4x4 矩阵乘。因为每个 Processing Block 有 2 个 TC，所以每两个周期可以执行一条 HMMA.884。每个 SM 有四个 Processing Block 共 8 个 TC，所以 SM 是每周期执行两条 HMMA.884。
 
 ### dot4 单元
 
@@ -59,17 +59,18 @@ dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,
     # 第二步：把四个乘积与 C 按最大的指数对齐并累加
     emax = max(e[0], e[1], e[2], e[3], e_c)     # 8b 有符号
 
-    S = 0                                       # 29b 有符号，定点（单位 2^(emax-23)）
+    F = 23
+    S = 0                                       # (F+6)-b 有符号，定点（单位 2^(emax-F)）
     for k in 0..3:
-        sh = E[k] + 23 - emax                   # 9b 有符号，<= 3
-        t = sh >= 0 ? M[k] << sh : M[k] >> -sh  # 26b 有符号（25b 数值 + 符号）
+        sh = E[k] + F - emax                    # 9b 有符号，sh <= F - 20
+        t = sh >= 0 ? M[k] << sh : M[k] >> -sh  # (F+3)-b 有符号（F=23 时 25b 数值 + 符号）
         S += s[k] ? -t : t
-    sh = Ec + 23 - emax
+    sh = Ec + F - emax
     t = sh >= 0 ? mc << sh : mc >> -sh
     S += sc ? -t : t
 
     # 第三步：转回浮点并舍入
-    d = S * 2^(emax - 23)                       # 这里转回浮点
+    d = S * 2^(emax - F)                        # 这里转回浮点
     return D 是 FP32 ? RZ_FP32(d) : RNE_FP16(d)
 ```
 
@@ -92,7 +93,7 @@ dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,
 
 ## Turing
 
-Turing 的 Tensor Core 相比 Volta 在 FP16 数据通路上改动不大，每周期也是计算一个 4x4x4 的矩阵乘。SASS 上暴露的指令，除了 HMMA.884，还有 HMMA.1688。HMMA.884 的行为和 Volta 相同，而后者，体现出来的是 8 个乘积和 C 累加的行为（Volta 的 dot4 是 4 个乘积加上 C）。因此猜测 Turing Tensor Core 在执行后者的时候，在中间的数据通路上有一些特殊的处理，但每周期的性能不变，猜测可能是两个周期各出 4 个乘积，再一起累加起来，来完成等效 dot8 的操作，此时是 8 个乘积一起对齐和累加，所以累加用的加法器也得加宽。
+Turing 的 Tensor Core 相比 Volta 在 FP16 数据通路上改动不大，每周期也是计算一个 4x4x4 的矩阵乘。SASS 上暴露的指令，除了 HMMA.884，还有 HMMA.1688。HMMA.884 的行为和 Volta 相同，而后者体现出来的是 8 个乘积和 C 累加的行为（Volta 的 dot4 是 4 个乘积加上 C）。因此猜测 Turing Tensor Core 在执行后者的时候，在中间的数据通路上有一些特殊的处理，但每周期的性能不变，猜测可能是两个周期各出 4 个乘积，再一起累加起来，来完成等效 dot8 的操作，此时是 8 个乘积一起对齐和累加，所以累加用的加法器也得加宽（伪代码里累加到 S 的时候，F 设置为 24）。
 
 此外，Turing Tensor Core 还支持 INT8 和 INT4 的矩阵乘。
 
@@ -100,11 +101,13 @@ Turing 的 Tensor Core 相比 Volta 在 FP16 数据通路上改动不大，每�
 
 Ampere 的 Tensor Core 针对 FP16 做了 32 个 dot8，每周期计算一个 8x4x8 的矩阵乘。此外，还引入了 BF16/TF32/FP64 的 Tensor Core 支持。
 
+Ampere 每个 SM 只有 4 个 TC（每个 Processing Block 一个），合计 1024 FP16 FMA/周期。按 A100 的 108 个 SM、1.41 GHz 计算，FP16 峰值约 312 TFLOPS。
+
 BF16 和 FP16 的区别在于 BF16 是 1-8-7，而 FP16 是 1-5-10，所以 BF16 的 E 范围更大，M 精度更低，在硬件上应该可以共享大部分电路，只是要给 BF16 扩充一下 E 相关计算的位数。TF32 则是 1-8-10 保存在 32 位里，正好 E 的位数和 BF16 相同，M 的位数和 FP16 不变，所以数据通路上不需要付出太多额外的代价，即可同时支持 BF16/FP16/TF32 三种数据格式。
 
-只是因为 TF32 要用 32bit 来存一个数，所以瓶颈在数据位宽上，dot8 只需要用到它的一半，比如只用前四个乘积，后四个乘积置零，所以它每周期做的是 8x4x4 的 TF32。
+猜测是因为 TF32 要用 32bit 来存一个数，所以瓶颈在数据位宽上，dot8 只用到它的一半，比如只用前四个乘积，后四个乘积置零，所以它每周期做的是 8x4x4 的 TF32。
 
-FP64 应该是单独的数据通路，因为每周期的吞吐是 2x4x2，应该就是 16 个 FP64 的 FMA 并行+流水起来，比如 d00 就等于 `FMA(a01,b10,FMA(a00,b00,c00))`，其中 FMA(a,b,c) 就是 IEEE-754 的 FMA，计算 `a*b+c`。
+FP64 应该是单独的数据通路，因为每周期的吞吐是 2x2x4，应该就是 16 个 FP64 的 FMA 并行+流水起来，比如 d00 就等于 `FMA(a03,b30,FMA(a02,b20,FMA(a01,b10,FMA(a00,b00,c00))))`，其中 FMA(a,b,c) 就是 IEEE-754 的 FMA，计算 `a*b+c`。所以它和 FP16 的搞法不同，FP16 是把几个乘积和 C 在中间一起对齐和累加，而 FP64 的 FMA 是每加一个元素就重新对齐和累加一次。
 
 ## 引用
 
@@ -115,3 +118,4 @@ FP64 应该是单独的数据通路，因为每周期的吞吐是 2x4x2，应该
 - Z. Jia et al., *Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking*, arXiv:1804.06826. <https://arxiv.org/abs/1804.06826>
 - NVIDIA, *NVIDIA Turing GPU Architecture* (whitepaper), 2018. <https://images.nvidia.com/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf>
 - W. Sun et al., *Dissecting Tensor Cores via Microbenchmarks: Latency, Throughput and Numeric Behaviors*, IEEE TPDS 34(1), 2023. <https://arxiv.org/abs/2206.02874>
+- NVIDIA, *NVIDIA A100 Tensor Core GPU Architecture* (whitepaper), 2020. <https://images.nvidia.com/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf>
