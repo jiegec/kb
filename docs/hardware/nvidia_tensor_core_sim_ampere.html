@@ -27,10 +27,11 @@
   .grid { display: grid; gap: 4px; }
   .grid .h { color: #9aa3b2; font-size: 11px; text-align: center; line-height: 26px; }
   .cell {
-    width: 46px; height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
-    background: #fff; color: #111827; padding: 0 3px;
-    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    width: 48px; height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
+    background: #fff; color: #111827; padding: 0 3px; overflow: hidden;
+    font: 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
+  .cell.small { font-size: 9px; }
   .cell.wide { width: 58px; }
   input.cell { text-align: right; }
   input.cell:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
@@ -395,7 +396,7 @@ if (typeof module !== "undefined") {
   function buildGrid(hostId, name, rows, cols, interactive) {
     const host = document.getElementById(hostId);
     host.innerHTML = "";
-    host.style.gridTemplateColumns = "16px repeat(" + cols + ", 46px)";
+    host.style.gridTemplateColumns = "16px repeat(" + cols + ", 48px)";
     const corner = document.createElement("div");
     corner.className = "h";
     host.appendChild(corner);
@@ -471,16 +472,44 @@ if (typeof module !== "undefined") {
     traceTitle.textContent = "D[" + state.si + "][" + state.sj + "] 的计算过程";
   }
 
+  // 格子放不下时用更短的写法，完整值挂在 title 上
+  function cellText(v) {
+    const full = fmtNum(v);
+    if (full.length <= 8) return full;
+    if (!isFinite(v) || v === 0) return full;
+    for (let p = 6; p >= 1; p--) {
+      const short = String(Number(v.toPrecision(p))).replace("e+", "e");
+      if (short.length <= 8) return short;
+    }
+    for (let p = 3; p >= 0; p--) {
+      const short = v.toExponential(p).replace("e+", "e");
+      if (short.length <= 8) return short;
+    }
+    return String(v).replace("e+", "e");
+  }
+
+  function fitCell(node, text) {
+    if (text.length >= 8) node.classList.add("small");
+    else node.classList.remove("small");
+  }
+
   function drawValues(D) {
     document.querySelectorAll('[data-name="D"]').forEach(function (node) {
       const i = +node.dataset.i, j = +node.dataset.j;
-      node.textContent = fmtNum(D[i][j]);
+      const v = D[i][j];
+      const txt = cellText(v);
+      node.textContent = txt;
+      node.title = fmtNum(v);
+      fitCell(node, txt);
       if (i === state.si && j === state.sj) node.classList.add("sel");
       else node.classList.remove("sel");
     });
     document.querySelectorAll("input.cell").forEach(function (node) {
       if (document.activeElement === node) return;
-      node.value = fmtNum(get(node.dataset.name, +node.dataset.i, +node.dataset.j));
+      const txt = fmtNum(get(node.dataset.name, +node.dataset.i, +node.dataset.j));
+      node.value = txt;
+      node.title = txt;
+      fitCell(node, txt);
     });
   }
 
