@@ -172,8 +172,9 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
     - Supported models (9 in the mainland edition): step-5-preview (next-generation flagship base model), step-3.7-flash, step-3.5-flash-2603, step-3.5-flash, stepaudio-2.5-realtime, stepaudio-2.5-chat, stepaudio-2.5-tts, stepaudio-2.5-asr, step-router-v1 (intelligent routing between deepseek-v4-pro and step-3.5-flash); the international Step Plan supports 6 — step-5-preview, step-3.7-flash, step-3.5-flash, step-3.5-flash-2603, stepaudio-2.5-tts and stepaudio-2.5-asr — without stepaudio-2.5-realtime, stepaudio-2.5-chat or step-router-v1
 - [Xiaomi MiMo Token Plan (Personal Edition)](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite (39 RMB or 6 USD/month): 4.1B Credits per month; Standard (99 RMB or 16 USD): 11B; Pro (329 RMB or 50 USD): 38B; Max (659 RMB or 100 USD): 82B
-    - Supported models (6): MiMo-V2.6-Pro, MiMo-V2.6-Flash, MiMo-V2.5-ASR, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS
-    - **mimo-v2.5-pro and mimo-v2.5 were retired at 10:00 Beijing time on 2026-10-21**, leaving MiMo-V2.6-Pro and MiMo-V2.6-Flash as the only language models; the Credit-consumption rows for the two retired models (V2.5-Pro 2.5 / 300 / 600 and V2.5 2 / 100 / 200 Credits per token) were dropped with them
+    - Supported models (6; Pro and Max additionally cover mimo-v2.6-pro-ultraspeed): MiMo-V2.6-Pro, MiMo-V2.6-Flash, MiMo-V2.5-ASR, MiMo-V2.5-TTS-VoiceClone, MiMo-V2.5-TTS-VoiceDesign, MiMo-V2.5-TTS
+    - **mimo-v2.6-pro-ultraspeed** (Pro and Max tiers only) consumes 25 Credits per cached input token, 3,000 per uncached input token and 6,000 per output token — 10× MiMo-V2.6-Pro (2.5 / 300 / 600)
+    - **mimo-v2.5-pro and mimo-v2.5 were retired at 10:00 Beijing time on 2026-10-21**; the language models are now MiMo-V2.6-Pro, MiMo-V2.6-Flash and mimo-v2.6-pro-ultraspeed (Pro and Max only), and the Credit-consumption rows for the two retired models (V2.5-Pro 2.5 / 300 / 600 and V2.5 2 / 100 / 200 Credits per token) are gone
     - Discounts: 88% off first purchase, 88% off annual auto-renewal, 0.8× consumption at night (0:00–8:00)
 - [OpenCode Go](https://opencode.ai/v2/docs/console/go/)
     - Each model's list entry, token prices, monthly allowance and estimated request counts live on the OpenCode Console Go page (`https://opencode.ai/console/go` — models / pricing / limits), changing as models are added and tested
@@ -280,6 +281,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/19: The Xiaomi MiMo Token Plan (Personal Edition) added the language model **mimo-v2.6-pro-ultraspeed** (a highspeed variant) on the **Pro** (329 RMB/month) and **Max** (659 RMB/month) tiers only — it consumes 25 Credits per cached input token, 3,000 per uncached input token and 6,000 per output token, 10× MiMo-V2.6-Pro (2.5 / 300 / 600); the Lite (39 RMB/month) and Standard (99 RMB/month) tiers still cover MiMo-V2.6-Pro, MiMo-V2.6-Flash and the four MiMo-V2.5 audio models. The four tiers' prices and Credits allowances (4.1 / 11 / 38 / 82B per month), ASR at 30M Credits per hour, free TTS for a limited time, 88% off first purchase and annual auto-renewal, and 0.8× consumption at night are unchanged
 
 - 2026/11/19: Command Code added **Gemini 4 Neon** (1M context) on **Pro** only — token prices \$3.00 input / \$15.00 output / \$0.15 cache read per 1M tokens (no cache-write price), monthly credits Pro \$20 (the standard \$20 per model for the Gemini line), and estimated requests 310 per 5 hours, 775 per week and 1,550 per month. The library grew from 106 to 107 models and Pro's listing from 94 to **95**, while the model lists on Go (62) and GOAT (76) are unchanged. The plan prices (Go \$1, GOAT \$10, Pro \$20, Max 10x \$100, Max 20x \$200 and Provider \$15 per month plus processing fee), the tiers, and every other model's token prices and monthly credits are unchanged
 

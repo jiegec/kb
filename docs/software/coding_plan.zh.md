@@ -172,8 +172,9 @@
     - 支持模型（国内版 9 款）：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）；国际版 Step Plan 支持 6 款，为 step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603、stepaudio-2.5-tts、stepaudio-2.5-asr，不含 stepaudio-2.5-realtime、stepaudio-2.5-chat 与 step-router-v1
 - [小米 MiMo Token Plan 个人版](https://platform.xiaomimimo.com/#/docs/tokenplan/subscription)
     - Lite（39 RMB 或 6 USD 每月）：41 亿 Credits 每月；Standard（99 RMB 或 16 USD）：110 亿；Pro（329 RMB 或 50 USD）：380 亿；Max（659 RMB 或 100 USD）：820 亿
-    - 支持模型（6 款）：MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS
-    - **mimo-v2.5-pro、mimo-v2.5 已于北京时间 2026-10-21 10:00 正式下线**，语言模型仅剩 MiMo-V2.6-Pro 与 MiMo-V2.6-Flash，两款下线模型的额度消耗行（V2.5-Pro 2.5 / 300 / 600、V2.5 2 / 100 / 200 Credits 每 Token）随之移除
+    - 支持模型（6 款，Pro 与 Max 另支持 mimo-v2.6-pro-ultraspeed）：MiMo-V2.6-Pro、MiMo-V2.6-Flash、MiMo-V2.5-ASR、MiMo-V2.5-TTS-VoiceClone、MiMo-V2.5-TTS-VoiceDesign、MiMo-V2.5-TTS
+    - **mimo-v2.6-pro-ultraspeed**（Pro、Max 两档提供）的额度消耗为每 Token 命中缓存输入 25 Credits、未命中缓存输入 3,000 Credits、输出 6,000 Credits，为 MiMo-V2.6-Pro（2.5 / 300 / 600）的 10 倍
+    - **mimo-v2.5-pro、mimo-v2.5 已于北京时间 2026-10-21 10:00 正式下线**，语言模型现为 MiMo-V2.6-Pro、MiMo-V2.6-Flash 与 mimo-v2.6-pro-ultraspeed（仅 Pro、Max），两款下线模型的额度消耗行（V2.5-Pro 2.5 / 300 / 600、V2.5 2 / 100 / 200 Credits 每 Token）已移除
     - 折扣：套餐首购 88 折、连续包年 88 折、夜间（0:00–8:00）0.8 倍消耗
 - [OpenCode Go](https://opencode.ai/v2/docs/console/go/)
     - 各模型清单、token 价格、月额度与预估请求数以 OpenCode 控制台的 Go 页面（`https://opencode.ai/console/go` 的 models / pricing / limits 锚点）为准，随测试持续新增与调整
@@ -280,6 +281,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/19：小米 MiMo Token Plan 个人版的语言模型新增 **mimo-v2.6-pro-ultraspeed**（高速版），仅 **Pro**（329 元每月）与 **Max**（659 元每月）两档提供——额度消耗为每 Token 命中缓存输入 25 Credits、未命中缓存输入 3,000 Credits、输出 6,000 Credits，为 MiMo-V2.6-Pro（2.5 / 300 / 600）的 10 倍；Lite（39 元每月）与 Standard（99 元每月）两档的模型库仍为 MiMo-V2.6-Pro、MiMo-V2.6-Flash 及四款 MiMo-V2.5 语音模型。四档价格与 Credits 额度（41 / 110 / 380 / 820 亿每月）、ASR 每小时 30M Credits、TTS 系列限时免费、首购与连续包年 88 折、夜间 0.8 倍消耗等规则均未变
 
 - 2026/11/19：Command Code 新增 **Gemini 4 Neon**（1M 上下文），仅 **Pro** 档提供——token 价格输入 \$3.00 / 输出 \$15.00 / 缓存读取 \$0.15 每 1M tokens（无缓存写入价），月额度 Pro \$20（Gemini 系列常规为每模型 \$20），预估请求数 310 / 5 小时、775 / 周、1,550 / 月。模型库由 106 款增至 107 款，Pro 列出款数由 94 款增至 **95** 款，Go（62 款）与 GOAT（76 款）的模型清单未变。各套餐价格（Go \$1、GOAT \$10、Pro \$20、Max 10× \$100、Max 20× \$200、Provider \$15 每月 + 处理费）、档位与其余模型的 token 价格、月额度均未变
 
