@@ -104,6 +104,8 @@ BF16 和 FP16 的区别在于 BF16 是 1-8-7，而 FP16 是 1-5-10，所以 BF16
 
 只是因为 TF32 要用 32bit 来存一个数，所以瓶颈在数据位宽上，dot8 只需要用到它的一半，比如只用前四个乘积，后四个乘积置零，所以它每周期做的是 8x4x4 的 TF32。
 
+FP64 应该是单独的数据通路，因为每周期的吞吐是 2x4x2，应该就是 32 个 FP64 的 FMA 并行+流水起来，比如 d00 就等于 `FMA(a01,b10,FMA(a00,b00,c00))`，其中 FMA(a,b,c) 就是 IEEE-754 的 FMA，计算 `a*b+c`。
+
 ## 引用
 
 - NVIDIA, *NVIDIA Tesla V100 GPU Architecture* (whitepaper), 2017. <https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf>
