@@ -302,6 +302,13 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
 
 Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
 
+Tensor Core 除了支持 FP16 以外，还支持 INT8 和 INT4 支持。
+
+对于 FP16，依然是每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；TU102 有 72 个 SM，每个 SM 有 8 个 Tensor Core，Boost 频率 1770MHz，FP16 性能是 $72*8*1770*64*2=130.50$ TFLOPS。
+
+对于 INT8，每周期进行 2048 次运算，对应 $4\times8\times4$ 的 MMA，性能相比 FP16 翻倍。INT4 每周期进行 4096 次运算，对应 $4\times16\times4$ 的 MMA，性能进一步翻倍。
+
+详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
 
 ## NVIDIA Ampere
 
