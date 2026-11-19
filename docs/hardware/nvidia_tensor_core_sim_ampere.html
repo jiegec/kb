@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ampere Tensor Core 模拟器</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #fff; color: #1f2430;
+    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", Arial, sans-serif;
+  }
+  .wrap { padding: 12px 14px 16px; max-width: 1180px; margin: 0 auto; }
+  .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .toolbar .title { font-weight: 600; }
+  .toolbar label { display: flex; align-items: center; gap: 6px; }
+  select, button {
+    font: inherit; padding: 3px 8px; border: 1px solid #cfd5df; border-radius: 5px;
+    background: #fff; color: inherit; cursor: pointer;
+  }
+  button:hover { background: #f2f4f8; }
+  .note { color: #6b7280; font-size: 12px; }
+  .mats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .panel { background: #f8f9fb; border: 1px solid #e1e5ec; border-radius: 8px; padding: 8px 8px 9px; }
+  .panel h2 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: #374151; display: flex; gap: 6px; align-items: baseline; }
+  .panel h2 span { color: #8a94a6; font-weight: 400; }
+  .grid { display: grid; gap: 4px; }
+  .grid .h { color: #9aa3b2; font-size: 11px; text-align: center; line-height: 26px; }
+  .cell {
+    width: 46px; height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
+    background: #fff; color: #111827; padding: 0 3px;
+    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .cell.wide { width: 58px; }
+  input.cell { text-align: right; }
+  input.cell:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
+  button.cell { cursor: pointer; text-align: center; }
+  button.cell:hover { background: #eef2ff; }
+  .sel { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; }
+  .bottom { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 12px; margin-top: 12px; align-items: start; }
+  .trace {
+    margin: 0; max-height: 460px; overflow: auto; white-space: pre;
+    font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #111827; background: #fff; border: 1px solid #e5e9f0; border-radius: 6px; padding: 8px 10px;
+  }
+  .tip { margin: 8px 0 0; color: #8a94a6; font-size: 11px; }
+  @media (max-width: 760px) {
+    .bottom { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="toolbar">
+    <span class="title">Ampere MMA</span>
+    <label>数据格式
+      <select id="mode">
+        <option value="f16f32">FP16 → FP32（RZ）</option>
+        <option value="f16f16">FP16 → FP16（RNE）</option>
+        <option value="bf16f32">BF16 → FP32（RZ）</option>
+        <option value="tf32f32">TF32 → FP32（RZ）</option>
+        <option value="f64f64">FP64 → FP64（IEEE FMA 链）</option>
+      </select>
+    </label>
+    <button id="btnReset">重置</button>
+    <button id="btnRandom">随机</button>
+    <span class="note" id="note"></span>
+  </div>
+
+  <div class="mats">
+    <section class="panel"><h2>A <span id="aType"></span></h2><div class="grid" id="gridA"></div></section>
+    <section class="panel"><h2>B <span id="bType"></span></h2><div class="grid" id="gridB"></div></section>
+    <section class="panel"><h2>C <span id="cType"></span></h2><div class="grid" id="gridC"></div></section>
+  </div>
+
+  <div class="bottom">
+    <section class="panel">
+      <h2 id="traceTitle">dot 计算过程</h2>
+      <pre class="trace" id="trace"></pre>
+    </section>
+    <section class="panel">
+      <h2>D <span id="dType"></span></h2>
+      <div class="grid" id="gridD"></div>
+      <p class="tip">点击 D 的元素，左侧显示该元素的计算过程</p>
+    </section>
+  </div>
+</div>
+
+<script id="model">
+"use strict";
+
+// 每种输入格式：[尾数位数 p, 偏置 bias, 最小正规指数 minE, 最大有限值]
+const FMTS = {
+  f16:  { p: 10, bias: 15,  minE: -14,  maxV: 65504,               name: "FP16（1-5-10）" },
+  bf16: { p: 7,  bias: 127, minE: -126, maxV: 3.3895313892515355e38, name: "BF16（1-8-7）" },
+  tf32: { p: 10, bias: 127, minE: -126, maxV: 3.4028234663852886e38, name: "TF32（1-8-10）" },
+  f32:  { p: 23, bias: 127, minE: -126, maxV: 3.4028234663852886e38, name: "FP32（1-8-23）" },
+  f64:  { p: 52, bias: 1023, minE: -1022, maxV: Number.MAX_VALUE, name: "FP64（1-11-52）" }
+};
+
+// Ampere 的参数：L = 一次对齐的乘积数，F = 截断点
+// m×n×k 就是该格式下每个 TC 每周期的矩阵乘
+const MODES = {
+  f16f32:  { m: 8, n: 4, k: 8, L: 8, F: 24, in: "f16",  out: "f32", cFmt: "f32", label: "FP16 → FP32" },
+  f16f16:  { m: 8, n: 4, k: 8, L: 8, F: 24, in: "f16",  out: "f16", cFmt: "f16", label: "FP16 → FP16" },
+  bf16f32: { m: 8, n: 4, k: 8, L: 8, F: 24, in: "bf16", out: "f32", cFmt: "f32", label: "BF16 → FP32" },
+  tf32f32: { m: 8, n: 4, k: 4, L: 4, F: 24, in: "tf32", out: "f32", cFmt: "f32", label: "TF32 → FP32" },
+  f64f64:  { m: 2, n: 2, k: 4, L: 4, F: 0,  in: "f64",  out: "f64", cFmt: "f64", label: "FP64 → FP64" }
+};
+
+function exponentOf(a) {
+  let e = Math.floor(Math.log2(a));
+  while (Math.pow(2, e) > a) e--;
+  while (Math.pow(2, e + 1) <= a) e++;
+  return e;
+}
+
+function bitlen(x) {
+  let n = 0, v = Math.floor(x);
+  while (v >= 1) { v = Math.floor(v / 2); n++; }
+  return n;
+}
+
+// 把 v 舍入到 fmt；rz=true 表示截断（TF32 输入用），否则 RNE
+function roundToFmt(v, fmt, rz) {
+  if (fmt === "f64" || !isFinite(v) || v === 0) return v;
+  const F = FMTS[fmt];
+  const sign = v < 0 ? -1 : 1, a = Math.abs(v);
+  const e = exponentOf(a);
+  const q = e < F.minE ? Math.pow(2, F.minE - F.p) : Math.pow(2, e - F.p);
+  const x = a / q;
+  let n;
+  if (rz) {
+    n = Math.floor(x);
+  } else {
+    const n0 = Math.floor(x), rem = x - n0;
+    n = rem > 0.5 ? n0 + 1 : rem < 0.5 ? n0 : (n0 % 2 === 0 ? n0 : n0 + 1);
+  }
+  const r = n * q;
+  if (r > F.maxV) return sign * Infinity;
+  return sign * r;
+}
+
+// 拆解已落在 fmt 上的值：value = ±m · 2^E，m 是整数
+function decode(v, fmt) {
+  const F = FMTS[fmt];
+  if (!isFinite(v) || v === 0) return { sign: 0, m: 0, E: 0 };
+  const sign = v < 0 ? 1 : 0, a = Math.abs(v);
+  const e = exponentOf(a);
+  if (e < F.minE) return { sign: sign, m: a * Math.pow(2, F.p - F.minE), E: F.minE - F.p };
+  return { sign: sign, m: a * Math.pow(2, F.p - e), E: e - F.p };
+}
+
+function shiftTrunc(M, sh) {
+  return sh >= 0 ? M * Math.pow(2, sh) : Math.trunc(M / Math.pow(2, -sh));
+}
+
+function rneF16(v) {
+  return roundToFmt(v, "f16", false);
+}
+
+function rzF32(v) {
+  if (!isFinite(v) || v === 0) return v;
+  const sign = v < 0 ? -1 : 1, a = Math.abs(v);
+  const e = exponentOf(a);
+  const q = e >= -126 ? Math.pow(2, e - 23) : Math.pow(2, -149);
+  return sign * Math.trunc(a / q) * q;
+}
+
+function roundOut(v, fmt) {
+  if (fmt === "f16") return rneF16(v);
+  if (fmt === "f32") return rzF32(v);
+  return v;
+}
+
+// 输入先落到目标格式：TF32 用截断（和硬件一致），其余用 RNE；溢出/NaN 归零
+function quantize(v, fmt) {
+  if (fmt === "f64") return v;
+  if (typeof v !== "number" || !isFinite(v)) return 0;
+  // 先落到 FP32（硬件输入是 FP32），再转目标格式
+  const r = roundToFmt(Math.fround(v), fmt, fmt === "tf32");
+  return isFinite(r) ? r : 0;
+}
+
+/* ---------- FP64：精确的 IEEE-754 FMA（BigInt） ---------- */
+
+const DV = new DataView(new ArrayBuffer(8));
+
+function dec64(x) {
+  DV.setFloat64(0, x);
+  const hi = DV.getUint32(0), lo = DV.getUint32(4);
+  const neg = (hi >>> 31) === 1;
+  const exp = (hi >>> 20) & 0x7ff;
+  let m = (BigInt(hi & 0xfffff) << 32n) | BigInt(lo);
+  let E;
+  if (exp === 0) {
+    E = -1074;
+  } else {
+    m |= (1n << 52n);
+    E = exp - 1075;
+  }
+  if (m === 0n) return { neg: false, m: 0n, E: 0 };
+  return { neg: neg, m: m, E: E };
+}
+
+function roundToDouble(V, E) {
+  if (V === 0n) return 0;
+  const neg = V < 0n;
+  let M = neg ? -V : V;
+  const n = M.toString(2).length;
+  const eTop = E + n - 1;
+  if (eTop > 1023) return neg ? -Infinity : Infinity;
+  const lsb = eTop < -1022 ? -1074 : eTop - 52;
+  const shift = lsb - E;
+  let val;
+  if (shift <= 0) {
+    val = Number(M) * Math.pow(2, E);
+  } else {
+    let q = M >> BigInt(shift);
+    const rem = M - (q << BigInt(shift));
+    const half = 1n << BigInt(shift - 1);
+    if (rem > half || (rem === half && (q & 1n) === 1n)) q += 1n;
+    val = Number(q) * Math.pow(2, lsb);
+  }
+  return neg ? -val : val;
+}
+
+function fma64(a, b, c) {
+  if (!isFinite(a) || !isFinite(b) || !isFinite(c)) return a * b + c;
+  const A = dec64(a), B = dec64(b), C = dec64(c);
+  if (A.m === 0n || B.m === 0n) return c;
+  const pm = A.m * B.m;
+  const pE = A.E + B.E;
+  const pneg = A.neg !== B.neg;
+  if (C.m === 0n) return roundToDouble(pneg ? -pm : pm, pE);
+  const E0 = Math.min(pE, C.E);
+  const pShift = pE - E0, cShift = C.E - E0;
+  const V = (pneg ? -pm : pm) * (1n << BigInt(pShift)) + (C.neg ? -C.m : C.m) * (1n << BigInt(cShift));
+  return roundToDouble(V, E0);
+}
+
+/* ---------- 两种数据通路 ---------- */
+
+// 顺序 FMA 链（FP64）
+function f64Dot(A, B, C, i, j) {
+  const steps = [];
+  let acc = C[i][j];
+  for (let q = 0; q < 4; q++) {
+    const a = A[i][q], b = B[q][j], prev = acc;
+    acc = fma64(a, b, prev);
+    steps.push({ q: q, a: a, b: b, prev: prev, acc: acc });
+  }
+  return { kind: "fma", steps: steps, d: acc };
+}
+
+// 对齐 + 截断 + 定点求和（FP16/BF16/TF32）
+function alignedDot(A, B, C, i, j, modeName) {
+  const M0 = MODES[modeName];
+  const PIN = FMTS[M0.in].p, PC = FMTS[M0.cFmt].p;
+  const terms = [];
+  for (let q = 0; q < M0.k; q++) {
+    const a = quantize(A[i][q], M0.in), b = quantize(B[q][j], M0.in);
+    const da = decode(a, M0.in), db = decode(b, M0.in);
+    if (da.m === 0 || db.m === 0) {
+      terms.push({ q: q, a: a, b: b, zero: true, sign: da.sign ^ db.sign });
+      continue;
+    }
+    const M = da.m * db.m;
+    const E = da.E + db.E;
+    terms.push({
+      q: q, a: a, b: b, da: da, db: db,
+      M: M, E: E, e: E + 2 * PIN, sign: da.sign ^ db.sign
+    });
+  }
+  const passes = [];
+  let acc = quantize(C[i][j], M0.cFmt);
+  for (let start = 0; start < M0.k; start += M0.L) {
+    const chunk = terms.slice(start, start + M0.L);
+    const dc = decode(acc, M0.cFmt);
+    let emax = -Infinity;
+    for (const t of chunk) if (!t.zero) emax = Math.max(emax, t.e);
+    if (dc.m !== 0) emax = Math.max(emax, dc.E + PC);
+    if (!isFinite(emax)) emax = 0;
+    const csh = dc.m === 0 ? 0 : dc.E + M0.F - emax;
+    const ct = dc.m === 0 ? 0 : (dc.sign ? -1 : 1) * shiftTrunc(dc.m, csh);
+    let S = 0;
+    for (const t of chunk) {
+      if (t.zero) { t.sh = 0; t.t = 0; }
+      else {
+        t.sh = t.E + M0.F - emax;
+        t.t = (t.sign ? -1 : 1) * shiftTrunc(t.M, t.sh);
+      }
+      S += t.t;
+    }
+    S += ct;
+    const raw = S * Math.pow(2, emax - M0.F);
+    const out = roundOut(raw, M0.out);
+    passes.push({
+      chunk: chunk, emax: emax, cInit: acc, dc: dc, csh: csh, ct: ct,
+      S: S, raw: raw, out: out, F: M0.F
+    });
+    acc = out;
+  }
+  return { kind: "aligned", terms: terms, passes: passes, d: acc };
+}
+
+function ampDot(A, B, C, i, j, modeName) {
+  const M0 = MODES[modeName];
+  const A2 = A.map(function (row) { return row.slice(0, M0.k); });
+  const B2 = B.slice(0, M0.k);
+  return M0.out === "f64" ? f64Dot(A2, B2, C, i, j) : alignedDot(A2, B2, C, i, j, modeName);
+}
+
+function fmtNum(x) {
+  if (x === 0) return "0";
+  if (!isFinite(x)) return x > 0 ? "∞" : "-∞";
+  if (Number.isInteger(x) && Math.abs(x) < 1e15) return String(x);
+  const a = Math.abs(x);
+  if (a >= 1e6 || a < 1e-4) return x.toExponential(6).replace(/\.?0+e/, "e");
+  return String(Number(x.toPrecision(10)));
+}
+
+if (typeof module !== "undefined") {
+  module.exports = {
+    ampDot: ampDot, MODES: MODES, FMTS: FMTS,
+    roundToFmt: roundToFmt, quantize: quantize, decode: decode, fmtNum: fmtNum,
+    fma64: fma64, rneF16: rneF16, rzF32: rzF32
+  };
+}
+</script>
+
+<script>
+(function () {
+  "use strict";
+
+  const MAXM = 8, MAXN = 4, MAXK = 8;
+  const state = { mode: "f16f32", si: 0, sj: 0 };
+  const A = [], B = [], C = [];
+
+  const DEF_A = [
+    [1.5, -2, 0, 0.5, 1, -0.25, 0.75, 2],
+    [0.25, 1, 0, 0, -1.5, 0.5, 0, 3],
+    [0, 0, 1.25, -0.5, 2, 0, -0.75, 0.25],
+    [0.5, 0, 0, 2, 0, 1.5, 0, -1],
+    [0.75, -0.5, 1, 0, 0.25, 0, 2, -1.5],
+    [-1, 0.25, 0, 0.5, 0, 2, 0, 0.75],
+    [2, 0, -1.25, 0, 0.5, 0, 1, 0],
+    [0, 1.5, 0.5, -0.75, 0, -2, 0, 1.25]
+  ];
+  const DEF_B = [
+    [1, 0, 0.5, 0],
+    [0, 1.5, 0, 0],
+    [0.5, 0, 1, 0],
+    [0, 0, 0, 1.25],
+    [0.25, 0, 0, 0],
+    [0, -0.5, 0, 0],
+    [0, 0, 2, 0],
+    [1, 0, 0, -0.25]
+  ];
+
+  function fillDefault() {
+    for (let i = 0; i < MAXM; i++) {
+      A[i] = DEF_A[i % DEF_A.length].slice();
+      C[i] = [0, 0, 0, 0];
+    }
+    for (let q = 0; q < MAXK; q++) B[q] = DEF_B[q % DEF_B.length].slice();
+    C[0][0] = 0.125;
+  }
+
+  const POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, -0.125, 0, 0.125, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
+
+  function randomize() {
+    for (let i = 0; i < MAXM; i++) {
+      for (let q = 0; q < MAXK; q++) A[i][q] = POOL[Math.floor(Math.random() * POOL.length)];
+      for (let j = 0; j < MAXN; j++) C[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+    }
+    for (let q = 0; q < MAXK; q++)
+      for (let j = 0; j < MAXN; j++) B[q][j] = POOL[Math.floor(Math.random() * POOL.length)];
+  }
+
+  const modeSel = document.getElementById("mode");
+  const noteEl = document.getElementById("note");
+  const traceEl = document.getElementById("trace");
+  const traceTitle = document.getElementById("traceTitle");
+  const typed = {
+    a: document.getElementById("aType"), b: document.getElementById("bType"),
+    c: document.getElementById("cType"), d: document.getElementById("dType")
+  };
+
+  function shape() {
+    const m = MODES[state.mode];
+    return { m: m.m, n: m.n, k: m.k, in: m.in, out: m.out, cFmt: m.cFmt, L: m.L, F: m.F };
+  }
+
+  function buildGrid(hostId, name, rows, cols, interactive) {
+    const host = document.getElementById(hostId);
+    host.innerHTML = "";
+    host.style.gridTemplateColumns = "16px repeat(" + cols + ", 46px)";
+    const corner = document.createElement("div");
+    corner.className = "h";
+    host.appendChild(corner);
+    for (let j = 0; j < cols; j++) {
+      const h = document.createElement("div");
+      h.className = "h";
+      h.textContent = j;
+      host.appendChild(h);
+    }
+    for (let i = 0; i < rows; i++) {
+      const h = document.createElement("div");
+      h.className = "h";
+      h.textContent = i;
+      host.appendChild(h);
+      for (let j = 0; j < cols; j++) {
+        let node;
+        if (interactive) {
+          node = document.createElement("input");
+          node.type = "text";
+          node.inputMode = "decimal";
+          node.className = "cell";
+          node.dataset.name = name;
+          node.dataset.i = String(i);
+          node.dataset.j = String(j);
+          node.value = fmtNum(get(name, i, j));
+          node.addEventListener("input", function () { render(); });
+          node.addEventListener("change", function () { set(name, i, j, parseFloat(node.value)); render(); });
+        } else {
+          node = document.createElement("button");
+          node.type = "button";
+          node.className = "cell";
+          node.dataset.name = name;
+          node.dataset.i = String(i);
+          node.dataset.j = String(j);
+          node.addEventListener("click", function () { state.si = i; state.sj = j; render(); });
+        }
+        host.appendChild(node);
+      }
+    }
+  }
+
+  function get(name, i, j) {
+    if (name === "A") return A[i][j];
+    if (name === "B") return B[i][j];
+    return C[i][j];
+  }
+  function set(name, i, j, v) {
+    if (!isFinite(v)) v = 0;
+    if (name === "A") A[i][j] = v;
+    else if (name === "B") B[i][j] = v;
+    else C[i][j] = v;
+  }
+
+  function rebuild() {
+    const s = shape();
+    if (state.si >= s.m) state.si = s.m - 1;
+    if (state.sj >= s.n) state.sj = s.n - 1;
+    buildGrid("gridA", "A", s.m, s.k, true);
+    buildGrid("gridB", "B", s.k, s.n, true);
+    buildGrid("gridC", "C", s.m, s.n, true);
+    buildGrid("gridD", "D", s.m, s.n, false);
+    typed.a.textContent = s.m + "×" + s.k + " " + FMTS[s.in].name;
+    typed.b.textContent = s.k + "×" + s.n + " " + FMTS[s.in].name;
+    typed.c.textContent = s.m + "×" + s.n + " " + FMTS[s.cFmt].name;
+    typed.d.textContent = s.m + "×" + s.n + " " + FMTS[s.out].name;
+    if (s.out === "f64") {
+      noteEl.textContent = "每周期 " + s.m + "×" + s.n + "×" + s.k + "，IEEE FMA 链（每加一项舍入一次）";
+    } else {
+      noteEl.textContent = "每周期 " + s.m + "×" + s.n + "×" + s.k + "，" +
+        (s.L < s.k ? "每次对齐 " + s.L + " 项（分 " + (s.k / s.L) + " 次）" : "一次对齐 " + s.L + " 项") +
+        "，F = " + s.F;
+    }
+    traceTitle.textContent = "D[" + state.si + "][" + state.sj + "] 的计算过程";
+  }
+
+  function drawValues(D) {
+    document.querySelectorAll('[data-name="D"]').forEach(function (node) {
+      const i = +node.dataset.i, j = +node.dataset.j;
+      node.textContent = fmtNum(D[i][j]);
+      if (i === state.si && j === state.sj) node.classList.add("sel");
+      else node.classList.remove("sel");
+    });
+    document.querySelectorAll("input.cell").forEach(function (node) {
+      if (document.activeElement === node) return;
+      node.value = fmtNum(get(node.dataset.name, +node.dataset.i, +node.dataset.j));
+    });
+  }
+
+  function render() {
+    const s = shape();
+    const D = [];
+    for (let i = 0; i < s.m; i++) {
+      D[i] = [];
+      for (let j = 0; j < s.n; j++) D[i][j] = ampDot(A, B, C, i, j, state.mode).d;
+    }
+    drawValues(D);
+    traceEl.textContent = traceOf(ampDot(A, B, C, state.si, state.sj, state.mode));
+  }
+
+  function traceOf(res) {
+    const lines = [];
+    const m = MODES[state.mode];
+    if (res.kind === "fma") {
+      lines.push("FP64：顺序 FMA 链（每步都是一次 IEEE-754 舍入）");
+      lines.push("d = C[" + state.si + "][" + state.sj + "] = " + fmtNum(res.steps[0].prev));
+      for (const st of res.steps) {
+        lines.push("d = FMA(" + fmtNum(st.a) + ", " + fmtNum(st.b) + ", " + fmtNum(st.prev) + ") = " + fmtNum(st.acc));
+      }
+      lines.push("");
+      lines.push("D[" + state.si + "][" + state.sj + "] = " + fmtNum(res.d));
+      return lines.join("\n");
+    }
+    lines.push(m.label + "：每周期 " + m.m + "×" + m.n + "×" + m.k + "，每次对齐 " + m.L + " 项，F = " + m.F);
+    lines.push("");
+    lines.push("# 拆字段（" + FMTS[m.in].name + "），value = ±m · 2^E");
+    for (const t of res.terms) {
+      if (t.zero) { lines.push(" q=" + t.q + ": 乘积为 0"); continue; }
+      lines.push(" q=" + t.q + ": a=" + fmtNum(t.a) + " (m=" + t.da.m + ",E=" + t.da.E + ")" +
+        "  b=" + fmtNum(t.b) + " (m=" + t.db.m + ",E=" + t.db.E + ")" +
+        "  M=" + t.M + "(" + bitlen(t.M) + "b)  E=" + t.E + "  e=" + t.e + "  s=" + t.sign);
+    }
+    lines.push("");
+    for (let p = 0; p < res.passes.length; p++) {
+      const ps = res.passes[p];
+      lines.push("# 第 " + (p + 1) + " 次对齐：" + ps.chunk.length + " 个乘积 + C，按 e_max 截断到 2^(e_max-" + ps.F + ")");
+      lines.push(" C 初值 = " + fmtNum(ps.cInit) + "  (m=" + ps.dc.m + ",E=" + ps.dc.E + ")");
+      lines.push(" e_max = " + ps.emax);
+      for (const t of ps.chunk) {
+        if (t.zero) { lines.push("  q=" + t.q + ": 0"); continue; }
+        lines.push("  q=" + t.q + ": sh=" + t.sh + "  t=" + t.t);
+      }
+      lines.push("  C: sh=" + ps.csh + "  t=" + ps.ct);
+      lines.push(" S = " + ps.S + "   (定点，单位 2^(e_max-" + ps.F + "))");
+      lines.push(" d = S * 2^(e_max-" + ps.F + ") = " + fmtNum(ps.raw));
+      lines.push(" → " + (m.out === "f16" ? "RNE_FP16" : "RZ_FP32") + " = " + fmtNum(ps.out));
+      if (p + 1 < res.passes.length) lines.push("");
+    }
+    lines.push("");
+    lines.push("D[" + state.si + "][" + state.sj + "] = " + fmtNum(res.d));
+    return lines.join("\n");
+  }
+
+  document.getElementById("btnReset").addEventListener("click", function () {
+    fillDefault();
+    rebuild();
+    render();
+  });
+  document.getElementById("btnRandom").addEventListener("click", function () {
+    randomize();
+    rebuild();
+    render();
+  });
+  modeSel.addEventListener("change", function () {
+    state.mode = modeSel.value;
+    rebuild();
+    render();
+  });
+
+  fillDefault();
+  rebuild();
+  render();
+})();
+</script>
+</body>
+</html>

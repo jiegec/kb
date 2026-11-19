@@ -96,7 +96,7 @@ dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,
 .tc-sim { width: 100%; height: 880px; border: 0; }
 @media (max-width: 760px) { .tc-sim { height: 1280px; } }
 </style>
-<iframe class="tc-sim" src="nvidia_tensor_core_sim.html" title="Volta Tensor Core 4×4×4 模拟器" loading="lazy"></iframe>
+<iframe class="tc-sim" src="nvidia_tensor_core_sim_volta.html" title="Volta Tensor Core 4×4×4 模拟器" loading="lazy"></iframe>
 
 ## Turing
 
@@ -117,6 +117,16 @@ BF16 和 FP16 的区别在于 BF16 是 1-8-7，而 FP16 是 1-5-10，所以 BF16
 FP64 应该是单独的数据通路，因为每周期的吞吐是 2x2x4，应该就是 16 个 FP64 的 FMA 并行+流水起来，比如 d00 就等于 `FMA(a03,b30,FMA(a02,b20,FMA(a01,b10,FMA(a00,b00,c00))))`，其中 FMA(a,b,c) 就是 IEEE-754 的 FMA，计算 `a*b+c`。所以它和 FP16 的搞法不同，FP16 是把几个乘积和 C 在中间一起对齐和累加，而 FP64 的 FMA 是每加一个元素就重新对齐和累加一次。
 
 上面讨论的都是数据中心级 Ampere（GA100）。消费级 Ampere（GA102）的 TC 吞吐更低：FP16 减半，累加到 FP32 时只有四分之一。
+
+### 模拟器
+
+下面是一个模拟器，画的是一个 TC 一个周期的矩阵乘：FP16/BF16 是 $8\times4\times8$，TF32 是 $8\times4\times4$，FP64 是 $2\times2\times4$；点击 D 的任意元素，左侧会显示该元素的计算过程。
+
+<style>
+.tc-sim-amp { width: 100%; height: 960px; border: 0; }
+@media (max-width: 760px) { .tc-sim-amp { height: 1600px; } }
+</style>
+<iframe class="tc-sim-amp" src="nvidia_tensor_core_sim_ampere.html" title="Ampere Tensor Core 模拟器" loading="lazy"></iframe>
 
 ## Ada Lovelace
 
