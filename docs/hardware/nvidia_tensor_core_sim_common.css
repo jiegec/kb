@@ -1,0 +1,46 @@
+/* Tensor Core 模拟器共用样式。每个页面用 --cw / --cf 调整格子宽度和字号。 */
+:root { --cw: 48px; --cf: 10px; }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #fff; color: #1f2430;
+  font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", Arial, sans-serif;
+}
+.wrap { padding: 12px 14px 16px; max-width: 1180px; margin: 0 auto; }
+.toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.toolbar .title { font-weight: 600; }
+.toolbar label { display: flex; align-items: center; gap: 6px; }
+select, button {
+  font: inherit; padding: 3px 8px; border: 1px solid #cfd5df; border-radius: 5px;
+  background: #fff; color: inherit; cursor: pointer;
+}
+button:hover { background: #f2f4f8; }
+.note { color: #6b7280; font-size: 12px; }
+.mats { display: flex; gap: 12px; flex-wrap: wrap; }
+.panel { background: #f8f9fb; border: 1px solid #e1e5ec; border-radius: 8px; padding: 8px 8px 9px; }
+.panel h2 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: #374151; display: flex; gap: 6px; align-items: baseline; }
+.panel h2 span { color: #8a94a6; font-weight: 400; }
+.grid { display: grid; gap: 4px; }
+.grid .h { color: #9aa3b2; font-size: 11px; text-align: center; line-height: 26px; }
+.cell {
+  width: var(--cw); height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
+  background: #fff; color: #111827; padding: 0 3px; overflow: hidden;
+  font: var(--cf)/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.cell.small { font-size: calc(var(--cf) - 1px); }
+input.cell { text-align: right; }
+input.cell:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
+button.cell { cursor: pointer; text-align: center; }
+button.cell:hover { background: #eef2ff; }
+.hl { background: #fff7d6 !important; border-color: #e0b100 !important; }
+.sel { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; }
+.bottom { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 12px; margin-top: 12px; align-items: start; }
+.trace {
+  margin: 0; max-height: 460px; overflow: auto; white-space: pre;
+  font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #111827; background: #fff; border: 1px solid #e5e9f0; border-radius: 6px; padding: 8px 10px;
+}
+.tip { margin: 8px 0 0; color: #8a94a6; font-size: 11px; }
+@media (max-width: 760px) {
+  .bottom { grid-template-columns: 1fr; }
+}

@@ -4,50 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ampere Tensor Core 模拟器</title>
+<link rel="stylesheet" href="nvidia_tensor_core_sim_common.css">
+<script src="nvidia_tensor_core_sim_common.js"></script>
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: #fff; color: #1f2430;
-    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", Arial, sans-serif;
-  }
-  .wrap { padding: 12px 14px 16px; max-width: 1180px; margin: 0 auto; }
-  .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-  .toolbar .title { font-weight: 600; }
-  .toolbar label { display: flex; align-items: center; gap: 6px; }
-  select, button {
-    font: inherit; padding: 3px 8px; border: 1px solid #cfd5df; border-radius: 5px;
-    background: #fff; color: inherit; cursor: pointer;
-  }
-  button:hover { background: #f2f4f8; }
-  .note { color: #6b7280; font-size: 12px; }
-  .mats { display: flex; gap: 12px; flex-wrap: wrap; }
-  .panel { background: #f8f9fb; border: 1px solid #e1e5ec; border-radius: 8px; padding: 8px 8px 9px; }
-  .panel h2 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: #374151; display: flex; gap: 6px; align-items: baseline; }
-  .panel h2 span { color: #8a94a6; font-weight: 400; }
-  .grid { display: grid; gap: 4px; }
-  .grid .h { color: #9aa3b2; font-size: 11px; text-align: center; line-height: 26px; }
-  .cell {
-    width: 48px; height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
-    background: #fff; color: #111827; padding: 0 3px; overflow: hidden;
-    font: 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
-  .cell.small { font-size: 9px; }
-  .cell.wide { width: 58px; }
-  input.cell { text-align: right; }
-  input.cell:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
-  button.cell { cursor: pointer; text-align: center; }
-  button.cell:hover { background: #eef2ff; }
-  .sel { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; }
-  .bottom { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 12px; margin-top: 12px; align-items: start; }
-  .trace {
-    margin: 0; max-height: 460px; overflow: auto; white-space: pre;
-    font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: #111827; background: #fff; border: 1px solid #e5e9f0; border-radius: 6px; padding: 8px 10px;
-  }
-  .tip { margin: 8px 0 0; color: #8a94a6; font-size: 11px; }
-  @media (max-width: 760px) {
-    .bottom { grid-template-columns: 1fr; }
-  }
+  :root { --cw: 48px; --cf: 10px; }
 </style>
 </head>
 <body>
@@ -55,13 +15,7 @@
   <div class="toolbar">
     <span class="title">Ampere MMA</span>
     <label>数据格式
-      <select id="mode">
-        <option value="f16f32">FP16 → FP32（RZ）</option>
-        <option value="f16f16">FP16 → FP16（RNE）</option>
-        <option value="bf16f32">BF16 → FP32（RZ）</option>
-        <option value="tf32f32">TF32 → FP32（RZ）</option>
-        <option value="f64f64">FP64 → FP64（IEEE FMA 链）</option>
-      </select>
+      <select id="mode"></select>
     </label>
     <button id="btnReset">重置</button>
     <button id="btnRandom">随机</button>
@@ -76,7 +30,7 @@
 
   <div class="bottom">
     <section class="panel">
-      <h2 id="traceTitle">dot 计算过程</h2>
+      <h2 id="traceTitle">计算过程</h2>
       <pre class="trace" id="trace"></pre>
     </section>
     <section class="panel">
@@ -335,7 +289,6 @@ if (typeof module !== "undefined") {
   "use strict";
 
   const MAXM = 8, MAXN = 4, MAXK = 8;
-  const state = { mode: "f16f32", si: 0, sj: 0 };
   const A = [], B = [], C = [];
 
   const DEF_A = [
@@ -358,6 +311,8 @@ if (typeof module !== "undefined") {
     [0, 0, 2, 0],
     [1, 0, 0, -0.25]
   ];
+  const POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, -0.125, 0, 0.125, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
+  const n = TC.fmtNum;
 
   function fillDefault() {
     for (let i = 0; i < MAXM; i++) {
@@ -368,228 +323,80 @@ if (typeof module !== "undefined") {
     C[0][0] = 0.125;
   }
 
-  const POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, -0.125, 0, 0.125, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
-
   function randomize() {
     for (let i = 0; i < MAXM; i++) {
       for (let q = 0; q < MAXK; q++) A[i][q] = POOL[Math.floor(Math.random() * POOL.length)];
       for (let j = 0; j < MAXN; j++) C[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
     }
-    for (let q = 0; q < MAXK; q++)
+    for (let q = 0; q < MAXK; q++) {
       for (let j = 0; j < MAXN; j++) B[q][j] = POOL[Math.floor(Math.random() * POOL.length)];
-  }
-
-  const modeSel = document.getElementById("mode");
-  const noteEl = document.getElementById("note");
-  const traceEl = document.getElementById("trace");
-  const traceTitle = document.getElementById("traceTitle");
-  const typed = {
-    a: document.getElementById("aType"), b: document.getElementById("bType"),
-    c: document.getElementById("cType"), d: document.getElementById("dType")
-  };
-
-  function shape() {
-    const m = MODES[state.mode];
-    return { m: m.m, n: m.n, k: m.k, in: m.in, out: m.out, cFmt: m.cFmt, L: m.L, F: m.F };
-  }
-
-  function buildGrid(hostId, name, rows, cols, interactive) {
-    const host = document.getElementById(hostId);
-    host.innerHTML = "";
-    host.style.gridTemplateColumns = "16px repeat(" + cols + ", 48px)";
-    const corner = document.createElement("div");
-    corner.className = "h";
-    host.appendChild(corner);
-    for (let j = 0; j < cols; j++) {
-      const h = document.createElement("div");
-      h.className = "h";
-      h.textContent = j;
-      host.appendChild(h);
-    }
-    for (let i = 0; i < rows; i++) {
-      const h = document.createElement("div");
-      h.className = "h";
-      h.textContent = i;
-      host.appendChild(h);
-      for (let j = 0; j < cols; j++) {
-        let node;
-        if (interactive) {
-          node = document.createElement("input");
-          node.type = "text";
-          node.inputMode = "decimal";
-          node.className = "cell";
-          node.dataset.name = name;
-          node.dataset.i = String(i);
-          node.dataset.j = String(j);
-          node.value = fmtNum(get(name, i, j));
-          node.addEventListener("input", function () { render(); });
-          node.addEventListener("change", function () { set(name, i, j, parseFloat(node.value)); render(); });
-        } else {
-          node = document.createElement("button");
-          node.type = "button";
-          node.className = "cell";
-          node.dataset.name = name;
-          node.dataset.i = String(i);
-          node.dataset.j = String(j);
-          node.addEventListener("click", function () { state.si = i; state.sj = j; render(); });
-        }
-        host.appendChild(node);
-      }
     }
   }
 
-  function get(name, i, j) {
-    if (name === "A") return A[i][j];
-    if (name === "B") return B[i][j];
-    return C[i][j];
-  }
-  function set(name, i, j, v) {
-    if (!isFinite(v)) v = 0;
-    if (name === "A") A[i][j] = v;
-    else if (name === "B") B[i][j] = v;
-    else C[i][j] = v;
-  }
-
-  function rebuild() {
-    const s = shape();
-    if (state.si >= s.m) state.si = s.m - 1;
-    if (state.sj >= s.n) state.sj = s.n - 1;
-    buildGrid("gridA", "A", s.m, s.k, true);
-    buildGrid("gridB", "B", s.k, s.n, true);
-    buildGrid("gridC", "C", s.m, s.n, true);
-    buildGrid("gridD", "D", s.m, s.n, false);
-    typed.a.textContent = s.m + "×" + s.k + " " + FMTS[s.in].name;
-    typed.b.textContent = s.k + "×" + s.n + " " + FMTS[s.in].name;
-    typed.c.textContent = s.m + "×" + s.n + " " + FMTS[s.cFmt].name;
-    typed.d.textContent = s.m + "×" + s.n + " " + FMTS[s.out].name;
-    if (s.out === "f64") {
-      noteEl.textContent = "每周期 " + s.m + "×" + s.n + "×" + s.k + "，IEEE FMA 链（每加一项舍入一次）";
-    } else {
-      noteEl.textContent = "每周期 " + s.m + "×" + s.n + "×" + s.k + "，" +
-        (s.L < s.k ? "每次对齐 " + s.L + " 项（分 " + (s.k / s.L) + " 次）" : "一次对齐 " + s.L + " 项") +
-        "，F = " + s.F;
-    }
-    traceTitle.textContent = "D[" + state.si + "][" + state.sj + "] 的计算过程";
-  }
-
-  // 格子放不下时用更短的写法，完整值挂在 title 上
-  function cellText(v) {
-    const full = fmtNum(v);
-    if (full.length <= 8) return full;
-    if (!isFinite(v) || v === 0) return full;
-    for (let p = 6; p >= 1; p--) {
-      const short = String(Number(v.toPrecision(p))).replace("e+", "e");
-      if (short.length <= 8) return short;
-    }
-    for (let p = 3; p >= 0; p--) {
-      const short = v.toExponential(p).replace("e+", "e");
-      if (short.length <= 8) return short;
-    }
-    return String(v).replace("e+", "e");
-  }
-
-  function fitCell(node, text) {
-    if (text.length >= 8) node.classList.add("small");
-    else node.classList.remove("small");
-  }
-
-  function drawValues(D) {
-    document.querySelectorAll('[data-name="D"]').forEach(function (node) {
-      const i = +node.dataset.i, j = +node.dataset.j;
-      const v = D[i][j];
-      const txt = cellText(v);
-      node.textContent = txt;
-      node.title = fmtNum(v);
-      fitCell(node, txt);
-      if (i === state.si && j === state.sj) node.classList.add("sel");
-      else node.classList.remove("sel");
-    });
-    document.querySelectorAll("input.cell").forEach(function (node) {
-      if (document.activeElement === node) return;
-      const txt = fmtNum(get(node.dataset.name, +node.dataset.i, +node.dataset.j));
-      node.value = txt;
-      node.title = txt;
-      fitCell(node, txt);
-    });
-  }
-
-  function render() {
-    const s = shape();
-    const D = [];
-    for (let i = 0; i < s.m; i++) {
-      D[i] = [];
-      for (let j = 0; j < s.n; j++) D[i][j] = ampDot(A, B, C, i, j, state.mode).d;
-    }
-    drawValues(D);
-    traceEl.textContent = traceOf(ampDot(A, B, C, state.si, state.sj, state.mode));
-  }
-
-  function traceOf(res) {
-    const lines = [];
-    const m = MODES[state.mode];
+  function traceOf(res, mode, si, sj) {
+    const L = [];
+    const m = MODES[mode];
     if (res.kind === "fma") {
-      lines.push("FP64：顺序 FMA 链（每步都是一次 IEEE-754 舍入）");
-      lines.push("d = C[" + state.si + "][" + state.sj + "] = " + fmtNum(res.steps[0].prev));
+      L.push("FP64：顺序 FMA 链（每步都是一次 IEEE-754 舍入）");
+      L.push("d = C[" + si + "][" + sj + "] = " + n(res.steps[0].prev));
       for (const st of res.steps) {
-        lines.push("d = FMA(" + fmtNum(st.a) + ", " + fmtNum(st.b) + ", " + fmtNum(st.prev) + ") = " + fmtNum(st.acc));
+        L.push("d = FMA(" + n(st.a) + ", " + n(st.b) + ", " + n(st.prev) + ") = " + n(st.acc));
       }
-      lines.push("");
-      lines.push("D[" + state.si + "][" + state.sj + "] = " + fmtNum(res.d));
-      return lines.join("\n");
+      L.push("");
+      L.push("D[" + si + "][" + sj + "] = " + n(res.d));
+      return L.join("\n");
     }
-    lines.push(m.label + "：每周期 " + m.m + "×" + m.n + "×" + m.k + "，" +
+    L.push(m.label + "：每周期 " + m.m + "×" + m.n + "×" + m.k + "，" +
       (m.L < m.k ? "每次对齐 " + m.L + " 项，分 " + (m.k / m.L) + " 次" : "一次对齐 " + m.L + " 项") +
       "，F = " + m.F);
-    lines.push("");
-    lines.push("# 拆字段（" + FMTS[m.in].name + "），value = ±m · 2^E");
+    L.push("");
+    L.push("# 拆字段（" + FMTS[m.in].name + "），value = ±m · 2^E");
     for (const t of res.terms) {
-      if (t.zero) { lines.push(" q=" + t.q + ": 乘积为 0"); continue; }
-      lines.push(" q=" + t.q + ": a=" + fmtNum(t.a) + " (m=" + t.da.m + ",E=" + t.da.E + ")" +
-        "  b=" + fmtNum(t.b) + " (m=" + t.db.m + ",E=" + t.db.E + ")" +
+      if (t.zero) { L.push(" q=" + t.q + ": 乘积为 0"); continue; }
+      L.push(" q=" + t.q + ": a=" + n(t.a) + " (m=" + t.da.m + ",E=" + t.da.E + ")" +
+        "  b=" + n(t.b) + " (m=" + t.db.m + ",E=" + t.db.E + ")" +
         "  M=" + t.M + "(" + bitlen(t.M) + "b)  E=" + t.E + "  e=" + t.e + "  s=" + t.sign);
     }
-    lines.push("");
+    L.push("");
     for (let p = 0; p < res.passes.length; p++) {
       const ps = res.passes[p];
       const head = res.passes.length > 1 ? "# 第 " + (p + 1) + " 次对齐：" : "# 对齐：";
-      lines.push(head + ps.chunk.length + " 个乘积 + C，按 e_max 截断到 2^(e_max-" + ps.F + ")");
-      lines.push(" C 初值 = " + fmtNum(ps.cInit) + "  (m=" + ps.dc.m + ",E=" + ps.dc.E + ")");
-      lines.push(" e_max = " + ps.emax);
+      L.push(head + ps.chunk.length + " 个乘积 + C，按 e_max 截断到 2^(e_max-" + ps.F + ")");
+      L.push(" C 初值 = " + n(ps.cInit) + "  (m=" + ps.dc.m + ",E=" + ps.dc.E + ")");
+      L.push(" e_max = " + ps.emax);
       for (const t of ps.chunk) {
-        if (t.zero) { lines.push("  q=" + t.q + ": 0"); continue; }
-        lines.push("  q=" + t.q + ": sh=" + t.sh + "  t=" + t.t);
+        if (t.zero) { L.push("  q=" + t.q + ": 0"); continue; }
+        L.push("  q=" + t.q + ": sh=" + t.sh + "  t=" + t.t);
       }
-      lines.push("  C: sh=" + ps.csh + "  t=" + ps.ct);
-      lines.push(" S = " + ps.S + "   (定点，单位 2^(e_max-" + ps.F + "))");
-      lines.push(" d = S * 2^(e_max-" + ps.F + ") = " + fmtNum(ps.raw));
-      lines.push(" → " + (m.out === "f16" ? "RNE_FP16" : "RZ_FP32") + " = " + fmtNum(ps.out));
-      if (p + 1 < res.passes.length) lines.push("");
+      L.push("  C: sh=" + ps.csh + "  t=" + ps.ct);
+      L.push(" S = " + ps.S + "   (定点，单位 2^(e_max-" + ps.F + "))");
+      L.push(" d = S * 2^(e_max-" + ps.F + ") = " + n(ps.raw));
+      L.push(" → " + (m.out === "f16" ? "RNE_FP16" : "RZ_FP32") + " = " + n(ps.out));
+      if (p + 1 < res.passes.length) L.push("");
     }
-    lines.push("");
-    lines.push("D[" + state.si + "][" + state.sj + "] = " + fmtNum(res.d));
-    return lines.join("\n");
+    L.push("");
+    L.push("D[" + si + "][" + sj + "] = " + n(res.d));
+    return L.join("\n");
   }
 
-  document.getElementById("btnReset").addEventListener("click", function () {
-    fillDefault();
-    rebuild();
-    render();
+  TC.sim({
+    defaultMode: "f16f32",
+    modes: MODES,
+    data: { A: A, B: B, C: C },
+    fmtName: function (f) { return FMTS[f].name; },
+    note: function (s) {
+      if (s.out === "f64") return "每周期 " + s.m + "×" + s.n + "×" + s.k + "，IEEE FMA 链（每加一项舍入一次）";
+      return "每周期 " + s.m + "×" + s.n + "×" + s.k + "，" +
+        (s.L < s.k ? "每次对齐 " + s.L + " 项（分 " + (s.k / s.L) + " 次）" : "一次对齐 " + s.L + " 项") +
+        "，F = " + s.F;
+    },
+    compute: function (A0, B0, C0, i, j, mode) { return ampDot(A0, B0, C0, i, j, mode); },
+    trace: traceOf,
+    reset: fillDefault,
+    random: randomize
   });
-  document.getElementById("btnRandom").addEventListener("click", function () {
-    randomize();
-    rebuild();
-    render();
-  });
-  modeSel.addEventListener("change", function () {
-    state.mode = modeSel.value;
-    rebuild();
-    render();
-  });
-
-  fillDefault();
-  rebuild();
-  render();
 })();
+
 </script>
 </body>
 </html>

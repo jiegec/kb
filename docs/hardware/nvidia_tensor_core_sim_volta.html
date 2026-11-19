@@ -4,49 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Volta Tensor Core 4×4×4 模拟器</title>
+<link rel="stylesheet" href="nvidia_tensor_core_sim_common.css">
+<script src="nvidia_tensor_core_sim_common.js"></script>
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: #fff; color: #1f2430;
-    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", Arial, sans-serif;
-  }
-  .wrap { padding: 12px 14px 16px; max-width: 1000px; margin: 0 auto; }
-  .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-  .toolbar .title { font-weight: 600; }
-  .toolbar label { display: flex; align-items: center; gap: 6px; }
-  select, button {
-    font: inherit; padding: 3px 8px; border: 1px solid #cfd5df; border-radius: 5px;
-    background: #fff; color: inherit; cursor: pointer;
-  }
-  button:hover { background: #f2f4f8; }
-  .note { color: #6b7280; font-size: 12px; }
-  .mats { display: flex; gap: 12px; flex-wrap: wrap; }
-  .panel { background: #f8f9fb; border: 1px solid #e1e5ec; border-radius: 8px; padding: 8px 8px 9px; }
-  .panel h2 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: #374151; display: flex; gap: 6px; align-items: baseline; }
-  .panel h2 span { color: #8a94a6; font-weight: 400; }
-  .grid { display: grid; grid-template-columns: 16px repeat(4, 52px); gap: 4px; }
-  .grid .h { color: #9aa3b2; font-size: 11px; text-align: center; line-height: 26px; }
-  .cell {
-    width: 52px; height: 26px; border: 1px solid #d7dce5; border-radius: 4px;
-    background: #fff; color: #111827; padding: 0 3px;
-    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
-  input.cell { text-align: right; }
-  input.cell:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
-  button.cell { cursor: pointer; text-align: center; }
-  button.cell:hover { background: #eef2ff; }
-  .hl { background: #fff7d6 !important; border-color: #e0b100 !important; }
-  .sel { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; }
-  .bottom { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 12px; margin-top: 12px; align-items: start; }
-  .trace {
-    margin: 0; max-height: 430px; overflow: auto; white-space: pre;
-    font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: #111827; background: #fff; border: 1px solid #e5e9f0; border-radius: 6px; padding: 8px 10px;
-  }
-  .tip { margin: 8px 0 0; color: #8a94a6; font-size: 11px; }
-  @media (max-width: 760px) {
-    .bottom { grid-template-columns: 1fr; }
-  }
+  :root { --cw: 52px; --cf: 11px; }
 </style>
 </head>
 <body>
@@ -54,32 +15,29 @@
   <div class="toolbar">
     <span class="title">Volta 4×4×4 MMA</span>
     <label>输出格式
-      <select id="fmt">
-        <option value="f32">FP32（RZ）</option>
-        <option value="f16">FP16（RNE）</option>
-      </select>
+      <select id="mode"></select>
     </label>
     <button id="btnReset">重置</button>
     <button id="btnRandom">随机</button>
     <button id="btnExample" title="Xie et al., arXiv:2511.10909, §V Eq.(10)">MMASim 例子</button>
-    <span class="note">输入会先舍入到对应格式（A/B 为 FP16，C 随输出格式）</span>
+    <span class="note" id="note"></span>
   </div>
 
   <div class="mats">
-    <section class="panel"><h2>A <span>4×4 FP16</span></h2><div class="grid" id="gridA"></div></section>
-    <section class="panel"><h2>B <span>4×4 FP16</span></h2><div class="grid" id="gridB"></div></section>
-    <section class="panel"><h2>C <span id="cType">4×4 FP32</span></h2><div class="grid" id="gridC"></div></section>
+    <section class="panel"><h2>A <span id="aType"></span></h2><div class="grid" id="gridA"></div></section>
+    <section class="panel"><h2>B <span id="bType"></span></h2><div class="grid" id="gridB"></div></section>
+    <section class="panel"><h2>C <span id="cType"></span></h2><div class="grid" id="gridC"></div></section>
   </div>
 
   <div class="bottom">
     <section class="panel">
-      <h2>dot4 计算过程</h2>
+      <h2 id="traceTitle">计算过程</h2>
       <pre class="trace" id="trace"></pre>
     </section>
     <section class="panel">
-      <h2>D <span id="dType">4×4 FP32</span></h2>
+      <h2>D <span id="dType"></span></h2>
       <div class="grid" id="gridD"></div>
-      <p class="tip">点击 D 的元素，左侧显示该元素的 dot4 过程</p>
+      <p class="tip">点击 D 的元素，左侧显示该元素的计算过程</p>
     </section>
   </div>
 </div>
@@ -224,6 +182,9 @@ if (typeof module !== "undefined") {
 (function () {
   "use strict";
 
+  const A = [], B = [], C = [];
+  for (let i = 0; i < 4; i++) { A[i] = [0, 0, 0, 0]; B[i] = [0, 0, 0, 0]; C[i] = [0, 0, 0, 0]; }
+
   const DEFAULT = {
     A: [[1.5, -2, 0, 0.5], [0.25, 1, 0, 0], [0, 0, 1.25, -0.5], [0.5, 0, 0, 2]],
     B: [[1, 0, 0.5, 0], [0, 1.5, 0, 0], [0.5, 0, 1, 0], [0, 0, 0, 1.25]],
@@ -236,124 +197,34 @@ if (typeof module !== "undefined") {
     C: [[8388608, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
   };
 
-  const RANDOM_POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
+  const POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
+  const n = TC.fmtNum;
 
-  const state = { fmt: "f32", si: 0, sj: 0 };
-  let D = null;
+  function setMat(name, m) {
+    const target = name === "A" ? A : name === "B" ? B : C;
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) target[i][j] = m[i][j];
+  }
+  function setAll(d) { setMat("A", d.A); setMat("B", d.B); setMat("C", d.C); }
 
-  const fmtSel = document.getElementById("fmt");
-  const traceEl = document.getElementById("trace");
-  const cType = document.getElementById("cType");
-  const dType = document.getElementById("dType");
-
-  function cellEl(name, i, j) {
+  function cellOf(name, i, j) {
     return document.querySelector('[data-name="' + name + '"][data-i="' + i + '"][data-j="' + j + '"]');
   }
 
-  function buildGrid(hostId, name, interactive) {
-    const host = document.getElementById(hostId);
-    const grid = document.createElement("div");
-    grid.className = "grid";
-    const corner = document.createElement("div");
-    corner.className = "h";
-    grid.appendChild(corner);
-    for (let j = 0; j < 4; j++) {
-      const h = document.createElement("div");
-      h.className = "h";
-      h.textContent = j;
-      grid.appendChild(h);
-    }
-    for (let i = 0; i < 4; i++) {
-      const h = document.createElement("div");
-      h.className = "h";
-      h.textContent = i;
-      grid.appendChild(h);
-      for (let j = 0; j < 4; j++) {
-        let node;
-        if (interactive) {
-          node = document.createElement("input");
-          node.type = "text";
-          node.inputMode = "decimal";
-          node.className = "cell";
-          node.addEventListener("input", render);
-          node.addEventListener("change", function () { commitCell(node); });
-        } else {
-          node = document.createElement("button");
-          node.type = "button";
-          node.className = "cell";
-          node.addEventListener("click", function () {
-            state.si = i;
-            state.sj = j;
-            render();
-          });
-        }
-        node.dataset.name = name;
-        node.dataset.i = i;
-        node.dataset.j = j;
-        grid.appendChild(node);
-      }
-    }
-    host.appendChild(grid);
-  }
-
+  // 输入先落到目标格式：FP16 用 RNE（溢出钳到 ±65504），FP32 用 RNE
   function roundInput(x, kind) {
     if (!isFinite(x)) return 0;
     if (kind === "f16") {
       const r = rneF16(x);
-      if (!isFinite(r)) return x < 0 ? -65504 : 65504;
-      return r;
+      return isFinite(r) ? r : (x < 0 ? -65504 : 65504);
     }
     const r = Math.fround(x);
-    if (!isFinite(r)) return x < 0 ? -3.4028234663852886e38 : 3.4028234663852886e38;
-    return r;
+    return isFinite(r) ? r : (x < 0 ? -3.4028234663852886e38 : 3.4028234663852886e38);
   }
-
-  function readCell(name, i, j) {
-    const el = cellEl(name, i, j);
-    let x = parseFloat(el.value);
-    if (!isFinite(x)) x = 0;
-    return roundInput(x, name === "C" && state.fmt === "f32" ? "f32" : "f16");
-  }
-
-  function readMat(name) {
-    const m = [];
-    for (let i = 0; i < 4; i++) {
-      const row = [];
-      for (let j = 0; j < 4; j++) row.push(readCell(name, i, j));
-      m.push(row);
-    }
-    return m;
-  }
-
-  function commitCell(el) {
-    const name = el.dataset.name;
-    const i = +el.dataset.i, j = +el.dataset.j;
-    el.value = fmtNum(readCell(name, i, j));
-    render();
-  }
-
-  function setMatrix(name, data) {
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        cellEl(name, i, j).value = String(data[i][j]);
-      }
-    }
-  }
-
-  function highlight() {
-    document.querySelectorAll(".cell").forEach(function (el) {
-      el.classList.remove("hl", "sel");
-    });
-    for (let k = 0; k < 4; k++) {
-      cellEl("A", state.si, k).classList.add("hl");
-      cellEl("B", k, state.sj).classList.add("hl");
-    }
-    cellEl("C", state.si, state.sj).classList.add("hl");
-    cellEl("D", state.si, state.sj).classList.add("sel");
+  function quantize(mat, kind) {
+    return mat.map(function (row) { return row.map(function (v) { return roundInput(v, kind); }); });
   }
 
   function traceText(r) {
-    const n = fmtNum;
     const L = [];
     L.push("dot4(A, B, C, i=" + r.i + ", j=" + r.j + ")    # 输出 " + (r.fmt === "f16" ? "FP16（RNE）" : "FP32（RZ）"));
     L.push("");
@@ -391,90 +262,48 @@ if (typeof module !== "undefined") {
     return L.join("\n");
   }
 
-  function render() {
-    const A = readMat("A");
-    const B = readMat("B");
-    const C = readMat("C");
-
-    D = [];
-    for (let i = 0; i < 4; i++) {
-      const row = [];
-      for (let j = 0; j < 4; j++) {
-        row.push(voltaDot4(A, B, C, i, j, state.fmt));
+  const sim = TC.sim({
+    defaultMode: "f32",
+    modes: {
+      f32: { m: 4, n: 4, k: 4, label: "FP32（RZ）", in: "f16", cFmt: "f32", out: "f32" },
+      f16: { m: 4, n: 4, k: 4, label: "FP16（RNE）", in: "f16", cFmt: "f16", out: "f16" }
+    },
+    data: { A: A, B: B, C: C },
+    fmtName: function (f) { return f === "f16" ? "FP16（1-5-10）" : "FP32（1-8-23）"; },
+    note: function () { return "输入会先舍入到对应格式（A/B 为 FP16，C 随输出格式）"; },
+    compute: function (A0, B0, C0, i, j, mode) {
+      const fmt = mode === "f16" ? "f16" : "f32";
+      return voltaDot4(quantize(A0, "f16"), quantize(B0, "f16"), quantize(C0, fmt), i, j, fmt);
+    },
+    trace: function (r) { return traceText(r); },
+    highlight: function (state) {
+      document.querySelectorAll(".cell").forEach(function (el) { el.classList.remove("hl", "sel"); });
+      for (let k = 0; k < 4; k++) {
+        cellOf("A", state.si, k).classList.add("hl");
+        cellOf("B", k, state.sj).classList.add("hl");
       }
-      D.push(row);
-    }
-
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        cellEl("D", i, j).textContent = fmtNum(D[i][j].d);
-      }
-    }
-
-    dType.textContent = "4×4 " + (state.fmt === "f16" ? "FP16" : "FP32");
-    cType.textContent = "4×4 " + (state.fmt === "f16" ? "FP16" : "FP32");
-
-    highlight();
-    traceEl.textContent = traceText(D[state.si][state.sj]);
-  }
-
-  fmtSel.addEventListener("change", function () {
-    state.fmt = fmtSel.value;
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        cellEl("C", i, j).value = fmtNum(readCell("C", i, j));
-      }
-    }
-    render();
-  });
-
-  document.getElementById("btnReset").addEventListener("click", function () {
-    state.fmt = "f32";
-    fmtSel.value = "f32";
-    setMatrix("A", DEFAULT.A);
-    setMatrix("B", DEFAULT.B);
-    setMatrix("C", DEFAULT.C);
-    state.si = 0;
-    state.sj = 0;
-    render();
-  });
-
-  document.getElementById("btnRandom").addEventListener("click", function () {
-    function pick() { return RANDOM_POOL[Math.floor(Math.random() * RANDOM_POOL.length)]; }
-    for (const name of ["A", "B", "C"]) {
-      const m = [];
+      cellOf("C", state.si, state.sj).classList.add("hl");
+      cellOf("D", state.si, state.sj).classList.add("sel");
+    },
+    reset: function () { setAll(DEFAULT); },
+    random: function () {
       for (let i = 0; i < 4; i++) {
-        const row = [];
-        for (let j = 0; j < 4; j++) row.push(pick());
-        m.push(row);
+        for (let j = 0; j < 4; j++) {
+          A[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+          B[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+          C[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+        }
       }
-      setMatrix(name, m);
     }
-    state.si = 0;
-    state.sj = 0;
-    render();
   });
 
   document.getElementById("btnExample").addEventListener("click", function () {
-    state.fmt = "f32";
-    fmtSel.value = "f32";
-    setMatrix("A", EXAMPLE.A);
-    setMatrix("B", EXAMPLE.B);
-    setMatrix("C", EXAMPLE.C);
-    state.si = 0;
-    state.sj = 0;
-    render();
+    setAll(EXAMPLE);
+    sim.rebuild();
+    sim.render();
   });
-
-  buildGrid("gridA", "A", true);
-  buildGrid("gridB", "B", true);
-  buildGrid("gridC", "C", true);
-  buildGrid("gridD", "D", false);
-  setMatrix("A", DEFAULT.A);
-  setMatrix("B", DEFAULT.B);
-  setMatrix("C", DEFAULT.C);
-  render();
 })();
+
 </script>
 </body>
 </html>
