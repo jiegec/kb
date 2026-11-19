@@ -38,22 +38,22 @@ dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,
         (sb, eb, fb) = B[k][j]
         ma = ea == 0 ? fa : (1 << 10) + fa      # 11b；非规格数没有隐含 1
         mb = eb == 0 ? fb : (1 << 10) + fb
-        Ea = ea == 0 ? -24 : ea - 25            # m 的指数，6b 有符号
-        Eb = eb == 0 ? -24 : eb - 25
+        Ea = (ea == 0 ? -14 : ea - 15) - 10     # m 的指数，6b 有符号
+        Eb = (eb == 0 ? -14 : eb - 15) - 10
         M[k] = ma * mb                          # 22b 无符号
         E[k] = Ea + Eb                          # 7b 有符号
         s[k] = sa ^ sb                          # 1b
-        e[k] = E[k] + 20                        # 7b：frexp 指数
+        e[k] = E[k] + 10 + 10                   # 7b：frexp 指数
 
     if D 是 FP32:
         (sc, ec, fc) = C[i][j]                  # 1b, 8b, 23b
         mc = ec == 0 ? fc : (1 << 23) + fc      # 24b
-        Ec = ec == 0 ? -149 : ec - 150          # 9b 有符号
+        Ec = (ec == 0 ? -126 : ec - 127) - 23   # 9b 有符号
         e_c = Ec + 23                           # 8b
     else:
         (sc, ec, fc) = C[i][j]                  # 1b, 5b, 10b
         mc = ec == 0 ? fc : (1 << 10) + fc      # 11b
-        Ec = ec == 0 ? -24 : ec - 25            # 6b 有符号
+        Ec = (ec == 0 ? -14 : ec - 15) - 10     # 6b 有符号
         e_c = Ec + 10                           # 7b
 
     # 第二步：把四个乘积与 C 按最大的指数对齐并累加
