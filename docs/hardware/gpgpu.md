@@ -239,7 +239,7 @@ GV100 是 Volta 架构的 GPU，它的改进包括：
 - 每个 SM 有 64 个 FP32 CUDA core，64 个 INT32 CUDA core，32 个 FP64 CUDA core，8 个 Tensor Core 和 4 个 Texture Unit（`Each SM has: 64 FP32 cores, 64 INT32 cores, 32 FP64 cores, 8 Tensor Cores, Four texture units`）
 - 8 个 512-bit Memory Controller（`Eight 512-bit memory controllers (4096 bits total)`）
 
-GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing Block 包括（`The GV100 SM is partitioned into four processing blocks, each with 16 FP32 Cores, 8 FP64 Cores, 16 INT32 Cores, two of the new mixed-precision Tensor Cores for deep learning matrix arithmetic, a new L0 instruction cache, one warp scheduler, one dispatch unit, and a 64 KB Register File. Note that the new L0 instruction cache is now used in each partition to provide higher efficiency than the instruction buffers used in prior NVIDIA GPUs. (See the Volta SM in Figure 5).`）：
+GV100 又回到了每个 SM 拆分成 4 个 Processing Block（有些地方用的还是旧名字 SMSP），每个 Processing Block 包括（`The GV100 SM is partitioned into four processing blocks, each with 16 FP32 Cores, 8 FP64 Cores, 16 INT32 Cores, two of the new mixed-precision Tensor Cores for deep learning matrix arithmetic, a new L0 instruction cache, one warp scheduler, one dispatch unit, and a 64 KB Register File. Note that the new L0 instruction cache is now used in each partition to provide higher efficiency than the instruction buffers used in prior NVIDIA GPUs. (See the Volta SM in Figure 5).`）：
 
 - L0 Instruction Cache
 - 一个单发射 Warp Scheduler
@@ -339,7 +339,14 @@ A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU inc
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
 
-A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。
+A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。此外，还支持 BF16/TF32/FP64/INT8/INT4/Binary 的矩阵乘。具体情况如下：
+
+- 每个 SM 有四个 Tensor Core
+- 每个 Tensor Core 吞吐：
+    - 8x4x8 的 FP16/BF16 矩阵，对应 256 FMA/周期，512 FLOP/周期
+    - 8x4x4 的 FP32/TP32 矩阵，对应 128 FMA/周期，256 FLOP/周期
+    - 2x4x2 的 FP64 矩阵，对应 16 FMA/周期，32 FLOP/周期
+    - 8x4x16 的 INT8 矩阵，对应 1024 OP/周期
 
 ### GA102
 
