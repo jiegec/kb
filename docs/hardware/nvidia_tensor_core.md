@@ -40,21 +40,28 @@ dot4(A, B, C, i, j):             # A,B: 4×4 FP16；C: 4×4（FP32/FP16）；(i,
         mb = eb == 0 ? fb : (1 << 10) + fb
         Ea = (ea == 0 ? -14 : ea - 15) - 10     # m 的指数，6b 有符号
         Eb = (eb == 0 ? -14 : eb - 15) - 10
+        # 此时 A[i][k] = (sa ? -1 : 1) * ma * exp(2, Ea)
+        # B[k][j] = (sb ? -1 : 1) * mb * exp(2, Eb)
+
         M[k] = ma * mb                          # 22b 无符号
         E[k] = Ea + Eb                          # 7b 有符号
         s[k] = sa ^ sb                          # 1b
-        e[k] = E[k] + 10 + 10                   # 7b：frexp 指数
+        e[k] = E[k] + 10 + 10                   # 7b：指数
+        # 此时 A[i][k] * B[k][j]
+        # = (s[k] ? -1 : 1) * M[k] * exp(2, E[k])
 
     if D 是 FP32:
         (sc, ec, fc) = C[i][j]                  # 1b, 8b, 23b
         mc = ec == 0 ? fc : (1 << 23) + fc      # 24b
         Ec = (ec == 0 ? -126 : ec - 127) - 23   # 9b 有符号
         e_c = Ec + 23                           # 8b
+        # 此时 C[i][j] = (sc ? -1 : 1) * mc * exp(2, Ec)
     else:
         (sc, ec, fc) = C[i][j]                  # 1b, 5b, 10b
         mc = ec == 0 ? fc : (1 << 10) + fc      # 11b
         Ec = (ec == 0 ? -14 : ec - 15) - 10     # 6b 有符号
         e_c = Ec + 10                           # 7b
+        # 此时 C[i][j] = (sc ? -1 : 1) * mc * exp(2, Ec)
 
     # 第二步：把四个乘积与 C 按最大的指数对齐并累加
     emax = max(e[0], e[1], e[2], e[3], e_c)     # 8b 有符号
