@@ -201,6 +201,8 @@ GM200 有 3072 KB 的 L2 缓存。
 
 Whitepaper: [NVIDIA Tesla P100](https://images.nvidia.cn/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper.pdf)
 
+CUDA GPU Compute Capability：sm_60
+
 GP100 是 Pascal 架构的芯片，改进如下：
 
 - 支持 NVLink，双向带宽 160 GB/s
@@ -229,6 +231,8 @@ Whitepaper: [NVIDIA TESLA V100 GPU ARCHITECTURE](https://images.nvidia.cn/conten
 Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/volta-tuning-guide/index.html)
 
 PPT: [VOLTA: PROGRAMMABILITY AND PERFORMANCE](https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf)
+
+CUDA GPU Compute Capability：sm_70
 
 GV100 是 Volta 架构的 GPU，它的改进包括：
 
@@ -266,6 +270,8 @@ GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 K
 Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
 
 PPT: [RTX ON – THE NVIDIA TURING GPU](https://old.hotchips.org/hc31/HC31_2.12_NVIDIA_final.pdf)
+
+CUDA GPU Compute Capability：sm_75
 
 TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：
 
@@ -348,6 +354,8 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
     - 2x2x4 的 FP64 矩阵，对应 16 FMA/周期，32 FLOP/周期
     - 8x4x16 的 INT8 矩阵，对应 512 MAC/周期，对应 1024 OP/周期
 
+CUDA GPU Compute Capability：sm_80
+
 ### GA102
 
 Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
@@ -365,9 +373,13 @@ GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 
 
 GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16 FMA 每周期每 TC，如果是 FP16 累加到 FP32 则进一步降低到 64 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。
 
+CUDA GPU Compute Capability：sm_86
+
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
+
+CUDA GPU Compute Capability：sm_89
 
 Ada Lovelace 架构的 AD102 包括：
 
@@ -388,6 +400,8 @@ Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持�
 Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
 
 PPT: [NVIDIA HOPPER GPU: SCALING PERFORMANCE](https://hc34.hotchips.org/assets/program/conference/day1/GPU%20HPC/HC2022.NVIDIA.Choquette.vfinal01.pdf)
+
+CUDA GPU Compute Capability：sm_90
 
 H100 SXM5 参数如下：
 
@@ -414,6 +428,13 @@ Whitepaper: [NVIDIA Blackwell Architecture Technical Brief](https://resources.nv
 Datasheet: [NVIDIA Blackwell Datasheet](https://resources.nvidia.com/en-us-blackwell-architecture/datasheet)
 
 Datasheet: [NVIDIA DGX B200 Datasheet](https://resources.nvidia.com/en-us-dgx-systems/dgx-b200-datasheet)
+
+CUDA GPU Compute Capability：
+
+- B200/GB200: sm_100
+- B300/GB300: sm_103
+- RTX 5090: sm_120
+- GB10(DGX Spark): sm_121
 
 ## NVIDIA Rubin
 
