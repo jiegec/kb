@@ -146,15 +146,15 @@ Hopper（sm_90）的 Tensor Core 支持如下格式：
 
 ## 不同代 Tensor Core 比较
 
-|       | Volta | Turing | Ampere | Hopper |
-|-------|-------|--------|--------|--------|
-| SM    | 70    | 75     | 80     | 90     |
-| TC/SM | 8     | 8      | 4      | 4      |
-| FP64  | N/A   | N/A    | 2x2x4  | 4x2x4  |
-| TF32  | N/A   | N/A    | 8x4x4  | 8x4x8  |
-| FP16  | 4x4x4 | 4x4x4  | 8x4x8  | 8x4x16 |
-| BF16  | N/A   | N/A    | 8x4x8  | 8x4x16 |
-| FP8   | N/A   | N/A    | N/A    | 8x4x32 |
+|       | Volta | Turing | Ampere (GA100) | Hopper |
+|-------|-------|--------|----------------|--------|
+| CC    | 70    | 75     | 80             | 90     |
+| TC/SM | 8     | 8      | 4              | 4      |
+| FP64  | N/A   | N/A    | 2x2x4          | 4x2x4  |
+| TF32  | N/A   | N/A    | 8x4x4          | 8x4x8  |
+| FP16  | 4x4x4 | 4x4x4  | 8x4x8          | 8x4x16 |
+| BF16  | N/A   | N/A    | 8x4x8          | 8x4x16 |
+| FP8   | N/A   | N/A    | N/A            | 8x4x32 |
 
 ## 引用
 
