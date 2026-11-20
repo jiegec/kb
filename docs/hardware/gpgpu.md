@@ -430,7 +430,7 @@ Ada Lovelace 架构的 AD102 包括：
   <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
 
-Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持；原有的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，是数据中心 Ampere（GA100）的一半或四分之一（游戏卡针对涉及到 FP32 累加的矩阵乘会进一步在固件上把性能限制到四分之一），通过增加 SM 数量和频率来提升总算力。每周期计算 4x4x16 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。
+Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持；原来的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，是数据中心 Ampere（GA100）的一半，通过增加 SM 数量和频率来提升总算力；游戏卡还会在固件上把涉及 FP32 累加的矩阵乘再砍半（相对 GA100 就是四分之一）。每周期计算 4x4x16 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
