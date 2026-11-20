@@ -371,7 +371,7 @@ GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 �
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
-GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16 FMA 每周期每 TC，如果是 FP16 累加到 FP32 则进一步降低到 64 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。
+GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16 FMA 每周期每 TC，如果是 FP16 累加到 FP32 则进一步降低到 64 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。
 
 CUDA GPU Compute Capability：sm_86
 
@@ -397,7 +397,7 @@ Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持�
 
 ## NVIDIA Hopper
 
-Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
+Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c)
 
 PPT: [NVIDIA HOPPER GPU: SCALING PERFORMANCE](https://hc34.hotchips.org/assets/program/conference/day1/GPU%20HPC/HC2022.NVIDIA.Choquette.vfinal01.pdf)
 
@@ -408,7 +408,7 @@ H100 SXM5 参数如下：
 - TSMC 4N 制程，80 billion transistor（`The full GH100 GPU that powers the H100 GPU is fabricated using TSMC’s 4N process customized for NVIDIA, with 80 billion transistors, a die size of 814 mm2, and higher frequency design.`）
 - HBM3 DRAM，5 个 stack，10 个 512-bit memory controller，总共 80 GB 容量（`6 HBM3 or HBM2e stacks, 12 512-bit Memory Controllers`）
 - H100 SXM5 有 8 个 GPC，66 个 TPC，每个 TPC 有两个 SM；一共 132 个 SM（`8 GPCs, 66 TPCs, 2 SMs/TPC, 132 SMs per GPU`）
-- 每个 SM 内部有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU
+- 每个 SM 有四个 Processing Block，每个 Processing Block 有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU
 
 <figure markdown>
   ![](gpgpu_hopper_sm.png){ width="600" }
@@ -420,6 +420,12 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 $25 / 114 / 1620 * 1e6 = 135$ 字节）的数据。
 
 CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block Cluster 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
+
+Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/INT8 格式。
+
+相比 A100 每周期做 8x4x8 的 FP16/BF16 矩阵乘，H100 每周期可以做 8x4x16 的 FP16/BF16 矩阵乘。H100 SXM5 有 132 个 SM 共 528 个 TC，按 1830 MHz 的频率，FP16 峰值性能是 $528*8*4*16*2*1830 = 989.4$ TFLOPS。TF32 性能是 FP16 的一半，FP8 和 INT8 性能是 FP16 的两倍。
+
+FP8 TC 支持 E4M3 和 E5M2 两种格式，C 矩阵的格式支持 FP32 和 FP16。H100 每周期做 8x4x32 的 FP8 矩阵乘，8x4x8 的 TF32，4x2x4 的 FP64 矩阵乘，8x4x32 的 INT8 矩阵乘。
 
 ## NVIDIA Blackwell
 
