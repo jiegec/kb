@@ -166,7 +166,8 @@
 ### 其他
 
 - [阶越星辰 Step Plan](https://platform.stepfun.com/docs/zh/step-plan/overview) | [套餐与计费](https://platform.stepfun.com/docs/zh/step-plan/pricing)
-    - Mini 49 RMB 每月（400M Credit）、Plus 99（1600M）、Pro 199（8000M）、Max 699（40000M）；季付 129 / 269 / 539 / 1889、年付 456 / 936 / 1860 / 6666 RMB（季付与年付一次性支付，Credit 仍按月分 3 次与 12 次发放）
+    - Plus 99 RMB 每月（1600M Credit）、Pro 199（8000M）、Max 399（20000M）；季付 269 / 539 / 1129、年付 936 / 1860 / 4266 RMB（季付与年付一次性支付，Credit 仍按月分 3 次与 12 次发放）
+    - 档位调整（2026-11-20）：Mini 档（49 RMB / 400M Credit）已停止新购；Max 档由 699 RMB / 40000M Credit 调整为 399 RMB / 20000M Credit；2026-11-20 前已订阅 Mini 或旧 Max 档的用户，原套餐的额度与价格在订阅期内保持不变
     - 分时段扣减：调用 step-5-preview 时，高峰时段（北京时间周一至周五 09:00–12:00、14:00–18:00）消耗的 Credit 为低谷时段的 2 倍，其余时间为低谷时段按常规扣减；部分历史订阅不受该规则约束
     - 加油包（仅向已订阅用户开放，有效期 30 天、与套餐有效期分别计算）：小油包 49 RMB / 400M Credit、大油包 99 RMB / 1600M Credit；套餐 Credit 与加油包 Credit 同时存在时优先扣减先到期的额度
     - 支持模型（国内版 9 款）：step-5-preview（新一代旗舰基模）、step-3.7-flash、step-3.5-flash-2603、step-3.5-flash、stepaudio-2.5-realtime、stepaudio-2.5-chat、stepaudio-2.5-tts、stepaudio-2.5-asr、step-router-v1（在 deepseek-v4-pro 和 step-3.5-flash 之间智能路由）；国际版 Step Plan 支持 6 款，为 step-5-preview、step-3.7-flash、step-3.5-flash、step-3.5-flash-2603、stepaudio-2.5-tts、stepaudio-2.5-asr，不含 stepaudio-2.5-realtime、stepaudio-2.5-chat 与 step-router-v1
@@ -281,6 +282,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/20：阶越星辰 Step Plan 调整套餐档位：Mini 档（49 元 / 400M Credit）停止新购，Max 档由 699 元 / 40,000M Credit 改为 399 元 / 20,000M Credit（季付 1,129 元、年付 4,266 元）；Plus 99 元 / 1,600M Credit 与 Pro 199 元 / 8,000M Credit 两档及季付 269 / 539 元、年付 936 / 1,860 元未变；2026-11-20 前已订阅 Mini 或旧 Max 档的用户，原套餐额度与价格在订阅期内保持不变，到期后的续费与重新购买规则见档位调整公告。分时段扣减、加油包（小油包 49 元 / 400M Credit、大油包 99 元 / 1,600M Credit）、额度扣减顺序、支付方式与支持模型（国内版 9 款、国际版 6 款）均未变
 
 - 2026/11/20：MiniMax 的 4K 生图 5 折优惠再次生效：MiniMax-H3-Image 与 MiniMax-H3-Image-Highspeed 在最终交付图片宽 × 高 ≥ 1660 万像素（4K）时整次请求费用 5 折，未标注结束时间；4K 输出单张示意价格为标准版文生图 0.2261、图片编辑（1 / 3 张参考图）0.2404 / 0.2605 元，极速版 0.4275 / 0.4499 / 0.5073 元（国际版 0.03439 / 0.03656 / 0.03957 与 0.06501 / 0.06837 / 0.07703 美元）；1K、2K 输出价格与两款模型的 token 价格（文本输入 15、图片输入 10 / 20、图片输出 25 / 50 元每百万 tokens）均未变
 
