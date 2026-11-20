@@ -134,6 +134,16 @@ Ada Lovelace（sm_89）继承了消费级 Ampere（GA102，sm_86）的 FP16/BF16
 
 针对 FP8，每周期做 4x4x16 的 FP8 矩阵计算，每周期 256 FMA、512 FLOP。应该是用 dot16 实现 FP8 矩阵乘。支持 E4M3 和 E5M2 两种数据格式，即 1-4-3 和 1-5-2。C/D 矩阵有两种数据格式，一种是 FP16，最终结果是 RNE 到 FP16；另一种是 FP32，最终结果是 RZ 到 E8M13，精度介于 TF32 的 1-8-10 和 FP32 的 1-8-23 之间。猜测在硬件上，内部是按照 E5M3 来设计数据通路的，从而一个数据通路可以同时支持 E4M3 和 E5M2。对齐的时候，F 设为 13，所以输入的 FP32 有很多位数会直接被丢弃。
 
+## Hopper
+
+Hopper（sm_90）的 Tensor Core 支持如下格式：
+
+- FP64：每周期做一个 4x2x4 矩阵乘，还是用一系列 FMA 来实现
+- TF32：每周期做一个 8x4x8 矩阵乘，采用 dot8 实现
+- FP16/BF16：每周期做一个 8x4x16 矩阵乘，采用 dot16 实现
+- FP8：每周期做一个 8x4x32 矩阵乘，采用 dot32 实现
+- INT8：每周期做一个 8x4x32 矩阵乘
+
 ## 引用
 
 - NVIDIA, *NVIDIA Tesla V100 GPU Architecture* (whitepaper), 2017. <https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf>
