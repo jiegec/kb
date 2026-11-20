@@ -373,6 +373,8 @@ GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 
 
 GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16 FMA 每周期每 TC，如果是 FP16 累加到 FP32 则进一步降低到 64 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。
 
+但根据一些逆向和解锁的研究，GA102 可能实际在硬件上并没有砍性能，完全是通过固件做的阉割，从而限制 Tensor Core 的性能。
+
 CUDA GPU Compute Capability：sm_86
 
 ## NVIDIA Ada Lovelace
@@ -394,6 +396,8 @@ Ada Lovelace 架构的 AD102 包括：
 </figure>
 
 Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持；原有的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，是数据中心 Ampere（GA100）的一半或四分之一（如涉及到 FP32 累加），通过增加 SM 数量和频率来提升总算力。每周期计算 4x4x16 的 FP8 矩阵，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。
+
+但根据一些逆向和解锁的研究，Ada Lovelace 可能实际在硬件上并没有砍性能，完全是通过固件做的阉割，从而限制 Tensor Core 的性能。
 
 ## NVIDIA Hopper
 
