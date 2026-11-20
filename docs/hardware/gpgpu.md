@@ -314,6 +314,8 @@ Tensor Core 除了支持 FP16 以外，还支持 INT8 和 INT4 支持。
 
 对于 INT8，每周期进行 2048 次运算，对应 $4\times8\times4$ 的 MMA，性能相比 FP16 翻倍。INT4 每周期进行 4096 次运算，对应 $4\times16\times4$ 的 MMA，性能进一步翻倍。
 
+即使都是 TU102，不同的显卡，其 TC 性能是不一样的：Quadro RTX 6000 和 RTX 2080 Ti 都采用了 TU102 芯片，但 RTX 2080 Ti 在 FP16 矩阵乘累加到 FP32 时的性能只有一半，FP16 矩阵乘累加到 FP16 性能不变。这个限制是通过固件来实现的，可能是为了避免游戏卡被拿来当计算卡用。目前网络上已经有办法解锁 RTX 2080 Ti 的完整 FP16 矩阵乘累加到 FP32 的算力。
+
 详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
 
 ## NVIDIA Ampere
