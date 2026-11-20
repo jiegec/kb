@@ -373,9 +373,9 @@ GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 �
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
-GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16 FMA 每周期每 TC，如果是 FP16 累加到 FP32 则进一步降低到 64 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。
+GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16->FP16 或 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。
 
-但根据一些逆向和解锁的研究，GA102 可能实际在硬件上并没有砍性能，完全是通过固件做的阉割，从而限制 Tensor Core 的性能。
+即使同样是 GA102，游戏卡（比如 RTX 3090 Ti）的 TC 有进一步的限制，TF32/BF16/FP16 累加到 FP32 的性能进一步砍半（FP16 累加到 FP16 性能不变），而专业卡（比如 RTX A6000）则没有这个进一步的限制。这个限制是通过固件完成的阉割，网络上已经有解锁的方法。
 
 CUDA GPU Compute Capability：sm_86
 
