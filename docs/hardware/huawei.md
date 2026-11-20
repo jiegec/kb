@@ -484,7 +484,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9030S
 
-- 搭载于：Pura X View、Pura 90 Pro、Pura 90 Pro Max
+- 搭载于：Pura X View、Pura 90 Pro、Pura 90 Pro Max、星芒 O1 Pro
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.15 GHz，0xd47），4x 小核（无 SMT，1.62 GHz，0xd24），共 8 核 12 线程
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - GPU: Maleoon 935F, 3CU（T93S 为同规格平板版，3CU；T93SD 为 2CU）
@@ -855,6 +855,7 @@ Hi36 系列：
 | 2026 | 畅享 90 Plus                            | JUY-AL50                     | 麒麟 8000     | [华为商城](https://www.vmall.com/product/10086756705081.html)                                                                                     |
 | 2026 | 畅享 90 Pro Max                         | CHZ-AL00                     | 麒麟 8000     | [华为商城](https://www.vmall.com/product/10086270081540.html)                                                                                     |
 | 2026 | 畅享 90m Plus                           | JUY-AL50                     | 麒麟 8000     | [华为商城](https://www.vmall.com/product/10086649851723.html)                                                                                     |
+| 2026 | 星芒 O1 Pro                             | ACO-AL00                     | 麒麟 9030S    | [华为商城](https://www.vmall.com/product/10086155242482.html)                                                                                     |
 
 ### 内部代号（codename）
 
