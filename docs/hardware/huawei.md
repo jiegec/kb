@@ -1072,7 +1072,7 @@ Kunpeng 920 新型号的型号矩阵：
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240)
 - [AArch64SchedHIP10C.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP10C.td)
 
-### hip11
+### hip11 (LX2)
 
 - ARMv8.5-A
 - SVE + SVE2 (512 bits)
@@ -1082,6 +1082,7 @@ Kunpeng 920 新型号的型号矩阵：
 - 4-issue, 1 ALU + 2 (ALU + BR) + 1 MDU + 2 FP + 1 LDST + 1LD from LLVM
 - 88-entry reorder buffer from LLVM
 - 40-entry instruction queue from LLVM
+- Kunpeng 920 72F8 用于 LX2 LineShine 超算
 
 来源：
 
@@ -1089,6 +1090,31 @@ Kunpeng 920 新型号的型号矩阵：
 - [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
 - [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
 - [AArch64SchedHIP11.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP11.td)
+
+### LX2
+
+- 每个节点是 2 socket
+- 每个 socket 是 2 die，每个 die 上有 152 core，包括 4 cluster，每个 cluster 38 核
+- 每个节点有 `2 * 2 * 4 * 38 = 608` 核
+- 每个核有 32KB 的 L1I 和 L1D，每个 cluster 有 28.5MB L2，无 L3
+- 每个 socket 有 32GB 容量 4TB/s 带宽 8-stack 的 HBM 和 256GB 的 DDR
+- SDMA 引擎负责 HBM <-> DDR 传输
+- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOP/s(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
+- 1.55 GHz 主频
+- 峰值性能验算：
+    - 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合，每周期执行一条 FP64 1-way FMOPA 指令
+    - 每核每周期执行一条 INT8 4-way SMOPA 指令，执行 16x4x16 的矩阵乘累加到 16x16 的 INT32，对应峰值算力 `16 * 4 * 16 * 2 * 304 * 1.55 GHz = 965 TOP/s`，是 FP64 的 16 倍
+    - 每核每周期执行一条 FP16 2-way FMOPA 指令，执行 16x2x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 2 * 16 * 2 * 304 * 1.55 GHz = 483 TFOP/s`，实际只有 240 TFLOPS/s，意味着 IPC 只有 0.5
+    - 每核每周期执行一条 FP32 1-way FMOPA 指令，执行 16x1x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 1 * 16 * 2 * 304 * 1.55 GHz = 241 TOP/s`，实际只有 120.6 TFLOPS，意味着 IPC 只有 0.5
+    - 即：128 FP64 FLOP/cycle, 256 FP32 FLOP/cycle, 512 FP16 FLOP/cycle, 2048 INT8 OP/cycle
+
+来源：
+
+- <https://arxiv.org/html/2604.15821>
+- <https://arxiv.org/html/2605.08633>
+- <https://arxiv.org/html/2605.24896>
+- <https://arxiv.org/html/2606.14073>
+- <https://www.top500.org/system/180490/>
 
 ### hip12 (Kunpeng 950)
 
@@ -1184,28 +1210,3 @@ part id:
 - 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035/Kirin T93C
 - 0xd48(3400): Kirin 9050Pro
 
-## LX2
-
-- 每个节点是 2 socket
-- 每个 socket 是 2 die，每个 die 上有 152 core，包括 4 cluster，每个 cluster 38 核
-- 每个节点有 `2 * 2 * 4 * 38 = 608` 核
-- 每个核有 32KB 的 L1I 和 L1D，每个 cluster 有 28.5MB L2，无 L3
-- 每个 socket 有 32GB 容量 4TB/s 带宽 8-stack 的 HBM 和 256GB 的 DDR
-- SDMA 引擎负责 HBM <-> DDR 传输
-- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOP/s(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
-- 1.55 GHz 主频
-- 峰值性能验算：
-    - 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合，每周期执行一条 FP64 1-way FMOPA 指令
-    - 每核每周期执行一条 INT8 4-way SMOPA 指令，执行 16x4x16 的矩阵乘累加到 16x16 的 INT32，对应峰值算力 `16 * 4 * 16 * 2 * 304 * 1.55 GHz = 965 TOP/s`，是 FP64 的 16 倍
-    - 每核每周期执行一条 FP16 2-way FMOPA 指令，执行 16x2x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 2 * 16 * 2 * 304 * 1.55 GHz = 483 TFOP/s`，实际只有 240 TFLOPS/s，意味着 IPC 只有 0.5
-    - 每核每周期执行一条 FP32 1-way FMOPA 指令，执行 16x1x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 1 * 16 * 2 * 304 * 1.55 GHz = 241 TOP/s`，实际只有 120.6 TFLOPS，意味着 IPC 只有 0.5
-    - 即：128 FP64 FLOP/cycle, 256 FP32 FLOP/cycle, 512 FP16 FLOP/cycle, 2048 INT8 OP/cycle
-- 应该对应 hip11
-
-来源：
-
-- <https://arxiv.org/html/2604.15821>
-- <https://arxiv.org/html/2605.08633>
-- <https://arxiv.org/html/2605.24896>
-- <https://arxiv.org/html/2606.14073>
-- <https://www.top500.org/system/180490/>
