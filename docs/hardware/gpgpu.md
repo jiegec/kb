@@ -434,7 +434,6 @@ Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持�
 
 但上述 FP16/BF16/TF32/INT8/INT4 的每周期性能只有数据中心 Ampere（GA100）的一半；游戏卡还会在固件上把涉及 FP32 累加的矩阵乘再砍半（相对 GA100 就是四分之一）。
 
-
 TC 每周期吞吐（FLOP/OP）对比：
 
 | 格式          | TU102（专业卡/已解锁游戏卡） | TU102（未解锁游戏卡） | GA100 | GA102（专业卡/已解锁游戏卡） | GA102（未解锁游戏卡） | AD102（专业卡/已解锁游戏卡） | AD102（未解锁游戏卡） |
@@ -475,11 +474,25 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 
 CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block Cluster 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
 
-Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/INT8 格式。
+Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/INT8 格式。TC 对 INT4 格式的支持在 Turing 时引入，一直延续到了 Ada Lovelace，到 Hopper 时被移除。
 
 相比 A100 每周期做 8x4x8 的 FP16/BF16 矩阵乘，H100 每周期可以做 8x4x16 的 FP16/BF16 矩阵乘。H100 SXM5 有 132 个 SM 共 528 个 TC，按 1830 MHz 的频率，FP16 峰值性能是 $528*8*4*16*2*1830 = 989.4$ TFLOPS。TF32 性能是 FP16 的一半，FP8 和 INT8 性能是 FP16 的两倍。
 
 FP8 TC 支持 E4M3 和 E5M2 两种格式，C 矩阵的格式支持 FP32 和 FP16。H100 每周期做 8x4x32 的 FP8 矩阵乘，8x4x8 的 TF32，4x2x4 的 FP64 矩阵乘，8x4x32 的 INT8 矩阵乘。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GA100 | GH100 |
+|---------------|-------|-------|
+| TF32 -> FP32  | 256   | 512   |
+| FP16 -> FP32  | 512   | 1024  |
+| BF16 -> FP32  | 512   | 1024  |
+| FP8 -> FP32   | N/A   | 2048  |
+| FP16 -> FP16  | 512   | 1024  |
+| FP8 -> FP16   | N/A   | 2048  |
+| INT8 -> INT32 | 1024  | 2048  |
+| INT4 -> INT32 | 2048  | N/A   |
+| FP64 -> FP64  | 32    | 64    |
 
 ## NVIDIA Blackwell
 
