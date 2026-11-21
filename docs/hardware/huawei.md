@@ -980,8 +980,7 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 - part id 0xd02，和麒麟 9000s 大核一样
 - 华为云 kc2 实例
 - 又称 kunpeng 930 或 kunpeng 920 新型号或 kunpeng 920B
-- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng bti ecv
-- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
 - 64KB L1 Cache, 512KB L2 Cache
 - 6-issue, 2 BR + 6 ALU + 4 FP + 2 LD + 2 ST from LLVM
 - 88-entry reorder buffer from LLVM
@@ -1012,6 +1011,7 @@ Kunpeng 920 新型号的型号矩阵：
 
 来源：
 
+- [[Bug]: HunyuanImage-3.0-Instruct (AR+DiT) startup hangs when waitting engine core process start on Ascend A3](https://github.com/vllm-project/vllm-ascend/issues/12687)
 - [FusionCube 1000H-D2](https://e.huawei.com/cn/products/storage/hci/fusioncube1000)
 - [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
