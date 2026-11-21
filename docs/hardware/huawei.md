@@ -1076,15 +1076,16 @@ Hi36 系列：
 
 - Kunpeng 950 7592C
 - 96 核 192 线程
-- 基础频率 2.3Ghz
+- 基础频率 2.3GHz
 - 每个 Core 集成 128KB L1I Cache, 64KB L1D Cache，1MB L2 Cache，每个 CPU 最大 273MB L3 Cache
-- DDR5 最多支持 24 个 DDR 内存插槽，支持 RDIMM、MRDIMM
-- 内存速率：RDIMM 最大支持 7200MT/s
+- 2 路 CPU，DDR5 最多支持 24 个 DDR 内存插槽，支持 RDIMM、MRDIMM
+- 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
 - 单根内存条容量支持 32GB、64GB、96GB 和 128GB
 - Flags: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh rng ecv afp rpres wfxt rprfm hbc cmow ls64 ls64_v
 
 来源：
 
+- [鲲鹏系列主板&TaiShan服务器R26-彩页(26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
 - [鲲鹏超节点 950（电组网）技术规格](https://support.huawei.com/enterprise/zh/doc/EDOC1100617238/1d8c793)
 - [Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP](https://github.com/vllm-project/vllm-ascend/issues/8484)
 - [Bug: MRv2 EPLB silently never rearranges when eplb_config.policy is "default"](https://github.com/vllm-project/vllm-ascend/issues/20362)
