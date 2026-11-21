@@ -1131,7 +1131,7 @@ Kunpeng 920 新型号的型号矩阵：
 - 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
 - 单根内存条容量支持 32GB、64GB、96GB 和 128GB
 - Flags: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh rng ecv afp rpres wfxt rprfm hbc cmow ls64 ls64_v
-- 相比 hip09 多了 sve2 sveaes svepmull svebitperm svesha3 svesm4 afp rpres wfxt rprfm hbc cmow ls64 ls64_v
+- 相比 hip09 多了 sve2 sveaes svepmull svebitperm svesha3 svesm4 afp rpres wfxt rprfm hbc cmow ls64 ls64_v，少了 paca pacg svef32mm svef64mm
 
 型号矩阵：
 
