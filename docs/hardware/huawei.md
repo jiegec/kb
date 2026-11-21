@@ -981,7 +981,8 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 - 华为云 kc2 实例
 - 又称 kunpeng 930 或 kunpeng 920 新型号或 kunpeng 920B
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
-- 64KB L1 Cache, 512KB L2 Cache
+- 相比 hip08 多了 lrcpc sha3 sm3 sm4 sha512 sve dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
+- 64KB L1 Cache, 1280KB L2 Cache
 - 6-issue, 2 BR + 6 ALU + 4 FP + 2 LD + 2 ST from LLVM
 - 88-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
@@ -1130,6 +1131,7 @@ Kunpeng 920 新型号的型号矩阵：
 - 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
 - 单根内存条容量支持 32GB、64GB、96GB 和 128GB
 - Flags: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh rng ecv afp rpres wfxt rprfm hbc cmow ls64 ls64_v
+- 相比 hip09 多了 sve2 sveaes svepmull svebitperm svesha3 svesm4 afp rpres wfxt rprfm hbc cmow ls64 ls64_v
 
 型号矩阵：
 
