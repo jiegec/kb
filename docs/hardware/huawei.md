@@ -936,13 +936,16 @@ Hi36 系列：
 
 | 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
 |-------------------|-------------|----------|----------|
-| Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
-| Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
-| Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
-| Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 7261R | 64C/64T     | 2.5      | 8xDDR4   |
 | Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5251R | 48C/48T     | 2.5      | 8xDDR4   |
 | Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
+| Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 5221R | 32C/32T     | 2.5      | 4xDDR4   |
+| Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
 
 型号重命名：
 
@@ -952,9 +955,10 @@ Hi36 系列：
 | Kunpeng 920 4826 | 48C/48T     | 2.6      | Kunpeng 920 5250 |
 | Kunpeng 920 3226 | 32C/32T     | 2.6      | Kunpeng 920 5220 |
 
-
 来源：
 
+- [鲲鹏 920 处理器](https://www.hikunpeng.com/compute/kunpeng920)
+- [Kunpeng Hardware FAQs](https://www.hikunpeng.com/document/detail/en/kunpengfaq/productfaq/hardwarefaq/hardware_faq_0001.html)
 - [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
