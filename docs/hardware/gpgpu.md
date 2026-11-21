@@ -337,7 +337,7 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
 
 论文：[Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis](https://ieeexplore.ieee.org/abstract/document/9926299/)
 
-### GA100
+### GA100（sm_80）
 
 完整的 GA100 芯片包括：
 
@@ -379,7 +379,7 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
 
 CUDA GPU Compute Capability：sm_80
 
-### GA102
+### GA102（sm_86）
 
 Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
 
@@ -509,13 +509,13 @@ CUDA GPU Compute Capability：
 - RTX 5090: sm_120
 - GB10(DGX Spark): sm_121
 
-## GB100
+## GB100（sm_100）
 
 B200 采用的是 GB100 芯片。
 
 Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/FP6/FP4/INT8 格式，在 Hopper 的基础上，额外支持了 FP6 和 FP4，以及 Block Scaling 的 MXFP8/MXFP4/NVFP4 格式。
 
-从性能来看，GB100 相比 GH100，FP16/BF16 -> FP32 的性能没变，FP64 -> FP64 的性能反而减半，使用 TC 还是直接用 SM 里的 FP64 单元的峰值性能相同，合理怀疑 GB100 直接复用了 SM 原有的 FP64 单元来实现 FP64 的矩阵乘 DMMA 指令。
+从性能来看，GB100 相比 GH100，FP16/BF16 -> FP32 的性能没变，FP64 -> FP64 的性能反而减半，使用 TC 和直接用 SM 里的 FP64 单元的峰值性能相同，也没有通过 tcgen05.mma 指令暴露出来，合理怀疑 GB100 直接复用了 SM 原有的 FP64 单元来实现 FP64 的矩阵乘 DMMA 指令。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
@@ -532,7 +532,9 @@ TC 每周期吞吐（FLOP/OP）对比：
 | INT4 -> INT32 | 2048  | N/A   | N/A   |
 | FP64 -> FP64  | 32    | 64    | 32    |
 
-## GB202
+根据 MMA-Sim，相比 Hopper，Blackwell 的 TC 在进行 FP8 的 TC 运算时，中间结果保留了更多位的精度：25 vs 13，意味着在低精度矩阵乘下可以更好地保持 FP32 累加的精度。
+
+## GB202（sm_120）
 
 Datasheet: [NVIDIA RTX BLACKWELL GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf)
 
@@ -555,11 +557,26 @@ TC 每周期吞吐（FLOP/OP）对比：
 | INT4 -> INT32 | 1024                       | 1024                | N/A           | N/A           |
 | FP64 -> FP64  | N/A                        | N/A                 | N/A           | N/A           |
 
-## GB10
+## GB10（sm_121）
 
 Datasheet: [NVIDIA GB10 Superchip](https://www.nvidia.com/content/dam/en-zz/Solutions/dgx-spark/nvidia-gb10-superchip-whitepaper.pdf)
 
-DGX Spark 和 RTX Spark 用的是 GB10（sm_121）芯片。
+DGX Spark 和 RTX Spark 用的是 GB10（sm_121）芯片。它每个 SM 只有一个 TC。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GB100 | GB10 | GB202（专业卡） |
+|---------------|-------|------|---------------|
+| TF32 -> FP32  | 1024  | 512  | 128           |
+| FP16 -> FP32  | 1024  | 1024 | 256           |
+| BF16 -> FP32  | 1024  | 1024 | 256           |
+| FP8 -> FP32   | 4096  | 2048 | 512           |
+| FP4 -> FP32   | 8192  | 4096 | 1024          |
+| FP16 -> FP16  | 2048  | 1024 | 256           |
+| FP8 -> FP16   | 4096  | 2048 | 512           |
+| INT8 -> INT32 | 4096  | 2048 | 512           |
+| INT4 -> INT32 | N/A   | N/A  | N/A           |
+| FP64 -> FP64  | 32    | N/A  | N/A           |
 
 ## NVIDIA Rubin
 
