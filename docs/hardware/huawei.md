@@ -1091,8 +1091,9 @@ Kunpeng 920 新型号的型号矩阵：
 - [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
 - [AArch64SchedHIP11.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP11.td)
 
-### LX2
+#### LX2
 
+- LineShine
 - 每个节点是 2 socket
 - 每个 socket 是 2 die，每个 die 上有 152 core，包括 4 cluster，每个 cluster 38 核
 - 每个节点有 `2 * 2 * 4 * 38 = 608` 核
@@ -1159,6 +1160,14 @@ Kunpeng 920 新型号的型号矩阵：
 - [Add initial support for Hisilicon's hip12 core](https://github.com/llvm/llvm-project/pull/203446/changes)
 - [Add hip12 to release notes](https://github.com/llvm/llvm-project/pull/205899/changes)
 - [[AArch64] Add initial sched model for hip12 - #212935](https://github.com/llvm/llvm-project/pull/212935)
+
+### hip13
+
+- part id 0xd08
+
+来源：
+
+- [[PATCH OLK-6.6] cputype: add cputype for HIP13](https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/message/KMFUXGEDOOXUYUZRQEG423RURXEY5FYU/)
 
 ## Kunpeng 920C
 
