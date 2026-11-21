@@ -1120,6 +1120,7 @@ Kunpeng 920 新型号的型号矩阵：
 
 来源：
 
+- [aarch64: Optimize memcpy for Kunpeng 950 using SVE and loop unrolling](https://patchwork.ozlabs.org/project/glibc/patch/tencent_4EDEF3D42F3C0D45E59457A00F3D25612208@qq.com/)
 - [cpu_map-add-kunpeng-950-V1-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-950-V1-cpu-map.patch)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [鲲鹏系列主板&TaiShan服务器R26-彩页(26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
