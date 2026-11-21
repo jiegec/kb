@@ -509,6 +509,20 @@ CUDA GPU Compute Capability：
 - RTX 5090: sm_120
 - GB10(DGX Spark): sm_121
 
+## GB100
+
+B200 采用的是 GB100 芯片。
+
+Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/FP6/FP4/INT8 格式，在 Hopper 的基础上，额外支持了 FP6 和 FP4，以及 Block Scaling 的 MXFP8/MXFP4/NVFP4 格式。
+
+## GB202
+
+RTX 5090 采用的是 GB202 芯片（sm_120），这类游戏卡的 TC 不支持 FP64，但保留了新增的 FP4 格式支持。相比 Ada Lovelace AD102，TF32/BF16/FP16/FP8/INT8 格式的每周期 TC 算力相同。同样地，游戏卡在 FP8/FP16/BF16/TF32 到 FP32 累加时性能减半，专业卡（如 RTX PRO 6000 Blackwell）则不会减半。
+
+## GB10
+
+DGX Spark 和 RTX Spark 用的是 GB10 芯片。
+
 ## NVIDIA Rubin
 
 Blog: [Inside NVIDIA Rubin GPU Architecture: Powering the Era of Agentic AI](https://developer.nvidia.com/blog/inside-nvidia-rubin-gpu-architecture-powering-the-era-of-agentic-ai/)
