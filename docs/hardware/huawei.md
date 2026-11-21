@@ -942,6 +942,8 @@ Hi36 系列：
 | Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5251R | 48C/48T     | 2.5      | 8xDDR4   |
+| Kunpeng 920 5240  | 40C/40T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5230  | 32C/32T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
 | Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 5221R | 32C/32T     | 2.5      | 4xDDR4   |
