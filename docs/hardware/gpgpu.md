@@ -517,6 +517,10 @@ Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/FP6/FP4/INT8 格式，在 Hopper 的�
 
 ## GB202
 
+Datasheet: [NVIDIA RTX BLACKWELL GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf)
+
+Datasheet: [NVIDIA RTX PRO BLACKWELL GPU ARCHITECTURE](https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/pdf/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1_1.pdf)
+
 RTX 5090 采用的是 GB202 芯片（sm_120），这类游戏卡的 TC 不支持 FP64，但保留了新增的 FP4 格式支持。相比 Ada Lovelace AD102，TF32/BF16/FP16/FP8/INT8 格式的每周期 TC 算力相同，但去掉了 INT4 格式支持。同样地，游戏卡在 FP8/FP16/BF16/TF32 到 FP32 累加时性能减半（FP4 到 FP32 累加性能没有减半），专业卡（如 RTX PRO 6000 Blackwell）则不会减半。
 
 TC 每周期吞吐（FLOP/OP）对比：
@@ -536,7 +540,9 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 ## GB10
 
-DGX Spark 和 RTX Spark 用的是 GB10 芯片。
+Datasheet: [NVIDIA GB10 Superchip](https://www.nvidia.com/content/dam/en-zz/Solutions/dgx-spark/nvidia-gb10-superchip-whitepaper.pdf)
+
+DGX Spark 和 RTX Spark 用的是 GB10（sm_121）芯片。
 
 ## NVIDIA Rubin
 
