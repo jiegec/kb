@@ -939,15 +939,22 @@ Hi36 系列：
 | Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 7261R | 64C/64T     | 2.5      | 8xDDR4   |
+| Kunpeng 920 7260Y | 64C/64T     | 2.2      | 8xDDR4   |
 | Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5251R | 48C/48T     | 2.5      | 8xDDR4   |
+| Kunpeng 920 5250Y | 48C/48T     | 2.2      | 8xDDR4   |
 | Kunpeng 920 5240  | 40C/40T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5230  | 32C/32T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
 | Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 5221R | 32C/32T     | 2.5      | 4xDDR4   |
 | Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 3211R | 24C/24T     | 2.5      | 4xDDR4   |
+
+后缀：F（3.0GHz）、R（2.5GHz）、Y（2.2GHz）
+
+Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所以 8xDDR4 的都是 2 Die，而 4xDDR4 都是 1 Die。
 
 型号重命名：
 
