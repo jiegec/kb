@@ -919,7 +919,7 @@ Hi36 系列：
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
 - [Kunpeng 916 (Hi1616) - HiSilicon](https://en.wikichip.org/wiki/hisilicon/kunpeng/hi1616)
 
-### hip08
+### hip08 (Kunpeng 920)
 
 - tsv110
 - part id 0xd01
@@ -927,7 +927,6 @@ Hi36 系列：
 - 华为云 kc1 实例
 - hip08 from DSDT oem table id
 - hi1620
-- kunpeng 920
 - 2.60 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
 - HIP08 appears in ACPI: `ACPI: XSDT 0x000000002F5DFE98 0000B4 (v01 HISI   HIP08    00000000 HISI 20151124)`
@@ -973,13 +972,12 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
 
-### hip09
+### hip09 (Kunpeng 920B/Kunpeng 930/Kunpeng 920 新型号)
 
 - ARMv8.5-A
 - SVE (256 bits)
 - part id 0xd02，和麒麟 9000s 大核一样
 - 华为云 kc2 实例
-- 又称 kunpeng 930 或 kunpeng 920 新型号或 kunpeng 920B
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
 - 相比 hip08 多了 lrcpc sha3 sm3 sm4 sha512 sve dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
 - 64KB L1 Cache, 1280KB L2 Cache
@@ -1092,13 +1090,12 @@ Kunpeng 920 新型号的型号矩阵：
 - [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
 - [AArch64SchedHIP11.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP11.td)
 
-### hip12
+### hip12 (Kunpeng 950)
 
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
 - part id 0xd06，与 Kirin 9030 系列大核相同
 - 128KB L1 Cache, 1MB L2 Cache
-- kunpeng 950
 - 16(?)/8-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
 - 128bit FP datapath from LLVM
 - 320-entry reorder buffer from LLVM
