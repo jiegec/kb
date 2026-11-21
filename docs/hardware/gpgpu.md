@@ -534,6 +534,25 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 根据 MMA-Sim，相比 Hopper，Blackwell 的 TC 在进行 FP8 的 TC 运算时，中间结果保留了更多位的精度：25 vs 13，意味着在低精度矩阵乘下可以更好地保持 FP32 累加的精度。
 
+## GB110（sm_103）
+
+B300 采用的是 GB110 芯片。相比 GB100，GB110 主要强化了 FP4 的性能，代价是 INT8 和 FP64 性能的明显下降，虽然 SASS 上还有 DMMA 和 IMMA 指令，但性能只有 GB100 的 1/32。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GB100 | GB110 |
+|---------------|-------|-------|
+| TF32 -> FP32  | 1024  | 1024  |
+| FP16 -> FP32  | 1024  | 1024  |
+| BF16 -> FP32  | 1024  | 1024  |
+| FP8 -> FP32   | 4096  | 4096  |
+| FP4 -> FP32   | 8192  | 12288 |
+| FP16 -> FP16  | 2048  | 2048  |
+| FP8 -> FP16   | 4096  | 4096  |
+| INT8 -> INT32 | 4096  | 128   |
+| INT4 -> INT32 | N/A   | N/A   |
+| FP64 -> FP64  | 32    | 1     |
+
 ## GB202（sm_120）
 
 Datasheet: [NVIDIA RTX BLACKWELL GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf)
