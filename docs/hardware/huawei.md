@@ -1072,6 +1072,22 @@ Hi36 系列：
 
 - [Server Types Supported by EulerOS V2.0SP12](https://support.huawei.com/enterprise/en/doc/EDOC1100451965/257a3292/server-types-supported-by-euleros-v20sp12)
 
+## Kunpeng 950(7592C)
+ARMv9.2-A
+96核192线程
+基础频率2.3Ghz
+每个Core集成128KB/64KB L1 Cache，1MB L2 Cache，每个CPU最大273MB L3 Cache
+DDR5 最多支持24个DDR内存插槽，支持RDIMM、MRDIMM
+内存速率：RDIMM最大支持7200MT/s 单根内存条容量支持32GB、64GB、96GB和128GB
+
+来源：
+
+- [鲲鹏超节点 950（电组网） 技术规格](https://support.huawei.com/enterprise/zh/doc/EDOC1100617238/1d8c793)
+- [鲲鹏950](https://www.hikunpeng.com/zh/search/result?keyword=%E9%B2%B2%E9%B9%8F950&tab=1)
+- [[Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP](https://github.com/vllm-project/vllm-ascend/issues/8484)
+- [[Bug: MRv2 EPLB silently never rearranges when eplb_config.policy is "default"](https://github.com/vllm-project/vllm-ascend/issues/20362)
+
+
 ## Taishan V200M
 
 - 昇腾 310P AI 处理器
