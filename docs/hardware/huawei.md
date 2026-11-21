@@ -937,15 +937,20 @@ Hi36 系列：
 | 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
 |-------------------|-------------|----------|----------|
 | Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 6426  | 64C/64T     | 2.6      | ?        |
 | Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5225  | 32C/32T     | ?        | ?        |
 | Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
-| Kunpeng 920 2410  | 24C/24T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 4826  | 48C/48T     | 2.6      | ?        |
+| Kunpeng 920 3226  | 32C/32T     | ?        | ?        |
+| Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
 
 来源：
 
+- [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
@@ -1074,18 +1079,22 @@ Kunpeng 920 新型号的型号矩阵：
 | 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
 |-------------------|-------------|----------|----------|
 | Kunpeng 920 7285F | 80C/160T    | 3.1      | 8xDDR5   |
-| Kunpeng 920 5285F | 40C/80T     | 3.1      | 4xDDR5   |
+| Kunpeng 920 7270F | 64C/128T    | 2.5      | ?        |
+| Kunpeng 920 7265F | 64C/128T    | 3.0      | ?        |
+| Kunpeng 920 5258F | 40C/80T     | 3.1      | 4xDDR5   |
 | Kunpeng 920 7280Z | 80C/160T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7270Z | 64C/128T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7263Z | 64C/128T    | 2.8      | 8xDDR5   |
 | Kunpeng 920 7260Z | 64C/128T    | 2.6      | 8xDDR5   |
 | Kunpeng 920 5253Z | 40C/80T     | 2.9      | 4xDDR5   |
 | Kunpeng 920 5252Z | 40C/80T     | 2.6      | 4xDDR5   |
+| Kunpeng 920 5250Z | 48C/96T     | ?        | ?        |
 | Kunpeng 920 5235Z | 32C/64T     | 2.9      | 4xDDR5   |
-| Kunpeng 920 5250Z | 32C/64T     | 2.6      | 4xDDR5   |
+| Kunpeng 920 5230Z | 32C/64T     | 2.6      | 4xDDR5   |
 
 来源：
 
+- [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
 - [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
