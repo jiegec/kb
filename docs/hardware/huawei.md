@@ -859,50 +859,50 @@ Hi36 系列：
 
 ### 内部代号（codename）
 
-| 代号                   | 产品                                                                                                                                                                                 |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Adela (ADA, ADE, ADL)  | HUAWEI nova 12 Pro、HUAWEI nova 12 Ultra、HUAWEI nova 12 Ultra 星耀版                                                                                                                |
-| Agassi6 (AGS6)         | HUAWEI MatePad SE 11"                                                                                                                                                                |
-| Allen (ALN)            | HUAWEI Mate 60 Pro                                                                                                                                                                   |
-| Alta (ALT)             | HUAWEI Mate X5                                                                                                                                                                       |
-| Audrey (ADY)           | HUAWEI Pura 70、HUAWEI Pura 70 北斗卫星消息版                                                                                                                                        |
-| Banksy (BKYM)          | HUAWEI MatePad Air 12 英寸                                                                                                                                                            |
-| Barry (BRA)            | HUAWEI Mate 60                                                                                                                                                                       |
-| Blake (BLK)            | HUAWEI nova 12                                                                                                                                                                       |
-| Celestial (CLS)        | HUAWEI Mate 70                                                                                                                                                                       |
-| Chenzhen (CHZ)         | 华为畅享 90 Pro Max                                                                                                                                                                  |
-| Delphi (DEL)           | HUAWEI Mate X7、HUAWEI Mate X7 典藏版                                                                                                                                                |
-| Fiona (FIN)            | HUAWEI nova 12 活力版                                                                                                                                                                |
-| GellMann (GEM)         | HUAWEI MatePad Pro Max                                                                                                                                                               |
-| Greenlan (GRL)         | HUAWEI Mate XT ｜ ULTIMATE DESIGN、HUAWEI Mate XTs ｜ ULTIMATE DESIGN                                                                                                                |
-| Hedy (HED)             | HUAWEI Pura 80                                                                                                                                                                       |
-| Hepburn (HBN)          | HUAWEI Pura 70 Pro                                                                                                                                                                   |
-| HepburnP (HBP)         | HUAWEI Pura 70 Ultra                                                                                                                                                                 |
-| Hope (HOP)             | HUAWEI Pura X Max、HUAWEI Pura X Max 典藏版                                                                                                                                          |
-| Klee (KLE)             | HUAWEI nova 15 pro                                                                                                                                                                   |
-| Lamarr (LMR)           | HUAWEI Pura 80 Pro                                                                                                                                                                   |
-| LamarrU (LMU)          | HUAWEI Pura 80 Ultra                                                                                                                                                                 |
-| Laurent (LRT)          | HUAWEI MatePad Air 12 英寸 2025                                                                                                                                                       |
-| Malena (MLN)           | HUAWEI Pura 90 Pro                                                                                                                                                                   |
-| Margaret (MRT)         | HUAWEI nova 14 Ultra                                                                                                                                                                 |
-| Mclaren (MLR)          | HUAWEI MatePad Mini 悦读版                                                                                                                                                           |
-| Milla (MIA)            | HUAWEI nova 14 Pro                                                                                                                                                                   |
-| Morandi (MRDI)         | HUAWEI MatePad Pro 12.2 英寸 2025                                                                                                                                                    |
-| Pillar (PLA, PLR, PLU) | HUAWEI Mate 70 Pro、HUAWEI Mate 70 Pro 优享版、HUAWEI Mate 70 Pro+、HUAWEI Mate 70 RS ｜ ULTIMATE DESIGN                                                                             |
-| Poincare (PCE)         | HUAWEI MatePad Pro 13.2 英寸 2023 款                                                                                                                                                   |
-| Pushkin (PSN)          | HUAWEI nova 15                                                                                                                                                                       |
-| Qianxuesen (QXS)       | HUAWEI MatePad Edge                                                                                                                                                                  |
+| 代号                   | 产品                                                                                                                                                                          |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Adela (ADA, ADE, ADL)  | HUAWEI nova 12 Pro、HUAWEI nova 12 Ultra、HUAWEI nova 12 Ultra 星耀版                                                                                                           |
+| Agassi6 (AGS6)         | HUAWEI MatePad SE 11"                                                                                                                                                         |
+| Allen (ALN)            | HUAWEI Mate 60 Pro                                                                                                                                                            |
+| Alta (ALT)             | HUAWEI Mate X5                                                                                                                                                                |
+| Audrey (ADY)           | HUAWEI Pura 70、HUAWEI Pura 70 北斗卫星消息版                                                                                                                                  |
+| Banksy (BKYM)          | HUAWEI MatePad Air 12 英寸                                                                                                                                                    |
+| Barry (BRA)            | HUAWEI Mate 60                                                                                                                                                                |
+| Blake (BLK)            | HUAWEI nova 12                                                                                                                                                                |
+| Celestial (CLS)        | HUAWEI Mate 70                                                                                                                                                                |
+| Chenzhen (CHZ)         | 华为畅享 90 Pro Max                                                                                                                                                           |
+| Delphi (DEL)           | HUAWEI Mate X7、HUAWEI Mate X7 典藏版                                                                                                                                          |
+| Fiona (FIN)            | HUAWEI nova 12 活力版                                                                                                                                                         |
+| GellMann (GEM)         | HUAWEI MatePad Pro Max                                                                                                                                                        |
+| Greenlan (GRL)         | HUAWEI Mate XT ｜ ULTIMATE DESIGN、HUAWEI Mate XTs ｜ ULTIMATE DESIGN                                                                                                            |
+| Hedy (HED)             | HUAWEI Pura 80                                                                                                                                                                |
+| Hepburn (HBN)          | HUAWEI Pura 70 Pro                                                                                                                                                            |
+| HepburnP (HBP)         | HUAWEI Pura 70 Ultra                                                                                                                                                          |
+| Hope (HOP)             | HUAWEI Pura X Max、HUAWEI Pura X Max 典藏版                                                                                                                                    |
+| Klee (KLE)             | HUAWEI nova 15 pro                                                                                                                                                            |
+| Lamarr (LMR)           | HUAWEI Pura 80 Pro                                                                                                                                                            |
+| LamarrU (LMU)          | HUAWEI Pura 80 Ultra                                                                                                                                                          |
+| Laurent (LRT)          | HUAWEI MatePad Air 12 英寸 2025                                                                                                                                               |
+| Malena (MLN)           | HUAWEI Pura 90 Pro                                                                                                                                                            |
+| Margaret (MRT)         | HUAWEI nova 14 Ultra                                                                                                                                                          |
+| Mclaren (MLR)          | HUAWEI MatePad Mini 悦读版                                                                                                                                                    |
+| Milla (MIA)            | HUAWEI nova 14 Pro                                                                                                                                                            |
+| Morandi (MRDI)         | HUAWEI MatePad Pro 12.2 英寸 2025                                                                                                                                             |
+| Pillar (PLA, PLR, PLU) | HUAWEI Mate 70 Pro、HUAWEI Mate 70 Pro 优享版、HUAWEI Mate 70 Pro+、HUAWEI Mate 70 RS ｜ ULTIMATE DESIGN                                                                          |
+| Poincare (PCE)         | HUAWEI MatePad Pro 13.2 英寸 2023 款                                                                                                                                          |
+| Pushkin (PSN)          | HUAWEI nova 15                                                                                                                                                                |
+| Qianxuesen (QXS)       | HUAWEI MatePad Edge                                                                                                                                                           |
 | Sagittarius (SGT, SGU) | HUAWEI Mate 80 Pro、HUAWEI Mate 80 Pro Max、HUAWEI Mate 80 Pro Max 风驰版、HUAWEI Mate 80 Pro(12g)、HUAWEI Mate 80 Pro(16g)、HUAWEI Mate 80 RS、HUAWEI Mate 80 RS ｜ ULTIMATE DESIGN |
-| Salinger (SLG)         | HUAWEI MatePad 11.5 S                                                                                                                                                                |
-| Shelley (SLY)          | HUAWEI nova 15 ultra                                                                                                                                                                 |
-| Sicilia (SCA)          | HUAWEI Pura 90 Pro Max                                                                                                                                                               |
-| Superman (SUP)         | HUAWEI Mate 70 Air                                                                                                                                                                   |
-| Tagore (TGR, TGRM)     | HUAWEI MatePad 11.5"S                                                                                                                                                                |
-| Taoxingzhi (TXZ)       | HUAWEI MatePad 11.5                                                                                                                                                                  |
-| Taylor (TLR, TYR)      | HUAWEI nova 14、HUAWEI nova 14 活力版                                                                                                                                                |
-| Voyager (VYG)          | HUAWEI Mate 80                                                                                                                                                                       |
-| Weber (WEB)            | HUAWEI MatePad Pro 13.2 英寸                                                                                                                                                         |
-| Xiaoyao (XYAO)         | HUAWEI MatePad Pro 11 英寸 2024 款                                                                                                                                                     |
+| Salinger (SLG)         | HUAWEI MatePad 11.5 S                                                                                                                                                         |
+| Shelley (SLY)          | HUAWEI nova 15 ultra                                                                                                                                                          |
+| Sicilia (SCA)          | HUAWEI Pura 90 Pro Max                                                                                                                                                        |
+| Superman (SUP)         | HUAWEI Mate 70 Air                                                                                                                                                            |
+| Tagore (TGR, TGRM)     | HUAWEI MatePad 11.5"S                                                                                                                                                         |
+| Taoxingzhi (TXZ)       | HUAWEI MatePad 11.5                                                                                                                                                           |
+| Taylor (TLR, TYR)      | HUAWEI nova 14、HUAWEI nova 14 活力版                                                                                                                                          |
+| Voyager (VYG)          | HUAWEI Mate 80                                                                                                                                                                |
+| Weber (WEB)            | HUAWEI MatePad Pro 13.2 英寸                                                                                                                                                  |
+| Xiaoyao (XYAO)         | HUAWEI MatePad Pro 11 英寸 2024 款                                                                                                                                            |
 
 ## hip
 
@@ -932,8 +932,21 @@ Hi36 系列：
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
 - HIP08 appears in ACPI: `ACPI: XSDT 0x000000002F5DFE98 0000B4 (v01 HISI   HIP08    00000000 HISI 20151124)`
 
+型号矩阵：
+
+| 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
+|-------------------|-------------|----------|----------|
+| Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 2410  | 24C/24T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
+
 来源：
 
+- [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
@@ -1051,16 +1064,29 @@ Hi36 系列：
 
 ## Kunpeng 920B
 
-- Kunpeng 920 V200 7270Z
-- 64 cores/socket
 - SVE
 - SMT2
-- 2.90 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
 - 疑似等价于 hip09
 
+Kunpeng 920 新型号的型号矩阵：
+
+| 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
+|-------------------|-------------|----------|----------|
+| Kunpeng 920 7285F | 80C/160T    | 3.1      | 8xDDR5   |
+| Kunpeng 920 5285F | 40C/80T     | 3.1      | 4xDDR5   |
+| Kunpeng 920 7280Z | 80C/160T    | 2.9      | 8xDDR5   |
+| Kunpeng 920 7270Z | 64C/128T    | 2.9      | 8xDDR5   |
+| Kunpeng 920 7263Z | 64C/128T    | 2.8      | 8xDDR5   |
+| Kunpeng 920 7260Z | 64C/128T    | 2.6      | 8xDDR5   |
+| Kunpeng 920 5253Z | 40C/80T     | 2.9      | 4xDDR5   |
+| Kunpeng 920 5252Z | 40C/80T     | 2.6      | 4xDDR5   |
+| Kunpeng 920 5235Z | 32C/64T     | 2.9      | 4xDDR5   |
+| Kunpeng 920 5250Z | 32C/64T     | 2.6      | 4xDDR5   |
+
 来源：
 
+- [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
 - [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
 
@@ -1074,17 +1100,23 @@ Hi36 系列：
 
 ## Kunpeng 950
 
-- Kunpeng 950 7592C
-- 96 核 192 线程
-- 基础频率 2.3GHz
+- Kunpeng 950 7592C（96C/192T，2.3/2.6GHz）、7562C（64C/128T，2.3/2.5GHz）
 - 每个 Core 集成 128KB L1I Cache, 64KB L1D Cache，1MB L2 Cache，每个 CPU 最大 273MB L3 Cache
 - 2 路 CPU，DDR5 最多支持 24 个 DDR 内存插槽，支持 RDIMM、MRDIMM
 - 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
 - 单根内存条容量支持 32GB、64GB、96GB 和 128GB
 - Flags: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh rng ecv afp rpres wfxt rprfm hbc cmow ls64 ls64_v
 
+型号矩阵：
+
+| 型号              | 物理核/线程 | 主频/GHz | 睿频/GHz | 内存通道 |
+|-------------------|-------------|----------|----------|----------|
+| Kunpeng 950 7592C | 96C/192T    | 2.3      | 2.6      | 12xDDR4  |
+| Kunpeng 950 7562C | 64C/128T    | 2.3      | 2.5      | 12xDDR4  |
+
 来源：
 
+- [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [鲲鹏系列主板&TaiShan服务器R26-彩页(26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
 - [鲲鹏超节点 950（电组网）技术规格](https://support.huawei.com/enterprise/zh/doc/EDOC1100617238/1d8c793)
 - [Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP](https://github.com/vllm-project/vllm-ascend/issues/8484)
