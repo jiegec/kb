@@ -226,7 +226,7 @@ if (typeof module !== "undefined") {
 
   function traceText(r) {
     const L = [];
-    L.push("dot4(A, B, C, i=" + r.i + ", j=" + r.j + ")    # 输出 " + (r.fmt === "f16" ? "FP16（RNE）" : "FP32（RZ）"));
+    L.push("dot4(A, B, C, i=" + r.i + ", j=" + r.j + ")    # 输出 " + (r.fmt === "f16" ? "FP16 (RNE)" : "FP32 (RZ)"));
     L.push("");
     L.push("# 第一步：计算四个乘积（拆字段：FP16 = 1+5+10）");
     for (const t of r.terms) {
@@ -265,11 +265,11 @@ if (typeof module !== "undefined") {
   const sim = TC.sim({
     defaultMode: "f32",
     modes: {
-      f32: { m: 4, n: 4, k: 4, label: "FP32（RZ）", in: "f16", cFmt: "f32", out: "f32" },
-      f16: { m: 4, n: 4, k: 4, label: "FP16（RNE）", in: "f16", cFmt: "f16", out: "f16" }
+      f32: { m: 4, n: 4, k: 4, label: "FP32 (RZ)", in: "f16", cFmt: "f32", out: "f32" },
+      f16: { m: 4, n: 4, k: 4, label: "FP16 (RNE)", in: "f16", cFmt: "f16", out: "f16" }
     },
     data: { A: A, B: B, C: C },
-    fmtName: function (f) { return f === "f16" ? "FP16（1-5-10）" : "FP32（1-8-23）"; },
+    fmtName: function (f) { return f === "f16" ? "FP16 (1-5-10)" : "FP32 (1-8-23)"; },
     note: function () { return "输入会先舍入到对应格式（A/B 为 FP16，C 随输出格式）"; },
     compute: function (A0, B0, C0, i, j, mode) {
       const fmt = mode === "f16" ? "f16" : "f32";

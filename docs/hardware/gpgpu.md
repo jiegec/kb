@@ -201,7 +201,7 @@ GM200 有 3072 KB 的 L2 缓存。
 
 Whitepaper: [NVIDIA Tesla P100](https://images.nvidia.cn/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper.pdf)
 
-CUDA GPU Compute Capability：sm_60
+CUDA GPU Compute Capability: sm_60
 
 GP100 是 Pascal 架构的芯片，改进如下：
 
@@ -232,7 +232,7 @@ Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/
 
 PPT: [VOLTA: PROGRAMMABILITY AND PERFORMANCE](https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf)
 
-CUDA GPU Compute Capability：sm_70
+CUDA GPU Compute Capability: sm_70
 
 GV100 是 Volta 架构的 GPU，它的改进包括：
 
@@ -271,7 +271,7 @@ Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en
 
 PPT: [RTX ON – THE NVIDIA TURING GPU](https://old.hotchips.org/hc31/HC31_2.12_NVIDIA_final.pdf)
 
-CUDA GPU Compute Capability：sm_75
+CUDA GPU Compute Capability: sm_75
 
 TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：
 
@@ -377,7 +377,7 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
 | INT4 -> INT32 | 512                        | 2048  |
 | FP64 -> FP64  | N/A                        | 32    |
 
-CUDA GPU Compute Capability：sm_80
+CUDA GPU Compute Capability: sm_80
 
 ### GA102（sm_86）
 
@@ -412,13 +412,13 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 注：标 (SM) 的数字不是 Tensor Core 数据通路提供的，而是 SM 里普通单元（FP64 / INT32）的峰值折算到每 TC，仅为横向比较，下同。
 
-CUDA GPU Compute Capability：sm_86
+CUDA GPU Compute Capability: sm_86
 
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
 
-CUDA GPU Compute Capability：sm_89
+CUDA GPU Compute Capability: sm_89
 
 Ada Lovelace 架构的 AD102 包括：
 
@@ -456,7 +456,7 @@ Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.
 
 PPT: [NVIDIA HOPPER GPU: SCALING PERFORMANCE](https://hc34.hotchips.org/assets/program/conference/day1/GPU%20HPC/HC2022.NVIDIA.Choquette.vfinal01.pdf)
 
-CUDA GPU Compute Capability：sm_90
+CUDA GPU Compute Capability: sm_90
 
 H100 SXM5 参数如下：
 
@@ -504,7 +504,7 @@ Datasheet: [NVIDIA Blackwell Datasheet](https://resources.nvidia.com/en-us-black
 
 Datasheet: [NVIDIA DGX B200 Datasheet](https://resources.nvidia.com/en-us-dgx-systems/dgx-b200-datasheet)
 
-CUDA GPU Compute Capability：
+CUDA GPU Compute Capability:
 
 - B200/GB200: sm_100
 - B300/GB300: sm_103

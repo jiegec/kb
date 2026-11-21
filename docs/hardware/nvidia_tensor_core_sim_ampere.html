@@ -46,11 +46,11 @@
 
 // 每种输入格式：[尾数位数 p, 偏置 bias, 最小正规指数 minE, 最大有限值]
 const FMTS = {
-  f16:  { p: 10, bias: 15,  minE: -14,  maxV: 65504,               name: "FP16（1-5-10）" },
-  bf16: { p: 7,  bias: 127, minE: -126, maxV: 3.3895313892515355e38, name: "BF16（1-8-7）" },
-  tf32: { p: 10, bias: 127, minE: -126, maxV: 3.4028234663852886e38, name: "TF32（1-8-10）" },
-  f32:  { p: 23, bias: 127, minE: -126, maxV: 3.4028234663852886e38, name: "FP32（1-8-23）" },
-  f64:  { p: 52, bias: 1023, minE: -1022, maxV: Number.MAX_VALUE, name: "FP64（1-11-52）" }
+  f16:  { p: 10, bias: 15,  minE: -14,  maxV: 65504,               name: "FP16 (1-5-10)" },
+  bf16: { p: 7,  bias: 127, minE: -126, maxV: 3.3895313892515355e38, name: "BF16 (1-8-7)" },
+  tf32: { p: 10, bias: 127, minE: -126, maxV: 3.4028234663852886e38, name: "TF32 (1-8-10)" },
+  f32:  { p: 23, bias: 127, minE: -126, maxV: 3.4028234663852886e38, name: "FP32 (1-8-23)" },
+  f64:  { p: 52, bias: 1023, minE: -1022, maxV: Number.MAX_VALUE, name: "FP64 (1-11-52)" }
 };
 
 // Ampere 的参数：L = 一次对齐的乘积数，F = 截断点
