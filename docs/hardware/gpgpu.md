@@ -394,7 +394,7 @@ GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 �
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
-GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16->FP16 或 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。虽然不支持 FP64，但 DMMA 指令还是支持的，估计是用 SM 里的 FP64 单元实现。
+GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16->FP16 或 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
 即使同样是 GA102，游戏卡（比如 RTX 3090 Ti）的 TC 有进一步的限制，TF32/BF16/FP16 累加到 FP32 的性能进一步砍半（FP16 累加到 FP16 性能不变），而专业卡（比如 RTX A6000）则没有这个进一步的限制。这个限制是通过固件完成的阉割，网络上已经有解锁的方法。
 
@@ -408,7 +408,9 @@ TC 每周期吞吐（FLOP/OP）对比：
 | FP16 -> FP16  | 512   | 256                        | 256                 |
 | INT8 -> INT32 | 1024  | 512                        | 512                 |
 | INT4 -> INT32 | 2048  | 1024                       | 1024                |
-| FP64 -> FP64  | 32    | N/A                        | N/A                 |
+| FP64 -> FP64  | 32    | 1(SM)                      | 1(SM)               |
+
+注：标 (SM) 的数字不是 Tensor Core 数据通路提供的，而是 SM 里普通单元（FP64 / INT32）的峰值折算到每 TC，仅为横向比较，下同。
 
 CUDA GPU Compute Capability：sm_86
 
@@ -430,7 +432,7 @@ Ada Lovelace 架构的 AD102 包括：
   <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
 
-Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持，每周期计算 $4\times4\times16$ 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。原来的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，通过增加 SM 数量和频率来提升总算力。虽然不支持 FP64，但 DMMA 指令还是支持的，估计是用 SM 里的 FP64 单元实现。
+Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持，每周期计算 $4\times4\times16$ 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。原来的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，通过增加 SM 数量和频率来提升总算力。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
 但上述 FP16/BF16/TF32/INT8/INT4 的每周期性能只有数据中心 Ampere（GA100）的一半；游戏卡还会在固件上把涉及 FP32 累加的矩阵乘再砍半（相对 GA100 就是四分之一）。
 
@@ -446,7 +448,7 @@ TC 每周期吞吐（FLOP/OP）对比：
 | FP8 -> FP16   | N/A                        | N/A                 | N/A   | N/A                        | N/A                 | 512                        | 512                 |
 | INT8 -> INT32 | 256                        | 256                 | 1024  | 512                        | 512                 | 512                        | 512                 |
 | INT4 -> INT32 | 512                        | 512                 | 2048  | 1024                       | 1024                | 1024                       | 1024                |
-| FP64 -> FP64  | N/A                        | N/A                 | 32    | N/A                        | N/A                 | N/A                        | N/A                 |
+| FP64 -> FP64  | N/A                        | N/A                 | 32    | 1(SM)                      | 1(SM)               | 1(SM)                      | 1(SM)               |
 
 ## NVIDIA Hopper
 
@@ -559,7 +561,7 @@ Datasheet: [NVIDIA RTX BLACKWELL GPU ARCHITECTURE](https://images.nvidia.cn/aem-
 
 Datasheet: [NVIDIA RTX PRO BLACKWELL GPU ARCHITECTURE](https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/pdf/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1_1.pdf)
 
-RTX 5090 采用的是 GB202 芯片（sm_120），这类游戏卡的 TC 不支持 FP64，但保留了新增的 FP4 格式支持。相比 Ada Lovelace AD102，TF32/BF16/FP16/FP8/INT8 格式的每周期 TC 算力相同，但去掉了 INT4 格式支持。同样地，游戏卡在 FP8/FP16/BF16/TF32 到 FP32 累加时性能减半（FP4 到 FP32 累加性能没有减半），暂时还没有解锁的办法（Ada Lovelace 和更早都可以解锁这部分性能），专业卡（如 RTX PRO 6000 Blackwell）则不会减半。虽然不支持 FP64，但 DMMA 指令还是支持的，估计是用 SM 里的 FP64 单元实现。
+RTX 5090 采用的是 GB202 芯片（sm_120），这类游戏卡的 TC 不支持 FP64，但保留了新增的 FP4 格式支持。相比 Ada Lovelace AD102，TF32/BF16/FP16/FP8/INT8 格式的每周期 TC 算力相同，但去掉了 INT4 格式支持。同样地，游戏卡在 FP8/FP16/BF16/TF32 到 FP32 累加时性能减半（FP4 到 FP32 累加性能没有减半），暂时还没有解锁的办法（Ada Lovelace 和更早都可以解锁这部分性能），专业卡（如 RTX PRO 6000 Blackwell）则不会减半。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
@@ -574,28 +576,30 @@ TC 每周期吞吐（FLOP/OP）对比：
 | FP8 -> FP16   | 512                        | 512                 | 512           | 512           |
 | INT8 -> INT32 | 512                        | 512                 | 512           | 512           |
 | INT4 -> INT32 | 1024                       | 1024                | N/A           | N/A           |
-| FP64 -> FP64  | N/A                        | N/A                 | N/A           | N/A           |
+| FP64 -> FP64  | 1(SM)                      | 1(SM)               | 1(SM)         | 1(SM)         |
 
 ## GB10（sm_121）
 
 Datasheet: [NVIDIA GB10 Superchip](https://www.nvidia.com/content/dam/en-zz/Solutions/dgx-spark/nvidia-gb10-superchip-whitepaper.pdf)
 
-DGX Spark 和 RTX Spark 用的是 GB10（sm_121）芯片。它每个 SM 只有一个 TC。虽然它的 TC 不支持 FP64，但 DMMA 指令还是支持的，估计是用 SM 里的 FP64 单元实现。
+DGX Spark 和 RTX Spark 用的是 GB10（sm_121）芯片。它每个 SM 只有一个 TC。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
-| 格式          | GB100 | GB10 | GB202（专业卡） |
-|---------------|-------|------|---------------|
-| TF32 -> FP32  | 1024  | 512  | 128           |
-| FP16 -> FP32  | 1024  | 1024 | 256           |
-| BF16 -> FP32  | 1024  | 1024 | 256           |
-| FP8 -> FP32   | 4096  | 2048 | 512           |
-| FP4 -> FP32   | 8192  | 4096 | 1024          |
-| FP16 -> FP16  | 2048  | 1024 | 256           |
-| FP8 -> FP16   | 4096  | 2048 | 512           |
-| INT8 -> INT32 | 4096  | 2048 | 512           |
-| INT4 -> INT32 | N/A   | N/A  | N/A           |
-| FP64 -> FP64  | 32    | N/A  | N/A           |
+| 格式          | GB100  | GB10  | GB202（专业卡） |
+|---------------|--------|-------|---------------|
+| TF32 -> FP32  | 1024   | 512   | 128           |
+| FP16 -> FP32  | 1024   | 1024  | 256           |
+| BF16 -> FP32  | 1024   | 1024  | 256           |
+| FP8 -> FP32   | 4096   | 2048  | 512           |
+| FP4 -> FP32   | 8192   | 4096  | 1024          |
+| FP16 -> FP16  | 2048   | 1024  | 256           |
+| FP8 -> FP16   | 4096   | 2048  | 512           |
+| INT8 -> INT32 | 4096   | 2048  | 512           |
+| INT4 -> INT32 | N/A    | N/A   | N/A           |
+| FP64 -> FP64  | 32(SM) | 4(SM) | 1(SM)         |
+
+注：虽然 GB10 平均下来每个 TC 对应每周期 4 FP64 FLOP 矩阵乘算力，看起来比 GB202 多，但实际上是因为它每个 SM 只有一个 TC，而 GB202 是每个 SM 有四个 TC。
 
 ## NVIDIA Rubin
 
