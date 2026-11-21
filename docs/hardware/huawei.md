@@ -939,11 +939,9 @@ Hi36 系列：
 | Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 7261R | 64C/64T     | 2.5      | 8xDDR4   |
-| Kunpeng 920 7260Y | 64C/64T     | 2.2      | 8xDDR4   |
 | Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5251R | 48C/48T     | 2.5      | 8xDDR4   |
-| Kunpeng 920 5250Y | 48C/48T     | 2.2      | 8xDDR4   |
 | Kunpeng 920 5240  | 40C/40T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5230  | 32C/32T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
@@ -952,7 +950,7 @@ Hi36 系列：
 | Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 3211R | 24C/24T     | 2.5      | 4xDDR4   |
 
-后缀：F（3.0GHz）、R（2.5GHz）、Y（2.2GHz）
+后缀：F（3.0GHz）、R（2.5GHz）
 
 Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所以 8xDDR4 的都是 2 Die，而 4xDDR4 都是 1 Die。
 
@@ -966,6 +964,7 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 
 来源：
 
+- [TaiShan 200 服务器 白皮书 (型号 5280)](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/f5bc008d6f3643aea997083a943a5f08/M3T1A669N1121448784783126550/TaiShan%20200%20%E6%9C%8D%E5%8A%A1%E5%99%A8%20%E7%99%BD%E7%9A%AE%E4%B9%A6%20_%E5%9E%8B%E5%8F%B7%205280_.pdf)
 - [鲲鹏 920 处理器](https://www.hikunpeng.com/compute/kunpeng920)
 - [Kunpeng Hardware FAQs](https://www.hikunpeng.com/document/detail/en/kunpengfaq/productfaq/hardwarefaq/hardware_faq_0001.html)
 - [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
@@ -1102,15 +1101,21 @@ Kunpeng 920 新型号的型号矩阵：
 | Kunpeng 920 7270Z | 64C/128T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7263Z | 64C/128T    | 2.8      | 8xDDR5   |
 | Kunpeng 920 7260Z | 64C/128T    | 2.6      | 8xDDR5   |
+| Kunpeng 920 7260Y | 64C/128T    | 2.2      | 8xDDR5   |
+| Kunpeng 920 5250Z | 48C/96T     | 2.6      | 8xDDR5   |
+| Kunpeng 920 5250Y | 48C/96T     | 2.2      | 8xDDR5   |
 | Kunpeng 920 5258F | 40C/80T     | 3.1      | 4xDDR5   |
 | Kunpeng 920 5253Z | 40C/80T     | 2.9      | 4xDDR5   |
 | Kunpeng 920 5252Z | 40C/80T     | 2.6      | 4xDDR5   |
-| Kunpeng 920 5250Z | 48C/96T     | 2.6      | 8xDDR5   |
 | Kunpeng 920 5235Z | 32C/64T     | 2.9      | 4xDDR5   |
 | Kunpeng 920 5230Z | 32C/64T     | 2.6      | 4xDDR5   |
+| Kunpeng 920 7250Y | 32C/64T     | 2.2      | 4xDDR5   |
+
+猜测 920 新型号也是多 Die：8×DDR5 的是 2 个 Compute Die（每个 40 核 + 4 个 DDR5 控制器），4×DDR5 的是 1 个。
 
 来源：
 
+- [FusionCube 1000H-D2](https://e.huawei.com/cn/products/storage/hci/fusioncube1000)
 - [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
@@ -1128,7 +1133,7 @@ Kunpeng 920 新型号的型号矩阵：
 
 - Kunpeng 950 7592C（96C/192T，2.3/2.6GHz）、7562C（64C/128T，2.3/2.5GHz）
 - 每个 Core 集成 128KB L1I Cache, 64KB L1D Cache，1MB L2 Cache，每个 CPU 最大 273MB L3 Cache
-- 2 路 CPU，DDR5 最多支持 24 个 DDR 内存插槽，支持 RDIMM、MRDIMM
+- 2 路 CPU，每 CPU 12 路 DDR5 内存通道，支持 RDIMM、MRDIMM
 - 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
 - 单根内存条容量支持 32GB、64GB、96GB 和 128GB
 - Flags: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh rng ecv afp rpres wfxt rprfm hbc cmow ls64 ls64_v
