@@ -936,9 +936,11 @@ Hi36 系列：
 | 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
 |-------------------|-------------|----------|----------|
 | Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 7265  | 64C/64T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 7261R | 64C/64T     | 2.5      | 8xDDR4   |
 | Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 5255  | 48C/48T     | 3.0      | 8xDDR4   |
 | Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
 | Kunpeng 920 5251R | 48C/48T     | 2.5      | 8xDDR4   |
 | Kunpeng 920 5240  | 40C/40T     | 2.6      | 8xDDR4   |
@@ -948,8 +950,6 @@ Hi36 系列：
 | Kunpeng 920 5221R | 32C/32T     | 2.5      | 4xDDR4   |
 | Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 3211R | 24C/24T     | 2.5      | 4xDDR4   |
-
-后缀：F（3.0GHz）、R（2.5GHz）
 
 Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所以 8xDDR4 的都是 2 Die，而 4xDDR4 都是 1 Die。
 
@@ -963,6 +963,8 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 
 来源：
 
+- [[Bug]: 0.22.1 rcl版本进行32GA2的四机PD分离（1*2p和1*2D）开启前缀缓存，命中率为0 (lscpu of Kunpeng 920 7265)](https://github.com/vllm-project/vllm-ascend/issues/12093)
+- [[Bug]: MlaPrologV3 fails with EZ0024 (Parameter Hcq incorrect value 768) when serving GLM-4.7-Flash in standalone mode (lscpu of Kunpeng 920 5250)](https://github.com/vllm-project/vllm-ascend/issues/22423)
 - [TaiShan 200 服务器 白皮书 (型号 5280)](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/f5bc008d6f3643aea997083a943a5f08/M3T1A669N1121448784783126550/TaiShan%20200%20%E6%9C%8D%E5%8A%A1%E5%99%A8%20%E7%99%BD%E7%9A%AE%E4%B9%A6%20_%E5%9E%8B%E5%8F%B7%205280_.pdf)
 - [鲲鹏 920 处理器](https://www.hikunpeng.com/compute/kunpeng920)
 - [Kunpeng Hardware FAQs](https://www.hikunpeng.com/document/detail/en/kunpengfaq/productfaq/hardwarefaq/hardware_faq_0001.html)
@@ -991,6 +993,7 @@ Kunpeng 920 新型号的型号矩阵：
 | 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
 |-------------------|-------------|----------|----------|
 | Kunpeng 920 7285F | 80C/160T    | 3.1      | 8xDDR5   |
+| Kunpeng 920 7285Z | 80C/160T    | 3.0      | 8xDDR5   |
 | Kunpeng 920 7280Z | 80C/160T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7270F | 64C/128T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7270Z | 64C/128T    | 2.9      | 8xDDR5   |
@@ -1010,8 +1013,9 @@ Kunpeng 920 新型号的型号矩阵：
 
 来源：
 
+- [[Bug]:CPU binding shares one CPU/NUMA/IRQ pool across all internal-DP workers under renumbered device visibility (lscpu of Kunpeng 920 7285Z)](https://github.com/vllm-project/vllm-ascend/issues/20505)
 - [cpu_map-add-kunpeng-920-V1-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-920-V1-cpu-map.patch)
-- [[Bug]: HunyuanImage-3.0-Instruct (AR+DiT) startup hangs when waitting engine core process start on Ascend A3](https://github.com/vllm-project/vllm-ascend/issues/12687)
+- [[Bug]: HunyuanImage-3.0-Instruct (AR+DiT) startup hangs when waitting engine core process start on Ascend A3 (lscpu of Kunpeng 920 7280Z)](https://github.com/vllm-project/vllm-ascend/issues/12687)
 - [FusionCube 1000H-D2](https://e.huawei.com/cn/products/storage/hci/fusioncube1000)
 - [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
@@ -1149,8 +1153,8 @@ Kunpeng 920 新型号的型号矩阵：
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [鲲鹏系列主板&TaiShan服务器R26-彩页(26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
 - [鲲鹏超节点 950（电组网）技术规格](https://support.huawei.com/enterprise/zh/doc/EDOC1100617238/1d8c793)
-- [Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP](https://github.com/vllm-project/vllm-ascend/issues/8484)
-- [Bug: MRv2 EPLB silently never rearranges when eplb_config.policy is "default"](https://github.com/vllm-project/vllm-ascend/issues/20362)
+- [Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP (lscpu of Kunpeng 950 7592C)](https://github.com/vllm-project/vllm-ascend/issues/8484)
+- [Bug: MRv2 EPLB silently never rearranges when eplb_config.policy is "default" (lscpu of Kunpeng 950 7592C)](https://github.com/vllm-project/vllm-ascend/issues/20362)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [Add hip12 core definition and cost model](https://github.com/openeuler-mirror/gcc/commit/c5970536c2caa3980bb1fded812ac0dc8ebf3681)
 - [Add hip12 instructions pipeline](https://gitee.com/openeuler/gcc/commit/d63119daeb54cd0c387c1b24981c47d795e5a672)
