@@ -1133,13 +1133,12 @@ Kunpeng 920 新型号的型号矩阵：
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
 - part id 0xd06，与 Kirin 9030 系列大核相同
-- 每核对应 128KB L1I Cache, 64KB L1D Cache, 1MB L2 Cache, 2912KB L3 Cache
 - 16(?)/8-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
 - 128bit FP datapath from LLVM
 - 320-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
 - Kunpeng 950 7592C（96C/192T，2.3/2.6GHz）、7562C（64C/128T，2.3/2.5GHz）
-- 每个 Core 集成 128KB L1I Cache, 64KB L1D Cache，1MB L2 Cache，每个 CPU 最大 273MB L3 Cache
+- 每个 Core 集成 128KB L1I Cache, 64KB L1D Cache，1MB L2 Cache，每个 CPU 最大 273MB L3 Cache（每个 Core 对应 2912KB L3 Cache）
 - 2 路 CPU，每 CPU 12 路 DDR5 内存通道，支持 RDIMM、MRDIMM
 - 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
 - 单根内存条容量支持 32GB、64GB、96GB 和 128GB
