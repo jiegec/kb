@@ -87,5 +87,5 @@ RBv3 的最小 VBlank 取 460 µs 还是 300 µs 会直接影响数据速率：1
 ## 参考
 
 - VESA Coordinated Video Timings (CVT) Standard, Version 1.2
-- VESA CVT v1.2 Errata E2（2021，Reduced Blanking v3）
-- VESA Coordinated Video Timings (CVT) Standard, Version 2.1（2023）
+- VESA CVT v1.2 Errata E2 (2021, Reduced Blanking v3)
+- VESA Coordinated Video Timings (CVT) Standard, Version 2.1 (2023)

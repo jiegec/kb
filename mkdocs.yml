@@ -1,6 +1,7 @@
 site_name: Jiegec's Knowledge Base
 site_url: https://jia.je/kb
 site_description: Knowledge Base of @jiegec
+use_directory_urls: false
 theme:
   font: false
   custom_dir: overrides
@@ -43,14 +44,18 @@ plugins:
             Travel: 旅行
   - git-revision-date-localized:
       enable_creation_date: true
+      enabled: !ENV [DEPLOY, false]
   - glightbox
-  - rss
+  - rss:
+      enabled: !ENV [DEPLOY, false]
   - search
   - social:
       cards_layout_options:
         font_family: Noto Sans SC
+      enabled: !ENV [DEPLOY, false]
   - tags
-  - offline
+  - offline:
+      enabled: !ENV [DEPLOY, false]
   - llmstxt:
       sections:
         Knowledge Base:
@@ -62,7 +67,7 @@ extra:
       link: /kb/llms.txt
   analytics:
     provider: custom
-copyright: Copyright &copy; 2023-2025 Jiajie Chen
+copyright: Copyright &copy; 2023-2026 Jiajie Chen
 repo_url: https://github.com/jiegec/kb
 edit_uri: edit/main/docs/
 markdown_extensions:

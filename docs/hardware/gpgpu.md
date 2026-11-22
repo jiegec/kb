@@ -201,6 +201,8 @@ GM200 有 3072 KB 的 L2 缓存。
 
 Whitepaper: [NVIDIA Tesla P100](https://images.nvidia.cn/content/pdf/tesla/whitepaper/pascal-architecture-whitepaper.pdf)
 
+CUDA GPU Compute Capability: sm_60
+
 GP100 是 Pascal 架构的芯片，改进如下：
 
 - 支持 NVLink，双向带宽 160 GB/s
@@ -230,6 +232,8 @@ Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/
 
 PPT: [VOLTA: PROGRAMMABILITY AND PERFORMANCE](https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf)
 
+CUDA GPU Compute Capability: sm_70
+
 GV100 是 Volta 架构的 GPU，它的改进包括：
 
 - TSMC 12nm FFN 工艺，815 mm^2 面积，21.1 billion transistors
@@ -239,7 +243,7 @@ GV100 是 Volta 架构的 GPU，它的改进包括：
 - 每个 SM 有 64 个 FP32 CUDA core，64 个 INT32 CUDA core，32 个 FP64 CUDA core，8 个 Tensor Core 和 4 个 Texture Unit（`Each SM has: 64 FP32 cores, 64 INT32 cores, 32 FP64 cores, 8 Tensor Cores, Four texture units`）
 - 8 个 512-bit Memory Controller（`Eight 512-bit memory controllers (4096 bits total)`）
 
-GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing Block 包括（`The GV100 SM is partitioned into four processing blocks, each with 16 FP32 Cores, 8 FP64 Cores, 16 INT32 Cores, two of the new mixed-precision Tensor Cores for deep learning matrix arithmetic, a new L0 instruction cache, one warp scheduler, one dispatch unit, and a 64 KB Register File. Note that the new L0 instruction cache is now used in each partition to provide higher efficiency than the instruction buffers used in prior NVIDIA GPUs. (See the Volta SM in Figure 5).`）：
+GV100 又回到了每个 SM 拆分成 4 个 Processing Block（有些地方用的还是旧名字 SMSP），每个 Processing Block 包括（`The GV100 SM is partitioned into four processing blocks, each with 16 FP32 Cores, 8 FP64 Cores, 16 INT32 Cores, two of the new mixed-precision Tensor Cores for deep learning matrix arithmetic, a new L0 instruction cache, one warp scheduler, one dispatch unit, and a 64 KB Register File. Note that the new L0 instruction cache is now used in each partition to provide higher efficiency than the instruction buffers used in prior NVIDIA GPUs. (See the Volta SM in Figure 5).`）：
 
 - L0 Instruction Cache
 - 一个单发射 Warp Scheduler
@@ -259,11 +263,15 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block，每个 Processing
 
 GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 KB of L2 cache.`），分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据（`32 B/clk/slice`），因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期（`compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.`）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节（`V100 has a peak math rate of 125 FP16 Tensor TFLOPS, an off-chip memory bandwidth of approx. 900 GB/s, and an on-chip L2 bandwidth of 3.1 TB/s, giving it a ops:byte ratio between 40 and 139, depending on the source of an operation’s data (on-chip or off-chip memory).`）。
 
+每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
+
 ## NVIDIA Turing
 
 Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
 
 PPT: [RTX ON – THE NVIDIA TURING GPU](https://old.hotchips.org/hc31/HC31_2.12_NVIDIA_final.pdf)
+
+CUDA GPU Compute Capability: sm_75
 
 TU102 是 Turing 架构的一款 GPGPU 芯片，它包括了：
 
@@ -300,6 +308,24 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
 
 Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
 
+Tensor Core 除了支持 FP16 以外，还支持 INT8 和 INT4 支持。
+
+对于 FP16，依然是每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；TU102 有 72 个 SM，每个 SM 有 8 个 Tensor Core，Boost 频率 1770MHz，FP16 性能是 $72*8*1770*64*2=130.50$ TFLOPS。
+
+对于 INT8，每周期每 TC 进行 256 次运算，对应 $4\times8\times4$ 的 MMA，性能相比 FP16 翻倍。INT4 每周期每 TC 进行 512 次运算，对应 $4\times16\times4$ 的 MMA，性能进一步翻倍。
+
+即使都是 TU102，不同的显卡，其 TC 性能是不一样的：Quadro RTX 6000 和 RTX 2080 Ti 都采用了 TU102 芯片，但 RTX 2080 Ti 在 FP16 矩阵乘累加到 FP32 时的性能只有一半，FP16 矩阵乘累加到 FP16 性能不变。这个限制是通过固件来实现的，可能是为了避免游戏卡被拿来当计算卡用。目前网络上已经有办法解锁 RTX 2080 Ti 的完整 FP16 矩阵乘累加到 FP32 的算力。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GV100 | TU102（专业卡/已解锁游戏卡） | TU102（未解锁游戏卡） |
+|---------------|-------|----------------------------|---------------------|
+| FP16 -> FP32  | 128   | 128                        | 64                  |
+| FP16 -> FP16  | 128   | 128                        | 128                 |
+| INT8 -> INT32 | N/A   | 256                        | 256                 |
+| INT4 -> INT32 | N/A   | 512                        | 512                 |
+
+详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
 
 ## NVIDIA Ampere
 
@@ -311,7 +337,7 @@ PPT: [NVIDIA A100 GPU: PERFORMANCE & INNOVATION FOR GPU COMPUTING](https://hc32.
 
 论文：[Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis](https://ieeexplore.ieee.org/abstract/document/9926299/)
 
-### GA100
+### GA100（sm_80）
 
 完整的 GA100 芯片包括：
 
@@ -330,9 +356,30 @@ A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU inc
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
 
-A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。
+A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。此外，还支持 BF16/TF32/FP64/INT8/INT4/Binary 的矩阵乘。具体情况如下：
 
-### GA102
+- 每个 SM 有四个 Tensor Core
+- 每个 Tensor Core 吞吐：
+    - 8x4x8 的 FP16/BF16 矩阵，对应 256 FMA/周期，512 FLOP/周期
+    - 8x4x4 的 TF32 矩阵，对应 128 FMA/周期，256 FLOP/周期
+    - 2x2x4 的 FP64 矩阵，对应 16 FMA/周期，32 FLOP/周期
+    - 8x4x16 的 INT8 矩阵，对应 512 MAC/周期，对应 1024 OP/周期
+
+和 TU102 的每 TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | TU102（专业卡/已解锁游戏卡） | GA100 |
+|---------------|----------------------------|-------|
+| TF32 -> FP32  | N/A                        | 256   |
+| FP16 -> FP32  | 128                        | 512   |
+| BF16 -> FP32  | N/A                        | 512   |
+| FP16 -> FP16  | 128                        | 512   |
+| INT8 -> INT32 | 256                        | 1024  |
+| INT4 -> INT32 | 512                        | 2048  |
+| FP64 -> FP64  | N/A                        | 32    |
+
+CUDA GPU Compute Capability: sm_80
+
+### GA102（sm_86）
 
 Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
 
@@ -347,9 +394,31 @@ GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 �
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
+GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16->FP16 或 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
+
+即使同样是 GA102，游戏卡（比如 RTX 3090 Ti）的 TC 有进一步的限制，TF32/BF16/FP16 累加到 FP32 的性能进一步砍半（FP16 累加到 FP16 性能不变），而专业卡（比如 RTX A6000）则没有这个进一步的限制。这个限制是通过固件完成的阉割，网络上已经有解锁的方法。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GA100 | GA102（专业卡/已解锁游戏卡） | GA102（未解锁游戏卡） |
+|---------------|-------|----------------------------|---------------------|
+| TF32 -> FP32  | 256   | 128                        | 64                  |
+| FP16 -> FP32  | 512   | 256                        | 128                 |
+| BF16 -> FP32  | 512   | 256                        | 128                 |
+| FP16 -> FP16  | 512   | 256                        | 256                 |
+| INT8 -> INT32 | 1024  | 512                        | 512                 |
+| INT4 -> INT32 | 2048  | 1024                       | 1024                |
+| FP64 -> FP64  | 32    | 1(SM)                      | 1(SM)               |
+
+注：标 (SM) 的数字不是 Tensor Core 数据通路提供的，而是 SM 里普通单元（FP64 / INT32）的峰值折算到每 TC，仅为横向比较，下同。
+
+CUDA GPU Compute Capability: sm_86
+
 ## NVIDIA Ada Lovelace
 
 Whitepaper: [NVIDIA ADA GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/Data-Center/l4/nvidia-ada-gpu-architecture-whitepaper-v2.1.pdf)
+
+CUDA GPU Compute Capability: sm_89
 
 Ada Lovelace 架构的 AD102 包括：
 
@@ -363,18 +432,38 @@ Ada Lovelace 架构的 AD102 包括：
   <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
 
+Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持，每周期计算 $4\times4\times16$ 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。原来的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，通过增加 SM 数量和频率来提升总算力。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
+
+但上述 FP16/BF16/TF32/INT8/INT4 的每周期性能只有数据中心 Ampere（GA100）的一半；游戏卡还会在固件上把涉及 FP32 累加的矩阵乘再砍半（相对 GA100 就是四分之一）。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | TU102（专业卡/已解锁游戏卡） | TU102（未解锁游戏卡） | GA100 | GA102（专业卡/已解锁游戏卡） | GA102（未解锁游戏卡） | AD102（专业卡/已解锁游戏卡） | AD102（未解锁游戏卡） |
+|---------------|----------------------------|---------------------|-------|----------------------------|---------------------|----------------------------|---------------------|
+| TF32 -> FP32  | N/A                        | N/A                 | 256   | 128                        | 64                  | 128                        | 64                  |
+| FP16 -> FP32  | 128                        | 64                  | 512   | 256                        | 128                 | 256                        | 128                 |
+| BF16 -> FP32  | N/A                        | N/A                 | 512   | 256                        | 128                 | 256                        | 128                 |
+| FP8 -> FP32   | N/A                        | N/A                 | N/A   | N/A                        | N/A                 | 512                        | 256                 |
+| FP16 -> FP16  | 128                        | 128                 | 512   | 256                        | 256                 | 256                        | 256                 |
+| FP8 -> FP16   | N/A                        | N/A                 | N/A   | N/A                        | N/A                 | 512                        | 512                 |
+| INT8 -> INT32 | 256                        | 256                 | 1024  | 512                        | 512                 | 512                        | 512                 |
+| INT4 -> INT32 | 512                        | 512                 | 2048  | 1024                       | 1024                | 1024                       | 1024                |
+| FP64 -> FP64  | N/A                        | N/A                 | 32    | 1(SM)                      | 1(SM)               | 1(SM)                      | 1(SM)               |
+
 ## NVIDIA Hopper
 
-Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)
+Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c)
 
 PPT: [NVIDIA HOPPER GPU: SCALING PERFORMANCE](https://hc34.hotchips.org/assets/program/conference/day1/GPU%20HPC/HC2022.NVIDIA.Choquette.vfinal01.pdf)
+
+CUDA GPU Compute Capability: sm_90
 
 H100 SXM5 参数如下：
 
 - TSMC 4N 制程，80 billion transistor（`The full GH100 GPU that powers the H100 GPU is fabricated using TSMC’s 4N process customized for NVIDIA, with 80 billion transistors, a die size of 814 mm2, and higher frequency design.`）
 - HBM3 DRAM，5 个 stack，10 个 512-bit memory controller，总共 80 GB 容量（`6 HBM3 or HBM2e stacks, 12 512-bit Memory Controllers`）
 - H100 SXM5 有 8 个 GPC，66 个 TPC，每个 TPC 有两个 SM；一共 132 个 SM（`8 GPCs, 66 TPCs, 2 SMs/TPC, 132 SMs per GPU`）
-- 每个 SM 内部有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU
+- 每个 SM 有四个 Processing Block，每个 Processing Block 有 16 个 INT32 单元，32 个 FP32 单元，16 个 FP64 单元，一个 Tensor Core，四个 SFU
 
 <figure markdown>
   ![](gpgpu_hopper_sm.png){ width="600" }
@@ -387,6 +476,28 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 
 CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block Cluster 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
 
+Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/INT8 格式。TC 对 INT4 格式的支持在 Turing 时引入，一直延续到了 Ada Lovelace，到 Hopper 时被移除。当然，INT8 支持还保留，所以 INT4 的矩阵乘，就先转成 INT8 再用 INT8 的 IMMA 指令来计算。
+
+与此同时，FP64 TC 的峰值频率与 SM 非 TC 计算的频率一致（如 1980 MHz），其余格式的 TC 用的是另一个更低的频率（如 1830 MHz）。
+
+相比 A100 每周期做 8x4x8 的 FP16/BF16 矩阵乘，H100 每周期可以做 8x4x16 的 FP16/BF16 矩阵乘。H100 SXM5 有 132 个 SM 共 528 个 TC，按 1830 MHz 的频率，FP16 峰值性能是 $528*8*4*16*2*1830 = 989.4$ TFLOPS。TF32 性能是 FP16 的一半，FP8 和 INT8 性能是 FP16 的两倍。
+
+FP8 TC 支持 E4M3 和 E5M2 两种格式，C 矩阵的格式支持 FP32 和 FP16。H100 每周期做 8x4x32 的 FP8 矩阵乘，8x4x8 的 TF32，4x2x4 的 FP64 矩阵乘，8x4x32 的 INT8 矩阵乘。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GA100 | GH100 |
+|---------------|-------|-------|
+| TF32 -> FP32  | 256   | 512   |
+| FP16 -> FP32  | 512   | 1024  |
+| BF16 -> FP32  | 512   | 1024  |
+| FP8 -> FP32   | N/A   | 2048  |
+| FP16 -> FP16  | 512   | 1024  |
+| FP8 -> FP16   | N/A   | 2048  |
+| INT8 -> INT32 | 1024  | 2048  |
+| INT4 -> INT32 | 2048  | N/A   |
+| FP64 -> FP64  | 32    | 64    |
+
 ## NVIDIA Blackwell
 
 Whitepaper: [NVIDIA Blackwell Architecture Technical Brief](https://resources.nvidia.com/en-us-blackwell-architecture)
@@ -394,6 +505,103 @@ Whitepaper: [NVIDIA Blackwell Architecture Technical Brief](https://resources.nv
 Datasheet: [NVIDIA Blackwell Datasheet](https://resources.nvidia.com/en-us-blackwell-architecture/datasheet)
 
 Datasheet: [NVIDIA DGX B200 Datasheet](https://resources.nvidia.com/en-us-dgx-systems/dgx-b200-datasheet)
+
+CUDA GPU Compute Capability:
+
+- B200/GB200: sm_100
+- B300/GB300: sm_103
+- RTX 5090: sm_120
+- GB10(DGX Spark): sm_121
+
+## GB100（sm_100）
+
+B200 采用的是 GB100 芯片。
+
+Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/FP6/FP4/INT8 格式，在 Hopper 的基础上，额外支持了 FP6 和 FP4，以及 Block Scaling 的 MXFP8/MXFP4/NVFP4 格式。
+
+从性能来看，GB100 相比 GH100，FP16/BF16 -> FP32 的性能没变，FP64 -> FP64 的性能反而减半，使用 TC 和直接用 SM 里的 FP64 单元的峰值性能相同，也没有通过 tcgen05.mma 指令暴露出来，合理怀疑 GB100 直接复用了 SM 原有的 FP64 单元来实现 FP64 的矩阵乘 DMMA 指令。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GA100 | GH100 | GB100  |
+|---------------|-------|-------|--------|
+| TF32 -> FP32  | 256   | 512   | 1024   |
+| FP16 -> FP32  | 512   | 1024  | 1024   |
+| BF16 -> FP32  | 512   | 1024  | 1024   |
+| FP8 -> FP32   | N/A   | 2048  | 4096   |
+| FP4 -> FP32   | N/A   | N/A   | 8192   |
+| FP16 -> FP16  | 512   | 1024  | 2048   |
+| FP8 -> FP16   | N/A   | 2048  | 4096   |
+| INT8 -> INT32 | 1024  | 2048  | 4096   |
+| INT4 -> INT32 | 2048  | N/A   | N/A    |
+| FP64 -> FP64  | 32    | 64    | 32(SM) |
+
+根据 MMA-Sim，相比 Hopper，Blackwell 的 TC 在进行 FP8 的 TC 运算时，中间结果保留了更多位的精度：25 vs 13，意味着在低精度矩阵乘下可以更好地保持 FP32 累加的精度。
+
+## GB110（sm_103）
+
+B300 采用的是 GB110 芯片。相比 GB100，GB110 主要强化了 FP4 的性能，代价是 INT8 和 FP64 性能的明显下降，虽然 SASS 上还有 DMMA 和 IMMA 指令，但性能只有 GB100 的 1/32，估计是用 SM 里的 INT/FP64 单元实现。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GB100  | GB110   |
+|---------------|--------|---------|
+| TF32 -> FP32  | 1024   | 1024    |
+| FP16 -> FP32  | 1024   | 1024    |
+| BF16 -> FP32  | 1024   | 1024    |
+| FP8 -> FP32   | 4096   | 4096    |
+| FP4 -> FP32   | 8192   | 12288   |
+| FP16 -> FP16  | 2048   | 2048    |
+| FP8 -> FP16   | 4096   | 4096    |
+| INT8 -> INT32 | 4096   | 128(SM) |
+| INT4 -> INT32 | N/A    | N/A     |
+| FP64 -> FP64  | 32(SM) | 1(SM)   |
+
+## GB202（sm_120）
+
+Datasheet: [NVIDIA RTX BLACKWELL GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf)
+
+Datasheet: [NVIDIA RTX PRO BLACKWELL GPU ARCHITECTURE](https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/quadro-product-literature/pdf/NVIDIA-RTX-Blackwell-PRO-GPU-Architecture-v1_1.pdf)
+
+RTX 5090 采用的是 GB202 芯片（sm_120），这类游戏卡的 TC 不支持 FP64，但保留了新增的 FP4 格式支持。相比 Ada Lovelace AD102，TF32/BF16/FP16/FP8/INT8 格式的每周期 TC 算力相同，但去掉了 INT4 格式支持。同样地，游戏卡在 FP8/FP16/BF16/TF32 到 FP32 累加时性能减半（FP4 到 FP32 累加性能没有减半），暂时还没有解锁的办法（Ada Lovelace 和更早都可以解锁这部分性能），专业卡（如 RTX PRO 6000 Blackwell）则不会减半。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | AD102（专业卡/已解锁游戏卡） | AD102（未解锁游戏卡） | GB202（专业卡） | GB202（游戏卡） |
+|---------------|----------------------------|---------------------|---------------|---------------|
+| TF32 -> FP32  | 128                        | 64                  | 128           | 64            |
+| FP16 -> FP32  | 256                        | 128                 | 256           | 128           |
+| BF16 -> FP32  | 256                        | 128                 | 256           | 128           |
+| FP8 -> FP32   | 512                        | 256                 | 512           | 256           |
+| FP4 -> FP32   | N/A                        | N/A                 | 1024          | 1024          |
+| FP16 -> FP16  | 256                        | 256                 | 256           | 256           |
+| FP8 -> FP16   | 512                        | 512                 | 512           | 512           |
+| INT8 -> INT32 | 512                        | 512                 | 512           | 512           |
+| INT4 -> INT32 | 1024                       | 1024                | N/A           | N/A           |
+| FP64 -> FP64  | 1(SM)                      | 1(SM)               | 1(SM)         | 1(SM)         |
+
+## GB10（sm_121）
+
+Datasheet: [NVIDIA GB10 Superchip](https://www.nvidia.com/content/dam/en-zz/Solutions/dgx-spark/nvidia-gb10-superchip-whitepaper.pdf)
+
+DGX Spark 和 RTX Spark 用的是 GB10（sm_121）芯片。它每个 SM 只有一个 TC。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
+
+TC 每周期吞吐（FLOP/OP）对比：
+
+| 格式          | GB100  | GB10  | GB202（专业卡） |
+|---------------|--------|-------|---------------|
+| TF32 -> FP32  | 1024   | 512   | 128           |
+| FP16 -> FP32  | 1024   | 1024  | 256           |
+| BF16 -> FP32  | 1024   | 1024  | 256           |
+| FP8 -> FP32   | 4096   | 2048  | 512           |
+| FP4 -> FP32   | 8192   | 4096  | 1024          |
+| FP16 -> FP16  | 2048   | 1024  | 256           |
+| FP8 -> FP16   | 4096   | 2048  | 512           |
+| INT8 -> INT32 | 4096   | 2048  | 512           |
+| INT4 -> INT32 | N/A    | N/A   | N/A           |
+| FP64 -> FP64  | 32(SM) | 4(SM) | 1(SM)         |
+
+注：虽然 GB10 平均下来每个 TC 对应每周期 4 FP64 FLOP 矩阵乘算力，看起来比 GB202 多，但实际上是因为它每个 SM 只有一个 TC，而 GB202 是每个 SM 有四个 TC。
 
 ## NVIDIA Rubin
 

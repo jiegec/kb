@@ -484,7 +484,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9030S
 
-- 搭载于：Pura X View、Pura 90 Pro、Pura 90 Pro Max
+- 搭载于：Pura X View、Pura 90 Pro、Pura 90 Pro Max、星芒 O1 Pro
 - 1x 大核（带 SMT，2.70 GHz，0xd06），3x 中核（带 SMT，2.15 GHz，0xd47），4x 小核（无 SMT，1.62 GHz，0xd24），共 8 核 12 线程
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
 - GPU: Maleoon 935F, 3CU（T93S 为同规格平板版，3CU；T93SD 为 2CU）
@@ -707,13 +707,20 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 ### 内部代号
 
+Hi36 系列：
+
 - 麒麟 9000s：Charlotte Hi36A0 GFCV120
 - 麒麟 9010：Charlotte CSV2 Hi36A0 GFCV121
-- 麒麟 X90：Charlotte Pro Hi9600
 - 麒麟 9020：Nashville Hi36C0 GFCV110
-- 麒麟 8020：Xian Hi62B0 GFCV110
 - 麒麟 9030：Changsha Hi36D0 GFCV100
 - 麒麟 9050：Nanchang Hi36E0 GFCV100
+- 麒麟 9060？：Guangzhou Hi36F0
+
+其他：
+
+- 麒麟 X90：Charlotte Pro Hi9600
+- 麒麟 8020：Xian Hi62B0 GFCV110
+- 麒麟 9030S：Chengdu Hi62C0
 
 ## 产品型号
 
@@ -848,53 +855,54 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 | 2026 | 畅享 90 Plus                            | JUY-AL50                     | 麒麟 8000     | [华为商城](https://www.vmall.com/product/10086756705081.html)                                                                                     |
 | 2026 | 畅享 90 Pro Max                         | CHZ-AL00                     | 麒麟 8000     | [华为商城](https://www.vmall.com/product/10086270081540.html)                                                                                     |
 | 2026 | 畅享 90m Plus                           | JUY-AL50                     | 麒麟 8000     | [华为商城](https://www.vmall.com/product/10086649851723.html)                                                                                     |
+| 2026 | 星芒 O1 Pro                             | ACO-AL00                     | 麒麟 9030S    | [华为商城](https://www.vmall.com/product/10086155242482.html)                                                                                     |
 
 ### 内部代号（codename）
 
-| 代号                   | 产品                                                                                                                                                                                 |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Adela (ADA, ADE, ADL)  | HUAWEI nova 12 Pro、HUAWEI nova 12 Ultra、HUAWEI nova 12 Ultra 星耀版                                                                                                                |
-| Agassi6 (AGS6)         | HUAWEI MatePad SE 11"                                                                                                                                                                |
-| Allen (ALN)            | HUAWEI Mate 60 Pro                                                                                                                                                                   |
-| Alta (ALT)             | HUAWEI Mate X5                                                                                                                                                                       |
-| Audrey (ADY)           | HUAWEI Pura 70、HUAWEI Pura 70 北斗卫星消息版                                                                                                                                        |
-| Banksy (BKYM)          | HUAWEI MatePad Air 12英寸                                                                                                                                                            |
-| Barry (BRA)            | HUAWEI Mate 60                                                                                                                                                                       |
-| Blake (BLK)            | HUAWEI nova 12                                                                                                                                                                       |
-| Celestial (CLS)        | HUAWEI Mate 70                                                                                                                                                                       |
-| Chenzhen (CHZ)         | 华为畅享 90 Pro Max                                                                                                                                                                  |
-| Delphi (DEL)           | HUAWEI Mate X7、HUAWEI Mate X7 典藏版                                                                                                                                                |
-| Fiona (FIN)            | HUAWEI nova 12 活力版                                                                                                                                                                |
-| GellMann (GEM)         | HUAWEI MatePad Pro Max                                                                                                                                                               |
-| Greenlan (GRL)         | HUAWEI Mate XT ｜ ULTIMATE DESIGN、HUAWEI Mate XTs ｜ ULTIMATE DESIGN                                                                                                                |
-| Hedy (HED)             | HUAWEI Pura 80                                                                                                                                                                       |
-| Hepburn (HBN)          | HUAWEI Pura 70 Pro                                                                                                                                                                   |
-| HepburnP (HBP)         | HUAWEI Pura 70 Ultra                                                                                                                                                                 |
-| Hope (HOP)             | HUAWEI Pura X Max、HUAWEI Pura X Max 典藏版                                                                                                                                          |
-| Klee (KLE)             | HUAWEI nova 15 pro                                                                                                                                                                   |
-| Lamarr (LMR)           | HUAWEI Pura 80 Pro                                                                                                                                                                   |
-| LamarrU (LMU)          | HUAWEI Pura 80 Ultra                                                                                                                                                                 |
-| Laurent (LRT)          | HUAWEI MatePad Air 12英寸 2025                                                                                                                                                       |
-| Malena (MLN)           | HUAWEI Pura 90 Pro                                                                                                                                                                   |
-| Margaret (MRT)         | HUAWEI nova 14 Ultra                                                                                                                                                                 |
-| Mclaren (MLR)          | HUAWEI MatePad Mini 悦读版                                                                                                                                                           |
-| Milla (MIA)            | HUAWEI nova 14 Pro                                                                                                                                                                   |
-| Morandi (MRDI)         | HUAWEI MatePad Pro 12.2 英寸 2025                                                                                                                                                    |
-| Pillar (PLA, PLR, PLU) | HUAWEI Mate 70 Pro、HUAWEI Mate 70 Pro 优享版、HUAWEI Mate 70 Pro+、HUAWEI Mate 70 RS ｜ ULTIMATE DESIGN                                                                             |
-| Poincare (PCE)         | HUAWEI MatePad Pro 13.2英寸 2023款                                                                                                                                                   |
-| Pushkin (PSN)          | HUAWEI nova 15                                                                                                                                                                       |
-| Qianxuesen (QXS)       | HUAWEI MatePad Edge                                                                                                                                                                  |
+| 代号                   | 产品                                                                                                                                                                          |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Adela (ADA, ADE, ADL)  | HUAWEI nova 12 Pro、HUAWEI nova 12 Ultra、HUAWEI nova 12 Ultra 星耀版                                                                                                           |
+| Agassi6 (AGS6)         | HUAWEI MatePad SE 11"                                                                                                                                                         |
+| Allen (ALN)            | HUAWEI Mate 60 Pro                                                                                                                                                            |
+| Alta (ALT)             | HUAWEI Mate X5                                                                                                                                                                |
+| Audrey (ADY)           | HUAWEI Pura 70、HUAWEI Pura 70 北斗卫星消息版                                                                                                                                  |
+| Banksy (BKYM)          | HUAWEI MatePad Air 12 英寸                                                                                                                                                    |
+| Barry (BRA)            | HUAWEI Mate 60                                                                                                                                                                |
+| Blake (BLK)            | HUAWEI nova 12                                                                                                                                                                |
+| Celestial (CLS)        | HUAWEI Mate 70                                                                                                                                                                |
+| Chenzhen (CHZ)         | 华为畅享 90 Pro Max                                                                                                                                                           |
+| Delphi (DEL)           | HUAWEI Mate X7、HUAWEI Mate X7 典藏版                                                                                                                                          |
+| Fiona (FIN)            | HUAWEI nova 12 活力版                                                                                                                                                         |
+| GellMann (GEM)         | HUAWEI MatePad Pro Max                                                                                                                                                        |
+| Greenlan (GRL)         | HUAWEI Mate XT ｜ ULTIMATE DESIGN、HUAWEI Mate XTs ｜ ULTIMATE DESIGN                                                                                                            |
+| Hedy (HED)             | HUAWEI Pura 80                                                                                                                                                                |
+| Hepburn (HBN)          | HUAWEI Pura 70 Pro                                                                                                                                                            |
+| HepburnP (HBP)         | HUAWEI Pura 70 Ultra                                                                                                                                                          |
+| Hope (HOP)             | HUAWEI Pura X Max、HUAWEI Pura X Max 典藏版                                                                                                                                    |
+| Klee (KLE)             | HUAWEI nova 15 pro                                                                                                                                                            |
+| Lamarr (LMR)           | HUAWEI Pura 80 Pro                                                                                                                                                            |
+| LamarrU (LMU)          | HUAWEI Pura 80 Ultra                                                                                                                                                          |
+| Laurent (LRT)          | HUAWEI MatePad Air 12 英寸 2025                                                                                                                                               |
+| Malena (MLN)           | HUAWEI Pura 90 Pro                                                                                                                                                            |
+| Margaret (MRT)         | HUAWEI nova 14 Ultra                                                                                                                                                          |
+| Mclaren (MLR)          | HUAWEI MatePad Mini 悦读版                                                                                                                                                    |
+| Milla (MIA)            | HUAWEI nova 14 Pro                                                                                                                                                            |
+| Morandi (MRDI)         | HUAWEI MatePad Pro 12.2 英寸 2025                                                                                                                                             |
+| Pillar (PLA, PLR, PLU) | HUAWEI Mate 70 Pro、HUAWEI Mate 70 Pro 优享版、HUAWEI Mate 70 Pro+、HUAWEI Mate 70 RS ｜ ULTIMATE DESIGN                                                                          |
+| Poincare (PCE)         | HUAWEI MatePad Pro 13.2 英寸 2023 款                                                                                                                                          |
+| Pushkin (PSN)          | HUAWEI nova 15                                                                                                                                                                |
+| Qianxuesen (QXS)       | HUAWEI MatePad Edge                                                                                                                                                           |
 | Sagittarius (SGT, SGU) | HUAWEI Mate 80 Pro、HUAWEI Mate 80 Pro Max、HUAWEI Mate 80 Pro Max 风驰版、HUAWEI Mate 80 Pro(12g)、HUAWEI Mate 80 Pro(16g)、HUAWEI Mate 80 RS、HUAWEI Mate 80 RS ｜ ULTIMATE DESIGN |
-| Salinger (SLG)         | HUAWEI MatePad 11.5 S                                                                                                                                                                |
-| Shelley (SLY)          | HUAWEI nova 15 ultra                                                                                                                                                                 |
-| Sicilia (SCA)          | HUAWEI Pura 90 Pro Max                                                                                                                                                               |
-| Superman (SUP)         | HUAWEI Mate 70 Air                                                                                                                                                                   |
-| Tagore (TGR, TGRM)     | HUAWEI MatePad 11.5"S                                                                                                                                                                |
-| Taoxingzhi (TXZ)       | HUAWEI MatePad 11.5                                                                                                                                                                  |
-| Taylor (TLR, TYR)      | HUAWEI nova 14、HUAWEI nova 14 活力版                                                                                                                                                |
-| Voyager (VYG)          | HUAWEI Mate 80                                                                                                                                                                       |
-| Weber (WEB)            | HUAWEI MatePad Pro 13.2 英寸                                                                                                                                                         |
-| Xiaoyao (XYAO)         | HUAWEI MatePad Pro 11英寸 2024款                                                                                                                                                     |
+| Salinger (SLG)         | HUAWEI MatePad 11.5 S                                                                                                                                                         |
+| Shelley (SLY)          | HUAWEI nova 15 ultra                                                                                                                                                          |
+| Sicilia (SCA)          | HUAWEI Pura 90 Pro Max                                                                                                                                                        |
+| Superman (SUP)         | HUAWEI Mate 70 Air                                                                                                                                                            |
+| Tagore (TGR, TGRM)     | HUAWEI MatePad 11.5"S                                                                                                                                                         |
+| Taoxingzhi (TXZ)       | HUAWEI MatePad 11.5                                                                                                                                                           |
+| Taylor (TLR, TYR)      | HUAWEI nova 14、HUAWEI nova 14 活力版                                                                                                                                          |
+| Voyager (VYG)          | HUAWEI Mate 80                                                                                                                                                                |
+| Weber (WEB)            | HUAWEI MatePad Pro 13.2 英寸                                                                                                                                                  |
+| Xiaoyao (XYAO)         | HUAWEI MatePad Pro 11 英寸 2024 款                                                                                                                                            |
 
 ## hip
 
@@ -911,7 +919,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
 - [Kunpeng 916 (Hi1616) - HiSilicon](https://en.wikichip.org/wiki/hisilicon/kunpeng/hi1616)
 
-### hip08
+### hip08 (Kunpeng 920)
 
 - tsv110
 - part id 0xd01
@@ -919,32 +927,107 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 华为云 kc1 实例
 - hip08 from DSDT oem table id
 - hi1620
-- kunpeng 920
-- 2.60 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
 - HIP08 appears in ACPI: `ACPI: XSDT 0x000000002F5DFE98 0000B4 (v01 HISI   HIP08    00000000 HISI 20151124)`
+- 每核对应 64KB L1I Cache，64KB L1D Cache，512KB L2 Cache，1MB L3 Cache
+- 最多 64C，无 SMT，最高 3.0 GHz，常见 2.6 GHz
+
+型号矩阵：
+
+| 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
+|-------------------|-------------|----------|----------|
+| Kunpeng 920 7265F | 64C/64T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 7265  | 64C/64T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 7260  | 64C/64T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 7261R | 64C/64T     | 2.5      | 8xDDR4   |
+| Kunpeng 920 5255F | 48C/48T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 5255  | 48C/48T     | 3.0      | 8xDDR4   |
+| Kunpeng 920 5250  | 48C/48T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5251R | 48C/48T     | 2.5      | 8xDDR4   |
+| Kunpeng 920 5240  | 40C/40T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5230  | 32C/32T     | 2.6      | 8xDDR4   |
+| Kunpeng 920 5225F | 32C/32T     | 3.0      | 4xDDR4   |
+| Kunpeng 920 5220  | 32C/32T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 5221R | 32C/32T     | 2.5      | 4xDDR4   |
+| Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
+| Kunpeng 920 3211R | 24C/24T     | 2.5      | 4xDDR4   |
+
+其中 F 代表每个 CPU 只有一路 Hydra，故最多两路 CPU；不带 F 则每个 CPU 有三路 Hydra，故最多四路 CPU。
+
+Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所以 8xDDR4 的都是 2 Die，而 4xDDR4 都是 1 Die。
+
+型号重命名：
+
+| 旧型号           | 物理核/线程 | 主频/GHz | 新型号           |
+|------------------|-------------|----------|------------------|
+| Kunpeng 920 6426 | 64C/64T     | 2.6      | Kunpeng 920 7260 |
+| Kunpeng 920 4826 | 48C/48T     | 2.6      | Kunpeng 920 5250 |
+| Kunpeng 920 3226 | 32C/32T     | 2.6      | Kunpeng 920 5220 |
 
 来源：
 
+- [[Bug]: 0.22.1 rcl版本进行32GA2的四机PD分离（1*2p和1*2D）开启前缀缓存，命中率为0 (lscpu of Kunpeng 920 7265)](https://github.com/vllm-project/vllm-ascend/issues/12093)
+- [[Bug]: MlaPrologV3 fails with EZ0024 (Parameter Hcq incorrect value 768) when serving GLM-4.7-Flash in standalone mode (lscpu of Kunpeng 920 5250)](https://github.com/vllm-project/vllm-ascend/issues/22423)
+- [TaiShan 200 服务器 白皮书 (型号 5280)](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/f5bc008d6f3643aea997083a943a5f08/M3T1A669N1121448784783126550/TaiShan%20200%20%E6%9C%8D%E5%8A%A1%E5%99%A8%20%E7%99%BD%E7%9A%AE%E4%B9%A6%20_%E5%9E%8B%E5%8F%B7%205280_.pdf)
+- [鲲鹏 920 处理器](https://www.hikunpeng.com/compute/kunpeng920)
+- [Kunpeng Hardware FAQs](https://www.hikunpeng.com/document/detail/en/kunpengfaq/productfaq/hardwarefaq/hardware_faq_0001.html)
+- [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
+- [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [A Quick Look at the Huawei HiSilicon Kunpeng 920 Arm Server CPU](https://www.servethehome.com/a-quick-look-huawei-hisilicon-kunpeng-920-arm-server-cpu/)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
 
-### hip09
+### hip09 (Kunpeng 920B/Kunpeng 930/Kunpeng 920 新型号)
 
 - ARMv8.5-A
 - SVE (256 bits)
 - part id 0xd02，和麒麟 9000s 大核一样
 - 华为云 kc2 实例
-- kunpeng 930
-- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng bti ecv
-- 64KB L1 Cache, 512KB L2 Cache
+- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
+- 相比 hip08 多了 lrcpc sha3 sm3 sm4 sha512 sve dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
+- 每核对应 64KB L1I Cache, 64KB L1D Cache, 1280KB L2 Cache, 1792KB L3 Cache
+- 最多 80C
 - 6-issue, 2 BR + 6 ALU + 4 FP + 2 LD + 2 ST from LLVM
 - 88-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
+- SMT2
+
+Kunpeng 920 新型号的型号矩阵：
+
+| 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
+|-------------------|-------------|----------|----------|
+| Kunpeng 920 7286Z | 80C/160T    | 3.1      | 8xDDR5   |
+| Kunpeng 920 7285F | 80C/160T    | 3.1      | 8xDDR5   |
+| Kunpeng 920 7285Z | 80C/160T    | 3.0      | 8xDDR5   |
+| Kunpeng 920 7282C | 80C/160T    | 2.9      | 8xDDR4   |
+| Kunpeng 920 7280Z | 80C/160T    | 2.9      | 8xDDR5   |
+| Kunpeng 920 7270F | 64C/128T    | 2.9      | 8xDDR5   |
+| Kunpeng 920 7270Z | 64C/128T    | 2.9      | 8xDDR5   |
+| Kunpeng 920 7263Z | 64C/128T    | 2.8      | 8xDDR5   |
+| Kunpeng 920 7260Z | 64C/128T    | 2.6      | 8xDDR5   |
+| Kunpeng 920 7260Y | 64C/128T    | 2.2      | 8xDDR5   |
+| Kunpeng 920 5250Z | 48C/96T     | 2.6      | 8xDDR5   |
+| Kunpeng 920 5250Y | 48C/96T     | 2.2      | 8xDDR5   |
+| Kunpeng 920 5258F | 40C/80T     | 3.1      | 4xDDR5   |
+| Kunpeng 920 5253Z | 40C/80T     | 2.9      | 4xDDR5   |
+| Kunpeng 920 5252Z | 40C/80T     | 2.6      | 4xDDR5   |
+| Kunpeng 920 5235Z | 32C/64T     | 2.9      | 4xDDR5   |
+| Kunpeng 920 5230Z | 32C/64T     | 2.6      | 4xDDR5   |
+| Kunpeng 920 7250Y | 32C/64T     | 2.2      | 4xDDR5   |
+
+猜测 920 新型号也是多 Die：8×DDR5 的是 2 个 Compute Die（每个 40 核 + 4 个 DDR5 控制器），4×DDR5 的是 1 个。
 
 来源：
 
+- [[Bug]: Long Chinese-context (≈8k+ chars) generation is corrupted for a DeepSeek-V2 model on vLLM-Ascend (works <5k, works on SGLang) (lscpu of Kunpeng 920 7286Z)](https://github.com/vllm-project/vllm-ascend/issues/14464)
+- [[Bug]:CPU binding shares one CPU/NUMA/IRQ pool across all internal-DP workers under renumbered device visibility (lscpu of Kunpeng 920 7285Z)](https://github.com/vllm-project/vllm-ascend/issues/20505)
+- [cpu_map-add-kunpeng-920-V1-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-920-V1-cpu-map.patch)
+- [[Bug]: HunyuanImage-3.0-Instruct (AR+DiT) startup hangs when waitting engine core process start on Ascend A3 (lscpu of Kunpeng 920 7280Z)](https://github.com/vllm-project/vllm-ascend/issues/12687)
+- [FusionCube 1000H-D2](https://e.huawei.com/cn/products/storage/hci/fusioncube1000)
+- [国产信创 Kunpeng 920 物理服务器装机推荐设置及必要检查](https://www.oceanbase.com/knowledge-base/oceanbase-database-1000000005640113)
+- [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
+- [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
+- [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
 - [Add hip09 machine discribtion](https://github.com/openeuler-mirror/gcc/commit/d9131757175667d35e74d9ee84689039990af768)
 - [config/arm: add Hisilicon kunpeng](https://github.com/DPDK/dpdk/commit/7cf32a22b240f2db9e509ffe7b267673adbee35f)
 - [[SME] Recover hip09 and hip11 in aarch64-cores.def](https://github.com/openeuler-mirror/gcc/commit/239f0637307ff2f6afb1473e99d0bb0eaf8946b2)
@@ -966,6 +1049,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 来源：
 
+- [cpu_map-add-kunpeng-920-V2-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-920-V2-cpu-map.patch)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [dpdk/config/arm/meson.build](https://github.com/DPDK/dpdk/blob/fd51012de5369679e807be1d6a81d63ef15015ce/config/arm/meson.build#L275)
 
@@ -999,7 +1083,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [SVE_256](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2240)
 - [AArch64SchedHIP10C.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP10C.td)
 
-### hip11
+### hip11 (LX2)
 
 - ARMv8.5-A
 - SVE + SVE2 (512 bits)
@@ -1009,6 +1093,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - 4-issue, 1 ALU + 2 (ALU + BR) + 1 MDU + 2 FP + 1 LDST + 1LD from LLVM
 - 88-entry reorder buffer from LLVM
 - 40-entry instruction queue from LLVM
+- Kunpeng 920 72F8 用于 LX2 LineShine 超算
 
 来源：
 
@@ -1017,20 +1102,65 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [SVE_512](https://github.com/openeuler-mirror/gcc/blob/966b156d8eadd564d65e1f0185bf589d2e1fe0d4/gcc/config/aarch64/aarch64.cc#L2274)
 - [AArch64SchedHIP11.td](https://atomgit.com/openeuler/llvm-project/blob/dev_17.0.6/llvm/lib/Target/AArch64/AArch64SchedHIP11.td)
 
-### hip12
+#### LX2
+
+- LineShine
+- 每个节点是 2 socket
+- 每个 socket 是 2 die，每个 die 上有 152 core，包括 4 cluster，每个 cluster 38 核
+- 每个节点有 `2 * 2 * 4 * 38 = 608` 核
+- 每个核有 32KB 的 L1I 和 L1D，每个 cluster 有 28.5MB L2，无 L3
+- 每个 socket 有 32GB 容量 4TB/s 带宽 8-stack 的 HBM 和 256GB 的 DDR
+- SDMA 引擎负责 HBM <-> DDR 传输
+- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOP/s(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
+- 1.55 GHz 主频
+- 峰值性能验算：
+    - 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合，每周期执行一条 FP64 1-way FMOPA 指令
+    - 每核每周期执行一条 INT8 4-way SMOPA 指令，执行 16x4x16 的矩阵乘累加到 16x16 的 INT32，对应峰值算力 `16 * 4 * 16 * 2 * 304 * 1.55 GHz = 965 TOP/s`，是 FP64 的 16 倍
+    - 每核每周期执行一条 FP16 2-way FMOPA 指令，执行 16x2x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 2 * 16 * 2 * 304 * 1.55 GHz = 483 TFOP/s`，实际只有 240 TFLOPS/s，意味着 IPC 只有 0.5
+    - 每核每周期执行一条 FP32 1-way FMOPA 指令，执行 16x1x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 1 * 16 * 2 * 304 * 1.55 GHz = 241 TOP/s`，实际只有 120.6 TFLOPS，意味着 IPC 只有 0.5
+    - 即：128 FP64 FLOP/cycle, 256 FP32 FLOP/cycle, 512 FP16 FLOP/cycle, 2048 INT8 OP/cycle
+
+来源：
+
+- <https://arxiv.org/html/2604.15821>
+- <https://arxiv.org/html/2605.08633>
+- <https://arxiv.org/html/2605.24896>
+- <https://arxiv.org/html/2606.14073>
+- <https://www.top500.org/system/180490/>
+
+### hip12 (Kunpeng 950)
 
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
 - part id 0xd06，与 Kirin 9030 系列大核相同
-- 128KB L1 Cache, 1MB L2 Cache
-- kunpeng 950
 - 16(?)/8-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
 - 128bit FP datapath from LLVM
 - 320-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
+- Kunpeng 950 7592C（96C/192T，2.3/2.6GHz）、7562C（64C/128T，2.3/2.5GHz）
+- 每个 Core 集成 128KB L1I Cache, 64KB L1D Cache，1MB L2 Cache，每个 CPU 最大 273MB L3 Cache（每个 Core 对应 2912KB L3 Cache）
+- 2 路 CPU，每 CPU 12 路 DDR5 内存通道，支持 RDIMM、MRDIMM
+- 内存速率：RDIMM 最大支持 7200MT/s，MRDIMM 最大支持 8800MT/s
+- 单根内存条容量支持 32GB、64GB、96GB 和 128GB
+- Flags: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh rng ecv afp rpres wfxt rprfm hbc cmow ls64 ls64_v
+- 相比 hip09 多了 sve2 sveaes svepmull svebitperm svesha3 svesm4 afp rpres wfxt rprfm hbc cmow ls64 ls64_v，少了 paca pacg svef32mm svef64mm
+
+型号矩阵：
+
+| 型号              | 物理核/线程 | 主频/GHz | 睿频/GHz | 内存通道 |
+|-------------------|-------------|----------|----------|----------|
+| Kunpeng 950 7592C | 96C/192T    | 2.3      | 2.6      | 12xDDR5  |
+| Kunpeng 950 7562C | 64C/128T    | 2.3      | 2.5      | 12xDDR5  |
 
 来源：
 
+- [aarch64: Optimize memcpy for Kunpeng 950 using SVE and loop unrolling](https://patchwork.ozlabs.org/project/glibc/patch/tencent_4EDEF3D42F3C0D45E59457A00F3D25612208@qq.com/)
+- [cpu_map-add-kunpeng-950-V1-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-950-V1-cpu-map.patch)
+- [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
+- [鲲鹏系列主板&TaiShan服务器R26-彩页(26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
+- [鲲鹏超节点 950（电组网）技术规格](https://support.huawei.com/enterprise/zh/doc/EDOC1100617238/1d8c793)
+- [Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP (lscpu of Kunpeng 950 7592C)](https://github.com/vllm-project/vllm-ascend/issues/8484)
+- [Bug: MRv2 EPLB silently never rearranges when eplb_config.policy is "default" (lscpu of Kunpeng 950 7592C)](https://github.com/vllm-project/vllm-ascend/issues/20362)
 - [kernel/arch/arm64/kvm/hisilicon/hisi_virt.c](https://gitee.com/openeuler/kernel/blob/OLK-6.6/arch/arm64/kvm/hisilicon/hisi_virt.c)
 - [Add hip12 core definition and cost model](https://github.com/openeuler-mirror/gcc/commit/c5970536c2caa3980bb1fded812ac0dc8ebf3681)
 - [Add hip12 instructions pipeline](https://gitee.com/openeuler/gcc/commit/d63119daeb54cd0c387c1b24981c47d795e5a672)
@@ -1041,20 +1171,13 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 - [Add hip12 to release notes](https://github.com/llvm/llvm-project/pull/205899/changes)
 - [[AArch64] Add initial sched model for hip12 - #212935](https://github.com/llvm/llvm-project/pull/212935)
 
-## Kunpeng 920B
+### hip13
 
-- Kunpeng 920 V200 7270Z
-- 64 cores/socket
-- SVE
-- SMT2
-- 2.90 GHz
-- Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
-- 疑似等价于 hip09
+- part id 0xd08
 
 来源：
 
-- [鲲鹏 920B 8C8G 规格虚机跑 MySQL 绑核性能差，只有不绑核性能的 1/20](https://gitee.com/openeuler/community/issues/IAR1EG)
-- [EulerOS V2.0SP11 支持的服务器类型](https://support.huawei.com/enterprise/zh/doc/EDOC1100346786/257a3292)
+- [[PATCH OLK-6.6] cputype: add cputype for HIP13](https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/message/KMFUXGEDOOXUYUZRQEG423RURXEY5FYU/)
 
 ## Kunpeng 920C
 
@@ -1106,28 +1229,3 @@ part id:
 - 0xd47(3399): Kirin 9030/Kirin 9030Pro/Kirin 9030S/Kirin 9035/Kirin T93C
 - 0xd48(3400): Kirin 9050Pro
 
-## LX2
-
-- 每个节点是 2 socket
-- 每个 socket 是 2 die，每个 die 上有 152 core，包括 4 cluster，每个 cluster 38 核
-- 每个节点有 `2 * 2 * 4 * 38 = 608` 核
-- 每个核有 32KB 的 L1I 和 L1D，每个 cluster 有 28.5MB L2，无 L3
-- 每个 socket 有 32GB 容量 4TB/s 带宽 8-stack 的 HBM 和 256GB 的 DDR
-- SDMA 引擎负责 HBM <-> DDR 传输
-- 512-bit SVE+SME，每个 socket 是 60.3 TFLOP/s(FP64)，120.6 TFLOP/s(FP32), 240 TFLOP/s(BF16/FP16)，960 TOP/s(INT8)
-- 1.55 GHz 主频
-- 峰值性能验算：
-    - 每核每周期 FP64 是 `60.3 TFLOP/s / 1.55 GHz / 304 = 128`，对应 8x8 的外积，和 512-bit SVE 的向量宽度吻合，每周期执行一条 FP64 1-way FMOPA 指令
-    - 每核每周期执行一条 INT8 4-way SMOPA 指令，执行 16x4x16 的矩阵乘累加到 16x16 的 INT32，对应峰值算力 `16 * 4 * 16 * 2 * 304 * 1.55 GHz = 965 TOP/s`，是 FP64 的 16 倍
-    - 每核每周期执行一条 FP16 2-way FMOPA 指令，执行 16x2x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 2 * 16 * 2 * 304 * 1.55 GHz = 483 TFOP/s`，实际只有 240 TFLOPS/s，意味着 IPC 只有 0.5
-    - 每核每周期执行一条 FP32 1-way FMOPA 指令，执行 16x1x16 的矩阵乘累加到 16x16 的 FP32，对应峰值算力 `16 * 1 * 16 * 2 * 304 * 1.55 GHz = 241 TOP/s`，实际只有 120.6 TFLOPS，意味着 IPC 只有 0.5
-    - 即：128 FP64 FLOP/cycle, 256 FP32 FLOP/cycle, 512 FP16 FLOP/cycle, 2048 INT8 OP/cycle
-- 应该对应 hip11
-
-来源：
-
-- <https://arxiv.org/html/2604.15821>
-- <https://arxiv.org/html/2605.08633>
-- <https://arxiv.org/html/2605.24896>
-- <https://arxiv.org/html/2606.14073>
-- <https://www.top500.org/system/180490/>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Volta Tensor Core 4×4×4 模拟器</title>
+<link rel="stylesheet" href="nvidia_tensor_core_sim_common.css">
+<script src="nvidia_tensor_core_sim_common.js"></script>
+<style>
+  :root { --cw: 52px; --cf: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="toolbar">
+    <span class="title">Volta 4×4×4 MMA</span>
+    <label>输出格式
+      <select id="mode"></select>
+    </label>
+    <button id="btnReset">重置</button>
+    <button id="btnRandom">随机</button>
+    <button id="btnExample" title="Xie et al., arXiv:2511.10909, §V Eq.(10)">MMASim 例子</button>
+    <span class="note" id="note"></span>
+  </div>
+
+  <div class="mats">
+    <section class="panel"><h2>A <span id="aType"></span></h2><div class="grid" id="gridA"></div></section>
+    <section class="panel"><h2>B <span id="bType"></span></h2><div class="grid" id="gridB"></div></section>
+    <section class="panel"><h2>C <span id="cType"></span></h2><div class="grid" id="gridC"></div></section>
+  </div>
+
+  <div class="bottom">
+    <section class="panel">
+      <h2 id="traceTitle">计算过程</h2>
+      <pre class="trace" id="trace"></pre>
+    </section>
+    <section class="panel">
+      <h2>D <span id="dType"></span></h2>
+      <div class="grid" id="gridD"></div>
+      <p class="tip">点击 D 的元素，左侧显示该元素的计算过程</p>
+    </section>
+  </div>
+</div>
+
+<script id="model">
+"use strict";
+
+const F_BITS = 23;
+
+function exponentOf(a) {
+  let e = Math.floor(Math.log2(a));
+  while (Math.pow(2, e) > a) e--;
+  while (Math.pow(2, e + 1) <= a) e++;
+  return e;
+}
+
+// FP16 = 1+5+10 -> { sign, e(5b), f(10b), m(11b), E(有符号) }
+function decode16(v) {
+  const sign = v < 0 ? 1 : 0;
+  const a = Math.abs(v);
+  if (a === 0) return { sign: 0, e: 0, f: 0, m: 0, E: 0 };
+  const ev = exponentOf(a);
+  if (ev < -14) {
+    const m = a * Math.pow(2, 24);
+    return { sign: sign, e: 0, f: m, m: m, E: -24 };
+  }
+  const m = a * Math.pow(2, 10 - ev);
+  return { sign: sign, e: ev + 15, f: m - 1024, m: m, E: ev - 10 };
+}
+
+// FP32 = 1+8+23 -> { sign, e(8b), f(23b), m(24b), E(有符号) }
+function decode32(v) {
+  const sign = v < 0 ? 1 : 0;
+  const a = Math.abs(v);
+  if (a === 0) return { sign: 0, e: 0, f: 0, m: 0, E: 0 };
+  const ev = exponentOf(a);
+  if (ev < -126) {
+    const m = a * Math.pow(2, 149);
+    return { sign: sign, e: 0, f: m, m: m, E: -149 };
+  }
+  const m = a * Math.pow(2, 23 - ev);
+  return { sign: sign, e: ev + 127, f: m - Math.pow(2, 23), m: m, E: ev - 23 };
+}
+
+function shiftTrunc(M, sh) {
+  return sh >= 0 ? M * Math.pow(2, sh) : Math.trunc(M / Math.pow(2, -sh));
+}
+
+function rneF16(v) {
+  if (!isFinite(v)) return v;
+  if (v === 0) return 0;
+  const sign = v < 0 ? -1 : 1;
+  const a = Math.abs(v);
+  if (a > 65520) return sign * Infinity;
+  const e = exponentOf(a);
+  const q = e < -14 ? Math.pow(2, -24) : Math.pow(2, e - 10);
+  const x = a / q;
+  const n0 = Math.floor(x);
+  const rem = x - n0;
+  let n;
+  if (rem > 0.5) n = n0 + 1;
+  else if (rem < 0.5) n = n0;
+  else n = n0 % 2 === 0 ? n0 : n0 + 1;
+  const r = n * q;
+  if (r > 65504) return sign * Infinity;
+  return sign * r;
+}
+
+function rzF32(v) {
+  if (!isFinite(v) || v === 0) return v;
+  const sign = v < 0 ? -1 : 1;
+  const a = Math.abs(v);
+  const e = exponentOf(a);
+  const q = e >= -126 ? Math.pow(2, e - 23) : Math.pow(2, -149);
+  return sign * Math.trunc(a / q) * q;
+}
+
+function fmtNum(x) {
+  if (x === 0) return "0";
+  if (!isFinite(x)) return x > 0 ? "∞" : "-∞";
+  if (Number.isInteger(x) && Math.abs(x) < 1e15) return String(x);
+  const a = Math.abs(x);
+  if (a >= 1e6 || a < 1e-4) {
+    return x.toExponential(6).replace(/\.?0+e/, "e");
+  }
+  return String(Number(x.toPrecision(10)));
+}
+
+// 整数版 dot4：拆字段 -> 22b 乘积 -> 对齐截断 -> 定点求和 -> 归一化/舍入
+function voltaDot4(A, B, C, i, j, fmt) {
+  const terms = [];
+  for (let k = 0; k < 4; k++) {
+    const a = A[i][k], b = B[k][j];
+    const da = decode16(a), db = decode16(b);
+    terms.push({
+      k: k, a: a, b: b, da: da, db: db,
+      M: da.m * db.m,
+      E: da.E + db.E,
+      e: da.E + db.E + 20,
+      sign: da.sign ^ db.sign
+    });
+  }
+  const c = C[i][j];
+  const dc = fmt === "f16" ? decode16(c) : decode32(c);
+  const off = fmt === "f16" ? 10 : 23;
+  const ct = { c: c, d: dc, M: dc.m, E: dc.E, e: dc.E + off, sign: dc.sign };
+
+  let eMax = -Infinity;
+  for (const t of terms) if (t.M !== 0) eMax = Math.max(eMax, t.e);
+  if (ct.M !== 0) eMax = Math.max(eMax, ct.e);
+  if (!isFinite(eMax)) eMax = 0;
+
+  let S = 0;
+  for (const t of terms) {
+    t.shift = t.M === 0 ? 0 : t.E + 23 - eMax;
+    const mag = t.M === 0 ? 0 : shiftTrunc(t.M, t.shift);
+    t.t = t.sign ? -mag : mag;
+    S += t.t;
+  }
+  ct.shift = ct.M === 0 ? 0 : ct.E + 23 - eMax;
+  const cmag = ct.M === 0 ? 0 : shiftTrunc(ct.M, ct.shift);
+  ct.t = ct.sign ? -cmag : cmag;
+  S += ct.t;
+
+  const raw = S * Math.pow(2, eMax - 23);
+  let d = fmt === "f16" ? rneF16(raw) : rzF32(raw);
+  if (d === 0) d = 0;
+
+  const exact = terms.reduce(function (acc, t) { return acc + t.a * t.b; }, 0) + c;
+  return { i: i, j: j, terms: terms, ct: ct, eMax: eMax, S: S, raw: raw, d: d, exact: exact, fmt: fmt };
+}
+
+if (typeof module !== "undefined") {
+  module.exports = {
+    voltaDot4: voltaDot4, rneF16: rneF16, rzF32: rzF32,
+    decode16: decode16, decode32: decode32, fmtNum: fmtNum, exponentOf: exponentOf
+  };
+}
+</script>
+
+<script>
+(function () {
+  "use strict";
+
+  const A = [], B = [], C = [];
+  for (let i = 0; i < 4; i++) { A[i] = [0, 0, 0, 0]; B[i] = [0, 0, 0, 0]; C[i] = [0, 0, 0, 0]; }
+
+  const DEFAULT = {
+    A: [[1.5, -2, 0, 0.5], [0.25, 1, 0, 0], [0, 0, 1.25, -0.5], [0.5, 0, 0, 2]],
+    B: [[1, 0, 0.5, 0], [0, 1.5, 0, 0], [0.5, 0, 1, 0], [0, 0, 0, 1.25]],
+    C: [[0.125, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  };
+
+  const EXAMPLE = {
+    A: [[-8192, -0.5, -0.25, -0.125], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+    B: [[1024, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
+    C: [[8388608, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  };
+
+  const POOL = [-4, -2, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 4];
+  const n = TC.fmtNum;
+
+  function setMat(name, m) {
+    const target = name === "A" ? A : name === "B" ? B : C;
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) target[i][j] = m[i][j];
+  }
+  function setAll(d) { setMat("A", d.A); setMat("B", d.B); setMat("C", d.C); }
+
+  function cellOf(name, i, j) {
+    return document.querySelector('[data-name="' + name + '"][data-i="' + i + '"][data-j="' + j + '"]');
+  }
+
+  // 输入先落到目标格式：FP16 用 RNE（溢出钳到 ±65504），FP32 用 RNE
+  function roundInput(x, kind) {
+    if (!isFinite(x)) return 0;
+    if (kind === "f16") {
+      const r = rneF16(x);
+      return isFinite(r) ? r : (x < 0 ? -65504 : 65504);
+    }
+    const r = Math.fround(x);
+    return isFinite(r) ? r : (x < 0 ? -3.4028234663852886e38 : 3.4028234663852886e38);
+  }
+  function quantize(mat, kind) {
+    return mat.map(function (row) { return row.map(function (v) { return roundInput(v, kind); }); });
+  }
+
+  function traceText(r) {
+    const L = [];
+    L.push("dot4(A, B, C, i=" + r.i + ", j=" + r.j + ")    # 输出 " + (r.fmt === "f16" ? "FP16 (RNE)" : "FP32 (RZ)"));
+    L.push("");
+    L.push("# 第一步：计算四个乘积（拆字段：FP16 = 1+5+10）");
+    for (const t of r.terms) {
+      if (t.M === 0) { L.push("k=" + t.k + ":  0"); continue; }
+      L.push("k=" + t.k + ": a=" + n(t.a) + "  s" + t.da.sign + " e" + t.da.e + " f" + n(t.da.f) + "  →  m=" + n(t.da.m) + " E=" + t.da.E);
+      L.push("     b=" + n(t.b) + "  s" + t.db.sign + " e" + t.db.e + " f" + n(t.db.f) + "  →  m=" + n(t.db.m) + " E=" + t.db.E);
+      L.push("     M=" + n(t.M) + " (22b)  E=" + t.E + "  e=" + t.e + "  sign=" + (t.sign ? "-" : "+"));
+    }
+    const dc = r.ct.d;
+    if (r.ct.M === 0) {
+      L.push("c=0");
+    } else {
+      L.push("c=" + n(r.ct.c) + "  s" + dc.sign + " e" + dc.e + " f" + n(dc.f) + "  →  m=" + n(dc.m) + " E=" + dc.E + "  e=" + r.ct.e);
+    }
+    L.push("");
+    L.push("# 第二步：按 emax 对齐并累加（sh = E + 23 - emax）");
+    L.push("emax = max(e_0..e_3, e_c) = " + r.eMax);
+    for (const t of r.terms) {
+      if (t.M === 0) { L.push("k=" + t.k + ":  0"); continue; }
+      L.push("k=" + t.k + ":  sh=" + t.shift + "  t=" + n(t.t));
+    }
+    if (r.ct.M === 0) {
+      L.push("c  :  0");
+    } else {
+      L.push("c  :  sh=" + r.ct.shift + "  t=" + n(r.ct.t));
+    }
+    L.push("S = " + n(r.S) + "   # 29b 有符号");
+    L.push("");
+    L.push("# 第三步：转回浮点并舍入");
+    L.push("d = " + (r.fmt === "f16" ? "RNE_FP16" : "RZ_FP32") + "(S · 2^(emax − 23)) = " + n(r.d));
+    L.push("");
+    L.push("精确值 = " + n(r.exact) + "    误差 = " + n(r.d - r.exact));
+    return L.join("\n");
+  }
+
+  const sim = TC.sim({
+    defaultMode: "f32",
+    modes: {
+      f32: { m: 4, n: 4, k: 4, label: "FP32 (RZ)", in: "f16", cFmt: "f32", out: "f32" },
+      f16: { m: 4, n: 4, k: 4, label: "FP16 (RNE)", in: "f16", cFmt: "f16", out: "f16" }
+    },
+    data: { A: A, B: B, C: C },
+    fmtName: function (f) { return f === "f16" ? "FP16 (1-5-10)" : "FP32 (1-8-23)"; },
+    note: function () { return "输入会先舍入到对应格式（A/B 为 FP16，C 随输出格式）"; },
+    compute: function (A0, B0, C0, i, j, mode) {
+      const fmt = mode === "f16" ? "f16" : "f32";
+      return voltaDot4(quantize(A0, "f16"), quantize(B0, "f16"), quantize(C0, fmt), i, j, fmt);
+    },
+    trace: function (r) { return traceText(r); },
+    highlight: function (state) {
+      document.querySelectorAll(".cell").forEach(function (el) { el.classList.remove("hl", "sel"); });
+      for (let k = 0; k < 4; k++) {
+        cellOf("A", state.si, k).classList.add("hl");
+        cellOf("B", k, state.sj).classList.add("hl");
+      }
+      cellOf("C", state.si, state.sj).classList.add("hl");
+      cellOf("D", state.si, state.sj).classList.add("sel");
+    },
+    reset: function () { setAll(DEFAULT); },
+    random: function () {
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          A[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+          B[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+          C[i][j] = POOL[Math.floor(Math.random() * POOL.length)];
+        }
+      }
+    }
+  });
+
+  document.getElementById("btnExample").addEventListener("click", function () {
+    setAll(EXAMPLE);
+    sim.rebuild();
+    sim.render();
+  });
+})();
+
+</script>
+</body>
+</html>
