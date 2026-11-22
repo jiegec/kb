@@ -927,9 +927,10 @@ Hi36 系列：
 - 华为云 kc1 实例
 - hip08 from DSDT oem table id
 - hi1620
-- 2.60 GHz
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm
 - HIP08 appears in ACPI: `ACPI: XSDT 0x000000002F5DFE98 0000B4 (v01 HISI   HIP08    00000000 HISI 20151124)`
+- 每核对应 64KB L1I Cache，64KB L1D Cache，512KB L2 Cache，1MB L3 Cache
+- 最多 64C，无 SMT，最高 3.0 GHz，常见 2.6 GHz
 
 型号矩阵：
 
@@ -984,7 +985,8 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 - 华为云 kc2 实例
 - Features: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
 - 相比 hip08 多了 lrcpc sha3 sm3 sm4 sha512 sve dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp flagm2 frint svei8mm svef32mm svef64mm svebf16 i8mm bf16 dgh rng ecv
-- 64KB L1 Cache, 1280KB L2 Cache
+- 每核对应 64KB L1I Cache, 64KB L1D Cache, 1280KB L2 Cache, 1792KB L3 Cache
+- 最多 80C
 - 6-issue, 2 BR + 6 ALU + 4 FP + 2 LD + 2 ST from LLVM
 - 88-entry reorder buffer from LLVM
 - 16-entry instruction queue from LLVM
