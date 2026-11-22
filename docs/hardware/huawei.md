@@ -992,6 +992,7 @@ Kunpeng 920 新型号的型号矩阵：
 
 | 型号              | 物理核/线程 | 主频/GHz | 内存通道 |
 |-------------------|-------------|----------|----------|
+| Kunpeng 920 7286Z | 80C/160T    | 3.1      | 8xDDR5   |
 | Kunpeng 920 7285F | 80C/160T    | 3.1      | 8xDDR5   |
 | Kunpeng 920 7285Z | 80C/160T    | 3.0      | 8xDDR5   |
 | Kunpeng 920 7280Z | 80C/160T    | 2.9      | 8xDDR5   |
@@ -1013,6 +1014,7 @@ Kunpeng 920 新型号的型号矩阵：
 
 来源：
 
+- [[Bug]: Long Chinese-context (≈8k+ chars) generation is corrupted for a DeepSeek-V2 model on vLLM-Ascend (works <5k, works on SGLang) (lscpu of Kunpeng 920 7286Z)](https://github.com/vllm-project/vllm-ascend/issues/14464)
 - [[Bug]:CPU binding shares one CPU/NUMA/IRQ pool across all internal-DP workers under renumbered device visibility (lscpu of Kunpeng 920 7285Z)](https://github.com/vllm-project/vllm-ascend/issues/20505)
 - [cpu_map-add-kunpeng-920-V1-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-920-V1-cpu-map.patch)
 - [[Bug]: HunyuanImage-3.0-Instruct (AR+DiT) startup hangs when waitting engine core process start on Ascend A3 (lscpu of Kunpeng 920 7280Z)](https://github.com/vllm-project/vllm-ascend/issues/12687)
