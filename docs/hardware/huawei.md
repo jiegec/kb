@@ -1133,7 +1133,7 @@ Kunpeng 920 新型号的型号矩阵：
 - ARMv9.2-A
 - SVE + SVE2 (256 bits)
 - part id 0xd06，与 Kirin 9030 系列大核相同
-- 128KB L1 Cache, 1MB L2 Cache
+- 每核对应 128KB L1I Cache, 64KB L1D Cache, 1MB L2 Cache, 2912KB L3 Cache
 - 16(?)/8-issue, 2 BR + 6 ALU + 4 FP + 3 LD + 2 ST from LLVM
 - 128bit FP datapath from LLVM
 - 320-entry reorder buffer from LLVM
