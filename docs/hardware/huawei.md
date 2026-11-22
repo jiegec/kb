@@ -951,6 +951,8 @@ Hi36 系列：
 | Kunpeng 920 3210  | 24C/24T     | 2.6      | 4xDDR4   |
 | Kunpeng 920 3211R | 24C/24T     | 2.5      | 4xDDR4   |
 
+其中 F 代表每个 CPU 只有一路 Hydra，故最多两路 CPU；不带 F 则每个 CPU 有三路 Hydra，故最多四路 CPU。
+
 Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所以 8xDDR4 的都是 2 Die，而 4xDDR4 都是 1 Die。
 
 型号重命名：
@@ -995,6 +997,7 @@ Kunpeng 920 新型号的型号矩阵：
 | Kunpeng 920 7286Z | 80C/160T    | 3.1      | 8xDDR5   |
 | Kunpeng 920 7285F | 80C/160T    | 3.1      | 8xDDR5   |
 | Kunpeng 920 7285Z | 80C/160T    | 3.0      | 8xDDR5   |
+| Kunpeng 920 7282C | 80C/160T    | 2.9      | 8xDDR4   |
 | Kunpeng 920 7280Z | 80C/160T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7270F | 64C/128T    | 2.9      | 8xDDR5   |
 | Kunpeng 920 7270Z | 64C/128T    | 2.9      | 8xDDR5   |
