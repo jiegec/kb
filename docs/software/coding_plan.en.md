@@ -52,23 +52,26 @@
 - Point refresh rules: the 5-hour points refresh dynamically (the allowance resets 5 hours after consumption) and the weekly points refresh on a 7-day cycle starting from the time the plan was purchased; after a subscriber upgrades, the points allowance refreshes immediately to the new tier, whereas renewal does not trigger a points reset and the existing refresh cycle is unchanged
 - Model points consumed = (input tokens × Input coefficient + cached input tokens × Cached Input coefficient + output tokens × Output coefficient) / 10,000
 - MCP points consumed = number of calls × Output coefficient
-- All plans support **GLM-5.3** and **GLM-5.3-Flash**; requests for the previous models GLM-5.2/GLM-5.1 are automatically routed to GLM-5.3, and requests for GLM-5-Turbo/GLM-4.7 are automatically routed to GLM-5.3-Flash
+- All plans support **GLM-5.4**, GLM-5.3 and GLM-5.3-Flash
 - Off-peak hours consume points at 50% of the base rate; peak hours are weekdays 14:00–18:00 (UTC+8)
 - Coding plans use a dedicated API Key: the plan API Key is managed separately from the standard model API Key and the two are not interchangeable — personal-plan subscribers (including those holding an experience card) create their key in the [personal Coding Plan](https://bigmodel.cn/apikey/coding-plan-per) console, and team-plan members create theirs in the [team Coding Plan](https://bigmodel.cn/apikey/coding-plan-team) console
 - Limited-time campaigns (both ended): the "GLM-5.3-Flash Usage Campaign" (2026-09-03 to 2026-10-07, daily 23:00–09:00, unlimited GLM-5.3-Flash usage via [ZCode](https://zcode.z.ai/cn) and [AutoClaw](https://autoclaw.zhipuai.cn/) plus doubled quota on other agents) and the "Double Festival" campaign (2026-09-25 to 2026-10-07, all-day usage charged at the off-peak rate) expired on 2026-10-07; as of 2026-10-09 no limited-time campaign is running on either site
-- Coefficients: GLM-5.3 — Input 6.9 / Cached Input 1.7 / Output 24; GLM-5.3-Flash (including the visual understanding MCP) — Input 2.3 / Cached Input 0.56 / Output 8
+- Coefficients: GLM-5.4 — Input 4.6 / Cached Input 1.1 / Output 16; GLM-5.3 — Input 6.9 / Cached Input 1.7 / Output 24; GLM-5.3-Flash (including the visual understanding MCP) — Input 2.3 / Cached Input 0.56 / Output 8
 - Token usage varies with the cache hit rate:
 
 | Cache Hit Rate | Model         | Lite (M Tokens/week) | Pro (M Tokens/week) | Max (M Tokens/week) |
 |----------------|---------------|----------------------|---------------------|---------------------|
+| 95%            | GLM-5.4       | 72～146              | 440～870            | 1,014～2,028        |
 | 95%            | GLM-5.3       | 0.48～0.97           | 2.90～5.80          | 6.76～13.52         |
 | 95%            | GLM-5.3-Flash | 1.46～2.92           | 8.77～17.55         | 20.47～40.95        |
+| 96%            | GLM-5.4       | 75～149              | 446～893            | 1,041～2,081        |
 | 96%            | GLM-5.3       | 0.50～0.99           | 2.97～5.95          | 6.94～13.87         |
 | 96%            | GLM-5.3-Flash | 1.50～3.00           | 9.00～18.01         | 21.01～42.02        |
+| 98%            | GLM-5.4       | 78～156              | 470～941            | 1,097～2,195        |
 | 98%            | GLM-5.3       | 0.52～1.04           | 3.13～6.27          | 7.31～14.63         |
 | 98%            | GLM-5.3-Flash | 1.58～3.17           | 9.50～19.00         | 22.17～44.33        |
 
-Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× points; minimum tokens assumes all usage in peak hours at 1×. By fully utilizing the off-peak discount, you can save up to 92% compared with pay-as-you-go calls to the GLM-5.3 standard API
+Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× points; minimum tokens assumes all usage in peak hours at 1×
 
 - API pricing (RMB per 1M tokens):
     - [GLM-5.3](https://bigmodel.cn/pricing): cached input 2, uncached input 8, output 28, 1M context
@@ -88,7 +91,7 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
     - GLM-5.2, GLM-5-Turbo: 3× during peak hours and 2× during off-peak hours; as a limited-time benefit, off-peak hours consume only 1×
     - Peak hours are 14:00–18:00 (UTC+8) daily
 
-[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.3 and GLM-5.3-Flash; requests for GLM-5.2/GLM-5.1 auto-route to GLM-5.3, and GLM-4.7 auto-routes to GLM-5.3-Flash
+[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.4, GLM-5.3 and GLM-5.3-Flash
 
 ### Cloud Providers
 
@@ -283,6 +286,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/23: Zhipu's GLM Coding Plan added **GLM-5.4** to every tier: all plans now support GLM-5.4, GLM-5.3 and GLM-5.3-Flash (previously GLM-5.3 and GLM-5.3-Flash), the international plans support it as well, and the 2,000-point experience card covers GLM-5.4 too. GLM-5.4's coefficients are Input **4.6** / Cached Input **1.1** / Output **16** (GLM-5.3 stays at 6.9 / 1.7 / 24 and GLM-5.3-Flash at 2.3 / 0.56 / 8). At a 95% / 96% / 98% cache hit rate the weekly token allowance for GLM-5.4 is 72～146 / 75～149 / 78～156 M tokens on Lite, 440～870 / 446～893 / 470～941 M on Pro and 1,014～2,028 / 1,041～2,081 / 1,097～2,195 M on Max. The three plan prices (Lite 118, Pro 538 and Max 1,078 RMB per month), the points allowances, the 50% off-peak rate and the team-edition rules are unchanged
 
 - 2026/11/23: Command Code's library grew from 106 to 107 models with the addition of **Inkling 2 Mini** (1M context, available on Go, GOAT and Pro alike and heading the model tables on all three; Go lists 61 → **62**, GOAT 75 → **76** and Pro 94 → **95**): token prices (per 1M tokens: input / output / cache read) **\$0.075 / \$0.30 / \$0.015** (no cache-write price), monthly credits Go **\$6** / GOAT **\$15** / Pro **\$25** (new-model starting credits, the same as Qwen 4 Max and Tencent Hy4 Flash), estimated requests (5 hours / week / month) 2,070 / 4,140 / 6,900 on Go, 3,450 / 8,620 / 17,200 on GOAT and 5,750 / 14,400 / 28,700 on Pro. The plan prices (Go \$1, GOAT \$10, Pro \$20, Max 10x \$100, Max 20x \$200 and Provider \$15 per month plus processing fee), the tiers, and every other model's token prices and monthly credits are unchanged
 
