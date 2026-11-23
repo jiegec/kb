@@ -53,6 +53,7 @@
 - 模型消耗积分数 =（输入 Token × Input 抵扣系数 + 缓存命中 Token × Cached Input 抵扣系数 + 输出 Token × Output 抵扣系数）/ 10000
 - MCP 消耗积分数 = 调用次数 × Output 抵扣系数
 - 所有套餐均支持 **GLM-5.4**、GLM-5.3、GLM-5.3-Flash
+- GLM-5.4 的上下文窗口为 **1M**；通过 GLM Coding Plan 调用时，为获得更好的编码效果建议将客户端上下文窗口设置为 `512000` tokens
 - 非高峰时段按基础积分消耗的 50% 抵扣；高峰时段为每周一至周五的 14:00～18:00（UTC+8）
 - 编码套餐使用独立的 API Key：套餐 API Key 与模型标准 API 的 API Key 分开管理、互不通用——个人版套餐（含领取体验卡）的用户在[个人版 Coding Plan](https://bigmodel.cn/apikey/coding-plan-per)新建 API Key，团队版套餐的成员在[团队版 Coding Plan](https://bigmodel.cn/apikey/coding-plan-team)新建 API Key
 - 限时活动（均已结束）：此前的「夜间畅用活动」（2026-09-03 至 2026-10-07，每日 23:00～次日 09:00，在 [ZCode](https://zcode.z.ai/cn)、[AutoClaw](https://autoclaw.zhipuai.cn/) 端调用 GLM-5.3-Flash 无限用量、其他 Agent 额度翻倍）与「庆双节活动」（2026-09-25 至 2026-10-07，全天按非高峰时段规则消耗额度）已于 2026-10-07 到期；截至 2026-10-09 两站无进行中的限时活动
@@ -287,6 +288,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/23：智谱 GLM Coding Plan 的 **GLM-5.4** 上下文窗口为 **1M**（此前未标注该模型的上下文规格），通过套餐调用时建议将客户端上下文窗口设置为 `512000` tokens 以获得更好的编码效果；三档价格（Lite 118、Pro 538、Max 1078 元每月）、积分额度与抵扣系数（Input 4.6 / Cached Input 1.1 / Output 16）、非高峰 5 折规则均未变
 
 - 2026/11/23：火山方舟 **Agent Plan 个人版**模型库新增 **glm-5.4**（1024K 上下文 / 128K 输出），Small、Medium、Large、Max 四档均提供，AFP 抵扣系数 **4.5**、限时 8 折 **3.6**（输入与输出相同），并入 1M 上下文支持名单；当前进行中的限时活动覆盖 Auto 模式、**glm-5.4**、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、kimi-k2.8-preview 与 kimi-k3.1-pro。四档价格（Small 40 / Medium 200 / Large 500 / Max 1000 元每月）、AFP 额度、其余模型的抵扣系数、图片/视频/语音模型与 Harness 均未变；**Coding Plan 个人版**的模型库仍为 13 款、不含 glm-5.4，Lite 40 / Pro 200 元每月与其额度不变
 

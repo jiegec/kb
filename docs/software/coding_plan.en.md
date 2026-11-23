@@ -53,6 +53,7 @@
 - Model points consumed = (input tokens × Input coefficient + cached input tokens × Cached Input coefficient + output tokens × Output coefficient) / 10,000
 - MCP points consumed = number of calls × Output coefficient
 - All plans support **GLM-5.4**, GLM-5.3 and GLM-5.3-Flash
+- GLM-5.4 has a **1M** context window; when it is used through the GLM Coding Plan, a client context window of `512000` tokens is recommended for better coding results
 - Off-peak hours consume points at 50% of the base rate; peak hours are weekdays 14:00–18:00 (UTC+8)
 - Coding plans use a dedicated API Key: the plan API Key is managed separately from the standard model API Key and the two are not interchangeable — personal-plan subscribers (including those holding an experience card) create their key in the [personal Coding Plan](https://bigmodel.cn/apikey/coding-plan-per) console, and team-plan members create theirs in the [team Coding Plan](https://bigmodel.cn/apikey/coding-plan-team) console
 - Limited-time campaigns (both ended): the "GLM-5.3-Flash Usage Campaign" (2026-09-03 to 2026-10-07, daily 23:00–09:00, unlimited GLM-5.3-Flash usage via [ZCode](https://zcode.z.ai/cn) and [AutoClaw](https://autoclaw.zhipuai.cn/) plus doubled quota on other agents) and the "Double Festival" campaign (2026-09-25 to 2026-10-07, all-day usage charged at the off-peak rate) expired on 2026-10-07; as of 2026-10-09 no limited-time campaign is running on either site
@@ -287,6 +288,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/23: **GLM-5.4** on Zhipu's GLM Coding Plan has a **1M** context window (the model's context spec was not previously stated), and a client context window of `512000` tokens is recommended for better coding results when it is called through the plan; the three plan prices (Lite 118, Pro 538 and Max 1,078 RMB per month), the points allowances, the coefficients (Input 4.6 / Cached Input 1.1 / Output 16) and the 50% off-peak rule are unchanged
 
 - 2026/11/23: Volcano Engine **Agent Plan (Personal Edition)** added **glm-5.4** (1024K context / 128K output) to its model library on all four tiers (Small, Medium, Large and Max), with an AFP deduction coefficient of **4.5**, cut to **3.6** (a 20% discount, input and output alike) for the limited-time promotion, and it joins the 1M-context support list; the promotions still running cover Auto mode, **glm-5.4**, deepseek-v4.1-flash, deepseek-v4.1-flash-economy, kimi-k2.8-preview and kimi-k3.1-pro. The four tiers' prices (Small 40 / Medium 200 / Large 500 / Max 1,000 RMB per month), AFP allowances, the other models' coefficients, and the image, video and speech models and Harness are unchanged; the **Coding Plan (Personal Edition)** model library still holds 13 models and does not include glm-5.4, and its Lite 40 / Pro 200 RMB per month prices and quotas are unchanged
 
