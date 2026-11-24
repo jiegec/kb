@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T23:18:11+08:00",
+  "generated_at": "2026-11-24T20:32:35+08:00",
   "source": "https://www.vmall.com",
   "products": [
     {
@@ -4201,6 +4201,253 @@
           "launch_date": "2024年11月",
           "launch_year": 2024,
           "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086922395353",
+      "url": "https://www.vmall.com/product/10086922395353.html",
+      "name": "HUAWEI Mate X8",
+      "title": "HUAWEI Mate X8 12GB+512GB 紫金锦",
+      "launch_date": "2026年11月",
+      "launch_year": 2026,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "紫金锦·12GB+512GB",
+          "color": "紫金锦",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "SKY-AL00"
+          ],
+          "model": "SKY-AL00",
+          "marketing_name": "HUAWEI Mate X8",
+          "title": "HUAWEI Mate X8 12GB+512GB 紫金锦",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "12GB+256GB",
+          "selected": "紫金锦·12GB+256GB",
+          "color": "紫金锦",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "SKY-AL00"
+          ],
+          "model": "SKY-AL00",
+          "marketing_name": "HUAWEI Mate X8",
+          "title": "HUAWEI Mate X8 12GB+256GB 紫金锦",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB+512GB 典藏版",
+          "selected": "紫金锦·16GB+512GB 典藏版",
+          "color": "紫金锦",
+          "capacity": "16GB+512GB 典藏版",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "SKY-AL00"
+          ],
+          "model": "SKY-AL00",
+          "marketing_name": "HUAWEI Mate X8 典藏版",
+          "title": "HUAWEI Mate X8 典藏版 16GB+512GB 紫金锦",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB+1TB 典藏版",
+          "selected": "紫金锦·16GB+1TB 典藏版",
+          "color": "紫金锦",
+          "capacity": "16GB+1TB 典藏版",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "SKY-AL00"
+          ],
+          "model": "SKY-AL00",
+          "marketing_name": "HUAWEI Mate X8 典藏版",
+          "title": "HUAWEI Mate X8 典藏版 16GB+1TB 紫金锦",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086593300504",
+      "url": "https://www.vmall.com/product/10086593300504.html",
+      "name": "HUAWEI Mate X8 典藏版 华为睿影 Z10 模块相机套装",
+      "title": "HUAWEI Mate X8 典藏版 华为睿影 Z10 模块相机套装 16GB+1TB 苍穹黑",
+      "launch_date": "2026年11月",
+      "launch_year": 2026,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "苍穹黑·16GB+1TB 典藏版+睿影 Z10 模块套装",
+          "color": "苍穹黑",
+          "capacity": "16GB+1TB 典藏版+睿影 Z10 模块套装",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "SKY-AL00"
+          ],
+          "model": "SKY-AL00",
+          "marketing_name": "HUAWEI Mate X8 典藏版 华为睿影 Z10 模块相机套装",
+          "title": "HUAWEI Mate X8 典藏版 华为睿影 Z10 模块相机套装 16GB+1TB 苍穹黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086580068019",
+      "url": "https://www.vmall.com/product/10086580068019.html",
+      "name": "HUAWEI Mate 90 Air",
+      "title": "HUAWEI Mate 90 Air 12GB+256GB 曜石黑",
+      "launch_date": "2026年11月",
+      "launch_year": 2026,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "曜石黑·12GB+256GB",
+          "color": "曜石黑",
+          "capacity": "12GB+256GB",
+          "cpu": "麒麟9020",
+          "models": [
+            "SUP-AL91"
+          ],
+          "model": "SUP-AL91",
+          "marketing_name": "HUAWEI Mate 90 Air",
+          "title": "HUAWEI Mate 90 Air 12GB+256GB 曜石黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "12GB+512GB",
+          "selected": "曜石黑·12GB+512GB",
+          "color": "曜石黑",
+          "capacity": "12GB+512GB",
+          "cpu": "麒麟9020",
+          "models": [
+            "SUP-AL91"
+          ],
+          "model": "SUP-AL91",
+          "marketing_name": "HUAWEI Mate 90 Air",
+          "title": "HUAWEI Mate 90 Air 12GB+512GB 曜石黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086504215180",
+      "url": "https://www.vmall.com/product/10086504215180.html",
+      "name": "HUAWEI MateBook Fold S",
+      "title": "HUAWEI MateBook Fold S 16GB 256GB 幻夜黑",
+      "launch_date": "2026年11月",
+      "launch_year": 2026,
+      "launch_month": 11,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "HarmonyOS·16GB/256GB（含键盘+内胆包）·幻夜黑·麒麟XE90",
+          "color": "HarmonyOS",
+          "capacity": "16GB/256GB（含键盘+内胆包）",
+          "cpu": "麒麟XE90",
+          "models": [
+            "SPN-W52"
+          ],
+          "model": "SPN-W52",
+          "marketing_name": "HUAWEI MateBook Fold S",
+          "title": "HUAWEI MateBook Fold S 16GB 256GB 幻夜黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "16GB/512GB（含键盘+内胆包）",
+          "selected": "HarmonyOS·16GB/512GB（含键盘+内胆包）·幻夜黑·麒麟XE90",
+          "color": "HarmonyOS",
+          "capacity": "16GB/512GB（含键盘+内胆包）",
+          "cpu": "麒麟XE90",
+          "models": [
+            "SPN-W52"
+          ],
+          "model": "SPN-W52",
+          "marketing_name": "HUAWEI MateBook Fold S",
+          "title": "HUAWEI MateBook Fold S 16GB 512GB 幻夜黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "24GB/512GB（含键盘+内胆包）",
+          "selected": "HarmonyOS·24GB/512GB（含键盘+内胆包）·幻夜黑·麒麟XE90",
+          "color": "HarmonyOS",
+          "capacity": "24GB/512GB（含键盘+内胆包）",
+          "cpu": "麒麟XE90",
+          "models": [
+            "SPN-W52"
+          ],
+          "model": "SPN-W52",
+          "marketing_name": "HUAWEI MateBook Fold S",
+          "title": "HUAWEI MateBook Fold S 24GB 512GB 幻夜黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        },
+        {
+          "label": "32GB/1TB（含键盘+手写笔+内胆包）",
+          "selected": "HarmonyOS·32GB/1TB（含键盘+手写笔+内胆包）·幻夜黑·麒麟XE90",
+          "color": "HarmonyOS",
+          "capacity": "32GB/1TB（含键盘+手写笔+内胆包）",
+          "cpu": "麒麟XE90",
+          "models": [
+            "SPN-W52"
+          ],
+          "model": "SPN-W52",
+          "marketing_name": "HUAWEI MateBook Fold S",
+          "title": "HUAWEI MateBook Fold S 32GB 1TB 幻夜黑",
+          "launch_date": "2026年11月",
+          "launch_year": 2026,
+          "launch_month": 11
+        }
+      ]
+    },
+    {
+      "product_id": "10086260508795",
+      "url": "https://www.vmall.com/product/10086260508795.html",
+      "name": "HUAWEI Mate 90 Pro Max 典藏版 华为睿影Z10 模块相机套装",
+      "title": "HUAWEI Mate 90 Pro Max 典藏版 华为睿影Z10 模块相机套装",
+      "launch_date": "2026年10月",
+      "launch_year": 2026,
+      "launch_month": 10,
+      "variants": [
+        {
+          "label": "默认",
+          "selected": "晶钻白·16GB+1TB 典藏版+睿影Z10 模块套装·麒麟9050 Pro",
+          "color": "晶钻白",
+          "capacity": "16GB+1TB 典藏版+睿影Z10 模块套装",
+          "cpu": "麒麟9050 Pro",
+          "models": [
+            "CMM-AL10"
+          ],
+          "model": "CMM-AL10",
+          "marketing_name": "HUAWEI Mate 90 Pro Max 典藏版 华为睿影Z10 模块相机套装",
+          "title": "HUAWEI Mate 90 Pro Max 典藏版 华为睿影Z10 模块相机套装",
+          "launch_date": "2026年10月",
+          "launch_year": 2026,
+          "launch_month": 10
         }
       ]
     }

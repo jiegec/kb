@@ -307,7 +307,7 @@
 
 #### 麒麟 9020
 
-- 搭载于：Mate 70、Mate 70 Pro、Mate 70 Pro+、Mate 70 RS 非凡大师、Mate 80、Mate X6、Mate X6 典藏版、Mate XTs 非凡大师、Pura X、Pura X 典藏版
+- 搭载于：Mate 70、Mate 70 Pro、Mate 70 Pro+、Mate 70 RS 非凡大师、Mate 80、Mate 90 Air、Mate X6、Mate X6 典藏版、Mate XTs 非凡大师、Pura X、Pura X 典藏版
 - 1x 大核（0xd05，带 SMT, 2.50 GHz），3x 中核（0xd46，带 SMT, 2.15 GHz），4x 小核（0xd23，无 SMT, 1.60 GHz）
 - 大核中核有超线程，共 8 核 12 线程
 - Maleoon 920, 4CU, 1024 ALU
@@ -498,7 +498,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 XE90
 
-- 搭载于：MateBook Pro S、MateBook Pro S 典藏版
+- 搭载于：MateBook Pro S、MateBook Pro S 典藏版、MateBook Fold S
 - 1+4+4，14 线程
 - Maleoon 935, 6CU @933MHz
 - 与麒麟 9030 Pro 规格一致
@@ -635,7 +635,7 @@ Pura X 版本：丝印 Hi36C0 GFCV111
 
 #### 麒麟 9050 Pro
 
-- 搭载于：Mate 90 Pro Max 16GB、Mate 90 RS 非凡大师、Mate XT2 ULTIMATE DESIGN
+- 搭载于：Mate 90 Pro Max 16GB、Mate 90 RS 非凡大师、Mate X8、Mate X8 典藏版、Mate XT2 ULTIMATE DESIGN
 - 1(3.10 GHz, SMT, 0xd07)+2(2.70 GHz, SMT, 0xd48)+4(2.20 GHz, SMT, 0xd48)+2(1.75 GHz, 0xd25) 核，9 核 16 线程
 - 比麒麟 9050 频率高，多一个 2.20 GHz 中核
 - Maleoon 955 6CU, 1.05 GHz
@@ -807,12 +807,16 @@ Hi36 系列：
 | 2026 | Mate 90 Pro Max 12GB                    | CMM-AL00                     | 麒麟 9050     | [华为商城](https://www.vmall.com/product/10086384648661.html)                                                                                     |
 | 2026 | Mate 90 Pro Max 16GB                    | CMM-AL10                     | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086384648661.html)                                                                                     |
 | 2026 | Mate 90 RS 非凡大师                     | CMU-AL10                     | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086964819340.html)                                                                                     |
+| 2026 | Mate 90 Air                             | SUP-AL91                     | 麒麟 9020       | [华为商城](https://www.vmall.com/product/10086580068019.html)                                                                                         |
+| 2026 | Mate X8                                 | SKY-AL00                     | 麒麟 9050 Pro   | [华为商城](https://www.vmall.com/product/10086922395353.html)                                                                                         |
+| 2026 | Mate X8 典藏版                             | SKY-AL00                     | 麒麟 9050 Pro   | [华为商城](https://www.vmall.com/product/10086922395353.html)                                                                                         |
 | 2026 | Mate XT2 ULTIMATE DESIGN                | LAP-AL10                     | 麒麟 9050 Pro | [华为商城](https://www.vmall.com/product/10086839715516.html)                                                                                     |
 | 2026 | MateBook 14 鸿蒙版 16GB/24GB            | MNTXM-24A                    | 麒麟 X90      | [华为商城](https://www.vmall.com/product/10086097339191.html)                                                                                     |
 | 2026 | MateBook 14 鸿蒙版 32GB                 | MNTXM-32A                    | 麒麟 X90      | [华为商城](https://www.vmall.com/product/10086097339191.html)                                                                                     |
 | 2026 | MateBook 14 鸿蒙版 方形键盘             | MNTXM-24B                    | 麒麟 X90      | [华为支持页](https://consumer.huawei.com/cn/support/laptops/matebook-14-harmonyos-version/)                                                       |
 | 2026 | MateBook Fold 非凡大师（X90 Plus）24GB    | SLM-W24                      | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html)                                                                                     |
 | 2026 | MateBook Fold 非凡大师（X90 Plus）32GB    | SLM-W32                      | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086769820844.html)                                                                                     |
+| 2026 | MateBook Fold S                         | SPN-W52                      | 麒麟 XE90       | [华为商城](https://www.vmall.com/product/10086504215180.html)                                                                                         |
 | 2026 | MateBook Pro S                          | MOR-M1                       | 麒麟 XE90     | [华为商城](https://www.vmall.com/product/10086380895025.html)                                                                                     |
 | 2026 | MateBook Pro S 典藏版                   | MOR-M2                       | 麒麟 XE90     | [华为商城](https://www.vmall.com/product/10086380895025.html)                                                                                     |
 | 2026 | MateBook Pro 麒麟 X90 Plus 24GB         | HAD-W24                      | 麒麟 X90 Plus | [华为商城](https://www.vmall.com/product/10086008052699.html)                                                                                     |
