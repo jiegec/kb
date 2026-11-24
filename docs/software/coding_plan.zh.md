@@ -207,7 +207,8 @@
     - 扣减顺序：使用 Flash-Lite 时先扣专属积分，专属积分用尽后再扣通用积分（通用积分未耗尽即可继续使用 Flash-Lite）；使用其他模型只扣通用积分
     - Flash-Lite 消费返赠活动于 2026-10-27 下线：活动期间每实际消耗 1 积分 Flash-Lite 专属积分返赠 1 通用积分（按自然日汇总、每小时结算到账、每笔自到账起 30 天有效、不占用滚动 5 小时与滚动周额度）；已到账的返赠积分余额与有效期保持不变，切换前已计入返赠的消费仍按原规则结算
     - 通用积分额度上调生效时，系统统一将各用户的通用积分窗口可用额度重置为新上限；Flash-Lite 专属积分的可用额度不变
-    - 支持模型（7 款）：SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.5 Lite、SenseNova U1.5 Fast、DeepSeek V4.1 Flash、GLM-5.3、Kimi K3
+    - 支持模型（6 款）：SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.6 Lite、DeepSeek V4.1 Flash、GLM-5.3、Kimi K3；图片模型 SenseNova U1.5 Lite 与 SenseNova U1.5 Fast 已由 SenseNova U1.6 Lite 取代
+    - SenseNova U1.6 Lite（`sensenova-u1.6-lite`）为日日新最新一代图片创作模型，强化美学表现与自然质感，增强图中文字自修正能力，支持文字描述与区域定位两种图片编辑方式；同步图片生成接口支持 2K / 4K 尺寸与 `self_correction` 参数
     - GLM-5.3（`glm-5.3`）：智谱新一代旗舰模型，面向大型代码库开发、终端操作、端到端项目与代码安全分析等复杂软件工程和 Agent 任务；1M 上下文，单次生成上限默认 65536、范围 1–131072，思考模式始终开启（`thinking.type` 仅接受 `enabled`，传入 `disabled` 会报错，`reasoning_effort` 可选 `low` / `high` / `max`），仅支持文本输入，`tool_choice` 支持 `required`
     - SenseNova 6.8 Flash（`sensenova-6.8-flash`）：1M 上下文，单次输出默认 64K、范围 1–128K，支持图像输入（JPG / JPEG / PNG / WebP，可传公网 URL 或 Base64 Data URL）；思考模式默认开启且不可关闭（`thinking.type` 仅接受 `enabled`），`reasoning_effort` 默认 `high`，可选 `minimal` / `low` / `medium` / `high` / `xhigh` / `max`；日常任务官方仍推荐 SenseNova 6.8 Flash Lite，复杂长链路与专业交付任务推荐 SenseNova 6.8 Flash
 - [联通元景 GLM-5 Coding Plan](https://maas.ai-yuanjing.com/doc/pages/216556920/)
@@ -293,6 +294,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/24：商汤 SenseNova TokenPlan 的图片模型由 **SenseNova U1.5 Lite** 与 **SenseNova U1.5 Fast** 换成 **SenseNova U1.6 Lite**（`sensenova-u1.6-lite`，最新一代图片创作模型：强化美学表现与自然质感、增强图中文字自修正，图片编辑支持文字描述与区域定位两种方式，同步图片生成接口支持 2K / 4K 尺寸与 `self_correction` 参数），支持模型由 7 款减至 **6 款**——SenseNova 6.8 Flash、SenseNova 6.8 Flash Lite、SenseNova U1.6 Lite、DeepSeek V4.1 Flash、GLM-5.3、Kimi K3。两类积分池额度（通用池滚动 5 小时 120,000 积分、滚动周 1,200,000 积分；Flash-Lite 专属池 60,000 / 600,000 积分）、扣减顺序与其余模型的规格均未变
 
 - 2026/11/24：OpenCode Go 新增**决策模型**与**向量化模型**两类模型，Go、Go Plus 与 Go Teams 三档均可用。两类模型按目录价计费、不享 Go 折扣，月额度与其价格等值——Go **\$10**、Go Plus **\$40**、Go Teams **\$15**（与其余模型一样比 Go 高 5 美元）；其请求无需 `x-opencode-session` 会话头，RAG 库、记忆服务、脚本等任意客户端均可直接用 Go 密钥调用。决策模型回答关于 `state` 的结构化问题、不生成文本，输出免费，接入点为 System One `https://opencode.ai/inference/go/systemone/v1/systemone`（OpenAI Decisions 格式为 `https://opencode.ai/inference/go/openai/v1/decisions`）：Jev 1.14（`jev-1.14`）输入 \$0.042；Gemini Decision 1（`gemini-decision-1`）输入 \$0.10；GPT 6 Luna Decision（`gpt-6-luna-decision`）≤272K tokens 输入 \$0.10 / 缓存读取 \$0.01 / 缓存写入 \$0.125，>272K tokens 输入 \$0.20 / 缓存读取 \$0.02 / 缓存写入 \$0.25（每 1M tokens）。向量化模型接入 OpenAI Embeddings API `https://opencode.ai/inference/go/openai/v1/embeddings`，另支持 `dimensions` 与 `encoding_format` 参数，每 1M 输入 tokens：text-embedding-3-small \$0.02、Qwen3 Embedding 8B \$0.01、Gemini Embedding 2 \$0.20。三档套餐价格与既有的文本/多模态模型 token 价格、月额度均未变
 
