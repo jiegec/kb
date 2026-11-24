@@ -119,6 +119,7 @@
     - 升配：不重置当前订阅周期，按剩余天数补缴差价并发放当前周期新增额度，自下一个订阅月起按新档位月额度计量
     - Essential 可同时支持 2–3 个 Agent 并发，权益为 Lite 全部权益
     - 仅限本人使用：同一个 API Key 可配置到本人的多台设备（如家庭电脑与公司电脑）上使用；共享给他人可能被判定为违规并导致封禁
+    - 地域：Token Plan 个人版目前仅支持**华北2（北京）**地域
     - 支持模型：auto、qwen4-max、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
     - qwen4-max 为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens；非思考模式单次输出上限 131,072 tokens，思考与最终回答合计上限 262,144 tokens，默认 `reasoning_effort=high`、`thinking_budget=131072`。该模型同时开放按量调用：输入 **10** 元、输出 **30** 元每百万 Token（中国站全球部署，华北2（北京）免费额度 100 万 Token；国际部署与美国（弗吉尼亚）部署均为 10.938 / 32.813 元），缓存创建（5 分钟）12.5 元、创建（1 小时）20 元、显式与隐式缓存命中 0.5 元每百万 Token（国际与美国（弗吉尼亚）部署均为 13.672 / 21.875 / 0.547 元），缓存单价不按标准输入单价的固定比例计算
     - qwen4-max-preview（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview）为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens、单次输出上限 131,072，仅通过 Token Plan 提供；预览期 2026-11-11 10:00 至 2026-11-25 24:00（UTC+8），预览期间模型能力持续迭代升级、预览结束后下线，活动期间 Credits 消耗低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 再享 4 折（即原标准的 0.8 折）
@@ -129,6 +130,7 @@
     - 限时优惠的适用与折算：适用于新购、续费、自动续费、加购坐席和升级坐席；加购坐席或升级坐席时按剩余时长折算费用，实际收费取折算金额与限时价中的较低值（例：标准坐席原价 ¥198/月、限时价 ¥150/月，折算为 ¥99 时收取 ¥99，折算为 ¥165 时收取 ¥150）
     - 单次消耗 Credits 由模型类型、Token 用量、思考模式及工具调用动态决定；以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
     - 1 Credit 对应 API 价格（隐式缓存）：256K 以内上下文 0.01–0.02 元，256K–1M 0.04–0.08 元
+    - 地域：Token Plan 团队版目前仅支持**华北2（北京）**地域，如需从海外调用须自行确认符合当地法律法规要求
     - 支持模型：auto、qwen4-max、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
@@ -288,6 +290,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/24：阿里云百炼 **Token Plan 个人版**与**团队版**目前仅支持**华北2（北京）**地域，团队版如需从海外调用须自行确认符合当地法律法规要求；两版档位、价格、Credits 额度、用量包、坐席价格与支持模型名单均未变
 
 - 2026/11/24：OpenCode Go 新增限时免费模型 **HungerG Free**，限时免费且不用于训练——用户提交的提示词与补全结果不用于训练模型；数据保留时长未公布。三档套餐价格（Go \$10、Go Plus \$40、Go Teams 每人 \$20 每月）与其余模型的 token 价格、月额度均未变
 
