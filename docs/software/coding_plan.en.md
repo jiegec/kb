@@ -56,23 +56,23 @@
 - GLM-5.4 has a **1M** context window; when it is used through the GLM Coding Plan, a client context window of `512000` tokens is recommended for better coding results
 - Off-peak hours consume points at 50% of the base rate; peak hours are weekdays 14:00–18:00 (UTC+8)
 - Coding plans use a dedicated API Key: the plan API Key is managed separately from the standard model API Key and the two are not interchangeable — personal-plan subscribers (including those holding an experience card) create their key in the [personal Coding Plan](https://bigmodel.cn/apikey/coding-plan-per) console, and team-plan members create theirs in the [team Coding Plan](https://bigmodel.cn/apikey/coding-plan-team) console
-- Limited-time campaigns (both ended): the "GLM-5.3-Flash Usage Campaign" (2026-09-03 to 2026-10-07, daily 23:00–09:00, unlimited GLM-5.3-Flash usage via [ZCode](https://zcode.z.ai/cn) and [AutoClaw](https://autoclaw.zhipuai.cn/) plus doubled quota on other agents) and the "Double Festival" campaign (2026-09-25 to 2026-10-07, all-day usage charged at the off-peak rate) expired on 2026-10-07; as of 2026-10-09 no limited-time campaign is running on either site
-- Coefficients: GLM-5.4 — Input 4.6 / Cached Input 1.1 / Output 16; GLM-5.3 — Input 6.9 / Cached Input 1.7 / Output 24; GLM-5.3-Flash (including the visual understanding MCP) — Input 2.3 / Cached Input 0.56 / Output 8
+- Limited-time campaign: from 2026-11-24 to 2026-12-24 all GLM-5.3-Flash consumption is charged at 50% of the original coefficients, i.e. double the previous allowance; the earlier "GLM-5.3-Flash Usage Campaign" (2026-09-03 to 2026-10-07, daily 23:00–09:00, unlimited GLM-5.3-Flash usage via [ZCode](https://zcode.z.ai/cn) and [AutoClaw](https://autoclaw.zhipuai.cn/) plus doubled quota on other agents) and the "Double Festival" campaign (2026-09-25 to 2026-10-07, all-day usage charged at the off-peak rate) expired on 2026-10-07
+- Coefficients: GLM-5.4 — Input 4.6 / Cached Input 1.1 / Output 16; GLM-5.3 — Input 6.9 / Cached Input 1.7 / Output 24; GLM-5.3-Flash (including the visual understanding MCP) — Input 2.3 / Cached Input 0.56 / Output 8, charged at 50% (Input 1.15 / Cached Input 0.28 / Output 4) from 2026-11-24 to 2026-12-24
 - Token usage varies with the cache hit rate:
 
 | Cache Hit Rate | Model         | Lite (M Tokens/week) | Pro (M Tokens/week) | Max (M Tokens/week) |
 |----------------|---------------|----------------------|---------------------|---------------------|
 | 95%            | GLM-5.4       | 72～146              | 440～870            | 1,014～2,028        |
 | 95%            | GLM-5.3       | 0.48～0.97           | 2.90～5.80          | 6.76～13.52         |
-| 95%            | GLM-5.3-Flash | 1.46～2.92           | 8.77～17.55         | 20.47～40.95        |
+| 95%            | GLM-5.3-Flash | 292～584             | 1,754～3,510        | 4,094～8,190        |
 | 96%            | GLM-5.4       | 75～149              | 446～893            | 1,041～2,081        |
 | 96%            | GLM-5.3       | 0.50～0.99           | 2.97～5.95          | 6.94～13.87         |
-| 96%            | GLM-5.3-Flash | 1.50～3.00           | 9.00～18.01         | 21.01～42.02        |
+| 96%            | GLM-5.3-Flash | 300～600             | 1,800～3,602        | 4,202～8,404        |
 | 98%            | GLM-5.4       | 78～156              | 470～941            | 1,097～2,195        |
 | 98%            | GLM-5.3       | 0.52～1.04           | 3.13～6.27          | 7.31～14.63         |
-| 98%            | GLM-5.3-Flash | 1.58～3.17           | 9.50～19.00         | 22.17～44.33        |
+| 98%            | GLM-5.3-Flash | 316～634             | 1,900～3,800        | 4,434～8,866        |
 
-Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× points; minimum tokens assumes all usage in peak hours at 1×
+Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× points; minimum tokens assumes all usage in peak hours at 1×. The GLM-5.3-Flash row shows the allowance during the 2026-11-24 to 2026-12-24 limited-time campaign (charged at 50% of the original coefficients); it reverts to half these values once the campaign ends
 
 - API pricing (RMB per 1M tokens):
     - [GLM-5.3](https://bigmodel.cn/pricing): cached input 2, uncached input 8, output 28, 1M context
@@ -92,7 +92,7 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
     - GLM-5.2, GLM-5-Turbo: 3× during peak hours and 2× during off-peak hours; as a limited-time benefit, off-peak hours consume only 1×
     - Peak hours are 14:00–18:00 (UTC+8) daily
 
-[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.4, GLM-5.3 and GLM-5.3-Flash
+[Zhipu International GLM Coding Plan](https://z.ai/subscribe): all plans support GLM-5.4, GLM-5.3 and GLM-5.3-Flash; the GLM-5.3-Flash 50%-of-coefficients campaign runs here as well from 2026-11-24 to 2026-12-24
 
 ### Cloud Providers
 
@@ -296,6 +296,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 ## Update History
 
 - 2026/11/24: Volcengine Ark **Agent Plan Personal Edition** now lists Doubao Search, Agent Evolution, the AI Native app development base and Agent Memory among its Harness (previously Doubao Search, the AI Native app development base and Agent Memory), with Agent Evolution free for the first 50 files; Coding Plan still has no Harness. The four tiers (Small 40 / Medium 200 / Large 500 / Max 1000 RMB/month), AFP quotas, per-model deduction coefficients and the model library are unchanged
+
+- 2026/11/24: Zhipu's GLM Coding Plan runs a **GLM-5.3-Flash** limited-time campaign (2026-11-24 to 2026-12-24): all consumption of the model is charged at 50% of the original coefficients, doubling the previous allowance, so the coefficients drop from Input **2.3** / Cached Input **0.56** / Output **8** to **1.15** / **0.28** / **4**. At a 95% / 96% / 98% cache hit rate the weekly allowance for GLM-5.3-Flash rises to 292～584 / 300～600 / 316～634 M tokens on Lite, 1,754～3,510 / 1,800～3,602 / 1,900～3,800 M on Pro and 4,094～8,190 / 4,202～8,404 / 4,434～8,866 M on Max, and the international plans (z.ai) apply the same campaign. The three plan prices (Lite 118, Pro 538 and Max 1,078 RMB per month), the points allowances, the 50% off-peak rule, the GLM-5.4 and GLM-5.3 coefficients (4.6 / 1.1 / 16 and 6.9 / 1.7 / 24), the metered API prices and the team-edition rules are unchanged
 
 - 2026/11/24: SenseTime SenseNova TokenPlan swapped its image models **SenseNova U1.5 Lite** and **SenseNova U1.5 Fast** for **SenseNova U1.6 Lite** (`sensenova-u1.6-lite`), the latest image creation model with stronger aesthetics and natural texture, self-corrected text rendering, image editing by text description or region targeting, and synchronous generation at 2K / 4K sizes with a `self_correction` parameter, taking the supported models from 7 to **6** — SenseNova 6.8 Flash, SenseNova 6.8 Flash Lite, SenseNova U1.6 Lite, DeepSeek V4.1 Flash, GLM-5.3 and Kimi K3. Both credit pools (general pool 120,000 credits per rolling 5-hour window and 1,200,000 per rolling week; Flash-Lite pool 60,000 / 600,000), the deduction order and the specifications of the remaining models are unchanged
 
