@@ -163,8 +163,8 @@ Range explanation: maximum tokens assumes all usage in off-peak hours at 0.5× p
 - [CTCloud Token Plan](https://www.ctyun.cn/document/11061839/11092368) (Individual / Enterprise)
     - Token Plan (Individual): 29 (3,000 credits), 89 (10,000), 199 (25,000), 399 (50,000), 699 (100,000) RMB/month (the plan table still labels the columns "Programming Token Plan X credits")
     - TokenPlan (Enterprise): Team Starter 98 RMB/month (10,000 credits), Team Standard 498 (60,000), Team Premium 1,198 (150,000); individual top-up pack 49 RMB each (5,000 credits), bought when a seat's allowance runs short, usable by a single sub-user and non-shareable, available only to the verified enterprise main account, to be assigned within one year to a sub-user holding a valid seat (otherwise forfeited); multiple packs can be assigned, and each expires with that sub-user's current subscription month rather than rolling over
-    - Supported models (6): DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, GLM-5.2, GLM-5.1, Kimi-K2.6, MiniMax-M3
-    - Credit-to-token conversion (tokens per credit, input/output): DeepSeek-V4-Pro 1,111/370; DeepSeek-V4-Flash 3,333/1,111; GLM-5.2 1,250/357; GLM-5.1 input [0,32k] 1,667 (output 417), (32k,200k] 1,250 (output 357); Kimi-K2.6 1,538/370; MiniMax-M3 input [0,512k] 4,762 (output 1,190), (512k,1M] 2,381 (output 595)
+    - Supported models (7): ctyun-smart-router (smart router that picks a model with cost-first, quality-first or balanced strategy), DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, GLM-5.2, GLM-5.1, Kimi-K2.6, MiniMax-M3
+    - Credit-to-token conversion (tokens per credit, input/output): ctyun-smart-router 3,704/1,235; DeepSeek-V4-Pro 1,111/370; DeepSeek-V4-Flash 3,333/1,111; GLM-5.2 1,250/357; GLM-5.1 input [0,32k] 1,667 (output 417), (32k,200k] 1,250 (output 357); Kimi-K2.6 1,538/370; MiniMax-M3 input [0,512k] 4,762 (output 1,190), (512k,1M] 2,381 (output 595)
     - The previous token-metered plans allow renewals by existing subscribers only; since 2026-10-10 they support DeepSeek-V4-Flash-0731, GLM-5.1 and GLM-5.2 (GLM-5.0 and DeepSeek-V3.2 were removed as previously announced)
 - [Huawei Cloud MaaS Token Plan](https://support.huaweicloud.com/Token-plan-maas/tokenplan-maas-0001.html)
     - Lite 59 RMB/month (50M tokens per subscription month), Standard 149 (130M), Pro 399 (380M), Max 799 (880M)
@@ -294,6 +294,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B       | 17B                   | Y      |
 
 ## Update History
+
+- 2026/11/24: CTCloud's Token Plan offers the smart router **ctyun-smart-router** again: the credit-to-token table lists it once more (one credit for **3,704** input / **1,235** output tokens, the same as when it was first listed on 2026-11-09), taking the supported models back to **7** — ctyun-smart-router, DeepSeek-V4-Pro (1,111/370), DeepSeek-V4-Flash (3,333/1,111), GLM-5.2 (1,250/357), GLM-5.1, Kimi-K2.6 (1,538/370) and MiniMax-M3. The five individual tiers (29 / 89 / 199 / 399 / 699 RMB per month), the three enterprise tiers (Team Starter 98, Team Standard 498, Team Premium 1,198 RMB per month), the individual top-up pack (49 RMB for 5,000 credits) and the other models' conversion rates are unchanged
 
 - 2026/11/24: the **qwen4-max-preview** preview window on Alibaba Cloud Bailian now ends at **10:00 on 2026-11-25** (UTC+8) instead of 24:00 the same day, on both the Personal and Team editions, and the model is retired when it ends; the benefit inside the window is unchanged — Credits consumption as low as **20%** of standard (5× the usage), with a further 40% off between 22:00 and 08:00 daily on the Personal Edition. The tiers, prices, Credits quotas, Usage Packs, upgrade rules and supported-model lists of both editions are unchanged
 
