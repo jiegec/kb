@@ -122,7 +122,7 @@
     - 地域：Token Plan 个人版目前仅支持**华北2（北京）**地域
     - 支持模型：auto、qwen4-max、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
     - qwen4-max 为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens；非思考模式单次输出上限 131,072 tokens，思考与最终回答合计上限 262,144 tokens，默认 `reasoning_effort=high`、`thinking_budget=131072`。该模型同时开放按量调用：输入 **10** 元、输出 **30** 元每百万 Token（中国站全球部署，华北2（北京）免费额度 100 万 Token；国际部署与美国（弗吉尼亚）部署均为 10.938 / 32.813 元），缓存创建（5 分钟）12.5 元、创建（1 小时）20 元、显式与隐式缓存命中 0.5 元每百万 Token（国际与美国（弗吉尼亚）部署均为 13.672 / 21.875 / 0.547 元），缓存单价不按标准输入单价的固定比例计算
-    - qwen4-max-preview（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview）为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens、单次输出上限 131,072，仅通过 Token Plan 提供；预览期 2026-11-11 10:00 至 2026-11-25 24:00（UTC+8），预览期间模型能力持续迭代升级、预览结束后下线，活动期间 Credits 消耗低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 再享 4 折（即原标准的 0.8 折）
+    - qwen4-max-preview（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview）为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens、单次输出上限 131,072，仅通过 Token Plan 提供；预览期 2026-11-11 10:00 至 2026-11-25 10:00（UTC+8），预览期间模型能力持续迭代升级、预览结束后下线，活动期间 Credits 消耗低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 再享 4 折（即原标准的 0.8 折）
     - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017 5 折
     - decision-model-preview（领域模型 - 决策模型）限时免费，调用不消耗 Credits
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
@@ -294,6 +294,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/24：阿里云百炼 **qwen4-max-preview** 的预览期结束时间由 2026-11-25 24:00 提前至 **2026-11-25 10:00**（UTC+8），个人版与团队版一致，预览结束后该模型下线；预览期内的权益不变——Credits 消耗低至 **2 折**（相当于增加 5 倍用量），个人版每晚 22:00–次日 08:00 再享 4 折。两版的档位、价格、Credits 额度、用量包、升配规则与支持模型名单均未变
 
 - 2026/11/24：火山方舟 **Agent Plan 个人版**的 Harness 现含豆包搜索、Agent 进化、AI Native 应用开发底座、Agent 记忆等（此前为豆包搜索、AI Native 应用开发底座、Agent 记忆），其中 Agent 进化前 50 个文件免费；Coding Plan 仍不含 Harness。四档价格（Small 40 / Medium 200 / Large 500 / Max 1000 元每月）、AFP 额度、各模型抵扣系数与模型库均未变
 
