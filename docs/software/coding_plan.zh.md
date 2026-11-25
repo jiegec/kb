@@ -120,9 +120,9 @@
     - Essential 可同时支持 2–3 个 Agent 并发，权益为 Lite 全部权益
     - 仅限本人使用：同一个 API Key 可配置到本人的多台设备（如家庭电脑与公司电脑）上使用；共享给他人可能被判定为违规并导致封禁
     - 地域：Token Plan 个人版目前仅支持**华北2（北京）**地域
-    - 支持模型：auto、qwen4-max、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
-    - qwen4-max 为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens；非思考模式单次输出上限 131,072 tokens，思考与最终回答合计上限 262,144 tokens，默认 `reasoning_effort=high`、`thinking_budget=131072`。该模型同时开放按量调用：输入 **10** 元、输出 **30** 元每百万 Token（中国站全球部署，华北2（北京）免费额度 100 万 Token；国际部署与美国（弗吉尼亚）部署均为 10.938 / 32.813 元），缓存创建（5 分钟）12.5 元、创建（1 小时）20 元、显式与隐式缓存命中 0.5 元每百万 Token（国际与美国（弗吉尼亚）部署均为 13.672 / 21.875 / 0.547 元），缓存单价不按标准输入单价的固定比例计算
-    - qwen4-max-preview（别名 qwen4.0-max-preview，账单统一显示为 qwen4.0-max-preview）为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens、单次输出上限 131,072，仅通过 Token Plan 提供；预览期 2026-11-11 10:00 至 2026-11-25 10:00（UTC+8），预览期间模型能力持续迭代升级、预览结束后下线，活动期间 Credits 消耗低至 **2 折**（相当于增加 5 倍用量），每晚 22:00–次日 08:00 再享 4 折（即原标准的 0.8 折）
+    - 支持模型：auto、qwen4-max、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-flash、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、glm-5.3、glm-5.2、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v、decision-model-preview
+    - qwen4-max 为推理、视觉理解、文本生成模型，上下文 1,000,000 tokens；非思考模式单次输出上限 131,072 tokens，思考与最终回答合计上限 262,144 tokens，默认 `reasoning_effort=high`、`thinking_budget=131072`。该模型同时开放按量调用：输入 **10** 元、输出 **30** 元每百万 Token（中国站全球部署，华北2（北京）免费额度 100 万 Token；国际部署与美国（弗吉尼亚）部署均为 10.938 / 32.813 元），缓存创建（5 分钟）12.5 元、创建（1 小时）20 元、显式与隐式缓存命中 0.5 元每百万 Token（国际与美国（弗吉尼亚）部署均为 13.672 / 21.875 / 0.547 元），缓存单价不按标准输入单价的固定比例计算；原 qwen4-max-preview 的模型 ID 仍可正常调用，请求自动路由至 qwen4-max，Credits 抵扣与用量统计均按 qwen4-max 计算
+    - qwen4-max-preview（别名 qwen4.0-max-preview）为预览模型，预览期 2026-11-11 10:00 至 2026-11-25 10:00（UTC+8），已随预览期结束下线并从支持模型名单移除；预览期的 **2 折**与个人版夜间再 4 折权益不再适用，调用按 qwen4-max 标准价格计费
     - 限时夜间折扣（每晚 22:00–次日 08:00）：qwen3.8-max、qwen3.8-flash 的 Credits 消耗 4 折；deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v4.1-flash、deepseek-v4.1-flash-1017 5 折
     - decision-model-preview（领域模型 - 决策模型）限时免费，调用不消耗 Credits
 - [阿里云百炼 Token Plan（团队版）](https://help.aliyun.com/zh/model-studio/token-plan-overview)
@@ -131,7 +131,7 @@
     - 单次消耗 Credits 由模型类型、Token 用量、思考模式及工具调用动态决定；以 Qwen3.6-plus 为例，每 5000 输入未命中缓存 token、每 50000 输入命中缓存 token、每 5000/6 输出 token 为一个 Credit
     - 1 Credit 对应 API 价格（隐式缓存）：256K 以内上下文 0.01–0.02 元，256K–1M 0.04–0.08 元
     - 地域：Token Plan 团队版目前仅支持**华北2（北京）**地域，如需从海外调用须自行确认符合当地法律法规要求
-    - 支持模型：auto、qwen4-max、qwen4-max-preview、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
+    - 支持模型：auto、qwen4-max、qwen3.8-max、qwen3.8-flash、qwen3.7-max、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen-image-2.0、qwen-image-2.0-pro、qwen-image-3.0-pro、qwen-audio-3.0-tts-plus、qwen-audio-3.0-realtime-plus、qwen-audio-3.0-asr-flash、wan2.7-image、wan2.7-image-pro、wan3.0-video、deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-pro、deepseek-v4-pro-0813、deepseek-v4-flash-0731、kimi-k2.7-code、kimi-k2.6、kimi-k2.5、glm-5.3、glm-5.2、glm-5.1、glm-5、MiniMax-M2.5、happyhorse-1.1-i2v、happyhorse-1.1-t2v、happyhorse-1.1-r2v
 - [腾讯云大模型 Token Plan](https://cloud.tencent.com/act/pro/tokenplan)
     - 企业版专业套餐：1 元/100 积分，单次购买最低 5 万积分（500 元/月）；轻享套餐：2 元/百万 tokens
     - 企业版支持模型（广州/新加坡略有差异）：Auto、Hy4 flash、Hy4、Hy4 preview（2026-12-07 下线）、GLM-5.3、GLM-5.3-Flash、GLM-5.2、Kimi K2.7 Code、Kimi K2.7 Code HighSpeed、Kimi K3、Kimi-K2.6、MiniMax-M2.7（2026-11-17 下线）、MiniMax-M3、DeepSeek-V4-Pro、DeepSeek-V4-Pro 0813 正式版、DeepSeek-V4.1-Flash（非原厂直供）、DeepSeek-V4.1-Flash-1017（非原厂直供）、DeepSeek-V4.1-Flash-1017 原厂直供、DeepSeek-V4-Flash 0731 正式版 原厂直供、DeepSeek-V4-Pro 0813 正式版 原厂直供、DeepSeek-V4-Flash-Vision-Exp 原厂直供、MiMo-V2.6-Pro、MiMo-V2.6-Flash
@@ -294,6 +294,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/25：阿里云百炼 **qwen4-max-preview** 的预览期于 2026-11-25 10:00（UTC+8）结束，该模型下线，**Token Plan 个人版**与**团队版**的支持模型名单同步移除它；原模型 ID 仍可正常调用，请求自动路由至 **qwen4-max**，Credits 抵扣与用量统计均按 qwen4-max 计算，预览期的 **2 折**（个人版叠加夜间再 4 折）不再适用，调用按 qwen4-max 标准价格计费。两版的档位、价格、Credits 额度、用量包、坐席价格、夜间四折与五折名单、decision-model-preview 限时免费均未变
 
 - 2026/11/24：天翼云 Token Plan 恢复提供智能路由 **ctyun-smart-router**：积分与 Token 兑换关系表重新列出该模型（1 积分对应输入 **3,704** / 输出 **1,235** tokens，与 2026-11-09 上架时一致），套餐支持模型回到 **7 款**——ctyun-smart-router、DeepSeek-V4-Pro（1,111/370）、DeepSeek-V4-Flash（3,333/1,111）、GLM-5.2（1,250/357）、GLM-5.1、Kimi-K2.6（1,538/370）、MiniMax-M3。个人版五档价格（29 / 89 / 199 / 399 / 699 元每月）、企业版三档（团队尝鲜版 98、团队标准版 498、团队至尊版 1198 元每月）、个人加油包（49 元 / 5000 积分）与其余模型的兑换比例均未变
 
