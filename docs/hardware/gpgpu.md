@@ -1019,4 +1019,4 @@ nvcc 编译的时候，可以指定 arch=compute_xx，code=sm_xx，前者对应 
 
 例如 tcgen05.ld.red 指令要求 sm_103f，那它就能在 GB110（sm_103）上用，但不能在 GB100（sm_100）上用。
 
-如果更进一步，PTX 直接针对某一个 CC，就可以指定 arch=compute_xxa，此时 CC 必须精确匹配：compute_100a 可以跑在 CC 10.3，不能跑在 CC 10.0。
+如果更进一步，PTX 直接针对某一个 CC，就可以指定 arch=compute_xxa，此时 CC 必须精确匹配：compute_100a 可以跑在 CC 10.0，不能跑在 CC 10.3。
