@@ -1004,3 +1004,17 @@ Dependency Barrier 主要是用来解决依赖的问题。
 - STS
 
 除了 BMOV 以外，这些指令读取操作数的时间可能是不确定的。
+
+## CUDA Capability
+
+CUDA Capability：每个 GPU 有一个 CC 版本号，比如 Ampere 是 CC 8.0 对应 compute_80 和 sm_80。
+
+nvcc 编译的时候，可以指定 arch=compute_xx，code=sm_xx，前者对应 PTX 的版本，后者对应 SASS 的版本。
+
+对于 PTX，针对 compute_xx 编译出来的 PTX，可以 JIT 到任何比 xx 更大的 CC 的 GPU 上。比如 compute_70 的 PTX 可以跑在 CC 7.0 或 8.0 上。
+
+对于 SASS，针对 sm_xx 编译出来的 SASS，只能跑在同一个大版本号下，比 xx 更大的 CC 的 GPU 上。比如 sm_80 的 SASS 可以跑在 CC 8.0 或 8.9，但不能跑在 9.0。sm_89 的 SASS 不能跑在 CC 8.0 上。
+
+为了进一步缩小 PTX 的兼容范围，可以进一步指定 arch=compute_xxf，此时编译出来的 PTX，只能 JIT 到同一个大版本号下，比 xx 更大的 CC 的 GPU 上。比如 compute_100f 的 PTX 可以跑在 CC 10.0 或 10.3 上，但不能跑在 11.0。compute_103f 不能跑在 CC 10.0 上。
+
+如果更进一步，PTX 直接针对某一个 CC，就可以指定 arch=compute_xxa，此时 CC 必须精确匹配：compute_100a 可以跑在 CC 10.3，不能跑在 CC 10.0。
