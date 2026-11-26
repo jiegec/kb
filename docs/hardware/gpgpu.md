@@ -537,8 +537,8 @@ TC 每周期吞吐（FLOP/OP）对比：
 | NVFP4 -> FP32 | N/A   | N/A   | 8192   |
 | FP16 -> FP16  | 512   | 1024  | 2048   |
 | FP8 -> FP16   | N/A   | 2048  | 4096   |
-| FP6 -> FP16   | N/A   | 2048  | 4096   |
-| FP4 -> FP16   | N/A   | 2048  | 4096   |
+| FP6 -> FP16   | N/A   | N/A   | 4096   |
+| FP4 -> FP16   | N/A   | N/A   | 4096   |
 | INT8 -> INT32 | 1024  | 2048  | 4096   |
 | INT4 -> INT32 | 2048  | N/A   | N/A    |
 | FP64 -> FP64  | 32    | 64    | 32(SM) |
@@ -566,7 +566,7 @@ Blackwell 引入了 TMEM，每个 Processing Block 有 64KB，每个 SM 一共 2
 
 ## GB110（sm_103）
 
-B300 采用的是 GB110 芯片。相比 GB100，GB110 主要强化了 FP4 的性能，代价是 INT8 和 FP64 性能的明显下降，虽然 SASS 上还有 DMMA 和 IMMA 指令，但性能只有 GB100 的 1/32，估计是用 SM 里的 INT/FP64 单元实现。
+B300 采用的是 GB110 芯片。相比 GB100，GB110 主要强化了 FP4 的性能，代价是 INT8 和 FP64 性能的明显下降，虽然 SASS 上还有 DMMA 和 IMMA 指令，但每周期性能只有 GB100 的 1/32，估计是用 SM 里的 INT/FP64 单元实现。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
