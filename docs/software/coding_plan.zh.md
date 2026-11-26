@@ -110,7 +110,7 @@
     - 图片、视频、语音模型与 Harness 无 5 小时与周限制，仅受日额度与月额度限制，日额度为月额度的一半
     - 全套餐支持：doubao-seed-2.1-pro、doubao-seed-2.1-lite、doubao-seed-2.0-mini、deepseek-v4-flash、deepseek-v3.2、glm-5.3、glm-5.3-flash、glm-5.4（1024K 上下文 / 128K 输出）、kimi-k2.8-preview、kimi-k3.1-pro、deepseek-v4-pro、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、doubao-embedding-vision、doubao-seedream-5-0-pro（图片生成，输出图单图生成 ≤2.61M 像素 150 AFP/张、>2.61M 像素 300 AFP/张，图层拆分 75 / 150 AFP/张；输入图第一张免费、第二张起 10 AFP/张）、doubao-seedream-5.0-flash（图片生成，输出图 60 AFP/张、输入图不计）、doubao-seedream-5.5（图片生成，输入图 25 AFP/张，输出图 ≤2.61M 像素 65 AFP/张、2.61M～4.63M 像素 115 AFP/张）、doubao-seed-tts-2.0、doubao-seed-asr-2.0
     - Large 以上额外支持：doubao-seedance-2.0、doubao-seedance-2.0-fast、doubao-seedance-2.0-mini、doubao-seedance-2.5、doubao-seedance-2.5-flash（输出 480p / 720p，抵扣系数输入含视频 140、输入不含视频 230）
-    - Harness 含豆包搜索、Agent 进化、AI Native 应用开发底座、Agent 记忆等（Coding Plan 不含 Harness），其中 Agent 进化前 50 个文件免费
+    - Harness 含豆包搜索、Agent 进化、AI Native 应用开发底座、Agent 记忆等（Coding Plan 不含 Harness），其中豆包搜索每账号每月 500 次免费调用、用尽后每次 5 AFP，Agent 进化前 50 个文件免费
 - [阿里云百炼 Token Plan（个人版）](https://help.aliyun.com/zh/model-studio/token-plan-personal-overview)
     - Lite（39）、Essential（79）、Standard（139）、Pro（312）RMB 每月，对应 20000 / 45000 / 80000 / 200000 Credits 每月；Lite、Essential 另有新用户限时价 19.5 / 39.5 RMB 每月，有效期至 2026-11-30 23:59:59（UTC+8），优惠资格按同一用户判定而非按单个阿里云账号判定——同一用户拥有的多个阿里云账号互为关联账号（阿里云依据注册、登录、使用中的手机号、邮箱、证件等信息判断），其中任一账号购买过 Token Plan 个人版后其余账号即不能再享受，同一用户仅可享受一次；用量包（100 RMB 每月）= 20000 Credits，需先订阅有效套餐后购买，最多同时持有 5 个（合计 100,000 Credits），用量包 Credits 不计入套餐月限额
     - 额度与价格调整：自 2026-11-09 20:00:00（UTC+8）起四档月额度上调（Lite 11,500 → **20,000**、Essential 25,500 → **45,000**、Standard 45,000 → **80,000**、Pro 180,000 → **200,000**），Pro 套餐目录价与官网折扣价下调（499 → **312** RMB 每月）；存量订阅在当前订阅周期内按新额度补齐、已使用额度不变，Pro 套餐当前订阅周期价格不变、新价格自下一订阅周期生效
@@ -294,6 +294,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/26：火山方舟 **Agent Plan 个人版**的 **豆包搜索** 改为每个账号每月 500 次免费调用额度、用尽后套餐内调用按每次 **5 AFP** 抵扣（此前为各档位每月 500 次免费额度）；Agent Plan 四档价格（Small 40 / Medium 200 / Large 500 / Max 1000 元每月）、AFP 额度、模型抵扣系数与其余 Harness 计费均未变
 
 - 2026/11/26：火山方舟 **Coding Plan 个人版** 与 **Agent Plan 个人版** 的 **kimi-k2.8-preview** 最大输出由 1024K 调整为 **128K**（上下文窗口 1024K 不变），两档对 Auto、其余模型的规格与此前一致；1M 上下文支持名单、Agent Plan 抵扣系数（8，限时 6 折 4.8 至 2026-12-14 23:59:59）、套餐价格与额度均未变
 
