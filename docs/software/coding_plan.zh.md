@@ -99,7 +99,7 @@
 - [方舟 Coding Plan 个人版](https://www.volcengine.com/activity/codingplan) | [文档](https://www.volcengine.com/docs/82379/1925114)
     - Lite 套餐（40 RMB 每月）：每 5 小时最多约 1,200 次请求、每周最多约 9,000 次、每订阅月最多约 18,000 次
     - Pro 套餐（200 RMB 每月）：Lite 的 5 倍用量
-    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、Kimi-K2.8-Preview、Kimi-K3（即将下线，抵扣系数高，仅建议 Pro 套餐用户）、Kimi-K3.1-Pro、GLM-5.4、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash、DeepSeek-V4.1-Flash-Economy
+    - 支持模型：Doubao-Seed-2.1-pro、Doubao-Seed-2.1-lite、Doubao-Seed-2.0-mini、Doubao-Seed-Evolving、Kimi-K2.8-Preview、Kimi-K3（即将下线，抵扣系数高，仅建议 Pro 套餐用户）、Kimi-K3.1-Pro、GLM-5.4、GLM-5.3、GLM-5.3-Flash、DeepSeek-V4-Flash、DeepSeek-V4-Pro、DeepSeek-V4.1-Flash、DeepSeek-V4.1-Flash-Economy、Doubao-Embedding-Vision（向量化模型，128K 上下文，文本 / 图片 / 视频输入）
     - 1M 上下文支持：doubao-seed-evolving、glm-5.4、glm-5.3、glm-5.3-flash、kimi-k3.1-pro、kimi-k3（即将下线）、kimi-k2.8-preview、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、deepseek-v4-flash、deepseek-v4-pro
     - 限时活动：deepseek-v4.1-flash 在 Coding Plan 中的可用量与 Agent Plan 3.5 折抵扣活动期间相当（2026-11-07 00:00 至 2026-12-30 23:59:59）、deepseek-v4.1-flash-economy 抵扣系数 5 折（2026-10-20 00:00 至 2026-12-30 23:59:59）；Kimi-K2.8-Preview 可用量活动（2026-09-18 00:00 至 2026-12-14 23:59:59，与 Agent Plan 6 折抵扣活动期间相当）；Kimi-K3.1-Pro 的 5 折抵扣活动再次生效（上一轮已于 2026-11-09 23:59:59 到期）。当前进行中的限时活动覆盖 Auto 模式、glm-5.4、deepseek-v4.1-flash、deepseek-v4.1-flash-economy、kimi-k2.8-preview 与 kimi-k3.1-pro（GLM-5.4 的活动期间可用量与 Agent Plan 8 折抵扣活动期间相当，活动截止 2026-12-07 23:59:59），glm-5.3-flash 的限时 5 折已结束
     - 主要模型规格：Doubao-Seed-2.1-pro（新一代旗舰，1024k 上下文/256k 输出）、Doubao-Seed-2.1-lite（轻量高效，1024k/256k）、Doubao-Seed-2.0-mini（极速响应，256k/128k）、DeepSeek-V4.1-Flash（552B 总参数 MoE、原生多模态视觉理解，1024k/384k）、DeepSeek-V4.1-Flash-Economy（与 DeepSeek-V4.1-Flash 完全相同的模型权重、能力与效果一致，价格更低、生成速度略慢，支持多模态输入，1024k/384k）、Kimi-K2.8-Preview（综合性能接近 K3、思考效率更高，1M/1M、支持文本与图片输入）、Kimi-K3.1-Pro（月之暗面旗舰模型，面向企业级长程任务与 Agentic 编程，支持深度思考、函数调用与上下文缓存，含 5min/1h 两档缓存写入，1024k 上下文/1024k 输出）、GLM-5.4（智谱 AI 的 GLM 系列旗舰大语言模型，MoE 混合专家稀疏架构，面向长程 Agent 与多文件复杂开发任务深度优化，支持超长上下文与持续推理，具备代码生成与调试能力；具备视觉能力，支持文本与图片输入，1024k 上下文/128k 输出）、GLM-5.3-Flash（智谱首个原生多模态模型，320B 总参数/18B 激活，1M/128K）
@@ -294,6 +294,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/26：火山方舟 **Coding Plan 个人版**新增向量化模型 **doubao-embedding-vision**（128K 上下文，文本 / 图片 / 视频输入，除主流大语言模型外亦支持 Embedding），模型库由 14 款增至 **15 款**（Auto 之外）；该模型不在 1M 上下文支持名单内。Lite 40 / Pro 200 元每月及其请求额度、其余模型的规格与抵扣规则、进行中的限时活动均未变
 
 - 2026/11/26：OpenCode Go 的官方已验证客户端新增 **OpenClaw**——当前版本会在 Go 请求中携带 `x-opencode-session` 会话头，浏览器登录需 **2026.11.7** 或更高版本；Harness 配置说明中的客户端列表同时加入 OpenClaw（Claude Code、Codex、Hermes、OpenClaw、Pi、Raycast）。三档套餐价格（Go \$10、Go Plus \$40、Go Teams 每人 \$20 每月）与各模型 token 价格、月额度均未变
 
