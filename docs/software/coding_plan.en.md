@@ -295,6 +295,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/11/27: Alibaba Cloud Bailian's model catalogue added the third-party-deployed model **Xing/Xing4.1-Preview** (deployed by Xing / 星辰大模型, China North 2 – Beijing): **RMB 1.5** input / **RMB 6** output per million tokens with no free quota, and cache hits billed at **2%** of the input price; the model is also on the context-cache support list. The tiers, prices, allowances and supported-model lists of Token Plan Personal/Team and of Coding Plan are unchanged
+
 - 2026/11/26: **Doubao Search** on Volcengine Ark **Agent Plan Personal Edition** now includes 500 free calls per account per month, with in-plan calls charged **5 AFP** each once that runs out (previously each tier carried 500 free calls per month). The four Agent Plan tiers (Small 40 / Medium 200 / Large 500 / Max 1,000 RMB per month), AFP quotas, model deduction coefficients and the rest of the Harness billing are unchanged
 
 - 2026/11/26: **kimi-k2.8-preview** max output on Volcengine Ark **Coding Plan Personal Edition** and **Agent Plan Personal Edition** went from 1024K to **128K** (context window unchanged at 1024K); every other model's specs in both plans are unchanged, as are the 1M-context support list, the Agent Plan coefficient (8, at a limited-time 40% off of 4.8 through 2026-12-14 23:59:59), and plan prices and quotas
