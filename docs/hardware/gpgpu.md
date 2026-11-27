@@ -769,6 +769,19 @@ TC 每周期吞吐（FLOP/OP）对比：
 | INT4 -> INT32 | 512                        | 512                 | 2048  | 1024                       | 1024                | 1024                       | 1024                |
 | FP64 -> FP64  | N/A                        | N/A                 | 32    | 1(SM)                      | 1(SM)               | 1(SM)                      | 1(SM)               |
 
+#### PTX 和 SASS 对应关系
+
+相比 Ampere，Ada Lovelace 新增了针对 FP8 的 PTX 和 SASS 指令，这是 Ada Lovelace 在 PTX 里 mma 指令和 SASS 的对应关系相比 Ampere 新增的部分：
+
+| PTX                            | SASS                     | 寄存器需求 (D/A/B/C) |
+|--------------------------------|--------------------------|----------------------|
+| mma.m16n8k32.f32.e4m3.e4m3.f32 | QMMA.16832.F32.E4M3.E4M3 | 4/4/2/4              |
+| mma.m16n8k32.f32.e5m2.e5m2.f32 | QMMA.16832.F32.E5M2.E5M2 | 4/4/2/4              |
+| mma.m16n8k32.f32.e4m3.e5m2.f32 | QMMA.16832.F32.E4M3.E5M2 | 4/4/2/4              |
+| mma.m16n8k32.f16.e4m3.e4m3.f16 | QMMA.16832.F16.E4M3.E4M3 | 2/4/2/2              |
+| mma.m16n8k16.f32.e4m3.e4m3.f32 | QMMA.16816.F32.E4M3.E4M3 | 4/2/1/4              |
+| mma.m16n8k16.f16.e4m3.e4m3.f16 | QMMA.16816.F16.E4M3.E4M3 | 2/2/1/2              |
+
 ## NVIDIA Hopper
 
 Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c)
