@@ -469,6 +469,16 @@ IMMA.8816.S8.S8 R10, R10.ROW, R13.COL,       RZ ;    /* 0x0000000d0a0a7237 */
 
 每条指令做 8x8x16 的矩阵乘，那么 16x16x16 矩阵乘就是拆成四条指令，分别计算四个 8x8 矩阵的结果。A 矩阵是 8x16=128 字节，每个线程一个寄存器；B 矩阵是 16x8=128 字节，也是每个线程一个寄存器；C/D 矩阵是 8x8x4=256 字节，每个线程两个寄存器。对于 16x16x16，A 矩阵就是 R0 和 R10 两个寄存器，B 矩阵就是 R11 和 R13 两个寄存器，D 矩阵就是 R10-R11、R14-R19 这八个寄存器。
 
+#### INT4 -> INT32
+
+INT4 -> INT32 对应的是 `IMMA.8832.S4.S4` 指令。注意 INT4 的 wmma 形状本身就是 8x8x32（而不是 16x16x16），所以一条 wmma 只对应一条 SASS：
+
+```asm
+IMMA.8832.S4.S4 R10, R4.ROW, R7.COL, RZ ;    /* 0x00000007040a7237 */
+```
+
+每条指令做 8x8x32 的矩阵乘。A 矩阵是 8x32/2=128 字节，每个线程一个寄存器；B 矩阵是 32x8/2=128 字节，也是每个线程一个寄存器；C/D 矩阵是 8x8x4=256 字节，每个线程两个寄存器。可见，在 M、N 不变的情况下让 K 翻倍，INT4 与 INT8 的寄存器压力是一样的。
+
 ## NVIDIA Ampere
 
 Whitepaper: [NVIDIA A100 Tensor Core GPU Architecture](https://images.nvidia.cn/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
