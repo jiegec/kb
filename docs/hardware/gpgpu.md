@@ -727,6 +727,8 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 注：标 (SM) 的数字不是 Tensor Core 数据通路提供的，而是 SM 里普通单元（FP64 / INT32）的峰值折算到每 TC，仅为横向比较，下同。
 
+从 SASS 指令来看，GA102（sm_86）和 GA100（sm_80）还有下面的 AD102（sm_89）的 MMA 指令相同，甚至连指令编码都一样。性能不同，应该是体现在指令的吞吐上。
+
 CUDA GPU Compute Capability: sm_86
 
 ## NVIDIA Ada Lovelace
