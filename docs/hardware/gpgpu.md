@@ -271,6 +271,8 @@ GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 K
 
 每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。每个 Processing Block 有两个 TC。
 
+#### 4x4 FP16 -> FP32
+
 考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令：
 
 ```asm
@@ -324,7 +326,29 @@ C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线�
 
 按照[官方](https://docs.nvidia.com/cuda/parallel-thread-execution/) 的说法，它把上述的两组共 8 个线程，组合成一个 Quad Pair(QP)，一共四个 QP。刚才说每组做的是一个 4x8x4 矩阵计算，那么一个 QP 即两组线程，做的就是 8x8x4 的矩阵运算。然后一次 16x16x16 的  `wmma:mma_sync` 就是 4 个 Quad Pair，每个 Quad Pair 做 4 次这样的 8x8x4 的矩阵运算。Quad Pair 和线程的对应关系是：线程 0-3 和 16-19 是 QP0，线程 4-7 和 20-23 是 QP1，依此类推。逆向论文和官方文档说的其实是同一件事情，就是换了种讲法，官方的说法更贴近 8x8x4 的矩阵运算，和指令的名称直接能对上。
 
-官方文档中，把 ptx 指令 mma.m8n8k4 建模为同时做四个 8x8x4 的 FP16 矩阵乘。对于 A 矩阵，每个 QP 负责一个 8x4 的 FP16 矩阵，每个线程用两个寄存器；对于 B 矩阵，每个 QP 负责一个 4x8 的 FP16 矩阵，也是每个线程用两个寄存器；对于 C 和 D 矩阵，每个 QP 负责一个 8x8 的 FP32 矩阵，每个线程用 8 个寄存器（上面例子里的 R20-R27）。一条 mma.m8n8k4 的 PTX 指令会被映射为四个 STEP 的 HMMA。这样，每个 HMMA 指令负责 C 矩阵里的四分之一，这样 C 和 D 的操作数都只需要两个寄存器（R20-R21、R22-R23，依此类推）。一次 mma.m8n8k4 里四个 8x8 的 C/D 矩阵拼起来，就是一个 16x16 的矩阵了。但是为了做 16x16x16 的矩阵乘，还差一个 K 维度上的累加。所以一个 16x16x16 的 `wmma:mma_sync`，对应四次 mma.m8n8k4，这四次来源于 K 维度上的累加，每次 mma.m8n8k4 都是在计算整个 16x16 的 C/D 矩阵。
+官方文档中，把 ptx 指令 mma.m8n8k4 建模为同时做四个 8x8x4 的 FP16 矩阵乘。对于 A 矩阵，每个 QP 负责一个 8x4 的 FP16 矩阵，每个线程用两个寄存器；对于 B 矩阵，每个 QP 负责一个 4x8 的 FP16 矩阵，也是每个线程用两个寄存器；对于 C 和 D 矩阵，每个 QP 负责一个 8x8 的 FP32 矩阵，每个线程用 8 个寄存器（上面例子里的 R20-R27）。一条 mma.m8n8k4 的 PTX 指令会被映射为四个 STEP 的 HMMA。这样，每个 HMMA 指令负责 C 矩阵里的四分之一，这样 C 和 D 的操作数都只需要两个寄存器（R20-R21、R22-R23，依此类推）。
+
+一次 mma.m8n8k4 里四个 8x8 的 C/D 矩阵拼起来，就是一个 16x16 的矩阵了，这样一条 mma.m8n8k4 就是做了一个 16x16x4 的矩阵乘。但是为了做 16x16x16 的矩阵乘，还差一个 K 维度上的累加。所以一个 16x16x16 的 `wmma:mma_sync`，对应四次 mma.m8n8k4，这四次来源于 K 维度上的累加，每次 mma.m8n8k4 都是在计算整个 16x16 的 C/D 矩阵。
+
+#### 4x4 FP16 -> FP16
+
+如果是累加到 FP16，那么 16x16x16 矩阵乘编译出来的就是 8 条 `HMMA.884.F16.F16.STEP[0-1]` 指令：
+
+```asm
+HMMA.884.F16.F16.STEP0 R20, R12.reuse.ROW, R16.reuse.COL, RZ ;   /* 0x000000100c147236 */
+HMMA.884.F16.F16.STEP1 R22, R12.ROW, R16.COL, RZ ;               /* 0x000000100c167236 */
+
+HMMA.884.F16.F16.STEP0 R12, R14.reuse.ROW, R18.reuse.COL, R20 ;  /* 0x000000120e0c7236 */
+HMMA.884.F16.F16.STEP1 R14, R14.ROW, R18.COL, R22 ;              /* 0x000000120e0e7236 */
+
+HMMA.884.F16.F16.STEP0 R12, R4.reuse.ROW, R8.reuse.COL, R12 ;    /* 0x00000008040c7236 */
+HMMA.884.F16.F16.STEP1 R14, R4.ROW, R8.COL, R14 ;                /* 0x00000008040e7236 */
+
+HMMA.884.F16.F16.STEP0 R12, R6.reuse.ROW, R10.reuse.COL, R12 ;   /* 0x0000000a060c7236 */
+HMMA.884.F16.F16.STEP1 R14, R6.ROW, R10.COL, R14 ;               /* 0x0000000a060e7236 */
+```
+
+此时依然是四个 SET，但每个 SET 里只有两个 STEP 了。这是因为，随着输出矩阵位宽减半，需要的寄存器数量也减半了：每组线程还是对应 4x8 的 C 的子矩阵，但只需要 4x8x2=64 字节，平均下来每个线程 64/4=16 字节，对应 4 个寄存器（比如上面的 R12-R15）。这样，只需要两个 STEP，就可以满足寄存器的带宽了。但是，总计算量不变，指令数砍半，意味着 `HMMA.884.F16.F16.STEP[0-1]` 的吞吐是每四周期一条，是 `HMMA.884.F32.F32.STEP[0-3]` 的一半。
 
 ## NVIDIA Turing
 
