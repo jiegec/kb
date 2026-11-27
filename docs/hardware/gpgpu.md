@@ -232,6 +232,8 @@ Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/
 
 PPT: [VOLTA: PROGRAMMABILITY AND PERFORMANCE](https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf)
 
+PPT: [PROGRAMMING TENSOR CORES: NATIVE VOLTA TENSOR CORES WITH CUTLASS](https://developer.download.nvidia.cn/video/gputechconf/gtc/2019/presentation/s9593-cutensor-high-performance-tensor-operations-in-cuda-v2.pdf)
+
 Paper: [Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking](https://arxiv.org/abs/1804.06826)
 
 CUDA GPU Compute Capability: sm_70
@@ -293,12 +295,28 @@ HMMA.884.F32.F32.STEP2 R20, R14.reuse.ROW, R18.reuse.COL, R20 ;  /* 0x000000120e
 HMMA.884.F32.F32.STEP3 R22, R14.ROW, R18.COL, R22 ;              /* 0x000000120e167236 */
 ```
 
-每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵。C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 8 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。对于每组对应的 C 的 4x8 子矩阵，由于分块，需要进行四次 4x8x4 的矩阵乘，才能得到最终结果。这四次就叫 SET0/1/2/3。然后每个 SET 内，又分了四个 STEP，每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵，这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
+按照[论文](https://arxiv.org/abs/1804.06826)的说法：
+
+每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵：
+
+![alt text](image.png)
+
+C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 8 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。
+
+对于每组对应的 C 的 4x8 子矩阵，由于分块，需要进行四次 4x8x4 的矩阵乘，才能得到最终结果。这四次就叫 SET0/1/2/3。上面汇编里看到的 16 条指令，对应四个 SET，每个 SET 里四条指令，从 STEP0 到 STEP3。
+
+每个 SET 内，分了四个 STEP。每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵：
+
+![alt text](image-1.png)
+
+这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
 
 - 第一个操作数和最后一个操作数相同，分别代表输入的 C 和输出的 D，都是两个连续的寄存器，存放一个 STEP 里的 2x4 矩阵，每个线程 8 字节
-- 第二和第三个操作数分别对应输入的 A 和 B，为了计算这 2x4 的 C 子矩阵，每个 STEP 里需要 A 的 2x4 子矩阵和 B 的 4x4 子矩阵，分别对应 2x4x2=16 和 4x4=2=32 字节，每个线程分别是 4 和 8 字节，对应 1 和 2 个寄存器
+- 第二和第三个操作数分别对应输入的 A 和 B，为了计算这 2x4 的 C 子矩阵，每个 STEP 里需要 A 的 2x4 子矩阵和 B 的 4x4 子矩阵，分别对应 2x4x2=16 和 4x4x2=32 字节，每个线程分别是 4 和 8 字节，对应 1 和 2 个寄存器；但实际排布里，A 矩阵的 2x4 子矩阵只用两个线程来存，一个线程存 1x4，所以每条指令还是用两个寄存器读 A，只是只用一半的数据
 
-这样，每条 `HMMA.884.F32.F32.STEP[0-3]` 从每个线程读取 1+2+2 个寄存器，写入 2 个寄存器，计算 8 个 2x4x4 矩阵乘，需要 8x2x4x4x2=512 FLOP。而每个 Processing Block 有两个 TC，每个 TC 每周期都是 128 FLOP，所以 `HMMA.884.F32.F32.STEP[0-3]` 的吞吐是每两周期一条（512/2/128=2）。
+这样，每条 `HMMA.884.F32.F32.STEP[0-3]` 从每个线程读取 2+2+2 个寄存器，写入 2 个寄存器，计算 8 个 2x4x4 矩阵乘，需要 8x2x4x4x2=512 FLOP。而每个 Processing Block 有两个 TC，每个 TC 每周期都是 128 FLOP，所以 `HMMA.884.F32.F32.STEP[0-3]` 的吞吐是每两周期一条（512/2/128=2）。
+
+按照[官方](https://docs.nvidia.com/cuda/parallel-thread-execution/) 的说法，它把上述的两组共 8 个线程，组合成一个 Quad Pair(QP)，一共四个 QP。刚才说每组做的是一个 4x8x4 矩阵计算，那么一个 QP 即两组线程，做的就是 8x8x4 的矩阵运算。然后一次 16x16x16 的  `wmma:mma_sync` 就是 4 个 Quad Pair，每个 Quad Pair 做 4 次这样的 8x8x4 的矩阵运算。Quad Pair 和线程的对应关系是：线程 0-3 和 16-19 是 QP0，线程 4-7 和 20-23 是 QP1，依此类推。逆向论文和官方文档说的其实是同一件事情，就是换了种讲法，官方的说法更贴近 8x8x4 的矩阵运算，和指令的名称直接能对上。
 
 ## NVIDIA Turing
 
