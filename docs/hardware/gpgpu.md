@@ -324,6 +324,8 @@ C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线�
 
 按照[官方](https://docs.nvidia.com/cuda/parallel-thread-execution/) 的说法，它把上述的两组共 8 个线程，组合成一个 Quad Pair(QP)，一共四个 QP。刚才说每组做的是一个 4x8x4 矩阵计算，那么一个 QP 即两组线程，做的就是 8x8x4 的矩阵运算。然后一次 16x16x16 的  `wmma:mma_sync` 就是 4 个 Quad Pair，每个 Quad Pair 做 4 次这样的 8x8x4 的矩阵运算。Quad Pair 和线程的对应关系是：线程 0-3 和 16-19 是 QP0，线程 4-7 和 20-23 是 QP1，依此类推。逆向论文和官方文档说的其实是同一件事情，就是换了种讲法，官方的说法更贴近 8x8x4 的矩阵运算，和指令的名称直接能对上。
 
+官方文档中，把 ptx 指令 mma.m8n8k4 建模为同时做四个 8x8x4 的 FP16 矩阵乘。对于 A 矩阵，每个 QP 负责一个 8x4 的 FP16 矩阵，每个线程用两个寄存器；对于 B 矩阵，每个 QP 负责一个 4x8 的 FP16 矩阵，也是每个线程用两个寄存器；对于 C 和 D 矩阵，每个 QP 负责一个 8x8 的 FP32 矩阵，每个线程用 8 个寄存器（上面例子里的 R20-R27）。一条 mma.m8n8k4 的 PTX 指令会被映射为四个 STEP 的 HMMA。这样，每个 HMMA 指令负责 C 矩阵里的四分之一，这样 C 和 D 的操作数都只需要两个寄存器（R20-R21、R22-R23，依此类推）。一次 mma.m8n8k4 里四个 8x8 的 C/D 矩阵拼起来，就是一个 16x16 的矩阵了。但是为了做 16x16x16 的矩阵乘，还差一个 K 维度上的累加。所以一个 16x16x16 的 `wmma:mma_sync`，对应四次 mma.m8n8k4，这四次来源于 K 维度上的累加，每次 mma.m8n8k4 都是在计算整个 16x16 的 C/D 矩阵。
+
 ## NVIDIA Turing
 
 Whitepaper: [NVIDIA TURING GPU ARCHITECTURE](https://images.nvidia.cn/aem-dam/en-zz/Solutions/design-visualization/technologies/turing-architecture/NVIDIA-Turing-Architecture-Whitepaper.pdf)
