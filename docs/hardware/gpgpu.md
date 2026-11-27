@@ -438,17 +438,17 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 PTX 里 mma 指令和 SASS 的对应关系：
 
-| PTX                                 | SASS                       |
-|-------------------------------------|----------------------------|
-| mma.m8n8k4.f32.f16.f16.f32          | HMMA.884.F32.F32.STEP[0-3] |
-| mma.m8n8k4.f16.f16.f16.f16          | HMMA.884.F16.F16.STEP[0-1] |
-| mma.m16n8k8.f32.f16.f16.f32         | HMMA.1688.F32              |
-| mma.m16n8k8.f16.f16.f16.f16         | HMMA.1688.F16              |
-| mma.m8n8k16.s32.s8.s8.s32           | IMMA.8816.S8.S8            |
-| mma.m8n8k16.s32.u8.u8.s32           | IMMA.8816.U8.U8            |
-| mma.m8n8k32.s32.s4.s4.s32           | IMMA.8832.S4.S4            |
-| mma.m8n8k32.s32.u4.u4.s32           | IMMA.8832.U4.U4            |
-| mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        |
+| PTX                                 | SASS                       | 备注          |
+|-------------------------------------|----------------------------|---------------|
+| mma.m8n8k4.f32.f16.f16.f32          | HMMA.884.F32.F32.STEP[0-3] | 和 Volta 相同 |
+| mma.m8n8k4.f16.f16.f16.f16          | HMMA.884.F16.F16.STEP[0-1] | 和 Volta 相同 |
+| mma.m16n8k8.f32.f16.f16.f32         | HMMA.1688.F32              | 新增指令      |
+| mma.m16n8k8.f16.f16.f16.f16         | HMMA.1688.F16              | 新增指令      |
+| mma.m8n8k16.s32.s8.s8.s32           | IMMA.8816.S8.S8            | 新增指令      |
+| mma.m8n8k16.s32.u8.u8.s32           | IMMA.8816.U8.U8            | 新增指令      |
+| mma.m8n8k32.s32.s4.s4.s32           | IMMA.8832.S4.S4            | 新增指令      |
+| mma.m8n8k32.s32.u4.u4.s32           | IMMA.8832.U4.U4            | 新增指令      |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        | 新增指令      |
 
 可见，为了保持和 Volta 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
 
