@@ -448,7 +448,7 @@ PTX 里 mma 指令和 SASS 的对应关系：
 | mma.m8n8k32.s32.s4/u4.s4/u4.s32     | IMMA.8832.S4/U4.S4/U4      | 新增指令      |
 | mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        | 新增指令      |
 
-对于 IMMA，还有 .satfinite 变体没有列出（下同），对应的 SASS 指令多一个 .SAT 的后缀，代表 INT32 在 overflow 的时候选择 saturate 而不是 warp。
+对于 IMMA，还有 .satfinite 变体没有列出（下同），对应的 SASS 指令多一个 .SAT 的后缀，代表 INT32 在 overflow 的时候选择 saturate 而不是 warp。xor.popc 的意思是，让 A 的一行和 B 的一列对应元素进行 XOR，然后统计结果里 1 的个数作为 INT32 结果。
 
 可见，为了保持和 Volta 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
 
@@ -592,7 +592,7 @@ PTX 里 mma 指令和 SASS 的对应关系：
 | mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC | 新增指令          |
 | mma.m8n8k4.f64.f64.f64.f64               | DMMA.884                 | 新增指令          |
 
-此外，还有 sparse 变体没有列出。
+此外，还有 sparse 变体没有列出。and.popc 的意思是，让 A 的一行和 B 的一列对应元素进行 AND，然后统计结果里 1 的个数作为 INT32 结果。
 
 之前 Volta/Turing 的 mma.m8n8k4.f16.f16.f16.f16 和 mma.m8n8k4.f32.f16.f16.f32 在 Ampere 上因为 TC 的计算粒度 8x4x8 不匹配，实际是用 CUDA core 来计算的。官方文档也提示了这一点：
 
