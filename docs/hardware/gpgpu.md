@@ -688,6 +688,8 @@ Ampere 的 FP64 -> FP64，wmma 的形状是 8x8x4，对应一条 `DMMA.884` 指�
 DMMA.884 R4, R4, R2, RZ ;    /* 0x000000020404723f */
 ```
 
+A 矩阵是 8x4x8=256 字节，每个线程两个寄存器；B 矩阵是 4x8x8=256 字节，每个线程两个寄存器；C/D 矩阵是 8x8x8=512 字节，每个线程四个寄存器。
+
 ### GA102（sm_86）
 
 Whitepaper: [NVIDIA AMPERE GA102 GPU ARCHITECTURE](https://www.nvidia.com/content/PDF/nvidia-ampere-ga-102-gpu-architecture-whitepaper-v2.pdf)
