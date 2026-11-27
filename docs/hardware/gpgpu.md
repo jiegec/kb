@@ -280,6 +280,8 @@ PTX 里 mma 指令和 SASS 的对应关系：
 | mma.m8n8k4.f32.f16.f16.f32 | HMMA.884.F32.F32.STEP[0-3] |
 | mma.m8n8k4.f16.f16.f16.f16 | HMMA.884.F16.F16.STEP[0-1] |
 
+表中 PTX 一列省略了 .sync.aligned 和 .row.col（alayout/blayout 取 row/col 时），下同。
+
 #### FP16 -> FP32
 
 考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令：
@@ -436,19 +438,19 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 PTX 里 mma 指令和 SASS 的对应关系：
 
-| PTX                                  | SASS                       |
-|--------------------------------------|----------------------------|
-| mma.m8n8k4.f32.f16.f16.f32           | HMMA.884.F32.F32.STEP[0-3] |
-| mma.m8n8k4.f16.f16.f16.f16           | HMMA.884.F16.F16.STEP[0-1] |
-| mma.m16n8k8.f32.f16.f16.f32          | HMMA.1688.F32              |
-| mma.m16n8k8.f16.f16.f16.f16          | HMMA.1688.F16              |
-| mma.m8n8k16.s32.s8.s8.s32            | IMMA.8816.S8.S8            |
-| mma.m8n8k16.s32.u8.u8.s32            | IMMA.8816.U8.U8            |
-| mma.m8n8k32.s32.s4.s4.s32            | IMMA.8832.S4.S4            |
-| mma.m8n8k32.s32.u4.u4.s32            | IMMA.8832.U4.U4            |
-| mma.m8n8k3128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        |
+| PTX                                 | SASS                       |
+|-------------------------------------|----------------------------|
+| mma.m8n8k4.f32.f16.f16.f32          | HMMA.884.F32.F32.STEP[0-3] |
+| mma.m8n8k4.f16.f16.f16.f16          | HMMA.884.F16.F16.STEP[0-1] |
+| mma.m16n8k8.f32.f16.f16.f32         | HMMA.1688.F32              |
+| mma.m16n8k8.f16.f16.f16.f16         | HMMA.1688.F16              |
+| mma.m8n8k16.s32.s8.s8.s32           | IMMA.8816.S8.S8            |
+| mma.m8n8k16.s32.u8.u8.s32           | IMMA.8816.U8.U8            |
+| mma.m8n8k32.s32.s4.s4.s32           | IMMA.8832.S4.S4            |
+| mma.m8n8k32.s32.u4.u4.s32           | IMMA.8832.U4.U4            |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        |
 
-可见，为了保持和 Turing 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
+可见，为了保持和 Volta 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
 
 #### FP16 -> FP32
 
