@@ -295,6 +295,8 @@ One prompt corresponds to multiple requests, and each request has many input and
 
 ## Update History
 
+- 2026/11/27: Alibaba Cloud Bailian removed the free quota from **qwen3.7-max** and **qwen3.7-flash**, which now carry no free quota (their dated versions already had none); unit prices are unchanged — qwen3.7-max at **RMB 12** input / **RMB 36** output per million tokens, qwen3.7-flash tiered by input length at 0.2 / 0.6 / 1.2 RMB input and 0.8 / 2.4 / 4.8 RMB output (0–32K / 32K–256K / 256K–1M). qwen4-max, qwen3.8-max and qwen3.8-flash keep their 1-million-token free quota. The tiers, prices, allowances and supported-model lists of Token Plan Personal/Team and of Coding Plan are unchanged
+
 - 2026/11/27: Alibaba Cloud Bailian's model catalogue added the third-party-deployed model **Xing/Xing4.1-Preview** (deployed by Xing / 星辰大模型, China North 2 – Beijing): **RMB 1.5** input / **RMB 6** output per million tokens with no free quota, and cache hits billed at **2%** of the input price; the model is also on the context-cache support list. The tiers, prices, allowances and supported-model lists of Token Plan Personal/Team and of Coding Plan are unchanged
 
 - 2026/11/26: **Doubao Search** on Volcengine Ark **Agent Plan Personal Edition** now includes 500 free calls per account per month, with in-plan calls charged **5 AFP** each once that runs out (previously each tier carried 500 free calls per month). The four Agent Plan tiers (Small 40 / Medium 200 / Large 500 / Max 1,000 RMB per month), AFP quotas, model deduction coefficients and the rest of the Harness billing are unchanged
