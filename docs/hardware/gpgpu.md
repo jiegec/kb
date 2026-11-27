@@ -267,9 +267,33 @@ GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 K
 
 ### Tensor Core
 
-每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
+每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。每个 Processing Block 有两个 TC。
 
-每个 Processing Block 有两个 TC。考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令。每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵。C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 4 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。对于每组对应的 C 的 4x8 子矩阵，需要进行四次 4x8x4 的矩阵乘，才能得到最终结果。这四次就叫 SET0/1/2/3。然后每个 SET 内，又分了四个 STEP，每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵，这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
+考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令：
+
+```asm
+HMMA.884.F32.F32.STEP0 R24, R4.reuse.ROW, R8.reuse.COL, RZ ;     /* 0x0000000804187236 */
+HMMA.884.F32.F32.STEP1 R26, R4.reuse.ROW, R8.reuse.COL, RZ ;     /* 0x00000008041a7236 */
+HMMA.884.F32.F32.STEP2 R20, R4.reuse.ROW, R8.reuse.COL, RZ ;     /* 0x0000000804147236 */
+HMMA.884.F32.F32.STEP3 R22, R4.ROW, R8.COL, RZ ;                 /* 0x0000000804167236 */
+
+HMMA.884.F32.F32.STEP0 R24, R6.reuse.ROW, R10.reuse.COL, R24 ;   /* 0x0000000a06187236 */
+HMMA.884.F32.F32.STEP1 R26, R6.reuse.ROW, R10.reuse.COL, R26 ;   /* 0x0000000a061a7236 */
+HMMA.884.F32.F32.STEP2 R20, R6.reuse.ROW, R10.reuse.COL, R20 ;   /* 0x0000000a06147236 */
+HMMA.884.F32.F32.STEP3 R22, R6.ROW, R10.COL, R22 ;               /* 0x0000000a06167236 */
+
+HMMA.884.F32.F32.STEP0 R24, R12.reuse.ROW, R16.reuse.COL, R24 ;  /* 0x000000100c187236 */
+HMMA.884.F32.F32.STEP1 R26, R12.reuse.ROW, R16.reuse.COL, R26 ;  /* 0x000000100c1a7236 */
+HMMA.884.F32.F32.STEP2 R20, R12.reuse.ROW, R16.reuse.COL, R20 ;  /* 0x000000100c147236 */
+HMMA.884.F32.F32.STEP3 R22, R12.ROW, R16.COL, R22 ;              /* 0x000000100c167236 */
+
+HMMA.884.F32.F32.STEP0 R24, R14.reuse.ROW, R18.reuse.COL, R24 ;  /* 0x000000120e187236 */
+HMMA.884.F32.F32.STEP1 R26, R14.reuse.ROW, R18.reuse.COL, R26 ;  /* 0x000000120e1a7236 */
+HMMA.884.F32.F32.STEP2 R20, R14.reuse.ROW, R18.reuse.COL, R20 ;  /* 0x000000120e147236 */
+HMMA.884.F32.F32.STEP3 R22, R14.ROW, R18.COL, R22 ;              /* 0x000000120e167236 */
+```
+
+每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵。C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 8 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。对于每组对应的 C 的 4x8 子矩阵，由于分块，需要进行四次 4x8x4 的矩阵乘，才能得到最终结果。这四次就叫 SET0/1/2/3。然后每个 SET 内，又分了四个 STEP，每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵，这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
 
 - 第一个操作数和最后一个操作数相同，分别代表输入的 C 和输出的 D，都是两个连续的寄存器，存放一个 STEP 里的 2x4 矩阵，每个线程 8 字节
 - 第二和第三个操作数分别对应输入的 A 和 B，为了计算这 2x4 的 C 子矩阵，每个 STEP 里需要 A 的 2x4 子矩阵和 B 的 4x4 子矩阵，分别对应 2x4x2=16 和 4x4=2=32 字节，每个线程分别是 4 和 8 字节，对应 1 和 2 个寄存器
