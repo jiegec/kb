@@ -299,7 +299,10 @@ HMMA.884.F32.F32.STEP3 R22, R14.ROW, R18.COL, R22 ;              /* 0x000000120e
 
 每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵：
 
-![alt text](image.png)
+<figure markdown>
+  ![](gpgpu_volta_hmma_group.png){ width="500" }
+  <figcaption>C 矩阵元素位置与 thread group 编号的对应（来源：Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking Figure 4.5）</figcaption>
+</figure>
 
 C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 8 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。
 
@@ -307,7 +310,10 @@ C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线�
 
 每个 SET 内，分了四个 STEP。每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵：
 
-![alt text](image-1.png)
+<figure markdown>
+  ![](gpgpu_volta_hmma_step.png){ width="500" }
+  <figcaption>一个 SET 内 4 个 STEP 分别计算 C 的不同元素（来源：Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking Figure 4.4）</figcaption>
+</figure>
 
 这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
 
