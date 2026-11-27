@@ -275,12 +275,12 @@ GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 K
 
 PTX 里 mma 指令和 SASS 的对应关系：
 
-| PTX                        | SASS                       |
-|----------------------------|----------------------------|
-| mma.m8n8k4.f32.f16.f16.f32 | HMMA.884.F32.F32.STEP[0-3] |
-| mma.m8n8k4.f16.f16.f16.f16 | HMMA.884.F16.F16.STEP[0-1] |
+| PTX                        | SASS                       | 寄存器需求 (D/A/B/C) |
+|----------------------------|----------------------------|----------------------|
+| mma.m8n8k4.f32.f16.f16.f32 | HMMA.884.F32.F32.STEP[0-3] | 2/2/2/2              |
+| mma.m8n8k4.f16.f16.f16.f16 | HMMA.884.F16.F16.STEP[0-1] | 2/2/2/2              |
 
-表中 PTX 一列省略了 .sync.aligned 和 .row.col（alayout/blayout 取 row/col 时），下同。
+表中 PTX 一列省略了 .sync.aligned 和 .row.col（alayout/blayout 取 row/col 时），下同。寄存器需求一列代表这条指令四个操作数 D\A\B\C 对每个线程需要多少个 32 位寄存器。
 
 #### FP16 -> FP32
 
@@ -438,19 +438,19 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 PTX 里 mma 指令和 SASS 的对应关系：
 
-| PTX                                 | SASS                       | 备注          |
-|-------------------------------------|----------------------------|---------------|
-| mma.m8n8k4.f32.f16.f16.f32          | HMMA.884.F32.F32.STEP[0-3] | 和 Volta 相同 |
-| mma.m8n8k4.f16.f16.f16.f16          | HMMA.884.F16.F16.STEP[0-1] | 和 Volta 相同 |
-| mma.m16n8k8.f32.f16.f16.f32         | HMMA.1688.F32              | 新增指令      |
-| mma.m16n8k8.f16.f16.f16.f16         | HMMA.1688.F16              | 新增指令      |
-| mma.m8n8k16.s32.s8/u8.s8/u8.s32     | IMMA.8816.S8/U8.S8/U8      | 新增指令      |
-| mma.m8n8k32.s32.s4/u4.s4/u4.s32     | IMMA.8832.S4/U4.S4/U4      | 新增指令      |
-| mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        | 新增指令      |
+| PTX                                 | SASS                       | 寄存器需求 (D/A/B/C) | 备注          |
+|-------------------------------------|----------------------------|----------------------|---------------|
+| mma.m8n8k4.f32.f16.f16.f32          | HMMA.884.F32.F32.STEP[0-3] | 2/2/2/2              | 和 Volta 相同 |
+| mma.m8n8k4.f16.f16.f16.f16          | HMMA.884.F16.F16.STEP[0-1] | 2/2/2/2              | 和 Volta 相同 |
+| mma.m16n8k8.f32.f16.f16.f32         | HMMA.1688.F32              | 4/2/1/4              | 新增指令      |
+| mma.m16n8k8.f16.f16.f16.f16         | HMMA.1688.F16              | 2/2/1/2              | 新增指令      |
+| mma.m8n8k16.s32.s8/u8.s8/u8.s32     | IMMA.8816.S8/U8.S8/U8      | 2/1/1/2              | 新增指令      |
+| mma.m8n8k32.s32.s4/u4.s4/u4.s32     | IMMA.8832.S4/U4.S4/U4      | 2/1/1/2              | 新增指令      |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        | 2/1/1/2              | 新增指令      |
 
 对于 IMMA，还有 .satfinite 变体没有列出（下同），对应的 SASS 指令多一个 .SAT 的后缀，代表 INT32 在 overflow 的时候选择 saturate 而不是 wrap。xor.popc 的意思是，让 A 的一行和 B 的一列对应元素进行 XOR，然后统计结果里 1 的个数作为 INT32 结果。
 
-可见，为了保持和 Volta 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
+可见，为了保持和 Volta 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。与此同时，还增加了单条指令可以读取的寄存器数量。
 
 #### FP16 -> FP32
 
