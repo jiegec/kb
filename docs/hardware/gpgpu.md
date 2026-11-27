@@ -535,6 +535,33 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
 
 CUDA GPU Compute Capability: sm_80
 
+##### PTX 和 SASS 对应关系
+
+PTX 里 mma 指令和 SASS 的对应关系：
+
+| PTX                                                       | SASS                 |
+|-----------------------------------------------------------|----------------------|
+| mma.sync.aligned.m16n8k8.row.col.f32.f16.f16.f32          | HMMA.1688.F32        |
+| mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32         | HMMA.16816.F32       |
+| mma.sync.aligned.m16n8k8.row.col.f16.f16.f16.f16          | HMMA.1688.F16        |
+| mma.sync.aligned.m16n8k16.row.col.f16.f16.f16.f16         | HMMA.16816.F16       |
+| mma.sync.aligned.m16n8k8.row.col.f32.bf16.bf16.f32        | HMMA.1688.F32.BF16   |
+| mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32       | HMMA.16816.F32.BF16  |
+| mma.sync.aligned.m16n8k4.row.col.f32.tf32.tf32.f32        | HMMA.1684.F32.TF32   |
+| mma.sync.aligned.m16n8k8.row.col.f32.tf32.tf32.f32        | HMMA.1688.F32.TF32   |
+| mma.sync.aligned.m8n8k16.row.col.s32.s8.s8.s32            | IMMA.8816.S8.S8      |
+| mma.sync.aligned.m16n8k16.row.col.s32.s8.s8.s32           | IMMA.16816.S8.S8     |
+| mma.sync.aligned.m16n8k32.row.col.s32.s8.s8.s32           | IMMA.16832.S8.S8     |
+| mma.sync.aligned.m8n8k32.row.col.s32.s4.s4.s32            | IMMA.8832.S4.S4      |
+| mma.sync.aligned.m16n8k32.row.col.s32.s4.s4.s32           | IMMA.16832.S4.S4     |
+| mma.sync.aligned.m16n8k64.row.col.s32.s4.s4.s32           | IMMA.16864.S4.S4     |
+| mma.sync.aligned.m8n8k128.row.col.s32.b1.b1.s32.xor.popc  | BMMA.88128.XOR.POPC  |
+| mma.sync.aligned.m16n8k128.row.col.s32.b1.b1.s32.xor.popc | BMMA.168128.XOR.POPC |
+| mma.sync.aligned.m16n8k256.row.col.s32.b1.b1.s32.xor.popc | BMMA.168256.XOR.POPC |
+| mma.sync.aligned.m8n8k4.row.col.f64.f64.f64.f64           | DMMA.884             |
+
+之前 Volta/Turing 的 mma.m8n8k4.row.col.f16.f16.f16.f16 和 mma.m8n8k4.row.col.f32.f16.f16.f32 在 Ampere 上因为 TC 的计算粒度 8x4x8 不匹配，实际是用 CUDA core 来计算的。
+
 ##### TF32 -> FP32
 
 Ampere 的 TF32 -> FP32，wmma 的形状是 16x16x8（k 比 FP16 少一半），一次调用会被编译成四条 `HMMA.1684.F32.TF32` 指令：
