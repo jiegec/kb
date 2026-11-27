@@ -568,31 +568,33 @@ CUDA GPU Compute Capability: sm_80
 
 PTX 里 mma 指令和 SASS 的对应关系：
 
-| PTX                                      | SASS                     | 备注              |
-|------------------------------------------|--------------------------|-------------------|
-| mma.m8n8k4.f32.f16.f16.f32               | 非 MMA 指令              | 用 CUDA core 计算 |
-| mma.m8n8k4.f16.f16.f16.f16               | 非 MMA 指令              | 用 CUDA core 计算 |
-| mma.m16n8k8.f32.f16.f16.f32              | HMMA.1688.F32            | 和 Turing 相同    |
-| mma.m16n8k16.f32.f16.f16.f32             | HMMA.16816.F32           | 新增指令          |
-| mma.m16n8k8.f16.f16.f16.f16              | HMMA.1688.F16            | 和 Turing 相同    |
-| mma.m16n8k16.f16.f16.f16.f16             | HMMA.16816.F16           | 新增指令          |
-| mma.m16n8k8.f32.bf16.bf16.f32            | HMMA.1688.F32.BF16       | 新增指令          |
-| mma.m16n8k16.f32.bf16.bf16.f32           | HMMA.16816.F32.BF16      | 新增指令          |
-| mma.m16n8k4.f32.tf32.tf32.f32            | HMMA.1684.F32.TF32       | 新增指令          |
-| mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32       | 新增指令          |
-| mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8    | 和 Turing 相同    |
-| mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8   | 新增指令          |
-| mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8   | 新增指令          |
-| mma.m8n8k32.s32.s4/u4.s4/u4.s32          | IMMA.8832.S4/U4.S4/U4    | 和 Turing 相同    |
-| mma.m16n8k32.s32.s4/u4.s4/u4.s32         | IMMA.16832.S4/U4.S4/U4   | 新增指令          |
-| mma.m16n8k64.s32.s4/u4.s4/u4.s32         | IMMA.16864.S4/U4.S4/U4   | 新增指令          |
-| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | BMMA.88128.XOR.POPC      | 和 Turing 相同    |
-| mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC      | 新增指令          |
-| mma.m16n8k128.s32.b1.b1.s32.xor/and.popc | BMMA.168128.XOR/AND.POPC | 新增指令          |
-| mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC | 新增指令          |
-| mma.m8n8k4.f64.f64.f64.f64               | DMMA.884                 | 新增指令          |
+| PTX                                      | SASS                     | 寄存器需求 (D/A/B/C) | 备注              |
+|------------------------------------------|--------------------------|----------------------|-------------------|
+| mma.m8n8k4.f32.f16.f16.f32               | 非 MMA 指令              | —                    | 用 CUDA core 计算 |
+| mma.m8n8k4.f16.f16.f16.f16               | 非 MMA 指令              | —                    | 用 CUDA core 计算 |
+| mma.m16n8k8.f32.f16.f16.f32              | HMMA.1688.F32            | 4/2/1/4              | 和 Turing 相同    |
+| mma.m16n8k16.f32.f16.f16.f32             | HMMA.16816.F32           | 4/4/2/4              | 新增指令          |
+| mma.m16n8k8.f16.f16.f16.f16              | HMMA.1688.F16            | 2/2/1/2              | 和 Turing 相同    |
+| mma.m16n8k16.f16.f16.f16.f16             | HMMA.16816.F16           | 2/4/2/2              | 新增指令          |
+| mma.m16n8k8.f32.bf16.bf16.f32            | HMMA.1688.F32.BF16       | 4/2/1/4              | 新增指令          |
+| mma.m16n8k16.f32.bf16.bf16.f32           | HMMA.16816.F32.BF16      | 4/4/2/4              | 新增指令          |
+| mma.m16n8k4.f32.tf32.tf32.f32            | HMMA.1684.F32.TF32       | 4/2/1/4              | 新增指令          |
+| mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32       | 4/4/2/4              | 新增指令          |
+| mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8    | 2/1/1/2              | 和 Turing 相同    |
+| mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8   | 4/2/1/4              | 新增指令          |
+| mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8   | 4/4/2/4              | 新增指令          |
+| mma.m8n8k32.s32.s4/u4.s4/u4.s32          | IMMA.8832.S4/U4.S4/U4    | 2/1/1/2              | 和 Turing 相同    |
+| mma.m16n8k32.s32.s4/u4.s4/u4.s32         | IMMA.16832.S4/U4.S4/U4   | 4/2/1/4              | 新增指令          |
+| mma.m16n8k64.s32.s4/u4.s4/u4.s32         | IMMA.16864.S4/U4.S4/U4   | 4/4/2/4              | 新增指令          |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | BMMA.88128.XOR.POPC      | 2/1/1/2              | 和 Turing 相同    |
+| mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC      | 2/1/1/2              | 新增指令          |
+| mma.m16n8k128.s32.b1.b1.s32.xor/and.popc | BMMA.168128.XOR/AND.POPC | 4/2/1/4              | 新增指令          |
+| mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC | 4/4/2/4              | 新增指令          |
+| mma.m8n8k4.f64.f64.f64.f64               | DMMA.884                 | 4/2/2/4              | 新增指令          |
 
 此外，还有 sparse 变体没有列出。and.popc 的意思是，让 A 的一行和 B 的一列对应元素进行 AND，然后统计结果里 1 的个数作为 INT32 结果。
+
+相比 Turing，Ampere 增加了 K 更大的 SASS 指令：HMMA.16816.F32 vs HMMA.1688.F32，进一步减少 SASS 的指令数，也为此进一步扩充了寄存器需求，达到了 4/4/2/4，即每条指令每个线程要读 10 个 32 位寄存器，写 4 个 32 位寄存器。
 
 之前 Volta/Turing 的 mma.m8n8k4.f16.f16.f16.f16 和 mma.m8n8k4.f32.f16.f16.f32 在 Ampere 上因为 TC 的计算粒度 8x4x8 不匹配，实际是用 CUDA core 来计算的。官方文档也提示了这一点：
 
