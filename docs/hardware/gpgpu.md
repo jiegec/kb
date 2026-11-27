@@ -271,6 +271,15 @@ GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 K
 
 每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。每个 Processing Block 有两个 TC。
 
+##### PTX 和 SASS 对应关系
+
+PTX 里 mma 指令和 SASS 的对应关系：
+
+| PTX                        | SASS                       |
+|----------------------------|----------------------------|
+| mma.m8n8k4.f32.f16.f16.f32 | HMMA.884.F32.F32.STEP[0-3] |
+| mma.m8n8k4.f16.f16.f16.f16 | HMMA.884.F16.F16.STEP[0-1] |
+
 #### FP16 -> FP32
 
 考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令：
@@ -423,6 +432,24 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
 
+##### PTX 和 SASS 对应关系
+
+PTX 里 mma 指令和 SASS 的对应关系：
+
+| PTX                                  | SASS                       |
+|--------------------------------------|----------------------------|
+| mma.m8n8k4.f32.f16.f16.f32           | HMMA.884.F32.F32.STEP[0-3] |
+| mma.m8n8k4.f16.f16.f16.f16           | HMMA.884.F16.F16.STEP[0-1] |
+| mma.m16n8k8.f32.f16.f16.f32          | HMMA.1688.F32              |
+| mma.m16n8k8.f16.f16.f16.f16          | HMMA.1688.F16              |
+| mma.m8n8k16.s32.s8.s8.s32            | IMMA.8816.S8.S8            |
+| mma.m8n8k16.s32.u8.u8.s32            | IMMA.8816.U8.U8            |
+| mma.m8n8k32.s32.s4.s4.s32            | IMMA.8832.S4.S4            |
+| mma.m8n8k32.s32.u4.u4.s32            | IMMA.8832.U4.U4            |
+| mma.m8n8k3128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        |
+
+可见，为了保持和 Turing 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
+
 #### FP16 -> FP32
 
 虽然吞吐和 Volta 一样，但是底层的指令，Turing 已经不同了，16x16x16 的 wmma 会被编译成四条 HMMA.1688.F32 指令。虽然指令少了，但是要计算的数一样多：A 矩阵是 16x8，占 16x8x2=256 字节，每个线程分到 8 字节，两个寄存器；B 矩阵是 8x8，占 8x8x2=128 字节，每个线程分到 4 字节，一个寄存器；而 C/D 矩阵是 16x8，占 16x8x4=512 字节，每个线程分到 16 字节，四个寄存器。因此，HMMA.1688.F32 指令的第一个和最后一个操作数都是连续的四个寄存器，第二个操作数对应 A 矩阵是两个寄存器，第三个操作数对应 B 矩阵是一个寄存器：
@@ -539,28 +566,30 @@ CUDA GPU Compute Capability: sm_80
 
 PTX 里 mma 指令和 SASS 的对应关系：
 
-| PTX                                                       | SASS                 |
-|-----------------------------------------------------------|----------------------|
-| mma.sync.aligned.m16n8k8.row.col.f32.f16.f16.f32          | HMMA.1688.F32        |
-| mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32         | HMMA.16816.F32       |
-| mma.sync.aligned.m16n8k8.row.col.f16.f16.f16.f16          | HMMA.1688.F16        |
-| mma.sync.aligned.m16n8k16.row.col.f16.f16.f16.f16         | HMMA.16816.F16       |
-| mma.sync.aligned.m16n8k8.row.col.f32.bf16.bf16.f32        | HMMA.1688.F32.BF16   |
-| mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32       | HMMA.16816.F32.BF16  |
-| mma.sync.aligned.m16n8k4.row.col.f32.tf32.tf32.f32        | HMMA.1684.F32.TF32   |
-| mma.sync.aligned.m16n8k8.row.col.f32.tf32.tf32.f32        | HMMA.1688.F32.TF32   |
-| mma.sync.aligned.m8n8k16.row.col.s32.s8.s8.s32            | IMMA.8816.S8.S8      |
-| mma.sync.aligned.m16n8k16.row.col.s32.s8.s8.s32           | IMMA.16816.S8.S8     |
-| mma.sync.aligned.m16n8k32.row.col.s32.s8.s8.s32           | IMMA.16832.S8.S8     |
-| mma.sync.aligned.m8n8k32.row.col.s32.s4.s4.s32            | IMMA.8832.S4.S4      |
-| mma.sync.aligned.m16n8k32.row.col.s32.s4.s4.s32           | IMMA.16832.S4.S4     |
-| mma.sync.aligned.m16n8k64.row.col.s32.s4.s4.s32           | IMMA.16864.S4.S4     |
-| mma.sync.aligned.m8n8k128.row.col.s32.b1.b1.s32.xor.popc  | BMMA.88128.XOR.POPC  |
-| mma.sync.aligned.m16n8k128.row.col.s32.b1.b1.s32.xor.popc | BMMA.168128.XOR.POPC |
-| mma.sync.aligned.m16n8k256.row.col.s32.b1.b1.s32.xor.popc | BMMA.168256.XOR.POPC |
-| mma.sync.aligned.m8n8k4.row.col.f64.f64.f64.f64           | DMMA.884             |
+| PTX                                  | SASS                 |
+|--------------------------------------|----------------------|
+| mma.m16n8k8.f32.f16.f16.f32          | HMMA.1688.F32        |
+| mma.m16n8k16.f32.f16.f16.f32         | HMMA.16816.F32       |
+| mma.m16n8k8.f16.f16.f16.f16          | HMMA.1688.F16        |
+| mma.m16n8k16.f16.f16.f16.f16         | HMMA.16816.F16       |
+| mma.m16n8k8.f32.bf16.bf16.f32        | HMMA.1688.F32.BF16   |
+| mma.m16n8k16.f32.bf16.bf16.f32       | HMMA.16816.F32.BF16  |
+| mma.m16n8k4.f32.tf32.tf32.f32        | HMMA.1684.F32.TF32   |
+| mma.m16n8k8.f32.tf32.tf32.f32        | HMMA.1688.F32.TF32   |
+| mma.m8n8k16.s32.s8.s8.s32            | IMMA.8816.S8.S8      |
+| mma.m16n8k16.s32.s8.s8.s32           | IMMA.16816.S8.S8     |
+| mma.m16n8k32.s32.s8.s8.s32           | IMMA.16832.S8.S8     |
+| mma.m8n8k32.s32.s4.s4.s32            | IMMA.8832.S4.S4      |
+| mma.m16n8k32.s32.s4.s4.s32           | IMMA.16832.S4.S4     |
+| mma.m16n8k64.s32.s4.s4.s32           | IMMA.16864.S4.S4     |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc  | BMMA.88128.XOR.POPC  |
+| mma.m16n8k128.s32.b1.b1.s32.xor.popc | BMMA.168128.XOR.POPC |
+| mma.m16n8k256.s32.b1.b1.s32.xor.popc | BMMA.168256.XOR.POPC |
+| mma.m8n8k4.f64.f64.f64.f64           | DMMA.884             |
 
-之前 Volta/Turing 的 mma.m8n8k4.row.col.f16.f16.f16.f16 和 mma.m8n8k4.row.col.f32.f16.f16.f32 在 Ampere 上因为 TC 的计算粒度 8x4x8 不匹配，实际是用 CUDA core 来计算的。
+之前 Volta/Turing 的 mma.m8n8k4.f16.f16.f16.f16 和 mma.m8n8k4.f32.f16.f16.f32 在 Ampere 上因为 TC 的计算粒度 8x4x8 不匹配，实际是用 CUDA core 来计算的。官方文档也提示了这一点：
+
+> mma.sync.m8n8k4 is optimized for target architecture sm_70 and may have substantially reduced performance on other target architectures.
 
 ##### TF32 -> FP32
 
