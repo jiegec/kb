@@ -232,6 +232,8 @@ Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/
 
 PPT: [VOLTA: PROGRAMMABILITY AND PERFORMANCE](https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf)
 
+Paper: [Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking](https://arxiv.org/abs/1804.06826)
+
 CUDA GPU Compute Capability: sm_70
 
 GV100 是 Volta 架构的 GPU，它的改进包括：
@@ -263,7 +265,16 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block（有些地方用�
 
 GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 KB of L2 cache.`），分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据（`32 B/clk/slice`），因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期（`compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.`）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节（`V100 has a peak math rate of 125 FP16 Tensor TFLOPS, an off-chip memory bandwidth of approx. 900 GB/s, and an on-chip L2 bandwidth of 3.1 TB/s, giving it a ops:byte ratio between 40 and 139, depending on the source of an operation’s data (on-chip or off-chip memory).`）。
 
+### Tensor Core
+
 每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
+
+每个 Processing Block 有两个 TC。考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令。每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵。C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 4 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。对于每组对应的 C 的 4x8 子矩阵，需要进行四次 4x8x4 的矩阵乘，才能得到最终结果。这四次就叫 SET0/1/2/3。然后每个 SET 内，又分了四个 STEP，每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵，这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
+
+- 第一个操作数和最后一个操作数相同，分别代表输入的 C 和输出的 D，都是两个连续的寄存器，存放一个 STEP 里的 2x4 矩阵，每个线程 8 字节
+- 第二和第三个操作数分别对应输入的 A 和 B，为了计算这 2x4 的 C 子矩阵，每个 STEP 里需要 A 的 2x4 子矩阵和 B 的 4x4 子矩阵，分别对应 2x4x2=16 和 4x4=2=32 字节，每个线程分别是 4 和 8 字节，对应 1 和 2 个寄存器
+
+这样，每条 `HMMA.884.F32.F32.STEP[0-3]` 从每个线程读取 1+2+2 个寄存器，写入 2 个寄存器，计算 8 个 2x4x4 矩阵乘，需要 8x2x4x4x2=512 FLOP。而每个 Processing Block 有两个 TC，每个 TC 每周期都是 128 FLOP，所以 `HMMA.884.F32.F32.STEP[0-3]` 的吞吐是每两周期一条（512/2/128=2）。
 
 ## NVIDIA Turing
 
@@ -307,6 +318,8 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
 </figure>
 
 Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
+
+### Tensor Core
 
 Tensor Core 除了支持 FP16 以外，还支持 INT8 和 INT4 支持。
 
@@ -356,6 +369,8 @@ A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU inc
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
 
+#### Tensor Core
+
 A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。此外，还支持 BF16/TF32/FP64/INT8/INT4/Binary 的矩阵乘。具体情况如下：
 
 - 每个 SM 有四个 Tensor Core
@@ -394,6 +409,8 @@ GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 �
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
 
+#### Tensor Core
+
 GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16->FP16 或 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
 即使同样是 GA102，游戏卡（比如 RTX 3090 Ti）的 TC 有进一步的限制，TF32/BF16/FP16 累加到 FP32 的性能进一步砍半（FP16 累加到 FP16 性能不变），而专业卡（比如 RTX A6000）则没有这个进一步的限制。这个限制是通过固件完成的阉割，网络上已经有解锁的方法。
@@ -431,6 +448,8 @@ Ada Lovelace 架构的 AD102 包括：
   ![](gpgpu_ada_lovelace_sm.png){ width="600" }
   <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
+
+### Tensor Core
 
 Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持，每周期计算 $4\times4\times16$ 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。原来的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，通过增加 SM 数量和频率来提升总算力。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
@@ -475,6 +494,8 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取略多于 128 字节（25 TB/s，114 个 SM，时钟频率 1620 MHz，每个 SM 每周期读取 $25 / 114 / 1620 * 1e6 = 135$ 字节）的数据。
 
 CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block Cluster 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
+
+### Tensor Core
 
 Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/INT8 格式。TC 对 INT4 格式的支持在 Turing 时引入，一直延续到了 Ada Lovelace，到 Hopper 时被移除。当然，INT8 支持还保留，所以 INT4 的矩阵乘，就先转成 INT8 再用 INT8 的 IMMA 指令来计算。
 
