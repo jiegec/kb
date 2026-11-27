@@ -220,7 +220,7 @@
         - **GOAT**：\$10/月含**最高 \$100** 额度（最高 10x，官方称其为 \$10 档 coding plan 中倍数最高者），叠加优惠后更高；约 75K 次请求；含 API 访问；用量限制为每 5 小时最高 \$20、每 7 天最高 \$50、每月最高 \$100
         - **Pro**：\$20/月含**最高 \$110** 额度，覆盖 45+ 模型，即 GOAT 全部模型再加 Claude、GPT、Gemini 等闭源高级模型；用量限制为每 5 小时最高 \$22、每 7 天最高 \$55、每月最高 \$110；叠加优惠时潜在价值 \$120+
         - **Max**：\$100/月含 \$150 额度（叠加优惠最高 \$300 等效），约 219K 次请求；含开源与高级模型、API 访问、更高限速与优先支持
-        - **MOAT**（官方称「AI 界的 Costco」）：\$10/月或每年 \$60，额度支付享折扣价、按量付费、无用量窗口；使用额度支付的请求最高比标价优惠 **70%**，当前热门折扣为 GLM-5.3 Flash 优惠 70%、GLM-5.3 优惠 65%、DeepSeek V4.1 Flash (latest) 优惠 60%；兼容 OpenAI 与 Anthropic 客户端，也可按标价购买额度。原 Provider（API 套餐，\$15/月）已不再列出
+        - **MOAT**（官方称「AI 界的 Costco」）：\$10/月或每年 \$60，额度支付享折扣价、按量付费、无用量窗口；使用额度支付的请求最高比标价优惠 **80%**，当前热门折扣为 GLM-5.3 Flash 优惠 80%、GLM-5.3 优惠 70%、DeepSeek V4.1 Flash (latest) 优惠 60%；兼容 OpenAI 与 Anthropic 客户端，也可按标价购买额度。原 Provider（API 套餐，\$15/月）已不再列出
     - 限时免费模型：Glyph Cluster（256K 上下文，Go、GOAT、Pro、Max 各档位）与 Flint（262K 上下文，Go、GOAT、Pro、Max 10×、Max 20× 五档一致提供，免费期内每次请求计费 \$0、不消耗额度）。**Beam 1.0** 与 **Inkling 2 Small**（1M 上下文）已从全部档位下线。**Ling 3.1 Flash 1019**（1M 上下文）的限时免费已于 2026-11-03 16:00 UTC 结束，转为常规计费模型：token 价格输入 \$0.30 / 输出 \$0.90 / 缓存读取 \$0.06 每 1M tokens，月额度 Go \$6 / GOAT \$100 / Pro \$110，并纳入预估请求数表（Go 526 / 5 小时、1,050 / 周、1,750 / 月，GOAT 5,850 / 14,600 / 29,200，Pro 6,430 / 16,100 / 32,200）。MiniMax M3.1 Flash 与 Ornith 1.5 122B 的免费版本已从全部套餐的模型表移除，两者仅保留付费版本
     - 模型库款数：共 107 款，Go 列出 62 款、GOAT 76 款、Pro 95 款
     - 支持模型（部分）：taste-1（官方自研模型）、DeepSeek V4.1 Flash、DeepSeek V4.1 Flash Ultrafast（仅 GOAT 与 Pro 档）、DeepSeek V4.1 Flash Fast、GLM-5.3 FlashX、GLM-5.2、Qwen 3.8 Omni Flash、Qwen 3.8 27B、Qwen 3.8 Max Prime、Qwen 3.7 Max、Qwen 3.7 Plus、Qwen 4 Max（1M 上下文）、Tencent Hy3、Tencent Hy4 Flash（1M 上下文）、Tencent Hy4（1M 上下文）、MiMo V2.6 Flash / Pro / Pro UltraSpeed、Grok 4.7、Step 5 Preview、Muse Spark 1.3 Contributor、Muse Spark Open、GPT-6 Luna、GPT-6 Sol、GPT-6.1 Terra（1.1M 上下文，仅 Pro 档）、GPT-6.2 Sol（1.1M 上下文，仅 Pro 档）、Claude Haiku 5.5、Claude Sonnet 5.5、Gemini 4 Argon、Gemini 4 Carbon（1M 上下文，仅 Pro 档）、Gemini 4 Neon（1M 上下文，仅 Pro 档）、Mistral Large 4、Jev（决策模型，仅可通过 headless `cmd -p` 与 API 使用）、Jev 1.14.0（决策模型，32K 上下文，与 Jev 同样仅可通过 headless `cmd -p` 与 API 使用）、Ling 3.1、Nemotron、Nemotron 3.5 Super VL、MiniMax M3.1 Flash、Ornith 1.5 122B、Muse Ember（1M 上下文）、Inkling、Inkling 2 Mini（1M 上下文）、Flint（262K 上下文，限时免费）等
@@ -294,6 +294,8 @@
 | [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B)                  | 397B | 17B            | 是  |
 
 ## 更新历史
+
+- 2026/11/28：Command Code 的 **MOAT** 额度折扣提高——使用额度支付的请求最高比标价优惠 **80%**（此前 70%），热门折扣为 GLM-5.3 Flash 优惠 **80%**（此前 70%）、GLM-5.3 优惠 **70%**（此前 65%）、DeepSeek V4.1 Flash (latest) 维持 60%。MOAT 价格（\$10/月或每年 \$60）与其按量付费、无用量窗口的规则、Go / GOAT / Pro / Max 各档价格与额度、模型库（107 款）及各模型 token 价格均未变
 
 - 2026/11/27：阿里云百炼 **qwen3.7-max** 与 **qwen3.7-flash** 的免费额度由 100 万 Token 改为**无**（两者的日期版本此前已无免费额度）；两者单价不变——qwen3.7-max 输入 **12 元**、输出 **36 元**每百万 Token，qwen3.7-flash 按输入长度分档 0.2 / 0.6 / 1.2 元输入、0.8 / 2.4 / 4.8 元输出（0–32K / 32K–256K / 256K–1M）。qwen4-max、qwen3.8-max、qwen3.8-flash 仍为 100 万 Token 免费额度。Token Plan 个人版与团队版、Coding Plan 的档位、价格、额度与支持模型名单均未变
 
