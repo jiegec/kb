@@ -531,7 +531,76 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
 | INT4 -> INT32 | 512                        | 2048  |
 | FP64 -> FP64  | N/A                        | 32    |
 
+注：Ampere 每 Processing Block 只有一个 TC，而 Turing 有俩。
+
 CUDA GPU Compute Capability: sm_80
+
+##### TF32 -> FP32
+
+Ampere 的 TF32 -> FP32，wmma 的形状是 16x16x8（k 比 FP16 少一半），一次调用会被编译成四条 `HMMA.1684.F32.TF32` 指令：
+
+```asm
+HMMA.1684.F32.TF32 R12, R8.reuse, R12, RZ ;    /* 0x0000000c080c723c */
+HMMA.1684.F32.TF32 R8,  R8, R10, RZ ;          /* 0x0000000a0808723c */
+HMMA.1684.F32.TF32 R12, R6.reuse, R16, R12 ;   /* 0x00000010060c723c */
+HMMA.1684.F32.TF32 R8,  R6, R18, R8 ;          /* 0x000000120608723c */
+```
+
+如果直接写 PTX 的 `mma.sync.aligned.m16n8k8.row.col.f32.tf32.tf32.f32`（不经过 wmma），ptxas 会生成 `HMMA.1688.F32.TF32`。
+
+##### FP16/BF16 -> FP32
+
+Ampere 的 FP16 -> FP32 矩阵乘，16x16x16 会被编译成两条 `HMMA.16816.F32` 指令：
+
+```asm
+HMMA.16816.F32 R16, R4.reuse, R12, RZ ;    /* 0x0000000c0410723c */
+HMMA.16816.F32 R12, R4, R14, RZ ;          /* 0x0000000e040c723c */
+```
+
+BF16 -> FP32 则是 `HMMA.16816.F32.BF16` 指令：
+
+```asm
+HMMA.16816.F32.BF16 R16, R4.reuse, R12, RZ ;    /* 0x0000000c0410723c */
+HMMA.16816.F32.BF16 R12, R4, R14, RZ ;          /* 0x0000000e040c723c */
+```
+
+##### FP16 -> FP16
+
+Ampere 的 FP16 -> FP16 矩阵乘，16x16x16 会被编译成两条 `HMMA.16816.F16` 指令：
+
+```asm
+HMMA.16816.F16 R12, R4.reuse, R12, RZ ;    /* 0x0000000c040c723c */
+HMMA.16816.F16 R14, R4, R14, RZ ;          /* 0x0000000e040e723c */
+```
+
+##### INT8 -> INT32
+
+Ampere 的 INT8 -> INT32 矩阵乘，一次 16x16x16 的 wmma 调用会被编译成两条 `IMMA.16816.S8.S8` 指令：
+
+```asm
+IMMA.16816.S8.S8 R4,  R14.reuse.ROW, R4.COL, RZ ;    /* 0x000000040e047237 */
+IMMA.16816.S8.S8 R16, R14.ROW,       R0.COL, RZ ;    /* 0x000000000e107237 */
+```
+
+如果直接写低层的 `mma.sync.aligned.m16n8k32.row.col.s32.s8.s8.s32`，ptxas 才会用更大的 `IMMA.16832.S8.S8`。
+
+##### INT4 -> INT32
+
+Ampere 的 INT4 -> INT32 矩阵乘，wmma 的形状是 8x8x32，一次调用编译成一条 `IMMA.8832.S4.S4`：
+
+```asm
+IMMA.8832.S4.S4 R10, R4.ROW, R7.COL, RZ ;    /* 0x00000007040a7237 */
+```
+
+如果直接写低层的 `mma.sync.aligned.m16n8k64.row.col.s32.s4.s4.s32`，ptxas 才会用 `IMMA.16864.S4.S4`。
+
+##### FP64 -> FP64
+
+Ampere 的 FP64 -> FP64，wmma 的形状是 8x8x4，对应一条 `DMMA.884` 指令：
+
+```asm
+DMMA.884 R4, R4, R2, RZ ;    /* 0x000000020404723f */
+```
 
 ### GA102（sm_86）
 
