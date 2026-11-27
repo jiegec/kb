@@ -782,6 +782,8 @@ TC 每周期吞吐（FLOP/OP）对比：
 | mma.m16n8k16.f32.e4m3.e4m3.f32 | QMMA.16816.F32.E4M3.E4M3 | 4/2/1/4              |
 | mma.m16n8k16.f16.e4m3.e4m3.f16 | QMMA.16816.F16.E4M3.E4M3 | 2/2/1/2              |
 
+寄存器的需求没有变化。通过指令，可以看到，E5M2 只支持累加到 FP32，而 E4M3 额外支持累加到 FP16。
+
 ## NVIDIA Hopper
 
 Whitepaper: [NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c)
