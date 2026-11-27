@@ -456,6 +456,19 @@ HMMA.1688.F16 R18, R10, R14, R18 ;    /* 0x0000000e0a12723c */
 
 计算过程类似，此时 A 的左半 16x8 还是 R8-R9，右半 16x8 还是 R10-R11，B 的左上角 8x8 是 R0，右上角 8x8 是 R13，左下角 8x8 是 R12，右下角 8x8 是 R14，D 的左 16x8 变成了 R16-R17，右 16x8 变成了 R18-R19。
 
+#### INT8 -> INT32
+
+INT8 -> INT32 对应的是 `IMMA.8816.S8.S8` 指令：
+
+```asm
+IMMA.8816.S8.S8 R14, R0.ROW,  R11.reuse.COL, RZ ;    /* 0x0000000b000e7237 */
+IMMA.8816.S8.S8 R16, R10.ROW, R11.COL,       RZ ;    /* 0x0000000b0a107237 */
+IMMA.8816.S8.S8 R18, R0.ROW,  R13.reuse.COL, RZ ;    /* 0x0000000d00127237 */
+IMMA.8816.S8.S8 R10, R10.ROW, R13.COL,       RZ ;    /* 0x0000000d0a0a7237 */
+```
+
+每条指令做 8x8x16 的矩阵乘，那么 16x16x16 矩阵乘就是拆成四条指令，分别计算四个 8x8 矩阵的结果。A 矩阵是 8x16=128 字节，每个线程一个寄存器；B 矩阵是 16x8=128 字节，也是每个线程一个寄存器；C/D 矩阵是 8x8x4=256 字节，每个线程两个寄存器。对于 16x16x16，A 矩阵就是 R0 和 R10 两个寄存器，B 矩阵就是 R11 和 R13 两个寄存器，D 矩阵就是 R10-R11、R14-R19 这八个寄存器。
+
 ## NVIDIA Ampere
 
 Whitepaper: [NVIDIA A100 Tensor Core GPU Architecture](https://images.nvidia.cn/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
