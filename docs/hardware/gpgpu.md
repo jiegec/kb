@@ -834,7 +834,7 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 #### PTX 和 SASS 对应关系
 
-Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（原来的 int4 mma 指令先转成 int8，再用 int8 的 IMMA 指令来计算，会有性能损失），也没有 Ada Lovelace 新增的 FP8 MMA 指令（对应的 ptx 指令会被编译成 F2FP + HMMA 序列，即先把 FP8 转成 FP16 再用 HMMA 指令计算，同样有性能损失）。同时 Hopper 引入了一套新的 warp group mma 机制，就是让一个 SM 的四个 Processing Block 同时做一个 wgmma 操作，支持 TF32/FP16/BF16/FP8/INT8。也就是说，Hopper 的 FP8 TC 只能用 wgmma 来调用。FP64 TC 则只能通过 mma.sync 来调用。
+Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（原来的 INT4 IMMA 指令先转成 INT8，再用 INT8 的 IMMA 指令来计算，会有性能损失），也没有 Ada Lovelace 新增的 FP8 QMMA 指令（对应的 ptx 指令会被编译成 F2FP + HMMA 序列，即先把 FP8 转成 FP16 再用 HMMA 指令计算，同样有性能损失）。同时 Hopper 引入了一套新的 warp group mma (wgmma) 机制，就是让一个 SM 的四个 Processing Block 同时做一个 wgmma 操作，支持 TF32/FP16/BF16/FP8/INT8。也就是说，Hopper 的 FP8 TC 只能用 wgmma 来调用。FP64 TC 则只能通过 mma.sync 来调用。
 
 首先来看 mma.sync 系列指令，PTX 和 SASS 的对应关系：
 
