@@ -952,7 +952,7 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 根据 MMA-Sim，相比 Hopper，Blackwell 的 TC 在进行 FP8 的 TC 运算时，中间结果保留了更多位的精度：25 vs 13，意味着在低精度矩阵乘下可以更好地保持 FP32 累加的精度。
 
-Blackwell 引入了 TMEM，每个 Processing Block 有 64KB，每个 SM 一共 256 KB。256KB 的 TMEM 分为 512 column，128 row，每个 cell 是 32 bit。猜测是每个 Processing Block 一个 512 深 1024 宽的 SRAM，其中 1024 就是 `128*32/4=1024`，在row 的方向上划分成四份分给各个 Processing Block。这样每个 TC 对 TMEM 是 1024 的访问位宽。但是从吞吐来看，1024 的位宽不够，要么是多端口，要么是更大的位宽。
+Blackwell 引入了 TMEM，每个 Processing Block 有 64KB，每个 SM 一共 256 KB。256KB 的 TMEM 分为 512 column，128 row，每个 cell 是 32 bit。猜测是每个 Processing Block 一个 512 深 1024 宽的 SRAM，其中 1024 就是 `128*32/4=1024`，在 row 的方向上划分成四份分给各个 Processing Block。这样每个 TC 对 TMEM 是 1024 的访问位宽。但是从吞吐来看，1024 的位宽不够，要么是多端口，要么是更大的位宽。
 
 引入了新的 tcgen05 指令。A 矩阵在 TMEM 或 SMEM，B 矩阵在 SMEM，C/D 矩阵在 TMEM，并且要求 C 和 D 在同一个地址，所以本质上就是 `D=A*B+D`。支持这些数据格式：
 
