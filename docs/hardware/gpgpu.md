@@ -860,26 +860,33 @@ Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（
 | mma.m8n8k32.s32.s4/u4.s4/u4.s32          | LOP3 + IMAD + SHF + IMMA.8816.S8/U8.S8/U8  | -                    | INT4 转成 INT8 再计算          |
 | mma.m16n8k32.s32.s4/u4.s4/u4.s32         | LOP3 + IMAD + SHF + IMMA.16816.S8/U8.S8/U8 | -                    | INT4 转成 INT8 再计算          |
 | mma.m16n8k64.s32.s4/u4.s4/u4.s32         | LOP3 + IMAD + SHF + IMMA.16832.S8/U8.S8/U8 | -                    | INT4 转成 INT8 再计算          |
-| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | BMMA.88128.XOR.POPC                        | 2/1/1/2              | 和 Ampere 相同                 |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | LOP3 + BMMA.88128.AND.POPC + IADD          | -                    | 用 AND 变体实现                |
 | mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC                        | 2/1/1/2              | 和 Ampere 相同                 |
-| mma.m16n8k128.s32.b1.b1.s32.xor/and.popc | BMMA.168128.XOR/AND.POPC                   | 4/2/1/4              | 和 Ampere 相同                 |
-| mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC                   | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k128.s32.b1.b1.s32.xor.popc     | LOP3 + BMMA.168128.AND.POPC + IADD         | -                    | 用 AND 变体实现                |
+| mma.m16n8k128.s32.b1.b1.s32.and.popc     | BMMA.168128.AND.POPC                       | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k256.s32.b1.b1.s32.xor.popc     | LOP3 + BMMA.168256.AND.POPC + IADD         | -                    | 用 AND 变体实现                |
+| mma.m16n8k256.s32.b1.b1.s32.and.popc     | BMMA.168256.AND.POPC                       | 4/4/2/4              | 和 Ampere 相同                 |
 | mma.m8n8k4.f64.f64.f64.f64               | DMMA.8x8x4                                 | 4/2/2/4              | 从 Ampere 的 DMMA.884 改名而来 |
+
+由于 Hopper 的 BMMA 砍了 XOR 支持，b1（Binary）的 `xor.popc` 在 Hopper 上，ptxas 用恒等式 $\text{popc}(a \oplus b) = \text{popc}(a \& \bar b) + \text{popc}(\bar a \& b)$ 展开，一条 `.xor.popc` 会变成 2 条 `BMMA.AND.POPC` + 若干条 `LOP3.LUT`（取反）+ `IADD`；而 `.and.popc` 仍是单条指令。Ampere 上两者都是原生单条指令。
 
 接下来是 wgmma 的 PTX 和 SASS 的对应关系：
 
-| PTX                          | SASS                        | D 寄存器/线程 |
-|------------------------------|-----------------------------|---------------|
-| wgmma.m64n8k16.f32.f16.f16   | HGMMA.64x8x16.F32           | 4             |
-| wgmma.m64n8k16.f16.f16.f16   | HGMMA.64x8x16.F16           | 2             |
-| wgmma.m64n8k16.f32.bf16.bf16 | HGMMA.64x8x16.F32.BF16      | 4             |
-| wgmma.m64n8k8.f32.tf32.tf32  | HGMMA.64x8x8.F32.TF32       | 4             |
-| wgmma.m64n8k32.f32.e4m3.e4m3 | QGMMA.64x8x32.F32.E4M3.E4M3 | 4             |
-| wgmma.m64n8k32.f32.e5m2.e5m2 | QGMMA.64x8x32.F32.E5M2.E5M2 | 4             |
-| wgmma.m64n8k32.s32.s8.s8     | IGMMA.64x8x32.S8.S8         | 4             |
-| wgmma.m64n8k32.s32.u8.u8     | IGMMA.64x8x32.U8.U8         | 4             |
+| PTX                          | SASS                        | A 寄存器/线程 | D 寄存器/线程 |
+|------------------------------|-----------------------------|---------------|---------------|
+| wgmma.m64n8k16.f32.f16.f16   | HGMMA.64x8x16.F32           | 4             | 4             |
+| wgmma.m64n8k16.f16.f16.f16   | HGMMA.64x8x16.F16           | 4             | 2             |
+| wgmma.m64n8k16.f32.bf16.bf16 | HGMMA.64x8x16.F32.BF16      | 4             | 4             |
+| wgmma.m64n8k8.f32.tf32.tf32  | HGMMA.64x8x8.F32.TF32       | 4             | 4             |
+| wgmma.m64n8k32.f32.e4m3.e4m3 | QGMMA.64x8x32.F32.E4M3.E4M3 | 4             | 4             |
+| wgmma.m64n8k32.f32.e5m2.e5m2 | QGMMA.64x8x32.F32.E5M2.E5M2 | 4             | 4             |
+| wgmma.m64n8k32.f32.e4m3.e5m2 | QGMMA.64x8x32.F32.E4M3.E5M2 | 4             | 4             |
+| wgmma.m64n8k32.f16.e4m3.e4m3 | QGMMA.64x8x32.F16.E4M3.E4M3 | 4             | 2             |
+| wgmma.m64n8k32.f16.e5m2.e5m2 | QGMMA.64x8x32.F16.E5M2.E5M2 | 4             | 2             |
+| wgmma.m64n8k32.s32.s8.s8     | IGMMA.64x8x32.S8.S8         | 4             | 4             |
+| wgmma.m64n8k32.s32.u8.u8     | IGMMA.64x8x32.U8.U8         | 4             | 4             |
 
-与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。SASS 指令类似：
+与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里（两种形式都支持，实测 f16/tf32/fp8/int8 都能编），此时每线程多占 4 个寄存器；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。另外注意：只有 f16 和 fp8 有 FP16 累加的形式（`f16` 作为 dtype），bf16 和 tf32 只能累加到 FP32。SASS 指令类似：
 
 ```asm
 // A 来自 Shared Memory：
@@ -892,6 +899,8 @@ WARPGROUP.ARRIVE ;                                       // wgmma.fence
 HGMMA.64x8x16.F32 R24, R28, gdesc[UR4], RZ, !UPT, gsb0 ; // wgmma 本体
 WARPGROUP.DEPBAR.LE gsb0, 0x0 ;                          // wgmma.wait_group
 ```
+
+从寄存器需求来看，也是顶着每条指令每线程每操作数最多四个寄存器的上限来定的 wgmma 规模。
 
 ## NVIDIA Blackwell
 
