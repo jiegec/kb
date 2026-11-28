@@ -834,37 +834,37 @@ TC 每周期吞吐（FLOP/OP）对比：
 
 #### PTX 和 SASS 对应关系
 
-Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（原来的 int4 mma 指令先转成 int8，再用 int8 的 IMMA 指令来计算），也没有 Ada Lovelace 新增的 FP8 MMA 指令（对应的 ptx 指令会被编译成 F2FP + HMMA 序列，即先把 FP8 转成 FP16 再用 HMMA 指令计算）。同时 Hopper 引入了一套新的 warp group mma 机制，就是让一个 SM 的四个 Processing Block 同时做一个 wgmma 操作，支持 TF32/FP16/BF16/FP8/INT8。也就是说，Hopper 的 FP8 TC 只能用 wgmma 来调用。FP64 TC 则只能通过 mma.sync 来调用。
+Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（原来的 int4 mma 指令先转成 int8，再用 int8 的 IMMA 指令来计算，会有性能损失），也没有 Ada Lovelace 新增的 FP8 MMA 指令（对应的 ptx 指令会被编译成 F2FP + HMMA 序列，即先把 FP8 转成 FP16 再用 HMMA 指令计算，同样有性能损失）。同时 Hopper 引入了一套新的 warp group mma 机制，就是让一个 SM 的四个 Processing Block 同时做一个 wgmma 操作，支持 TF32/FP16/BF16/FP8/INT8。也就是说，Hopper 的 FP8 TC 只能用 wgmma 来调用。FP64 TC 则只能通过 mma.sync 来调用。
 
 首先来看 mma.sync 系列指令，PTX 和 SASS 的对应关系：
 
-| PTX                                      | SASS                     | 寄存器需求 (D/A/B/C) | 备注                           |
-|------------------------------------------|--------------------------|----------------------|--------------------------------|
-| mma.m8n8k4.f32.f16.f16.f32               | 非 MMA 指令              | —                    | 用 CUDA core 计算              |
-| mma.m8n8k4.f16.f16.f16.f16               | 非 MMA 指令              | —                    | 用 CUDA core 计算              |
-| mma.m16n8k8.f32.f16.f16.f32              | HMMA.1688.F32            | 4/2/1/4              | 和 Ampere 相同                 |
-| mma.m16n8k16.f32.f16.f16.f32             | HMMA.16816.F32           | 4/4/2/4              | 和 Ampere 相同                 |
-| mma.m16n8k8.f16.f16.f16.f16              | HMMA.1688.F16            | 2/2/1/2              | 和 Ampere 相同                 |
-| mma.m16n8k16.f16.f16.f16.f16             | HMMA.16816.F16           | 2/4/2/2              | 和 Ampere 相同                 |
-| mma.m16n8k8.f32.bf16.bf16.f32            | HMMA.1688.F32.BF16       | 4/2/1/4              | 和 Ampere 相同                 |
-| mma.m16n8k16.f32.bf16.bf16.f32           | HMMA.16816.F32.BF16      | 4/4/2/4              | 和 Ampere 相同                 |
-| mma.m16n8k4.f32.tf32.tf32.f32            | HMMA.1684.F32.TF32       | 4/2/1/4              | 和 Ampere 相同                 |
-| mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32       | 4/4/2/4              | 和 Ampere 相同                 |
-| mma.m16n8k32.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32    | 4/4/2/4              | FP8 转成 FP16 再计算           |
-| mma.m16n8k32.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16    | 4/4/2/4              | FP8 转成 FP16 再计算           |
-| mma.m16n8k16.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32    | 4/2/1/4              | FP8 转成 FP16 再计算           |
-| mma.m16n8k16.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16    | 4/2/1/4              | FP8 转成 FP16 再计算           |
-| mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8    | 2/1/1/2              | 和 Ampere 相同                 |
-| mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8   | 4/2/1/4              | 和 Ampere 相同                 |
-| mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8   | 4/4/2/4              | 和 Ampere 相同                 |
-| mma.m8n8k32.s32.s4/u4.s4/u4.s32          | IMMA.8816.S8/U8.S8/U8    | 2/1/1/2              | INT4 转成 INT8 再计算          |
-| mma.m16n8k32.s32.s4/u4.s4/u4.s32         | IMMA.16816.S8/U8.S8/U8   | 4/2/1/4              | INT4 转成 INT8 再计算          |
-| mma.m16n8k64.s32.s4/u4.s4/u4.s32         | IMMA.16832.S8/U8.S8/U8   | 4/4/2/4              | INT4 转成 INT8 再计算          |
-| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | BMMA.88128.XOR.POPC      | 2/1/1/2              | 和 Ampere 相同                 |
-| mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC      | 2/1/1/2              | 和 Ampere 相同                 |
-| mma.m16n8k128.s32.b1.b1.s32.xor/and.popc | BMMA.168128.XOR/AND.POPC | 4/2/1/4              | 和 Ampere 相同                 |
-| mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC | 4/4/2/4              | 和 Ampere 相同                 |
-| mma.m8n8k4.f64.f64.f64.f64               | DMMA.8x8x4               | 4/2/2/4              | 从 Ampere 的 DMMA.884 改名而来 |
+| PTX                                      | SASS                                       | 寄存器需求 (D/A/B/C) | 备注                           |
+|------------------------------------------|--------------------------------------------|----------------------|--------------------------------|
+| mma.m8n8k4.f32.f16.f16.f32               | 非 MMA 指令                                | —                    | 用 CUDA core 计算              |
+| mma.m8n8k4.f16.f16.f16.f16               | 非 MMA 指令                                | —                    | 用 CUDA core 计算              |
+| mma.m16n8k8.f32.f16.f16.f32              | HMMA.1688.F32                              | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k16.f32.f16.f16.f32             | HMMA.16816.F32                             | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k8.f16.f16.f16.f16              | HMMA.1688.F16                              | 2/2/1/2              | 和 Ampere 相同                 |
+| mma.m16n8k16.f16.f16.f16.f16             | HMMA.16816.F16                             | 2/4/2/2              | 和 Ampere 相同                 |
+| mma.m16n8k8.f32.bf16.bf16.f32            | HMMA.1688.F32.BF16                         | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k16.f32.bf16.bf16.f32           | HMMA.16816.F32.BF16                        | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k4.f32.tf32.tf32.f32            | HMMA.1684.F32.TF32                         | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32                         | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k32.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k32.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k16.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k16.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8                      | 2/1/1/2              | 和 Ampere 相同                 |
+| mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8                     | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8                     | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m8n8k32.s32.s4/u4.s4/u4.s32          | LOP3 + IMAD + SHF + IMMA.8816.S8/U8.S8/U8  | -                    | INT4 转成 INT8 再计算          |
+| mma.m16n8k32.s32.s4/u4.s4/u4.s32         | LOP3 + IMAD + SHF + IMMA.16816.S8/U8.S8/U8 | -                    | INT4 转成 INT8 再计算          |
+| mma.m16n8k64.s32.s4/u4.s4/u4.s32         | LOP3 + IMAD + SHF + IMMA.16832.S8/U8.S8/U8 | -                    | INT4 转成 INT8 再计算          |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | BMMA.88128.XOR.POPC                        | 2/1/1/2              | 和 Ampere 相同                 |
+| mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC                        | 2/1/1/2              | 和 Ampere 相同                 |
+| mma.m16n8k128.s32.b1.b1.s32.xor/and.popc | BMMA.168128.XOR/AND.POPC                   | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC                   | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m8n8k4.f64.f64.f64.f64               | DMMA.8x8x4                                 | 4/2/2/4              | 从 Ampere 的 DMMA.884 改名而来 |
 
 接下来是 wgmma 的 PTX 和 SASS 的对应关系：
 
