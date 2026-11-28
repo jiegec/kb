@@ -886,6 +886,11 @@ Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（
 | wgmma.m64n8k32.s32.s8.s8     | IGMMA.64x8x32.S8.S8         | 4             | 4             |
 | wgmma.m64n8k32.s32.u8.u8     | IGMMA.64x8x32.U8.U8         | 4             | 4             |
 
+关于上表的补充说明：
+
+- n 可以从 8 取到 256（步长 8），表里只列了 n=8 的情况；助记符会携带形状（如 `HGMMA.64x256x16.F32`），D 的寄存器数随 n 线性增长（n/2 个，最多到 128），而 A 的寄存器数不变，总是四；
+- 和 mma.sync 类似，也有稀疏版 `wgmma.mma_async.sp` PTX 指令；
+
 与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里（两种形式都支持，实测 f16/tf32/fp8/int8 都能编），此时每线程多占 4 个寄存器；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。SASS 指令类似：
 
 ```asm
@@ -899,8 +904,6 @@ WARPGROUP.ARRIVE ;                                       // wgmma.fence
 HGMMA.64x8x16.F32 R24, R28, gdesc[UR4], RZ, !UPT, gsb0 ; // wgmma 本体
 WARPGROUP.DEPBAR.LE gsb0, 0x0 ;                          // wgmma.wait_group
 ```
-
-从寄存器需求来看，也是顶着每条指令每线程每操作数最多四个寄存器的上限来定的 wgmma 规模。
 
 ## NVIDIA Blackwell
 
