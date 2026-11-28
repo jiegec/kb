@@ -970,7 +970,7 @@ Kunpeng 920 是 Chiplet，一个 Chiplet 是 4x DDR4 通道加 32 核心，所�
 
 来源：
 
-- [[Bug]: 0.22.1 rcl版本进行32GA2的四机PD分离（1*2p和1*2D）开启前缀缓存，命中率为0 (lscpu of Kunpeng 920 7265)](https://github.com/vllm-project/vllm-ascend/issues/12093)
+- [[Bug]: 0.22.1 rcl 版本进行 32GA2 的四机 PD 分离（1*2p 和 1*2D）开启前缀缓存，命中率为 0 (lscpu of Kunpeng 920 7265)](https://github.com/vllm-project/vllm-ascend/issues/12093)
 - [[Bug]: MlaPrologV3 fails with EZ0024 (Parameter Hcq incorrect value 768) when serving GLM-4.7-Flash in standalone mode (lscpu of Kunpeng 920 5250)](https://github.com/vllm-project/vllm-ascend/issues/22423)
 - [TaiShan 200 服务器 白皮书 (型号 5280)](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/f5bc008d6f3643aea997083a943a5f08/M3T1A669N1121448784783126550/TaiShan%20200%20%E6%9C%8D%E5%8A%A1%E5%99%A8%20%E7%99%BD%E7%9A%AE%E4%B9%A6%20_%E5%9E%8B%E5%8F%B7%205280_.pdf)
 - [鲲鹏 920 处理器](https://www.hikunpeng.com/compute/kunpeng920)
@@ -1161,7 +1161,7 @@ Kunpeng 920 新型号的型号矩阵：
 - [aarch64: Optimize memcpy for Kunpeng 950 using SVE and loop unrolling](https://patchwork.ozlabs.org/project/glibc/patch/tencent_4EDEF3D42F3C0D45E59457A00F3D25612208@qq.com/)
 - [cpu_map-add-kunpeng-950-V1-cpu-map.patch](https://atomgit.com/kunpengcompute/src-openEuler-libvirt/blob/master/cpu_map-add-kunpeng-950-V1-cpu-map.patch)
 - [鲲鹏计算软硬件全系列产品](https://e-file.huawei.com/marketingcloud/pep/asset/20000001/Material/5f6fc6298abc4059b95cf3a9b2f7bc0c/M3T1A669N1251830919205912665/%E9%B2%B2%E9%B9%8F%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%85%A8%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%81.pdf)
-- [鲲鹏系列主板&TaiShan服务器R26-彩页(26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
+- [鲲鹏系列主板&TaiShan 服务器 R26-彩页 (26H2)](https://e.huawei.com/cn/documents/solutions/computing/fd0a9cb00ea249ad8f423dfeb9734bfc)
 - [鲲鹏超节点 950（电组网）技术规格](https://support.huawei.com/enterprise/zh/doc/EDOC1100617238/1d8c793)
 - [Bug Performance: AscendSharedFusedMoE performance degraded when shared experts use TP (lscpu of Kunpeng 950 7592C)](https://github.com/vllm-project/vllm-ascend/issues/8484)
 - [Bug: MRv2 EPLB silently never rearranges when eplb_config.policy is "default" (lscpu of Kunpeng 950 7592C)](https://github.com/vllm-project/vllm-ascend/issues/20362)

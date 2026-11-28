@@ -232,6 +232,10 @@ Tuning Guide: [Tuning CUDA Applications for Volta](https://docs.nvidia.com/cuda/
 
 PPT: [VOLTA: PROGRAMMABILITY AND PERFORMANCE](https://old.hotchips.org/wp-content/uploads/hc_archives/hc29/HC29.21-Monday-Pub/HC29.21.10-GPU-Gaming-Pub/HC29.21.132-Volta-Choquette-NVIDIA-Final3.pdf)
 
+PPT: [PROGRAMMING TENSOR CORES: NATIVE VOLTA TENSOR CORES WITH CUTLASS](https://developer.download.nvidia.cn/video/gputechconf/gtc/2019/presentation/s9593-cutensor-high-performance-tensor-operations-in-cuda-v2.pdf)
+
+Paper: [Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking](https://arxiv.org/abs/1804.06826)
+
 CUDA GPU Compute Capability: sm_70
 
 GV100 是 Volta 架构的 GPU，它的改进包括：
@@ -263,7 +267,108 @@ GV100 又回到了每个 SM 拆分成 4 个 Processing Block（有些地方用�
 
 GV100 有 6144 KB 的 L2 缓存（`The full GV100 GPU includes a total of 6144 KB of L2 cache.`），分为 64 个 L2 slice，每个 slice 是 96 KB 的大小。每个 slice 每周期可以读取 32 B 的数据（`32 B/clk/slice`），因此整个 L2 缓存的读带宽是 $64 * 32 = 2048$ 字节每周期（`compared to V100 L2 cache read bandwidth of 2048 Bytes/clk.`）。L2 缓存工作在和 SM 同一个频率下，按 1530 MHz 频率来算，L2 缓存带宽是 $2048 * 1530 = 3.133$ TB/s，V100 的内存带宽是 0.9 TB/s，每个 SM 每个周期可以分到的 L2 带宽是 $2048 / 80 = 25.6$ 字节（`V100 has a peak math rate of 125 FP16 Tensor TFLOPS, an off-chip memory bandwidth of approx. 900 GB/s, and an on-chip L2 bandwidth of 3.1 TB/s, giving it a ops:byte ratio between 40 and 139, depending on the source of an operation’s data (on-chip or off-chip memory).`）。
 
-每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
+### Tensor Core
+
+每个 Tensor Core 每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；V100 有 80 个 SM，每个 SM 有 8 个 Tensor Core，频率 1530MHz，FP16 性能是 $80*8*1530*64*2=125.34$ TFLOPS。详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。每个 Processing Block 有两个 TC。
+
+##### PTX 和 SASS 对应关系
+
+PTX 里 mma 指令和 SASS 的对应关系：
+
+| PTX                        | SASS                       | 寄存器需求 (D/A/B/C) |
+|----------------------------|----------------------------|----------------------|
+| mma.m8n8k4.f32.f16.f16.f32 | HMMA.884.F32.F32.STEP[0-3] | 2/2/2/2              |
+| mma.m8n8k4.f16.f16.f16.f16 | HMMA.884.F16.F16.STEP[0-1] | 2/2/2/2              |
+
+表中 PTX 一列省略了 .sync.aligned 和 .row.col（alayout/blayout 取 row/col 时），下同。寄存器需求一列代表这条指令四个操作数 D\A\B\C 对每个线程需要多少个 32 位寄存器。
+
+#### FP16 -> FP32
+
+考虑 4x4 FP16 累加到 FP32，在代码层面上，一个 `wmma::mma_sync` 调用进行了一个 16x16x16 的矩阵乘，编译到 SASS 是 16 条 `HMMA.884.F32.F32.STEP[0-3]` 指令：
+
+```asm
+HMMA.884.F32.F32.STEP0 R24, R4.reuse.ROW, R8.reuse.COL, RZ ;     /* 0x0000000804187236 */
+HMMA.884.F32.F32.STEP1 R26, R4.reuse.ROW, R8.reuse.COL, RZ ;     /* 0x00000008041a7236 */
+HMMA.884.F32.F32.STEP2 R20, R4.reuse.ROW, R8.reuse.COL, RZ ;     /* 0x0000000804147236 */
+HMMA.884.F32.F32.STEP3 R22, R4.ROW, R8.COL, RZ ;                 /* 0x0000000804167236 */
+
+HMMA.884.F32.F32.STEP0 R24, R6.reuse.ROW, R10.reuse.COL, R24 ;   /* 0x0000000a06187236 */
+HMMA.884.F32.F32.STEP1 R26, R6.reuse.ROW, R10.reuse.COL, R26 ;   /* 0x0000000a061a7236 */
+HMMA.884.F32.F32.STEP2 R20, R6.reuse.ROW, R10.reuse.COL, R20 ;   /* 0x0000000a06147236 */
+HMMA.884.F32.F32.STEP3 R22, R6.ROW, R10.COL, R22 ;               /* 0x0000000a06167236 */
+
+HMMA.884.F32.F32.STEP0 R24, R12.reuse.ROW, R16.reuse.COL, R24 ;  /* 0x000000100c187236 */
+HMMA.884.F32.F32.STEP1 R26, R12.reuse.ROW, R16.reuse.COL, R26 ;  /* 0x000000100c1a7236 */
+HMMA.884.F32.F32.STEP2 R20, R12.reuse.ROW, R16.reuse.COL, R20 ;  /* 0x000000100c147236 */
+HMMA.884.F32.F32.STEP3 R22, R12.ROW, R16.COL, R22 ;              /* 0x000000100c167236 */
+
+HMMA.884.F32.F32.STEP0 R24, R14.reuse.ROW, R18.reuse.COL, R24 ;  /* 0x000000120e187236 */
+HMMA.884.F32.F32.STEP1 R26, R14.reuse.ROW, R18.reuse.COL, R26 ;  /* 0x000000120e1a7236 */
+HMMA.884.F32.F32.STEP2 R20, R14.reuse.ROW, R18.reuse.COL, R20 ;  /* 0x000000120e147236 */
+HMMA.884.F32.F32.STEP3 R22, R14.ROW, R18.COL, R22 ;              /* 0x000000120e167236 */
+```
+
+按照[论文](https://arxiv.org/abs/1804.06826)的说法：
+
+每个 warp 是 32 个线程，C 矩阵是 16x16，把 warp 分成 8 组，每组 4 个线程（0-3，4-7，依此类推），每组要负责 C 矩阵的一个 4x8 子矩阵：
+
+<figure markdown>
+  ![](gpgpu_volta_hmma_group.png){ width="500" }
+  <figcaption>C 矩阵元素位置与 thread group 编号的对应（来源：Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking Figure 4.5）</figcaption>
+</figure>
+
+C 的 4x8 子矩阵一共是 4x8x4=128 字节，意味着一组里的四个线程，每线程出 8 个寄存器，每个寄存器 32 位，这样把这 128 字节存到了寄存器里面。
+
+对于每组对应的 C 的 4x8 子矩阵，为了用分块矩阵计算 16x16x16，需要进行四次 4x8x4 的矩阵乘，才能得到最终结果。这四次就叫 SET0/1/2/3。上面汇编里看到的 16 条指令，对应四个 SET，每个 SET 里四条指令，从 STEP0 到 STEP3。
+
+每个 SET 内，分了四个 STEP。每个 STEP 负责计算 4x8 矩阵里的 2x4 子矩阵：
+
+<figure markdown>
+  ![](gpgpu_volta_hmma_step.png){ width="500" }
+  <figcaption>一个 SET 内 4 个 STEP 分别计算 C 的不同元素（来源：Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking Figure 4.4）</figcaption>
+</figure>
+
+这样的 2x4 子矩阵只需要 2x4x4=32 字节，分到 4 个线程，那就是每个线程 2 个 32 位寄存器。`HMMA.884.F32.F32.STEP[0-3]` 里看到的四个操作数：
+
+- 第一个操作数和最后一个操作数相同，分别代表输入的 C 和输出的 D，都是两个连续的寄存器，存放一个 STEP 里的 2x4 矩阵，每个线程 8 字节
+- 第二和第三个操作数分别对应输入的 A 和 B，为了计算这 2x4 的 C 子矩阵，每个 STEP 里需要 A 的 2x4 子矩阵和 B 的 4x4 子矩阵，分别对应 2x4x2=16 和 4x4x2=32 字节，每个线程分别是 4 和 8 字节，对应 1 和 2 个寄存器；但实际排布里，A 矩阵的 2x4 子矩阵只用两个线程来存，一个线程存 1x4，所以每条指令还是用两个寄存器读 A，只是只用一半的数据，例如 STEP0 和 STEP2 只用线程 0-1 的数据，STEP1 和 STEP3 只用线程 2-3 的数据
+
+这样，每条 `HMMA.884.F32.F32.STEP[0-3]` 从每个线程读取 2+2+2 个寄存器，写入 2 个寄存器，计算 8 个 2x4x4 矩阵乘，需要 8x2x4x4x2=512 FLOP。而每个 Processing Block 有两个 TC，每个 TC 每周期都是 128 FLOP，所以 `HMMA.884.F32.F32.STEP[0-3]` 的吞吐是每两周期一条（512/2/128=2）。
+
+按照[官方](https://docs.nvidia.com/cuda/parallel-thread-execution/) 的说法，它把上述的两组共 8 个线程，组合成一个 Quad Pair(QP)，一共四个 QP。刚才说每组做的是一个 4x8x4 矩阵计算，那么一个 QP 即两组线程，做的就是 8x8x4 的矩阵运算。然后一次 16x16x16 的  `wmma::mma_sync` 就是 4 个 Quad Pair，每个 Quad Pair 做 4 次这样的 8x8x4 的矩阵运算。Quad Pair 和线程的对应关系是：线程 0-3 和 16-19 是 QP0，线程 4-7 和 20-23 是 QP1，依此类推。逆向论文和官方文档说的其实是同一件事情，就是换了种讲法，官方的说法更贴近 8x8x4 的矩阵运算，和指令的名称直接能对上。
+
+官方文档中，把 ptx 指令 mma.m8n8k4（全称是 mma.sync.aligned.m8n8k4.alayout.blayout.dtype.f16.f16.ctype）建模为同时做四个 8x8x4 的 FP16 矩阵乘。对于 A 矩阵，每个 QP 负责一个 8x4 的 FP16 矩阵，每个线程用两个寄存器；对于 B 矩阵，每个 QP 负责一个 4x8 的 FP16 矩阵，也是每个线程用两个寄存器；对于 C 和 D 矩阵，每个 QP 负责一个 8x8 的 FP32 矩阵，每个线程用 8 个寄存器（上面例子里的 R20-R27）。一条 mma.m8n8k4 的 PTX 指令会被映射为四个 STEP 的 HMMA。这样，每个 HMMA 指令负责 C 矩阵里的四分之一，这样 C 和 D 的操作数都只需要两个寄存器（R20-R21、R22-R23，依此类推）。
+
+一次 mma.m8n8k4 里四个 8x8 的 C/D 矩阵拼起来，就是一个 16x16 的矩阵了，这样一条 mma.m8n8k4 就是做了一个 16x16x4 的矩阵乘。但是为了做 16x16x16 的矩阵乘，还差一个 K 维度上的累加。所以一个 16x16x16 的 `wmma::mma_sync`，对应四次 mma.m8n8k4，这四次来源于 K 维度上的累加，每次 mma.m8n8k4 都是在计算整个 16x16 的 C/D 矩阵。
+
+#### FP16 -> FP16
+
+如果是累加到 FP16，那么 16x16x16 矩阵乘编译出来的就是 8 条 `HMMA.884.F16.F16.STEP[0-1]` 指令：
+
+```asm
+HMMA.884.F16.F16.STEP0 R20, R12.reuse.ROW, R16.reuse.COL, RZ ;   /* 0x000000100c147236 */
+HMMA.884.F16.F16.STEP1 R22, R12.ROW, R16.COL, RZ ;               /* 0x000000100c167236 */
+
+HMMA.884.F16.F16.STEP0 R12, R14.reuse.ROW, R18.reuse.COL, R20 ;  /* 0x000000120e0c7236 */
+HMMA.884.F16.F16.STEP1 R14, R14.ROW, R18.COL, R22 ;              /* 0x000000120e0e7236 */
+
+HMMA.884.F16.F16.STEP0 R12, R4.reuse.ROW, R8.reuse.COL, R12 ;    /* 0x00000008040c7236 */
+HMMA.884.F16.F16.STEP1 R14, R4.ROW, R8.COL, R14 ;                /* 0x00000008040e7236 */
+
+HMMA.884.F16.F16.STEP0 R12, R6.reuse.ROW, R10.reuse.COL, R12 ;   /* 0x0000000a060c7236 */
+HMMA.884.F16.F16.STEP1 R14, R6.ROW, R10.COL, R14 ;               /* 0x0000000a060e7236 */
+```
+
+此时依然是四个 SET，但每个 SET 里只有两个 STEP 了。这是因为，随着输出矩阵位宽减半，需要的寄存器数量也减半了：每组线程还是对应 4x8 的 C 的子矩阵，但只需要 4x8x2=64 字节，平均下来每个线程 64/4=16 字节，对应 4 个寄存器（比如上面的 R12-R15）。这样，只需要两个 STEP，就可以满足寄存器的带宽了。但是，总计算量不变，指令数砍半，意味着 `HMMA.884.F16.F16.STEP[0-1]` 的吞吐是每四周期一条，是 `HMMA.884.F32.F32.STEP[0-3]` 的一半。
+
+#### 小结
+
+可见，Volta 的 TC 编程模型，从软件到硬件，一共是这些抽象：
+
+- C 代码里 `wmma::mma_sync` 层次就是一个 16x16x16 的矩阵乘，支持 FP16 -> FP16 和 FP16 -> FP32 两种模式
+- 无论哪种模式，到 PTX 上，都是一条 wmma.mma.sync.aligned.alayout.blayout.m16n16k16.dtype.ctype 指令；这条指令的功能，对应四条 mma.m8n8k4 指令，每条 mma.m8n8k4 指令做四个 8x8x4 的矩阵乘
+- 到了 SASS 上，如果是累加到 FP32，那么一条 mma.m8n8k4 的 PTX 指令对应四条 `HMMA.884.F32.F32.STEP[0-3]`；如果是累加到 FP16，对应两条 `HMMA.884.F16.F16.STEP[0-1]`
+- 底层的 TC 每周期是做 4x4x4 矩阵乘，所以每条 SASS 指令还会对应多次 TC 计算
 
 ## NVIDIA Turing
 
@@ -308,6 +413,8 @@ TU102 GPU 每个 SM 还有两个 FP64 单元，因此 TU102 的双精度性能�
 
 Turing 架构的每 TPC 的 L1 带宽是 Pascal 架构的两倍。（`increasing its hit bandwidth by 2x per TPC compared to Pascal`）
 
+### Tensor Core
+
 Tensor Core 除了支持 FP16 以外，还支持 INT8 和 INT4 支持。
 
 对于 FP16，依然是每周期完成一个 $4\times4\times4$ 的 MMA，输入两个 FP16 4x4 矩阵 A 和 B，累加结果是 4x4 FP16 或 FP32 矩阵 C，每周期计算 64 个 FMA；TU102 有 72 个 SM，每个 SM 有 8 个 Tensor Core，Boost 频率 1770MHz，FP16 性能是 $72*8*1770*64*2=130.50$ TFLOPS。
@@ -326,6 +433,80 @@ TC 每周期吞吐（FLOP/OP）对比：
 | INT4 -> INT32 | N/A   | 512                        | 512                 |
 
 详细的分析见 [NVIDIA Tensor Core](nvidia_tensor_core.md)。
+
+##### PTX 和 SASS 对应关系
+
+PTX 里 mma 指令和 SASS 的对应关系：
+
+| PTX                                 | SASS                       | 寄存器需求 (D/A/B/C) | 备注          |
+|-------------------------------------|----------------------------|----------------------|---------------|
+| mma.m8n8k4.f32.f16.f16.f32          | HMMA.884.F32.F32.STEP[0-3] | 2/2/2/2              | 和 Volta 相同 |
+| mma.m8n8k4.f16.f16.f16.f16          | HMMA.884.F16.F16.STEP[0-1] | 2/2/2/2              | 和 Volta 相同 |
+| mma.m16n8k8.f32.f16.f16.f32         | HMMA.1688.F32              | 4/2/1/4              | 新增指令      |
+| mma.m16n8k8.f16.f16.f16.f16         | HMMA.1688.F16              | 2/2/1/2              | 新增指令      |
+| mma.m8n8k16.s32.s8/u8.s8/u8.s32     | IMMA.8816.S8/U8.S8/U8      | 2/1/1/2              | 新增指令      |
+| mma.m8n8k32.s32.s4/u4.s4/u4.s32     | IMMA.8832.S4/U4.S4/U4      | 2/1/1/2              | 新增指令      |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc | BMMA.88128.XOR.POPC        | 2/1/1/2              | 新增指令      |
+
+对于 IMMA，还有 .satfinite 变体没有列出（下同），对应的 SASS 指令多一个 .SAT 的后缀，代表 INT32 在 overflow 的时候选择 saturate 而不是 wrap。xor.popc 的意思是，让 A 的一行和 B 的一列对应元素进行 XOR，然后统计结果里 1 的个数作为 INT32 结果。
+
+可见，为了保持和 Volta 的 PTX 级别兼容，还是保留了原来的指令，但也引入了新的指令 HMMA.1688.F32 和 HMMA.1688.F16 来提升效率，在总计算量不变的前提下，SASS 的指令数少了很多。为此，还增加了单条指令可以读取和写入的寄存器数量。此外，还支持了 INT8/INT4/Binary 的 MMA 指令。
+
+#### FP16 -> FP32
+
+虽然吞吐和 Volta 一样，但是底层的指令，Turing 已经不同了，16x16x16 的 wmma 会被编译成四条 HMMA.1688.F32 指令。虽然指令少了，但是要计算的数一样多：A 矩阵是 16x8，占 16x8x2=256 字节，每个线程分到 8 字节，两个寄存器；B 矩阵是 8x8，占 8x8x2=128 字节，每个线程分到 4 字节，一个寄存器；而 C/D 矩阵是 16x8，占 16x8x4=512 字节，每个线程分到 16 字节，四个寄存器。因此，HMMA.1688.F32 指令的第一个和最后一个操作数都是连续的四个寄存器，第二个操作数对应 A 矩阵是两个寄存器，第三个操作数对应 B 矩阵是一个寄存器：
+
+```asm
+HMMA.1688.F32 R16, R8,  R0,  RZ ;     /* 0x000000000810723c */
+HMMA.1688.F32 R20, R8,  R13, RZ ;     /* 0x0000000d0814723c */
+HMMA.1688.F32 R16, R10, R12, R16 ;    /* 0x0000000c0a10723c */
+HMMA.1688.F32 R20, R10, R14, R20 ;    /* 0x0000000e0a14723c */
+```
+
+为了计算 16x16x16，四条指令的流程就是：
+
+- A 的左半 16x8（R8-R9），乘以 B 的左上角 8x8（R0），累加 C 的左 16x8（RZ），得到 D 的左 16x8（R16-R19）
+- A 的左半 16x8（R8-R9），乘以 B 的右上角 8x8（R13），累加 C 的右 16x8（RZ），得到 D 的右 16x8（R20-R23）
+- A 的右半 16x8（R10-R11），乘以 B 的左下角 8x8（R12），累加 D 的左 16x8（R16-R19），得到 D 的左 16x8（R16-R19）
+- A 的右半 16x8（R10-R11），乘以 B 的右下角 8x8（R14），累加 D 的右 16x8（R20-R23），得到 D 的右 16x8（R20-R23）
+
+由于 TC 的吞吐不变，此时 `HMMA.1688.F32` 的吞吐应该是 8 个周期一条：16x8x8/4/4/4/2=8。
+
+#### FP16 -> FP16
+
+如果累加格式改成 FP16，则生成的是 `HMMA.1688.F16`，只不过由于 C/D 矩阵宽度减半，每个线程只需要两个寄存器就可以了：
+
+```asm
+HMMA.1688.F16 R16, R8,  R0,  RZ ;     /* 0x000000000810723c */
+HMMA.1688.F16 R18, R8,  R13, RZ ;     /* 0x0000000d0812723c */
+HMMA.1688.F16 R16, R10, R12, R16 ;    /* 0x0000000c0a10723c */
+HMMA.1688.F16 R18, R10, R14, R18 ;    /* 0x0000000e0a12723c */
+```
+
+计算过程类似，此时 A 的左半 16x8 还是 R8-R9，右半 16x8 还是 R10-R11，B 的左上角 8x8 是 R0，右上角 8x8 是 R13，左下角 8x8 是 R12，右下角 8x8 是 R14，D 的左 16x8 变成了 R16-R17，右 16x8 变成了 R18-R19。
+
+#### INT8 -> INT32
+
+INT8 -> INT32 对应的是 `IMMA.8816.S8.S8` 指令：
+
+```asm
+IMMA.8816.S8.S8 R14, R0.ROW,  R11.reuse.COL, RZ ;    /* 0x0000000b000e7237 */
+IMMA.8816.S8.S8 R16, R10.ROW, R11.COL,       RZ ;    /* 0x0000000b0a107237 */
+IMMA.8816.S8.S8 R18, R0.ROW,  R13.reuse.COL, RZ ;    /* 0x0000000d00127237 */
+IMMA.8816.S8.S8 R10, R10.ROW, R13.COL,       RZ ;    /* 0x0000000d0a0a7237 */
+```
+
+每条指令做 8x8x16 的矩阵乘，那么 16x16x16 矩阵乘就是拆成四条指令，分别计算四个 8x8 矩阵的结果。A 矩阵是 8x16=128 字节，每个线程一个寄存器；B 矩阵是 16x8=128 字节，也是每个线程一个寄存器；C/D 矩阵是 8x8x4=256 字节，每个线程两个寄存器。对于 16x16x16，A 矩阵就是 R0 和 R10 两个寄存器，B 矩阵就是 R11 和 R13 两个寄存器，D 矩阵就是 R10-R11、R14-R19 这八个寄存器。
+
+#### INT4 -> INT32
+
+INT4 -> INT32 对应的是 `IMMA.8832.S4.S4` 指令。注意 INT4 的 wmma 形状本身就是 8x8x32（而不是 16x16x16），所以一条 wmma 只对应一条 SASS：
+
+```asm
+IMMA.8832.S4.S4 R10, R4.ROW, R7.COL, RZ ;    /* 0x00000007040a7237 */
+```
+
+每条指令做 8x8x32 的矩阵乘。A 矩阵是 8x32/2=128 字节，每个线程一个寄存器；B 矩阵是 32x8/2=128 字节，也是每个线程一个寄存器；C/D 矩阵是 8x8x4=256 字节，每个线程两个寄存器。可见，在 M、N 不变的情况下让 K 翻倍，INT4 与 INT8 的寄存器压力是一样的。
 
 ## NVIDIA Ampere
 
@@ -356,6 +537,8 @@ A100 GPU 有 40 MB 的 L2 缓存（`The A100 GPU in the A100 Tensor Core GPU inc
 
 根据 <https://github.com/te42kyfo/gpu-benches> 实测，每个 SM 每周期只能读取不到 128 字节（19 TB/s，108 个 SM，时钟频率 1410 MHz，每个 SM 每周期读取 $19 / 108 / 1410 * 1e6 = 125$ 字节）的数据。
 
+#### Tensor Core
+
 A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周期可以进行 256 个 FP16 FMA 计算，SM 频率 1410 MHz，因此 A100 的 FP16 Tensor Core 峰值性能是 `432 * 256 FLOPS * 2 * 1410 MHz = 312 TFLOPS`。此外，还支持 BF16/TF32/FP64/INT8/INT4/Binary 的矩阵乘。具体情况如下：
 
 - 每个 SM 有四个 Tensor Core
@@ -377,7 +560,137 @@ A100 GPU 有 108 个 SM，一共 432 个 Tensor Core，每个 Tensor Core 每周
 | INT4 -> INT32 | 512                        | 2048  |
 | FP64 -> FP64  | N/A                        | 32    |
 
+注：Ampere 每 Processing Block 只有一个 TC，而 Turing 有俩。
+
 CUDA GPU Compute Capability: sm_80
+
+##### PTX 和 SASS 对应关系
+
+PTX 里 mma 指令和 SASS 的对应关系：
+
+| PTX                                      | SASS                     | 寄存器需求 (D/A/B/C) | 备注              |
+|------------------------------------------|--------------------------|----------------------|-------------------|
+| mma.m8n8k4.f32.f16.f16.f32               | 非 MMA 指令              | —                    | 用 CUDA core 计算 |
+| mma.m8n8k4.f16.f16.f16.f16               | 非 MMA 指令              | —                    | 用 CUDA core 计算 |
+| mma.m16n8k8.f32.f16.f16.f32              | HMMA.1688.F32            | 4/2/1/4              | 和 Turing 相同    |
+| mma.m16n8k16.f32.f16.f16.f32             | HMMA.16816.F32           | 4/4/2/4              | 新增指令          |
+| mma.m16n8k8.f16.f16.f16.f16              | HMMA.1688.F16            | 2/2/1/2              | 和 Turing 相同    |
+| mma.m16n8k16.f16.f16.f16.f16             | HMMA.16816.F16           | 2/4/2/2              | 新增指令          |
+| mma.m16n8k8.f32.bf16.bf16.f32            | HMMA.1688.F32.BF16       | 4/2/1/4              | 新增指令          |
+| mma.m16n8k16.f32.bf16.bf16.f32           | HMMA.16816.F32.BF16      | 4/4/2/4              | 新增指令          |
+| mma.m16n8k4.f32.tf32.tf32.f32            | HMMA.1684.F32.TF32       | 4/2/1/4              | 新增指令          |
+| mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32       | 4/4/2/4              | 新增指令          |
+| mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8    | 2/1/1/2              | 和 Turing 相同    |
+| mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8   | 4/2/1/4              | 新增指令          |
+| mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8   | 4/4/2/4              | 新增指令          |
+| mma.m8n8k32.s32.s4/u4.s4/u4.s32          | IMMA.8832.S4/U4.S4/U4    | 2/1/1/2              | 和 Turing 相同    |
+| mma.m16n8k32.s32.s4/u4.s4/u4.s32         | IMMA.16832.S4/U4.S4/U4   | 4/2/1/4              | 新增指令          |
+| mma.m16n8k64.s32.s4/u4.s4/u4.s32         | IMMA.16864.S4/U4.S4/U4   | 4/4/2/4              | 新增指令          |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | BMMA.88128.XOR.POPC      | 2/1/1/2              | 和 Turing 相同    |
+| mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC      | 2/1/1/2              | 新增指令          |
+| mma.m16n8k128.s32.b1.b1.s32.xor/and.popc | BMMA.168128.XOR/AND.POPC | 4/2/1/4              | 新增指令          |
+| mma.m16n8k256.s32.b1.b1.s32.xor/and.popc | BMMA.168256.XOR/AND.POPC | 4/4/2/4              | 新增指令          |
+| mma.m8n8k4.f64.f64.f64.f64               | DMMA.884                 | 4/2/2/4              | 新增指令          |
+
+此外，还有 sparse 变体没有列出。and.popc 的意思是，让 A 的一行和 B 的一列对应元素进行 AND，然后统计结果里 1 的个数作为 INT32 结果。
+
+相比 Turing，Ampere 增加了 K 更大的 SASS 指令：HMMA.16816.F32 vs HMMA.1688.F32，进一步减少 SASS 的指令数，也为此进一步扩充了寄存器需求，达到了 4/4/2/4，即每条指令每个线程要读 10 个 32 位寄存器，写 4 个 32 位寄存器。
+
+之前 Volta/Turing 的 mma.m8n8k4.f16.f16.f16.f16 和 mma.m8n8k4.f32.f16.f16.f32 在 Ampere 上因为 TC 的计算粒度 8x4x8 不匹配，实际是用 CUDA core 来计算的。官方文档也提示了这一点：
+
+> mma.sync.m8n8k4 is optimized for target architecture sm_70 and may have substantially reduced performance on other target architectures.
+
+对应的 HMMA.884 系列指令也移除了。
+
+##### TF32 -> FP32
+
+Ampere 的 TF32 -> FP32，wmma 的形状是 16x16x8（k 比 FP16 少一半），一次调用会被编译成四条 `HMMA.1684.F32.TF32` 指令：
+
+```asm
+HMMA.1684.F32.TF32 R12, R8.reuse, R12, RZ ;    /* 0x0000000c080c723c */
+HMMA.1684.F32.TF32 R8,  R8, R10, RZ ;          /* 0x0000000a0808723c */
+HMMA.1684.F32.TF32 R12, R6.reuse, R16, R12 ;   /* 0x00000010060c723c */
+HMMA.1684.F32.TF32 R8,  R6, R18, R8 ;          /* 0x000000120608723c */
+```
+
+对于 `HMMA.1684.F32.TF32` 指令，A 矩阵是 16x4，共 16x4x4=256 字节，每个线程 8 字节，对应两个寄存器；B 矩阵是 4x8，共 4x8x4=128 字节，每个线程 4 字节，对应一个寄存器；C/D 矩阵是 16x8，共 16x8x4=512 字节，每个线程 16 字节，对应四个寄存器。
+
+为了计算 16x16x8 的 wmma，计算过程是：
+
+- 用 A 的左半 16x4（R8-R9），乘以 B 的左上 4x8（R12），得到 D 的左半 16x8（R12-R15）
+- 用 A 的左半 16x4（R8-R9），乘以 B 的右上 4x8（R10），得到 D 的右半 16x8（R8-R11）
+- 用 A 的右半 16x4（R6-R7），乘以 B 的左下 4x8（R16），累加 D 的左半 16x8（R12-R15），得到 D 的左半 16x8（R12-R15）
+- 用 A 的右半 16x4（R6-R7），乘以 B 的右下 4x8（R18），累加 D 的右半 16x8（R8-R11），得到 D 的右半 16x8（R8-R11）
+
+吞吐上，每个 Processing Block 一个 TC，每周期是 256 TF32 FLOP，故 `HMMA.1684.F32.TF32` 的吞吐是每四周期一条。
+
+如果直接写 PTX 的 `mma.sync.aligned.m16n8k8.row.col.f32.tf32.tf32.f32`（不经过 wmma），ptxas 会生成 `HMMA.1688.F32.TF32`。此时，A 矩阵是 16x8，共 16x8x4=512 字节，每个线程四个寄存器；B 矩阵是 8x8，共 8x8x4=256 字节，每个线程两个寄存器；C 矩阵是 16x8，共 16x8x4=512 字节，每个线程四个寄存器。`HMMA.1688.F32.TF32` 的吞吐是每八周期一条。
+
+##### FP16/BF16 -> FP32
+
+Ampere 的 FP16 -> FP32 矩阵乘，16x16x16 会被编译成两条 `HMMA.16816.F32` 指令：
+
+```asm
+HMMA.16816.F32 R16, R4.reuse, R12, RZ ;    /* 0x0000000c0410723c */
+HMMA.16816.F32 R12, R4, R14, RZ ;          /* 0x0000000e040c723c */
+```
+
+`HMMA.16816.F32` 指令，A 矩阵是 16x16x2=512 字节，每个线程四个寄存器；B 矩阵是 16x8x2=256 字节，每个线程两个寄存器；C/D 矩阵是 16x8x4=512 字节，每个线程四个寄存器。所以上述汇编里，R4-R7 是 A 矩阵，R12-R15 是 B 矩阵，R12-R19 是 D 矩阵。
+
+此外，也可以通过 mma 指令生成 `HMMA.1688.F32` 指令，兼容 Turing。此时 A 矩阵是 16x8x2=256 字节，每个线程两个寄存器；B 矩阵是 8x8x2=128 字节，每个线程一个寄存器；C/D 矩阵是 16x8x4=512 字节，每个线程四个寄存器。
+
+BF16 -> FP32 则是 `HMMA.16816.F32.BF16` 指令：
+
+```asm
+HMMA.16816.F32.BF16 R16, R4.reuse, R12, RZ ;    /* 0x0000000c0410723c */
+HMMA.16816.F32.BF16 R12, R4, R14, RZ ;          /* 0x0000000e040c723c */
+```
+
+此外，也可以通过 mma 指令生成 `HMMA.1688.F32.BF16` 指令。
+
+##### FP16 -> FP16
+
+Ampere 的 FP16 -> FP16 矩阵乘，16x16x16 会被编译成两条 `HMMA.16816.F16` 指令：
+
+```asm
+HMMA.16816.F16 R12, R4.reuse, R12, RZ ;    /* 0x0000000c040c723c */
+HMMA.16816.F16 R14, R4, R14, RZ ;          /* 0x0000000e040e723c */
+```
+
+A 矩阵 16x16x2=512 字节，每个线程四个寄存器；B 矩阵 16x8x2=256 字节，每个线程两个寄存器；C/D 矩阵 16x8x2=256 字节，每个线程两个寄存器。
+
+##### INT8 -> INT32
+
+Ampere 的 INT8 -> INT32 矩阵乘，一次 16x16x16 的 wmma 调用会被编译成两条 `IMMA.16816.S8.S8` 指令：
+
+```asm
+IMMA.16816.S8.S8 R4,  R14.reuse.ROW, R4.COL, RZ ;    /* 0x000000040e047237 */
+IMMA.16816.S8.S8 R16, R14.ROW,       R0.COL, RZ ;    /* 0x000000000e107237 */
+```
+
+A 矩阵是 16x16=256 字节，每个线程两个寄存器；B 矩阵是 16x8=128 字节，每个线程一个寄存器；C/D 矩阵是 16x8x4=512 字节，每个线程四个寄存器。
+
+如果直接写低层的 `mma.sync.aligned.m16n8k32.row.col.s32.s8.s8.s32`，ptxas 才会用更大的 `IMMA.16832.S8.S8`。A 矩阵是 16x32=512 字节，每个线程四个寄存器；B 矩阵是 32x8=256 字节，每个线程两个寄存器；C/D 矩阵是 16x8x4=512 字节，每个线程四个寄存器。
+
+##### INT4 -> INT32
+
+Ampere 的 INT4 -> INT32 矩阵乘，wmma 的形状是 8x8x32，一次调用编译成一条 `IMMA.8832.S4.S4`：
+
+```asm
+IMMA.8832.S4.S4 R10, R4.ROW, R7.COL, RZ ;    /* 0x00000007040a7237 */
+```
+
+如果直接写低层的 `mma.sync.aligned.m16n8k64.row.col.s32.s4.s4.s32`，ptxas 才会用 `IMMA.16864.S4.S4`。
+
+##### FP64 -> FP64
+
+Ampere 的 FP64 -> FP64，wmma 的形状是 8x8x4，对应一条 `DMMA.884` 指令：
+
+```asm
+DMMA.884 R4, R4, R2, RZ ;    /* 0x000000020404723f */
+```
+
+A 矩阵是 8x4x8=256 字节，每个线程两个寄存器；B 矩阵是 4x8x8=256 字节，每个线程两个寄存器；C/D 矩阵是 8x8x8=512 字节，每个线程四个寄存器。
 
 ### GA102（sm_86）
 
@@ -393,6 +706,8 @@ GA102 的 SM 包括四个 PB，每个 PB 包括 16 个 FP32/INT32 core，16 个 
 GA102 有 12 个 32 位的内存控制器，一共是 384 位宽度。GA102 12 组 512KB 的 L2 缓存，每组对应一个内存控制器，L2 一共是 6144 KB。（`The memory subsystem of GA102 consists of twelve 32-bit memory controllers (384-bit total). 512 KB of L2 cache is paired with each 32-bit memory controller, for a total of 6144 KB on the full GA102 GPU.`）。
 
 GA102 的 shared memory 带宽是每个 SM 每个时钟 128 字节，而 Turing 架构的这个值是 64。（`GA10x also features double the shared memory bandwidth compared to Turing (128 bytes/clock per SM versus 64 bytes/clock in Turing)`）GeForce RTX 3080 (GA102) 的每 SM L1 带宽是 219 GB/s（一个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 8B 的数据，所以带宽是 $1710 * 16 * 8 = 219$ GB/s），而 GeForce RTX 2080 Super (TU104) 的每 SM L1 带宽是 116 GB/s（每个 SM 有 16 个 LD/ST unit，每个 LD/ST unit 每个周期读取 4B 的数据，带宽是 $1815 * 16 * 4 = 116$ GB/s）。（`Total L1 bandwidth for GeForce RTX 3080 is 219 GB/sec versus 116 GB/sec for GeForce RTX 2080 Super.`）
+
+#### Tensor Core
 
 GA102 的 Tensor Core 相比 GA100 在吞吐上有缩减：GA102 是 128 FP16->FP16 或 FP16->FP32 FMA 每周期每 TC，而 GA100 是 256 FP16 FMA 每周期每 TC。GA102 的 Tensor Core 不支持 FP64，仅支持 TF32/BF16/FP16/INT8/INT4。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
@@ -411,6 +726,8 @@ TC 每周期吞吐（FLOP/OP）对比：
 | FP64 -> FP64  | 32    | 1(SM)                      | 1(SM)               |
 
 注：标 (SM) 的数字不是 Tensor Core 数据通路提供的，而是 SM 里普通单元（FP64 / INT32）的峰值折算到每 TC，仅为横向比较，下同。
+
+从 SASS 指令来看，GA102（sm_86）和 GA100（sm_80）还有下面的 AD102（sm_89）的 MMA 指令相同，甚至连指令编码都一样。性能不同，应该是体现在指令的吞吐上。
 
 CUDA GPU Compute Capability: sm_86
 
@@ -432,6 +749,8 @@ Ada Lovelace 架构的 AD102 包括：
   <figcaption>Ada Lovelace 架构 SM（来源：NVIDIA ADA GPU ARCHITECTURE Figure 5）</figcaption>
 </figure>
 
+### Tensor Core
+
 Ada Lovelace 的 Tensor Core 在 Ampere 的基础上，增加了 FP8 的支持，每周期计算 $4\times4\times16$ 的 FP8 到 FP16 累加的矩阵乘，吞吐是 FP16 的两倍，256 FMA/周期，512 FLOP/周期。原来的 FP16/BF16/TF32/INT8/INT4 每周期性能与消费级 Ampere（GA102）相同，通过增加 SM 数量和频率来提升总算力。虽然 TC 没有 FP64 算力，但 DMMA 指令仍能编译出来，估计是落到 SM 里的 FP64 单元上执行。
 
 但上述 FP16/BF16/TF32/INT8/INT4 的每周期性能只有数据中心 Ampere（GA100）的一半；游戏卡还会在固件上把涉及 FP32 累加的矩阵乘再砍半（相对 GA100 就是四分之一）。
@@ -449,6 +768,19 @@ TC 每周期吞吐（FLOP/OP）对比：
 | INT8 -> INT32 | 256                        | 256                 | 1024  | 512                        | 512                 | 512                        | 512                 |
 | INT4 -> INT32 | 512                        | 512                 | 2048  | 1024                       | 1024                | 1024                       | 1024                |
 | FP64 -> FP64  | N/A                        | N/A                 | 32    | 1(SM)                      | 1(SM)               | 1(SM)                      | 1(SM)               |
+
+#### PTX 和 SASS 对应关系
+
+相比 Ampere，Ada Lovelace 新增了针对 FP8 的 PTX 和 SASS 指令，这是 Ada Lovelace 在 PTX 里 mma 指令和 SASS 的对应关系相比 Ampere 新增的部分：
+
+| PTX                                      | SASS                               | 寄存器需求 (D/A/B/C) |
+|------------------------------------------|------------------------------------|----------------------|
+| mma.m16n8k32.f32.e4m3/e5m2.e4m3/e5m2.f32 | QMMA.16832.F32.E4M3/E5M2.E4M3/E5M2 | 4/4/2/4              |
+| mma.m16n8k32.f16.e4m3/e5m2.e4m3/e5m2.f16 | QMMA.16832.F16.E4M3/E5M2.E4M3/E5M2 | 2/4/2/2              |
+| mma.m16n8k16.f32.e4m3/e5m2.e4m3/e5m2.f32 | QMMA.16816.F32.E4M3/E5M2.E4M3/E5M2 | 4/2/1/4              |
+| mma.m16n8k16.f16.e4m3/e5m2.e4m3/e5m2.f16 | QMMA.16816.F16.E4M3/E5M2.E4M3/E5M2 | 2/2/1/2              |
+
+寄存器的需求没有变化，多了两种 FP8 格式的支持，累加格式支持 FP16 和 FP32。
 
 ## NVIDIA Hopper
 
@@ -476,6 +808,8 @@ H100 有 50MB 的 L2 缓存，而完整版的 GH100 芯片有 60MB 的 L2 缓存
 
 CUDA Kernel 之前是三个层次：Grid、Thread Block 和 Thread，分别对应整个 GPU、SM 和 CUDA Core，而这一代引入了 Thread Block Cluster 的层次，变成了四个层次：Grid、Thread Block Cluster、Thread Block 和 Thread。（`H100 introduces a new Thread Block Cluster architecture that exposes control of locality at a granularity larger than a single Thread Block on a single SM.`）其中 Thread Block Cluster 对应 GPC，每个 GPC 有多个 TPC，每个 TPC 有多个 SM。（`The Clusters in H100 run concurrently across SMs within a GPC. A GPC is a group of SMs in the hardware hierarchy that are always physically close together.`）
 
+### Tensor Core
+
 Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/INT8 格式。TC 对 INT4 格式的支持在 Turing 时引入，一直延续到了 Ada Lovelace，到 Hopper 时被移除。当然，INT8 支持还保留，所以 INT4 的矩阵乘，就先转成 INT8 再用 INT8 的 IMMA 指令来计算。
 
 与此同时，FP64 TC 的峰值频率与 SM 非 TC 计算的频率一致（如 1980 MHz），其余格式的 TC 用的是另一个更低的频率（如 1830 MHz）。
@@ -498,6 +832,79 @@ TC 每周期吞吐（FLOP/OP）对比：
 | INT4 -> INT32 | 2048  | N/A   |
 | FP64 -> FP64  | 32    | 64    |
 
+#### PTX 和 SASS 对应关系
+
+Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（原来的 INT4 IMMA 指令先转成 INT8，再用 INT8 的 IMMA 指令来计算，会有性能损失），也没有 Ada Lovelace 新增的 FP8 QMMA 指令（对应的 ptx 指令会被编译成 F2FP + HMMA 序列，即先把 FP8 转成 FP16 再用 HMMA 指令计算，同样有性能损失）。同时 Hopper 引入了一套新的 warp group mma (wgmma) 机制，就是让一个 SM 的四个 Processing Block 同时做一个 wgmma 操作，支持 TF32/FP16/BF16/FP8/INT8。也就是说，Hopper 的 FP8 TC 只能用 wgmma 来调用。FP64 TC 则只能通过 mma.sync 来调用。
+
+首先来看 mma.sync 系列指令，PTX 和 SASS 的对应关系：
+
+| PTX                                      | SASS                                       | 寄存器需求 (D/A/B/C) | 备注                           |
+|------------------------------------------|--------------------------------------------|----------------------|--------------------------------|
+| mma.m8n8k4.f32.f16.f16.f32               | 非 MMA 指令                                | —                    | 用 CUDA core 计算              |
+| mma.m8n8k4.f16.f16.f16.f16               | 非 MMA 指令                                | —                    | 用 CUDA core 计算              |
+| mma.m16n8k8.f32.f16.f16.f32              | HMMA.1688.F32                              | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k16.f32.f16.f16.f32             | HMMA.16816.F32                             | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k8.f16.f16.f16.f16              | HMMA.1688.F16                              | 2/2/1/2              | 和 Ampere 相同                 |
+| mma.m16n8k16.f16.f16.f16.f16             | HMMA.16816.F16                             | 2/4/2/2              | 和 Ampere 相同                 |
+| mma.m16n8k8.f32.bf16.bf16.f32            | HMMA.1688.F32.BF16                         | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k16.f32.bf16.bf16.f32           | HMMA.16816.F32.BF16                        | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k4.f32.tf32.tf32.f32            | HMMA.1684.F32.TF32                         | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32                         | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m16n8k32.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k32.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k16.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.1688.F32                       | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k16.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.1688.F16                       | -                    | FP8 转成 FP16 再计算           |
+| mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8                      | 2/1/1/2              | 和 Ampere 相同                 |
+| mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8                     | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8                     | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m8n8k32.s32.s4/u4.s4/u4.s32          | LOP3 + IMAD + SHF + IMMA.8816.S8/U8.S8/U8  | -                    | INT4 转成 INT8 再计算          |
+| mma.m16n8k32.s32.s4/u4.s4/u4.s32         | LOP3 + IMAD + SHF + IMMA.16816.S8/U8.S8/U8 | -                    | INT4 转成 INT8 再计算          |
+| mma.m16n8k64.s32.s4/u4.s4/u4.s32         | LOP3 + IMAD + SHF + IMMA.16832.S8/U8.S8/U8 | -                    | INT4 转成 INT8 再计算          |
+| mma.m8n8k128.s32.b1.b1.s32.xor.popc      | LOP3 + BMMA.88128.AND.POPC + IADD          | -                    | 用 AND 变体实现                |
+| mma.m8n8k128.s32.b1.b1.s32.and.popc      | BMMA.88128.AND.POPC                        | 2/1/1/2              | 和 Ampere 相同                 |
+| mma.m16n8k128.s32.b1.b1.s32.xor.popc     | LOP3 + BMMA.168128.AND.POPC + IADD         | -                    | 用 AND 变体实现                |
+| mma.m16n8k128.s32.b1.b1.s32.and.popc     | BMMA.168128.AND.POPC                       | 4/2/1/4              | 和 Ampere 相同                 |
+| mma.m16n8k256.s32.b1.b1.s32.xor.popc     | LOP3 + BMMA.168256.AND.POPC + IADD         | -                    | 用 AND 变体实现                |
+| mma.m16n8k256.s32.b1.b1.s32.and.popc     | BMMA.168256.AND.POPC                       | 4/4/2/4              | 和 Ampere 相同                 |
+| mma.m8n8k4.f64.f64.f64.f64               | DMMA.8x8x4                                 | 4/2/2/4              | 从 Ampere 的 DMMA.884 改名而来 |
+
+由于 Hopper 的 BMMA 砍了 XOR 支持，b1（Binary）的 `xor.popc` 在 Hopper 上，ptxas 用恒等式 $\text{popc}(a \oplus b) = \text{popc}(a \& \bar b) + \text{popc}(\bar a \& b)$ 展开，一条 `.xor.popc` 会变成 2 条 `BMMA.AND.POPC` + 若干条 `LOP3.LUT`（取反）+ `IADD`；而 `.and.popc` 仍是单条指令。Ampere 上两者都是原生单条指令。
+
+接下来是 wgmma 的 PTX 和 SASS 的对应关系：
+
+| PTX                          | SASS                        | A 寄存器/线程 | D 寄存器/线程 |
+|------------------------------|-----------------------------|---------------|---------------|
+| wgmma.m64n8k16.f32.f16.f16   | HGMMA.64x8x16.F32           | 4             | 4             |
+| wgmma.m64n8k16.f16.f16.f16   | HGMMA.64x8x16.F16           | 4             | 2             |
+| wgmma.m64n8k16.f32.bf16.bf16 | HGMMA.64x8x16.F32.BF16      | 4             | 4             |
+| wgmma.m64n8k8.f32.tf32.tf32  | HGMMA.64x8x8.F32.TF32       | 4             | 4             |
+| wgmma.m64n8k32.f32.e4m3.e4m3 | QGMMA.64x8x32.F32.E4M3.E4M3 | 4             | 4             |
+| wgmma.m64n8k32.f32.e5m2.e5m2 | QGMMA.64x8x32.F32.E5M2.E5M2 | 4             | 4             |
+| wgmma.m64n8k32.f32.e4m3.e5m2 | QGMMA.64x8x32.F32.E4M3.E5M2 | 4             | 4             |
+| wgmma.m64n8k32.f16.e4m3.e4m3 | QGMMA.64x8x32.F16.E4M3.E4M3 | 4             | 2             |
+| wgmma.m64n8k32.f16.e5m2.e5m2 | QGMMA.64x8x32.F16.E5M2.E5M2 | 4             | 2             |
+| wgmma.m64n8k32.s32.s8.s8     | IGMMA.64x8x32.S8.S8         | 4             | 4             |
+| wgmma.m64n8k32.s32.u8.u8     | IGMMA.64x8x32.U8.U8         | 4             | 4             |
+
+关于上表的补充说明：
+
+- n 可以从 8 取到 256（步长 8），表里只列了 n=8 的情况；助记符会携带形状（如 `HGMMA.64x256x16.F32`），D 的寄存器数随 n 线性增长，而 A 的寄存器数不变，总是四；
+- 和 mma.sync 类似，也有稀疏版 `wgmma.mma_async.sp` PTX 指令；
+
+与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里（两种形式都支持，实测 f16/tf32/fp8/int8 都能编），此时每线程多占 4 个寄存器；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。SASS 指令类似：
+
+```asm
+// A 来自 Shared Memory：
+WARPGROUP.ARRIVE ;                                       // wgmma.fence
+HGMMA.64x8x16.F32 R24, gdesc[UR4], RZ, !UPT, gsb0 ;      // wgmma 本体
+WARPGROUP.DEPBAR.LE gsb0, 0x0 ;                          // wgmma.wait_group
+
+// A 来自寄存器 R28-R31：
+WARPGROUP.ARRIVE ;                                       // wgmma.fence
+HGMMA.64x8x16.F32 R24, R28, gdesc[UR4], RZ, !UPT, gsb0 ; // wgmma 本体
+WARPGROUP.DEPBAR.LE gsb0, 0x0 ;                          // wgmma.wait_group
+```
+
 ## NVIDIA Blackwell
 
 Whitepaper: [NVIDIA Blackwell Architecture Technical Brief](https://resources.nvidia.com/en-us-blackwell-architecture)
@@ -519,40 +926,73 @@ B200 采用的是 GB100 芯片。
 
 Tensor Core 支持 FP64/TF32/BF16/FP16/FP8/FP6/FP4/INT8 格式，在 Hopper 的基础上，额外支持了 FP6 和 FP4，以及 Block Scaling 的 MXFP8/MXFP4/NVFP4 格式。
 
-从性能来看，GB100 相比 GH100，FP16/BF16 -> FP32 的性能没变，FP64 -> FP64 的性能反而减半，使用 TC 和直接用 SM 里的 FP64 单元的峰值性能相同，也没有通过 tcgen05.mma 指令暴露出来，合理怀疑 GB100 直接复用了 SM 原有的 FP64 单元来实现 FP64 的矩阵乘 DMMA 指令。
+从性能来看，GB100 相比 GH100，大部分格式的性能翻倍，只有 FP64 -> FP64 的性能反而减半，使用 TC 和直接用 SM 里的 FP64 单元的峰值性能相同，也没有通过 tcgen05.mma 指令暴露出来，合理怀疑 GB100 直接复用了 SM 原有的 FP64 单元来实现 FP64 的矩阵乘 DMMA 指令。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
 | 格式          | GA100 | GH100 | GB100  |
 |---------------|-------|-------|--------|
 | TF32 -> FP32  | 256   | 512   | 1024   |
-| FP16 -> FP32  | 512   | 1024  | 1024   |
-| BF16 -> FP32  | 512   | 1024  | 1024   |
+| FP16 -> FP32  | 512   | 1024  | 2048   |
+| BF16 -> FP32  | 512   | 1024  | 2048   |
 | FP8 -> FP32   | N/A   | 2048  | 4096   |
-| FP4 -> FP32   | N/A   | N/A   | 8192   |
+| FP6 -> FP32   | N/A   | N/A   | 4096   |
+| FP4 -> FP32   | N/A   | N/A   | 4096   |
+| MXFP8 -> FP32 | N/A   | N/A   | 4096   |
+| MXFP6 -> FP32 | N/A   | N/A   | 4096   |
+| MXFP4 -> FP32 | N/A   | N/A   | 8192   |
+| NVFP4 -> FP32 | N/A   | N/A   | 8192   |
 | FP16 -> FP16  | 512   | 1024  | 2048   |
 | FP8 -> FP16   | N/A   | 2048  | 4096   |
+| FP6 -> FP16   | N/A   | N/A   | 4096   |
+| FP4 -> FP16   | N/A   | N/A   | 4096   |
 | INT8 -> INT32 | 1024  | 2048  | 4096   |
 | INT4 -> INT32 | 2048  | N/A   | N/A    |
 | FP64 -> FP64  | 32    | 64    | 32(SM) |
 
 根据 MMA-Sim，相比 Hopper，Blackwell 的 TC 在进行 FP8 的 TC 运算时，中间结果保留了更多位的精度：25 vs 13，意味着在低精度矩阵乘下可以更好地保持 FP32 累加的精度。
 
+Blackwell 引入了 TMEM，每个 Processing Block 有 64KB，每个 SM 一共 256 KB。256KB 的 TMEM 分为 512 column，128 row，每个 cell 是 32 bit。猜测是每个 Processing Block 一个 512 深 1024 宽的 SRAM，其中 1024 就是 `128*32/4=1024`，在 row 的方向上划分成四份分给各个 Processing Block。这样每个 TC 对 TMEM 是 1024 的访问位宽。但是从吞吐来看，1024 的位宽不够，要么是多端口，要么是更大的位宽。
+
+引入了新的 tcgen05 指令。A 矩阵在 TMEM 或 SMEM，B 矩阵在 SMEM，C/D 矩阵在 TMEM，并且要求 C 和 D 在同一个地址，所以本质上就是 `D=A*B+D`。支持这些数据格式：
+
+- TF32->FP32
+- FP16->FP16
+- FP16->FP32
+- BF16->FP32
+- FP8(E4M3/E5M2)->FP32
+- FP8(E4M3/E5M2)->FP16
+- FP6(E2M3/E3M2)->FP32
+- FP6(E2M3/E3M2)->FP16
+- FP4(E2M1)->FP32
+- FP4(E2M1)->FP16
+- MXFP8/MXFP6/MXFP4->FP32
+- NVFP4->FP32
+- INT8->INT32
+- s1z4m11(16-bit signed integer with the range [-2^11 + 1, 2^11 - 1])->INT32
+
 ## GB110（sm_103）
 
-B300 采用的是 GB110 芯片。相比 GB100，GB110 主要强化了 FP4 的性能，代价是 INT8 和 FP64 性能的明显下降，虽然 SASS 上还有 DMMA 和 IMMA 指令，但性能只有 GB100 的 1/32，估计是用 SM 里的 INT/FP64 单元实现。
+B300 采用的是 GB110 芯片。相比 GB100，GB110 主要强化了 FP4 的性能，代价是 INT8 和 FP64 性能的明显下降，虽然 SASS 上还有 DMMA 和 IMMA 指令，但每周期性能只有 GB100 的 1/32，估计是用 SM 里的 INT/FP64 单元实现。
 
 TC 每周期吞吐（FLOP/OP）对比：
 
 | 格式          | GB100  | GB110   |
 |---------------|--------|---------|
 | TF32 -> FP32  | 1024   | 1024    |
-| FP16 -> FP32  | 1024   | 1024    |
-| BF16 -> FP32  | 1024   | 1024    |
+| FP16 -> FP32  | 2048   | 2048    |
+| BF16 -> FP32  | 2048   | 2048    |
 | FP8 -> FP32   | 4096   | 4096    |
-| FP4 -> FP32   | 8192   | 12288   |
+| FP6 -> FP32   | 4096   | 4096    |
+| FP4 -> FP32   | 4096   | 4096    |
+| MXFP8 -> FP32 | 4096   | 4096    |
+| MXFP6 -> FP32 | 4096   | 4096    |
+| MXFP4 -> FP32 | 8192   | 12288   |
+| NVFP4 -> FP32 | 8192   | 12288   |
 | FP16 -> FP16  | 2048   | 2048    |
 | FP8 -> FP16   | 4096   | 4096    |
+| FP6 -> FP16   | 4096   | 4096    |
+| FP4 -> FP16   | 4096   | 4096    |
 | INT8 -> INT32 | 4096   | 128(SM) |
 | INT4 -> INT32 | N/A    | N/A     |
 | FP64 -> FP64  | 32(SM) | 1(SM)   |
@@ -573,7 +1013,7 @@ TC 每周期吞吐（FLOP/OP）对比：
 | FP16 -> FP32  | 256                        | 128                 | 256           | 128           |
 | BF16 -> FP32  | 256                        | 128                 | 256           | 128           |
 | FP8 -> FP32   | 512                        | 256                 | 512           | 256           |
-| FP4 -> FP32   | N/A                        | N/A                 | 1024          | 1024          |
+| MXFP4 -> FP32 | N/A                        | N/A                 | 1024          | 1024          |
 | FP16 -> FP16  | 256                        | 256                 | 256           | 256           |
 | FP8 -> FP16   | 512                        | 512                 | 512           | 512           |
 | INT8 -> INT32 | 512                        | 512                 | 512           | 512           |
@@ -591,10 +1031,10 @@ TC 每周期吞吐（FLOP/OP）对比：
 | 格式          | GB100  | GB10  | GB202（专业卡） |
 |---------------|--------|-------|---------------|
 | TF32 -> FP32  | 1024   | 512   | 128           |
-| FP16 -> FP32  | 1024   | 1024  | 256           |
-| BF16 -> FP32  | 1024   | 1024  | 256           |
+| FP16 -> FP32  | 2048   | 1024  | 256           |
+| BF16 -> FP32  | 2048   | 1024  | 256           |
 | FP8 -> FP32   | 4096   | 2048  | 512           |
-| FP4 -> FP32   | 8192   | 4096  | 1024          |
+| MXFP4 -> FP32 | 8192   | 4096  | 1024          |
 | FP16 -> FP16  | 2048   | 1024  | 256           |
 | FP8 -> FP16   | 4096   | 2048  | 512           |
 | INT8 -> INT32 | 4096   | 2048  | 512           |
@@ -971,3 +1411,19 @@ Dependency Barrier 主要是用来解决依赖的问题。
 - STS
 
 除了 BMOV 以外，这些指令读取操作数的时间可能是不确定的。
+
+## CUDA Capability
+
+CUDA Capability：每个 GPU 有一个 CC 版本号，比如 Ampere 是 CC 8.0 对应 compute_80 和 sm_80。
+
+nvcc 编译的时候，可以指定 arch=compute_xx，code=sm_xx，前者对应 PTX 的版本，后者对应 SASS 的版本。
+
+对于 PTX，针对 compute_xx 编译出来的 PTX，可以 JIT 到任何和 xx 相等或更大的 CC 的 GPU 上。比如 compute_70 的 PTX 可以跑在 CC 7.0 或 8.0 上。
+
+对于 SASS，针对 sm_xx 编译出来的 SASS，只能跑在同一个大版本号下，和 xx 相等或更大的 CC 的 GPU 上。比如 sm_80 的 SASS 可以跑在 CC 8.0 或 8.9，但不能跑在 9.0。sm_89 的 SASS 不能跑在 CC 8.0 上。
+
+为了进一步缩小 PTX 的兼容范围，可以进一步指定 arch=compute_xxf，此时编译出来的 PTX，只能 JIT 到同一个大版本号下，和 xx 相等或更大的 CC 的 GPU 上。比如 compute_100f 的 PTX 可以跑在 CC 10.0 或 10.3 上，但不能跑在 11.0。compute_103f 不能跑在 CC 10.0 上。
+
+例如 tcgen05.ld.red 指令要求 sm_103f，那它就能在 GB110（sm_103）上用，但不能在 GB100（sm_100）上用。
+
+如果更进一步，PTX 直接针对某一个 CC，就可以指定 arch=compute_xxa，此时 CC 必须精确匹配：compute_100a 可以跑在 CC 10.0，不能跑在 CC 10.3。

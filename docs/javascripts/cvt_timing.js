@@ -334,13 +334,13 @@
 		var vals = document.getElementById("cvt-values");
 		if (vals) {
 			vals.innerHTML =
-				"<div>H：Hactive " + t.hActive + " · Hfront " + t.hfront + " · Hsync " + t.hsync +
+				"<div>H: Hactive " + t.hActive + " · Hfront " + t.hfront + " · Hsync " + t.hsync +
 				" · Hback " + t.hback + " · Hblank " + t.hblank + " · Htotal " + t.htotal + "</div>" +
-				"<div>V：Vactive " + t.vActive + " · Vfront " + t.vfront + " · Vsync " + t.vsync +
+				"<div>V: Vactive " + t.vActive + " · Vfront " + t.vfront + " · Vsync " + t.vsync +
 				" · Vback " + t.vback + " · Vblank " + t.vblank + " · Vtotal " + t.vtotal + "</div>" +
 				"<div>像素时钟 " + fmt(t.pclk, 3) + " MHz · 行频 " + fmt(t.hfreq, 3) + " kHz · 场频 " + fmt(t.vfreq, 3) + " Hz</div>" +
-				"<div>数据速率 " + fmt(t.gbps, 2) + " Gbit/s（" + t.bpc + " bpc " +
-				(t.chroma === "444" ? "4:4:4" : t.chroma === "422" ? "4:2:2" : "4:2:0") + "）</div>";
+				"<div>数据速率 " + fmt(t.gbps, 2) + " Gbit/s (" + t.bpc + " bpc " +
+				(t.chroma === "444" ? "4:4:4" : t.chroma === "422" ? "4:2:2" : "4:2:0") + ")</div>";
 		}
 
 		var stepsEl = document.getElementById("cvt-steps");
