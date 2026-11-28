@@ -852,8 +852,8 @@ Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（
 | mma.m16n8k8.f32.tf32.tf32.f32            | HMMA.1688.F32.TF32                         | 4/4/2/4              | 和 Ampere 相同                 |
 | mma.m16n8k32.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32                      | -                    | FP8 转成 FP16 再计算           |
 | mma.m16n8k32.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16                      | -                    | FP8 转成 FP16 再计算           |
-| mma.m16n8k16.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.16816.F32                      | -                    | FP8 转成 FP16 再计算           |
-| mma.m16n8k16.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.16816.F16                      | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k16.f32.e4m3/e5m2.e4m3/e5m2.f32 | F2FP + HMMA.1688.F32                       | -                    | FP8 转成 FP16 再计算           |
+| mma.m16n8k16.f16.e4m3/e5m2.e4m3/e5m2.f16 | F2FP + HMMA.1688.F16                       | -                    | FP8 转成 FP16 再计算           |
 | mma.m8n8k16.s32.s8/u8.s8/u8.s32          | IMMA.8816.S8/U8.S8/U8                      | 2/1/1/2              | 和 Ampere 相同                 |
 | mma.m16n8k16.s32.s8/u8.s8/u8.s32         | IMMA.16816.S8/U8.S8/U8                     | 4/2/1/4              | 和 Ampere 相同                 |
 | mma.m16n8k32.s32.s8/u8.s8/u8.s32         | IMMA.16832.S8/U8.S8/U8                     | 4/4/2/4              | 和 Ampere 相同                 |
