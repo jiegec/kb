@@ -886,7 +886,7 @@ Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（
 | wgmma.m64n8k32.s32.s8.s8     | IGMMA.64x8x32.S8.S8         | 4             | 4             |
 | wgmma.m64n8k32.s32.u8.u8     | IGMMA.64x8x32.U8.U8         | 4             | 4             |
 
-与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里（两种形式都支持，实测 f16/tf32/fp8/int8 都能编），此时每线程多占 4 个寄存器；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。另外注意：只有 f16 和 fp8 有 FP16 累加的形式（`f16` 作为 dtype），bf16 和 tf32 只能累加到 FP32。SASS 指令类似：
+与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里（两种形式都支持，实测 f16/tf32/fp8/int8 都能编），此时每线程多占 4 个寄存器；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。SASS 指令类似：
 
 ```asm
 // A 来自 Shared Memory：
