@@ -888,7 +888,7 @@ Hopper 继承了 Ampere 的大部分 mma.sync 和 MMA 指令，去掉了 INT4（
 
 关于上表的补充说明：
 
-- n 可以从 8 取到 256（步长 8），表里只列了 n=8 的情况；助记符会携带形状（如 `HGMMA.64x256x16.F32`），D 的寄存器数随 n 线性增长（n/2 个，最多到 128），而 A 的寄存器数不变，总是四；
+- n 可以从 8 取到 256（步长 8），表里只列了 n=8 的情况；助记符会携带形状（如 `HGMMA.64x256x16.F32`），D 的寄存器数随 n 线性增长，而 A 的寄存器数不变，总是四；
 - 和 mma.sync 类似，也有稀疏版 `wgmma.mma_async.sp` PTX 指令；
 
 与 mma.sync 不同，wgmma 需要四个 warp 同步执行，所以需要首先进行一次 wgmma.fence 保证 wgmma 计算读到的寄存器值是最新的，然后再进行实际的 wgmma 计算，而且它是异步的，所以计算完还有一次 wgmma.wait_group。它的 A 矩阵可以在 Shared Memory 或者寄存器里（两种形式都支持，实测 f16/tf32/fp8/int8 都能编），此时每线程多占 4 个寄存器；B 矩阵必须在 Shared Memory 里；C 和 D 矩阵依然在寄存器里。SASS 指令类似：
